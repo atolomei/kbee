@@ -1,0 +1,206 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	
+	<parent>
+		<artifactId>kbee</artifactId>
+		<groupId>com.novamens</groupId>
+				<version>8.5-SNAPSHOT</version>
+	</parent>
+	
+	<modelVersion>4.0.0</modelVersion>
+	<artifactId>kbee-util</artifactId>
+	<name>${project.artifactId}</name>
+	
+	<description>Utility methods, mainly for Java 8 Date manipulation.</description>
+	
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	</properties>
+	
+	<developers>
+		<developer>
+			<id>alejo</id>
+			<name>Alejo Ferraria</name>
+			<email>aferraria@novamens.com</email>
+		</developer>
+		
+		<developer>
+			<id>atolomei</id>
+			<name>Alejandro Tolomei</name>
+			<email>atolomei@novamens.com</email>
+		</developer>
+	</developers>
+	
+	<scm>
+		<connection>
+			scm:git:ssh://alejo@git.hq.novamens.com/var/novamens/util.git
+		</connection>
+		<developerConnection>
+			scm:git:ssh://alejo@git.hq.novamens.com/var/novamens/util.git
+		</developerConnection>
+	</scm>
+	
+	
+	<build>	
+		<plugins>
+					<plugin>
+						<artifactId>maven-javadoc-plugin</artifactId>
+						<version>${maven-javadoc-plugin-version}</version> 
+						<configuration>
+							<source>${java-version}</source>
+							<release>${java-version}</release>
+							<!--links>
+								<link>https://docs.oracle.com/javase/8/docs/api/</link>
+							< links -->
+							<encoding>UTF-8</encoding>
+							<notimestamp>true</notimestamp>
+						</configuration>
+					</plugin>
+					
+					
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-source-plugin</artifactId>
+						<version>3.2.1</version>
+						<executions>
+							<execution>
+								<id>attach-sources</id>
+								<goals>
+									<goal>jar</goal>
+								</goals>
+							</execution>
+						</executions>
+				</plugin>
+		</plugins>
+	</build>		
+		
+	
+	
+	
+	
+	
+	<dependencies>
+	
+		<dependency>
+			<groupId>xalan</groupId>
+			<artifactId>xalan</artifactId>
+			<version>${xalan-version}</version> <!--  5/2023  -->
+			<exclusions>
+				<exclusion>
+					<groupId>xml-apis</groupId>
+                	<artifactId>xml-apis</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/xalan/serializer -->
+		<dependency>
+		    <groupId>xalan</groupId>
+		    <artifactId>serializer</artifactId>
+		    <version>${xalan-version}</version>
+		</dependency>
+
+
+
+		
+		
+		
+	<!-- https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-api -->
+	<dependency>
+	    <groupId>org.junit.jupiter</groupId>
+	   	<artifactId>junit-jupiter-api</artifactId>
+		<version>${junit-version}</version>
+	</dependency>
+
+		
+		
+		<dependency>
+			<!-- An implementation of the UUIDs and GUIDs specification in Java. UUIDs are 128 bit long identifiers that are guaranteed to be unique. -->
+			<groupId>com.eaio.uuid</groupId>
+			<artifactId>uuid</artifactId>
+			<version>${uuid-version}</version>   <!--   5/2023 -->			
+		</dependency>
+
+		<dependency>
+			<!-- The Apache Commons Collections package contains types that extend and augment the Java Collections Framework. -->
+		    <groupId>org.apache.commons</groupId>
+		    <artifactId>commons-collections4</artifactId>
+		    <version>${commons-collections4-version}</version> <!--  10/2022 -->			
+		</dependency>
+		
+
+
+		<dependency>
+			<!-- Apache Commons Lang, a package of Java utility classes for the classes that are in java.lang's hierarchy, or are considered to be so standard as to justify existence in java.lang. -->
+		    <groupId>org.apache.commons</groupId>
+		    <artifactId>commons-lang3</artifactId>
+		    <version>${commons-lang3-version}</version>			
+		</dependency>
+
+
+		<dependency>
+			<!-- The Apache Commons IO library contains utility classes, stream implementations, file filters, file comparators, endian transformation classes, and much more. -->
+			<groupId>commons-io</groupId>
+			<artifactId>commons-io</artifactId>
+			<version>${commons-io-version}</version> <!-- 10/2022-->			
+		</dependency>
+		
+		
+		<dependency>
+			<!-- Apache Commons Logging is a thin adapter allowing configurable bridging to other, well known logging systems. -->
+			<groupId>commons-logging</groupId>
+			<artifactId>commons-logging</artifactId>
+			<version>${commons-logging-version}</version>
+			<exclusions>
+				<exclusion>
+					<artifactId>avalon-framework</artifactId>
+					<groupId>avalon-framework</groupId>
+				</exclusion>
+				<exclusion>
+					<artifactId>log4j</artifactId>
+					<groupId>log4j</groupId>
+				</exclusion>
+				<exclusion>
+					<artifactId>logkit</artifactId>
+					<groupId>logkit</groupId>
+				</exclusion>
+				<exclusion>
+					<artifactId>servlet-api</artifactId>
+					<groupId>javax.servlet</groupId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		
+		<dependency>																						
+			<!-- Implementation for Apache Log4J, a highly configurable logging tool that focuses on performance and low garbage generation. 
+			It has a plugin architecture that makes it extensible and supports asynchronous logging based on LMAX Disruptor. -->
+			<groupId>org.apache.logging.log4j</groupId>
+			<artifactId>log4j-core</artifactId>
+			<version>${log4j2-version}</version> 
+		</dependency>
+
+		
+		<dependency>
+			<groupId>org.apache.logging.log4j</groupId>
+			<!-- The Apache Log4j SLF4J API binding to Log4j 2 Core -->
+			<artifactId>log4j-slf4j-impl</artifactId>
+			<version>${log4j2-version}</version>
+		</dependency>
+
+		<dependency>
+			<!-- API for Apache Log4J, a highly configurable logging tool that focuses on performance and low garbage generation. 
+			     It has a plugin architecture that makes it extensible and supports asynchronous logging based on LMAX Disruptor -->
+			<groupId>org.apache.logging.log4j</groupId>
+			<artifactId>log4j-api</artifactId>
+			<version>${log4j2-version}</version> <!--  9/2022 -->
+		</dependency>
+
+				
+		<dependency>
+			<groupId>com.lmax</groupId>
+			<artifactId>disruptor</artifactId>
+			<version>${disruptor-version}</version> 
+		</dependency>
+		
+	</dependencies>
+</project>
