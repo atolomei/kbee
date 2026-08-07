@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+	<parent>
+		<artifactId>kbee</artifactId>
+		<groupId>com.novamens</groupId>
+		<version>8.5-SNAPSHOT</version>
+	</parent>
+	
+	<properties>
+		<metrics.version>4.2.15</metrics.version>			<!--  4.2.0 -->
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	</properties>
+	
+	<modelVersion>4.0.0</modelVersion>
+	<name>${project.artifactId}</name>
+	<artifactId>kbee-services-model</artifactId>
+	<description>Novamens low level Services</description>
+
+	<scm>
+		<connection>
+			scm:git:ssh://alejo@git.hq.novamens.com/var/novamens/services.git
+		</connection>
+		<developerConnection>
+			scm:git:ssh://alejo@git.hq.novamens.com/var/novamens/services.git
+		</developerConnection>
+	</scm>
+	<dependencies>
+
+		<dependency>
+			<groupId>com.novamens</groupId>
+			<artifactId>kbee-model-dom</artifactId>
+			<version>${kbee-version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.novamens</groupId>
+			<artifactId>kbee-util</artifactId>
+			<version>${kbee-version}</version>
+		</dependency>
+
+
+	<!--  =========  External  =========================   -->
+
+
+		<dependency>
+			<!-- Metrics is a Java library which gives you unparalleled insight into what your code does in production. -->
+			<groupId>io.dropwizard.metrics</groupId>
+			<artifactId>metrics-core</artifactId>
+			<version>${metrics.version}</version>
+		</dependency>
+		
+		<dependency>
+			<!-- Metrics also provides you with a consistent, unified way of performing application health checks. A health check is basically a small self-test which your application performs to verify that a specific component or responsibility is performing correctly.-->
+			<groupId>io.dropwizard.metrics</groupId>
+			<artifactId>metrics-healthchecks</artifactId>
+			<version>${metrics.version}</version>
+		</dependency>
+		
+		<dependency>
+			<!-- The metrics-ehcache module provides InstrumentedEhcache, a decorator for Ehcache caches:-->
+			<groupId>io.dropwizard.metrics</groupId>
+			<artifactId>metrics-ehcache</artifactId>
+			<version>${metrics.version}</version>
+			
+			<exclusions>
+				<exclusion>
+					<groupId>net.sf.ehcache</groupId>  <!--  Hibernate ehcache uses a version 2.10.6  -->
+					<artifactId>ehcache</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		
+		<dependency>
+			<!-- Java Servlet is the foundation web specification in the Java Enterprise Platform. Developers can build web applications using the Servlet API to interact with the request/response workflow. -->	
+			<groupId>javax.servlet</groupId>
+			<artifactId>javax.servlet-api</artifactId>
+			<version>4.0.1</version> <!--  12/2022  - last release 2018 -->
+		</dependency>
+		
+		<dependency>
+			<!-- A set of classes which allow you to monitor critical aspects of your Java Virtual Machine using Metrics. -->
+			<groupId>io.dropwizard.metrics</groupId>
+			<artifactId>metrics-jvm</artifactId>
+			<version>${metrics.version}</version>
+		</dependency>
+		
+		<dependency>
+			<!--  JSR107 API. A standard Java Caching API for use by developers and a standard SPI ("Service Provider Interface") for use by implementers.
+			      and Service Provider Interface (SPI) -->
+			<groupId>javax.cache</groupId>
+			<artifactId>cache-api</artifactId> 
+			<version>1.1.1</version> <!--  12/2022  -->
+		</dependency>
+	</dependencies>
+	
+</project>
