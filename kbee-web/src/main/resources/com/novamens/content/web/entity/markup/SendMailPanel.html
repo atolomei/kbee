@@ -1,0 +1,26 @@
+<wicket:panel>
+  <div class="modal-dialog">
+		<form wicket:id="send-mail-form" id="send-mail-form" method="post" action="#" >
+			<div>
+				<div class="field-block first">
+			    	<div class="title-block">
+			    		<label for="password" accesskey="t" tabindex="2" class="label" style="float: left;">
+				    			<wicket:message key="sendmail.password"/>
+				    	</label>
+				    	<span class="label-description" style="float: left;">
+				    		<wicket:message key="sendmail.password.explanation"/>
+				    	</span>
+		    		</div>
+				</div>
+			</div>
+
+			<div class="buttons-container" style="float: left;text-align: center;">
+				<a wicket:id="ok-link" href="javascript:;" style="float: left;" class="form-submit-button">
+					<wicket:message key="sendmail.button.submit"/>
+				</a>
+			</div>
+		</form>
+
+  </div>	
+		
+</wicket:panel>

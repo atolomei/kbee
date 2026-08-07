@@ -1,0 +1,57 @@
+<wicket:head>
+	<style>
+		.kbee .task-form .inline-form {
+			border:none !important;
+		}
+	</style>
+</wicket:head>
+
+<wicket:panel>
+	<a id="topcondition"/>
+	<div class="vertical-form inline-form" style="float:left; width:100%;">
+		<div class="form-group" wicket:id="task"/>
+		
+		<div class="form-group" wicket:id="priority"/>
+		<div class="form-group" wicket:id="collaborator" />
+		<div class="form-group" wicket:id="reason"/>
+		<div class="form-group" wicket:id="note"/>
+		
+		<div class="form-group" wicket:id="template"  style="margin-bottom:10px;" />
+		
+		<div class="form-group" wicket:id="resolution" style="margin-bottom:30px;" >
+			<a  class="btn-link" wicket:id="editor-link" target="_blank"> <wicket:message key="edit" /> </a>
+			<a class="btn-link" style="margin-left: 12px;" wicket:id="preview-link"> <wicket:message key="preview" /></a>
+		</div>
+		
+		<div  wicket:id="actions">
+			<a wicket:id="cancel-link"    style="float:left;width: calc(50% - 2px);" class="btn btn-xl btn-default"><span><wicket:message key="workflow.endcondition.cancel"/></span></a>
+			<a wicket:id="submit-button"  style="float:right;width: calc(50% - 2px);" class="btn btn-xl btn-primary"><span wicket:id="label"></span></a>
+		</div>
+		
+		<div wicket:id="feedback"/>
+		
+		<div wicket:id="resolution-modal" class="modal window" tabindex="-5" role="dialog"/>
+		
+
+			<div class="row">
+			  	<div class="col-lg-12 col-xs-12 col-md-12" style="margin:15px 0;">	
+					<a wicket:id="action-termination-rule-link" class="btn-link"><wicket:message key="workflow-rules"/> </a>
+				</div>
+			</div>
+		
+			
+			<div wicket:id="action-termination-rule-container-mkp"> 
+				<div wicket:id="action-termination-rule-container" class="row">
+					<div class="col-lg-12 col-xs-12 col-md-12">
+						<h3> <wicket:message key="after-termination"/></h3>
+						<span class="metadata" wicket:id="action-termination-rule"></span>	
+					</div>
+					<!-- div class="col-lg-12 col-xs-12 col-md-12">
+						<h3> <wicket:message key="pre-condition"/></h3>
+						<span class="metadata" wicket:id="action-pre-condition"></span>	
+					</div-->
+				</div>
+			</div>
+	</div>
+</wicket:panel>
+

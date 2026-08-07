@@ -1,0 +1,38 @@
+
+
+
+<wicket:panel>
+
+	<div class="row">	
+		<form wicket:id="form"  class="form-container col-lg-12" role="form">
+			<div class="row" wicket:id="variable">
+				<div class="col-lg-12 col-xs-12 col-md-12">	
+					<div class="row"> 
+						<div wicket:id="options" style="margin-bottom:-12px;" class="col-lg-12 col-xs-12 col-md-12"/>
+					</div>
+					
+					<div class="row">
+						<div class="form-group col-lg-12" wicket:id="field"/>
+					</div>
+				</div>
+			</div>
+		</form>
+	</div>
+	
+	<div class="row">		
+		<div class="col-lg-12 col-xs-12 col-md-12" style="text-align: right; margin-bottom: 42px;">
+			<button wicket:id="reset" type="submit" class="btn btn-sm btn-default"> <wicket:message key="reset" /></button>
+			<button wicket:id="close" type="submit" class="btn btn-sm btn-default"> <wicket:message key="close" /></button>
+			<button wicket:id="submit" type="submit" class="btn btn-primary btn-sm">  <wicket:message key="save" /></button>
+		</div>
+	</div>	
+
+
+</wicket:panel>
+
+
+
+<wicket:fragment wicket:id="options-fragment">
+	<div class="form-group" wicket:id="options"/>
+</wicket:fragment>		
+

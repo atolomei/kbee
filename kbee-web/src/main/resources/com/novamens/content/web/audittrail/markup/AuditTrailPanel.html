@@ -1,0 +1,31 @@
+<wicket:head>
+	<style>
+.audittrial td {
+	text-align: center;
+}
+;
+</style>
+</wicket:head>
+
+<wicket:panel>
+
+	<div class="audittrail" wicket:id="audittrail-container"
+		style="background: white; overflow-x: hidden; overflow-y: hidden; width: auto; float: none; border: none; min-height: 420px;">
+		<table style="width: 100%;" wicket:id="events" />
+	</div>
+
+	<a class="close-window-button" wicket:id="close"> <span
+		class="close-button"><wicket:message key="close" /></span>
+	</a>
+
+	<div wicket:id="resolution-modal" class="modal window"
+		data-dismiss="modal" data-toggle="modal" tabindex="-6" role="dialog" />
+
+</wicket:panel>
+
+<wicket:fragment wicket:id="description-fragment">
+	<div wicket:id="note">[note]</div>
+	<a wicket:id="resolution" class="btn-link"> <wicket:message
+			key="resolution" />
+	</a>
+</wicket:fragment>

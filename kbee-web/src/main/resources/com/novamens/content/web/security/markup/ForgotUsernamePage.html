@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<body>
+
+	<wicket:extend>
+
+		<div wicket:id="canvas" style="max-width: 472px; top:50%; left:50%; transform: translate(-50%, -50%);     position: absolute;" class="loginmodal-container">		
+
+			<div style="margin:auto; border: 1px solid  #d8dcdf;    float: left;    padding: 17px 42px;    border-radius: 10px;    background: white;">
+					
+					<div style="line-height: 1.6em; float: left; text-align: center;  font-size: 1em; margin-bottom: 24px;">
+						<div class="logo-container" wicket:id="logo-container">
+							<img class="logo" wicket:id="logo"></img>
+						</div>
+						<span style="float:left; width: 100%; font-size: 1.2em; text-transform: uppercase; color: #666666; margin-bottom: 24px; font-weight:500;"> <wicket:message key="forgotpassword.title"/></span>
+						<p style="margin-bottom: 0; line-height: 1.75em; color:#333333;"><wicket:message key="forgotpassword.instructions" /></p>
+					</div>
+					<div style="float:left; width:100%; font-size: 1em;">	
+						<form id="formulario"  method="post" action="#" wicket:id="form" >
+								<fieldset style="border: none; margin-bottom:12px;">
+										
+										<div id="email" class="col-xs-12 form-group">
+											<label class="label" for="email"><wicket:message key="email"/></label>
+											<input style="text-align: center;" class="form-control" type="text" wicket:id="email" placeholder="email address" tabindex="6"></input>
+										</div>
+										
+										
+										<div id="phone" class="col-xs-12 form-group">
+											<label class="label" for="phone"><wicket:message key="phone"/></label>
+											<input style="text-align: center;" class="form-control" type="text" wicket:id="phone" placeholder="last 4 digits of your phone" tabindex="8"></input>
+										</div>
+										
+										
+										<div wicket:id="feedback" class="col-xs-12 form-group" />
+										
+										<div  style="text-align: center;" class="col-xs-12 form-group">
+											<input wicket:id="submit" class="btn btn-primary btn-lg login loginmodal-submit" type="submit" name="login" tabindex="10" value="Send" />
+										</div>
+								</fieldset>
+						</form>
+						
+						<div  style="text-align: center;" class="col-xs-12 form-group">
+										<a href="/login"><wicket:message key="forgotpassword.backtologin"/></a>
+						</div>						  	
+					</div>
+			</div>
+		</div>
+		
+	</wicket:extend>
+</body>
+</html>
+
+	
+
+

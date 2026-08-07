@@ -1,0 +1,100 @@
+<wicket:head>
+
+</wicket:head>
+
+<wicket:panel>
+
+    <div wicket:id="box" class="loginmodal-container-idoc idoc">
+
+        <div class="login-container">
+
+            <div class="logo-container" wicket:id="logo-container">
+                
+                <a wicket:id="logo-link" href="https://kbee.io">	
+                	<img class="logo" wicket:id="logo"></img>
+                </a>
+            </div>
+
+            <form wicket:id="form" name="f" action="/j_spring_security_check" method="post" class="login-form">
+                
+                
+                <div class="col-xs-12">
+                    <div wicket:id="username" name="j_username" placeholder="username or email" style="text-align: center;"/>
+                </div>
+                <div class="col-xs-12" style="margin-top:15px;">
+                    <div wicket:id="password" name="j_password"/>
+                </div>
+                
+                <div style="margin:15px 0;" class="col-md-12 col-xs-12 col-lg-12" wicket:id="domain"></div>
+                
+
+                <input wicket:id="realUsername" type="hidden"/>
+
+                <div style="text-align: center; margin:30px 0;" class="col-lg-12 col-md-12 col-xs-12">
+                    <input wicket:id="tmpSubmit" class="btn btn-primary fullw login loginmodal-submit" type="submit" name="login" value="Sign on"/>
+                </div>
+
+                <input wicket:id="submit" style="display: none;" type="submit" value=""/>
+
+                <div class="alert alert-danger col-xs-12" style="text-align:center;" wicket:id="error"></div>
+
+
+                <div style="text-align: center; margin-top:0px;" class="col-xs-12">
+                    <a href="/forgotpassword" target="_blank">
+                        <wicket:message key="forgot"/>
+                    </a>
+                </div>
+
+                <div style="float: left;    width: 100%;    text-align: center;    padding: 20px 0;" class="login-contact-container" wicket:id="contact-container">
+                    <a wicket:id="contact-link" target="_blank"><span wicket:id="contact-text"/></a>
+                </div>
+            </form>
+
+            <!--            <a href='/oauth2/authorization/google' class="loginBtn loginBtn&#45;&#45;google">-->
+            <!--                Login with Google-->
+            <!--            </a>-->
+
+            
+
+            <div class="col-xs-12">
+                <a style="width: 100%; margin-bottom: 1px; margin-top: 30px;" href='/oauth2/authorization/google' class="external-login-btn">
+                   
+                   <div style="width:14em; float:none; margin:auto;">
+	                    <img class="external-login-icon" src="/images/logo_google.svg"/>
+	                    <span class="external-login-text">
+	                        Sign in with Google
+	                    </span>
+                    </div>
+                </a>
+            </div>
+            
+            <div class="col-xs-12">
+                <a style="width: 100%; margin-bottom: 2px;" href='/oauth2/authorization/facebook' class="external-login-btn">
+                   <div style="width:14em; float:none; margin:auto;">
+                    <img class="external-login-icon" src="/images/logo_facebook.png"/>
+                    <span class="external-login-text">
+                        Sign in with Facebook
+                    </span>
+                    </div>
+                </a>
+            </div>
+
+
+
+            <div class="login-disclaimer-container" wicket:id="message-container">
+                <span wicket:id="message"></span>
+            </div>
+        </div>
+
+        <div class="login-learn-more-container" wicket:id="learn-more-container">
+            <a wicket:id="learn-more-link" href="https://kbee.io" target="_blank"><span wicket:id="learn-more-text"/></a>
+        </div>
+
+
+    </div>
+
+
+</wicket:panel>
+
+
+

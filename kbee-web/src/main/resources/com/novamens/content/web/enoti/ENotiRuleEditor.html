@@ -1,0 +1,46 @@
+<wicket:panel>
+
+	<div class="standard-canvas row">
+
+			<div class="row" style="margin:0;">
+				<h2 class="col-md-8 col-lg-9 col-xs-12">
+					<wicket:message key="editor.rule" />
+				</h2>
+				<div class="button-container col-md-4 col-lg-3 col-xs-12" wicket:id="buttons" />
+			</div>
+
+			
+
+			<div class="row">
+				<div class="col-xs-12 col-lg-9 col-md-12">
+					<div class="row">
+					<form wicket:id="form" role="form" class= "col-xs-12 col-lg-12 col-md-12 form-container">
+						
+						<div wicket:id="email" style="width:calc(100% - 30px);  margin:10px 15px;" class="alert alert-info"></div>
+						
+						<div class="col-xs-12 col-lg-12 col-md-12 form-group"				wicket:id="name" />
+						
+						<div class="col-xs-12 col-lg-12 col-md-12 form-group"				wicket:id="type" />
+						<div class="col-xs-12 col-lg-12 col-md-12 form-group"				wicket:id="isemail" style="margin-bottom:15px;"/>
+						<div class="col-xs-12 col-lg-12 col-md-12 form-group">
+							<a href="#" class="btn-link" wicket:id="send-test-email"> <wicket:message key="send-test-email" /></a>
+						</div>
+						
+						
+						<div class="col-xs-12 col-lg-12 col-md-12 form-group"				wicket:id="isalert" />
+						<div class="col-xs-12 col-lg-12 col-md-12 form-group"				wicket:id="receivers" />
+						<div class="col-xs-12 col-lg-12 col-md-12 form-group"				wicket:id="roleReceivers" />
+						<div class="col-xs-12 col-lg-12 col-md-12 form-group rule-condition" wicket:id="condition-editor" />
+						
+						
+						
+					</form>
+					</div>
+				</div>
+			</div>
+
+
+
+	</div>
+
+</wicket:panel>

@@ -1,0 +1,79 @@
+<wicket:panel>
+	<label wicket:id="label" class="col-lg-2 control-label" for="condition.batch"></label>
+	<a icket:id="help-info" style="float:right;"><i class="fal fa-info-circle" style="float:right;"></i></a>
+	<div class="relation-values col-lg-10" wicket:id="horizontal-layout">
+		<wicket:container wicket:id="values"/>
+	</div>
+	<div class="browser" style="padding-bottom:0;" wicket:id="values"/>
+</wicket:panel>
+
+
+
+
+<wicket:fragment wicket:id="values-grid-fragment">
+
+	<div class="grid compact" style="padding:0; border-left:1px solid #dfdfdf;  border-right:1px solid #dfdfdf;">
+		<div class="xgrid compact" wicket:id="values">
+			<div class="row grid-header" wicket:id="header">
+				<div class="header col col-xs-1 col-md-1 col-lg-1" style="width:45px;     height: 40px;"/>
+				<div class="header col col-xs-1 col-md-1 col-lg-1" style="width:45px;     height: 40px;"/>
+			
+				<div wicket:id="column" class="header col col-xs-1 col-md-1 col-lg-1">
+					<div wicket:id="label"/>
+				</div>
+			</div>
+			
+			
+			<div class="row grid-body" style="min-height:40px; padding-bottom:0;" wicket:id="body">
+				
+				<div wicket:id="value" class="value">
+					<div wicket:id="value-view" class="row-container"/>
+				</div>
+			</div>
+			
+		</div>
+	</div>
+	<div class="list-group-item selector" wicket:id="creation-panel">
+	</div>
+</wicket:fragment>
+
+
+
+<wicket:fragment wicket:id="value-rowview-fragment">
+	<div class="row grid-row">
+		<div class="menu cell-container" style="width:45px;">
+			<div class="btn-group" wicket:id="menu-cell">
+				<a wicket:id="menulink" href="#" data-toggle="dropdown"><i class="far fa-ellipsis-h" aria-hidden="true"></i></a>
+				<ul wicket:id="menu" class="dropdown-menu"/>
+			</div>
+		</div>
+		<div class="expander cell-container" style="width:45px;">
+			<a wicket:id="expander"><i class="far fa-angle-up" style="cursor:pointer;" wicket:id="icon"></i></a>
+		</div>
+		<div class="col col-xs-1 col-md-1 col-lg-1" wicket:id="td">
+			<div class="cell-container" wicket:id="cell"/>
+		</div>
+	</div>
+	<div class="row" wicket:id="expanded-row" >
+		<div class="col relation-grid-editor" style="background: #fbfbfb; padding: 15px 106px;height:auto; border:none;">
+			<div wicket:id="editor"/>
+		</div>
+	</div>
+</wicket:fragment>
+
+<wicket:fragment wicket:id="value-editor-fragment">
+	<wicket:container wicket:id="form">
+		<div class="form-group" wicket:id="field"/>
+	</wicket:container>
+</wicket:fragment>
+
+<wicket:fragment wicket:id="creation-panel-fragment">
+	<div class="form-vertical">
+		<div class="form-group" wicket:id="selector-field"/>
+		<div wicket:id="add-button-panel" style="margin-bottom: 0px; padding:5px;">
+			<div>
+				<a wicket:id="button" class="btn btn-sm btn-default"><wicket:message key="add"/></a>
+			</div>
+		</div>	
+	</div>
+</wicket:fragment>

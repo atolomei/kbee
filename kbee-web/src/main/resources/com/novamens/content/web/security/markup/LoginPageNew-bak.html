@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+
+
+<body>
+
+	<wicket:extend>
+	
+	<div style="width: 100%; margin: auto; border: none; background: white; float: left;">
+												
+			<div style="width: 880px;
+    min-height: 592px;
+    margin: 6% auto auto auto;
+    background-image: url('/images/abeja-novamens.png');
+    background-repeat: no-repeat;
+    background-position: 21px 83px;
+    background-size: 329px;
+    background-color: inherit;">
+
+			
+			<form id="formulario" class="login-new" 
+						style="width: 340px;
+							font-size: 16px;
+							background: white;
+							padding: 59px 0;
+							border-radius: 12px; float: right;
+							margin: 6% 0 0 0"
+					
+					name="f" action="/j_spring_security_check" method="post">
+				
+					<fieldset style="border: none; color: #000000;">
+						
+						<div id="username" class="field">
+							<label class="label"  for="j_username"><wicket:message key="user" /></label>
+							<input class="value" style="background: white; border: 1px solid #666666; color:#666666;" type="text" name="j_username"  tabindex="1"></input>
+						</div>
+
+						<div id="password" class="field">
+							<label class="label"  for="j_password"><wicket:message key="password" /></label>
+							<input name="j_password" style="background: white; border: 1px solid #666666; color:#666666;" class="value" type="password"  tabindex="2"></input>
+						</div>
+						
+						<div class="panel" style="text-align: center; margin-bottom: 24px;">
+							<span wicket:id="error" class="error"></span>
+						</div>
+
+						<div id="submit" class="field" style="margin-top: 12px;">
+						 	<div class="label">
+								<input t name="submit" value="ingresar" type="submit" class="button"  tabindex="3"></input>
+							</div>
+						</div>
+						
+						<div class="label" style="width: 100%; text-align: center; margin-top: 24px; float:left;">
+								<a href="/forgotpassword" style="color: #111111; font-weight: bold;"> <wicket:message key="forgot" /></a>
+						</div>
+						</fieldset>
+				</form>
+
+						
+			
+			</div>
+		</div>
+		
+		
+		<div wicket:id="footer" class="kbee-content-footer" />
+		
+	</wicket:extend>
+</body>
+</html>
+
+	
+
+

@@ -1,0 +1,41 @@
+<wicket:panel>
+
+<wicket:extend>
+	
+	<div wicket:id="related-container" >	
+		<fieldset>
+		<ul style="float: left; width: 100%">
+			<li class="item" wicket:id="relatedview">
+				<div class="control">
+					<div class="panel" style="width: 60%; float: left;">
+						<div>
+							<label>
+								<span wicket:id="content"></span>
+							</label>
+						</div>
+					</div>
+					<div class="toolbar">	
+						<a class="button" wicket:id="up-link"> <wicket:message key= "up"/></a>
+						<a class="button" wicket:id="down-link"> <wicket:message key= "down"/></a>
+						<a class="button" wicket:id="remove-link"> <wicket:message key= "remove"/></a>
+					</div>	
+				</div> 
+			</li>
+			<li class="finder">
+				<div class="control" style="float:left;">
+					<div style="float:left;">
+						
+							<input id="related" wicket:id="related"   class="field len300"/>
+							<img src="/images/magnifier-999999.png"/ >
+							<a wicket:id="searcher-link" class="button with-border atright"><span>browser</span></a>
+						
+					</div>	
+				</div>
+			</li>
+ 		</ul>
+		</fieldset>
+		<div wicket:id="searcher-windows"/>
+	</div>
+</wicket:extend>
+
+</wicket:panel>

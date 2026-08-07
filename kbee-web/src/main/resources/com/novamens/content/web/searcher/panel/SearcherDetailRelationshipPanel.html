@@ -1,0 +1,58 @@
+<wicket:panel>
+	<div class="detail-area filelist listmode">
+ 		<ul class="media-list col-lg-12 col-md-12 col-xs-12 icon" wicket:id="relationship-list">
+			<li wicket:id="relationship-item" />
+		</ul>
+	</div>
+</wicket:panel>
+
+
+<wicket:fragment wicket:id="relationship-table-fragment">
+	<section class="section media-resource-group">
+		
+		<div class="section-header">
+			<h2 wicket:id="name">[]</h2>
+		</div>
+		
+		
+		
+		<ul wicket:id="related" >
+			<li class="media" wicket:id="related-view"/>
+		</ul>
+	</section>
+	
+</wicket:fragment>
+
+
+
+<wicket:fragment wicket:id="related-link-view-fragment">
+	<div class="media-body">
+		<a style="clear:left; float:left; font-weight:bold;" class="title" wicket:id="link">
+			<span wicket:id="title">[title]</span>
+		</a>
+		<div style="clear:left;" class="metadata">
+			<span wicket:id="summary"></span>
+		</div>
+	</div>
+</wicket:fragment>
+
+
+
+<wicket:fragment wicket:id="related-resource-view-fragment">
+	<div wicket:id="image-container" class="media-left">
+		<a class="resource" wicket:id="image-link" data-toggle="tooltip" data-placement="right">
+			<img wicket:id="image" class="media-object" />
+			<img class="player" style="position: absolute;" icket:id="player"  />
+			<span wicket:id="glyphicon" />
+		</a>
+	</div>
+	<div class="media-body" wicket:id="body">
+		<a class="btn-link" style="text-decoration:none; color: #191a1b;" wicket:id="title-link">
+			<h4 class="media-heading" wicket:id="resource-title"></h4>
+		</a>
+		<div>
+			<div wicket:id="resource-description" style="white-space: initial; float:left;line-height: 1.7em; width:96%;max-width:1200px;"></div>
+			<div icket:id="url"  style="white-space:initial; float:left; width:100%; line-height:1.5em;"></div>
+		</div>
+	</div>
+</wicket:fragment>

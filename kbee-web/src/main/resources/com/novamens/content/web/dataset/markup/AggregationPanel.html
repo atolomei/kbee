@@ -1,0 +1,27 @@
+<wicket:panel>
+
+
+
+	<div wicket:id="members-container" class="standard-canvas" style="float:left; width:100%;">
+		<nav wicket:id="navigation" />
+		<div wicket:id="table-container" class="row panel" style="clear:left; height: inherit; overflow: auto;">
+			<div class="table-responsive col-lg-12 col-md-12 col-xs-12">
+				<table wicket:id="member" class="table table-striped table-bordered table-hover"/>
+			</div>
+		</div>
+	</div>	
+	<div wicket:id="confirmation-dialog" class="modal window" tabindex="-4" role="dialog"/>
+</wicket:panel>
+
+<wicket:fragment wicket:id="factory-fragment">
+	<div class="button-container">
+		<a wicket:id="new-button" class="btn btn-primary btn-md"><span wicket:id="new-label">[new value]</span></a>
+	</div>
+</wicket:fragment>
+
+<wicket:fragment wicket:id="menu-fragment">
+	<div class="dropdown">
+		<a id="menu" data-toggle="dropdown"  wicket:id="menulink"> <i class="far fa-ellipsis-h" aria-hidden="true"></i></a>
+		<ul wicket:id="menu" class="dropdown-menu dropdown-menu-left" aria-labelledby="menu" />
+	</div>
+</wicket:fragment>

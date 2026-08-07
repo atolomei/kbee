@@ -1,0 +1,66 @@
+<wicket:panel>
+
+						<div wicket:id="canvas" style="width:100%; float:left;">
+
+									<div wicket:id="status-panel" style="width:100%; float:left;">
+
+											<!-- div>
+												<h3>Status</h3>
+											</div -->
+											
+											<div class="field-block first">								
+												<ul style="width:100%; float:left;">	
+
+
+													<li wicket:id="status-container">		<span class="label">Status</span>						<span class="value" wicket:id="status">Executing</span>							</li>
+													<li wicket:id="date-start-container">	<span class="label">Started</span>  					<span class="value" wicket:id="date-start">12 Oct 2012 (12 minutes ago)</span>	</li>
+													<li wicket:id="progress-container">		<span class="label">Progress</span>					<span class="value" wicket:id="progress">20%</span>								</li>
+													<li wicket:id="etc-container">			<span class="label">Estimated time to complete</span>	<span class="value" wicket:id="etc">23 secs</span>								</li>
+													
+													<li wicket:id="threads-container">		<span class="label">Threads</span>						<span class="value" wicket:id="threads"></span>							</li>
+																																																					
+
+													<li wicket:id="desc-container">			<span class="label">Description</span>					<span class="value" wicket:id="desc"></span>							</li>
+													<li wicket:id="param-container">		<span class="label">Parameters</span>					
+														<div class="value" wicket:id="param">
+														</div>							
+													</li>
+
+
+													<li wicket:id="statusinfo-container">		<span class="label">Activity info</span>						<span class="value" wicket:id="statusinfo">Executing</span>							</li>
+												</ul>
+												
+												<div wicket:id="stop-container" style="float:left; margin-top:1em; width:100%;">
+													<a wicket:id="stop-link" class="btn btn-sm btn-danger" style="float:left; margin-top:2em;"href="#"> <wicket:message key="stop" /></a>
+												</div>
+											</div>
+									</div>
+											
+											
+									<div wicket:id="command-result-panel" style="float:left; margin: 3em 0 0 0;">
+											<!-- div style="width:100%; float:left;">
+												<h3>Result</h3>
+											</div-->
+											<div class="field-block first">
+												<ul style="width:100%; float:left;">	
+													<li wicket:id="date-end-container"><span class="label">Terminated</span> <span class="value" wicket:id="date-end"></span></li>													
+													<li wicket:id="duration-container"><span class="label">Duration</span> <span class="value" wicket:id="duration"></span></li>
+													<li wicket:id="resultcomments-container"><span class="label">Comments</span><span class="value" wicket:id="resultcomments"></span></li>
+													<li wicket:id="result-container"><span class="label">Result</span><span class="value" wicket:id="result"></span></li>
+													<li wicket:id="result-details-container"><span class="label"  style="float:left; width:100%; margin-top:0;">Result details</span><span class="text-value" wicket:id="result-details"></span></li>
+												</ul>
+											</div>
+									</div>
+					</div>
+	
+</wicket:panel>
+
+
+
+
+
+
+
+
+							
+

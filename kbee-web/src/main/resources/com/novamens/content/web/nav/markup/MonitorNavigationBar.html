@@ -1,0 +1,45 @@
+<wicket:panel>
+	
+	<nav class="navbar navbar-default navbar-fixed-top idoc">
+	
+		<div class="container-fluid">
+
+			<div id="navbar">
+				<ul class="nav navbar-nav">
+					<li><a wicket:id="close-link" class="far fa-times"  ></a></li>
+					<li><a wicket:id="delete-link"  title="Delete"><span class="far fa-trash-alt"/></a></li>
+					<li><a wicket:id="submit-link" alt="save" title="Save"><span class="far fa-save"/></a></li>
+					<li><a wicket:id="fullwidth-link" class="glyphicon glyphicon-monitor2"></a></li>
+					
+					<li class="hidden-xs"><a wicket:id="preview-link" target="_blank" class="far fa-browser" alt="Preview" title="Preview"></a></li>
+					
+					<li><a wicket:id="info-link" class="far fa-info-circle"></a></li>
+					<li class="dropdown hidden-xs"><wicket:container wicket:id="help"/></li>
+					<li>
+					   <wicket:container wicket:id="navigator"/>
+					</li>
+				</ul>
+				
+				<ul class="actions nav navbar-nav navbar-right">
+					<wicket:container wicket:id="endconditions"/>
+					<li class="dropdown">
+						<wicket:container wicket:id="monitor-tools"/>
+					</li>
+				</ul>
+				
+			</div><!--/.nav-collapse -->
+			
+		</div><!--/.container-fluid -->
+		
+	</nav>
+
+</wicket:panel>
+
+
+<wicket:fragment wicket:id="help-fragment">
+	<a class="dropdown visible-md visible-lg" wicket:id="help-link"  title="Help" href="#" style="margin-left:0;"><span class="far fa-question-circle"/></a>
+</wicket:fragment>
+
+
+
+

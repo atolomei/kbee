@@ -1,0 +1,809 @@
+/**
+ Páginas de Galería de Fotos y Videos. 
+ Lista 'mosaico' de imágenes y vista individual.
+**/
+@charset "UTF-8";
+
+@font-face {
+   font-family: Lato;
+   src: url('/fonts/lato/Lato-Regular.ttf');
+   font-weight:	normal;
+}
+
+
+@font-face {
+   font-family: Montserrat;
+   src: url('/fonts/montserrat-and-hind/montserrat/Montserrat-Regular.ttf');
+   font-weight:	normal;
+}
+
+@font-face {
+   font-family: Montserrat;
+   src: url('/fonts/montserrat-and-hind/montserrat/Montserrat-Bold.ttf');
+   font-weight:	bold;
+}
+
+@font-face {
+   font-family: Hind;
+   src: url('/fonts/montserrat-and-hind/hind/Hind-Regular.ttf');
+   font-weight:	normal;
+}
+
+@font-face {
+   font-family: Hind;
+    src: url('/fonts/montserrat-and-hind/hind/Hind-Italic.ttf');
+   font-weight:	normal;
+   font-style:	italic;
+}
+
+@font-face {
+   font-family: Hind;
+    src: url('/fonts/montserrat-and-hind/hind/Hind-Bold.ttf');
+   font-weight:	bold;
+}
+
+@font-face {
+   font-family: Hind;
+    src: url('/fonts/montserrat-and-hind/hind/Hind-Light.ttf');
+  font-weight: 300;
+}
+
+@font-face {
+   font-family: Hind;
+    src: url('/fonts/montserrat-and-hind/hind/Hind-Semibold.ttf');
+  font-weight:	600;
+}
+
+#tinymce.mce-content-body { background: inherit;}
+#tinymce.mce-content-body p {color: white;}
+
+.mce-panel 		{border: 1px solid #d8dcdf;    background-color: transparent;}
+.kbee .label 	{display: inherit;    padding: inherit;    font-size: inherit;    font-weight: inherit;    line-height: inherit;    color: inherit;    text-align: inherit;    white-space: inherit;    vertical-align: inherit;    border-radius: inherit;}
+
+
+/* --------------------------------------------------------------------------------
+COPY FROM FORMS
+ ---------------------------------------------------------------------------------*/
+ .text-image-container {}
+ .text-image-right {float: right; margin: 0 0 24px 24px;}
+ .text-image-left {float: left; margin: 0 24px 24px 0px;}
+ .text-image-width {width: 100%; height: auto; margin: 24px 0;}
+ .text-image-width img {width: 100%; height: auto;}
+
+/* --------------------------------------------------------------------------------
+  SCROLL BAR  
+ ---------------------------------------------------------------------------------*/
+::-webkit-scrollbar-button:start:decrement 		{height: 12px;width: 12px;display: block;background-image: none; background-repeat: no-repeat; background-position: center center; background-size: 12px;background-color: #888888;}
+::-webkit-scrollbar-button:end:increment		{height: 12px;width: 12px;display: block;background-image: none; background-repeat: no-repeat;background-position: center center; background-size: 12px;background-color: #888888;}
+::-webkit-scrollbar-track 						{background-color: #999999;}		
+::-webkit-scrollbar 							{width: 10px;background-color: #cccccc;}
+::-webkit-scrollbar-thumb 						{background-color: #e2e2e2;}
+::-webkit-scrollbar-thumb:hover 				{background:#d8dcdf;  box-shadow:none;  cursor:pointer; 	color: #cccccc; background-position: center center;}
+
+.content-detail							 		{width:700px; float: left; margin:0; padding:24px 54px 92px 54px;  font-size: 1.25em; font-family: Hind, sans serif;}
+
+.preview-main-area-container 					{float: left; width: 100%; background: white; }
+.preview-main-area-container .content-detail	{width:700px; float: left; margin:0; padding:54px 0 0 162px;;  font-size: 15px; }
+
+.content-detail .title-container 		 		{  width: 100%; float: left;padding: 0;margin: 0 0 36px 0;}
+.content-detail .title-container h1 	 		{  width: 78%; min-width: 460px;font-size: 2em;line-height: 1.25em;	color: #111111;font-weight: normal;font-family: Montserrat, sans serif; margin: 0;}
+
+.content-detail .metadata-container		 		{width: 100%; float: left; padding:0; margin: 0 0 42px 0;}
+.content-detail	.metadata-container ul  	 	{float: left; width: 100%; padding:0; margin:0;}
+.content-detail	.metadata-container ul li  		{  font-size: 1em; float: left; width: 100%; color: #111111; font-weight: 600; line-height: 1.2em; margin: 1px 0;}
+
+
+.content-detail .text-container 		 		{width: 100%; float: left; padding:0; margin: 0;}
+
+.content-detail .text-container h2 			  {font-weight: bold; font-size: 1em; margin-bottom: 10px;line-height:1.45em; color: #111111; width: 78%;}
+.content-detail h3     						  {font-weight: bold; font-size: 1.05em; margin-bottom: 6px;}
+.content-detail h4     			  			  {font-weight: bold; font-size: 0.93em; margin-bottom: 6px;}
+.content-detail h5     						  {font-weight: bold; font-size: 0.88em; margin-bottom: 6px;}
+.content-detail h6 			      			  {font-weight: normal; font-weight: 400; color: #999999; }
+.content-detail .highlight   	  			  {	font-size: 1.44em;	font-weight: 300;	color: #E77D1A;	line-height: 1.4em;	font-family: Hind, sans serif;	float: left;	width: 94%;	text-align: center;	margin-bottom: 32px;	padding: 0;	margin: 0 6% 32px 0;	font-style: italic;}
+
+.content-detail p 					  		{line-height: 1.48em; font-size: 1em; margin-bottom: 2.2em; margin-top: 0; float: none;}
+
+.content-detail .image-container 			{}
+.content-detail .image 						{}
+.content-detail .caption 					{font-size:0.85em; color: #999999; text-align: center; margin-top: 6px;}
+
+.preview-header-container							{float: left; width: 100%; background: black; height: 50px; }
+.preview-header-container .header					{font-size: 1em; margin:0; width: 100%; float: left; color: #cccccc; height: 100%; padding:0}
+.preview-header-container .header .buttons		 	{border-right: 1px solid #999999; margin-right: 24px; float: left; height: 100%;}
+
+.preview-header-container .header a.button		 	{float: left;  padding: 16px 20px;}
+.preview-header-container .header a.button:hover 	{opacity: 0.76;}
+.preview-header-container .header .title 			{float: left; font-weight: normaL; margin: 13px 0 0 0;}
+
+ol, ul 												{list-style: none outside none;}
+
+body.kbee 												{margin:0; padding: 0; color: #111111; font-family: Hind, sans serif;  font-size: 15px;}
+
+a.button:hover {text-decoration: none;}
+a.title:hover {text-decoration: none;}
+
+@media screen and (max-width: 640px) {
+	.video-player-container {float:left; width:100%;}
+	.media-panel {width:100%;    float: left;  }
+	video {width:100%;}
+
+}
+
+@media screen and (min-width: 641px) {
+	.video-player-container {float:left; width:100%;}
+	.media-panel {width:100%;    float: left;  }
+	video {width:860px; height: auto;	    position: absolute;    	top: 50%;    left: 50%;    transform: translate(-50%, -50%);
+	}
+}
+
+.gallery-header-container												{float: left; width: 100%; background: white; height: 67px; border-bottom: 1px solid #d8dcdf; }
+.gallery-header-container .header										{font-size: 1em; margin:0; width: 100%; float: left; color: #111111; height: 100%; padding:0}
+.gallery-header-container .header .buttons		 						{margin-right: 0px; float: left; height: 100%;}  
+
+.gallery-header-container .header a.button		 						{float: left;  padding: 22px 18px; line-height: 22px;}
+
+
+.gallery-header-container .header .tools li.action-container em .fa-star,
+.gallery-header-container .header .tools li.action-container em .glyphicon-vote,
+.gallery-header-container .header .tools li.action-container em .fa-star {color: #f9c736;}
+
+
+
+
+
+
+
+
+.gallery-header-container .header a.button:hover 				{opacity: 0.76;}
+.gallery-header-container .header a 	  .glyphicon   			{color: #111111;}
+.gallery-header-container .header .tools a .glyphicon  			{color: #111111;    font-size: 15px;    top: 1px; float:left;}
+
+.gallery-header-container .header .tools a:hover, 
+.gallery-header-container .header .tools a:hover .glyphicon 	{opacity: 0.76;}
+ 	
+.gallery-header-container .header .button em		 			{float: left;  padding: 20px 28px;}
+.gallery-header-container .header .title 						{float: left; font-weight: normaL; margin:0;  padding: 0 15px;}
+
+
+.gallery-main-area-container 									{float: left; width: 100%; background: #f4f4f4; display: block;  z-index: 4000; overflow-x: auto; overflow-y: auto;  }
+.gallery-main-area-container .gallery-body 						{float: left; width: 100%; }
+.gallery-main-area-container .gallery-body .resources 			{float: left;width: 100%;padding: 0;margin: 0}
+.gallery-main-area-container .gallery-body .resources .file 	{float:left; margin:1px;}
+
+figure {margin:0; padding:0;}
+
+.media-panel {
+	width: 100%;
+    float: left;
+    position: relative;
+    height: calc(100vh - 67px);
+    display: block;
+}
+
+.media-panel .viewer {   
+	width: 100%;
+    float: left;
+    position: relative;
+    height: 100%;
+    display: block;
+}
+
+.media-panel .viewer .image-container 				{float: none; margin: auto; min-width:1024px;}
+.media-panel .description							{width:100%; float: left; margin-top:8px; color: #cccccc; font-size: 0.9em;}
+
+
+.media-panel .viewer img {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    max-width:  95vw;
+    max-height: 80vh;
+}
+
+
+.content-editor .editor .image-container 	{}
+.content-editor .editor .image 				{}
+.content-editor .editor .caption 			{font-size:14px; color: #999999;}
+
+/** --------------------------------------------------------------------------------------------------------
+  KBEE CONTENT MAIN AREA
+-------------------------------------------------------------------------------------------------------- */
+.kbee-content-main-area-container 				{width: 100%; margin: auto; min-height: 700px;}
+
+a:inactive					{font-style: normal;}
+a 							{color: #111111; text-decoration: none;}
+a.nulo	 					{padding-left:0em;margin-left:0em;color:#111111;}
+h1.null:hover				{background: none;}
+.isologo a:hover			{background: none; cursor: pointer;}
+a:hover 					{background:  cursor: pointer;}
+a div.button-nobck:hover 	{background:  cursor: pointer;}
+a div.button:hover 			{background:  cursor: pointer;}
+a div.button-vote:hover,
+a button:hover 				{background: cursor: pointer; border-radius: 6px;}
+.field  input.value 		{float: left; padding: 5px 12px; border: 1px solid #cccccc; background: white;   font-size: 19px; border-radius: 6px; font-weight: normal;}
+a.img:hover 																			{background: none;}
+.field  input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill 	{background-color: white !important; background-image: none; color: #111111; }
+
+
+/** --------------------------------------------------------------------------------------------------------
+  KBEE CONTENT FOOTER
+-------------------------------------------------------------------------------------------------------- */ 
+.kbee-content-footer 								{float: left; width: 100%; font-size: 1em; background: #111111; float: left; padding: 0; height: 50px;}
+.kbee-content-footer a 								{color: #666666;}
+.kbee-content-footer a:hover 						{color: white; background: none; }
+.kbee-content-footer ul li 							{margin-right: 42px; display: inline; float: left;}
+.kbee-content-footer .main-area 					{color: #666666; font-size: 0.92em; padding-top: 1em; width: 1024px; margin: auto}
+.kbee-content-footer .copyright 					{float: right; margin-top: 1em;}
+.kbee-content-footer  p 							{margin-top: 0em; color: #666666; font-size: 0.92em; line-height: 1.4em; margin-bottom: 0;}
+
+.editor .text-label h2     								{font-weight: bold; font-size: 19px; margin-bottom: 6px; text-transform: none;}
+.image-info-container 									{float: left; width: 70%;}
+													
+.content-editor .editor .first 							{margin-top: 0 !important;}
+.content-editor .field-block 							{width: 100%; margin-bottom: 6px; float: left; }
+.content-editor .field-block .title-label 				{margin-bottom: 4px; width: 100%; float: left; font-weight: bold;} 
+.content-editor .field-block .title-explanation 		{color:#999999; font-weight:normal}
+
+.content-editor .field-block .textarea,
+.content-editor .field-block .input 						    {border: none; padding: 6px 12px 6px 12px; background: white;  width: 100%; }
+.content-editor .editor h1.title 								{margin: 0 0 0px 0; font-size: 29px; line-height: 1.25em; font-weight: 600; padding: 0; font-family: Hind, Segoe UI, Arial, sans serif; }
+.content-editor .editor h2.title 								{float: left; margin: 0 0 10px 0; font-size: 1em; line-height: 1.35em;   padding: 0; text-transform: uppercase; font-weight: bold;}
+.content-editor .editor h3.title 								{margin:0; font-size: 1em; font-weight: 600; padding: 0;}
+.content-editor .editor .field-block     div.members-block 		{width: 100%; float:left; margin-bottom: 42px;}
+.content-editor .editor .field-block     div.textblock 			{margin-bottom: 0 !important;}
+.content-editor .editor .field-block div.members-list,
+.content-editor .editor .field-block ul.members-list 			{width: 100%; float:left; margin-bottom: 0;}
+.content-editor .editor .text-label 							{width: 100%; max-width: 700px; }
+
+/* ----------------------------------------------------------------------------------------------------------
+  EDITOR 
+ ----------------------------------------------------------------------------------------------------------*/
+.content-editor														{float: left;margin:0;overflow:auto;padding:0;width: 100%;font-size: 17px;}
+.content-editor .editor 											{float: left; display: auto; padding: 44px 0 44px 0; max-height: 710px; width: 100%;  min-width: 770px;}
+.content-editor .working-area 										{width: 1012px; margin: auto;} /* + 12px para La barra de scroll */
+.content-editor .editor .content-title-block 						{float: left; width: 62%; margin-bottom: 44px;}																							
+.content-editor .editor .field-block .title-block 					{float: left; width: 100%; }
+.content-editor .editor .field-block .title-block  .quantity		{float: left; color: #bbbbbb; margin-left: 6px; font-size: 1em;}
+
+.content-editor .editor textarea.viewmode:hover,
+.content-editor .editor textarea.viewmode:focus,
+.content-editor .editor input.viewmode:hover,
+.content-editor .editor input.viewmode:focus  	 					{background: inherit; cursor: arrow; border: none;  box-shadow: none !important; }
+
+.content-editor .editor .panel 										{padding-top: 70px;}
+.content-editor .editor ul 											{padding: 0;}
+
+.content-editor .members-list .icon-container 						{float: left;}
+														
+.kbee-content-toolbar-container .toolbar a.button:hover 	{cursor: pointer; background-color: #007EB1; color: white;display: block;	float: left;	margin: 0;	padding: 0;	text-align: center;	text-decoration: none;}
+.kbee-content-toolbar-container .toolbar .button,
+.content-editor .editor .button 							{border-radius: 5px; color: #007EB1; background: none repeat scroll 0 0 rgba(0, 0, 0, 0); cursor: pointer; display: block;	float: left; margin: 0;	padding: 0;	text-align: center;	text-decoration: none;}
+.kbee-content-toolbar-container .toolbar .button .icon,
+.content-editor .editor .button .icon 						{display: inline-block;	float: right;	height: 15px;	margin-left: 6px;	padding-bottom: 1px;	padding-top: 2px;}
+
+.kbee-content-toolbar-container .toolbar .button .label,
+.content-editor .editor .button .label 						{display: inline-block;	float: left;	height: 20px;	padding-left: 6px;	padding-right: 2px;}
+.content-editor  .editor span.button,
+.content-editor .editor a.button 							{color: #007eb1; margin-right: 6px;	padding: 2px 10px; font-size:14px;}
+.content-editor .editor span.button:hover,
+.content-editor .editor a.button:hover  					{background: #007eb1; color: white;}
+.content-editor .editor span.nobutton						{float: left; display: inline; color: #999999; margin-right: 6px;	padding: 1px 10px 2px; }
+.content-editor .editor span.nobutton em					{}							
+									
+	
+/* FORM */
+.content-editor .editor .component 					{display: block;overflow: hidden; padding: 2px 6px 2px 0px; margin:16px 0 0 0;}
+.content-editor .editor .control   					{display: block;overflow: hidden; float:left; padding: 2px 6px 2px 0px; border-radius: 4px; width: 100%;}
+.content-editor .editor .editmode .control:hover 	{opacity: 0.76;}
+.content-editor .editor p 							{line-height: 1.45em; font-size: 1em; margin-bottom: 2.2em; margin-top: 0; float: none;}
+.content-editor .editor fieldset        			{border: medium none;margin-bottom: 0;	padding: 0;}
+.content-editor .editor fieldset .item   			{padding-top: 0; float: left; width: 100%;}
+.content-editor .editor fieldset .panel 			{border-bottom: none;	float: left;  margin-bottom: 3px; min-width: 60%; padding-top: 0;}
+.content-editor .editor fieldset .toolbar 			{float: right; width: 29%; font-size: 15px;}
+
+.len60p {width: 60%;}
+.len300 {width: 300px;}
+
+.content-editor .title-content 	{padding: 2px;	width: 76%;}
+.content-editor .title-label 	{font-weight: bold;}
+
+.content-editor .editor textarea.viewmode,
+.content-editor .editor input.viewmode							{width: 100%; background: none; border: none; font-size: inherit; font-color: inherit; font-family: inherit; line-height: inherit; color: #111111;}
+.content-editor .editor .content-title-block input.editmode 	{width: 100%; background: none; border-bottom: 1px solid #ededed; font-size: inherit; font-color: inherit; font-family: inherit;  ine-height: inherit; color: #111111;}
+
+/* ----------------------------------------------------------------------------------------------------------
+   FILE LIST 
+ ----------------------------------------------------------------------------------------------------------*/
+.content-editor .editor	  .gridmode 			{margin:0 0 0 0;}
+.content-editor .editor   .gridmode .control 	{padding: 1px;}
+.content-editor .filelist ul 					{float: left;font-size: 1em;line-height: 1.4em;margin-bottom: 0px;width: 100%;}
+.content-editor .listmode ul li 				{margin:32px 0 0 0;width: 100%;}
+.content-editor  .gridmode ul li 				{margin:0; }
+.content-editor .filelist .file 				{float: left;}
+									
+/*Thumbnail		*/
+.content-editor .listmode ul li  div.thumbnail-large a 														{float: left; }
+.content-editor .filelist ul li  div.thumbnail-large 														{display: inline-block;	float: left;}
+.content-editor .filelist ul li  div.thumbnail-large 														{display: inline-block;	float: left;}
+.content-editor .filelist ul li  div.thumbnail-large .link a.thumbnail-link 								{float: left; }
+.content-editor .filelist ul li  div.thumbnail-large  img													{  float: left; }
+																				
+/*List			*/									
+.content-editor .filelist ul li  div.metainfo-icon 								{float: left;	display: inline-block; width: 100%;}
+.content-editor .filelist ul li  div.metainfo-icon .image-container				{float: left; margin-right: 4px; width: 27px;}
+.content-editor .filelist ul li  div.metainfo-icon .info						{color: #999999;font-weight: normal;	float: left; margin-left: 0; margin-left: 0 }
+.content-editor .filelist ul li  div.metainfo-icon img.icon				 		{margin-right: 0; width: 23px; height: 26px;}
+
+/*Thumbnail medium */
+.content-editor .filelist ul li  div.metainfo-thumbnail-medium					{float: left;	display: inline-block; width: 100%;}
+.content-editor .filelist ul li  div.metainfo-thumbnail-medium .image-container	{float: left;  margin-right: 4px; width: 132px; }
+.content-editor .filelist ul li  div.metainfo-thumbnail-medium .info			{color: #999999;font-weight: normal;	float: left; margin-left: 0;  }
+.content-editor .filelist ul li  div.metainfo-thumbnail-medium img.thumbnail-medium 	{ border: 1px solid #d2d2d2; }
+
+.content-editor .filelist ul li  div.metainfo .toolbar	{font-size: 15px; float: right; width: 29%;}
+.content-editor .filelist ul li  div.progress 			{padding-left: 32px;}
+.content-editor .filelist ul li div.link 				{float: left;	width: 100%;}
+.content-editor .filelist ul li div.link .name 			{font-weight: 600;}
+.content-editor .filelist ul li div.link span 			{font-weight: 600;}
+.content-editor .filelist ul li 						{float: left;}
+.content-editor .filelist .listmode 					{margin:0 0 0 0;width: 100%;}
+.content-editor .listmode 								{margin:0 0 0 0;width: 100%;}
+
+
+
+
+.user-photo-container {
+    margin-top: 15px;    float: left;    width: 36px;    margin-right: 12px;    border: 1px solid #d8dcdf;    border-radius: 6px;
+    height: 36px;    padding: 0;    background: none;    overflow: hidden;    position: relative;    margin-left: 6px;
+ }
+    
+
+
+
+
+/* ----------------------------------------------------------------------------------------------------------
+	DETAIL  
+ ----------------------------------------------------------------------------------------------------------*/
+ .detail .filelist .buttons-container a.button 					{  font-size: 0.9em;  padding: 2px 14px 5px 14px;  border: 1px solid #cccccc;  margin-left: 0px;}
+.detail .editor span.button, .content-editor .editor a.button 	{  color: #007eb1;  margin-right: 0px;  padding: 2px 8px;  font-size: 0.9em;}
+.detail .button 												{border-radius: 5px;  color: #007EB1;  background: none repeat scroll 0 0 rgba(0, 0, 0, 0);  cursor: pointer;  display: block;  float: left;  padding: 0;  text-align: center;  text-decoration: none;}
+ 
+ .detail .filelist ul {  float: left; font-size: 1em;  line-height: 1.4em;margin-bottom: 0px;width: 100%;}
+ .detail .listmode ul .first {margin-top:0}
+ .detail .listmode ul li {margin: 1em 0 0 0;width: 100%;}
+											
+ .detail  .resource-list-container 					    {float: left; width: 100%; margin:0 background: red;}
+ .detail .filelist  .buttons-container  				{float: left; margin-top: 6px; margin-bottom: 18px; width: 100%;}
+ .detail  .filelist  .buttons-container a.button 		{font-size: 0.9em; padding: 3px 14px 3px 14px; border: 1px solid #cccccc;margin-left: 0px;   background: none; color: #007EB1;}
+ .detail  .filelist  .buttons-container a.button:hover 	{background: #007EB1; color: white; cursor: pointer;}
+ 
+/*Thumbnail		*/
+ .detail  .listmode ul li  div.thumbnail-large a 														{float: left; }
+ .detail  .filelist ul li  div.thumbnail-large 														{display: inline-block;	float: left;}
+ .detail  .filelist ul li  div.thumbnail-large 														{display: inline-block;	float: left;}
+ .detail  .filelist ul li  div.thumbnail-large .link a.thumbnail-link 								{float: left; }
+ .detail  .filelist ul li  div.thumbnail-large  img													{  float: left; }
+																				
+/*List			*/									
+ .detail  .filelist ul li  div.metainfo-icon 								{float: left;	display: inline-block; width: 100%;}
+ .detail .filelist ul li  div.metainfo-icon .image-container				{float: left; margin-right: 4px; width: 27px;}
+ .detail  .filelist ul li  div.metainfo-icon .info						{color: #666666;font-weight: normal;	float: left; margin-left: 0; margin-left: 0; text-transform:none; }
+ .detail  .filelist ul li  div.metainfo-icon img.icon				 		{margin-right: 0; width: 23px; height: 26px;}
+
+/*Thumbnail medium */
+ .detail .filelist ul li  div.metainfo-thumbnail-medium							{float: left;	display: inline-block; width: 100%;}
+ .detail  .filelist ul li  div.metainfo-thumbnail-medium .image-container			{float: left;  margin-right: 4px; width: 132px; }
+ .detail  .filelist ul li  div.metainfo-thumbnail-medium .info					{color: #666666;font-weight: normal;	float: left; margin-left: 0;  text-transform: none; }
+ .detail  .filelist ul li  div.metainfo-thumbnail-medium img.thumbnail-medium 	{ border: 1px solid #d2d2d2; }
+
+ .detail .filelist ul li  div.metainfo .toolbar	{font-size: 15px; float: right; width: 29%;}
+ .detail  .filelist ul li  div.progress 			{color: black; font-weight: normal; margin-bottom: 18px;}
+ .detail .filelist ul li  .percent 				{padding: 1px 6px 1px 6px; border-radius: 4px; background: darkred; color: white; }
+ .detail  .filelist ul li  .info 		   		    {text-transform: uppercase; color: black; }
+								
+ .detail  .filelist ul li div.link 				{float: left;	width: 100%;}
+ .detail  .filelist ul li div.link .name 			{font-weight: 600;   font-size: 1.0em;}
+ .detail .filelist ul li div.link span 			{font-weight: 600;   font-size: 1.0em;}
+ .detail  .filelist ul li 						{float: left;}
+													
+ .detail .filelist .listmode 					{margin:0 0 0 0;width: 100%;}
+ .detail  .listmode 							{margin:0 0 0 0;width: 100%;}
+
+
+/** --------------------------------------------------------------------------------------------------------
+	COMMENTS
+ -------------------------------------------------------------------------------------------------------- */
+.comments 								{float:none; padding: 24px 0px 0 54px; width:auto;}
+.comments-block 	 {font-size: 15px;    float: left;    line-height: 1.45em;    float: left;    width: 100%;    margin-left: 0px;    margin-top: 0px;    background: white;    width: 24%;    min-width: 360px;    float: right;    padding: 31px;    height: calc(100vh - 67px);    position: absolute;    right: 0;    opacity: initial;    z-index: 999999;    color: #111111;    box-sizing: border-box;box-shadow: 0 6px 12px rgba(0, 0, 0, .175);}
+.comments-block a:hover {opacity: 0.76;}
+
+.comments-block ul {width: 100%;    float: left;    height: calc( 100% - 123px);    overflow: auto;}    
+
+.comments-block a.button:hover {opacity: 0.76;}
+.comments-block a.button {    border: 1px solid #E55932; background: #E55932; color: white;       padding: 6px 42px;    float: left;    border-radius: 10px;    font-size: 0.9em;    line-height: 1.7em;}
+
+	.comments-block .comments-title 		{color:  #E55932; font-size: 16px; float:left; width: 100%; font-weight: 600; text-transform: uppercase; margin-bottom: 12px;  padding-bottom: 2px;}
+	.comments-block .has-comments 			{margin-top: 0px;}
+	.comments-block .no-comments 			{margin-top: 0px;}
+    .comments-block  .comment 				{float:left; width: 100%; padding-top: 18px; border-top: 1px dotted #cccccc;}	
+	.comments-block  .comment .author 		{    color: #E55932;    font-weight: 600; }
+	.comments-block .comment .date 			{ color: #aaaaaa; font-size: normal; margin-left: 4px;   font-size:13px;}
+    .comments-block  .comment 			 	{margin-top: 24px; float: left; }
+    .comments-block  .comment p			 	{    margin-top: 0em;    margin-bottom: 1em;    font-size: 14px;    line-height: 1.45em;    float: left;    margin-bottom: 0;    color: #666666;}  
+    .comments-block  .comment .first 	 	{margin-top: 0;}
+		
+	.comments-block  .response {float: left; width:100%; border-top: 1px dotted #cccccc; margin-top: 20px;}
+	.comments-block  .level1 {margin-left: 40px; width:calc(100% - 40px); overflow: hidden; height: initial; clear: left;}
+	.comments-block  .level0 {margin-left: 0px; width:100%;}
+	.comments-block  .comments-list	{}				
+	.comments-block  .comment-level-list  { /*height: calc( 100% - 123px);*/ display: block; clear:left;}  
+					
+	.mce-panel {border: 0 solid #d8dcdf; }
+																	
+    a.form-submit-button 					{border: 1px solid #ffffff;
+    background: #E55932;
+    padding: 6px 42px;
+    float: left;
+    color: white;
+    border-radius: 10px;
+    font-size: 0.95em;
+    line-height: 1.7em;}
+    									
+    a.form-cancel-button 					{border: 1px solid #ffffff;
+    background: #E55932;
+    padding: 6px 42px;
+    float: left;
+    color: white;
+    border-radius: 10px;
+    font-size: 0.9em;
+    line-height: 1.7em;}
+    	
+	a.form-cancel-button:hover  			{cursor: pointer; background-color:#E55932; color:white; border:1px solid #E55932;}
+	a.form-submit-button:hover 				{cursor: pointer; background-color:#E55932; color:white; border:1px solid #E55932;	} 				
+
+   .atright 									{margin-left: 6px;}
+	.first 	 								{margin-top: 0 !important;   border-top: none !important;}
+	.comments-block ul 						{width:100%; float: left; padding:0;}
+   .working-indicator						{font-weight: bold;font-family: Hind, sans-serif; position: fixed; left: 48%; top: 0px; display:none; padding:5px 22px 5px 22px; background: #fff8cc; color: black; border-radius: 0 0 5px 5px;}
+
+ .buttons-block				 			{float: left; width: 100%; margin-top: 2em;}
+
+ div.actions-right 				{float: right; display: block; margin-top: 0; margin-bottom: 5px; width: 9%; font-size: 0.95em;}
+ .actions-right a.menu			{margin:0 0px 0; float: right; line-height: 18px; border-radius:14px; border: 1px solid #cccccc; padding: 0 2px;}
+ .actions-right a.menu:hover   	{cursor: pointer;}
+ .actions-right a 				{margin:0 0px 0; float: right; border: none;}
+ 
+ .actions-right .button-nobck 	{margin:0 0 3px 0; float: right;}
+ .actions-right .lbox 			{float: right;padding: 0;4}
+
+
+/** --------------------------------------------------------------------------------------------------------
+  CONTEXT MENU
+ -------------------------------------------------------------------------------------------------------- */
+.context-menu {
+    font-size: 0.92em;
+	border:1px solid #d8dcdf;	
+    background: white;
+	color: #111111; 	
+	overflow-x: visible;	
+	overflow-y: visible;
+	position: absolute;
+	display: initial;
+	width: 180px;
+	float: none;	
+	padding-top: 5px;	
+	padding-bottom: 5px; 	
+	padding-left: 1px;
+	padding-right: 1px;
+	text-align: left;	
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;	border-radius: 5px;
+	-webkit-box-shadow: 4px 4px 5px 0px rgba(50, 50, 50, 0.75);
+	-moz-box-shadow:    4px 4px 5px 0px rgba(50, 50, 50, 0.75);
+	box-shadow:         4px 4px 5px 0px rgba(50, 50, 50, 0.75);
+	z-index: 70000;
+	top: 0px;
+ }
+
+
+#tinymce.mce-content-body {
+    background: rgba(80, 80, 80, 0.9) !important;
+  }
+    
+a:hover .menutrigger 	{display: inline; background: #E55932; cursor: pointer;}
+a .menutrigger:hover {background-color: #cc0000; }
+.menutrigger {
+    display: none;
+    color: #FFFFFF;
+    font-weight: 600;
+    background: #E55932;
+    border-radius: 3px;
+    margin-left: 6px;
+    margin-right: 6px;
+    font-size: 10px;
+    padding-left: 0.5em;
+    padding-right: 0.5em;
+    padding: 0px 7px 0px 7px;
+    float: none;
+}
+
+.context-menu ul li	 			{cursor: pointer; padding:0px; float: left; font-size: 14px; width:100% !important;}
+.context-menu ul li:hover 		{background: none;}
+.context-menu ul li em 			{color: #999999; font-weight: normal;}
+.context-menu ul li em span		{padding-left:12px;;}
+.context-menu ul li:hover em 	{font-weight: normal;}
+										
+.context-menu ul li a 			{    padding: 6px 0;
+    color: #111111;
+    width: 100%;
+    float: left;
+    height: 100%;
+    font-weight: normal;
+    border-radius: 4px;}
+    					
+    					
+.context-menu ul li a:hover		{background: #d8dcdf;  width: 100%; border-radius:0px;}
+
+
+.context-menu ul li a span		{padding-left: 12px; padding-right:12px; float:left; width:auto;}
+.context-menu ul li.inline-command 		 	{color: #215a7c; margin-top: 8px; border-top: 1px solid #ededed; font-size: 1em;}
+.context-menu ul li.inline-command:hover 	{color: white;}
+.context-menu ul li.label-selected		 	{padding-left:6px }
+.context-menu ul li.label-no-selected	 	{padding-left:24px; padding-right:0;}
+
+
+.context-menu ul li.separator			 		{margin-top: 5px; margin-bottom: 5px; border-top: 1px solid #e2e2e2; float: left; padding: 0;}
+.context-menu ul li.separator:hover		   	{cursor: none; background: none;}
+.context-menu ul li .icon-container        	{width: 16px; height: 16px; display: inline-block; float:left; }
+.context-menu ul li .icon-container  img   	{width: 13px; margin-top: 5px;}
+
+.comments	form.inline-form {
+    max-width: 600px;
+}
+
+
+#tinymce.mce-content-body {
+    background: inherit !important;
+    color:white;
+}
+
+form.inline-form {
+     background: #f4f4f4;
+    border: 1px solid #d8dcdf;
+    padding: 24px;
+    border-radius: 5px;
+    float: left;
+    width: calc(100% - 2px);
+    color: #111111;
+    font-size: 14px;
+    box-shadow: 4px 4px 5px 0px rgba(50, 50, 50, 0.25);
+    max-width: 382px;
+}
+
+
+
+form.inline-form .mce-container *, form.inline-form .mce-widget, form.inline-form .mce-widget *, form.inline-form .mce-reset {
+    color: #666666;
+    font-size: 11px;
+    float: none;
+    position: static;
+    width: auto;
+    height: auto;
+    white-space: nowrap;
+    cursor: inherit;
+    line-height: normal;
+    font-weight: normal;
+    text-align: left;
+    border: none;
+  	
+    
+}
+
+.panel-feedback a.button {
+	    border: 1px solid #6DF3A4;
+	    color:#6DF3A4;
+} 
+
+.panel-feedback-panel {
+    float: left;
+    max-width: 500px;
+    width: 100%;
+    margin: 0;
+    background: none;
+    padding: 18px 10px 9px 18px;
+    font-size: 1em;
+    line-height: 22px;
+    color: #111111;
+    border-radius: 0 0 6px 6px;
+    width: 80%;
+    margin-bottom: 8px;
+    margin-top: 0px;
+    margin-right: 20%;
+    box-shadow: none !important;
+    min-width: 180px;
+    border: 1px solid #6DF3A4;
+    font-size: 0.92em;
+}
+
+
+	.gallery .tools 						{font-size:1em; color:white; float:left; margin:0; padding:0;}
+	.gallery ul.tools li.action-container 	{display: inline-block; float:left; width: auto;}
+	.gallery ul.tools   li span.action,
+	.gallery ul.tools   li a.action 		{color: #111111; padding: 26px 18px; float:left;}
+	.gallery ul.tools   li a.action:hover  	{  cursor: pointer;}
+	
+	.gallery ul.tools .tools-feedback a.button:hover  	{background: #E55932; border:1px solid #E55932; cursor: pointer;}
+	.gallery-header-container .header a.button			{color: #111111;}	
+	
+	.gallery .tools a.button100 {
+	padding: 6px 0;
+    color: white;
+    width:100%;
+    border: 1px solid #cccccc;
+    border-radius: 10px;
+    text-align:center;
+    }
+    
+
+.gallery .tools a.button {
+    padding: 6px 24px;
+    color: white;
+    background: #E55932;
+    border: #E55932;
+    border-radius: 10px;
+}   
+	
+	.gallery .tools a.p50 {width: calc(50% - 3px) !important; padding: 6px 0 !important; text-align: center !important; 
+	font-family: Hind;
+	font-size: 14px;
+	}
+	
+	.gallery .tools a.p50:hover { text-transform: none;   opacity: 0.76;  text-decoration: none; line-height: inherit !important;  padding: inherit;}
+	.gallery .tools a.p50 span {line-height: inherit !important; padding: inherit;}
+	
+	.gallery .fields-container .field-block {
+    float: left;
+    width: 100%;
+    margin-bottom: 12px;
+	}
+	
+	.first {
+    	margin-top: 0 !important;
+    	border-top: none !important;
+     }
+	
+	.gallery  .tools .panel-feedback-panel {float: left;
+    
+    width: 100%;
+    margin: 0;
+    background: white;
+    padding: 24px;
+    font-size: 14px;
+    line-height: 1.5em;
+    color: #1000101;
+    border-radius: 0 0 6px 6px;
+    width: 100%;
+    margin-bottom: 8px;
+    margin-top: 0px;
+    box-shadow: none !important;
+    margin-right: 0;
+    min-width: 280px;
+    border: 1px solid #cccccc;
+    margin-top: 10px;
+    max-width: 320px;
+    position: absolute;
+    right: -74px;
+    }
+    
+	.panel-feedback-panel .field-block .title-block .label {    font-weight: normal;	}
+
+	.fields-container .field-block	.field {
+    float: left;
+    width: 100%;
+    margin-bottom: 2px;
+	}
+
+	.gallery textarea {
+    padding: 6px 8px;
+    background: none;
+    height: 3em;
+    border: 1px solid #cccccc;
+    border-radius: 4px;
+    color: #666666;
+    font-size: 0.95em;
+    font-family: Hind, sans serif;
+	}
+
+    .working-indicator {
+    font-weight: bold;
+    font-family: Hind, sans-serif;
+    position: fixed;
+    left: 48%;
+    top: 0px;
+    display: none;
+    padding: 5px 22px 5px 22px;
+    background: #fff8cc;
+    color: black;
+    border-radius: 0 0 5px 5px;
+  }
+
+    .tools-feedback {overflow: visible;
+    z-index: 9999999;
+    float: left;
+    position: relative;
+    top: 50px;
+    left: -74px;}
+
+			
+	
+input {	
+    padding: 6px 8px;
+    background: none;
+    border: 1px solid #cccccc;
+    font-size: 1em;
+    border-radius: 4px;
+    color: white;
+    font-size: 0.95em;
+    width: 100%;
+    font-family: Hind, sans serif;
+    box-sizing: border-box;	
+	}
+	
+@media screen and (max-width: 1024px) 	{.tml {margin-left: 24px; float:left;}   .btnp {padding: 18px } }
+@media screen and (max-width: 1600px) 	{.tml {margin-left: 32px; float:left;}}
+@media screen and (min-width: 1601px) 	{.tml {margin-left: 44px; float:left;}}
+	
+
+/** ----------------------------------------------------------------------------------------------
+  UI Confirm dialog
+ ----------------------------------------------------------------------------------------------*/
+.ui-widget-content {color: #111111;
+    padding: 24px;
+    line-height: 1.7em;
+    float: left;
+    width: calc(100% - 48px);}
+    
+    
+.ui-widget {
+    font-family: Segoe UI, sans serif;
+}
+.ui-dialog {
+    left: 0;
+    outline: 0 none;
+    overflow: hidden;
+    padding: 0.2em;
+    position: absolute;
+    top: 0;							
+    box-shadow: 3px 4px 4px #999999; 
+    
+    border: 1px solid #cccccc;
+    border-radius: 4px;
+    background: white;
+}
+.ui-front {
+    z-index: 100;
+}
+
+
+.ui-widget button {
+margin-right: 4px;
+    padding: 10px 52px;
+    color: #0d5072;
+    background-color: white;
+    box-shadow: none;
+    border: 1px solid #cccccc;
+    border-radius: 10px;
+    font-size: 1em;
+    }
+
+.ui-widget button:hover {
+background: #0D4363;
+	cursor:pointer;
+	color:white;
+}
+
+.ui-dialog-buttonset {
+ padding-left: 3px;	
+}

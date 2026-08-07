@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="19px" height="18px" viewBox="0 0 19 18" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 48.2 (47327) - http://www.bohemiancoding.com/sketch -->
+    <title>business-graph-line-2</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="RealPage-DM" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" transform="translate(-19.000000, -839.000000)">
+        <g id="Left-Nav" transform="translate(0.000000, 73.000000)">
+            <g id="Navigation/Left/Light/Tier-1" transform="translate(0.000000, 750.000000)">
+                <g id="business-graph-line-2" transform="translate(16.048632, 13.000000)">
+                    <g id="Frame_-_24px">
+                        <rect id="Rectangle-path" x="0" y="0" width="24.0729483" height="24"></rect>
+                    </g>
+                    <g id="Line_Icons" transform="translate(3.009119, 3.000000)" fill="#303436" fill-rule="nonzero">
+                        <g id="Group">
+                            <path d="M2.00607903,16 L2.00607903,0 L0,0 L0,17 C0,17.552 0.449361702,18 1.00303951,18 L18.0547112,18 L18.0547112,16 L2.00607903,16 Z" id="Shape"></path>
+                            <path d="M8.02431611,9.414 L10.3242857,11.706 C10.7164742,12.097 11.3503951,12.097 11.7425836,11.706 L17.7608207,5.706 L16.3425228,4.292 L11.0334347,9.586 L8.73346505,7.293 C8.3412766,6.902 7.70735562,6.902 7.31516717,7.293 L3.30300912,11.293 L4.72130699,12.707 L8.02431611,9.414 Z" id="Shape"></path>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

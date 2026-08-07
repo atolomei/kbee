@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="es" lang="es">
+
+<head>
+</head>
+
+<body>
+
+	<wicket:extend>
+	
+	<div class="auxpage kbee">
+	
+		<div wicket:id="header" /> 
+			
+		<div class="kbee-content-main-area-container">
+			<div class="mil280left">
+				<div  wicket:id="canvas" style="float: left; display: block;">
+			 		<div style="width:100%; float: left;" class="breadcrumb" wicket:id="breadcrumb" />	
+
+					<div style="width:100%; float: left; margin-top: 8px;">
+						<h2>Command</h2>
+					</div>
+					<div style="width:100%; float: left;">
+						<form id="form" method="post" action="#" wicket:id="form">
+							<textarea wicket:id="statement" rows="5" cols="60" style="float:left; margin-bottom: 24px; padding: 12px; font-size: 15px;"></textarea>
+							<div style="float: left; width: 100%;  margin-bottom: 12px;">
+								<a wicket:id="reindex-button"  href="#" style="float: left;" class="form-submit-button">Reindex</a>
+								<a wicket:id="cleanindex-button" href="#" class="form-submit-button" style="margin-left: 8px;">Clean Index</a>
+							</div>
+							<div wicket:id="feedback"></div>   
+						</form>
+					</div>
+					
+					<div style="width:100%; float: left; margin-top:2em;">
+						<div style="width:100%; float: left;">
+							<h2>History</h2>
+						</div>	
+						<div style="width:100%; float: left;">
+							<span wicket:id="history"></span>
+						</div>
+					</div>
+					
+					<!-- div class="text" style="margin: 54px 0 32px 0; float: left;">
+						<a href="/admin" class="button-nobck">Back</a>
+					</div-->
+				</div>
+			</div>
+		</div>
+	</div>			
+			
+	
+	</wicket:extend>
+</body>
+</html>
+

@@ -1,0 +1,25 @@
+
+<wicket:panel>
+			<div class="content-area">
+				<div style="width:100%; float: left; margin-top: 8px;">
+					<h2>SQL Query</h2>
+				</div>
+				<form id="form" method="post" action="#" wicket:id="form">
+					<textarea wicket:id="query" rows="5" cols="90" style="float: left; margin-bottom: 24px; padding: 12px; font-size: 15px;"></textarea>
+						<div style="float: left; width: 100%; margin-top: 0px;">
+							<a wicket:id="query-button" href="#" style="float: left;" class="form-submit-button">Submit</a>
+							<div wicket:id="feedback" style="float: left; width: 100%; margin-top: 12px;"></div>
+						</div>
+				</form>
+						
+				<div style="width:100%; float: left; margin-top:2em;">
+					<div style="width:100%; float: left;">
+						<h2>History</h2>
+					</div>	
+					<div style="width:100%; float: left;">
+						<span wicket:id="history"></span>
+					</div>
+				</div>
+			</div>	
+</wicket:panel>
+			

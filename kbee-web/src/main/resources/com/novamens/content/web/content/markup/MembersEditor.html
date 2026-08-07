@@ -1,0 +1,70 @@
+<wicket:head>
+	<style>
+		.classifier:hover 			{cursor:pointer; background: #f2f2f2;}
+		.member-element 			{height:initial; color: #191a1b;}
+		.separator 					{color:#999999; padding: 0 2px;}
+		.kbee .workflow-info .tab-pane dl.errors dt label.classifier {
+			color: red;
+		}
+	</style>
+</wicket:head>
+
+<wicket:panel>
+
+
+
+	<dl wicket:id="container" class="col-lg-12 members-editor">
+		<dt>
+			<span style="top: 1px;"  wicket:id="icon" class= "far fa-edit"></span>
+			
+			<div class="label-container">
+				<label style="width:auto; float:left;"  wicket:id="classifier" class="control-label classifier"></label>
+				<i wicket:id="mandatory" class="mandatory fas fa-asterisk required" aria-hidden="true"></i>
+			</div>
+			<a title="Open Values" wicket:id="open-dataset-values" target="_blank" href="#" style="position: absolute; right:18px; top: 12px;"><i style="font-size:16px;" class="far fa-cabinet-filing"></i></a>
+		</dt>
+		
+		
+		
+		<dd wicket:id="elements-container" class="elements-container">
+			<span class="member-item keep-existing" wicket:id="leavevalues-message" style="float:left;"><wicket:message key="leavevalues"/></span>
+			<wicket:container wicket:id="member">
+				<div class="member-item">
+					<a href="#">
+						<span style="cursor:pointer;" wicket:id="remove-link" class="close far fa-times"></span>
+					</a>
+					<span class="member-element"  wicket:id="member-name"></span>
+				</div>
+				<span class="ago" wicket:id="separator"> | </span>
+			</wicket:container>
+			<div class="member-item nullmember" wicket:id="nullmember">
+				<span class="member-element"><wicket:message key="none" /></span>
+			</div>
+			
+		</dd>
+		<dd class="row" style="float:left; width:100%;" wicket:id="selector"/>
+	</dl>
+</wicket:panel>
+
+
+<wicket:fragment wicket:id="selector-fragment">
+	<div class="form-vertical"> 
+		<div class="form-group"	 style="margin: 0; padding:0">
+			<div class="suggester-container" wicket:id="member" />
+			<div class="checkbox" wicket:id="leavevalues-container" style="padding-top: 16px; margin-top:24px; border-top: 1px solid  #d8dcdf;">
+				<input wicket:id="check" type="checkbox" style="margin-left: 0px;">
+				<label wicket:id="label" class="form-check-label"><wicket:message key="leavevalues"/></label>
+			</div>
+			<div class="alert alert-info" wicket:id="relation-message" />
+			<div class="alert alert-info" wicket:id="calculation-info">	
+				<div style="float: left;" wicket:id="calculated-message" />
+				<a style="float: right; font-size: small;" wicket:id="script-link">View Script</a>
+				<div style="float: left;margin-top: 20px; width:100%;" wicket:id="script-code" />
+			</div>
+			<div class="alert alert-info" wicket:id="error-message" style="color:red;"/>
+			<a class="btn-link col-lg-12" wicket:id="close-link"><wicket:message key="close" /></a>
+		</div>
+	</div>
+</wicket:fragment>
+
+

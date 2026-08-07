@@ -1,0 +1,25 @@
+
+
+content=Content
+
+role-entity-help=This Role we will grant Read/Write/Delete permissions and Workflow Assign Rules on Files that meet the above Condition <b>AND</b> <i>{0}</i> = <i>DataSetValue assigned to the User when assigning the Role</i>.<br /> Click on (i) for examples
+role-general-help=This Role we will grant Read/Write/Delete permissions and Workflow Tasks permissions on Files that meet above Condition
+
+
+
+editor.contentpermissions=Content Permissions
+editor.permissions=Business Process  
+
+editor.sections=Global Permissions NOOOOOOO
+editor.role = Info
+editor.audit= Audit Trail
+property.name = Name
+rule.editor.cancel = Cancel
+rule.editor.submit = Save
+property.id=Id
+editor.users = Members
+editor.useradmin = User Admin
+
+property.enableUserAdmin = Enable User Administration
+property.role = Rol
+property.assignableRoles = Roles Asignable

@@ -1,0 +1,21 @@
+
+property.UniquenessKeyValidator=Must be unique
+UniquenessKeyValidator=Debe ser único
+
+
+
+isapi=Este clasificador es usado por el API. Cambiar el <b>Name</b>, <b>Cantidad de DataSets</b> o <b>Status</b> puede afectar la interfase electrónica.
+
+
+property.description=Descripción
+
+name.help= 
+property.key=Alias 
+key.help=Usado por el API
+
+
+property.isPortalSubtitle=Subtítulos de Portales
+property.isPortal=Detalle de Portales
+
+
+  

@@ -1,0 +1,25 @@
+<wicket:panel>
+	<wicket:extend>
+		<div wicket:id="securitypanel"> 
+			<div wicket:id="creationpanel" style="width: 300px; float: left; padding: 5px 5px; border-radius: 4px; border: 1px solid #e2e2e2;">		
+				<input id="field" wicket:id="create" type="checkbox" class="field" width="18" height="18"/><span style="padding-left:5px;"><wicket:message key="member.editor.security.creation-message" /></span>
+			</div>
+			<div style="margin-top:8px;" wicket:id="grouppanel">
+				<h3 style="margin-bottom:2px;"><wicket:message key="grouplabel" /></h3>
+				<a wicket:id="grouplink" target="_blank"><span wicket:id="groupname">[Group name]</span></a>
+			</div>
+			<div style="margin-top:15px;" wicket:id="userpanel">
+				<h3 style="margin-bottom:2px;"><wicket:message key="userlabel" /></h3>
+				<a class="titlelink" wicket:id="userlink" target="_blank">
+					<span wicket:id="username">[User name]</span>
+					<span wicket:id="menulink" class="menutrigger"> ></span>
+				</a>
+				<div wicket:id="menu" style="display:none;" class="floating-panel"/>
+			</div>
+			<div style="margin-top:15px;" wicket:id="rulepanel">
+				<h3 style="margin-bottom:2px;"><wicket:message key="rulelabel" /></h3>
+				<a wicket:id="rulelink" target="_blank"><span wicket:id="rulename">[Rule name]</span></a>
+			</div>
+		</div>
+	</wicket:extend>	
+</wicket:panel>

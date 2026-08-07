@@ -1,0 +1,99 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<parent>
+		<artifactId>kbee</artifactId>
+		<groupId>com.novamens</groupId>
+		<version>6.1-SNAPSHOT</version>
+		<relativePath/>
+	</parent>
+	<modelVersion>4.0.0</modelVersion>
+
+	<artifactId>kbee-web</artifactId>
+	<name>${project.artifactId}</name>
+	<version>6.1-SNAPSHOT</version>
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	</properties>
+
+	<build>
+		<resources>
+			<resource>
+				<directory>src/main/resources</directory>
+				<includes>
+					<include>**/*.*</include>
+				</includes>
+			</resource>
+		</resources>
+	</build>
+
+	<description>Front end library for Content Management applications. It uses Wicket services provided by novamens-consoles and kbee-wfc-wicket to implement content management services on the novamens-content and kbee-content API</description>
+	<developers>
+		<developer>
+			<id>aferraria</id>
+			<name>Alejo Ferraria</name>
+			<email>aferraria@novamens.com</email>
+		</developer>
+		<developer>
+			<id>atolomei</id>
+			<name>Alejandro Tolomei</name>
+			<email>atolomei@novamens.com</email>
+		</developer>
+
+		<developer>
+			<id>grodriguez</id>
+			<name>Germán Rodriguez</name>
+			<email>grodriguez@novamens.com</email>
+		</developer>
+	</developers>
+
+	<dependencies>
+		<dependency>
+			<groupId>com.novamens</groupId>
+			<artifactId>kbee-content-classes</artifactId>
+			<version>6.1-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>com.novamens</groupId>
+			<artifactId>kbee-wfc-consoles</artifactId>
+			<version>6.1-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>com.novamens</groupId>
+			<artifactId>kbee-wfc-tinymce</artifactId>
+			<version>6.1-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>com.novamens</groupId>
+			<artifactId>kbee-services-classes</artifactId>
+			<version>6.1-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>com.novamens</groupId>
+			<artifactId>kbee-dm-indexer-java</artifactId>
+			<version>6.1-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>com.novamens</groupId>
+			<artifactId>kbee-services-spring</artifactId>
+			<version>6.1-SNAPSHOT</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>javazoom</groupId>
+			<artifactId>uploadbean</artifactId>
+			<version>1.0</version>
+		</dependency>
+		<dependency>
+			<groupId>org.jsoup</groupId>
+			<artifactId>jsoup</artifactId>
+			<version>1.12.1</version>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+			<version>1.7.26</version>
+		</dependency>
+
+
+	</dependencies>
+</project>

@@ -1,0 +1,40 @@
+
+<wicket:head>
+	<meta charset="utf-8" />
+	
+	
+	<style type="text/css">
+			.kbee .header {}
+			.kbee .header .logo {}	
+	</style>
+	
+	
+	
+</wicket:head>
+
+<wicket:panel>
+			<div class="header">	
+				<!-- div class="logo">
+					<a href="/workspace">
+						<div class="isologo">
+							<img src="/images/kbee.png"></img>	
+						</div>
+					</a>
+				</div-->
+	
+				<div id="console-name">
+				</div>
+	
+				<div id="console-specific-block">
+				</div>
+	
+				<div class="userinfo">
+					<div class="username" wicket:id="username" />
+					<div class="logout" style="float: right; display: inline;"><a class="button-nobck" href="<c:url value="j_spring_security_logout" />Logout</a></div>
+				</div>
+				
+				<div id="logout">
+				</div>
+				
+			</div>
+</wicket:panel>

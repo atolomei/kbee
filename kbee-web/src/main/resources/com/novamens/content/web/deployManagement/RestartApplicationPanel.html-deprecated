@@ -1,0 +1,35 @@
+<wicket:panel>
+    <div class="panel panel-bck">
+        <div class="row">
+            <form wicket:id="restartForm" class="col-lg-12 col-xs-12 col-md-12" autocomplete="on" role="form" style="margin-bottom: 0;">
+                <fieldset style="margin-bottom: 0;">
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="row">
+                                <div class="col-md-12 col-lg-6 col-xs-12 form-group" wicket:id="deployCheck"/>
+                                <div class="col-md-12 col-lg-6 col-xs-12 form-group" wicket:id="deploySelector"/>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-12 col-lg-6 col-xs-12 form-group" wicket:id="fallbackCheck"/>
+                                <div class="col-md-12 col-lg-6 col-xs-12 form-group" wicket:id="fallbackBackupSelector"/>
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>
+                <button wicket:id="restart" class="btn btn-default btn-sm form-group">
+                    <wicket:message key="restart"/>
+                </button>
+                <span wicket:id="restartfeedback"/>
+
+                <div wicket:id="deployMsgContainer">
+                    <span wicket:id="deployValidationMessage"/>
+                    <a wicket:id="markDeployOK">
+                        <wicket:message key="markDeployAsValid"/>
+                    </a>
+                </div>
+            </form>
+
+        </div>
+    </div>
+</wicket:panel>

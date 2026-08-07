@@ -1,0 +1,22 @@
+<wicket:panel>
+	<div style="float:right; ">
+		<div style="padding-right:16px; padding-left:0px; float:left;">
+			<div style="font-weight:bold;   text-transform: uppercase;font-size:14px;"><wicket:message key="workflow.taskname.task"/></div>
+			<div style="text-align: center;"  wicket:id="task-name"></div>	
+		</div>
+		
+		<div style="padding-right:16px; padding-left:16px; float:left;">
+			<div style="font-weight:bold;    text-transform: uppercase; font-size:14px;">
+				<wicket:message key="workflow.taskname.priority"/>
+			</div>
+			<div wicket:id="task-priority-tag" class="tag priority-urgent" style="padding: 3px 10px;">
+				<span style="font-size:11px;" wicket:id="task-priority" class="label"></span>
+			</div>			
+		</div>
+		
+		<div style="padding-right:0px; padding-left:16px; float:left;">
+			<div style="font-weight:bold;  text-transform: uppercase;font-size:14px;"><wicket:message key="version"/></div>
+			<div wicket:id="version" style="text-align: center;">2</div>	
+		</div>
+	</div>
+</wicket:panel>

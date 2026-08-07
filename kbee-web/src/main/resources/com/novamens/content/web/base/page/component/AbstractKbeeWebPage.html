@@ -1,0 +1,43 @@
+
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="es" lang="es">
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta charset="utf-8" />
+	<meta wicket:id="description" />
+	<link wicket:id= "favicon" />
+	<meta wicket:id="language" />
+	<meta wicket:id="robots" />
+	<meta wicket:id="rating" />
+	<title><wicket:container wicket:id="title"/></title>
+	<meta wicket:id="keywords" />
+	<link rel="stylesheet" type="text/css" href="css/dialog.css"/>
+	
+	<!-- link href='http://fonts.googleapis.com/css?family=Open+Sans:400italic,400,300,300italic,600,700' rel='stylesheet' type='text/css'-->
+	
+	<link wicket:id= "css" />
+
+	<script  type="text/javascript">
+		function setHeight() {
+			var h = viewport().height - 110 + "px";
+			document.getElementById('browser').style.height=h;
+		}
+		function viewport() {
+			 var e = window, a = 'inner';
+			if (!('innerWidth' in window )) {
+				a = 'client';
+				e = document.documentElement || document.body;
+			}
+			return { width : e[ a+ 'Width' ] , height : e[ a+'Height' ] };
+		}
+	</script>
+	
+</head>
+
+<body>
+	<wicket:child />
+</body>
+</html>

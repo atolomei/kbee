@@ -1,0 +1,63 @@
+ 
+
+<wicket:panel>
+	
+	<div class="title-block">
+		<span><h3 class="title" wicket:id="classifier"></h3></span>
+	</div>
+	
+	<fieldset>
+		<ul style="float: left; width: 100%">
+			<li class="item" wicket:id="leavecurrentvalue-container">
+				<div class="control">
+					<div class="panel" style="width: 100%; float: left;">
+						<div class="titlelink">
+							<label style="float:left;">
+								<a  style="display:block;">
+									<span class="member-item keep-existing">[Keep Existing Value]</span>
+									<span wiket:id="remove-link" class="remove-menutrigger">x</span>
+								</a>
+							</label>
+						</div>
+					</div>
+				</div> 
+			</li>
+			<li class="item" wicket:id="membersview">
+				<div class="control">
+					<div class="panel" style="width: 100%; float: left;">
+						<div class="titlelink">
+							<label style="float:left;">
+								<a style="display:block;">
+									<span wicket:id="member"></span>
+									<span wicket:id="remove-link" class="remove-menutrigger">x</span>
+								</a>
+							</label>
+						</div>
+					</div>
+				</div> 
+			</li>
+			<li wicket:id="selector">
+				<div class="control" style="float:left;">
+					<div class="finder">
+		 
+					
+							<input id="member" wicket:id="member"/>
+							<div class="icon-container">
+								<img wicket:id="searcher" src="/images/magnifier-999999.png"/ class="magnifier">
+							</div>
+							<a wicket:id="add-link" class="button with-border atright"><span>add</span></a>
+
+						<div wicket:id="recently-used" class="recently-used" style="float:left; width:100%;">
+							<wicket:container wicket:id="preference">
+							<span wicket:id="separator" class="separator" />
+								<a class="link-button" wicket:id="link">
+									<span wicket:id="name" class="name"/>
+								</a>
+							</wicket:container>
+						</div>
+					</div>	
+				</div>
+			</li>
+ 		</ul>
+	</fieldset>
+</wicket:panel>

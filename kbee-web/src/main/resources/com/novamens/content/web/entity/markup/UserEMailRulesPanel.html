@@ -1,0 +1,36 @@
+<wicket:panel>
+		<div class="standard-canvas">
+
+			<div class="row">	
+			<h2  class="col-md-8 col-lg-10 col-xs-12"><wicket:message key="email-rules"/> </h2>	
+			<div class="button-container col-lg-2 col-xs-12 col-md-4">
+				<a wicket:id="add-button" type="submit" class="btn btn-primary btn-sm"><wicket:message key="add-label"/></a>
+			</div>
+			</div>
+
+			<div class="row">	
+				<div class="col-lg-10 col-md-8 col-xs 12">
+					<div class="alert alert-info">
+						<wicket:message key="alert-note" />
+					</div>
+				</div>
+		
+				<div class="col-lg-10 col-md-8 col-xs 12">
+				<ul  class="list-group" style="width:100%;"  wicket:id="rules-container">
+					<li class="list-group-item" wicket:id="rules">
+						<a wicket:id="rule-link"><span class="list-group-item-heading" wicket:id="rule-label">[]</span></a>
+						<a><i class="far fa-times" style="float:right; top: 6px; cursor:pointer;" title="remove" alt="remove" wicket:id="remove-link"></i></a>
+					</li>
+				</ul>
+				</div>
+		</div>
+	</div>
+	
+	
+	<div wicket:id="remove-dialog" class="modal" tabindex="-1" role="dialog"/>
+</wicket:panel>
+
+
+
+
+

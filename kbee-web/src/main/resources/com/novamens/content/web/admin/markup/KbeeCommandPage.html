@@ -1,0 +1,90 @@
+
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+
+<body>
+	
+  <wicket:extend>
+	
+  <div class="auxpage kbee">
+		
+	<div wicket:id="header" />
+	
+	
+	<div class="mil280left">
+	  <div wicket:id="canvas" class="mil24left">
+		<div class="breadcrumb" wicket:id="breadcrumb" />
+			<div class="content-panel">
+				<div class="content-area">
+					<div style="width: 100%; float: left;">
+						<div class="text">
+								<div style="width: 50%; float: left;" class="block">
+									<h2>Command</h2>
+									<form id="form" method="post" action="#" wicket:id="form" style="margin-top: 0px; float:left;">
+										<label style="float:left; width:100%; font-weight:bold;">Name</label>
+										<select wicket:id="command" style="float:left; margin-bottom: 32px; padding: 10px 12px; font-size: 1em; border-radius: 3px; border: 1px solid #cccccc;"></select>
+																				
+										<label style="float:left; width:100%; font-weight:bold;">Parameters</label>
+										<textarea wicket:id="statement" rows="5" cols="48" style="float:left; margin-bottom: 32px; padding: 6px; font-size: 1em; border-radius: 3px; box-shadow: none; border: 1px solid #cccccc;"></textarea>
+
+										<div style="float: left; width: 100%;  margin-bottom: 32px;">
+							 				<a wicket:id="submit-button"  href="#" class="form-submit-button">Submit</a>
+							 				<a wicket:id="reset-button"  href="#"   class="form-submit-button" style="margin-left: 8px;">Reset</a>
+										</div>
+										<div wicket:id="feedback"></div>   
+									</form>
+								</div>
+								
+								<div wicket:id="status" style="width: 50%; float: right;" class="block">
+									<h2>Status</h2>
+									<div style="margin-bottom: 18px;">
+										<div wicket:id="status-container"><span class="label">Status.</span>   	<span class="value" wicket:id="status">Executing</span></div>
+										<div wicket:id="date-start-container"><span class="label">Started.</span>  	<span class="value" wicket:id="date-start">12 Oct 2012 (12 minutes ago)</span></div>
+							
+										<div wicket:id="progress-container"><span class="label">Progress.</span> 	<span class="value" wicket:id="progress">20%</span></div>
+										<div wicket:id="status-info-container"><span class="label">Status Info.</span> 	<span class="value" wicket:id="status-info">Executing batch</span></div>
+										<div wicket:id="etc-container"><span class="label">Estimated time to complete.</span><span class="value" wicket:id="etc">23 secs</span></div>
+
+										<div wicket:id="command-result" style="float:left;">
+											<div wicket:id="date-end-container" style="margin-top:24px;"><span class="label">Terminated.</span> <span class="value" wicket:id="date-end"></span></div>
+											<div wicket:id="duration-container"><span class="label">Duration.</span> <span class="value" wicket:id="duration"></span></div>
+											<div wicket:id="result-container"><span class="label">Result.</span><span class="value" wicket:id="result"></span></div>
+											<div wicket:id="result-details-container"><span class="label">Result details.</span><span class="value" wicket:id="result-details"></span></div>
+											<div wicket:id="resultcomments-container"><span class="label">Comments.</span><span class="value" wicket:id="resultcomments"></span></div>
+										</div>
+									
+									</div>
+									
+									<div>
+										<a wicket:id="stop-link" href="#" class="button-nobck">Stop</a>
+									</div>
+								</div>
+						</div>
+					</div>
+					
+					<!-- div wicket:id="log" style="width: 100%; float: left;">
+							<div class="block">
+									<h2>Execution Log</h2>
+							</div>
+					</div-->
+						<!-- div class="text" style="margin: 54px 0 32px 0; float: left;">
+							<a href="/admin" class="button-nobck">Back</a>
+						</div-->
+
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<!-- div wicket:id="footer" class="kbee-content-footer" /-->
+		
+	</div>
+	
+  </wicket:extend>
+
+</body>
+
+</html>

@@ -1,0 +1,38 @@
+
+<wicket:panel>
+
+
+	<div class="tab-pane">
+		<wicket:container wicket:id="properties" />
+
+
+		<div class="row">
+			<h2 class="col-lg-12 col-xs-12 col-md-12">Property Editor</h2>
+		</div>
+		<div class="panel panel-bck">
+			<div class="row">
+				<form wicket:id="form" class="col-lg-12 col-xs-12 col-md-12" autocomplete="on"
+					role="form" style="margin-bottom: 0;">
+					<fieldset style="margin-bottom: 0;">
+						<div class="row">
+							<div class="col-lg-12 col-xs-12 col-md-12">
+								<div class="row">
+									<div class="col-md-12 col-lg-3 col-xs-12 form-group"
+										wicket:id="key" />
+									<div class="col-md-12 col-lg-9 col-xs-12 form-group"
+										wicket:id="value" />
+								</div>
+							</div>
+						</div>
+					</fieldset>
+				</form>
+			</div>
+			<div class="row">
+				<div class="col-md-12 col-lg-12 col-xs-12" wicket:id="buttons" />
+			</div>
+		</div>
+	</div>
+</wicket:panel>
+
+
+

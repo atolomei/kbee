@@ -1,0 +1,42 @@
+
+<wicket:head>
+  <link href="https://vjs.zencdn.net/7.4.1/video-js.css" rel="stylesheet">
+  <script src="https://vjs.zencdn.net/ie8/ie8-version/videojs-ie8.min.js"></script>
+</wicket:head>
+
+
+<wicket:extend>
+	<div class="content kbsearcher video-canvas">
+		<div class="container-fluid">
+			<div wicket:id="video-panel" class="video-panel video">
+					<div class="player-panel">
+						<div wicket:id="player-container" class="player-container">
+	 								<div style="width:100%; float:left;">
+	 								 	<span wicket:id="player" class="player" width="100%" controls=""></span>
+	 								 	<script src='https://vjs.zencdn.net/7.4.1/video.js'></script>
+	 								 	<!-- video wicket:id="player_v2" class="player" width="100%" controls=""></video-->
+	 								 	<!-- audio wicket:id="player_v3" class="player" width="100%" controls=""></audio -->
+	 								 	<img wicket:id="img" style="left: 50%;    top: 50%;    transform: translate(-50%, -50%);    position: absolute;  max-width: 100%;    max-height: calc(88vh - 56px);"/>
+	 								 </div>
+						</div>
+					</div>
+					
+					<!--  ESTO VA AL PANEL DEL COSTADO  -->
+					<div style="padding-top: 12px; width:100%; float:left;">							
+							<div wicket:id="title-container"  class="title-container">
+								<h1 wicket:id="video-title"></h1>
+							</div>		
+							<div wicket:id="desc-container" class="abstract">
+								<span wicket:id="video-description"></span>
+							</div>
+					</div>
+			</div>
+		</div>
+	</div>
+
+	<div wicket:id="send-email-modal" class="modal window" 		tabindex="-2" role="dialog"/>
+
+	<!-- div wicket:id="tip" class="fixed bottom-right" tabindex="-6" /-->
+	<!-- div wicket:id="page-confirmation-dialog" class="modal window" tabindex="-20" role="dialog"/-->
+	
+</wicket:extend>

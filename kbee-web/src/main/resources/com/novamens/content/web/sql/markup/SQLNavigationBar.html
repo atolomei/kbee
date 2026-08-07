@@ -1,0 +1,118 @@
+<wicket:panel>
+ 
+<script>
+$(".sidebar").click(function(e) {
+	e.stopPropagation(); //stops click event from reaching document
+});
+$(document).click(function(event) {
+	if ($(event.target).closest("#menubutton").length) {
+		$(".sidebar").toggle();
+		$("#tasks").dropdown("toggle");
+	}
+	else {
+		$(".sidebar").hide(); //click came from somewhere else
+	} 
+});
+</script>
+
+ 
+ 	<nav wicket:id="top-navbar" class="navbar navbar-default navbar-fixed-top idoc">
+		<div class="container-fluid">
+				<div id="navbar">
+					<ul class="nav navbar-nav">
+						<li>
+							<a id ="menubutton" title="Main Menu" role="button" class="main-menu">  
+								<i class="far fa-bars" aria-hidden="true"></i>
+							</a>							
+						</li>
+					</ul>
+					
+					<wicket:container wicket:id="brand-kbee"/>
+					<wicket:container wicket:id="brand-idoc"/>
+					<wicket:container wicket:id="brand-factory"/>
+	
+					<ul class="nav navbar-nav navbar-right">
+						
+						<li class="dropdown hidden-xs"><wicket:container wicket:id="search"/></li>
+						<li class="dropdown hidden-xs"><wicket:container wicket:id="navigator"/></li>
+						
+						<li class="dropdown hidden-xs">									
+							<a wicket:id="info-link"> <i class="far fa-info-circle" /></a>
+						</li>
+						<li class="dropdown hidden-xs">
+							<wicket:container wicket:id="portal"/>
+						</li>
+						<li class="dropdown hidden-xs"><wicket:container wicket:id="settings"/></li>
+						<li class="dropdown hidden-xs"><wicket:container wicket:id="notifications"/></li>
+						<li class="dropdown hidden-xs"><wicket:container wicket:id="mynotes"/></li>
+						
+						<!-- li class="dropdown hidden-xs"><wicket:container wicket:id="myqueries"/></li-->
+						
+						<li class="dropdown hidden-xs"><wicket:container wicket:id="help"/></li>
+						<li class="dropdown hidden-xs">
+							<wicket:container wicket:id="user"/>
+						</li>
+					</ul>
+				</div>
+			
+		</div><!--/.container-fluid -->
+	</nav>
+
+	<wicket:container wicket:id="lateral-menu"/>
+
+</wicket:panel>
+
+<wicket:fragment wicket:id="help-fragment">
+	<a class="dropdown visible-md visible-lg" wicket:id="help-link"  title="Help" href="#" style="margin-left:0;"><span class="far fa-question-circle"/></a>
+</wicket:fragment>
+
+
+<wicket:fragment wicket:id="mynotes-fragment">
+	<a class="dropdown visible-md visible-lg" wicket:id="mynotes-link"  title="My Notepad" href="#" style="margin-left:0;"><span style="    font-size: 21px;  margin-top:1px;" class="far fa-edit"/></a>
+</wicket:fragment>
+
+<wicket:fragment wicket:id="myqueries-fragment">
+	<a class="dropdown visible-md visible-lg" wicket:id="myqueries-link"  title="My Saved Queries" href="#">
+			<i style="font-size: 20px;    float: left; " class="fal fa-star"/>
+	</a>
+</wicket:fragment>
+
+
+<wicket:fragment wicket:id="notifications-fragment">
+	<a class="dropdown visible-md visible-lg" wicket:id="notifications-link"title="Alerts" href="#" style="margin-left:0;">
+		<i style="color:white; font-size: 21px;  margin-top:1px;" class="fa fa-bell" aria-hidden="true"></i>
+		<span wicket:id="total-notifications" style="color:white; float:left; background: #c90000; right: 0px; line-height: 1em; padding:5px; font-size:8px; margin-top: 4px; min-width: 18px; text-align: center; margin-left: -4px; border-radius:50%; top:0">2</span>
+	</a>
+</wicket:fragment>
+
+
+<!-- wicket:fragment wicket:id="brand-kbee-fragment">
+	<a class="brand visible-md visible-lg" wicket:id="domain-link"  target="_blank" style="margin-left:0;">
+		<span style="color: white; font-size: 14px; text-transform: uppercase; font-weight: 600; line-height: 25px; float:left;" wicket:id="domain-name"></span>
+	</a>
+</wicket:fragment-->
+
+
+<wicket:fragment wicket:id="brand-idoc-fragment">
+	<a class="brand visible-md  visible-lg" wicket:id="rp-link"  target="_blank" style="margin-left:0;">
+		<img  wicket:id="brand" style="float:left; margin:0 0px; height: 22px; margin-top:1px;">
+	</a>
+	<a class="brand visible-md  visible-lg" wicket:id="domain-link"  target="_blank" >
+		<span class="title"  wicket:id="product"></span>
+		<span class="subtitle" wicket:id="domain-name"></span>
+	</a>
+	
+	<!-- span class="brand"  style="margin-left:0;"> <img  wicket:id="app"></span-->
+	
+</wicket:fragment>
+
+ 
+
+<wicket:fragment wicket:id="brand-factory-fragment">
+	<a class="brand visible-md  visible-lg" href="#" style="float: left; margin-left:0;"> <img  wicket:id="brand"> <span style="    margin-left: 15px;
+    color: #ffffff;  float: left;    font-size: 16px;    margin-top: 0px;    font-weight: 500;">Factory</span></a>
+</wicket:fragment>
+
+
+
+

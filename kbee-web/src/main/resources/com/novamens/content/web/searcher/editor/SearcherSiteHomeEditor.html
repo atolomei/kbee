@@ -1,0 +1,48 @@
+<wicket:panel>
+<div class="row">
+	<div class="col-lg-9 col-md-12 col-xs-12">
+		
+		<!-- div class="nav nav-bar" style="margin: 6px -15px 20px -15px;">
+			<div class="col-lg-12 col-xs-12">
+					<a class="btn btn-primary btn-sm" wicket:id="create-note"><span> <wicket:message key="newnote" /></span></a>
+					<a class="btn btn-default btn-sm" wicket:id="delete-all" style="text-decoration:none;"><span style="font-size:16px; padding:4px 8px 4px 0;" class="fal fa-trash-alt"></span><span><wicket:message key="delete-all" /> </span></a>
+			</div>
+		</div -->
+		
+		
+		<div class="panel row">
+			<h2 class="col-lg-12 col-xs-12">Blocks</h2>
+			<div class="col-lg-12 col-xs-12 col-md-12">
+			<ul class="col-lg-12 col-xs-12">
+	 			<li style="float: left; width:100%;" class="list-group-item" wicket:id="home-blocks">
+	 					<wicket:container  wicket:id="home-block-view-fragment" />
+	 					<div wicket:id="home-block-editor"></div>
+	 			</li>	
+			</ul>
+			</div>
+		</div>
+		
+		
+		<!-- div class="panel row">
+			<h2 class="col-lg-12 col-xs-12">Background image</h2>
+			<div class="col-lg-12 col-xs-12 col-md-12">
+			</div>
+		</div-->
+		
+	</div>	
+</div>
+</wicket:panel>
+
+
+<wicket:fragment wicket:id="home-block-view-fragment">
+	<a wicket:id="title-link" class="btn-link" href="#">
+		<span wicket:id="title"></span>
+		<!-- span wicket:id="iql"></span -->
+	</a>
+	<!-- a class="dropdown visible-md visible-lg" wicket:id="myqueries-link"  href="#">
+			<i style="font-size: 20px;    float: left; " class="far fa-star"/>
+	</a-->
+</wicket:fragment>
+
+
+

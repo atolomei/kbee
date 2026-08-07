@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="es" lang="es">
+
+
+<body>
+
+ <wicket:extend>
+	
+	<div class="auxpage kbee">
+		<div class="header-container">
+			<div class="header">	
+				<div class="logo">
+					<a href="/workspace" style="float: left;">
+						<div class="isologo" style="float: left;">
+							<img wicket:id="logo"></img>
+						</div>
+					</a>	
+				</div>
+			</div>
+		</div>
+		
+		<div wicket:id="canvas" class="mil24">
+			<div class="breadcrumb" wicket:id="breadcrumb" />
+			<div class="content-panel">
+				<div class="content-area">
+					<div class="title">
+						<h1>Logs</h1>
+					</div>
+					<div class="text">
+						<div style="float: left; width:100%;">
+							<div class="block" style="float: left; width:100%;">
+								<div class="table">
+									<div class="headers">
+											<span class="header colName" style="width:50%;">Name</span>
+											<span class="header colStatus">Size</span>
+											<span class="header colTimestamp">Modified</span>
+									</div>
+
+									<ul class="data">
+										<li wicket:id="log">
+											<a wicket:id="loglink" class="colName" style="width:50%;">
+												<span class="value" wicket:id="name"></span>
+											</a>
+											<span wicket:id="size" class="value colStatus"></span>
+											<span icket:id="date" class="value colTimestamp"></span>
+										</li>
+									</ul>
+								</div>
+							</div>
+						</div>
+					</div>
+					
+					<div class="text" style="margin: 54px 0 32px 0; float: left;">
+						<a href="/admin" class="button-nobck">Back </a>
+					</div>
+
+				</div>
+			</div>
+		</div>
+	</div>
+	
+ </wicket:extend>
+</body>
+</html>
+

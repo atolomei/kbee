@@ -1,0 +1,26 @@
+<wicket:panel>
+	<wicket:extend>
+		<div class="editor">
+			<div class="working-area"> 		
+			
+				<form id="form" method="post" action="#" wicket:id="form">
+					<div wicket:id="feedback" class="feedback fdsuperior"></div>
+					<div wicket:id="name-editor" class="field-block expanded"/>
+					<div wicket:id="condition-editor" class="field-block expanded"/>
+					<div class="field-block expanded">
+						<div class="title-block">
+							<h2 class="title"></h2>
+						</div>
+						<div wicket:id="acl-editor"/>
+					</div>
+
+					<div wicket:id="buttons-container" style="float: left; margin-top: 76px; margin-bottom: 120px;">
+						<a class="form-submit-button" wicket:id="submitener"><wicket:message key="rule.editor.submit" /></a>
+						<a class="button-nobck"  wicket:id="cancel" style="margin-left: 24px;"><wicket:message key="rule.editor.cancel" /></a>
+					</div>
+					
+				</form>
+			</div>
+		</div>
+	</wicket:extend>
+</wicket:panel>

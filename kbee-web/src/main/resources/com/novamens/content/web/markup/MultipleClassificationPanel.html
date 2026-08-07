@@ -1,0 +1,38 @@
+<wicket:panel>
+
+	<div class="modal-dialog">
+	
+	<div class="modal-dialog-body">
+		<div class="content-editor" style="width: 90%;">
+			<div class="editor multiple-classification" style="padding:0;">
+					<form id="labelsform" method="post" action="#" wicket:id="form" class="form">
+							<div style="width:100%; float:left;" >
+								<div class="members-block" style="width: 40%; margin-right: 4%; padding-right: 4%; border-right: 1px solid #cccccc; float: left;"> 	
+									<ul class="members-list">
+										<li class="component" wicket:id="classification">
+											<div wicket:id="members"/>
+										</li>
+									</ul>
+									<div class="buttons-container" wicket:id="actions" style="width: 100%; margin-top: 2em;"> 	
+										<div>
+											<a class="form-submit-button p49left" wicket:id="ok-button"><wicket:message key="classification.form.submit" /></a>
+										</div>
+										<a class="form-submit-button p49right" wicket:id="cancel-button"><wicket:message key="classification.form.cancel" /></a>
+									</div>
+								</div>
+								<div style="display: inline; float: left;width: 50%;">
+									 <h2>Selection</h2>	
+									<ul style="width: 100%; max-height: 460px; overflow: auto;">
+										<li style="width: 100%;display: block;padding-bottom: 5px;" wicket:id="selection">
+											<span wicket:id="title">1</span>
+										</li>
+									</ul>
+								</div>
+							</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+</wicket:panel>

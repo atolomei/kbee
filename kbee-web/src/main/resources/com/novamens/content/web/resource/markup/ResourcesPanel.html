@@ -1,0 +1,185 @@
+<wicket:head>
+	<style type="text/css">
+		.kbee .resources-panel a.resource .fal.fa-link {font-size: 20px;}
+	</style>
+</wicket:head>
+
+<wicket:panel>
+	
+	<div class="resources-panel" id="resources-panel">
+	
+		<wicket:container wicket:id="toolbar" />
+		
+		<ul wicket:id="resources-view" class="media-list">
+			<li class="media" wicket:id="new-resource-editor" >
+				<div class="media-body">
+					<div wicket:id="editor" class="inline-editor"/>
+				</div>
+			</li>
+			<li wicket:id="groups-list">	
+				<ul class="col-lg-12 col-md-12 col-xs-12">
+					<li class="media">
+						<h3 wicket:id="group-label">[]</h3>
+					</li>
+					<li class="media" wicket:id="resources-list" >
+						<div wicket:id="resource-view"/>
+					</li>
+				</ul>
+			</li>
+			<li class="media" wicket:id="resources-list" >
+				<div wicket:id="resource-view"/>
+			</li>
+			<li>
+				<div id="console"></div>
+			</li>
+		</ul>
+		<div wicket:id="initial-block" />
+		<script>
+			$(document).ready(function(){
+				$('[data-toggle="tooltip"]').tooltip();   
+			});
+		</script>
+		<div wicket:id="remove-dialog" class="modal" tabindex="-1" role="dialog"/>
+		<div wicket:id="confirm-dialog" class="modal" tabindex="-2" role="dialog"/>
+	</div>
+</wicket:panel>
+
+<wicket:fragment wicket:id="metainfo-view-fragment">
+	<div wicket:id="image-container" class="media-left">
+		<a class="resource" wicket:id="image-link" data-toggle="tooltip" data-placement="right">
+			<img wicket:id="image" class="media-object" />
+			<img class="player" style="position: absolute;"  wicket:id="player"  />
+			<span wicket:id="glyphicon" />
+		</a>
+	</div>
+	<div class="media-body" wicket:id="body">
+		<a class="btn-link" style="text-decoration:none; color: #191a1b;" wicket:id="title-link">
+			<h4 class="media-heading" wicket:id="resource-title"></h4>
+		</a>
+		<div>
+			<div wicket:id="resource-description" style="white-space: initial; float:left;line-height: 1.7em; width:96%;max-width:1200px;"></div>
+			<div wicket:id="url" style="white-space:initial; float:left; width:100%; line-height:1.5em;"></div>
+		</div>
+		<div>									
+			<div wicket:id="resource-lastmodified-by" style="width:96%; max-width:1200px;" class="metadata"></div>
+			<div wicket:id="resource-uploaded" style="width:96%; max-width:1200px;" class="metadata"></div>
+		</div>
+		<div class="inline-form col-lg-12"  style="padding:15px; display: inline-block" wicket:id="versions"></div>
+		<div wicket:id="editor" class="inline-editor" />
+	</div>
+		
+	<div class="dropdown">
+		<a id="dmenu" data-toggle="dropdown"  wicket:id="menulink"> <i class="far fa-ellipsis-h" aria-hidden="true"></i></a>
+		<ul wicket:id="menu" class="dropdown-menu dropdown-menu-right" aria-labelledby="dmenu" />
+	</div>
+</wicket:fragment>
+
+
+<wicket:fragment wicket:id="versions-fragment">
+	<table class="table table-bordered table-hover" style="width:100%; float:left; margin:0;">
+		<thead>
+			<tr class="headers">
+				<th class="col-lg-5"><span><wicket:message key="version.name" /></span></th>
+				<th class="col-lg-1" style="text-align: center;"><span><wicket:message key="version.number" /></span></th>
+				<th class="col-lg-2"><span><wicket:message key="version.date" /></span></th>
+				<th class="col-lg-3"><span><wicket:message key="version.user" /></span></th>
+			</tr>
+		</thead>
+		
+		<tbody>
+	 		<tr wicket:id="version">
+				<td class="col-lg-2">
+					<a class="btn btn-link" style="padding:0;" wicket:id="link"><span wicket:id="name">[file name]</span></a>
+				</td>
+				
+				<td style="text-align: center;" wicket:id="version" class="col-lg-1">[version]</td>
+				
+				<td wicket:id="date" class="col-lg-2">[date]</td>
+				<td wicket:id="user" class="col-lg-1">[user name]</td>
+				
+			</tr>
+		</tbody>
+	</table>
+	
+	<div style="width:100%; float:left;">
+		<a class="btn btn-link" style="float:right" wicket:id="close"> <wicket:message key="close" /></a>
+	</div>	
+	
+</wicket:fragment>
+
+<wicket:fragment wicket:id="editor-fragment">
+	<form wicket:id="form">
+		<div class="col-xs-12 col-lg-12 form-group" wicket:id="title"/>
+		<div class="col-xs-12 col-lg-12 form-group" wicket:id="Url"/>
+		<div class="col-xs-12 col-lg-12 form-group" wicket:id="description"/>
+		<div class="col-xs-12 col-lg-12 form-group" wicket:id="inPortalVersion"/>
+		<div class="col-xs-12 col-lg-12 form-group" wicket:id="group"/>
+		<div class="col-xs-12 col-lg-12">
+			<a class="btn btn-xs btn-default" wicket:id="cancel-link"><wicket:message key="cancel" /></a>
+			<a class="btn btn-xs btn-primary" wicket:id="save-link"><wicket:message key="save" /></a>
+		</div>
+	</form>
+</wicket:fragment>
+
+<wicket:fragment wicket:id="file-uploader-fragment">
+	<button wicket:id="pickfiles-button" id="pickfiles" class="btn btn-md btn-default" type="button">
+		<span><wicket:message key="add"/></span> 
+	</button>
+	<button wicket:id="groups-button" class="btn-md btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
+		<wicket:message key="add"/>
+		<span style="margin-left: 8px;" class="caret"></span>
+	</button>
+
+	<ul class="dropdown-menu dropdown" wicket:id="groups-menu">
+		<li><a href="#"></a></li>
+	</ul>	
+</wicket:fragment>
+
+<wicket:fragment wicket:id="link-factory-fragment">
+	<button wicket:id="add-link" id="addlink" class="btn btn-md btn-default atright" type="button">
+		<span><wicket:message key="add-link" /></span> 
+	</button>
+</wicket:fragment>
+
+<wicket:fragment wicket:id="tree-uploader-fragment">
+	<button wicket:id="add-tree" id="addtree" class="btn btn-md btn-default atright" type="button">
+			<span><wicket:message key="add-tree"/></span> 
+	</button>
+	<div>
+		<div wicket:id="add-tree-modal" class="modal window" tabindex="-1" role="dialog"/>
+	</div>
+</wicket:fragment>
+
+<wicket:fragment wicket:id="toolbar-fragment">
+	<nav class="navbar">
+		<div id="navbar" class="col-lg-12 col-xs-12 col-md-12 toleft toright">
+			<ul wicket:id="upload-panel" class="nav navbar-nav navbar-left" style="width:auto;border-bottom: medium none;">
+				<li wicket:id="file-uploader"/>
+				<li wicket:id="link-factory"/>
+				<li wicket:id="tree-uploader"/>
+			</ul>
+
+			<div wicket:id="dragdrop" style="padding: 8px 30px; color: #666666; font-size: 13px;  text-decoration: underline; float:left;">
+				<span><wicket:message key="dragdrophere" /></span>
+			</div>
+			
+			<div wicket:id="quotalimit">
+				<span><wicket:message key="quotalimit" /></span>
+			</div>
+			
+			<div wicket:id="right-menu" class="actions" style="float:right;">
+				<a id="res-dmenu" data-toggle="dropdown"  wicket:id="res-menulink"><i class="btn-mini far fa-ellipsis-h" aria-hidden="true"></i></a>
+				<ul wicket:id="res-menu" class="dropdown-menu dropdown-menu-right" aria-labelledby="res-menu" />
+			</div>
+		</div>	
+	</nav>
+</wicket:fragment>
+
+<wicket:fragment wicket:id="initial-block-fragment">
+	<div class="col-lg-12 col-xs-12" style="border-radius: 4px; padding: 12px; margin-top: 37px">
+		<figure class="fad fa-cloud-upload-alt" style="opacity: 0.65; font-size: 125px; color: #0d5072; width: 100%; text-align: center; padding: 15px 0 15px 0;"></figure>
+		<span  style="text-align: center; font-size:20px;  float: left; width: 100%; line-height: 1.45em; color: #0d5072; font-weight: 300; padding-bottom: 72px;">
+			<wicket:message key="dragdrophere" />
+		</span>
+	</div>
+</wicket:fragment>

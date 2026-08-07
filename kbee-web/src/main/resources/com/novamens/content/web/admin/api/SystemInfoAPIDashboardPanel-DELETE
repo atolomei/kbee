@@ -1,0 +1,15 @@
+<wicket:panel>
+
+	
+	<div class="content">
+		<div  class="application-main stacked">
+			<div class="tab-pane">
+				<div wicket:id="info"></div>
+			</div>
+		</div>
+	</div>	
+		
+</wicket:panel>
+
+
+

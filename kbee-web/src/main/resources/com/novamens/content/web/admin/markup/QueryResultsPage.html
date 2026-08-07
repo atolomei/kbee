@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="es" lang="es">
+
+<body>
+	<wicket:extend>
+		<div class="auxpage kbee">
+			<div class="header-container">
+				<div class="header">
+					<div class="logo">
+						<a href="/workspace" style="float: left;">
+							<div class="isologo" style="float: left;">
+								<img wicket:id="logo"></img>
+							</div>
+						</a>
+					</div>
+				</div>
+			</div>
+			
+			<div wicket:id="canvas" class="main-area" style="float: left; width:100%; margin: 0 12px 0 12px;">
+				<div class="breadcrumb" wicket:id="breadcrumb" />
+				<div wicket:id="contenedor" style="margin-top: 32px; width: 100%; display: block; float: left; min-height: 750px;">
+						<div wicket:id="result" style="width: 100%; float: left;" />
+						<div wicket:id="error-panel" style="width: 100%; float: left;" />
+				</div>
+				
+				<div style="float: left; width:100%; margin: 24px 0 200px 32px;">
+					<div wicket:id="query-input" style="width: 100%; float: left;" />
+				</div>
+			
+			</div>
+			<div wicket:id="footer" class="kbee-content-footer" />
+		</div>
+
+	</wicket:extend>
+</body>
+</html>
+
+

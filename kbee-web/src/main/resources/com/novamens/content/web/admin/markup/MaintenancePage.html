@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="es" lang="es">
+
+<head>
+</head>
+
+<body>
+
+	<wicket:extend>
+	
+	<div class="auxpage kbee">
+		
+		<div wicket:id="header" />
+		  	
+		<div class="kbee-content-main-area-container">
+			<div class="mil280left">
+				<div  wicket:id="canvas" style="float: left; display: block;">
+					<div style="width:100%; float: left;" class="breadcrumb" wicket:id="breadcrumb" />	
+					<div style="width:100%; float: left;">
+						<form id="form" method="post" action="#" wicket:id="form">
+							<div style="margin-bottom: 20px;">
+						 	<div wicket:id="operation">
+							 	<label style="float: left; width: 100%; padding-bottom: 10px;"><input wicket:id="normal" type="radio" name="ticker"/>Normal Mode</label>
+    							<label style="float: left; width: 100%;padding-bottom: 10px;"><input wicket:id="maintenance" type="radio" name="ticker"/>Maintenance Mode</label>
+						 	</div>
+						 	</div>
+							<div style="float: left; width: 100%;  margin-bottom: 12px;margin-top: 20px;">
+								<a wicket:id="setmode-button"  href="#" style="float: left;" class="form-submit-button">Set Mode</a>
+							</div>
+							<div wicket:id="feedback"></div>   
+						</form>
+					</div>
+					<div class="text" style="margin: 54px 0 32px 0; float: left;">
+						<a href="/admin" class="button-nobck">Back</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>			
+			
+	
+	
+	</wicket:extend>
+</body>
+</html>
+

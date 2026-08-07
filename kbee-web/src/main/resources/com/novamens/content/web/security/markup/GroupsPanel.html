@@ -1,0 +1,41 @@
+<wicket:panel>
+
+	
+	<div class="title-block">
+			<h2 class="title">
+				<wicket:message key="groupspanel.parent" />
+			</h2>
+		</div>
+	
+		
+	<fieldset>
+		<ul class="box" style="float: left;">
+			<li class="item" wicket:id="groupsview">
+				<div class="control">
+					<div class="panel">
+						<div>
+							<label>
+								<a>
+									<span wicket:id="name"></span>
+								</a>
+							</label>
+						</div>
+					</div>
+					<div class="toolbar">	
+						<a class="link-button" style="margin-left: 12px;" wicket:id="remove-link"><wicket:message key="groupspanel.remove" /></a>
+					</div>	
+				</div>
+			</li>
+			<li class="finder">
+				<div class="control" style="float:left;">
+					<div style="float:left;">
+						<label for="group">
+							<input id="group" wicket:id="group "class="field"/>
+							<img wicket:id="searcher" src="/images/magnifier-999999.png"/>
+						</label>
+					</div>	
+				</div>
+			</li>
+		</ul>
+	</fieldset>
+</wicket:panel>

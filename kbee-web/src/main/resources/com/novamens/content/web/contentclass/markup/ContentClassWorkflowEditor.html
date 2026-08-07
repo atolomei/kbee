@@ -1,0 +1,23 @@
+
+
+<wicket:panel>
+
+
+
+<div class="standard-canvas">	
+		<div class="row">
+			<h2 class="col-md-12 col-lg-10 col-xs-12"> <wicket:message key ="workflow"/></h2>
+			<div class="col-md-2 col-lg-2 col-xs-12">
+				   <a style="float:right; margin-top:-5px;" wicket:id="new-button" class="btn btn-sm btn-primary" type="button">
+					<wicket:message key ="new"/>
+				</a>
+			</div>
+		</div>
+	<div class="stacked-tabs content-class-workflow-editor"> 
+		<div wicket:id="tabs" class="tabs"/>
+	</div>
+</div>
+
+	<div wicket:id="confirmation-dialog" class="modal window" tabindex="-4" role="dialog"/>
+	
+</wicket:panel>

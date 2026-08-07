@@ -1,0 +1,31 @@
+<wicket:panel>
+	<div class="hit-panel">
+		<dl>
+			<dd class="title"  wicket:id="title-container"  style="width: auto; float: none; overflow: hidden; margin-bottom: 4px;">
+					<div wicket:id="icon-container" style="float: left; width: auto">
+						<img wicket:id="icon" class="icon" />
+					</div>
+					<div style="overflow:hidden; width: auto; float: none;">
+						<a wicket:id="titulo-link" style="width:100%;">
+							<span wicket:id="titulo"/>
+							<span wicket:id="menulink" class="menutrigger"> ></span>
+						</a>
+					</div>
+			</dd>
+			
+			<dt wicket:id="descripcion"><span wicket:id="label"></span></dt>
+			
+			<dt  wicket:id="toolbar" style="float: left; margin-top: 2.5em; margin-bottom: 1.5em; width:100%;">
+				<a class="hitpanel-button" 			wicket:id="open-link">		<span> <wicket:message key="open" /></span></a>
+				<a class="hitpanel-button atright" 	wicket:id="archive-link">	<span> <wicket:message key="archive" /></span></a>
+				<a class="hitpanel-button atright" 	wicket:id="enable-link">	<span> <wicket:message key="enable" /></span></a>
+				<a class="hitpanel-button atright" 	wicket:id="delete-link">	<span> <wicket:message key="delete" /></span></a>
+			</dt>
+		</dl>
+		
+	</div>
+
+	<div wicket:id="menu" style="display:none;" class="floating-panel"/>
+	
+</wicket:panel>
+

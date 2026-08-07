@@ -1,0 +1,43 @@
+<wicket:panel>
+	 
+		<div class="row col-lg-8 col-md-12 col-xs-12">
+			<form wicket:id="gform" class="form-container" role="form">
+				<div class="browser col-lg-12 col-md-12 col-xs-12">
+					<div class="row">		
+						<nav wicket:id="navigation-bar" class="navbar">
+							
+							<ul class="toolbar-buttons nav navbar-nav navbar-left" style="border-bottom:none; width:auto;">
+								<wicket:container wicket:id="navigator"/>
+							</ul>
+							
+							<ul class="toolbar-buttons nav navbar-nav navbar-right" style="border-bottom:none; width:auto;">
+								<li>
+									<div wicket:id="navigation-label"/>
+								</li>
+							</ul>
+						</nav>
+						<ul class="list-group" style="width:100%; margin-bottom: 142px;">
+							<li wicket:id="members" class="list-group-item">
+								
+								<a class="btn-link" wicket:id="user-link">
+									<span class="list-group-item-heading" wicket:id="member"/>
+								</a>
+								
+								<div class="dropdown open" style="float:right;">
+								<a wicket:id="delete-link"><i class="far fa-times" style="float:right;cursor:pointer;" id="menulinkd1a"></i></a>
+								</div>
+							</li>
+							<li wicket:id="memberselector" class="list-group-item selector">
+								<div class="form-vertical">
+									<div wicket:id="member"/>
+								</div>
+							</li>
+						</ul>
+					</div>			
+				</div>
+			</form>
+		</div>
+		<div class="button-container col-md-4 col-lg-4 col-xs-12" wicket:id="buttons"/>
+		
+	 		
+</wicket:panel>

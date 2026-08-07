@@ -1,0 +1,80 @@
+
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+
+<body>
+
+<wicket:extend>
+	
+<div class="viewport">
+
+    <div class="page signin">
+        <header>
+            <a class="logo" href="http://www.realpage.com">
+                <img wicket:id= "logo-realpage" alt="logo" />
+            </a>
+            <div class="select-menu large align-right" ng-class="selectMenu.state">
+                <p class="link" ng-click="selectMenu.toggle($event)">
+                    Support
+                </p>
+                <ul>
+                    <li><a href="http://www.realpage.com" target="_blank">OneSite FAQ's</a></li>
+                    <li><a href="http://www.realpage.com" target="_blank">RealPageID</a></li>
+                    <li><a href="http://www.realpage.com" target="_blank">Support Form</a></li>
+                    <li><a href="http://www.realpage.com" target="_blank">Support Services</a></li>
+                </ul>
+            </div>
+        </header>
+
+        <div class="content">
+            <div class="login-form">
+                <h2>Sign On to i-DOC</h2>
+
+			<form id="formulario" name="f" action="/j_spring_security_check" method="post">
+               	<fieldset>
+	                <div class="form-input large">
+	                    <input type="text" name="j_username" class="input-text" placeholder="User Name" tabindex="1"></input>
+	                    <span class="placeholder">User Name</span>
+	                </div>
+	                <div class="form-input large">
+	                    <input name="j_password" type="password" class="input-text" placeholder="Password" tabindex="3"></input>
+	                    <span class="placeholder">Password</span>
+	                </div>
+	    
+	    				<div class="panel" style="font-weight: 600;">
+							<span wicket:id="error" class="error"></span>
+						</div>
+	    
+	    
+	                <div class="form-block">
+	                    <input t name="submit" value="Sign On" type="submit" class="button large signin" tabindex="3"></input>
+	                    <a class="forgot-pass" href="/forgotpassword">
+	                    sss
+	                        Forgot your password?
+	                    </a>
+	                </div>
+                </fieldset>
+              </form>
+            </div>
+            <div class="logo-display">
+               		<div style="padding-top: 111px;">
+                		<img class="logo" wicket:id= "logo-idoc"  alt="">
+            		</div>
+            </div>
+        </div>
+
+        <footer>
+            <p class="copyright">&copy;<span wicket:id="year" /> RealPage, Inc. All trademarks are the properties of their respective owners.</p>
+        </footer>
+    </div>
+
+</div>
+		
+	</wicket:extend>
+</body>
+</html>
+
+	
+
+

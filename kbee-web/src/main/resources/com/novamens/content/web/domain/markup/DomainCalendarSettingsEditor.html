@@ -1,0 +1,29 @@
+<wicket:panel>
+
+<div class="row standard-canvas">
+
+	<div class="col-lg-8 col-md-8 col-xs-12">
+	
+		<h2  class="col-md-12 col-lg-10 col-xs-12" style="padding:0;"><wicket:message key="calendar" /></h2>
+		<div class="form-group alert alert-info" role="alert"><wicket:message key="note" /></div>
+		
+		
+		<div class="row">
+			<form wicket:id="form"  class="col-md-12 col-lg-12 col-xs-12 form-container" autocomplete="on" role="form">
+				<fieldset>
+					<div class="row">
+						<div class="col-md-12 col-lg-12 col-xs-12 form-group" wicket:id="calendarSettings"/>					
+						<div class="col-md-12 col-lg-12 col-xs-12 form-group" wicket:id="cutoffTime"/>
+						
+						<div class="col-md-12 col-lg-12 col-xs-12 form-group" wicket:id="starthour"/>
+						<div class="col-md-12 col-lg-12 col-xs-12 form-group" wicket:id="endhour"/>
+						
+					</div>	
+				</fieldset>
+			</form>
+		</div>
+	</div>			
+	<div class="button-container col-md-4 col-lg-4 col-xs-12" wicket:id="buttons"/>
+</div>
+		
+</wicket:panel>

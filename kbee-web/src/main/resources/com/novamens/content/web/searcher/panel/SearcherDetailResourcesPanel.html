@@ -1,0 +1,34 @@
+<wicket:panel>
+	
+	
+	<div wicket:id="resources-main-container" class="detail-area resources-panel">
+	
+		<section wicket:id="legacysection" class="section">
+			<div class="section-header">
+				<h2 class="section-header" wicket:id="resources.title">[title]</h2>
+			</div>
+				
+			<!-- span wicket:id="no-res" class="ago" /-->
+			<ul id="resources" wicket:id="resources-list" class="media-list col-lg-12 col-md-12 col-xs-12 icon">
+					<li class="media" wicket:id="resource-item" >
+					<wicket:container wicket:id="resource-view"/>
+				</li>
+			</ul>
+		</section>
+		
+		
+		<div id="resources" wicket:id="resource-group" class="media-list icon">
+			<section class="section">
+				<div class="media-resource-group">
+					<h2 class="section-header"  wicket:id="group-label">[]</h2>
+				</div>
+				<ul>
+					<li class="media" wicket:id="resource-item" >
+						<div wicket:id="resource-view"/>
+					</li>
+				</ul>
+			</section>
+		</div>
+		
+	</div>
+</wicket:panel>

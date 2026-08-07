@@ -1,0 +1,34 @@
+<wicket:panel>
+	 
+	<section class="searcher-browser" style="padding-left: 0px; float: left;">
+			
+			<!-- LEFT PANEL ------------------------------------>
+			
+			<div class="left-panel">
+					<nav wicket:id="navigator" class="navbar"/>
+					<div wicket:id="hits" class="grid" style="float:left; width:100%;" />
+			</div>
+			
+
+			<!-- RIGHT PANEL ------------------------------------>
+			
+			<div class="search-right-panel ">
+						<div class="panel-header">
+							<h2> <wicket:message key="filters"/></h2>
+							<div class="nav navbar-nav navbar-right">
+								<!-- a class="btn-mini" title="Close">
+									<i class="far fa-times" id="close6ba"></i>
+								</a-->
+							</div>
+						</div>
+						<div wicket:id="parameters" class="col-lg-12 col-xs-12 col-md-12"/>
+						<div wicket:id="facets" class="facetpanel col-lg-12" />
+			</div>
+			
+	</section>
+	
+	<div wicket:id="save-query-window" class="modal window" tabindex="-1" role="dialog" />
+	
+	
+	
+</wicket:panel>

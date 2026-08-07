@@ -1,0 +1,31 @@
+
+
+content=Bibliotecas
+role-entity-help=Este Rol otorga permisos de Lectura/Escritura/Borrado y permisos sobre las Tareas de Procesos. <br />Los Contenidos sobre los que se otorgan permisos son los que evalúen 'verdadero' sobre la condición de arriba <b>Y</b> <i>{0}</i> = <i>DataSetValue cuando se asigna el Rol a un Usuario</i>
+ 
+role-general-help= Este Rol otorga permisos de Lectura/Escritura/Borrado y permisos sobre las Tareas de Procesos.<br />Los Contenidos sobre los que se otorgan permisos son los que evalúen 'verdadero' sobre la condición de arriba
+ 
+
+
+
+
+main-sections=Este panelSSSSSSSSSSSSSSSSSSSS Habilita el <b>Acceso</b> a las principales secciones. Los contenidos y acciones visibles y disponibles en cada Sección dependen de los permisos del usuario.
+
+
+editor.contentpermissions=Permisos sobre Contenidos
+editor.permissions=Permisos en Tareas
+
+editor.users = Miembros 
+editor.sections=Secciones
+editor.role = Info
+editor.audit= Auditoría  
+property.name = Nombre
+rule.editor.cancel = Cancelar
+rule.editor.submit = Grabar
+property.id=Id
+editor.users = Miembros
+editor.useradmin = Adm de Usuarios
+
+property.enableUserAdmin = Habilita Administración de Usuarios
+property.role = Rol
+property.assignableRoles = Roles Asignables

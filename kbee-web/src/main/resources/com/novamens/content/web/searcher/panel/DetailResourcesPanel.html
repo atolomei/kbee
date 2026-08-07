@@ -1,0 +1,49 @@
+<wicket:panel>
+	
+<div wicket:id="resource-list-container" class="resource-list-container">	
+	<div style="float:left; width:100%; margin-bottom:0;">
+		<h2><wicket:message key="resources.title" /></h2>
+	</div>
+	<!-- div wicket:id="view-mode"  class="buttons-container">
+			<a style="margin-right: 4px;" class="button" id="list"      href="javascript:;" wicket:id="image-mode-list"><wicket:message key="resources.button.list" /></a>
+			<a style="margin-right: 4px;" class="button"  id="thmedium" href="javascript:;" wicket:id="image-mode-thumbnail-medium"><wicket:message key="resources.button.thumbnail" /></a>
+			<a  						  class="button"  id="thlarge"  href="javascript:;" wicket:id="image-mode-thumbnail-large"><wicket:message key="resources.button.gallery" /></a>
+	</div-->	
+	
+ <ul id="resources" wicket:id="files-container">
+  <li wicket:id="file" class="file">
+	<div class="control">  
+		<div class="thumbnail-large" wicket:id="thumbnail">
+			<div class="link">
+				<a href="#" wicket:id="file-link" class="thumbnail-link">
+					<img wicket:id="file-thumbnail"  />
+				</a>
+			</div>
+		</div>
+		<div wicket:id="metainfo">
+			<div class="image-info-container">
+				<div class="link">
+					<div class="image-container" >
+						<a href="#" wicket:id="fileicon-link" class="thumbnail-link">
+							<img wicket:id="fileicon-image" />
+						</a>
+					</div>
+					<div style="float: left; float: none;width: auto;overflow: hidden">
+						<div wicket:id="file-link-container" style="width:100% float: left;">
+							<a href="#" wicket:id="file-link"  style="width:initial;">
+								<span wicket:id="file-name" />
+							</a>
+						</div>
+						<div class="info" style="width: 100%; float: left;" wicket:id="info" />
+					</div>
+				</div>
+			</div>
+		</div>	
+   </div>		
+   </li>   
+ </ul>
+</div>
+</wicket:panel>
+
+
+	

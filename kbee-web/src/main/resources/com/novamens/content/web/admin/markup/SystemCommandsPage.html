@@ -1,0 +1,61 @@
+<wicket:extend>	
+	<div class="auxpage">
+		
+		<div wicket:id="header" />
+		
+	    <div class="mil24" wicket:id="canvas" >
+	      <div class="breadcrumb" wicket:id="breadcrumb" />
+		  <div class="content-panel" style="margin-top:24px;">
+
+				<div style="width: 100%; float:left;">
+					
+					<div class="field-block">		
+				 		<h2 class="title" style="text-align: center;">PLATFORM</h2>
+				 		<ul class="commands">
+				 			<li class="command"><a wicket:id="server-info">Server</a></li>
+				 			<li class="command"><a wicket:id="system-activity-info">Dashboard</a></li>
+				 			<li class="command"><a wicket:id="scheduler-info">Scheduler</a></li>
+				 			<li class="command"><a wicket:id="cache-info">Cache</a></li>
+				 			<li class="command"><a wicket:id="email-info">Email Service</a></li>
+				 			<li class="command"><a wicket:id="properties">Java Properties</a></li>
+				 			<li class="command"><a wicket:id="env-info">Env properties</a></li>
+				 			<li class="command"><a wicket:id="logs">Logs</a></li>
+						</ul>
+					</div>				 		
+
+					<div class="field-block">
+						<h2 class="title" style="text-align: center;">Data Managemenent</h2>					
+						<ul class="commands">
+							<!-- li class="command"><a href="/admin/reindex" >Reindex</a></li-->
+				 			<li class="command"><a wicket:id="domains">Domains</a></li>
+							<li class="command"><a href="/admin/command">Kbee command</a></li>
+							<li class="command"><a  wicket:id="reindex" href="#"><span wicket:id="label-reindex"/></a></li>
+							<li class="command"><a href="/admin/queries" >SQL Gateway</a></li>
+							<li class="command"><a href="/admin/solrqueries" >Solr Gateway</a></li>
+							<li class="command"><a href="/admin/ldapqueries" >LDAP Gateway</a></li>
+							<li class="command"><a wicket:id="maintenance">Maintenance</a></li>
+														
+							<li class="command"><a  wicket:id="fsreset" href="#"><span wicket:id="label-fsreset"/></a></li>
+							
+							<li class="command"><a  wicket:id="removeall-thumbnail" href="#"><span wicket:id="label-removeall-thumbnail"/></a></li>
+							<li class="command"><a wicket:id="link-reset-semantic" href="#"><span wicket:id="label-reset-semantic" /></a></li>
+						</ul>
+					</div>
+										
+					<div class="field-block">
+						<h2 class="title" style="text-align: center;">>User Interface</h2>					
+						<ul class="commands">
+							<li class="command"><a  wicket:id="link-reset-context" href="#"><span wicket:id="label-reset-context"/></a></li>
+							<li class="command"><a wicket:id="link-reset-grid" href="#"><span wicket:id="label-reset-grid" /></a></li>
+						</ul>
+					</div>
+				</div>
+		 	</div>	
+	  </div>
+	  
+ 
+	  
+	 </div>
+</wicket:extend>
+	
+

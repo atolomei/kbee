@@ -1,0 +1,6 @@
+<wicket:panel>
+	<div style="float: left;" >
+		<h1 wicket:id="name"/>
+		<div class="objectclass"><span> <wicket:message key="rule" /></span></div>
+	</div>
+</wicket:panel>

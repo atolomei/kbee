@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="es" lang="es">
+
+<body>
+	<wicket:extend>
+
+		<div class="auxpage kbee">
+		
+			<div wicket:id="header" /> 
+		
+			<div wicket:id="canvas" class="mil24left">
+				<div wicket:id="breadcrumb" />
+				<div class="content-panel">
+					<div class="content-area">
+						<div style="width:100%; float: left; margin-top: 8px;">
+							<h2>SQL Query</h2>
+						</div>
+						<form id="form" method="post" action="#" wicket:id="form">
+							<textarea wicket:id="query" rows="5" cols="90" style="float: left; margin-bottom: 24px; padding: 12px; font-size: 15px;"></textarea>
+								<div style="float: left; width: 100%; margin-top: 0px;">
+									<a wicket:id="query-button" href="#" style="float: left;" class="form-submit-button">Submit</a>
+									<div wicket:id="feedback" style="float: left; width: 100%; margin-top: 12px;"></div>
+								</div>
+						</form>
+						
+						<div style="width:100%; float: left; margin-top:2em;">
+							<div style="width:100%; float: left;">
+								<h2>HISTORY</h2>
+							</div>	
+							<div style="width:100%; float: left;">
+								<span wicket:id="history"></span>
+							</div>
+						</div>
+					</div>	
+					
+					<!-- div class="text" style="margin: 42px 0 64px 0; float: left;">
+							<a href="/admin" class="button-nobck">Back</a>
+					</div-->	
+									
+				</div>
+				<!-- div wicket:id="contenedor" style="margin-top: 32px; width: 100%; display: block; float: left;">
+						<div wicket:id="result" style="width: 100%; float: left; font-size: 14px;" />
+				</div-->
+			</div>
+		</div>
+
+	</wicket:extend>
+</body>
+</html>
+
+

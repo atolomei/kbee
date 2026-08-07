@@ -1,0 +1,37 @@
+<wicket:panel>
+ 	<div class="console-page-header page-header">
+		<div class="page-header-content">
+		    <h1>File Upload</h1>
+       		<div wicket:id="breadcrumb" />
+		</div>
+	</div>
+	<div class="content">
+		<div  class="application-main stacked">
+			<div class="tab-pane">
+				<ul style="padding: 15px 15px;  margin-bottom:3px;  border: 1px solid #d8dcdf; border-radius: 4px;  width: 100%;" class="breadcrumb">						
+					<li style="float:left;" wicket:id="directory">
+						<a style="line-height: 14px;" class="btn-link" wicket:id="link">
+							<span wicket:id="label"></span>
+						</a>
+					</li>
+				</ul>
+				<form wicket:id="form" style="float:left;">
+					<fieldset>
+      					<legend>Upload</legend>
+        				<p>
+        					<label for="uploadWithProgress">File</label>
+       						<input wicket:id="fileInput" type="file" id="uploadWithProgress"/>
+        				</p>
+       					<input type="submit" value="Upload"/>
+ 						<span wicket:id="progress">[[upload progressbar]]</span>
+ 	 				</fieldset>
+  				</form>
+  				<div>
+        			<span wicket:id="uploadFeedback"/>
+     			</div>
+    		</div>
+		</div>
+	</div>		
+</wicket:panel>
+
+

@@ -1,0 +1,46 @@
+<wicket:panel>
+
+	<div class="row">
+		<div class="panel-header">
+			<h2><wicket:message key="title" /></h2>
+			<div class="nav navbar-nav navbar-right">
+				<a class="btn-mini"  title="Close">
+					<i wicket:id="close" class="far fa-times"></i>
+				</a>
+			</div>
+		</div>
+	</div>
+	
+	<!-- div wicket:id="selected-content" class="row">
+		<div class="alert alert-info">
+				<span style="clear: left;    float: left;  font-weight: 500;" class="title" wicket:id="title" ></span>
+				<span style="clear: left;    float: left; color: inherit; font-size:13px; " class="metadata"  wicket:id="metadata"></span>
+		</div>
+	</div -->
+	
+	<div class="row" style="margin: 0 -15px;">
+		<form wicket:id="form" class="form-container" role="form">
+			
+			<div class="form-group col-md-12 col-xs-12" wicket:id="user"/>
+			
+			
+			<div class="form-group col-md-12 col-xs-12" wicket:id="from"/>
+			<div class="form-group col-md-12 col-xs-12" wicket:id="to"/>
+			
+			
+			<div class="form-group col-md-12 col-xs-12">
+				<div wicket:id="content"></div>
+				<div class="advanced-search" wicket:id="searcher"></div>
+			</div>
+			
+			<div class="col-lg-12 col-xs-12 col-md-12">
+				<button wicket:id="submit" type="submit" class="btn btn-primary btn-sm"> <wicket:message key="apply" /> </button>
+			</div>
+		</form>
+	</div>
+	
+	
+	
+	
+	
+</wicket:panel>

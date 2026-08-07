@@ -1,0 +1,27 @@
+<wicket:panel>
+
+
+	<div class="condition-field field">
+	 	
+	 	<div class="control-label">				
+	 		<label for="members"><wicket:message key="condition" /></label>
+	 	</div>
+	 	
+	 	<div class="panel panel-default col-lg-12 col-md-12 col-xs-12" style="margin-bottom: 0px;">
+			<fieldset wicket:id="form-container" class="form-container" style="float:left; width:100%; padding-top: 15px; min-height:40px; margin-bottom:0;" >
+				<div class="alert alert-info" style="width:100%; float:left;" wicket:id="description"/>
+				<div class="form-group" wicket:id="condition-container"> 
+						<wicket:container wicket:id="condition">
+							<div wicket:id="members" class="form-group col-lg-12"  style="padding:0;" />
+						</wicket:container>
+				</div>
+			</fieldset>
+			
+		</div>
+		
+		<div class="help-container">
+			<small style="width:100%; float:left;" wicket:id="help" class="help-block"></small>
+		</div>
+	</div>
+	
+</wicket:panel>

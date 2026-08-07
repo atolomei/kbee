@@ -1,0 +1,183 @@
+<wicket:panel>
+		<div  class="row">
+			<form wicket:id="form" class="form-container col-md-8 col-lg-8 col-xs-12" role="form">
+
+
+					<div class="row"> 
+						<div class="col-lg-12 col-md-12 col-xs-12">
+							<div class="form-group alert alert-info" role="alert"><wicket:message key="deprecated" /></div>
+						</div>	
+					</div>
+
+				
+					<div class="row">
+						<div wicket:id="readonly" class="form-group">
+								<div class="col-lg-12 col-xs-12 col-md-12">
+										<span class="col-lg-12 col-xs-12 col-md-12 alert alert-info" role="alert"> 
+											<wicket:message key="readonly" />
+										</span>
+								</div>								
+						</div>
+					</div>
+					
+					<wicket:container wicket:id="view" style="float:left; " />
+					
+					<div wicket:id="epanel" class="row">
+						<div class="form-group col-lg-10">
+							<div class="row panel">
+								<div class="col-xs-12 col-lg-12 col-md-12">
+									<h2 class="col-xs-12 col-lg-12 col-md-12"> <wicket:message key="workflow" /></h2>
+									<div class="col-xs-12 col-lg-12 col-md-12 form-group" wicket:id="my_tasks"/>
+									<div class="col-xs-12 col-lg-12 col-md-12 form-group" wicket:id="my_tasks_bulk"/>
+									<div class="col-xs-12 col-lg-12 col-md-12 form-group" wicket:id="auditor"/>
+									<div class="col-xs-12 col-lg-12 col-md-12 form-group" wicket:id="pending_tasks"/>
+								</div>
+							</div>
+							
+							<div class="row panel">
+								<div class="col-xs-12 col-lg-12 col-md-12">
+									<h2 class="col-xs-12 col-lg-12 col-md-12"> <wicket:message key="content" /></h2>
+									<div class="col-xs-12 col-lg-12 col-md-12 form-group" wicket:id="content_base"/>
+									<div class="col-xs-12 col-lg-12 col-md-12 form-group" wicket:id="templates_cabinet"/>
+									<div class="col-xs-12 col-lg-12 col-md-12 form-group" wicket:id="kbase_cabinet"/>
+									<div class="col-xs-12 col-lg-12 col-md-12 form-group" wicket:id="external_cabinet"/>
+									<div class="col-xs-12 col-lg-12 col-md-12 form-group" wicket:id="archive"/>
+									<div class="col-xs-12 col-lg-12 col-md-12 form-group" wicket:id="work_notes"/>
+									<!-- div class="col-xs-12 col-lg-12 col-md-12 form-group" wicket:id="secured-access"/-->
+								</div>
+							</div>
+							
+							
+							<div wicket:id="edatasetspanel" class="row panel">	
+								<div class="col-xs-12 col-lg-12 col-md-12">
+									<h2 class="col-xs-12 col-lg-12 col-md-12"><wicket:message key="settings" /></h2>
+									<div class="col-xs-12 col-lg-12 col-md-12 form-group" wicket:id="datasets_elements_read"/>
+									<div class="col-xs-12 col-lg-12 col-md-12 form-group" wicket:id="datasets_elements"/>
+									<div class="col-xs-12 col-lg-12 col-md-12 form-group" wicket:id="information_model"/>
+									<div class="col-xs-12 col-lg-12 col-md-12 form-group" wicket:id="security"/>
+								</div>
+							</div>
+							
+
+							<div class="row panel">	
+								<div class="col-xs-12 col-lg-12 col-md-12">
+									<h2 class="col-xs-12 col-lg-12 col-md-12"><wicket:message key="account" /></h2>
+									<div class="col-xs-12 col-lg-12 col-md-12 form-group" wicket:id="usereditaccount"/>
+									<div class="col-xs-12 col-lg-12 col-md-12 form-group" wicket:id="usersendemail"/>
+								</div>
+							</div>
+
+							
+							
+							<div class="row panel">	
+								<div class="col-xs-12 col-lg-12 col-md-12">
+									<h2 class="col-xs-12 col-lg-12 col-md-12"><wicket:message key="admin" /></h2>
+									<!-- div class="col-xs-12 col-lg-12 col-md-12 form-group" wicket:id="editors"/-->
+									<div class="col-xs-12 col-lg-12 col-md-12 form-group" wicket:id="domain_admin"/>
+									<div class="col-xs-12 col-lg-12 col-md-12 form-group" wicket:id="portal_admin"/>
+									<div class="col-xs-12 col-lg-12 col-md-12 form-group" wicket:id="is_su"/>
+									
+									
+									<div class="col-xs-12 col-lg-12 col-md-12 form-group" wicket:id="factory"/>
+									<div class="col-xs-12 col-lg-12 col-md-12 form-group" wicket:id="api"/>
+									<div class="col-xs-12 col-lg-12 col-md-12 form-group" wicket:id="dservice"/>
+									
+								</div>
+							</div>
+						</div>
+					</div>
+			</form>
+			<div class="button-container col-md-4 col-lg-3 col-xs-12" wicket:id="buttons"/>
+		</div>
+
+</wicket:panel>
+
+<wicket:fragment wicket:id="view-fragment">
+	
+	 
+	
+	<div wicket:id="wk" class="row panel">	
+		<div class="col-xs-12 col-lg-12 col-md-12">
+			<h2 class="col-xs-12 col-lg-12 col-md-12"> <wicket:message key="workflow" /></h2>
+			<ul class="list-group compressed-list table-striped" style="width:100%; float:left; margin-bottom: 12px;">
+				
+				<li wicket:id="element" class="list-group-item col-lg-12 col-md-12 col-xs-12" style="float:left;">
+					<div class="row">
+						<span wicket:id="key" class="col-lg-10 col-md-9 col-xs-9">label.</span><span wicket:id="value" class="col-lg-2 col-md-3 col-xs-3">value</span>
+					</div>
+				</li>
+			</ul>
+		</div>
+	</div>
+	
+
+	<div wicket:id="ct" class="row panel">	
+		<div class="col-xs-12 col-lg-12 col-md-12">
+			<h2 class="col-xs-12 col-lg-12 col-md-12"> <wicket:message key="content" /></h2>
+			<ul class="list-group compressed-list table-striped" style="width:100%; float:left; margin-bottom: 12px;">
+				
+					<li wicket:id="element" class="list-group-item col-lg-12 col-md-12 col-xs-12" style="float:left;">
+						<div class="row">
+							<span wicket:id="key" class="col-lg-10 col-md-9 col-xs-9">label.</span><span wicket:id="value" class="col-lg-2 col-md-3 col-xs-3">value</span>
+						</div>
+					</li>
+				
+			</ul>
+		</div>
+	</div>
+	
+
+	<div wicket:id="st" class="row panel">	
+		<div class="col-xs-12 col-lg-12 col-md-12">
+			<h2 class="col-xs-12 col-lg-12 col-md-12"> <wicket:message key="settings" /></h2>
+			<ul class="list-group compressed-list table-striped" style="width:100%; float:left; margin-bottom: 12px;">
+					<li wicket:id="element" class="list-group-item col-lg-12 col-md-12 col-xs-12" style="float:left;">
+						<div class="row">
+							<span wicket:id="key" class="col-lg-10 col-md-9 col-xs-9">label.</span><span wicket:id="value" class="col-lg-2 col-md-3 col-xs-3">value</span>
+						</div>
+				</li>
+			</ul>
+		</div>
+	</div>
+
+							
+	<div wicket:id="ac" class="row panel">	
+		<div class="col-xs-12 col-lg-12 col-md-12">
+			<h2 class="col-xs-12 col-lg-12 col-md-12"> <wicket:message key="account" /></h2>
+			<ul class="list-group compressed-list table-striped" style="width:100%; float:left; margin-bottom: 12px;">
+				<li wicket:id="element" class="list-group-item col-lg-12 col-md-12 col-xs-12" style="float:left;">
+					<div class="row">
+						<span wicket:id="key" class="col-lg-10 col-md-9 col-xs-9">label.</span><span wicket:id="value" class="col-lg-2 col-md-3 col-xs-3">value</span>
+					</div>
+				</li>
+			</ul>
+		</div>
+	</div>
+
+
+
+					
+	<div wicket:id="ad" class="row panel">	
+		<div class="col-xs-12 col-lg-12 col-md-12">
+			<h2 class="col-xs-12 col-lg-12 col-md-12"> <wicket:message key="admin" /></h2>
+			<ul class="list-group compressed-list table-striped" style="width:100%; float:left; margin-bottom: 12px;">
+				<li wicket:id="element" class="list-group-item col-lg-12 col-md-12 col-xs-12" style="float:left;">
+					<div class="row">
+						<span wicket:id="key" class="col-lg-10 col-md-9 col-xs-9">label.</span><span wicket:id="value" class="col-lg-2 col-md-3 col-xs-3">value</span>
+					</div>
+				</li>
+			</ul>
+		</div>
+	</div>
+	
+</wicket:fragment>
+
+
+
+
+
+
+
+
+
+

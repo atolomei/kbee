@@ -1,0 +1,283 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+		http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+		http://www.springframework.org/schema/context
+		http://www.springframework.org/schema/context/spring-context-3.0.xsd 
+		http://www.springframework.org/schema/tx 
+		http://www.springframework.org/schema/tx/spring-tx.xsd">
+
+	<!-- 
+	<bean id="kbeeorganizationaltext-panel"						class="com.novamens.content.web.text.markup.TextHitExpandedPanel" scope="prototype"/>
+
+	<bean id="kbeeorganizationaltext-61-page"		 			class="com.novamens.content.web.text.markup.TextPage" scope="prototype"/>
+	<bean id="kbeeorganizationaltext-page"		 				class="com.novamens.content.web.text.markup.TextPageV6" scope="prototype"/>
+	-->
+	
+
+	<bean id="kbeeorganizationaltext-hitpanel" 					class="com.novamens.content.web.markup.HitPanel" scope="prototype"/>
+	<bean id="kbeeorganizationaltext-monitor-hitpanel" 			class="com.novamens.content.web.markup.HitPanel" scope="prototype"/>
+	<bean id="kbeebanner-hitpanel" 								class="com.novamens.content.web.markup.HitPanel" scope="prototype"/>
+	<bean id="kbeeidoc-hitpanel"								class="com.novamens.content.web.markup.HitPanel" scope="prototype"/>
+	<bean id="kbeeidoc-monitor-hitpanel" 						class="com.novamens.content.web.markup.HitPanel" scope="prototype"/>
+
+	
+	<bean id="kbeeidoc-highlight-hitpanel"				class="com.novamens.content.web.markup.HightlightHitPanel" scope="prototype"/>
+	<!-- 
+	<bean id="kbeeidoc-panel"							class="com.novamens.content.web.idoc.markup.IDocHitExpandedPanel" scope="prototype"/>
+	-->
+	<bean id="kbeeidoc-61-page"							class="com.novamens.content.web.idoc.markup.IDocPage" scope="prototype"/>
+	
+	
+	<!-- 
+	<bean id="kbeetreeidoc-panel"							class="com.novamens.content.web.treeidoc.markup.ContentHitExpandedPanel" scope="prototype"/>
+	<bean id="kbeetreeidoc-page"							class="com.novamens.content.web.treeidoc.markup.TreeIDocPage" scope="prototype"/>
+-->
+
+	<!--  Advance Search -->
+	<bean id="relation-selector-panel" class="kbee.web.searcher.panel.DocumentSearcherBean" scope="prototype"></bean>
+
+	<!--  Member Search Suggestion Service -->
+	<!-- 
+	<bean id="memberSuggestionServiceFactory" class="com.novamens.spring.service.SpringObjectServiceFactory">
+		<property name="bean" value="memberSuggestionService"/>
+	</bean>
+	
+	<bean id="memberSuggestionService" class="com.novamens.content.web.suggestion.service.MemberSuggestionService" scope="prototype"/>
+	-->
+	
+	 
+	
+	<!--  Principal Search Suggestion Service -->
+	
+	<bean id="groupSuggestionServiceFactory" class="com.novamens.spring.service.SpringSystemServiceFactory">
+		<property name="bean" value="groupSuggestionService"/>
+	</bean>
+	
+	<bean id="groupSuggestionService" class="com.novamens.content.web.suggestion.service.GroupSuggestionService" scope="prototype"/>
+	
+	<bean id="principalSuggestionServiceFactory" class="com.novamens.spring.service.SpringSystemServiceFactory">
+		<property name="bean" value="principalSuggestionService"/>
+	</bean>
+	<bean id="principalSuggestionService" class="com.novamens.content.web.suggestion.service.PrincipalSuggestionService" scope="prototype"/>
+	
+	
+		
+	<!--  Content Search Suggestion Service -->
+	
+	<bean id="contentSuggestionServiceFactory" class="com.novamens.spring.service.SpringObjectServiceFactory">
+		<property name="bean" value="contentSuggestionService"/>
+	</bean>
+	
+	<bean id="contentSuggestionService" class="com.novamens.content.web.suggestion.service.ContentSuggestionService" scope="prototype"/>
+
+	
+	
+
+
+	
+	
+	<!--  Monitor Search Suggestion Service -->
+
+	
+	<!--  Workspace Search Suggestion Service -->
+	
+	<bean id="workspaceSearchSuggestionServiceFactory" class="com.novamens.spring.service.SpringObjectServiceFactory">
+		<property name="bean" value="workspaceSearchSuggestionService"/>
+	</bean>
+	
+	<bean id="workspaceSearchSuggestionService" class="com.novamens.content.web.suggestion.service.WorkspaceSearchSuggestionService" scope="prototype"/>
+
+	
+	
+	<!--  User Search Suggestion Service -->
+	
+	<bean id="templatesSearchSuggestionServiceFactory" class="com.novamens.spring.service.SpringObjectServiceFactory">
+		<property name="bean" value="templatesSearchSuggestionService"/>
+	</bean>
+	
+	<bean id="templatesSearchSuggestionService" class="com.novamens.content.web.suggestion.service.TemplatesSearchSuggestionService" scope="prototype"/>
+	
+	
+
+	
+	
+	
+	<!--  Events Service -->
+	
+	<bean id="com.novamens.event.service.EventServiceFactory" class="com.novamens.spring.service.SpringSystemServiceFactory">
+		<property name="bean" value="com.novamens.event.service.EventService"/>
+	</bean>
+	
+	<bean id="com.novamens.event.service.EventService" class="com.novamens.spring.event.SpringEventService"/>
+	
+	
+	
+	<!--  User Search Suggestion Service -->
+	
+	<bean id="personSuggestionServiceFactory" class="com.novamens.spring.service.SpringSystemServiceFactory">
+		<property name="bean" value="personSuggestionService"/>
+	</bean>
+	
+	<bean id="personSuggestionService" class="com.novamens.content.web.suggestion.service.PersonSuggestionService" scope="prototype"/>
+	
+	<bean id="userSuggestionServiceFactory" class="com.novamens.spring.service.SpringSystemServiceFactory">
+		<property name="bean" value="userSuggestionService"/>
+	</bean>
+	
+	<bean id="userSuggestionService" class="com.novamens.content.web.suggestion.service.UserSuggestionService" scope="prototype"/>
+
+
+	
+	
+	
+	
+	
+	<!--  WorkflowLoad Service  -->
+	
+	<bean id="com.novamens.content.service.workflow.WorkflowLoadServiceFactory" class="com.novamens.spring.service.SpringObjectServiceFactory">
+		<property name="bean" value="com.novamens.content.service.workflow.WorkflowLoadService"/>
+	</bean>
+	
+	<bean id="com.novamens.content.service.workflow.WorkflowLoadService" class="com.novamens.content.web.workflow.service.KbeeWorkflowLoadService" scope="prototype">
+		<property name="contentDao" ref="contentDao"/>
+	</bean>
+	
+
+	
+
+
+
+	<!-- bean id="objectModelServiceFactory" class="com.novamens.spring.service.SpringSystemServiceFactory">
+		<property name="bean" value="objectModelService"/>
+	</bean-->
+	
+	<!-- bean id="objectModelService" class="com.novamens.content.web.model.service.KbeeObjectModelService" /-->
+	
+	
+	<bean id="DomainSearcherPortalServiceFactory" class="com.novamens.spring.service.SpringObjectServiceFactory">
+		<property name="bean" value="DomainSearcherPortalService"/>
+	</bean>
+	
+	<bean id="DomainSearcherPortalService" class="kbee.web.portal6.KbeeDomainSearcherPortalService" scope="prototype">
+		<property name="contentDao" ref="contentDao"/>
+	</bean>
+	
+	<bean id="searcher-footer" class="kbee.web.searcher.page.SearcherFooterPanel" scope="prototype">
+	</bean>
+
+	
+	
+	
+	
+		
+
+
+
+				
+	<bean id="searcher-form-general" class="kbee.web.searcher.searchform.KbeeSearcherFormFactory">
+		<property name="id" value="searcher-form-general"/>
+		<property name="name" value="Simple Search form"/>
+		<property name="className" value="com.novamens.content.web.searcher.SearcherForm"/>
+		<property name="usage" value="Simple Search field"/>
+	</bean>
+	
+
+	<bean id="SystemApplicationStartReportFactory" class="kbee.web.report.ReportFactory">
+		<constructor-arg><value>application-start</value></constructor-arg>
+		<constructor-arg><value>SystemApplicationStart</value></constructor-arg>
+		<constructor-arg><value>Application Start</value></constructor-arg>
+		<constructor-arg><value>Date time logs when the application was started.</value></constructor-arg>
+	</bean>
+	<bean id="SystemApplicationStart" class="com.novamens.content.web.admin.markup.SystemApplicationStartConsole" scope="prototype"/>
+	 
+	
+	<bean id="AuditEmailReportFactory" class="kbee.web.report.ReportFactory">
+		<constructor-arg><value>email</value></constructor-arg>
+		<constructor-arg><value>AuditEmailReport</value></constructor-arg>
+		<constructor-arg><value>Email Sent</value></constructor-arg>
+		<constructor-arg><value>Emails sent by the system</value></constructor-arg>
+		
+	</bean>
+	<bean id="AuditEmailReport" class="com.novamens.content.web.admin.markup.SystemEmailReportConsole" scope="prototype"/>
+	
+
+	<bean id="SystemHardDiskUsageReportFactory" class="kbee.web.report.ReportFactory">
+		<constructor-arg><value>hard-disk-usage</value></constructor-arg>
+		<constructor-arg><value>SystemHardDiskUsage</value></constructor-arg>
+		<constructor-arg><value>Hard Disk Usage</value></constructor-arg>
+		<constructor-arg><value>Hard disk usage and other metrics.</value></constructor-arg>
+		
+	</bean>
+	<bean id="SystemHardDiskUsage" class="com.novamens.content.web.admin.markup.SystemHardDiskUsageConsole" scope="prototype"/>
+
+
+	<bean id="BillingReportFactory" class="kbee.web.report.ReportFactory">
+		<constructor-arg><value>billing-report</value></constructor-arg>
+		<constructor-arg><value>BillingReport</value></constructor-arg>
+	</bean>
+	<bean id="BillingReport" class="com.novamens.content.web.admin.markup.BillingReportConsole" scope="prototype"/>
+
+
+
+	<bean id="ReportSubscriptorsConsoleFactory" class="kbee.web.report.ReportFactory">
+		<constructor-arg><value>report-subscription</value></constructor-arg>
+		<constructor-arg><value>ReportSubscriptors</value></constructor-arg>
+		<constructor-arg><value>Report Subscription</value></constructor-arg>
+		<constructor-arg><value>Users that subscribed to Reports.</value></constructor-arg>
+	</bean>
+	<bean id="ReportSubscriptors" class="kbee.web.report.ReportSubscriptorsConsole" scope="prototype"/>
+
+
+	<bean id="UserActivityReportFactory" class="kbee.web.report.ReportFactory">
+		<constructor-arg><value>user-activity</value></constructor-arg>
+		<constructor-arg><value>SystemUserActivityReportConsole</value></constructor-arg>
+		<constructor-arg><value>User Activity</value></constructor-arg>
+		<constructor-arg><value>You can use this report to analyze the activity of a particular user.</value></constructor-arg>
+	</bean>
+	<bean id="SystemUserActivityReportConsole" class="com.novamens.content.web.admin.markup.SystemUserActivityReportConsole" scope="prototype"/>
+
+
+	<!--  AUDIT -->
+	<bean id="ContentDetailUsersReport" class="kbee.web.report.ReportFactory">
+		<constructor-arg><value>content-users-audit</value></constructor-arg>
+		<constructor-arg><value>ContentDetailUsersReportConsole</value></constructor-arg>
+		<constructor-arg><value>Content - Users that visited</value></constructor-arg>
+		<constructor-arg><value>Users that visited the published version of a file.</value></constructor-arg>
+		
+	</bean>																			
+	<bean id="ContentDetailUsersReportConsole" class="com.novamens.content.web.report.console.ContentDetailUsersReportConsole" scope="prototype"/>
+	
+	
+	
+	<bean id="UserVisitsReport" class="kbee.web.report.ReportFactory">
+		<constructor-arg><value>user-visits-audit</value></constructor-arg>
+		<constructor-arg><value>UserVisitsReportConsole</value></constructor-arg>
+		<constructor-arg><value>User - Contents visited</value></constructor-arg>
+		<constructor-arg><value>Files opened by a user in Libraries or Portals.</value></constructor-arg>
+		
+	</bean>																			
+	<bean id="UserVisitsReportConsole" class="com.novamens.content.web.report.console.UserVisitsReportConsole" scope="prototype"/>
+	
+				
+	<bean id="UserAlertsReport" class="kbee.web.report.ReportFactory">
+		<constructor-arg><value>user-alerts-audit</value></constructor-arg>
+		<constructor-arg><value>UserAlertsReportConsole</value></constructor-arg>
+								
+		<constructor-arg><value>User - Alerts received</value></constructor-arg>
+		<constructor-arg><value>Alerts sent to a user and their status.</value></constructor-arg>
+	
+	</bean>																			
+	<bean id="UserAlertsReportConsole" class="com.novamens.content.web.report.console.UserAlertsReportConsole" scope="prototype"/>
+
+	<bean id="site-manager"	class=" kbee.web.portal6.sitemanager.SimpleSiteManager" scope="prototype"/>
+	
+	<bean id="HealthMetricsCommand" class="kbee.web.util.HealthMetricsCommand"/>
+
+	<bean id="home-page" class="kbee.web.page.HomeSimplePage" scope="prototype"/>
+
+</beans>

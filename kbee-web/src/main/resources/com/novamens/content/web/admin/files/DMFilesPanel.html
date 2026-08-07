@@ -1,0 +1,57 @@
+<wicket:panel>
+
+	<div class="console-page-header page-header">
+		<div class="page-header-content">
+		    <h1>File Explorer</h1>
+        	<div wicket:id="breadcrumb" />
+		</div>
+	</div>
+	
+	<div class="content">
+		<div  class="application-main stacked">
+			<div class="tab-pane">
+				<ul style="padding: 15px 15px;  margin-bottom:3px;  border: 1px solid #d8dcdf; border-radius: 4px;  width: 100%;" class="breadcrumb">						
+					
+					
+					<li style="float:left;" wicket:id="directory">
+						<a style="line-height: 14px;" class="btn-link" wicket:id="link">
+							<span wicket:id="label"></span>
+						</a>
+					</li>
+				</ul>
+					
+					<div wicket:id="files-container" style="margin-bottom: 64px; float:left; width:100%;">
+						
+						<nav class="internal-navigation" wicket:id="navigation" />
+						
+						<div wicket:id="table-container" class="row panel" style="clear:left; height: inherit; overflow: auto;">
+							<div class="table-responsive col-lg-12 col-md-12 col-xs-12" style="min-height: 85vh;">
+							<table wicket:id="gridfiles" class="table table-header-bck table-bordered table-hover"/>
+						</div>
+						
+					</div>
+				</div>	
+			</div>
+		</div>
+	</div>		
+	
+</wicket:panel>
+
+<wicket:fragment wicket:id="name-fragment">
+	<a wicket:id="name-link" class="btn-link"><span wicket:id="name"></span></a>
+</wicket:fragment>
+
+<wicket:fragment wicket:id="menu-fragment">
+	<div class="btn-group">
+		<a wicket:id="menulink" data-toggle="dropdown" href="#"><i class="far fa-ellipsis-h"></i></a>
+		<ul wicket:id="menu" class="dropdown-menu" aria-labelledby="dmenu" />
+	</div>
+</wicket:fragment>
+			
+<wicket:fragment wicket:id="directory-path-fragment">
+	<ul class="col-lg-12 col-xs-12 col-md-12">
+		<li wicket:id="directory">
+			<a wicket:id="directory-link" href="#"><span wicket:id="directory-name"></span></a>
+		</li>
+	</ul>
+</wicket:fragment>

@@ -1,0 +1,35 @@
+<wicket:panel>
+		
+		<span><h3 class="title" wicket:id="attribute">[]</h3></span>
+		
+		<fieldset>
+		<ul style="float: left; width: 100%">
+			<li class="item" wicket:id="valuesview">
+				<div class="control">
+					<div class="panel" style="width: 60%; float: left;">
+						<div>
+							<label>
+								<span wicket:id="value"></span>
+							</label>
+						</div>
+					</div>
+					<div class="toolbar">	
+						<a class="button" wicket:id="up-link"> <wicket:message key= "up"/></a>
+						<a class="button" wicket:id="down-link"> <wicket:message key= "down"/></a>
+						<a class="button" wicket:id="remove-link"> <wicket:message key= "remove"/></a>
+					</div>	
+				</div> 
+			</li>
+			<li>
+				<div class="control" style="float:left;">
+					<div style="float:left;">
+						<label for="value">
+							<input id="value" wicket:id="value"  class="field len300" style="border-radius:5px;"/>
+							<textarea wicket:id="textvalue" rows="4" cols="50" class="field len300" style="border-radius:5px;"/>
+						</label>
+					</div>	
+				</div>
+			</li>
+ 		</ul>
+		</fieldset>
+</wicket:panel>

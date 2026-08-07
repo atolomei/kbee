@@ -1,0 +1,50 @@
+<wicket:panel>
+		
+		<div wicket:id="image-container" style="width:64px; height: 64px; float:left;">
+				<a wicket:id="image-link" href="#" style="overflow: hidden; background: #d8dcdf;  border-radius: 4px; position:relative; width:100%; height:100%; float:left;">
+					<i style="color:#666666;  font-size: 30px;" wicket:id="glyphicon"></i>
+					<img class="centered-in-container" style="max-width:150%;" wicket:id="image"></img>
+				</a>
+		</div>
+		
+		<div wicket:id="data-container">
+			<a wicket:id="title-link" class="title" href="#">
+				<span class="list-group-item-heading" wicket:id="title"/>
+			</a>
+		
+			<div style="float:left; width:100%; margin: 2px 0;">
+				<div wicket:id="metainfo" class="metadata"/>
+			</div>
+			
+			
+			
+			<div class="list-group-item-text">
+				<ul class="snippets">
+					<li wicket:id="snippets">
+						<span wicket:id="snippet"  class="snippet"/>
+					</li>
+				</ul>
+			</div>
+		
+			
+		</div>
+	
+		<!-- div style="float:left; width:100%; margin: 4px 0 4px 0;">
+				Subtitle. <span wicket:id="subtitle" class="metadata"/>
+		#ec0e00;
+		</div>
+		
+		<div style="float:left; width:100%; margin: 4px 0 4px 0;">
+				Metadata. <span wicket:id="metadata" class="metadata"/>
+		</div -->
+		
+		<!-- div style="float:left; width:100%; margin: 4px 0 4px 0;">
+			<span wicket:id="contenttype" class="metadata"/><span wicket:id="site" class="metadata"/>
+		</div-->
+	
+
+	
+</wicket:panel>
+
+
+

@@ -1,0 +1,55 @@
+
+<wicket:panel>
+		<ul class="classification detail-area">
+			<li wicket:id="section">
+					<wicket:container wicket:id="section-panel" />
+			</li>
+		</ul>
+</wicket:panel>
+
+<wicket:fragment wicket:id="section-fragment">
+	<section class="section">
+		
+		<div class="section-header">
+			<h2 wicket:id="section-title"></h2>
+		</div>
+			<ul class="section-classification" style="width:100%; float:left;">
+				
+				<li wicket:id="attributes" class="col-lg-12" style="padding-left:0; padding-right:0; padding-top:0;">
+							
+							<div style="width:100%; float:left; padding:0px; border:1px solid #d8dcdf; border-top:none;">
+								<div class="attribute-name col-lg-3 col-md-5 col-xs-12"><label wicket:id="attribute"></label></div>
+								<div class="attribute-value col-lg-9 col-md-7 col-xs-12">
+								 		<ul>
+								 			<li wicket:id="values">
+									   			<span wicket:id="value"></span>
+									   		</li>
+								   		</ul>						
+								</div>
+							</div>
+						
+				</li>
+			</ul>
+	</section>
+	
+</wicket:fragment>
+
+
+
+<wicket:fragment wicket:id="subsection-fragment">
+		<!-- div class="row subsection">
+			<h3>SubSection</h3>	
+			<ul class="classification col-lg-12 col-md-12 col-xs-12">
+				<li  class="col-lg-12 col-xs-12 col-md-12" wicket:id="attributes">
+					<dl class="row">
+						<dt class="col-lg-4 col-md-6 col-xs-12"><label wicket:id="attribute"></label></dt>
+						<dd class="col-lg-8 col-md-6 col-xs-12">
+						 		<div wicket:id="values">
+							   		<span wicket:id="value"></span>
+						   		</div>						
+						</dd>
+					</dl>
+				</li>
+			</ul>
+		</div-->
+</wicket:fragment>

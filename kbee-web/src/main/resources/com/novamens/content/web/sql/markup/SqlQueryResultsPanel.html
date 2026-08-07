@@ -1,0 +1,29 @@
+<wicket:head>
+	<style>
+		table.dataview 								{margin-bottom: 10px; border: none; margin-top: 4px; margin-bottom: 48px; min-width: 98%;}
+		table.dataview tr 							{padding-top: 1px; padding-bottom: 1px; }
+		table.dataview tr td 						{padding: 2px 6px; border-bottom: 1px solid #e6e6e6; }
+		table.dataview tr th 						{color: white; padding-top:5px; padding-bottom: 5px; padding-left:6px; padding-right:6px; background-color: #cccccc; text-align: left; white-space: nowrap; vertical-align: middle; font-weight: bold; background-position: right; background-repeat:no-repeat;}
+		table.dataview tr th.wicket_orderDown 		{background-colosr:  #d8dcdf; color: white;}
+		table.dataview tr th.wicket_orderUp   		{background-color:  #d8dcdf; color: white;}
+		table.dataview tr th.wicket_orderNone 		{background-color:  #d8dcdf; color: white;}
+		table.dataview tr th a 						{color: #111111; width:100%; float: left; background-color:  #d8dcdf;}
+		table.dataview tr th:hover 					{color: white; 	background: #111111; }
+		table.dataview tr th:hover a 				{color: white; background: #111111; }
+		table.dataview tr th a:hover 				{color: white; background: #111111; }
+		table.dataview tr:hover 					{background: #e2e2e2;}
+	</style>
+</wicket:head>
+
+<wicket:panel>
+	<div id="browser" style="font-size: 0.82em;">
+   			<div class="search-result">
+   				<div style="width:100%: float: left; margin: 12px 0;">
+   					<span>Total:</span><span wicket:id="total"></span>
+   				</div>
+   				<div wicket:id="navigator" class="navigation-toolbar"/>
+  				<table wicket:id="results" class="dataview"></table>
+   			</div>
+	</div>	
+		
+</wicket:panel>

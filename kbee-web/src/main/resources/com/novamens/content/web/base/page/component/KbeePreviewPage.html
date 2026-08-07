@@ -1,0 +1,23 @@
+	<wicket:extend>
+		
+		<div id="preview-header-container" class="preview-header-container">
+			
+			<div style="width: 1024px; float: none; margin: auto;">
+				<div id="preview-header" class="header" wicket:id="header" >
+						<div id="back" class="buttons">
+						<a href="#" wicket:id="return-link" class="button"><img wicket:id="iconbutton" /></a>	
+						</div>
+						<div id="title" class="title">
+								<span wicket:id="title"></span>
+						</div>
+				</div>
+			</div>
+		</div>
+		
+		<div wicket:id="canvas" class="preview-main-area-container" style="width: 100%; float: left; display: block;  z-index: 4000; overflow-x: hidden;overflow-y: hidden;">
+				<div style="width: 1024px; float: none; margin: auto;">
+						<div wicket:id="preview" style="float: left; width: 100%; margin:0; overflow: hidden;">	
+	 					</div>
+	 			</div>
+		</div>
+	</wicket:extend>

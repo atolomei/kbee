@@ -1,0 +1,18 @@
+<wicket:panel>
+
+	<label wicket:id="attribute-name" class="control-label" for="member"></label>
+	<ul class="list-group col-lg-12 col-md-12 col-xs-12">
+		<li class="list-group-item" wicket:id="attribute">
+			<span class="list-group-item-heading" wicket:id="value"></span>
+			<a><i class="far fa-times" style="float:right;cursor:pointer;" title="remove" alt="remove" wicket:id="remove-link"></i></a>
+		</li>
+		<li class="selector" wicket:id="editor"/>
+	</ul>
+
+</wicket:panel>
+
+<wicket:fragment wicket:id="editor-fragment">
+	<div class="form-vertical">
+		<div class="form-group" wicket:id="value"/>
+	</div>
+</wicket:fragment>

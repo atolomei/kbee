@@ -1,0 +1,56 @@
+<wicket:panel>
+
+	<nav id="main-navigation" class="navbar navbar-default navbar-fixed-top idoc">
+		<div class="container-fluid">
+			<div id="navbar">
+				<ul class="nav navbar-nav">
+					<li class="dropdown lateral-menu-container">
+						<wicket:container wicket:id="lateral-menu"/>
+					</li>
+				</ul>
+				
+				<wicket:container wicket:id="brand-kbee"/>
+				<wicket:container wicket:id="brand-idoc"/>
+				<wicket:container wicket:id="brand-factory"/>
+				
+				<ul class="nav navbar-nav navbar-right">
+					<li class="hidden-xs "><wicket:container wicket:id="search"/></li>
+					<li><wicket:container wicket:id="navigator"/></li>
+					<li class="dropdown hidden-xs"><wicket:container wicket:id="portal"/></li>
+					<li class="dropdown hidden-xs"><wicket:container wicket:id="settings"/></li>
+					<li class="dropdown hidden-xs"><wicket:container wicket:id="help"/></li>
+					<li class="dropdown hidden-xs"><wicket:container wicket:id="user"/></li>
+				</ul>
+			</div> <!--/.nav-collapse -->
+		</div> <!--/.container-fluid -->
+	</nav>
+
+</wicket:panel>
+
+
+<wicket:fragment wicket:id="help-fragment">
+	<a class="dropdown visible-md visible-lg" wicket:id="help-link"  title="Help" href="#" style="margin-left:0;"><span class="far fa-question-circle"/></a>
+</wicket:fragment>
+
+
+<wicket:fragment wicket:id="brand-kbee-fragment">
+	<a class="navbar-brand visible-md  visible-lg" href="#" style="margin-left:0;"> <img  wicket:id="brand"></a>
+</wicket:fragment>
+
+
+<wicket:fragment wicket:id="brand-idoc-fragment">
+	<a class="navbar-brand visible-md  visible-lg" wicket:id="domain-link"  target="_blank" style="margin-left:0;">
+		<img  wicket:id="brand" style="float:left; margin-right:24px;"/>
+		<span style="color: white; font-size: 14px; text-transform: uppercase; font-weight: 600; line-height: 22px; float:left;" wicket:id="domain-name"></span>
+	</a>
+	<span class="navbar-brand"  style="margin-left:0;"> <img  wicket:id="app"></span>
+	
+</wicket:fragment>
+
+<wicket:fragment wicket:id="brand-factory-fragment">
+	<a class="navbar-brand visible-md  visible-lg" href="#" style="float: left; margin-left:0;"> <img  wicket:id="brand"> <span style="    margin-left: 15px;
+    color: #ffffff;  float: left;    font-size: 16px;    margin-top: 0px;    font-weight: 500;">Factory</span></a>
+</wicket:fragment>
+
+
+

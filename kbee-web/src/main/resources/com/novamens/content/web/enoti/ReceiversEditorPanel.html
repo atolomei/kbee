@@ -1,0 +1,38 @@
+<wicket:panel>
+
+	<span class="title-label"><wicket:message key="subscribers"/></span>
+		
+	<fieldset>
+		<ul style="float: left; width: 40em;">
+			<li class="item" wicket:id="receiversview">
+				<div class="control">
+					<div class="panel">
+						<div>
+							<label>
+								<a>
+									<span wicket:id="name"></span>
+									<span wicket:id="remove-link" class="menutrigger">x</span>
+								</a>
+							</label>
+						</div>
+					</div>
+				</div>
+			</li>
+			<li>
+				<div class="control" style="float:left;">
+					<div>
+						<label for="receiver">
+							<input id="receiver" wicket:id="receiver" style="float: left; 
+							padding: 6px 6px; border-radius: 4px;  font-size: 1em; color:#111111; 
+							border: 1px solid #cccccc;
+							background-position: 99% center;
+							background-repeat: no-repeat;
+							background-size: 21px;" class="field len300"/>
+							<img wicket:id="searcher" src="/images/magnifier-999999.png"/ style="float: left;width: 21px;padding-top: 7px;margin-left: -25px; cursor:pointer;">
+						</label>
+					</div>	
+				</div>
+			</li>
+		</ul>
+	</fieldset>
+</wicket:panel>

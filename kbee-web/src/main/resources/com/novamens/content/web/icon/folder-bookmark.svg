@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="21px" height="17px" viewBox="0 0 21 17" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 48.2 (47327) - http://www.bohemiancoding.com/sketch -->
+    <title>folder-bookmark</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="RealPage-DM" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" transform="translate(-18.000000, -340.000000)">
+        <g id="Left-Nav" transform="translate(0.000000, 73.000000)">
+            <g id="Navigation/Left/Light/Tier-1" transform="translate(0.000000, 250.000000)">
+                <g id="folder-bookmark" transform="translate(16.048632, 13.000000)">
+                    <g id="Frame_-_24px">
+                        <rect id="Rectangle-path" x="0" y="0" width="24.0729483" height="24"></rect>
+                    </g>
+                    <g id="Line_Icons" transform="translate(2.006079, 4.000000)" fill="#303436" fill-rule="nonzero">
+                        <path d="M18.0547112,3 L9.77963526,3 L8.12462006,0.8 C7.74848024,0.299 7.14765957,0 6.51975684,0 L2.00607903,0 C0.899726444,0 0,0.898 0,2 L0,15 C0,16.103 0.899726444,17 2.00607903,17 L18.0547112,17 C19.1610638,17 20.0607903,16.103 20.0607903,15 L20.0607903,5 C20.0607903,3.898 19.1610638,3 18.0547112,3 Z M2.00607903,15 L2.00607903,2 L3.00911854,2 L3.00911854,10 L5.01519757,8 L7.0212766,10 L7.0212766,2.667 L8.17477204,4.2 C8.55091185,4.701 9.15173252,5 9.77963526,5 L18.0547112,5 L18.0557143,15 L2.00607903,15 Z" id="Shape"></path>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

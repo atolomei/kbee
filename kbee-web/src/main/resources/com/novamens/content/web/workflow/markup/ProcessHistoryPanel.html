@@ -1,0 +1,85 @@
+
+<wicket:panel>
+	
+	<div class="section-header">
+		<h2> 
+			<wicket:message key="history" />
+		</h2>
+	</div>
+	
+<div class="row">
+	<div class="col-lg-12 col-md-12  col-xs-12">
+		<div class="row" wicket:id="audit-container">
+			<div class="col-lg-12 col-md-12  col-xs-12">
+				<div style="float:right">
+					<a wicket:id="audit" title="Audit Trail" class="btn-mini" id="audit" style="float:left; padding:0 6px; cursor: pointer;">
+						<i class="fal fa-history" aria-hidden="true"></i>
+					</a>
+				</div>
+			</div>
+		</div>
+		
+		
+		
+			<ul class="process-history col-lg-12" style="border: 1px solid #d8dcdf; border-top:none;   overflow: auto; margin-bottom: 56px;">
+				
+				<li wicket:id="history" class="row">
+					<div class="col-lg-12 col-md-12  col-xs-12">
+						<div wicket:id="photo" />
+						<div style="margin: 0 0 0 60px;">
+							<span wicket:id="user" style="line-height:1.7em; width:100%; float:left; font-weight:bold;"></span>
+							<span wicket:id="btitle" style="line-height:1.7em; width:100%; float:left;"></span>
+						
+						
+							<span class="note" wicket:id="notes" 			style="width:100%; float:left; max-width:980px;"></span>
+							<span class="ago" wicket:id="not-allowed" 		style="width:initial; float:left; max-width:980px;"></span>
+							
+							<div style="width:100%; float:left; margin-top: 0px;">
+
+																
+								<div wicket:id="duration" class="metadata" style="width:100%; float:left; margin-top: 0px;"></div>
+								
+								
+								<div> 
+									 <span wicket:id="task" class="metadata"></span>
+									  <!-- span wicket:id="time" class="metadata atright"></span-->
+								</div>
+								
+								
+								<div wicket:id="reassigned-container" class="metadata" style="width:100%; float:left; clear:left;">
+										<span class="reassign" wicket:id="reassigned"></span>
+								</div>
+								
+								<div wicket:id="resolution" class="metadata" style="width:100%; float:left;">
+									<a class="btn-link" wicket:id="link"> 
+										<span wicket:id="resolution-title"></span>
+									</a>
+								</div>
+								
+
+								<div wicket:id="resources-uploaded-container" style="width:100%; float:left;">
+									<ul style="width:100%; float:left;" class="resources-list">
+										<li wicket:id="resources-uploaded" class="resource" style="width:100%; float:left;">
+											<a class="btn-link" wicket:id="resource-link">
+												<i class="icon" wicket:id="glyphicon" />
+												<span class="media-heading" wicket:id="resource-title"></span>
+												<span wicket:id="resource-uploaded"   	 style="float: none;" class="metadata"></span>
+											</a>
+											<!-- div wicket:id="resource-description" style="white-space: initial; float:left;line-height: 1.7em; width:96%;max-width:1200px;"></div-->										
+										</li>
+									</ul>
+								</div>
+								
+							</div>
+						</div>
+					</div>
+				</li>
+			</ul>
+		
+	</div>
+	<div wicket:id="resolution-modal" class="modal window" data-dismiss="modal" data-toggle="modal" tabindex="-6" role="dialog"/>
+</div>
+
+</wicket:panel>
+
+

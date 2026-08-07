@@ -1,0 +1,46 @@
+<wicket:panel>
+    
+    <div class="container-fluid">
+    <div class="col-lg-12 col-md-12 col-xs-12 console-top">
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-xs-12 panel" style="margin-top:15px;">
+                <h2>
+                    <wicket:message key="batchcreation"/>
+                </h2>
+                <div style="float:left;">
+                    <button style="padding: 0px;margin: 0px" wicket:id="downloadTemplateBtn" type="button" class="btn btn-link bt-lg">
+                        <wicket:message key="downloadTemplateBtn"/>
+                    </button>
+                    <wicket:message key="howitworks"/>
+                </div>
+            </div>
+        </div>
+        
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-xs-12">
+                <div>
+                        <h2>
+                            <wicket:message key="bulkImportTitle"/>
+                        </h2>
+                        <form wicket:id="form" role="form">
+
+                            <div class="row">
+                                    <div class="col-xs-6 form-group" wicket:id="importFile"/>
+                            </div>
+                            <div class="">
+                                <button wicket:id="submit" type="submit" class="btn btn-primary btn-md"> <wicket:message key="import"/></button>
+                            </div>
+                        </form>
+                    
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-8">
+                <div wicket:id="commandPanel"/>
+            </div>
+        </div>
+      </div>
+  </div>
+    
+</wicket:panel>

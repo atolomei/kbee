@@ -1,0 +1,64 @@
+<wicket:panel>
+	<div wicket:id="status" class="command-status">
+					
+		<div class="row">
+					
+			<div class="col-lg-6 col-xs-12">
+				<h2><wicket:message key="title" /></h2>
+				<ul class="col-lg-12 col-xs-12 col-md-12">	
+					<li wicket:id="status-container" class="form-group">		<label class="control-label"><wicket:message key="status" /></label>		<span class="form-control" wicket:id="status">Executing</span></li>
+					<li wicket:id="date-start-container" class="form-group">	<label class="control-label"><wicket:message key="started" /></label>  		<span class="form-control" wicket:id="date-start">12 Oct 2012 (12 minutes ago)</span>									</li>
+					<li wicket:id="progress-container" class="form-group">		<label class="control-label"><wicket:message key="progress" /></label>		<span class="form-control" wicket:id="progress">20%</span></li>
+					<li wicket:id="etc-container" class="form-group">			<label class="control-label"><wicket:message key="etc" /></label>			<span class="form-control" wicket:id="etc">23 secs</span></li>
+					
+					
+														
+					<li wicket:id="totalitems-container" 	class="form-group">		<label class="control-label">Total Items planned</label>		<span class="form-control" wicket:id="total-items">20%</span></li>
+					<li wicket:id="progressitems-container" class="form-group">		<label class="control-label">Total Items processed</label>		<span class="form-control" wicket:id="total-items-processed">20%</span></li>
+										
+					
+					
+					
+					
+					
+					
+				</ul>
+			</div>
+										
+			<div class="col-lg-6 col-xs-12" wicket:id="command-result">
+				<h2><wicket:message key="results" /></h2>
+				<ul class="col-lg-12 col-xs-12 col-md-12">	
+					<li wicket:id="date-end-container" class="form-group">
+						<label class="control-label"><wicket:message key="terminated" /></label>
+						<span class="form-control" wicket:id="date-end"></span>
+					</li>
+					<li wicket:id="duration-container" class="form-group">
+						<label class="control-label"><wicket:message key="duration" /></label>
+						<span class="form-control" wicket:id="duration"></span>
+					</li>
+					<li wicket:id="resultcomments-container" class="form-group">
+						<label class="control-label"><wicket:message key="comments" /></label>
+						<span class="form-control" wicket:id="resultcomments"></span>
+					</li>
+					<li wicket:id="result-container" class="form-group">
+						<label class="control-label"><wicket:message key="result" /></label>
+						<span class="form-control" wicket:id="result"></span>
+					</li>
+					<li wicket:id="result-details-container" class="form-group">
+						<label class="control-label"><wicket:message key="result-details" /></label>
+						<span class="form-control" wicket:id="result-details"></span>
+					</li>
+					<li wicket:id="log-container" class="form-group">
+						<label class="control-label"><wicket:message key="loglabel"/></label>
+						<a wicket:id="log-link"><span class="form-control" wicket:id="log-name"></span></a>
+					</li>
+				</ul>
+			</div>
+		</div>
+					
+		<div class="buttons-container" style="float:left; width:100%; margin:0; padding:0;">
+			<a wicket:id="stop-link" class="btn btn-sm  btn-danger" href="#"><wicket:message key="stop" /></a>
+		</div>
+					
+	</div>
+</wicket:panel>

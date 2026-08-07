@@ -1,0 +1,26 @@
+<wicket:panel>
+	
+	<div class="col-lg-12 col-xs-12 col-md-12">
+		<div class="row">
+			<div class="alert alert-info">
+				<span wicket:id="metainfo"></span>
+			</div>
+		</div>
+		
+		<div class="row">
+			<div class="col-lg-12 col-xs-12 col-md-12" style="margin-top:-15px;">
+				<a cursor="pointer" title="Print Letter" class="btn-mini" wicket:id="print-button" style="float: right; margin-right:-15px;"> 
+					<i class="fal fa-print" aria-hidden="true" style="font-size:20px;"></i>
+				</a>
+				<a cursor="pointer" title="Printer friendly Letter" class="btn-mini" wicket:id="print-page" target="_blank" style="float: right; margin-right:-6px;"> 
+					<i class="fal fa-file-alt" aria-hidden="true" style="font-size:20px;"></i>
+				</a>
+			</div>
+		</div>
+		
+		<div class="row" >
+			<div id="response" style="float:left; width:100%;" wicket:id="text" class="response"/>
+			
+		</div>
+	</div>
+</wicket:panel>

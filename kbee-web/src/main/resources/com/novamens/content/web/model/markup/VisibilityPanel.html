@@ -1,0 +1,90 @@
+<wicket:head>
+
+	<style>
+		table.acl {
+			border: 1px solid WHITE;
+			border-spacing: 0;
+			border-right: none;
+			width: 951px;
+		}
+		
+		table.acl thead {
+			width: 100%;
+			float: left;
+		}
+		
+		table.acl th.console {
+			padding: 7px 15px;
+			border-right: 1px solid WHITE;
+			text-align: center;
+			min-width: 96px;
+			font-size: 1em;
+			background:  #d8dcdf;
+		}
+		
+		table.acl tr td.console {
+			padding: 7px 14px;
+			border-right: 1px solid WHITE;
+			min-width: 96px;
+			font-size: 1em;
+
+		}
+		
+		table.acl tr td.console span {
+			text-align: center;
+			line-height:1.8em;
+		}
+		
+		table.acl tr td.console span a {
+			width: 100%;
+			float: left;
+		}
+		
+		.console .not-set {
+			background-color: white;
+			color: #191a1b;
+			padding: 2px 20px;
+			border-radius: 2px;
+			border: none;
+			font-size: 0.9em;
+			color: #5F9C24;
+			font-weight:600;
+		}
+		
+		table.acl td.console a:hover span {
+			background: inherit;
+		}
+		
+		
+	</style>
+
+</wicket:head>
+<wicket:panel>
+
+	<label class="control-label" wicket:d="label" for="label"> <wicket:message key="visibility" /></label>
+	
+		<div class="table-responsive">
+			<table class="table table-header-bck table-bordered table-hover">
+				<thead>
+					<tr>
+						<th wicket:id="console" style="text-align:center;">
+							<span wicket:id="name">[Console]</span>
+						</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td wicket:id="visibility">
+							<span style="width:100%; float:left; display:block; text-align: center;">
+								<a wicket:id="value-link">
+									<span class="not-set" style="float:none;" wicket:id="value"></span>
+								</a>
+							</span>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	
+
+</wicket:panel>

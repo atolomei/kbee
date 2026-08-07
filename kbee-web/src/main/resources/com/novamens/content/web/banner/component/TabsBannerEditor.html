@@ -1,0 +1,36 @@
+<wicket:head>
+	<meta charset="utf-8" />
+	<script  type="text/javascript">
+		function setHeight() {
+			var h = viewport().height - 140 + "px";
+			document.getElementById('editor-del-documento').style.height=h;
+		}
+		function viewport() {
+			var e = window, a = 'inner';
+			if (!('innerWidth' in window )) {
+				a = 'client';
+				e = document.documentElement || document.body;
+			}
+			return { width : e[ a+ 'Width' ] , height : e[ a+'Height' ] };
+		}
+	</script>
+</wicket:head>
+<wicket:panel>
+	<div class="toolbar-form top" wicket:id="top-toolbar"/>
+	
+	<div class="notificacion" icket:id="notificacion"/>
+	
+	<div id="editor-del-documento" class="content-editor">	
+		<div class="editor">
+			<form id="formulario" method="post" action="#" wicket:id="form">
+				<!-- div wicket:id="feedback-superior" class="feedback fdsuperior">[feedback]</div-->
+				<div wicket:id="title-editor" style="margin-bottom: 36px;"/> 					
+				<div wicket:id="tabs" class="tab-panel"/>
+				<!-- div wicket:id="feedback-inferior" class="feedback fdinferior">[feedback]</div-->   
+			</form>
+		</div>
+		<div id="complementos-de-la-edicion">
+		</div>
+	</div>
+	<div class="acciones-formulario" icket:id="actions-inf"/>
+</wicket:panel>

@@ -1,0 +1,48 @@
+<wicket:head>
+
+<style>
+
+.boton .icono {
+	display: inline-block; padding-top: 1px;  float: right; 
+	height: 20px;
+	padding-bottom: 1px;
+	padding-top: 1px;
+	margin-left: 6px;
+}
+	
+.boton .etiqueta {display: inline-block; padding-left: 6px; height: 20px;}
+
+.acciones-formulario ul li.toolbar-item, 
+.entidades-toolbar ul li.toolbar-item {
+	display: inline-block;
+	float: left;
+	height: auto;
+	margin-right: 1px;
+	margin-top: 1px;
+}
+
+.icon-label-container { float: left; height: 20px; margin:0px; padding: 0px; display: inline-table;}
+</style>
+
+</wicket:head>
+
+<wicket:panel>
+
+	<div style="height:100%;">
+		<ul style="margin-bottom:2px; height: 100%;">
+			<li class="toolbar-item">
+				<a class="button" wicket:id="save-button">					
+					<div class="label"><span>guardar</span></div>
+					<div class="icon"><img wicket:id="save-icon"/></div>
+				</a>
+			</li>
+			<li class="toolbar-item">
+	 			<a class="button" wicket:id="close-button">					
+					<div class="label"><span>cerrar</span></div>
+					<div class="icon"><img wicket:id="close-icon"/></div>
+				</a>
+			</li>
+		</ul>
+	</div>
+</wicket:panel>
+

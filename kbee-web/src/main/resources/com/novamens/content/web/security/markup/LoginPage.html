@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<body>
+
+
+	<wicket:extend>
+	
+			<div class="kbee kbee-login-header-container">
+			
+			<div class="header">
+					<div class="logo">
+							<div class="isologo">
+								<h1 class="null" alt="kbee login" ><a href="/login"><img src="/images/kbee-isologo.png" height="50px"></img></a></h1> 	
+							</div>
+					</div>
+				</div>
+			</div>
+	
+			<div class="kbee" style="min-height: 800px; margin:  auto; width: 1024px;">
+
+				<form id="formulario" class="login" name="f" action="/j_spring_security_check" method="post">
+				
+					<fieldset style="border: none;">
+						
+						<div id="username" class="field">
+							<label class="label" for="j_username">User</label>
+
+							<!-- wicket:id="username" -->
+							<input class="value" type="text" name="j_username"  tabindex="1"></input>
+						</div>
+
+						<div id="password" class="field">
+							<label class="label" for="j_password">Password</label>
+
+							<!-- wicket:id="password" -->
+							<input name="j_password" class="value" type="password"  tabindex="2"></input>
+						</div>
+
+						<!-- div class="panel">
+							<span wicket:id="feedback">Mensaje de feedbak</span>
+						</div-->
+						
+						<div class="panel" style="text-align: center;">
+							<span wicket:id="error" class="error"></span>
+						</div>
+						
+						<div id="submit" class="field" style="margin-top: 32px;">
+						 	<div class="label">
+						 		<!-- wicket:id="submit"-->
+								<input t name="submit"  value="Login" type="submit" class="button" tabindex="3"></input>
+							</div>
+						</div>
+						</fieldset>
+				</form>
+				
+				<div class="login" style="margin-top: 36px;">
+							<div class="label" style="text-align: center;">
+								<a href="/forgotpassword" style="color: #cc3300;">Forgot your password ?</a>
+							 
+							</div>
+				</div>
+			</div>
+	
+		<div wicket:id="footer" class="kbee-content-footer" />
+	</wicket:extend>
+</body>
+</html>
+
+	
+
+

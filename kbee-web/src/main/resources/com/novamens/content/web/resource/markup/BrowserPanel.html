@@ -1,0 +1,68 @@
+<wicket:head>
+
+	<script type="text/javascript">
+	
+		function getQueryParams(qs) {
+			qs = qs.split("+").join(" ");
+			var params = {}, tokens,
+			re = /[?&]?([^=]+)=([^&]*)/g;
+			while (tokens = re.exec(qs)) {
+				params[decodeURIComponent(tokens[1])] = decodeURIComponent(tokens[2]);
+    		}
+			return params;
+		}
+		
+		var FileBrowserDialogue = {
+			init : function () {
+				 alert("init called");
+			},
+			mySubmit : function (URL) {
+				var win = tinyMCEPopup.getWin();
+				var query = getQueryParams(document.location.search);
+				win.document.getElementById(query.input).value = URL;
+				tinyMCEPopup.close();
+			}
+		}
+		
+		function returnvalue(value) {
+			FileBrowserDialogue.mySubmit(value);
+		}
+		 
+	</script>
+	
+</wicket:head>
+
+	
+<wicket:panel>
+	
+	<div id="resources-panel" class="kbee" style="margin-top: 12px;">
+		<nav class="navbar">
+			<div id="navbar" class="navbar-collapse collapse">
+				<ul class="nav navbar-nav navbar-right" style="width:auto;border-bottom: medium none;">
+					<li>
+					<button id="pickfiles" class="btn btn-lg btn-default">
+						<span><wicket:message key="upload.label" /></span> 
+					</button>
+					</li>
+				</ul>
+			</div>	
+		</nav>	
+		<ul wicket:id="resources-view" class="media-list col-lg-12 col-xs-12 thumbnail_large">
+			<li class="media col-lg-4 col-xs-4" wicket:id="resource">
+				<div wicket:id="image-container" class="thumbnail">
+					<a class="resource" wicket:id="image-link" data-toggle="tooltip" data-placement="right">
+						<img wicket:id="image" class="media-object" />
+					</a>
+				</div>
+				<div class="media-body" wicket:id="body">
+					<a icket:id="title-link">
+						<h4 class="media-heading" wicket:id="resource-title"></h4>
+					</a>
+					<span wicket:id="resource-info" style="float:left; color:#555555; width:100%;"></span>
+				</div>
+			</li>
+		</ul>
+	</div>
+	
+</wicket:panel>
+		

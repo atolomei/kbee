@@ -1,0 +1,137 @@
+<wicket:panel>
+	<div wicket:id="modal-dialog" class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				<div style="float:left;"><h2 class="modal-title" wicket:id="title"></h2><span class="modal-subtitle"></span></div>
+			</div>
+			<div wicket:id="step"></div>
+		</div>
+	</div>
+</wicket:panel>
+
+<wicket:fragment wicket:id="folder-selection-step-fragment">
+	<div class="modal-body">
+		<div style="margin-bottom: 2px; border: 1px solid #bbbbbb; height: 45px; border-radius: 3px;width: 100%;">
+			<div style="margin: auto;padding: 10px;">
+			1- Seleccione la carpeta que contiene el sistema
+			</div>
+		</div>
+		<div class="kbee browser" style="top:0px;" wicket:id="selector"></div>
+	</div>
+	<div wicket:id="modal-footer" class="modal-footer">
+		<wicket:container wicket:id="buttons">
+		<button wicket:id="button" type="button" class="btn btn-default btn-sm">
+			<wicket:container wicket:id="label"></wicket:container></button>
+		</wicket:container>
+	</div>
+</wicket:fragment>
+
+
+<wicket:fragment wicket:id="index-selection-step-fragment">
+	<div class="modal-body">
+		<div style="margin-bottom: 2px; border: 1px solid #bbbbbb; height: 45px; border-radius: 3px;width: 100%;">
+			<div style="margin: auto;padding: 10px;">
+			2- Seleccione los archivos que funcionen como puntos de entrada
+			</div>
+		</div>
+		<div class="kbee browser" style="top:0px;" wicket:id="selector"></div>
+	</div>
+	<div wicket:id="modal-footer" class="modal-footer">
+		<wicket:container wicket:id="buttons">
+		<button wicket:id="button" type="button" class="btn btn-default btn-sm">
+			<wicket:container wicket:id="label"></wicket:container></button>
+		</wicket:container>
+	</div>
+</wicket:fragment>
+
+<wicket:fragment wicket:id="confirmation-step-fragment">
+	<div class="modal-body">
+		<div style="margin-bottom: 2px; border: 1px solid #bbbbbb; height: 45px; border-radius: 3px;width: 100%;">
+			<div style="margin: auto;padding: 10px;">
+			3- Confirme
+			</div>
+		</div>
+		<div style="margin-bottom: 2px;border: 1px solid #bbbbbb;border-radius: 3px;width: 100%;display: inline-block;padding-top: 40px;padding-bottom: 40px;">
+			<div style="margin: auto;padding: 10px;" wicket:id="message"></div>
+		</div>
+	</div>
+	<div wicket:id="modal-footer" class="modal-footer">
+		<wicket:container wicket:id="buttons">
+		<button wicket:id="button" type="button" class="btn btn-default btn-sm">
+			<wicket:container wicket:id="label"></wicket:container></button>
+		</wicket:container>
+	</div>
+</wicket:fragment>
+
+<wicket:fragment wicket:id="execution-step-fragment">
+	<div class="modal-body">
+		<div style="margin-bottom: 2px; border: 1px solid #bbbbbb; height: 45px; border-radius: 3px;width: 100%;">
+			<div style="margin: auto;padding: 10px;">
+			4- Ejecutando....
+			</div>
+		</div>
+		<div style="margin-bottom: 2px;border: 1px solid #bbbbbb;border-radius: 3px;width: 100%;display: inline-block;padding-top: 40px;padding-bottom: 40px;">
+			<table class="col-lg-12 col-xs-12 col-md-12" style="padding-left:15px; padding-right:15px;">
+				<tbody>
+					<tr class="row">
+						<td class="col-lg-2">
+							<span class="label">Started</span>		
+						</td>
+						<td class="col-lg-10 col-md-8 col-xs-12">
+							<div wicket:id="started" class="value">[]</div>
+						</td>
+					</tr>
+					<tr class="row">
+						<td class="col-lg-2">
+							<span class="label">Status</span>		
+						</td>
+						<td class="col-lg-10 col-md-8 col-xs-12">
+							<div wicket:id="status" class="value">[]</div>
+						</td>
+					</tr>
+					<tr class="row">
+						<td class="col-lg-2">
+							<span class="label">Progress</span>		
+						</td>
+						<td class="col-lg-10 col-md-8 col-xs-12">
+							<div wicket:id="progress" class="value">[100.00 %]</div>
+						</td>
+					</tr>
+					<tr class="row">
+						<td class="col-lg-2">
+							<span class="label">Time to complete</span>		
+						</td>
+						<td class="col-lg-10 col-md-8 col-xs-12">
+							<div wicket:id="estimated" class="value">0</div>
+						</td>
+					</tr>
+					<tr class="row" id="id914e">
+						<td class="col-lg-2">
+							<span class="label">Total files</span>		
+						</td>
+						<td class="col-lg-10 col-md-8 col-xs-12">
+							<div wicket:id="total" class="value">[0]</div>
+						</td>
+					</tr>
+					<tr class="row" id="id1014f">
+						<td class="col-lg-2">
+							<span class="label">Total items processed</span>		
+						</td>
+						<td class="col-lg-10 col-md-8 col-xs-12">
+							<div wicket:id="processed" class="value">[]</div>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+	<div wicket:id="modal-footer" class="modal-footer">
+		<wicket:container wicket:id="buttons">
+		<button wicket:id="button" type="button" class="btn btn-default btn-sm">
+			<wicket:container wicket:id="label"></wicket:container></button>
+		</wicket:container>
+	</div>
+</wicket:fragment>
+
+

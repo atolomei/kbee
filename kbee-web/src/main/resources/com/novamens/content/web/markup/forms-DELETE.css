@@ -1,0 +1,1244 @@
+@charset "UTF-8";
+
+
+body {font-size: 13px;  font-family: 'Roboto', Segoe UI,  Arial, sans-serif; background: white; color: #111111; line-height: 1.45em; margin: 0;}
+
+@media screen and (max-width: 1280px) 							{.main-area {font-size: 13px; padding-top: 60px;}}
+@media screen and (min-width: 1281px) and (max-width: 1600px) 	{.main-area {font-size: 13px;padding-top: 60px;}}
+@media screen and (min-width: 1601px) 							{.main-area {font-size: 13px;line-height: 1.4em;padding-top: 60px;}}
+
+img {border: none;}
+img.magnifier {width: 19px;padding-top: 8px;margin-left: -23px;float: left; cursor:pointer;}
+
+
+
+.content-editor .editor .field-block     div.textblock p 	{margin-top:0; margin-bottom: 2.2em;}
+.content-editor .editor .field-block div.members-list,
+.content-editor .editor .field-block ul.members-list 			{float:left; margin-bottom: 0; width:100%;}
+.content-editor .editor .text-label 							{float: none;  border: 1px solid #e2e2e2; padding: 12px 48px 12px 20px;border-radius: 4px;    width: 100%;    box-sizing: border-box;}
+
+.content-editor u,
+.content-editor .highlight-inline {    border-bottom: 6px solid #b4e7f8;   box-shadow: inset 0 0px 0 #b4e7f8; color: inherit;-webkit-transition: background .15s cubic-bezier(.33,.66,.66,1);transition: background .15s cubic-bezier(.33,.66,.66,1); text-decoration: none;}
+
+
+.content-editor .editor .inline-form textarea,	
+.content-editor .editor .inline-form select,
+.content-editor .editor .inline-form input {
+  -webkit-box-sizing: border-box;
+     -moz-box-sizing: border-box;
+          box-sizing: border-box;
+         width: 100%; 
+         box-sizing: border-box;
+         padding: 8px;
+}
+
+
+										
+.content-editor .editor .content-title-block input {width: 100%; background: none; border: 1px solid #cccccc; border-radius: 4px; font-size: inherit;   font-family: inherit;  line-height: inherit; color: #111111; padding: 12px;
+    box-sizing: border-box;
+}				
+																			
+.content-editor .editor input.editmode {
+	width: 100%;
+	box-sizing: border-box;
+    font-size: 1em;
+    padding: 10px 12px;
+    border: 1px solid #cccccc;
+    border-radius: 4px;
+    
+    }
+    
+
+
+/** ------------------------------------------------------------------------------------------
+   DATE PICKER
+------------------------------------------------------------------------------------------ */
+
+
+.k-picker-wrap .k-select {border-left: none !important; padding: 0 !important;}
+
+span.k-datepicker {border: 1px solid #cccccc; padding:1px; background: white; width: 22em; 
+    padding-left: 10px;
+    padding-right: 10px;
+        padding-top: 0;
+    padding-bottom: 0;
+        line-height: 1.5em;
+    }
+    
+.k-picker-wrap .k-icon  {margin: 11px 4px 6px 4px;}
+.k-picker-wrap .k-select {border; none; width:32px;}
+
+.k-picker-wrap.k-state-default {padding-right: 32px;}
+
+.k-header {background: none;}
+.k-textbox > input, .k-autocomplete .k-input, .k-picker-wrap .k-input, .k-numeric-wrap .k-input, .k-dropdown-wrap .k-input, .k-selectbox .k-input {
+    line-height: 1.5em;
+    text-indent: 4px;
+    margin: 0px;
+    padding: 6px;
+}
+
+
+.k-textbox > input, .k-autocomplete .k-input, .k-picker-wrap .k-input, .k-numeric-wrap .k-input, .k-dropdown-wrap .k-input, .k-selectbox .k-input {
+	padding:  9px 0 !important;
+	        line-height: 1.5em !important;
+}
+
+.k-picker-wrap .k-select {
+    padding: 8px 0 0 0;
+    line-height: 1em;
+    height: 18px;
+	}
+
+.k-picker-wrap .k-select, 
+ .k-numeric-wrap .k-select, 
+ .k-dropdown-wrap .k-select {padding: 8px 10px 7px 10px; vertical-align: middle;background: white; height: initial;min-height:0;width: auto;}
+.k-picker-wrap .k-select {border: none;}
+
+ 
+.k-numeric-wrap .k-select, 
+.k-dropdown-wrap .k-select {height: initial;}
+
+
+
+.k-autocomplete.k-state-default, .k-picker-wrap.k-state-default, .k-numeric-wrap.k-state-default, .k-dropdown-wrap.k-state-default {
+    background-image: none; 
+    background-color:  none;
+    border: none;
+}
+
+.k-textbox > input, .k-autocomplete .k-input, .k-picker-wrap .k-input, .k-numeric-wrap .k-input, .k-dropdown-wrap .k-input, .k-selectbox .k-input {
+    padding: 7px 0px 7px 8px;
+    border-radius: 4px;}
+
+
+.k-textbox, .k-autocomplete, .k-dropdown-wrap, .k-picker-wrap, .k-numeric-wrap {
+	border: 1px solid #cccccc;
+}
+
+
+.k-autocomplete.k-state-default, .k-picker-wrap.k-state-default, .k-numeric-wrap.k-state-default, .k-dropdown-wrap.k-state-default {
+	background: white !important;
+	border-color: #cccccc;
+
+}
+
+.k-icon, .k-sprite, .k-editor-button .k-tool-icon {     opacity: 0.5 !important;}
+
+.k-picker-wrap .k-select, .k-numeric-wrap .k-select, .k-datetimepicker .k-select+.k-select, .k-animation-container .k-calendar-container, .k-list-container.k-state-border-right {
+    border-radius: 4px;}
+
+.task-page .date-value .task-page .k-picker-wrap .k-select, 
+.task-page .date-value .task-page .k-numeric-wrap .k-select, 
+.task-page .date-value .task-page .k-dropdown-wrap .k-select {background: red;}
+
+
+
+
+.k-textbox, .k-autocomplete, .k-dropdown-wrap, .k-picker-wrap, .k-numeric-wrap {
+    border-style: solid;
+    border-width: 1px;
+    padding: 0 32px 0 0;
+}
+
+.k-autocomplete, .k-combobox, .k-datepicker, .k-timepicker, .k-datetimepicker, .k-colorpicker, .k-numerictextbox, .k-dropdown, .k-selectbox, .k-textbox {
+   border-width: 1px; 
+}
+
+
+
+/** ------------------------------------------------------------------------------------------
+
+------------------------------------------------------------------------------------------ */
+.version-control ul.navigation-panel a:hover 						{background: #0d5072;}
+.version-control .toolbar-console .toolbar 	a div.button:hover		{background-color: #0d5072}
+.version-control .toolbar-console .toolbar	a:hover 				{background-color: #0d5072;}										
+.version-control .floating-panel .context-menu a:hover 				{color: white; background: #0d5072; font-weight: normal; border-radius:4px;}
+.version-control .toolbar-console  							 		{background: #E55932; color: white;}
+.version-control .toolbar-console .menu ul li a 					{color: white;	background-color: inherit; color: inherit;}
+.version-control .toolbar-console .menu ul li:hover					{background: #0d5072; color: white; border: none; margin:0;}
+.version-control .toolbar-console .menu ul li a 					{padding:5px 0px 5px 18px; margin: 0px; width:95%;	height: auto; display:inline-block;	color: white;	background-color: inherit; color: inherit;}
+.version-control .toolbar-console .menu ul li a:hover				{padding:5px 0px 5px 18px; margin: 0px; width:95%;	height: auto; display:inline-block;	color: white;	border-radius: 4px; background-color: inherit; color: inherit;}
+.version-control .toolbar-console .menu li.submenu:hover em			{color: white;}
+.version-control .toolbar-console ul li.submenu:hover div.submenu  	{display:block;position: absolute;overflow:visible;left: 300px;top: 120px; background: white;}
+.version-control .toolbar-console ul li.listicon a					{float: left; padding-left: 24px; padding-right: 24px; padding-bottom: 10px; padding-top: 13px;  padding-bottom: 13px; text-transform: uppercase;  }
+.version-control .toolbar-console ul li.listicon	a:hover			{color: white;background: #0d5072;}
+.version-control .toolbar-console .header 							{border-right: 1px solid #ededed;float: left;height: 100%; font-size: 0.95em;}
+.version-control .toolbar-console a:hover 									{background-color: #0d5072; color: white; }
+
+
+.kbee .text-image-container {}
+.kbee .text-image-right {float: right; margin: 0 0 24px 24px;}
+.kbee .text-image-left {float: left; margin: 0 24px 24px 0px;}
+.kbee .text-image-width {width: 100%; height: auto; margin: 24px 0;}
+.kbee .text-image-width img {width: 100%; height: auto;}
+
+
+/** ------------------------------------------------------------------------------------------
+  AUDIT TRAIL
+------------------------------------------------------------------------------------------ */
+.kbee .audittrail 						{margin-top:0px; margin-left: 0px; margin-right: auto; width: 100%; font-family: 'Roboto', Segoe UI,  Arial, sans-serif; font-size: 15px;}
+.kbee .audittrail tr:hover 				{background:  #f5f5f5;} 
+.kbee .audittrail tr.headers 			{background: #e1e1e1;}
+.kbee .audittrail tr.headers th			{padding: 3px 0; background-color: #e1e1e1; text-align: left; font-size:14px;}
+.kbee .audittrail tr.headers th	span 	{padding-left: 10px;}
+.kbee .audittrail tr td					{padding: 2px 10px 2px 10px; text-align: left;}
+.kbee .audittrail thead 				{width: 100%; font-weight: bold; background: #e1e1e1;}
+.kbee .audittrail tr.navigation:hover,
+.kbee .audittrail thead:hover 					   			 {background: #e1e1e1;}
+.kbee .audittrail tr.navigation 				   			 {}
+.kbee .audittrail tr.navigation .navigatorLabel 	 		 {float: left; font-weight: bold; background: inherit;}
+.kbee .audittrail tr.navigation .navigator      			 {float: right; font-weight: bold; background:  inherit;}
+.kbee .audittrail div.wicket-modal div.w_content_container 	 {position: relative;background: #e1e1e1;}
+
+
+/** ------------------------------------------------------------------------------------------
+ WORKFLOW INFO
+------------------------------------------------------------------------------------------ */
+.kbee 	.workflow-info 												{float: right;width: 27%;margin: 0;border: none; border-radius: 6px; margin-bottom:3em;}
+.kbee 	.workflow-info .title-container 							{width:100%; float: left; margin-bottom: 0;  padding-top:8px;  background: #f0f0f0; border-radius: 6px 6px 0 0;}
+.kbee 	.workflow-info .title-container h2.title					{padding-left:18px;     font-size: 1.3em;  margin-bottom: 7px;    text-transform: uppercase;   }
+.kbee	.workflow-info .info-container 								{    float: left;    padding-left: 5%;    padding-right: 5%;    padding-bottom: 12px;    padding-top: 20px;        background: #fbfbfb;    border-top: none;}
+.kbee	.workflow-info .info-container .metadata-container 			{width:100%; float: left; margin-bottom: 12px;}
+.kbee	.workflow-info .info-container span.label 					{color: #111111; font-weight: bold; margin-right: 2px;	}
+.kbee	.workflow-info .info-container span.value   				{color: #333333; font-weight: normal;}
+.kbee	.workflow-info .info-container .message-container 			{width:100%; float: left;  }
+.kbee	.workflow-info .info-container .message-container .message 	{    background: url("/images/pin-red.png") no-repeat 98% 4% white;    border-radius: 6px;    border: 1px solid #f0f0f0;    color: #111111;    font-size: 0.95em;    font-weight: normal;    float: none;    padding: 12px 10% 24px 6%;    width: auto;}
+
+.kbee	.workflow-info .info-container .field {width: 100%; float: left; margin-top: 6px;}
+.kbee	.workflow-info .info-container dl {float: left; margin:0; padding:0;}
+.kbee	.workflow-info .info-container dl dt {width: initial; float: left; font-weight:bold;}
+.kbee	.workflow-info .info-container dl dd {width: initial; float: left; margin:0; margin-left: 5px;}
+
+
+.kbee .simple-html-editor 							{width: 100%; height:120px; float: left; font-size: 15px; padding: 12px; font-family: 'Roboto', Segoe UI,  Arial, san serif;}
+
+						
+
+
+.content-editor .editor .image-container 		{margin-right: 12px; }
+.content-editor .editor .image-ancho-maximo 	{margin-right: 0px;width: 1024px;float: left;margin-bottom: 24px;}
+.content-editor .editor .image-ancho-texto  	{margin-right: 0px;width: 100%;float: left;margin-bottom: 24px;}
+.content-editor .editor .image-image-izq    	{margin-left: 0px; float: left; margin-right: 24px; margin-bottom: 24px; max-width:100%;}
+.content-editor .editor .image-image-der    	{margin-left: 24px; float: right; margin-right: 0px; margin-bottom: 24px; max-width:100%;}
+.content-editor .editor .image-container-right 	{margin-right: 0; margin-left: 16px; margin-bottom: 16px;}
+.content-editor .editor .image-container-left 	{margin-right: 16px; margin-left: 0; margin-bottom: 16px;}
+.content-editor .editor .image {}
+.content-editor .editor div.caption 			{font-size:13px; color: #999999; margin-top: 6px; text-align: center;}
+
+.content-editor .filelist ul li div.metainfo-icon .image-container img {border: 1px solid #cccccc; border-radius: 4px; padding: 2px 1px;}
+.content-editor .filelist ul li .description {color: #666666;}
+
+									
+/** ----------------------------------------------------------------------------
+ CONTEXT MENU 
+ -------------------------------------------------------------------------------*/
+.kbee .kbee-content-toolbar-container .context-menu 				{    border: 1px solid #999999;    background: none repeat scroll 0 0 white;    color: #111111;    overflow: visible;    position: fixed;    top: 38px;width: 300px;    padding-top: 5px;    padding-bottom: 5px;    text-align: left;    -webkit-border-radius: 5px;    -moz-border-radius: 5px;    border-radius: 5px;    box-shadow: 4px 4px 5px 0px rgba(50, 50, 50, 0.75);    margin-left: -12px;}
+.kbee .kbee-content-toolbar-container .context-menu ul 			{width: auto; float: none; padding: 0 3px;}
+.kbee .kbee-content-toolbar-container .context-menu ul li			{cursor: pointer;padding:0; float: left; width: 100%}
+.kbee .kbee-content-toolbar-container .context-menu a 			{color: inherit; float: left; line-height: 2.5em; width:100%;}
+.kbee .kbee-content-toolbar-container .context-menu em 			{color: inherit; float: left; line-height: 2.5em;  width:100%;}
+																					
+.kbee .kbee-content-toolbar-container .context-menu a span		{margin-left: 26px;}
+.kbee .kbee-content-toolbar-container .context-menu em span		{margin-left: 26px;}
+ 
+.kbee .kbee-content-toolbar-container .context-menu a.icon span		{margin-left: 0px;}
+.kbee .kbee-content-toolbar-container .context-menu a:hover 			{color: white; background: #0d5072; border-radius: 4px;}
+
+.kbee .kbee-content-toolbar-container .context-menu ul li .icon-container        {width: 16px; height: 16px; display: inline-block; float:left; margin-top:4px;       margin-left: 6px; margin-right: 4px;}
+.kbee .kbee-content-toolbar-container .context-menu ul li .icon-container  img   {width: 13px; margin-top: 5px;}
+.kbee .kbee-content-toolbar-container .context-menu ul li.separator:hover		   {cursor: none; background: none;}
+.kbee .kbee-content-toolbar-container .context-menu ul li.separator			   {margin-top: 5px; margin-bottom: 5px; border-top: 1px solid #e2e2e2; width: 90%; float: left; padding: 0 12px;}
+
+
+p.last {margin-bottom:0 !important;}
+
+
+/** ----------------------------------------------------------------------------
+ TEXT EDITOR 
+ -------------------------------------------------------------------------------*/
+.editor h1     {    font-weight: normal;    font-size: 24px;    float: left;    line-height: 1.5em;    margin: 0;  padding:0;  width: 100%; color: #0d5072; font-weight:500;}
+.editor h2     {font-weight: bold; font-size: 1.08em; margin-bottom: 8px;}
+.editor h3     {font-weight: bold; font-size: 1.05em; margin-bottom: 8px; text-transform: uppercase;}
+.editor h4     {font-weight: bold; font-size: 1em; margin-bottom: 8px;}
+.editor h5     {font-weight: bold; font-size: 0.92em; margin-bottom: 8px;}
+.editor h6     {font-weight: normal; font-weight: 400; color: #999999; }
+							
+.editor .highlight 						{font-size: 1.35em;font-weight: 300;color: #E55932;line-height: 1.45em; font-family: 'Roboto', Segoe UI,  Arial, sans serif; float: left;	width: 94%;	text-align: center;	margin-bottom: 32px;padding: 0;	margin: 0 6% 32px 0;font-style: italic;}
+.editor .defaltSkin table.mceLayout 	{width:100%; margin:0; float:left;}
+
+.null									{margin:0; padding:0; font-size: inherit; line-height: inherit;}
+
+.kbee 									{}
+.kbee	a:inactive						{font-style: normal;}
+.kbee	a 								{color: #111111; text-decoration: none;}
+.kbee	a.nulo	 						{padding-left:0em;margin-left:0em;color:#111111;}
+.kbee	h1.null:hover					{background: none;}
+.kbee	.isologo a:hover				{background: none; cursor: pointer;}
+.kbee	a:hover 						{background: #ededed; cursor: pointer;}
+.kbee a.link-button 		       		{color: #2C79A6; padding:0px 2px; margin:0 2px; } 
+.kbee a.link-button:hover  				{background: #e2e2e2; cursor: pointer;} 
+
+.kbee	a.button-nobck:hover, 		
+.kbee	a div.button-nobck:hover 		{background: #0D4363; color:white; cursor: pointer;}
+
+.kbee	a div.button:hover 				{background: #0D4363; color: white; cursor: pointer;}
+.kbee	a div.button-vote:hover,
+.kbee	a button:hover 					{background: #0D4363; cursor: pointer; border-radius: 6px;}
+
+.kbee .field  input.value 				{float: left; padding: 5px 12px; border: 1px solid #cccccc; background: white;  font-size: 1em; border-radius: 4px; font-weight: normal;}
+.kbee a.img:hover 																			{background: none;}
+.kbee .field  input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill 	{background-color: white !important; background-image: none; color: #111111; }
+
+.kbee	a.form-submit-button, 		 
+.kbee	a.form-cancel-button, 		 	
+.kbee	.content-editor a.form-cancel-button, 							
+.kbee	.content-editor a.form-submit-button 						{    background: #0d5072;
+    border-radius: 10px;
+    border: none;
+    color: white;
+    cursor: pointer;
+    float: left;
+    padding: 10px 73px;
+    font-size: 1em;
+    text-decoration: none;
+    line-height: 2.2em;}
+
+.kbee	a.form-cancel-button:hover,   
+.kbee	a.form-submit-button:hover,
+.kbee	.content-editor a.form-cancel-button:hover, 				
+.kbee	.content-editor a.form-submit-button:hover 					{cursor: pointer; background: #0D4363; color: white;}				
+
+
+
+.kbee   a.atright 									{float: left; margin-left: 6px;}
+.kbee  .atright 									{float: left; margin-left: 6px;}
+.kbee  .editor a.with-border 						{border: 1px solid #cccccc; padding: 10px 42px;}
+				
+
+
+.kbee .recently-used								{margin-top: 6px; float: left;}
+.kbee .recently-used .name 							{font-weight: normal; font-size: 13px; color: #2C79A6;} 
+.kbee .working-indicator 							{font-weight: bold;font-family: 'Roboto', Segoe UI,  Arial,sans-serif; position: fixed; left: 48%; top: 0px; display:none; padding:5px 22px 5px 22px; background: #fff8cc; color: black; border-radius: 0 0 5px 5px;}
+
+
+
+.kbee .orgchart table {
+    margin-bottom: 0;
+    line-height: 1.5em;
+    border: none;
+    font-size:1em;
+}
+ 
+						
+.kbee .orgchart  .field-block {margin-top: 2em;}
+ 
+.kbee .orgchart  table td {padding: 0; border: none;}
+
+
+.kbee .orgchart  table.icon-panel td.content a {
+    padding-right: 0.4em;
+    line-height: 2em;
+}
+ 
+ 
+  .kbee .content-editor .editor  .orgchart  textarea.editmode, 
+  .content-editor .editor .orgchart  .label {margin:0 ;     box-sizing: border-box;}
+ 
+
+.content-editor .editor .orgchart   .button-with-border {padding: 16px 79px; border-radius:0;}
+
+.content-editor .editor  .orgchart h3.title {text-transform: uppercase; font-size: 1em;}
+    
+ 
+ .kbee .orgchart textarea {
+    resize: vertical;
+    height: 92px;
+    border: 1px solid #cccccc;
+    border-radius: 4px;
+    color: #666666;
+    padding: 10px;
+    font-family: 'Roboto', Segoe UI,  sans serif;
+ }
+    
+/*
+  
+table  {margin-bottom: 2em;
+    font-size: 0.95em;
+    line-heigh: 1.4em;
+    color: #333333;
+    border: 1px solid #e2e2e2;
+    border-bottom: none;
+    border-right: none;
+    border-spacing: 0;}
+
+
+
+table td {padding: 12px 10px 8px 10px; border-bottom: 1px solid #e2e2e2; border-right: 1px solid #e2e2e2; line-height: 1.5em;}
+table thead { background: #f2f2f2; font-weight: bold; }
+
+*/
+
+
+
+
+
+
+
+
+/** --------------------------------------------------------------------------------------------------------
+	ALL 
+-------------------------------------------------------------------------------------------------------- */
+a.image:hover 	{box-shadow: none;background: none;}
+
+input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill 	{background-color: white !important; background-image: none; color: #111111; }
+																		
+			
+/* --------------------------- */
+/* esto es de las consolas !!! */
+/* --------------------------- */
+.infopanel ol, ul 													{list-style: none outside none;margin: 0;}
+.infopanel 															{margin: 0px 0 0 48px; float: none; width: auto; max-width: 100%; display: block;overflow: hidden;height: 98%;}
+.infopanel .content-editor											{height: 100%;}
+.infopanel .content-editor .editor  								{float: left; display: auto; padding: 32px 0 0 0; max-height: auto; width: 100%;  min-width: auto;max-height: initial;  min-width:  initial;}
+.infopanel .content-editor .editor .field-block 					{width: 100%; max-width:700px;}									
+.infopanel .content-editor .filelist ul li div.info 				{width: 100%;}													
+.infopanel .content-editor .editor .content-title-block     		{float: left;width: 90%;margin-bottom: 4	px;}
+.infopanel .content-editor .editor .field-block div.members-block 	{width: 100%;}
+.infopanel .content-editor .working-area 							{width: auto; overflow: hidden; float; none; margin: 0;} 
+.infopanel .image-info-container 									{float: left; width: 100%;}
+
+/* ------------------------------------------------------------------------------------------------------------------------- */
+
+ol, ul 							{list-style: none outside none;}
+.feedbackPanel 					{height: 28px;}
+.fdsuperior 					{left: 39%;	position: absolute;	top: 50px;}
+
+
+
+.fdinferior 					{float: left; width: 100%; margin: 12px 0;}									
+.feedbackPanel 					{}
+li.feedbackPanelINFO 			{}
+span.feedbackPanelINFO 			{}
+.feedbackPanel span.feedbackPanelINFO {}
+.feedbackPanel span.feedbackPanelERROR {color: #A90000; background: yellow;}
+
+
+/** --------------------------------------------------------------------------------------------------------
+  KBEE CONTENT HEADER
+ -------------------------------------------------------------------------------------------------------- */
+.kbee-content-header-container						{float: left; width: 100%; background: linear-gradient(#111111, #555555); height: 50px;}
+.kbee-content-header-container .header				{font-size: 1em; margin: auto; width: 1024px; float: initial;} /* [1024] */
+.kbee-content-header-container .header .logo 		{float: left; margin: 10px 0;} 
+
+/** --------------------------------------------------------------------------------------------------------
+  KBEE CONTENT FOOTER
+-------------------------------------------------------------------------------------------------------- */ 
+.kbee-content-footer 								{float: left; width: 100%; font-size: 1em; background: #111111; float: left; padding: 0; height: 50px;}
+.kbee-content-footer a 								{color: #666666;}
+.kbee-content-footer a:hover 						{color: white; background: none; }
+.kbee-content-footer ul li 							{margin-right: 42px; display: inline; float: left;}
+.kbee-content-footer .main-area 					{color: #666666; font-size: 0.92em; padding-top: 1em; width: 1024px; margin: auto} /* [1024] */
+.kbee-content-footer .copyright 					{float: right; margin-top: 1em;}
+.kbee-content-footer  p 							{margin-top: 0em; color: #666666; font-size: 0.92em; line-height: 1.4em; margin-bottom: 0;}
+
+/** ------------------------------------------------------------------------------------------------------
+  KBEE CONTENT MAIN AREA
+-------------------------------------------------------------------------------------------------------- */
+.kbee-content-main-area-container 					{width: 100%; margin: auto; min-height: 700px;}
+
+/*----------------------------------------------------------------------------------------------------------
+ TOOLBAR
+ ----------------------------------------------------------------------------------------------------------*/
+.kbee-content-header-container 																		{float: none; display: none; width: 100%; background:#111111;height: 50px;}
+.kbee-content-toolbar-container	 																	{float: left; width:100%; background: #111111; font-size: 1	em; position: fixed; z-index: 999999;}
+.kbee-content-toolbar-container div.toolbar-wrapper 												{width: 1024px; margin: auto; display: block;}  /*[1024]*/
+.kbee-content-toolbar-container div.toolbar-wrapper ul.toolbar 										{float: left;   margin: 0;padding-left: 12px;}
+.kbee-content-toolbar-container .toolbar-sub-panel 													{margin: 0; float: left;padding:0 }
+.kbee-content-toolbar-container .toolbar 	.tab 	   												{margin-right: 18px;}
+.kbee-content-toolbar-container .toolbar	li.button-container							 			{display: inline; float: left; }
+.kbee-content-toolbar-container .toolbar	div.button 												{height: 100%; color: white; padding: 20px 42px; border-radius: 0px; border: none;font-size: 1em; line-height:1em;}
+.kbee-content-toolbar-container .toolbar    div.button  .label 										{padding: 0; line-height:1.5em;}
+.kbee-content-toolbar-container .toolbar 	a div.button:hover										{background-color: #555555}
+.kbee-content-toolbar-container .toolbar	a:hover 												{background-color: none;}										
+
+.kbee-content-toolbar-container ul.navigation-panel a:hover 						{background: none;}
+.kbee-content-toolbar-container ul.navigation-panel 								{margin: 0; padding: 0}
+.kbee-content-toolbar-container ul.navigation-panel li.tab 							{margin-right: 0;}
+.kbee-content-toolbar-container ul.navigation-panel li.button-container 			{float:left;}
+.kbee-content-toolbar-container ul.navigation-panel .button .icon		    		{width: initial; height: 30px; float: left; margin:2px 0 0 0; padding: 0; display: block; width: 22px;}
+.kbee-content-toolbar-container ul.navigation-panel .button .icon img 				{width: 18px;}
+.kbee-content-toolbar-container ul.navigation-panel .button .label 					{padding:0; display: inline; text-align: left;}
+		
+.kbee-content-toolbar-container .toolbar	 div.edit-icon 											{background-image: none;}
+.kbee-content-toolbar-container .toolbar	 div.edit-icon:hover									{background-image: none;}
+.kbee-content-toolbar-container .toolbar	 em div.edit-icon 										{font-style: italic; background-image: none;}
+.kbee-content-toolbar-container .toolbar 	a div.tools-icon										{background-image: none;}
+.kbee-content-toolbar-container .toolbar 	a div.tools-icon .label 								{background-image: none;}
+.kbee-content-toolbar-container ul.navigation-panel	a div.next-icon         	{background-image: url("/images/console/next-white.png"); background-repeat: no-repeat;  background-position: center; background-repeat: no-repeat; background-size: 16px; padding: 20px 42px;}
+.kbee-content-toolbar-container ul.navigation-panel	a div.prev-icon   			{background-image: url("/images/console/prev-white.png"); background-repeat: no-repeat;  background-position: center; background-repeat: no-repeat;  padding: 20px 42px; background-size: 16px;}
+
+
+
+
+/* ----------------------------------------------------------------------------------------------------------
+  FORMS 
+ ----------------------------------------------------------------------------------------------------------*/
+.image-info-container 											{float: left; width:100%;}
+						
+.content-editor .editor .field-block div.textblock h2 { width:100%; font-size: 1em;}
+
+.content-editor .expanded {margin-bottom: 4.5em;}
+.content-editor .colapsed {margin-bottom: 8px;}
+
+.content-editor .text-field										{}
+.content-editor .field-block 									{width: 100%; float: left; margin-top:0px; max-width:636px;}
+
+
+/* ----------------------------------------------------------------------------------------------------------
+  ENTITY 
+  
+      font-size: 1em;
+    border-radius: 4px;
+    width: 25em;
+    padding: 10px;
+    border-radius: 0 5px 5px 0;
+ ----------------------------------------------------------------------------------------------------------*/
+
+
+.content-editor .entity form  {float: left; width:980px;}
+
+/*
+.content-editor  .entity form .box 	{padding: 24px;
+    border: 1px solid #cccccc;
+    width: calc(100% - 48px) !important;
+    border-radius: 5px;
+    max-width: 640px;}
+*/
+
+.content-editor  .entity 		.field-block 						{width: 100%; float: left; margin-top:1px;     max-width: 680px;}
+.content-editor  .entity        .buttons-container					{float:left; width:100%; margin: 3em 0 8em 0;}	
+.content-editor  .entity        .field-block .title-label   		{float: left;  width: auto;  min-width: 260px;  margin-top: 0px;  font-weight: normal; background: #F8F8F8;  border: 1px solid #cccccc;  padding: 9px 10px;  border-radius: 5px 0 0 5px;  margin-bottom: 0;  margin-right: 1px;}		
+.content-editor  .entity        .field-viewer                       {font-size: 1em;    padding: 9px 12px;    border: 1px solid #cccccc;    border-radius: 0 5px 5px 0;    background: white;    font-family: 'Roboto', Segoe UI,  Arial, sans serif; color: #666666;    float: left;    line-height: 1.5em;    margin-left: 1px;    width: 25EM; }
+.content-editor  .entity .field-block .checkbox-container input 	{width: 18px;    padding: 0;    height: 18px;    margin: 0px;} 
+.content-editor  .entity .field-block .checkbox-container {
+    padding: 9px 12px;
+    border: 1px solid #cccccc;
+    border-radius: 0 5px 5px 0;
+	float:left;
+	line-height:1.5em;
+	width:10em;
+	margin-left:1px;
+}
+	
+.content-editor  .entity .field-block input.title-content {
+	font-size:1.65em;
+	border-radius:4px;
+	width: 100%;
+	padding:12px;
+	box-sizing: border-box;
+}
+	
+	
+.content-editor  .entity .field-block input {
+    padding: 10px 12px;
+    border: 1px solid #cccccc;
+    border-radius: 0 5px 5px 0;
+	float:left;
+	width:22em;
+	    margin-left: 1px;
+}
+
+
+																				
+.content-editor  .entity .field-block a.button		 				{padding: 10px 56px;		height:auto;		border: 1px solid #cccccc;		line-height: 1.7em;		border-radius: 32px	;}
+.content-editor  .entity .field-block ul.members-list 				{}
+.content-editor  .entity select:hover 								{background:#0D4363; color:white;}
+.content-editor  .entity .field-editor 								{font-size: 1em;    padding: 10px ;    border: 1px solid #cccccc;    border-radius: 6px;    font-family: 'Roboto', Segoe UI,  Arial, sans serif;    color: #111111;    line-height: 1.5em; margin-left:1px;    width: 100%;}
+			
+.control a:hover {display: inline-block;}											
+.control a:hover .menutrigger 										{display:inline-block; }
+.control .menutrigger 												{background: none repeat scroll 0 0 #E55932;    border-radius: 3px;   color: #ffffff;    display: none;    font-size: 0.75em;    font-weight: bold;    height: 1.7em;    line-height: 1.7em;    margin-left: 16px;    padding: 6px 9px;    margin-top: 1px;}
+
+.content-editor .person         .field-block .title-label   		{float: left;  width: auto;  min-width: 260px;  margin-top: 0px;  background: #F2F2F2;  border: 1px solid #f2f2f2;  padding: 6px 10px;  border-radius: 5px 0 0 5px;  margin-bottom: 0;  margin-right: 2px;}		
+.content-editor .user	        .field-block .title-label   		{float: left;  width: auto;  min-width: 260px;  margin-top: 0px;  background: #F2F2F2;  padding: 6px 10px;  border-radius: 5px 0 0 5px;  margin-bottom: 0;  margin-left: 6px;}
+.content-editor .person         .field-block .title-content 		{width: 64%; font-size: 1em; padding: 2px 2px 3px 8px; border: 1px solid #ededed; border-radius: 0 4px 4px 0; background: white; font-family: 'Roboto', Segoe UI,  Arial, sans serif;}
+.content-editor .user           .title-content 				 		{padding: 3px 5px;width: 280px; border: 1px solid #d8dcdf; border-radius: 4px;}
+.content-editor .datasetmember 	.field-block .title-label   		{float: left;    float: left;    width:100%;    margin: 0 0 16px 0;    font-size: 1.35em;    line-height: 1.7em;    padding: 0;    text-transform: uppercase;    font-weight: normal;    color: #0d5072;}
+
+.content-editor .field-block    .title-label 			 			{Float: left;    margin: 0 0 12px 0;    font-size: 1em;    line-height: 1.5em;    padding: 0;   font-weight: 600;}
+.content-editor .field-block 	.title-explanation        			{color:#999999; font-weight:normal}
+.content-editor .field-block 	.textarea,
+.content-editor .field-block 	.input 								{border: none; padding: 7px 12px 7px 12px; background: white;  font-family: 'Roboto', Segoe UI,  Arial, sans-serif; width: 100%; font-size: 1em; }
+
+.kbee h3.title 														{margin:0; font-size:1em; text-transform:uppercase; font-weight:bold; }						
+
+.content-editor .editor h3.title 									{margin: 0 0 0 0; font-size: 1em; font-weight: bold; padding: 0; text-transform:none;}
+.content-editor .editor h2.title
+.content-editor .editor h1.title 									{margin: 0 0 0px 0; font-size: 1.8em; line-height: 1.25em; font-weight: 600; padding: 0; font-family: 'Roboto', Segoe UI,  Arial, 'Roboto', Segoe UI,  Arial, sans serif; }
+.content-editor .editor h3.title 									{margin: 0 0 6px 0; font-size: 1em; font-weight: bold; padding: 0;}
+
+h2.title,
+.content-editor .editor h2.title 								{    float: left;
+        float: left;
+    margin: 0 0 12px 0;
+    font-size: 15px;
+    line-height: 1.7em;
+    padding: 0;
+    text-transform: uppercase;
+    font-weight: bold;
+    color: #111111;}
+												
+
+.content-editor .editor .datasetmember h2.title 				{ float: left;
+     float: left;
+    margin: 0 0 12px 0;
+    font-size: 17px;
+    line-height: 1.7em;
+    padding: 0;
+    text-transform: uppercase;
+    font-weight: 500;
+    color: #111111;}
+
+.content-editor .editor .field-block     div.members-block 		{width: 100%; float:left; margin-bottom: 0px;     margin-top: 0em;}
+.content-editor .editor .field-block     div.textblock 			{margin-bottom: 0; font-size: 1.05em; line-height: 1.6em;}
+
+
+.info-layout .info .field-block div.textblock {font-size:1em; line-height:1.3em;}
+
+.k-numeric-wrap .k-select, 
+.k-dropdown-wrap .k-select {height: initial;}
+.k-picker-wrap .k-select  {height: initial;}
+
+
+
+.content-editor .entity .field-block .checkbox-container span {margin-left: 6px; color: #666666;}
+
+/* ----------------------------------------------------------------------------------------------------------
+  EDITOR 
+ ----------------------------------------------------------------------------------------------------------*/
+.content-editor														{float: left;margin:0;overflow:auto;padding:0;width: 100%;font-size: 1em;}
+.content-editor .editor 											{float: left; display: auto; padding: 2.4em 0 10em 0; width: 100%;  min-width: 770px;}
+
+
+
+																							
+.content-editor .working-area 										{width: 80%; max-width: 980px; margin: auto;} /* + 12px para La barra de scroll [1024px] */  
+.content-editor .editor .content-title-block 						{float: left; width: 100%; margin-bottom: 0px;}																							
+.content-editor .editor .field-block .title-block 					{float: left; width: 100%; }
+.content-editor .editor .field-block .title-block  .quantity		{    float: left;
+    margin: 0;
+    font-size: 1.25em;
+    line-height: 1.7em;
+    padding: 0;
+    text-transform: uppercase;
+    font-weight: normal;
+    margin-left: 5px;
+    color: #666666;}
+
+.content-editor .editor textarea.viewmode:hover,
+.content-editor .editor textarea.viewmode:focus,
+.content-editor .editor input.viewmode:hover,
+.content-editor .editor input.viewmode:focus  	 			{background: inherit; cursor: arrow; box-shadow: none !important; }
+
+.content-editor .editor .panel 								{padding-top: 70px;}
+.content-editor .editor ul 									{padding: 0;}
+
+.content-editor .members-list .icon-container 				{float: left;}
+.content-editor .members-list .finder .icon-container	 	{max-height:37px}
+														
+.kbee-content-toolbar-container .toolbar a.button:hover 	{cursor: pointer; background-color: #0D4363; color: white;display: block;	float: left;	margin: 0;	padding: 0;	text-align: center;	text-decoration: none;}
+.kbee-content-toolbar-container .toolbar .button,
+.content-editor .editor .button 							{border-radius: 10px; color: #2C79A6; background: none repeat scroll 0 0 rgba(0, 0, 0, 0); cursor: pointer; display: block;	float: left; padding: 0;	text-align: center;	text-decoration: none;}
+.content-editor .editor .button-with-border 				{padding: 12px 48px; border: 1px solid #cccccc; border-radius: 10px; color: #2C79A6; background: none repeat scroll 0 0 rgba(0, 0, 0, 0); cursor: pointer; display: block;	float: left; text-align: center;	text-decoration: none; font-size: 1em;}
+.content-editor .editor .button-with-border:hover 			{background: #0D4363; color: white;}
+.kbee-content-toolbar-container .toolbar .button .icon,
+.content-editor .editor .button .icon 						{display: inline-block;	float: right;	height: 15px;	margin-left: 6px;	padding-bottom: 1px;	padding-top: 2px;}
+.kbee-content-toolbar-container .toolbar .button .label,
+.content-editor .editor .button .label 						{display: inline-block;	float: left;	height: 20px;	padding-left: 6px;	padding-right: 2px;}
+
+.content-editor .editor span.button,
+.content-editor .editor a.button 							{color: #2C79A6; margin-right: 0px;	 font-size:1em; width:auto;}
+
+.content-editor .editor span.button em						{color: #666666;} 
+.content-editor .editor span.button:hover em				{color: white;} 
+.content-editor .editor span.button em:hover				{color: white;} 
+
+.content-editor .editor span.button:hover,
+.content-editor .editor a.button:hover  					{background: #0D4363; color: white;}
+.content-editor .editor span.nobutton						{float: left; display: inline; color: #999999;  padding: 2px 8px; font-size:14px;}
+.content-editor .editor span.nobutton em					{font-style: normal;}							
+									
+/*    FORM     */
+
+.content-editor .editor .component 					{display: block;overflow: hidden; padding: 2px 6px 2px 0px; margin:2.2em 0 0 0;}
+.content-editor .editor .viewmode 					{display: block;overflow: hidden; padding: 2px 6px 2px 0px; margin-top:2px;}
+.content-editor .editor .control   					{display: block;overflow: hidden; float:left; padding: 3px 0px 3px 0px; border-radius: 4px; width: 100%;}
+.content-editor .editor .datasetmember .control		{width: 31em;}
+
+.content-editor .editor p 							{line-height: 1.8em; font-size: 1em; margin-bottom: 0em; margin-top: 2.5em; float: none;}
+.content-editor .editor fieldset        			{border: medium none;margin-bottom: 0;	padding: 0; margin:0; display: inline-block; width:100%;}
+.content-editor .editor fieldset .item   			{  margin-top: 1px; float: left; width: 100%; height: 1.7em; margin-bottom: 2px;}
+.content-editor .editor fieldset .panel 			{border-bottom: none;	float: left;  margin-bottom: 3px; min-width: 60%; padding-top: 0;}
+.content-editor .editor fieldset .toolbar 			{float: right;}
+
+.content-editor .multiple-classification fieldset   {margin: 0;  float: initial;  padding: 10px 18px;  border: 1px solid #cccccc;  border-radius: 4px;   width: auto;}
+
+.len60p {width: 60%;}
+.len300 {width: 240px;}
+
+.content-editor .title-content 	{padding: 2px;	width: 76%;}
+.content-editor .title-label 	{font-weight: bold;}
+
+.content-editor table.acl		{font-size: 1em; display: block; float: left; border: 1px solid #cccccc;     width: 636px;}
+
+															
+.content-editor  .content-title-block input.editmode {width: 90%; background: none; padding: 4px 8px; border: 1px solid #e2e2e2; font-family: 'Roboto', Segoe UI,  Arial, sans-serif; border-radius: 4px; font-size: inherit; font-color: inherit; font-family: inherit;  ine-height: inherit; color: #111111;}
+
+.content-editor .editor input.viewmode	{width: 90%; background: none; padding: 0; border: none; font-size: inherit; font-family: inherit; line-height: inherit; color: #111111;}
+.content-editor .editor textarea.editmode,		
+.content-editor .editor .label {font-weight: normal; margin-right: 9px; margin-top: 6px; margin-left: 12px;}
+.content-editor .editor .value {color: #666666;} 
+
+/* ---------------------------------------------------------------------------------------------------------
+   FILE LIST 
+ ----------------------------------------------------------------------------------------------------------*/
+.content-editor .filelist ul li div.metainfo-icon .image-container img {border: 1px solid #cccccc; border-radius: 4px; padding: 5px 4px;     margin-top: 5px; background: white;}
+
+.content-editor .editor	  .gridmode 			{margin:0 0 0 0;}
+.content-editor .editor   .gridmode .control 	{padding: 1px;}
+.content-editor .filelist ul 					{float: left;font-size: 1em;line-height: 1.7em;margin-bottom: 0px;width: 100%;}
+.content-editor .listmode ul li 				{margin:2.2em 0 0 0;width: 100%;}
+.content-editor  .gridmode ul li 				{margin:0; }
+.content-editor .filelist .file 				{float: left; line-height:1.7em;}
+.content-editor .filelist .disable				{cursor: pointer;}
+
+			
+ .content-editor  .resource-list-container 				    {float: left; width: 100%; margin:0 background: red;}
+ .content-editor .filelist  .buttons-container  			{float: left; margin-top: 6px; margin-bottom: 18px; width: 100%;}
+ .content-editor .filelist  .buttons-container a.button 	{font-size: 0.95em; padding: 2px 14px 5px 14px; border: 1px solid #cccccc;margin-left: 0px;}
+	
+/*Thumbnail		*/
+.content-editor .listmode ul li  div.thumbnail-large a 														{float: left; }
+.content-editor .filelist ul li  div.thumbnail-large 														{display: inline-block;	float: left;}
+.content-editor .filelist ul li  div.thumbnail-large 														{display: inline-block;	float: left;}
+.content-editor .filelist ul li  div.thumbnail-large .link a.thumbnail-link 								{float: left; }
+.content-editor .filelist ul li  div.thumbnail-large  img													{  float: left; }
+																				
+/*List			*/									
+.content-editor .filelist ul li  div.metainfo-icon 								{float: left;	display: inline-block; width: 100%;}
+.content-editor .filelist ul li  div.metainfo-icon .image-container				{float: left; margin-right: 12px;}
+.content-editor .filelist ul li  div.metainfo-icon .info						{color: #666666; font-weight: normal;	float: left; margin-left: 0; margin-left: 0; text-transform:none; line-height:1.5em; border-radius:0; border:none;}
+.content-editor .filelist ul li  div.metainfo-icon img.icon				 		{margin-right: 0; width: 23px; height: 26px;}
+
+.content-editor .listmode ul li  div.metainfo-icon a.thumbnail-link:hover		{background:none; cursor:pointer; }
+
+
+/*Thumbnail medium */
+.content-editor .filelist ul li  div.metainfo-thumbnail-medium							{float: left;	display: inline-block; width: 100%;}
+.content-editor .filelist ul li  div.metainfo-thumbnail-medium .image-container			{
+    float: left;
+    margin-right: 16px;
+    border: 1px solid #e2e2e2;
+    border-radius: 10px;
+    width: 80px;
+    height: 80px;
+    background: #e2e2e2;
+    overflow: hidden;
+    margin-top: 0;
+    margin-left: 3px;
+}
+
+.content-editor .filelist ul li.file:hover {background: #f4f4f4;}
+
+
+.content-editor .filelist ul li  div.metainfo-thumbnail-medium .info					{color: #666666; font-weight: normal;	float: left; margin-left: 0;  text-transform: none; 
+
+border-radius:0;
+border:none;
+
+}
+.content-editor .filelist ul li  div.metainfo-thumbnail-medium img.thumbnail-medium 	{width: auto; max-width: 144px;}
+
+
+
+
+.content-editor .filelist ul li  div.metainfo .toolbar	{font-size: 15px; float: right; width: 29%;}
+.content-editor .filelist ul li  div.progress 			{color: black; font-weight: normal; margin-bottom: 18px;}
+.content-editor .filelist ul li  .percent 				{padding: 1px 6px 1px 6px; border-radius: 4px; background: darkred; color: white; }
+.content-editor .filelist ul li  .info 		   		    {text-transform: uppercase; color: black; }
+								
+.content-editor .filelist ul li div.link 				    {float: left;	width: 100%;}
+.content-editor .filelist ul li div.link .name 			    {font-weight: 600;}
+.content-editor .filelist ul li div.link span 			    {font-weight: bold;
+font-weight: bold;
+    font-size: 1.05em;
+    line-height: 1.7em;
+
+
+}
+.content-editor .filelist ul li div.link span.description   {font-weight: normal; color: #666666;}
+
+.content-editor .filelist ul li div.link .context-menu span 	   {font-weight: normal;}
+
+
+.content-editor .filelist ul li 						{float: left;
+    width: 70%;
+    min-width: 600px;
+}
+													
+.content-editor .filelist .listmode 					{margin:0 0 0 0;width: 100%;}
+.content-editor .listmode 								{margin:0 0 0 0;width: 100%;}
+
+
+.content-editor .add-files-container {float:left; margin: 3.2em 0 0 0; width:100%;}
+									
+.content-editor .editor .add-files-container a.button-with-border {
+/**	position: relative; */
+	z-index: 1;
+	padding: 18px 0;
+	text-align: center;
+	width: 26%;
+	border-radius: 4px;}
+
+
+
+
+/** --------------------------------------------------------------------------------
+	LABELS  
+ ---------------------------------------------------------------------------------*/
+li.table-row:hover { background:red;}
+
+
+/** --------------------------------------------------------------------------------
+	ENOTIRULES  
+ ---------------------------------------------------------------------------------*/
+.content-editor .enotirule .expanded {margin-bottom: 3.5em;}
+
+
+/* ----------------------------------------------------------------------------------------------------------
+  TABS 
+ ----------------------------------------------------------------------------------------------------------*/
+.editor .tab-panel 					{margin-bottom: 40px;margin-top: 0;}
+.editor .tab-row ul 				{list-style: none outside none;}
+.editor .tab-row ul li.selected 	{background-color: #f8f8f8;	border-bottom: 2px solid #f8f8f8; border-left: 1px solid #cccccc;	border-right: 1px solid #cccccc; font-weight: bold;}
+.editor .tab-row ul li 				{border-bottom: 1px solid #cccccc;border-radius: 3px 3px 0 0;cursor: pointer;float: left;height: 21px;line-height: 18px;	padding: 6px; text-align: center;	width: 15%;}
+
+/* ----------------------------------------------------------------------------------------------------------
+  SUGGESTIONS 
+
+.suggestions 						{margin-top: 1px; margin-left: -6px;	z-index:99999; box-shadow: 3px 4px 4px #cccccc; border: 1px solid #999999; border-radius: 0 0 6px 6px; background: white;}
+.suggestions div.wicket-aa 			{float: left;width: 99%;background: white;float: left; min-width: 460px;max-width: 700px;max-height: 160px; }
+div.wicket-aa 						{font-family: 'Roboto', Segoe UI,  Arial, 'Roboto', Segoe UI,  Arial, sans serif;background: #ffffff;color: #111111;padding: 5px 0px 18px 0px; z-index: 99999;font-size: 14px;line-height: 17px;margin-top: 4px;}
+div.wicket-aa ul li.selected 		{background-color: #e2e2e2; color: #111111} 
+div.wicket-aa ul li.outstanding 	{background-color: #e2e2e2; color: #111111} 
+div.wicket-aa ul li.tope 			{margin-top:12px;}
+div.wicket-aa ul 					{padding: 0;list-style: none;margin-bottom: 10px;overflow: hidden;width: 100%;}
+div.wicket-aa ul li 				{cursor: pointer;color: #111111;padding-top: 4px;padding-bottom: 4px;padding-left: 16px;float: left; width: 99%;font-size: 1em;}
+ ----------------------------------------------------------------------------------------------------------*/
+
+.content-editor .first 				{margin-top: 0px;}
+.content-editor .editor .first 		{margin-top: 0px;}
+
+
+.audittrail a,
+span.goto a 									{text-decoration: none; color: #111111;}
+
+.mce-container, .mce-container *, .mce-widget, .mce-widget *, .mce-reset p { font-size: 15px; font-color: red;}
+
+div.mce-fullscreen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  padding-top: 46px;
+  background: #f2f2f2;
+}
+
+/** --------------------------------------------------------------------------------
+  SCROLL BAR  
+ .scroll-list-container
+ ---------------------------------------------------------------------------------*/
+.kbee ::-webkit-scrollbar-button:start:decrement 		{height: 10px;width: 10px;display: block; background-image: none; background-repeat: no-repeat; background-position: center center; background-size: 10px;background-color: #F5F5F5;}
+.kbee ::-webkit-scrollbar-button:end:increment		{height: 10px;width: 10px;display: block;background-image: none; background-repeat: no-repeat;background-position: center center; background-size: 10px;background-color: #F5F5F5;}
+.kbee ::-webkit-scrollbar-track 						{background-color: #F5F5F5;}
+.kbee ::-webkit-scrollbar 							{width: 10px;background-color: #F5F5F5;}
+.kbee ::-webkit-scrollbar-thumb 						{background-color: #bbbbbb;}
+.kbee ::-webkit-scrollbar-thumb:hover 				{background:#666666;    box-shadow:none;    border-left: thin solid #cccccc; 	background-position: center center;}
+		
+		
+
+/** --------------------------------------------------------------------------------
+	TASKS  
+ ---------------------------------------------------------------------------------*/
+.content-editor .panel-feedback-panel {
+  float: left;
+  max-width: 500px;
+  width: 100%;
+  margin: 0;
+  background: #ffdfb9;
+  padding: 18px 10px 9px 18px;
+  font-size: 1em;
+  line-height: 22px;
+  color: #000000;
+  border-radius: 0 0 6px 6px;
+  width: 80%;
+  margin-bottom: 8px;
+  margin-top: 0px;
+  box-shadow: 7px 10px 18px 0px #E0E0E0 !important;
+  margin-right: 20%;
+  -moz-box-shadow: 7px 10px 18px 0px #E0E0E0 !important;
+  min-width: 180px;
+  -webkit-box-shadow: 7px 10px 18px 0px #E0E0E0 !important;
+  border: 1px solid #cccccc;
+ }
+ 
+ /** --------------------------------------------------------------------------------
+	CONTEXT MENU  
+---------------------------------------------------------------------------------*/
+
+.kbee 	.titlelink .menutrigger	{
+	background: none repeat scroll 0 0 #E55932;
+    border-radius: 3px;
+    color: #ffffff;
+    display: none;
+    font-size: 0.75em;
+    font-weight: bold;
+    height: 1.7em;
+    line-height: 1.7em;
+    margin-left: 16px;
+    padding: 6px 9px;
+    margin-top: 1px;
+    	}
+	
+.kbee	.titlelink a {font-size: 1em;display:inline-block;}
+
+.kbee	.titlelink a:hover .menutrigger {display:inline; cursor:pointer;}
+	 
+.kbee	.ie8 .titlelink a:hover .menutrigger {display:none;}
+	
+.kbee	.floating-panel .context-menu {    border: 1px solid rgba(0, 0, 0, .15);
+    background: none repeat scroll 0 0 white;
+    color: #111111;
+    overflow-x: visible;
+    overflow-y: visible;
+    position: absolute;
+    display: initial;
+    width: 300px;
+    float: none;
+    padding-top: 5px;
+    margin-left: -8px;
+    padding-bottom: 5px;
+    text-align: left;
+     
+    border-radius: 0;
+    box-shadow: 4px 4px 5px 0px rgba(50, 50, 50, 0.22);
+    z-index: 70000;
+    top: -1px;
+	}
+
+.kbee	.floating-panel .context-menu ul {
+		margin-left: 5px; 
+		margin-right: 5px; 
+		float: initial; 
+		width: initial; 
+		margin-top: 0; 
+		margin-bottom: 0;
+	}
+	
+.kbee	.floating-panel .context-menu ul li 			{cursor: pointer;float: left;padding: 0; width: 100%;	margin:0; border-radius: 4px;}
+.kbee	.floating-panel .context-menu ul li em 			{color: #666666;font-weight: normal;}
+.kbee	.floating-panel .context-menu ul li:hover em 	{color: #999999;font-weight: normal; background: #f6f6f6; border-radius:4px;}
+.kbee	.floating-panel .context-menu a 				{color: inherit; width: 100%; float: left; line-height: 2.75em; font-weight: normal; border-radius:4px;}
+									
+.kbee	.floating-panel .context-menu a.icon span,
+.kbee	.floating-panel .context-menu ul li em span,
+.kbee	.floating-panel .context-menu a span 			{padding-left: 12px; float:left;}
+											
+
+.kbee	.floating-panel .context-menu a:hover 			{color: white; background:  #0d5072; font-weight: normal; border-radius:4px;}
+																					
+.kbee	.floating-panel .context-menu ul li:hover {color: white; background-color:  #0d5072;  font-weight: normal;}
+.kbee	.floating-panel .context-menu ul li.inline-command 	{padding-left:6px; color:  #0d5072; margin-top: 8px; border-top: 1px solid #ededed; font-size: 1em; padding-right:0; border-radius:4px;}
+.kbee .floating-panel .context-menu ul li.inline-command:hover {color: white;}
+ 
+
+.kbee	.floating-panel .context-menu ul li.separator {margin-top: 5px; margin-bottom: 5px; border-top: 1px solid #e2e2e2; width: 90%; float: left; padding: 0 12px;}
+.kbee	.floating-panel .context-menu ul li.separator:hover {cursor: none; background: none;}
+
+
+
+.kbee	.floating-panel .context-menu ul li:hover .icon-container {background: white !important; }
+.kbee	.floating-panel .context-menu ul li .icon-container {width: 18px;
+    height: 18px;
+    display: inline-block;
+    float: right;
+    border: 1px solid #cccccc;
+    margin-right: 12px;
+    margin-top: 5px;
+    border-radius: 4px;}
+
+.kbee	.floating-panel .context-menu ul li .icon-container  img {    width: 13px;
+    padding: 0;
+    float: left;
+    padding: 2px 3px;	}
+
+
+
+.kbee .smenu {color: #FFFFFF;font-weight: bold;font-size:0.7em;background: #0d5072;border-radius: 3px; margin-left: 8px;	margin-top: 2px;		line-height: 2em;		padding: 6px 8px;	}
+					
+.kbee .mce-container {
+	border:1px solid #cccccc;
+ color: #111111;
+  font-size: 0.98em;
+  float: none;
+  position: static;
+  width: auto;
+  height: auto;
+  white-space: nowrap;
+  cursor: inherit;
+  line-height: normal;
+  font-weight: normal;
+  text-align: left;
+
+}
+
+
+ .kbee .mce-path-item 			{padding: 2px 6px;font-size: 0.8em;color: #666666;}
+ .kbee .mce-resizehandle 		{float:right !important;}
+ .kbee .mce-flow-layout-item 	{margin:0; padding:0; float:left;}
+			
+			
+ .kbee .mce-panel	{width:100% !important;}
+ .kbee .mce-panel {border-color:#cccccc; width:99.5%; float: left; }
+ .kbee .mce-container *, 
+ .kbee .mce-widget, 
+ .kbee .mce-widget *, 
+ .kbee .mce-reset {
+  color: #111111;
+  font-size: 12px;
+  float: none;
+  position: static;
+  width: auto;
+  height: auto;
+  white-space: nowrap;
+  cursor: inherit;
+  line-height: normal;
+  font-weight: normal;
+  text-align: left;
+  border: none !important;
+  box-shadow: none !important;
+      text-shadow: none;
+    background-image: none;
+  
+  }
+  
+ .kbee .mce-container button {}
+ .kbee .mce-container button i {}
+ .kbee .mce-ico, 
+ .kbee .mce-i-redo,
+ .kbee .mce-flow-layout {background: #f0f0f0; padding-top:1px;}
+  
+.kbee .mce-content-body  p {
+  color: #666666;
+  font-size: 1em;
+ }
+
+
+/** -----------------------------------------------------------------------------------------------------------
+  
+  UI Dialog
+  
+-----------------------------------------------------------------------------------------------------------*/
+  .ui-dialog  {background-color: white;
+  left: 0;
+  outline: 0 none;
+  overflow: hidden;
+  padding: 0.2em;
+  position: absolute;
+  top: 0;
+  box-shadow: 3px 4px 4px #999999;
+  border: 1px solid #999999;
+  border-radius: 0 0 6px 6px;
+  background: white;
+
+}
+
+.ui-dialog-titlebar .ui-state-default .ui-icon {background-image: url("/images/ui-icons_228ef1_256x240.png");	background-position: -94px -128px;}
+.ui-dialog-titlebar-close .ui-button-text {	display: none;	background-image: url("/images/ui-icons_228ef1_256x240.png");	background-position: -94px -128px;}
+.ui-state-highlight .ui-icon {	background-image: url("/images/ui-icons_228ef1_256x240.png");	background-position: 0px -142px;	margin-bottom: 2px;	margin-left: 2px;}
+
+.ui-state-default, 
+.ui-widget-content 
+.ui-state-default, 
+.ui-widget-header .ui-state-default {
+   /* background: url("images/ui-bg_glass_100_f6f6f6_1x400.png") repeat-x scroll 50% 50% #f6f6f6;
+   border: 1px solid #cccccc;
+   color: #1c94c4;
+   font-weight: bold;*/
+}
+
+.ui-dialog .ui-dialog-titlebar-close {
+    height: 20px;
+    margin: -10px 0 0;
+    padding: 1px;
+    position: absolute;
+    right: 0.3em;
+    top: 50%;
+    width: 20px;
+    border: 1px solid #666666;
+    border-radius: 4px;
+    background: inherit;
+}
+
+.ui-dialog .ui-dialog-titlebar-close:hover {
+	background: #396c6f;
+}
+
+
+.ui-dialog .ui-dialog-titlebar {
+    padding: 6px 8px;
+	position: relative;
+	background: #0D4363;
+	color: white;
+	font-weight: 600;
+}
+
+.ui-widget {
+    font-size: 1em;
+}
+
+.ui-corner-all, .ui-corner-bottom, .ui-corner-right, .ui-corner-br {
+    border-bottom-right-radius: 4px;
+}
+.ui-corner-all, .ui-corner-bottom, .ui-corner-left, .ui-corner-bl {
+    border-bottom-left-radius: 4px;
+}
+.ui-corner-all, .ui-corner-top, .ui-corner-right, .ui-corner-tr {
+    border-top-right-radius: 4px;
+}
+.ui-corner-all, .ui-corner-top, .ui-corner-left, .ui-corner-tl {
+    border-top-left-radius: 4px;
+}
+
+.ui-widget-content {
+    /*
+    
+    
+    background: url("/images/ui-bg_highlight-soft_100_eeeeee_1x100.png") repeat-x scroll 50% top #d8dcdf;*/
+    
+    color: #111111;
+    padding: 12px 18px;
+}
+.ui-widget {
+    font-family: Hind, Arial,sans serif;
+}
+.ui-dialog {
+    left: 0;
+    outline: 0 none;
+    overflow: hidden;
+    padding: 0.2em;
+    position: absolute;
+    top: 0;							
+    box-shadow: 3px 4px 4px #999999; 
+    
+    border: 1px solid #cccccc;
+    border-radius: 4px;
+    background: white;
+}
+.ui-front {
+    z-index: 100;
+}
+
+
+.ui-widget button {
+margin-right: 4px;
+    padding: 10px 52px;
+    color: #2C79A6;
+    background-color: white;
+    box-shadow: none;
+    border: 1px solid #cccccc;
+    border-radius: 10px;
+    font-size: 1em;
+    }
+
+.ui-widget button:hover {
+background: #0D4363;
+	cursor:pointer;
+	color:white;
+}
+
+.ui-dialog-buttonset {
+ padding-left: 3px;	
+}
+
+.dform  {
+	max-width:650px;
+	margin-left: 20px;
+	margin-top: 10px;
+}
+
+.dform .dpanel {
+	display: block;
+	float: left;
+	width: 325px;
+}
+
+.dform .dspanel {
+	display: block;
+	float: left;
+	width: 650px;
+	margin-bottom:25px;
+}
+
+.dform .dfield {
+	display: inline-block;
+	width: 200px;
+	float: left;
+	padding: 5px;
+	border: 1px solid #e2e2e2;
+	border-radius: 4px;
+	margin-top: 5px;
+}
+
+.dform .dlabel {
+	width: 100px;
+	display: block;
+	float: left;
+	padding: 5px;
+	margin-top: 5px;
+}
+
+.dform .dtext {
+	float: left;
+	width: 100%;
+	margin-top: 25px;
+}			
+
+.dform .dfirm {
+	float: left;
+	width: 100%;
+	margin-top: 25px;
+}	
+
+.dform .dfirm p {
+	margin: 0px;
+	padding: 0px;
+	margin-top: 2px !important;''
+	margin-bottom: 2px !important;
+}	
+
+.dform .dfooter {
+	float: left;
+	width: 100%;
+	margin-top: 25px;
+	margin-bottom: 25px;
+}	
+
+.dform .dfooter p {
+	margin: 0px;
+	padding: 0px;
+	margin-top: 2px;
+	font-size: 11px;
+	color: grey;
+	text-align: center;
+}

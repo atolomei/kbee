@@ -1,0 +1,31 @@
+<wicket:panel>
+	<div class="container-fluid">
+		<div class="row" style="margin-bottom: 2em;">
+			<div class="col-lg-5 col-md-5 col-xs-12" style="margin-bottom: 2em;">
+				<form id="form" method="post" action="#" wicket:id="form"
+					class="form-container">
+					<div class="form-group col-md-12 col-xs-12" wicket:id="command" />
+					<div class="form-group col-md-12 col-xs-12" wicket:id="parameters" />
+					
+					
+					<div class="col-lg-12 col-xs-12 col-md-12">
+						<div class="alert alert-info" > 
+							<div wicket:id="description" style="    max-height: 380px;    padding: 0;    margin: 0;    float: left;    width: 100%;    overflow: auto;    box-sizing: border-box;    white-space: initial;       text-overflow: initial;    "/>
+						</div>
+					</div>
+					
+					<div class="button-container">
+						<div class="col-lg-12 col-xs-12 col-md-12">
+							<button wicket:id="start-button" type="reset"
+								class="btn btn-primary btn-sm">
+								<wicket:message key="execute" />
+							</button>
+						</div>
+					</div>
+				</form>
+				<div wicket:id="help-modal" class="modal window" z-index=999999 tabindex="-6" role="dialog"/>
+			</div>
+			<div wicket:id="status" class="col-lg-7 col-md-7 col-xs-12"	style="float: right; padding-left: 45px;" />
+		</div>
+	</div>
+</wicket:panel>

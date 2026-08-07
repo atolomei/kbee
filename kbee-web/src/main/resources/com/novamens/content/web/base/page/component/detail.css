@@ -1,0 +1,501 @@
+/**
+ 
+ kbee2.css: general de páginas y componentes kbee
+ console.css: específico de consolas
+ forms.css: para los formularios
+ 
+ kbee-portal.css: para todas las páginas del kbee-portal
+ detail.css: sólo para la página de detalle de contenido (integradas con kbee-portal)
+
+*/
+
+@charset "UTF-8";
+
+@font-face {
+   font-family: Lato;
+   src: url('/fonts/lato/Lato-Regular.ttf');
+   font-weight:	normal;
+}
+
+
+@font-face {
+   font-family: Montserrat;
+   src: url('/fonts/montserrat-and-hind/montserrat/Montserrat-Regular.ttf');
+   font-weight:	normal;
+}
+
+@font-face {
+   font-family: Montserrat;
+   src: url('/fonts/montserrat-and-hind/montserrat/Montserrat-Bold.ttf');
+   font-weight:	bold;
+}
+
+@font-face {
+   font-family: Hind;
+   src: url('/fonts/montserrat-and-hind/hind/Hind-Regular.ttf');
+   font-weight:	normal;
+}
+
+@font-face {
+   font-family: Hind;
+    src: url('/fonts/montserrat-and-hind/hind/Hind-Italic.ttf');
+   font-weight:	normal;
+   font-style:	italic;
+}
+
+@font-face {
+   font-family: Hind;
+    src: url('/fonts/montserrat-and-hind/hind/Hind-Bold.ttf');
+   font-weight:	bold;
+}
+
+@font-face {
+   font-family: Hind;
+    src: url('/fonts/montserrat-and-hind/hind/Hind-Light.ttf');
+  font-weight: 300;
+}
+
+@font-face {
+   font-family: Hind;
+    src: url('/fonts/montserrat-and-hind/hind/Hind-Semibold.ttf');
+  font-weight:	600;
+}
+
+
+/*p.last {margin-bottom: 0 !important;}*/
+
+
+@media screen and (max-width: 980px) {
+	.kbportal .detail .site-body { width: 96%; padding-left: 2%;}
+	.kbportal .detail .detail-container {width:100%; float:left;}
+	.kbportal .detail .tools-and-navigation {    width: 100%;    float: left;    margin-top: 0;    font-size: 1em;}
+	.kbportal .detail .breadcrumb-social {width: initial;}
+	.kbportal .detail .preview .content-detail {float: left;    margin: 0;    padding: 32px 0 64px 0px;   font-family: Hind, sans serif;    font-size: 1.0em;    line-height: 1.4em;    width: 100%;}
+	.kbportal .detail .preview .content-detail .title-container h1	{width: 100%; min-width: auto; font-size: 1.6em; line-height: 1.65em;	color: #111111;font-weight: normal;	font-family: Montserrat, sans serif; margin: 0;}
+	
+	.kbportal .detail .preview .content-detail  video {width:100% !important;}
+}
+
+@media screen and (min-width: 981px) {
+	.kbportal .detail .detail-container {width:70%; float:left;}
+	.kbportal .detail .tools-and-navigation {    width: 26%;    float: right;    margin-top: 32px;    font-size: 0.95em;	}
+	.detail .breadcrumb-social {width: 26%;}
+}
+
+/* --------------------------------------------------------------------------------
+	BROWSER PARA PREVIEW EN CONSOLA
+ ---------------------------------------------------------------------------------*/
+ .browser .preview .content-detail 						{font-size: 1.15em; line-height: 1.45em; max-width:980px;}
+ .browser .preview .content-detail a.button 			{font-size: 0.92em; float: left; padding: 4px 16px 4px 16px; border: 1px solid #cccccc; background: none; color: #007EB1; border-radius: 10px; }
+ .browser .preview .content-detail a.button:hover 		{background: #3184B5; border: 1px solid #3184B5; cursor: pointer; color: white;}
+													 
+
+.detail  .comment-main-area a							{ color: #E55932;    display: inline-block;    font-size: 1.05em;    line-height: 1.7em;}
+.detail  .theme-blue .comment-main-area a				{color: #207abb;}
+					
+							
+ .preview table                     {margin-bottom: 2.2em;    font-size: 0.9em;    line-heigh: 1.7em;    color: #333333;    border: 1px solid #e2e2e2;    border-bottom: none;    border-right: none;    border-spacing: 0; width:100%;}
+ .preview  table td                 {padding: 12px 10px 8px 10px; border-bottom: 1px solid #e2e2e2; border-right: 1px solid #e2e2e2; line-height: 1.5em;}
+ .preview  table thead              {background: #f2f2f2; font-weight: bold; }
+ .preview .text-image-container img {border-radius: 5px;}							
+ .preview .text-image-container  	{}
+ .preview .text-image-right 		{float: right; margin: 0 0 24px 24px; padding: 6px;    border: 1px solid #d8dcdf;    border-radius: 4px; }
+ .preview .text-image-left 			{    float: left;  margin: 0 24px 24px 0px;  padding: 6px;  border: 1px solid #d8dcdf;   border-radius: 4px;}
+ .preview .text-image-width 		{width: 100%; height: auto; margin: 24px 0;}
+ .preview .text-image-width img 	{width: 100%; height: auto;}
+
+.preview .content-detail .metadata-tree-container	 				{height:100%; margin-left: 5px;}
+.preview .content-detail .metadata-tree-container .div				{padding-top: 30px;}
+.preview .content-detail .title-metadata-container 			 		{padding-top: 0; float: left; width: 100%; margin-bottom: 1.5em;}
+.preview .content-detail .title-metadata-container .title			{font-size: 1em; float: left; width: 100%; color: #111111; font-weight: 600; line-height: 1.6em; margin: 0;     border-left: none;    border-top: none;}
+
+
+
+.preview .content-detail table p {margin:0;}
+
+ .preview .content-detail .responsible-metadata-container 	 		{padding-top: 0; float: left; width: 100%; margin-bottom: 1.5em;}
+ .preview .content-detail .responsible-metadata-container .resp		{font-size: 1em; float: left; width: 100%; color: #111111; font-weight: 600; line-height: 1.6em; margin: 0;}
+																				
+ .preview .content-detail .members-metadata-container 	 			{padding-top:0; float: left; width: 100%; margin-bottom: 1.5em;}
+ .preview .content-detail .members-metadata-container ul li 		{font-size: 1em; float: left; width: 100%; color: #111111; font-weight: 600; line-height: 1.6em; margin: 0.5em 0; }
+ 
+ .preview .content-detail .mision-metadata-container 	 			{padding-top: 0; float: left; width: 100%; margin-bottom: 1.5em;}
+ .preview .content-detail .mision-metadata-container .mision	 	{font-size: 1em; float: left; width: 100%; color: #111111; line-height: 1.6em; margin: 0;}
+ 
+ .preview .content-detail .tree-container   						{font-size: 0.95rem;}
+ .preview .content-detail .metadata-tree-container 					{font-size: 0.95rem;}
+  
+  .preview .content-detail table.icon-panel td.content a:hover 	{text-transform: none; text-decoration: none;}
+  .preview .content-detail table.wicket-tree-content 				{padding: 2px 0;margin: 0px 0;}
+ 
+ .preview .content-detail .metadata-tree-container  h2 								{width: 100%; float: left;} 
+ .preview .content-detail .wicket-tree-content table.icon-panel .icon 				{display:none;}
+ .preview .content-detail .wicket-tree-content table.icon-panel .content 			{color: #111111; padding-left: 2px;image: none;background-position: 0px 50%;background-repeat: no-repeat; padding-right: 2px; }
+ .preview .content-detail .wicket-tree-content selected table.icon-panel .content  	{color: #111111; padding-left: 2px;image: none;background-position: 0px 50%; background-repeat: no-repeat}
+ .preview .content-detail .wicket-tree-content.selected .content 					{background: #ededed;}
+ .preview .content-detail .wicket-tree-content.selected .spacer 					{background-color: white;}
+ .preview .content-detail .wicket-tree-content.selected .half-line 					{background: #ededed;}
+ .preview .content-detail .wicket-tree-content.selected .line 						{background-color: white;}
+
+ .detail .preview .content-detail p a {color: #E55932;}
+ 																								
+ .detail .preview .content-detail										{float: left; margin:0; padding:32px 76px 64px 0px; font-family: Hind, sans serif; font-size: 1.0em; line-height: 1.4em;}
+ .detail .preview .preview-main-area-container 							{float: left; width: 100%; background: white; }
+ .detail .preview .preview-main-area-container .content-detail			{width:700px; float: left; margin:0; padding:54px 0 0 162px;  font-size: 15px; }
+
+ .detail .preview   .content-detail .title-container 		 				{width: 100%; float: left;padding: 0;margin: 0 0 3.25em 0;}
+ .detail .preview   .content-detail .title-container h1 	 				{width: 88%; min-width: 460px;font-size: 2em; line-height: 1.45em;	color: #111111;font-weight: normal;font-family: Montserrat, sans serif; margin: 0;}
+ .detail .preview   .content-detail .metadata-container		 			{width: 100%; float: left; padding:0; margin: 0 0 2.5em 0;}
+ .detail .preview   .content-detail	.metadata-container ul  	 		{float: left; width: 100%; padding:0; margin:0;}
+ .detail .preview   .content-detail	.metadata-container ul li  			{    font-size: 1em;    float: left;    width: 100%;    color: #111111;    font-weight: 600;    line-height: 1.6em;    margin: 1px 0;}
+    
+ .detail .preview   .content-detail .abstract-container  					{float:left; margin: 0 0 42px 0; padding:0;}
+ .detail .preview   .content-detail   .abstract-container .abstract 		{line-height: 1.6em;}
+ .detail .preview   .content-detail .filelist .buttons-container  		{float:left; margin: 12px 0; padding:0; width: 100%;}
+ 
+ .preview .content-detail .text-container 		 		  {width: 100%; float: left; padding:0; margin: 0;}
+ .preview .content-detail .text-container h2 			  {font-weight: bold; font-size: 1em; margin-bottom: 10px;line-height:1.45em; color: #111111; width: 100%;}
+ .preview .content-detail h3     						  {font-weight: bold; font-size: 1.05em; line-height: 1.45em; margin-bottom: 6px;}
+ .preview .content-detail h4     			  			  {font-weight: bold; font-size: 0.93em; margin-bottom: 6px;}
+ .preview .content-detail h5     						  {font-weight: bold; font-size: 0.88em; margin-bottom: 6px;}
+ .preview .content-detail h6 			      			  {font-weight: normal; font-weight: 400; color: #999999; }
+ .preview .content-detail .highlight   	  				  {     font-size: 1.5em;    font-weight: 300;    color:   #E55932;    line-height: 1.4em;    font-family: Hind, sans serif;    float: left;    width: 100%;    text-align: center;    margin-bottom: 32px;    padding: 0;    margin: 1em 0 2.5em 0;    font-style: italic;    font-family: Segoe UI, Hind, san serif; }
+
+ .preview .theme-blue .content-detail .highlight   	  				  {color: #207abb;}
+
+ .preview .content-detail p 					  			{line-height: 1.7em; font-size: 1em; margin-bottom: 2.2em; margin-top: 0; float: none;}
+ .preview .content-detail .caption 						    {
+ 
+ 
+ 
+     font-size: 0.8em;
+    color: #999999;
+    text-align: center;
+    margin-top: 12px;
+    padding: 6px 12px;
+ 
+ }
+ 
+ 
+ .preview .preview-header-container							{float: left; width: 100%; background: black; height: 50px; }
+ .preview .preview-header-container .header					{font-size: 1em; margin:0; width: 100%; float: left; color: #cccccc; height: 100%; padding:0}
+ .preview .preview-header-container .header .buttons		 	{border-right: 1px solid #999999; margin-right: 24px; float: left; height: 100%;}
+ 
+ .preview .preview-header-container .header a.button		{float: left;  padding: 16px 20px;}
+ .preview .preview-header-container .header a.button:hover 	{background:#323232;}
+ .preview .preview-header-container .header .title 			{float: left; font-weight: normaL; margin: 13px 0 0 0;}
+
+ .preview ol
+ .preview ul 												{list-style: none outside none;}
+
+ .preview .gallery-header-container							{float: left; width: 100%; background: black; height: 50px; }
+ .preview .gallery-header-container .header					{font-size: 1em; margin:0; width: 100%; float: left; color: #cccccc; height: 100%; padding:0}
+ .preview .gallery-header-container .header .buttons		 {border-right: 1px solid #999999; margin-right: 24px; float: left; height: 100%;}  
+																			
+ .preview .gallery-header-container .header a.button		{float: left;  padding: 16px 24px;}
+ .preview .gallery-header-container .header a.button:hover 	{background:#666666;}
+																							 
+ .preview .gallery-header-container .header .title 			{float: left; font-weight: normaL; margin: 13px 0 0 0;}
+
+ .preview .gallery-main-area-container 									{float: left; width: 100%; background: #222222; display: block;  z-index: 4000; overflow-x: auto; overflow-y: auto;}
+ .preview .gallery-main-area-container .gallery-body 					{float: left; width: 100%; }
+ .preview .gallery-main-area-container .gallery-body .resources 		{float: left;width: 100%;padding: 0;margin: 0}
+ .preview .gallery-main-area-container .gallery-body .resources .file 	{float:left; margin:4px;}
+
+
+ .preview .media-panel 										{}
+ .preview .media-panel .viewer 								{width:100%; float: left;}
+ .preview .media-panel .viewer .image-container 			{float: none; margin: auto; min-width:1024px;}
+ .preview .media-panel .description							{width:100%; float: left; margin-top:8px; color: #cccccc; font-size: 0.9em;}
+
+.kbeeportal .preview .content-editor .editor .image-container 		{}
+.kbeeportal .preview .content-editor .editor .image 				{}
+.kbeeportal .preview .content-editor .editor .caption 				{font-size:14px; color: #999999;}
+
+/** --------------------------------------------------------------------------------------------------------
+  KBEE CONTENT MAIN AREA
+-------------------------------------------------------------------------------------------------------- */
+
+.kbportal .detail .site-body							{margin:0 0 4em 0; float: left; min-height:800px;}
+
+							
+.preview .kbee-content-main-area-container 				{width: 100%; margin: auto; min-height: 700px;}
+
+.preview a:inactive					{font-style: normal;}
+.preview a 							{color: #111111; text-decoration: none;}
+.preview a.nulo	 					{padding-left:0em;margin-left:0em;color:#111111;}
+.preview h1.null:hover				{background: none;}
+.preview .isologo a:hover			{background: none; cursor: pointer;}
+.preview a:hover 					{background: #ededed; cursor: pointer;}
+.preview a div.button-nobck:hover 	{background: #ededed; cursor: pointer;}
+.preview a div.button:hover 		{background: #3184B5; cursor: pointer;}
+.preview a div.button-vote:hover,
+.preview a button:hover 			{background: #3184B5; cursor: pointer; border-radius: 6px;}
+.preview .field  input.value 		{float: left; padding: 5px 12px; border: 1px solid #cccccc; background: white;   font-size: 19px; border-radius: 6px; font-weight: normal;}
+.preview a.img:hover 																			{background: none;}
+.preview .field  input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill 	{background-color: white !important; background-image: none; color: #111111; }
+
+
+.editor .text-label h2     						{font-weight: bold; font-size: 19px; margin-bottom: 6px; text-transform: none;}
+								
+.content-editor .editor .first 					{margin-top: 0 !important;}
+.content-editor .field-block 					{width: 100%; margin-bottom: 6px; float: left; }
+.content-editor .field-block .title-label 		{margin-bottom: 4px; width: 100%; float: left; font-weight: bold;} 
+.content-editor .field-block .title-explanation {color:#999999; font-weight:normal}
+
+.content-editor .field-block .textarea,
+.content-editor .field-block .input 						    {border: none; padding: 6px 12px 6px 12px; background: white;  width: 100%; }
+.content-editor .editor h1.title 								{margin: 0 0 0px 0; font-size: 29px; line-height: 1.25em; font-weight: 600; padding: 0; font-family: Hind, Segoe UI, Arial, sans serif; }
+.content-editor .editor h2.title 								{float: left; margin: 0 0 10px 0; font-size: 1em; line-height: 1.5em;   padding: 0; text-transform: uppercase; font-weight: bold;}
+.content-editor .editor h3.title 								{margin:0; font-size: 1em; font-weight: 600; padding: 0;}
+.content-editor .editor .field-block     div.members-block 		{width: 100%; float:left; margin-bottom: 42px;}
+.content-editor .editor .field-block     div.textblock 			{margin-bottom: 0 !important;}
+.content-editor .editor .field-block div.members-list,
+.content-editor .editor .field-block ul.members-list 			{width: 100%; float:left; margin-bottom: 0;}
+.content-editor .editor .text-label 							{width: 100%; max-width: 700px; }
+
+/* ----------------------------------------------------------------------------------------------------------
+  EDITOR 
+ ----------------------------------------------------------------------------------------------------------*/
+.content-editor														{float: left;margin:0;overflow:auto;padding:0;width: 100%;font-size: 17px;}
+.content-editor .editor 											{float: left; display: auto; padding: 44px 0 44px 0; max-height: 710px; width: 100%;  min-width: 770px;}
+.content-editor .working-area 										{width: 1012px; margin: auto;} /* + 12px para La barra de scroll */
+.content-editor .editor .content-title-block 						{float: left; width: 62%; margin-bottom: 44px;}																							
+.content-editor .editor .field-block .title-block 					{float: left; width: 100%; }
+.content-editor .editor .field-block .title-block  .quantity		{float: left; color: #bbbbbb; margin-left: 6px; font-size: 1em;}
+.content-editor .editor textarea.viewmode:hover,
+.content-editor .editor textarea.viewmode:focus,
+.content-editor .editor input.viewmode:hover,
+.content-editor .editor input.viewmode:focus  	 					{background: inherit; cursor: arrow; border: none;  box-shadow: none !important; }
+.content-editor .editor .panel 										{padding-top: 70px;}
+.content-editor .editor ul 											{padding: 0;}
+.content-editor .members-list .icon-container 						{float: left;}
+
+.kbee-content-toolbar-container .toolbar a.button:hover 	{cursor: pointer; background-color: #007EB1; color: white;display: block;	float: left;	margin: 0;	padding: 0;	text-align: center;	text-decoration: none;}
+.kbee-content-toolbar-container .toolbar .button,
+.content-editor .editor .button 							{border-radius: 5px; color: #007EB1; background: none repeat scroll 0 0 rgba(0, 0, 0, 0); cursor: pointer; display: block;	float: left; margin: 0;	padding: 0;	text-align: center;	text-decoration: none;}
+
+.kbee-content-toolbar-container .toolbar .button .icon,
+.content-editor .editor .button .icon 						{display: inline-block;	float: right;	height: 15px;	margin-left: 6px;	padding-bottom: 1px;	padding-top: 2px;}
+
+.kbee-content-toolbar-container .toolbar .button .label,
+.content-editor .editor .button .label 						{display: inline-block;	float: left;	height: 20px;	padding-left: 6px;	padding-right: 2px;}
+
+.content-editor  .editor span.button,
+.content-editor .editor a.button 							{color: #007eb1; margin-right: 6px;	padding: 2px 10px; font-size:14px;}
+
+.content-editor .editor span.button:hover,
+.content-editor .editor a.button:hover  					{background: #007eb1; color: white;}
+.content-editor .editor span.nobutton						{float: left; display: inline; color: #999999; margin-right: 6px;	padding: 1px 10px 2px; }
+.content-editor .editor span.nobutton em					{}							
+									
+/* FORM */
+.content-editor .editor .component 					{display: block;overflow: hidden; padding: 2px 6px 2px 0px; margin:16px 0 0 0;}
+.content-editor .editor .control   					{display: block;overflow: hidden; float:left; padding: 2px 6px 2px 0px; border-radius: 4px; width: 100%;}
+.content-editor .editor .editmode .control:hover 	{background: #f0f0f0;}
+.content-editor .editor p 							{line-height: 1.45em; font-size: 1em; margin-bottom: 2.2.5em; margin-top: 0; float: none;}
+.content-editor .editor fieldset        			{border: medium none;margin-bottom: 0;	padding: 0;}
+.content-editor .editor fieldset .item   			{padding-top: 0; float: left; width: 100%;}
+.content-editor .editor fieldset .panel 			{border-bottom: none;	float: left;  margin-bottom: 3px; min-width: 60%; padding-top: 0;}
+.content-editor .editor fieldset .toolbar 			{float: right; width: 29%; font-size: 15px;}
+
+.len60p {width: 60%;}
+.len300 {width: 300px;}
+
+.content-editor .title-content 	{padding: 2px;	width: 76%;}
+.content-editor .title-label 	{font-weight: bold;}
+
+.content-editor .editor textarea.viewmode,
+.content-editor .editor input.viewmode							{width: 100%; background: none; border: none; font-size: inherit; font-color: inherit; font-family: inherit; line-height: inherit; color: #111111;}
+.content-editor .editor .content-title-block input.editmode 	{width: 100%; background: none; border-bottom: 1px solid #ededed; font-size: inherit; font-color: inherit; font-family: inherit;  ine-height: inherit; color: #111111;}
+
+/* ---------------------------------------------------------------------------------------------------------
+   FILE LIST 
+ ----------------------------------------------------------------------------------------------------------*/
+.preview .content-detail .editor	  .gridmode 		{margin:0 0 0 0;}
+.preview .content-detail .editor   .gridmode .control 	{padding: 1px;}
+
+.preview .content-detail .filelist  					{float: left; margin-top: 2.5em; width: 100%;}
+.preview .content-detail .filelist ul 					{float: left;font-size: 1em;line-height: 1.4em;margin-bottom: 0px;width: 100%;     margin-top: 22px;}
+.preview .content-detail .listmode ul li 				{margin:1.4em 0 0 0;width: 100%;}
+.preview .content-detail  .gridmode ul li 				{margin:0; }
+.preview .content-detail .filelist .file 				{float: left; }
+			
+ .preview .content-detail  .resource-list-container 				    {float: left; width: 100%; margin:0; }
+ .preview .content-detail .filelist  .buttons-container  				{float: left; margin-top: 24px; margin-bottom: 36px; width: 100%;}
+
+
+																																							 
+/*Thumbnail		*/
+.preview .content-detail .listmode ul li  div.thumbnail-large a 													{float: left; }
+.preview .content-detail .filelist ul li  div.thumbnail-large 														{display: inline-block;	float: left;}
+.preview .content-detail .filelist ul li  div.thumbnail-large 														{display: inline-block;	float: left;}
+.preview .content-detail .filelist ul li  div.thumbnail-large .link a.thumbnail-link 								{float: left; }
+.preview .content-detail .filelist ul li  div.thumbnail-large  img													{float: left; }
+																				
+/*List			*/									
+.preview .content-editor .filelist ul li  div.metainfo-icon 								{float: left;	display: inline-block; width: 100%;}
+.preview .content-detail .filelist ul li  div.metainfo-icon .image-container				{float: left; margin-right: 4px; width: 27px;}
+.preview .content-detail .filelist ul li  div.metainfo-icon .info						{color: #999999;font-weight: normal;	float: left; margin-left: 0; margin-left: 0; text-transform:none; }
+.preview .content-detail .filelist ul li  div.metainfo-icon img.icon				 		{margin-right: 0; width: 23px; height: 26px;}
+
+/*Thumbnail medium */
+.preview .content-detail .filelist ul li  div.metainfo-thumbnail-medium								{float: left;	display: inline-block; width: 100%;}
+.preview .content-detail .filelist ul li  div.metainfo-thumbnail-medium .image-container			{float: left;  margin-right: 12px;  width: 80px;  height: 80px;  overflow: hidden;  border-radius: 10px;  border: 1px solid #cccccc;  background: #e2e2e2;}
+    
+.preview .content-detail .filelist ul li  div.metainfo-thumbnail-medium .info					{color: #666666;font-weight: normal;	line-height: 1.45em; float: left; margin-left: 0;  text-transform: none; font-size:0.92em; }
+.preview .content-detail .filelist ul li  div.metainfo-thumbnail-medium img.thumbnail-medium 	{ border: none; max-width: 144px; }
+
+.preview .content-detail .filelist ul li  div.metainfo .toolbar	{font-size: 15px; float: right; width: 29%;}
+.preview .content-detail .filelist ul li  div.progress 			{color: black; font-weight: normal; margin-bottom: 18px;}
+.preview .content-detail .filelist ul li  .percent 				{padding: 1px 6px 1px 6px; border-radius: 4px; background: darkred; color: white; }
+.preview .content-detail .filelist ul li  .info 		   	    {text-transform: uppercase; color: black; }
+																							
+.preview .content-detail .filelist ul li div.link 					{float: left;	width: 100%;}
+.preview .content-detail .filelist ul li div.link .name 			{font-weight: 600;}
+.preview .content-detail .filelist ul li div.link span 				{font-weight: 600;}
+.preview .content-detail .filelist ul li div.link span.description  {font-weight: normal; color: #999999;}
+
+.preview .content-detail .filelist ul li 							{float: left;}
+.preview .content-detail .filelist .listmode 						{margin:0 0 0 0;width: 100%;}
+
+.preview .first {padding-top: 0 !important; margin-top: 0 !important;}
+
+/* ----------------------------------------------------------------------------------------------------------
+	DETAIL  
+ ----------------------------------------------------------------------------------------------------------*/
+ 
+.detail .editor span.button, .content-editor .editor a.button { color: #007eb1; margin-right: 0px; padding: 2px 8px; font-size: 0.9em;}
+
+.detail .button {border-radius: 5px;color: #007EB1;background: none repeat scroll 0 0 rgba(0, 0, 0, 0);cursor: pointer;display: block;float: left;padding: 0;text-align: center;text-decoration: none;}
+ 
+.detail .filelist ul {  float: left; font-size: 1em;  line-height: 1.4em;margin-bottom: 0px;width: 100%;}
+ 
+.detail .listmode ul .first {margin-top:0}
+.detail .listmode ul li {margin: 1em 0 0 0;width: 100%;}
+
+.detail .image-info-container 						{float: left; width: 90%;}
+
+.detail  .resource-list-container 				    {float: left; width: 100%; margin:0; background:red;}
+
+.detail .filelist   .buttons-container  			{float: left; margin-top: 6px; margin-bottom: 18px; width: 100%;}
+
+
+
+
+
+.kbportal .detail 	 .tools-and-navigation  a.p50 {width: calc(50% - 3px) !important; padding: 6px 0 !important; text-align: center !important; }
+.kbportal .detail    .tools-and-navigation .tools-block 					{margin-top: 3em;	width: 100%;float: left;}
+.kbportal .detail    .tools-and-navigation .tools-block .title 				{margin-bottom: 10px;	float: left; width:100%;}
+.kbportal .site-body .tools-and-navigation .results ul li.result a.title 	{font-weight: normal;}
+
+.kbportal .detail .preview .content-detail .filelist h2 {color: #111111; font-weight: bold;}
+										
+
+.kbportal .detail h2 span.label						    {font-weight: 600; text-transform: uppercase; font-size: 1rem; color: #E55932;   margin:0; padding:0}
+.kbportal .theme-blue .detail h2 span.label				{color: #207abb; }
+
+.kbportal .detail a.button {  border: 1px solid #E55932;    background: white;    padding: 8px 42px;    float: left;    color: #E55932;    border-radius: 10px;    font-size: 0.9em;    line-height: 1.7em; }
+.kbportal .theme-blue .detail a.button 			{border: 1px solid #207abb; color: #207abb;}
+
+.kbportal .detail a.button:hover {background:  #E55932;  color: white;  border: 1px solid  #E55932; cursor: pointer; border-radius: 10px;}
+.kbportal .theme-blue .detail a.button:hover 	{background:  #207abb; border:1px solid  #207abb; }
+
+
+
+.detail form.inline-form .mce-container-body .mce-resizehandle  {float: right; height: 1em; display: iniline-flex; width: auto;}
+
+.div.mce-edit-area {width: 99%; background: white;}
+
+.kbportal .detail .site-body .panel-feedback-panel {    float: left;    max-width: 400px;    margin: 0;
+    background: #f8f8f8;
+    padding: 32px;
+    font-size: 0.92em;
+    line-height: 22px;  color:#101010;
+    border-radius: 0 0 6px 6px;
+    width: calc(90% - 64px);
+    margin-bottom: 8px;
+    margin-top: 0px;
+    box-shadow: 7px 10px 18px 0px #7E7E7E !important;
+    margin-right: 20%;
+    -moz-box-shadow: 7px 10px 18px 0px #7E7E7E !important;
+    min-width: 180px;
+    -webkit-box-shadow: 7px 10px 18px 0px #7E7E7E !important;
+    border: 1px solid #cccccc;
+    position: relative;
+    top: 0;}
+    
+    
+  
+.panel-feedback-panel {
+  float: left;
+  max-width: 500px;
+  width: 100%;
+  margin: 0;
+  background: #ffdfb9;
+  padding: 18px 10px 9px 18px;
+  font-size: 1em;
+  line-height: 22px;
+  color: #000000;
+  border-radius: 0 0 6px 6px;
+  width: 80%;
+  margin-bottom: 8px;
+  margin-top: 0px;
+  box-shadow: 7px 10px 18px 0px #E0E0E0 !important;
+  margin-right: 20%;
+  -moz-box-shadow: 7px 10px 18px 0px #E0E0E0 !important;
+  min-width: 180px;
+  -webkit-box-shadow: 7px 10px 18px 0px #E0E0E0 !important;
+  border: 1px solid #cccccc;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*Thumbnail		*/
+.detail  .listmode ul li  div.thumbnail-large a 													{float: left; }
+.detail  .filelist ul li  div.thumbnail-large 														{display: inline-block;	float: left;}
+.detail  .filelist ul li  div.thumbnail-large 														{display: inline-block;	float: left;}
+.detail  .filelist ul li  div.thumbnail-large .link a.thumbnail-link 								{float: left; }
+.detail  .filelist ul li  div.thumbnail-large  img													{float: left; }
+																																									
+/*List			*/									
+.detail  .filelist ul li  div.metainfo-icon 							{float: left;	display: inline-block; width: 100%;}
+.detail .filelist ul li  div.metainfo-icon .image-container				{float: left; margin-right: 4px; width: 27px;}
+.detail  .filelist ul li  div.metainfo-icon .info						{color: #666666;font-weight: normal; float: left; margin-left: 0; margin-left: 0; text-transform:none; }
+.detail  .filelist ul li  div.metainfo-icon img.icon					{margin-right: 0; width: 23px; height: 26px;}
+
+/*Thumbnail medium */
+ .detail .filelist ul li  div.metainfo-thumbnail-medium							{float: left;	display: inline-block; width: 100%;}
+ .detail  .filelist ul li  div.metainfo-thumbnail-medium .image-container		{float: left;  margin-right: 4px; width: 132px; }
+ .detail  .filelist ul li  div.metainfo-thumbnail-medium .info					{color: #666666;font-weight: normal;	float: left; margin-left: 0;  text-transform: none; }
+ .detail  .filelist ul li  div.metainfo-thumbnail-medium img.thumbnail-medium 	{ border: none;  width:auto;} 
+
+ .detail .filelist ul li  div.metainfo .toolbar		{font-size: 15px; float: right; width: 29%;}
+ .detail  .filelist ul li  div.progress 			{color: black; font-weight: normal; margin-bottom: 18px;}
+ .detail .filelist ul li  .percent 					{padding: 1px 6px 1px 6px; border-radius: 4px; background: darkred; color: white; }
+ .detail  .filelist ul li  .info 		   		    {text-transform: uppercase; color: black; }
+								
+ .detail  .filelist ul li div.link 					{float: left;	width: 100%;}
+ .detail  .filelist ul li div.link .name 			{font-weight: 600;   font-size: 1.0em;}
+ .detail .filelist ul li div.link span 				{font-weight: 600;   font-size: 1.0em;}
+ .detail  .filelist ul li 							{float: left;}
+													
+ .detail .filelist .listmode 						{margin:0 0 0 0;width: 100%;}
+ .detail  .listmode 								{margin:0 0 0 0;width: 100%;}
+
+

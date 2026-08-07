@@ -1,0 +1,72 @@
+
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+
+<body>
+	
+	<wicket:extend>
+	
+	<div class="auxpage kbee">
+		
+	 <div wicket:id="header" /> 
+	
+	  <div wicket:id="canvas" class="mil24">
+		<div class="breadcrumb" wicket:id="breadcrumb" />
+			<div class="content-panel">
+				<div class="content-area">
+					 
+					<div class="text">
+						<div style="float: left; width:100%;">
+							<div class="block">
+								<div class="table">
+									<div class="headers">
+											<span class="header colId">Id</span>
+											<span class="header colName">Name</span>
+											<span class="header colStatus">Status</span>
+											<span class="header colTimestamp">Modified</span>
+											<span class="header colUser">Modified by</span>
+											<span class="header colNumber">#Users</span>
+											<span class="header colNumber">#Cont.</span>
+											<span class="header colNumber">#Reso.</span>
+									</div>
+
+									<ul class="data">
+										<li wicket:id="domain">
+											<span wicket:id="id" class="value colId"></span>
+										
+											<a wicket:id="name-link" class="colName">
+												<span class="value" wicket:id="name"></span>
+											</a>
+											
+											<span wicket:id="status" class="value colStatus"></span>
+											<span wicket:id="date" class="value colTimestamp"></span>
+											<span wicket:id="user" class="value colUser"></span>
+											<span wicket:id="users" class="value colNumber"></span>
+											<span wicket:id="contents" class="value colNumber"></span>
+											<span wicket:id="resources" class="value colNumber"></span>
+										</li>
+									</ul>
+								</div>
+							</div>
+						</div>
+					</div>
+					
+							<div class="text" style="margin: 54px 0 32px 0; float: left;">
+						<a href="/admin" class="button-nobck">Back </a>
+			</div>
+
+				</div>
+			</div>
+		</div>
+		
+	 
+		
+	</div>
+	
+	</wicket:extend>
+</body>
+
+</html>

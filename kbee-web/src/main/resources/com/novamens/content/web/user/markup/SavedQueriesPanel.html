@@ -1,0 +1,127 @@
+<wicket:head>
+	<style>
+	
+	.modal-dialog .fields-container .field-block .menutrigger	{
+		    display: none;
+    color: #FFFFFF;
+    font-weight: bold;
+    background: #ec0e00;
+    border-radius: 3px;
+    margin-left: 5px;
+    font-size: 0.8em;
+    padding-left: 0.59em;
+    padding-right: 0.59em;
+    line-height: 1.5em;
+    height: 1.45em;
+    margin-top: 2px;
+    padding-top: 0em;
+    float: left;
+    padding-bottom: 0.2em;
+	}
+	
+	.inline-form a {
+		display: inline-block;
+	}
+
+	.inline-form a:hover .menutrigger	{
+		display:inline;
+	}
+
+	.modal-dialog .fields-container .field-block a:hover .menutrigger {
+		display:inline;
+	}
+
+	.context-menu {
+		border:1px solid #333333;	
+		background: none repeat scroll 0 0 white; 
+		color: #191a1b; 		overflow-x: visible;	
+		overflow-y: visible;	position: absolute;
+		display: initial;	width: 300px;
+		float: none;		padding-top: 5px;	
+		padding-bottom: 5px; 	text-align: left;	
+		-webkit-border-radius: 5px;
+		-moz-border-radius: 5px;	border-radius: 5px;
+		-webkit-box-shadow: 4px 4px 5px 0px rgba(50, 50, 50, 0.75);
+		-moz-box-shadow:    4px 4px 5px 0px rgba(50, 50, 50, 0.75);
+		box-shadow:         4px 4px 5px 0px rgba(50, 50, 50, 0.75);
+		z-index: 70000;	top: -20px;
+	}
+																		
+.modal-dialog .fields-container .field-block .context-menu ul 							{margin-left: 3px; margin-right: 3px; float: left; width: 300px; margin-top: 0; margin-bottom: 0;}
+.modal-dialog .fields-container .field-block .context-menu ul li	 					{cursor: pointer;    float: left;  padding: 5px 12px 5px 2px;width: 93%; }
+.modal-dialog .fields-container .field-block .context-menu ul li em 					{color: #666666; font-weight: normal;}
+.modal-dialog .fields-container .field-block .context-menu ul li:hover em 				{color: #cccccc; font-weight: normal;}
+.modal-dialog .fields-container .field-block .context-menu a 							{color: inherit; width: 95%; float: left; height: 100%; font-weight: normal;}
+.modal-dialog .fields-container .field-block .context-menu a:hover 						{color: white; background: #cc0000; font-weight: normal;}
+.modal-dialog .fields-container .field-block .context-menu ul li:hover 					{color: white; background-color: #cc0000; border-radius: 0px; font-weight: normal;}
+
+.modal-dialog .fields-container .field-block .context-menu ul li.inline-command 		 	{padding-left:6px; color: #0d5072; margin-top: 8px; border-top: 1px solid #ededed; font-size: 1em; padding-right:0;}
+.modal-dialog .fields-container .field-block .context-menu ul li.inline-command:hover 	{color: white;}
+.modal-dialog .fields-container .field-block .context-menu ul li.label-selected		 	{padding-left:6px;  padding-right:0;}
+.modal-dialog .fields-container .field-block .context-menu ul li.label-no-selected		{padding-left:6px; padding-right:0;}
+.modal-dialog .fields-container .field-block .context-menu ul li.separator			 	{margin-top: 5px; margin-bottom: 5px; border-top: 1px solid #e2e2e2; width: 90%; float: left; padding: 0 12px;}
+.modal-dialog .fields-container .field-block .context-menu ul li.separator:hover		   	{cursor: none; background: none;}
+.modal-dialog .fields-container .field-block .context-menu ul li .icon-container        	{width: 16px; height: 16px; display: inline-block; float:left; }
+.modal-dialog .fields-container .field-block .context-menu ul li .icon-container  img   	{width: 13px; margin-top: 5px;}
+
+.modal-dialog .fields-container .field-block .smenu {color: #FFFFFF;font-weight: bold;font-size: 0.53em;background: #ec0e00;border-radius: 3px; margin-left: 5px;padding-left: 1em;padding-right: 1em; margin-top: 2px;line-height: 2em;height: 2.125em;padding-top: 2px;padding-bottom: 3px;}
+
+</style>
+
+</wicket:head>
+
+
+<wicket:panel>
+
+<div class="modal-dialog">
+		
+	<div class="modal-dialog-body">
+		<form id="queriesform" method="post" action="#" wicket:id="form" class="form" style="width:700px;">
+			<div id="scrolllist" class="fields-container">
+				<div wicket:id="feedback" class="feedback fdsuperior"/>
+				
+				
+				<div class="field-block">
+					<ul class="table" style="width:100%;">	
+						<li wicket:id="query" style="padding:0; margin:0;">
+							<div class="control" style="width:100%">
+								<div wicket:id="query-editor" style="width:100%;display:inline-block;float:left;"/>
+							</div>
+						</li>
+					</ul>
+				</div>
+			</div>
+			
+			<div class="buttons-container" wicket:id="buttons-container"> 	
+				<div>
+					<a class="form-submit-button" wicket:id="submitener"><wicket:message key="savedqueries.form.submit" /></a>
+				</div>
+				<a class="form-submit-button atright" wicket:id="cancel"><wicket:message key="savedqueries.form.cancel" /></a>
+			</div>
+		</form>
+	</div>
+</div>
+</wicket:panel>
+
+
+<wicket:fragment wicket:id="query-editor-fragment">
+
+	<form id="queryform" wicket:id="form" style="float: left; width: 100%;" class="inline-form">
+	
+		<a wicket:id="titlelink" style="float:left; padding: 6px;">
+			<span wicket:id="titlelabel" style="float: left;"></span>
+			<span wicket:id="menulink" class="menutrigger"> ></span>
+		</a>
+		
+		<div wicket:id="editor-container" style="float:left; padding: 24px; border-radius:4px; border:1px solid #cccccc; width: calc(100% - 48px);     background: #f8f8f8;">	
+			<input id="title" class="field" wicket:id="titleeditor" />
+			<div wicket:id="actions" style="float:left;width:100%; margin-top: 24px; margin-bottom: 0px;">
+				<a class="table-button with-border" wicket:id="ok-button"><wicket:message key="savedqueries.label.edit.ok" /></a>
+				<a class="table-button with-border atright" wicket:id="cancel-button"><wicket:message key="savedqueries.label.edit.cancel" /></a>
+			</div>
+		</div>
+		
+		<div wicket:id="menu" style="display:none;" class="floating-panel"/>
+		
+	</form>
+</wicket:fragment>

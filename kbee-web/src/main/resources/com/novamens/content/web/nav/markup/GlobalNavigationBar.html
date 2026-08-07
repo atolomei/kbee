@@ -1,0 +1,110 @@
+<wicket:panel>
+
+	<nav wicket:id="top-navbar" class="navbar navbar-default navbar-fixed-top idoc">
+			
+			<div id="navbar-header">
+				
+				<ul wicket:id="hamburger-menu" class="nav navbar-nav">
+					<li><a class="sidebar-control sidebar-main-toggle"><i class="far fa-bars" aria-hidden="true"></i></a></li>
+				</ul>
+				
+				<div class="navbsssar-collapse colssslapse" id="navbar-mobile">	
+				
+					<wicket:container wicket:id="brand-idoc"/>
+					<wicket:container wicket:id="brand-factory"/>
+		
+		
+					<wicket:container wicket:id="mobile-brand-idoc"/>
+
+					
+					<ul class="nav navbar-nav navbar-right hidden-xs">
+						<li><div class="navbar-form navbar-left" wicket:id="search"/></li>
+						<li> <wicket:container wicket:id="navigator"/></li>
+						<li class="dropdown hidden-xs"><wicket:container wicket:id="portal"/></li>
+						<li class="dropdown hidden-xs"><wicket:container wicket:id="settings"/></li>
+						<li class="dropdown hidden-xs"><wicket:container wicket:id="notifications"/></li>
+						<li class="dropdown hidden-xs"><wicket:container wicket:id="help"/></li>
+						<li class="dropdown hidden-xs"> <wicket:container wicket:id="user"/></li>
+					
+						
+					</ul>
+				</div>
+				
+				
+				
+			</div>
+	</nav>
+</wicket:panel>
+
+<wicket:fragment wicket:id="help-fragment">
+	<a class="dropdown visible-md visible-lg" wicket:id="help-link"  title="Help" href="#" style="margin-left:0;"><i class="fal fa-question-circle"/></a>
+</wicket:fragment>
+
+<wicket:fragment wicket:id="notifications-fragment">
+	<a class="dropdown visible-md visible-lg" wicket:id="notifications-link"title="Alerts" href="#" style="margin-left:0;">
+		<i wicket:id="icon" style="color:white; float:left; font-size: 20px;" class="fal fa-bell" aria-hidden="true"></i>
+		<span wicket:id="total-notifications" class="total-at-side"></span>
+	</a>
+</wicket:fragment>
+
+<wicket:fragment wicket:id="mynotes-fragment">
+	<a class="dropdown visible-md visible-lg" wicket:id="mynotes-link"  title="My Notepad" href="#" style="margin-left:0;  max-width:80px;">
+			<i style="font-size: 20px;       float: left; " class="fal fa-edit"/>
+	</a>
+</wicket:fragment>
+
+<wicket:fragment wicket:id="myqueries-fragment">
+	<a class="dropdown visible-md visible-lg" wicket:id="myqueries-link"  title="My Saved Queries" href="#">
+		<i style="font-size: 20px;    float: left; " class="fal fa-star"/>
+	</a>
+</wicket:fragment>
+
+
+ 
+<wicket:fragment wicket:id="brand-idoc-fragment">
+	<a class="brand visible-md  visible-lg hidden-xs hidden-sm" wicket:id="rp-link"   style="margin-left:0;">
+		<img  wicket:id="brand" class="brand-icon">
+	</a>
+	<a class="brand visible-md  visible-lg hidden-xs hidden-sm" wicket:id="domain-link">
+		<span class="title"  wicket:id="product"></span>
+		<span class="subtitle" wicket:id="domain-name"></span>
+	</a>
+	
+</wicket:fragment>
+
+
+<wicket:fragment wicket:id="mobile-brand-idoc-fragment">
+	
+	
+	
+	<div style="float:right;">
+		<a class="brand" wicket:id="domain-link"  style="text-align: right;">
+			<span class="title"  wicket:id="product"></span>
+			<span class="subtitle" wicket:id="domain-name"></span>
+		</a>
+		
+		
+		<a class="brand" wicket:id="rp-link"   style="margin-left:0;">
+			<img  wicket:id="brand" class="brand-icon">
+		</a>
+	</div>
+</wicket:fragment>
+
+
+
+
+
+<!-- FACTORY -->
+<wicket:fragment wicket:id="brand-factory-fragment">
+	<a class="brand visible-md visible-lg visible-xs visible-sm" href="https://www.novamens.com" style="float: left; margin-left:0;"> 
+		<span style=" text-transform: uppercase;   margin-left: 0px; color: #ffffff;  float: left;    font-size: 16px;    margin-top: 0px;    font-weight: 600;" wicket:id="product"></span>
+		<span style="    margin-left:  8px; color: #cccccc;  float: left;    font-size: 16px;    margin-top: 0px;    font-weight: 600;"> <wicket:message key="factory"></wicket:message></span>
+	</a>
+</wicket:fragment>
+
+
+
+				<!-- ul class="nav navbar-nav visible-xs-block">
+					<li><a data-toggle="collapse" data-target="#navbar-mobile"><i class="icon-tree5"></i></a></li>
+					<li><a class="sidebar-mobile-main-toggle"><i class="far fa-bars" aria-hidden="true"></i></a></li>
+				</ul-->

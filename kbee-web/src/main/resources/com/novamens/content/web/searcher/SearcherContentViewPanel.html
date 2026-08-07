@@ -1,0 +1,47 @@
+<wicket:panel>
+
+
+		
+		<div style="float:left; width: 100%; display: block;">
+		
+			<div wicket:id="menu-container" style="display: block;    font-size: 1em;    padding: 15px 15px;    margin-top: -15px;    float: left; width:40px; height:40px; ">
+				<a class="dmenu" id="dmenu" data-toggle="dropdown"><i class="far fa-ellipsis-h" aria-hidden="true"></i></a>
+				<ul wicket:id="menu" style="position: relative;" class="dropdown-menu" aria-labelledby="dmenu" />
+			</div>
+			
+			<a style="display: block; font-size:1em; padding: 15px 15px;   margin-top: -15px;  float: left; cursor:pointer;" wicket:id="expanded-switch">
+				<i  wicket:id="expander-icon" class="far fa-angle-up">
+				</i>
+			</a>
+			
+			
+			<div wicket:id="image-container" class="image-container" style="width:64px; height: 64px; float:left;">
+							<a wicket:id="image-link" href="#"	 style="overflow: hidden; background: #d8dcdf;  border-radius: 4px; position:relative; width:100%; height:100%; float:left;">
+								<i style="color:#666666;  font-size: 28px;" wicket:id="glyphicon"></i>
+								<img class="centered-in-container" style="max-width:150%;" wicket:id="image"></img>
+							</a>
+			</div>
+			
+			<div class="content-hit-main-panel">
+					<div class="title-container" wicket:id="data-container">
+							<a wicket:id="title-link" class="title" href="#">
+									<span class="list-group-item-heading" wicket:id="title"/>
+							</a>
+							
+							<div wicket:id="metainfo-container" style="float:left; width:100%; margin:0;">
+								<div wicket:id="metainfo" class="metadata"/>
+							</div>
+							
+							<div wicket:id="mylists-container" style="float:left; width:100%; margin:0;">
+								<div wicket:id="mylists" class="mylist"/>
+							</div>
+							
+					</div>
+					<div wicket:id="expanded-container"> <div wicket:id="expanded-panel" /></div>
+			</div>
+	</div>
+	
+</wicket:panel>
+
+
+

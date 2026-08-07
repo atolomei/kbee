@@ -1,0 +1,41 @@
+	
+	<wicket:extend>
+		<header id="gallery-header-container" class="gallery-header-container">
+			<div id="gallery-header" class="header" wicket:id="header">
+					<div id="back" class="buttons">
+						<a href="#" wicket:id="return-link" class="button"><span>x</span><!-- img wicket:id="iconbutton" /--></a>	
+					</div>
+					<div id="title" class="title">
+							<span  wicket:id="title"></span>
+					</div>
+
+
+					<div style="float: right; margin:0;">
+						   <div class="text" style="float: left;">
+								<span wicket:id="index" style="float: left; padding: 20px 20px;" />
+							</div>
+
+							<div id="nav" style="float:left; display: block;" wicket:id="nav">
+								<div id="prev" style="float: left;">
+									<a wicket:id="prev" href="#" class="button">
+									<img wicket:id="prev-icon"     style="padding-top: 1px;    height: 19px;"></img></a>
+								</div>
+					
+								<div id="next" style="float:left;">
+										<a href="#" wicket:id="next" class="button">
+										 <img wicket:id="next-icon"  style="padding-top: 1px;    height: 19px;"></img></a>
+								</div>
+							</div>
+							<a wicket:id="viewmode" href="#" class="button" style="color: white;"><span wicket:id="label" /></a>
+					</div>
+					
+			</div>
+		</header>
+
+		<div wicket:id="canvas" class="gallery-main-area-container">
+			<div wicket:id="gallery" style="width:100%; float:left; height:100%;" />
+			<div wicket:id="viewer" style="width:100%; float:left; height:100%;" />
+		</div>
+			
+	</wicket:extend>
+	

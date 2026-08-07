@@ -1,0 +1,27 @@
+<wicket:panel>
+
+	<div class="row">
+		<form wicket:id="form" id="actionsform" method="post" action="#" class="panel col-lg-5 col-md-8 col-xs-12">
+			<h2> <wicket:message key="action" /></h2>
+			<div class="row">
+				<div class="col-md-12 col-lg-12 col-xs-12 form-group" wicket:id="user"/> 
+			</div>
+			<div class="row">
+				<div class="col-md-12 col-lg-12 col-xs-12 form-group" wicket:id="note"/> 										
+			</div>
+			
+			<button wicket:id="button-abort" class="btn btn-sm btn-default"><wicket:message key="abort"/></button>
+			<button wicket:id="button" class="btn btn-sm btn-primary"> <wicket:message key="reassign"/></button>
+		</form>
+	</div>
+	
+	<div class="panel col-lg-10 alert alert-info" wicket:id="feedback"/>
+
+ 						
+	<div class="row">
+		<div class="col-lg-10 panel">
+			<div wicket:id="selection" />
+		</div>
+	</div>
+			
+</wicket:panel>

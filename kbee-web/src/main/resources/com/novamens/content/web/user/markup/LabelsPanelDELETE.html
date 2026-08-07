@@ -1,0 +1,94 @@
+<wicket:panel>
+	
+
+<div class="content-editor">	
+
+<div class="editor entity">
+
+	<div class="working-area">
+
+			<div class="field-block extended">
+			
+				<div class="title-block" style="float:left; width:100%;">
+						<h2 class="title"><wicket:message key="userlabels.title" /></h2>
+				</div>
+				<div class="labels-container box" wicket:id="labels-view" />
+					<form id="labelsform" method="post" action="#" wicket:id="form" style="width: 662px;" class="form">
+						<div class="fields-container box">
+							<div wicket:id="feedback" class="feedback fdsuperior">
+							</div>
+							<div class="field-block">
+								<ul class="table labels-container" style="width: 600px; float: left; border: 1px solid #cccccc; border-radius: 4px; padding: 12px;">	
+									<li wicket:id="label" class="table-row" style="width: 100%; padding:4px 0; float: left;">
+										<div class="control" style="width:100%">
+											<div wicket:id="label-editor"  style="display:inline-block;float:left;"/>
+											<div class="toolbar" style="float: right; margin-top: 3px; margin-right: 12px;">	
+												<a class="button-with-border" wicket:id="edit-link"> <wicket:message key="userlabels.table.edit" /></a>
+												<a class="button-with-border atright" wicket:id="delete-link"> <wicket:message key="userlabels.table.delete" /></a>
+											</div>
+										</div>
+									</li>
+									
+								</ul>
+							</div>
+							<div class="buttons-container" style="float: left; margin: 2.5em 0; width:100%;"> 	
+								<a class="button-with-border" wicket:id="create-label-link"><wicket:message key="userlabels.add-label" /></a>
+							</div>
+						</div>
+						
+						<div class="buttons-container" wicket:id="buttons-container" style="float: left; margin-top: 3em; width:100%;"> 	
+							<div style="float: left; width:100%;">
+								<a class="form-submit-button" wicket:id="submitener"><wicket:message key="userlabels.form.submit" /></a>
+							</div>
+							<a class="form-submit-button atright" wicket:id="cancel"><wicket:message key="userlabels.form.cancel" /></a>
+						</div>
+				</form>
+			</div>
+			
+			
+			
+	
+	
+	
+	
+	</div>
+</div>
+</div>
+</wicket:panel>
+
+
+<wicket:fragment wicket:id="label-editor-fragment">
+
+	<form id="labelform" wicket:id="form" style="float: left;" class="labels-container">
+
+		<div style="float: left;  margin: 0px 0;">
+			<span wicket:id="label" class="label"></span>
+		</div>
+		
+		<div wicket:id="label-edit" style="float: left;    margin: 0;    padding: 6%;    background: #f4f4f4;    border-radius: 4px;    border:none">
+		
+			<div class="field-block first" style="width:100%; float: left;">
+				<span  style= "width:100%; float: left; margin-top: 12px; font-weight: bold; margin-bottom: 8px;">Title</span>
+				<input class="field-editor" wicket:id="editor" />
+			</div>
+	
+			<div class="field-block expanded" style="width:100%; float: left; margin: 2em 0 0 0;">
+				<span style= "width:100%; float: left; margin-top: 12px; font-weight: bold; margin-bottom: 8px;">Color</span>
+				<select id="colors" wicket:id="color"   class="field-editor" name="color" ></select>
+			</div>
+			
+			<!-- div style="width:100%; float: left;">
+				<span  style= "width:100%; float: left; margin-top: 12px; font-weight: bold;">Scope</span>
+				<select id="scopes" wicket:id="scope"   class="field title-content" name="color" ></select>
+			</div-->
+			
+			
+			<div wicket:id="actions"  class="buttons-container" style="margin: 2em 12px;">
+				<a class="button-with-border" wicket:id="ok-button"><wicket:message key="userlabels.label.edit.ok" /></a>
+				<a class="button-with-border atright" wicket:id="cancel-button"><wicket:message key="userlabels.label.edit.cancel" /></a>
+			</div>
+		</div>
+		
+	</form>
+	
+</wicket:fragment>

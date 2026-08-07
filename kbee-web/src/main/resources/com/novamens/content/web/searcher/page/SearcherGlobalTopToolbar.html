@@ -1,0 +1,112 @@
+<wicket:panel>
+
+	<nav wicket:id="top-navbar" class="navbar navbar-default navbar-fixed-top kbsearcher">
+
+			<div id="navbar-header">
+				
+					<div class="navbar-collapse collapse" id="navbar-mobile">
+
+							<div class="nav navbar-nav navbar-left">					
+							   <ul style="float:left;" wicket:id="hamburger-menu">
+									<li><a style="float:left; height:64px;" class="sidebar-control sidebar-main-toggle hidden-xs">
+									<i style="padding:22px 2px;" class="far fa-bars" aria-hidden="true"></i>
+									</a></li>
+							   </ul>
+								<wicket:container style="display:block; float:left;" wicket:id="brand"/>
+							</div>
+
+
+
+
+							
+							<!-- ul class="nav navbar-nav navbar-left visible-xs-block">
+								<li>
+									<a class="sidebar-mobile-main-toggle"><i class="far fa-bars" aria-hidden="true"></i></a>
+								</li>
+								<li style="display:block;">
+									<wicket:container wicket:id="brand"/>
+								</li>
+							</ul -->
+							
+							
+							<ul class="nav navbar-nav navbar-right">
+								<li><wicket:container wicket:id="search"/></li>
+								<li><wicket:container wicket:id="navigator"/></li>
+								<li><wicket:container wicket:id="settings"/></li>
+								<li><wicket:container wicket:id="myfavs"/></li>
+								<li><div wicket:id="mylists"/></li>
+								<li><wicket:container wicket:id="notifications"/></li>
+								<li><wicket:container wicket:id="media-info"/></li>
+								<li class="hidden-xs"><wicket:container wicket:id="help"/></li>
+								<li class="hidden-xs"><a class="dropdown" wicket:id="site-manager" title="Site Manager" href="#" style="margin-left:0;"><i class="fal fa-pencil-ruler"></i></a></li>
+								<li class="hidden-xs"><wicket:container wicket:id="user"/></li>
+							</ul>
+					</div>
+			</div>
+	</nav>
+
+</wicket:panel>
+			 
+						
+
+<!-- BRAND -->
+
+
+<wicket:fragment wicket:id="brand-fragment">
+	<a class="brand" wicket:id="icon-link" style="float:left; padding:20px 18px; display: block; margin-left:0;" target="_blank">
+		<img  wicket:id="brand" class="brand-icon">
+	</a>
+	<a  style="float:left;" wicket:id="domain-link" class="hidden-sm hidden-xs">
+		<span class="title"  wicket:id="product"></span>
+		<span class="subtitle" wicket:id="domain-name"></span>
+	</a>
+</wicket:fragment>
+
+
+<wicket:fragment wicket:id="favs-fragment">
+	<wicket:container wicket:id="favs-panel"/> 
+</wicket:fragment>
+
+<wicket:fragment wicket:id="mylists-fragment">
+	<a class="dropdown " wicket:id="link"  title="My Lists and Saved Queries">
+		<span class="fal fa-star"></span>
+	</a>
+	<div class="dropdown-menu" 	style="padding: 15px;	background:white;    display:block;    width: 60vw; min-width:200px; max-width:680px;"   wicket:id="bookmarks"></div>
+</wicket:fragment>
+
+
+<!-- wicket:fragment wicket:id="settings-fragment">
+	<a class="dropdown" wicket:id="settings-link"  title="Settings" href="#" style="margin-left:0;"><i class="fal fa-cog "/></a>
+</wicket:fragment-->
+
+
+
+<wicket:fragment wicket:id="help-fragment">
+	<a class="dropdown" wicket:id="help-link"  title="Help" href="#" style="margin-left:0;"><i class="fal fa-question-circle"/></a>
+</wicket:fragment>
+
+							
+<wicket:fragment wicket:id="media-info-fragment">
+	<a class="dropdown" wicket:id="media-info-link"  title="Info" href="#" style="margin-left:0;"><i class="fal fa-info"/></a>
+</wicket:fragment>
+
+<wicket:fragment wicket:id="notifications-fragment">
+	<a class="dropdown" wicket:id="notifications-link"title="Alerts" href="#" style="margin-left:0; ">
+		<i wicket:id="icon" style="float:left; font-size: 20px;" class="fa fal fa-bell" aria-hidden="true"></i>
+		<span wicket:id="total-notifications" class="total-at-side"></span>
+	</a>
+</wicket:fragment>
+
+
+<wicket:fragment wicket:id="mynotes-fragment">
+	<a class="dropdown" wicket:id="mynotes-link"  title="My Notepad" href="#" style="margin-left:0;  max-width:80px;">
+			<i style="font-size: 20px;       float: left; " class="fal fa-edit"/>
+	</a>
+</wicket:fragment>
+
+
+<wicket:fragment wicket:id="myqueries-fragment">
+	<a class="dropdown" wicket:id="myqueries-link"  title="My Saved Queries" href="#">
+		<i style="font-size: 20px;    float: left; " class="fal fa-star"/>
+	</a>
+</wicket:fragment>

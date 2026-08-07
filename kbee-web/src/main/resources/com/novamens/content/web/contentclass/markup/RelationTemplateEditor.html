@@ -1,0 +1,28 @@
+<wicket:panel>
+	<div class="row">
+		<form wicket:id="form" role="form" class="form-container col-lg-8 col-xs-12 col-md-9">
+			<div class="row panel">
+				<div class="row">
+					<div class="col-xs-12 col-md-12 col-lg-12 form-group" wicket:id="name"/>	
+					
+					<div class="col-xs-12 col-md-12 col-lg-12 form-group" wicket:id="state"/>
+					
+					<div class="col-xs-12 col-md-12 col-lg-12 form-group" wicket:id="reverseLabel"/>
+					<div class="col-xs-12 col-md-12 col-lg-12 form-group" wicket:id="reverseOrder"/>
+					<div class="col-xs-12 col-md-12 col-lg-12 form-group" wicket:id="reverseDisplayMode"/>
+					
+					<div class="col-xs-12 col-md-12 col-lg-12 form-group" wicket:id="targetLabel"/>
+					<div class="col-xs-12 col-md-12 col-lg-12 form-group" wicket:id="targetTemplates"/>
+					<div class="col-xs-12 col-md-12 col-lg-12 form-group" wicket:id="targetOrder"/>
+					<div class="col-xs-12 col-md-12 col-lg-12 form-group" wicket:id="targetDisplayMode"/>
+					<div class="col-xs-12 col-md-12 col-lg-12 form-group" wicket:id="multiplicity"/>
+					<div class="col-xs-12 col-md-12 col-lg-12 form-group" wicket:id="aggregation"/>
+				</div>
+			</div>		
+		</form>
+		<div class="button-container col-md-4 col-xs-12 col-lg-4" wicket:id="buttons"/>
+		<div class="button-container col-md-4 col-xs-12 col-lg-4">
+			<button wicket:id="delete-button" type="submit" class="btn btn-default btn-sm"> <wicket:message key="delete" /></button>
+		</div>
+	</div>
+</wicket:panel>

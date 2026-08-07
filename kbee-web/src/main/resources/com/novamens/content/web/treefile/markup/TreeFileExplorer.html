@@ -1,0 +1,36 @@
+<wicket:panel>
+	<div class="kbee browser" wicket:id="files-container" style="margin-bottom: 0px; float:left; width:100%;">
+		<div wicket:id="navigation"/>
+		<div wicket:id="table-container" class="row panel" style="clear:left; overflow: auto; border: 1px solid #bbbbbb;">
+			<div class="table-responsive col-lg-12 col-md-12 col-xs-12">
+				<table wicket:id="files" class="table table-striped table-bordered table-hover"/>
+			</div>
+		</div>
+	</div>	
+</wicket:panel>
+
+<wicket:fragment wicket:id="breadcrumb-fragment">
+	<ul class="breadcrumb" style="padding: 7px 0;margin: 4px 0;">
+		<li class="breadcrumb-item" wicket:id="file">
+			<wicket:container wicket:id="file-name">[]</wicket:container>
+		</li>
+	</ul>
+</wicket:fragment>
+
+<wicket:fragment wicket:id="menu-fragment">
+	<div class="dropdown">
+		<a  id="dmenu" data-toggle="dropdown" wicket:id="menulink"><i class="far fa-ellipsis-h" aria-hidden="true"></i></a>
+		<ul wicket:id="menu" class="dropdown-menu dropdown-menu-left" aria-labelledby="dmenu" />
+	</div>
+</wicket:fragment>
+
+<wicket:fragment wicket:id="selector-fragment">
+	<div class="custom-control-input">
+		<input wicket:id="selector" type="checkbox">
+		<label></label>
+	</div>
+</wicket:fragment>
+
+<wicket:fragment wicket:id="filename-fragment">
+	<a wicket:id="file-link" class="label-container"><span wicket:id="file-name">[]</span></a>
+</wicket:fragment>

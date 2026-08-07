@@ -1,0 +1,63 @@
+<wicket:panel>
+	
+	<nav class="navbar navbar-default navbar-fixed-top idoc">
+		
+		<div class="container-fluid">
+		
+			<div id="navbar" class="navbar-collapse collapse">
+				<ul class="nav navbar-nav">
+					<li wicket:id="close" class="hidden-xs">
+						<a wicket:id="close-link" class="far fa-times"  ></a>
+					</li>
+					<li class="hidden-xs">									
+						<a wicket:id="fullwidth-link" class="glyphicon glyphicon-monitor2"></a>
+					</li>
+					<li class="hidden-xs">									
+						<a wicket:id="preview-link" target="_blank" class="far fa-browser" alt="Preview" title="Preview" > </a>
+					</li>
+					<li class="hidden-xs">									
+						<a wicket:id="info-link" class="far fa-info-circle"></a>
+					</li>
+					
+					<li class="dropdown hidden-xs"><wicket:container wicket:id="help"/></li>
+					
+					<li class="hidden-xs">
+						<wicket:container wicket:id="navigator"/>
+					</li>
+				</ul>
+			
+				<ul class="navbar-right actions nav navbar-nav">
+					<li class="dropdown">
+						<wicket:container wicket:id="tools"/>
+					</li>
+					
+					<li wicket:id="version-tag" class="version-tag">
+						<wicket:message key="file-version" />
+					</li>
+					
+					<li class="hidden-xs">									
+						<a target="_blank" wicket:id="detailv6" class="btn-link">v6.2</a>
+					</li>
+					
+				</ul>
+				
+			</div> <!--/.nav-collapse -->
+			
+		</div> <!--/.container-fluid -->
+		
+	</nav>
+
+</wicket:panel>
+
+
+
+
+<wicket:fragment wicket:id="help-fragment">
+	<a class="dropdown visible-md visible-lg" wicket:id="help-link"  title="Help" href="#" style="margin-left:0;"><span class="far fa-question-circle"/></a>
+</wicket:fragment>
+
+
+
+
+
+

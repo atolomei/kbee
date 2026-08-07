@@ -1,0 +1,58 @@
+<wicket:head>
+
+	<style>
+	
+	
+	
+	.k-picker-wrap .k-select, .k-numeric-wrap .k-select, .k-dropdown-wrap .k-select {
+    line-height: initial;
+    min-height: initial;
+    padding: 6px 3px 1px 3px;
+    vertical-align: middle;
+    height:22px;
+    }
+    
+    input.k-state-hover {background: white; float:left;}
+	
+	.k-textbox > input, .k-autocomplete .k-input, .k-picker-wrap .k-input, .k-numeric-wrap .k-input, .k-dropdown-wrap .k-input, .k-selectbox .k-input {
+ 	   padding: 3px 0;
+    }
+
+	 
+	
+	</style>
+
+</wicket:head>
+
+<wicket:panel>
+	<span><h3 class="title" wicket:id="classifier"></h3></span>
+	<fieldset>
+		<ul style="float: left; width: 100%;">
+			<li wicket:id="item" class="item">
+				<div class="control">
+					<div class="panel">
+						<div style="float:left;">
+								<a style="float:left;">
+									<span wicket:id="date"></span>
+									<span wicket:id="remove-link" class="remove-menutrigger">x</span>
+								</a>
+						</div>
+					</div>
+					<!--
+					<div icket:id="menu" style="display:none;" class="floating-panel"/>
+					<div class="toolbar">	
+						<a class="button" wicket:i="remove-link"> <wicket:message key="remove" /></a>
+					</div>
+					-->
+				</div>
+			</li>
+			<li>
+				<div class="control">
+					<div style="float:left;">
+							<input id="date" wicket:id="member" class="field" style="width:300px;"/>
+					</div>	
+				</div>
+			</li>
+ 		</ul>
+	</fieldset>
+</wicket:panel>

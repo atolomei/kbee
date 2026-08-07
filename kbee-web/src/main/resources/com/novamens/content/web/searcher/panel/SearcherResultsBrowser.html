@@ -1,0 +1,16 @@
+<wicket:head>
+	<style>
+		.searcher-browser .grid .compact .list-group-item {border-top: none;}
+		.searcher-browser .grid .comfortable .list-group-item {border-top: none;}
+		.searcher-browser .grid .xgrid .list-group-item {border-top: 1px solid #dfdfdf;}
+		.searcher-browser .grid .bkodd .list-group-item:nth-of-type(2n+1) {	background: #fcfcfc;}
+		.searcher-browser .grid .bkodd .list-group-item {background: none;}
+		.searcher-browser .browser .grid .bkodd .row-container:nth-of-type(2n+1) {background: none;}
+		.kbee .searcher-browser .browser .grid > .container {overflow: hidden;width: 3900px;margin-left: 0;margin-bottom: 12px;padding: 0;}
+	</style>
+	
+</wicket:head>
+
+<wicket:panel>
+	<section class="searcher-browser" wicket:id="browser" style="padding-left: 0px; width:100%; float: left;"></section>
+</wicket:panel>

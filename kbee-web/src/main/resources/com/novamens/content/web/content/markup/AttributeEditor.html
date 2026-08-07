@@ -1,0 +1,55 @@
+<wicket:head>
+	<style>
+	.kbee .workflow-info .tab-pane dl.errors dt label.classifier {
+		color: red;
+	}
+	</style>
+
+</wicket:head>
+
+<wicket:panel>
+
+	<dl wicket:id="container" class="col-md-12 col-xs-12" >
+		<dt>
+			<i style="top: 1px;"  wicket:id="icon" class= "far fa-edit"></i>
+			<label 	style="float:left; width:auto;"  wicket:id="attribute-name" class="control-label classifier"></label>
+			<i wicket:id="mandatory" class="mandatory fas fa-asterisk required" aria-hidden="true"></i>
+		</dt>
+		
+		<dd wicket:id="elements-container" class="elements-container">
+			<span class="member-item keep-existing" wicket:id="leavevalues-message" style="float:left;"><wicket:message key="leavevalues"/></span>
+			<wicket:container wicket:id="attribute">
+				<div class="member-item">
+						<a>
+							<i style="cursor:pointer;" wicket:id="remove-link" class="close far fa-times"></i>
+						</a>
+					<span class="member-element" wicket:id="value"></span>
+				</div>
+				 <span class="ago" wicket:id="separator">|</span>
+			</wicket:container>
+			<div class="member-item nullmember" wicket:id="nullmember">
+				<span class="member-element"><wicket:message key="none" /></span>
+			</div>
+		</dd>
+		<dd class="row" wicket:id="editor"/>
+	</dl>
+</wicket:panel>
+
+<wicket:fragment wicket:id="editor-fragment">
+	<div class="form-vertical" style="margin-bottom: 0; width:100%; padding-right: 10px">
+		<div class="form-group col-md-12 col-xs-12" wicket:id="value" style=" width:100%; margin: 0; padding-left:0"/>
+		<div class="form-group"	 style="margin: 0; padding:0; padding-right:15px;" >
+			<div class="checkbox" wicket:id="leavevalues-container" style="padding-top: 16px; margin-top:24px; border-top: 1px solid  #d8dcdf;">
+				<input wicket:id="check" type="checkbox" style="margin-left: 0px;">
+				<label wicket:id="label" class="form-check-label"><wicket:message key="leavevalues"/></label>
+			</div>
+			<div class="alert alert-info" wicket:id="calculation-info">	
+				<div style="float: left;" wicket:id="calculated-message" />
+				<a style="float: right; font-size: small;" wicket:id="script-link">View Script</a>
+				<div style="float: left;margin-top: 20px; width:100%;" wicket:id="script-code" />
+				<div style="float: left;margin-top: 20px; width:100%; color:red;" wicket:id="error-message" />
+			</div>
+			<div class="alert alert-info" wicket:id="error-message" style="color:red;"/>
+		</div>	
+	</div>
+</wicket:fragment>

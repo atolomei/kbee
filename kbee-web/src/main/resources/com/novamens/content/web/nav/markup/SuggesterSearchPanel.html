@@ -1,0 +1,33 @@
+<wicket:panel>
+	<form wicket:id="searchform" style="float:left;" class="search suggester-container">
+			<div class="input-group">
+				<div  wicket:id="text" class="searcher"/>
+				<div class="input-group-btn">
+					<button wicket:id="search" type="button"  class="btn btn-default dropdown-toggle"><i class="far fa-search"></i></button>
+				</div>
+			</div>
+	</form>
+	
+	
+	<div wicket:id="navigator" />
+	
+	<a wicket:id="clear-all" href="#" class="btn btn-link" style="float: left; border-color:transparent; margin: 10px 0; font-size: 12px;" > <wicket:message key="clear-all"/></a>
+	<wicket:container wicket:id="advancedsearch" />
+	
+	
+</wicket:panel>
+
+
+
+<wicket:fragment wicket:id="advancedsearch-fragment">
+		  
+		  <div class="input-group" style="float:left;">
+			  <a wicket:id="advancedsearch" class="btn-mini" href="#"  style="text-align:center; width: 70px; font-size: 12px;    float: left;    padding: 11px 56x 0 8px;        line-height: 14px;">
+			  		<span style="widtyh: 70px; float:left;"><wicket:message key="advancedsearch" /></span>
+			  		<!-- -div style="font-size: 13px;    float: left;   padding: 0px;"-->
+			  </a>
+			  <i wicket:id="icon" style="padding:20px 4px 20px 0; float:left; font-size:13px; margin-right:10px;" class="far fa-angle-up"></i>
+			  
+		  </div>
+	
+</wicket:fragment>

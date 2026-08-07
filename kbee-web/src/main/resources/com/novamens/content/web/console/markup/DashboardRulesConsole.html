@@ -1,0 +1,30 @@
+<wicket:panel>
+	
+	<wicket:extend>
+		<div class="page-content">
+			
+			<div class="console-page-header">
+			    <h1><wicket:message key="console.name"/></h1>
+        		<div class="breadcrumb" >
+        			<div style="float:left; clear:left;">
+                		<a href="/monitor/dashboard"><span><wicket:message key="console.label"/></span></a>
+            			<span class ="separator"> / </span>
+            			<span><strong><span><wicket:message key="console.name"/></span></strong></span>
+            		</div>
+        		</div>
+			</div>
+				
+			<div class="content console-top">
+				<div wicket:id="billboard" />
+				<div wicket:id="error-panel-container">
+						<wicket:container wicket:id="error-panel" />
+				</div>
+				 
+				<div wicket:id="browser"/>
+			</div>
+
+			
+		</div>
+	</wicket:extend>
+	
+</wicket:panel>

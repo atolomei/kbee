@@ -1,0 +1,60 @@
+<wicket:panel>
+	
+
+	  <div class="container-fluid">
+					<div class="canvas">
+								
+								<div class="content-header">
+									<h1> <wicket:message key="batchcreation" /></h1>
+									<div class="objectclass"><span><wicket:message key="section"/></span></div>
+								</div>
+								
+								
+								<div class="row">
+									<div class="col-lg-4 col-md-6 col-xs-12">
+										
+										<div class="row">
+											<div class="panel col-lg-12 col-md-12 col-xs-12">
+													<h2> <wicket:message key="howitworkstitle" /></h2>
+													<div style="float:left;">
+														<wicket:message key="howitworks" />
+													</div>
+											</div>
+										</div>
+											
+										<div class="row">
+											<div class="panel col-lg-12 col-md-12 col-xs-12">											
+												<h2> <wicket:message key="values" /></h2>
+												<form id="form" method="post" action="#" wicket:id="form" class="form-container">
+													<div class="form-group">
+														<label class="control-label" style="width:initial;"><wicket:message key="users" /></label>
+														<span style="margin-left: 4px;" class="ago"><wicket:message key="help" /></span>											
+														<textarea wicket:id="elements"  class="form-control" rows="12"></textarea>
+													</div>
+													
+													<div class="nav navbar" style="float:right;">
+										 				<a wicket:id="close-button"  href="#"   class="btn btn-sm btn-default"> <wicket:message key="close" /></a>
+										 				<a wicket:id="submit-button"  href="#" class="btn btn-sm btn-primary">  <wicket:message key="create" /></a>
+										 				<a wicket:id="stop-button"  href="#"   class="btn btn-sm btn-danger">   <wicket:message key="stop" /></a>
+													</div>
+													
+													
+													
+													
+													
+													<div wicket:id="feedback"></div>   
+												</form>
+												</div>
+											</div>
+										
+									</div>
+										
+									<div wicket:id="status"  class="col-lg-7 col-md-5 col-xs-12" style="float:right;"/>
+									
+							</div>
+					</div>
+			</div>
+
+
+</wicket:panel>
+

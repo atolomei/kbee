@@ -1,0 +1,36 @@
+<wicket:panel>
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-lg-5" style="margin-bottom: 32px; float: left;">
+				<h2>
+					<wicket:message key="parameters" />
+				</h2>
+				<form id="form" method="post" action="#" wicket:id="form"
+					class="form-container">
+
+					<!-- div class="destination" / -->
+
+					<div class="form-group">
+						<label class="control-label"><wicket:message key="query" /></label>
+						<span wicket:id="query" class="form-control" style="height: auto;"></span>
+					</div>
+
+					<div class="form-group">
+						<label class="control-label"><wicket:message key="total" /></label>
+						<span wicket:id="total" class="form-control"></span>
+					</div>
+
+					<div class="buttons-container">
+						<a wicket:id="cancel-button" href="#"
+							class="btn btn-sm btn-default"><wicket:message key="close" /></a>
+						<a wicket:id="submit-button" href="#"
+							class="btn btn-sm btn-primary"><wicket:message key="export" /></a>
+					</div>
+					<div wicket:id="feedback"></div>
+				</form>
+			</div>
+			<div wicket:id="status" class="col-lg-7" />
+		</div>
+	</div>
+</wicket:panel>
+

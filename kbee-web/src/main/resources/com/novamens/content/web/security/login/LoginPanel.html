@@ -1,0 +1,37 @@
+<wicket:head>
+
+</wicket:head>
+
+<wicket:panel>
+	
+		<div wicket:id="box" class="loginmodal-container-idoc idoc">
+				<div  class="login-container">
+								<div class="logo-container" wicket:id="logo-container">
+									<img wicket:id="logo"></img>
+								</div>
+						 	<form name="f" action="/j_spring_security_check" method="post">
+									<div class="col-xs-12 form-group">
+										<input class="form-control" type="text" name="j_username" placeholder="Username" style="text-align: center;" />
+									</div>
+									<div class="col-xs-12 form-group">
+										<input class="form-control" type="password" name="j_password" placeholder="Password" style="text-align: center;" />
+									</div>
+									
+									<div style="text-align: center; margin-top:18px;" class="col-xs-12 form-group">
+										<input class="btn btn-primary fullw login loginmodal-submit" type="submit" name="login"  value="Sign on" />
+									</div>
+									
+								  	<div class="alert alert-danger col-xs-12" style="text-align:center;" wicket:id="error"></div>
+								  	
+									<div  style="text-align: center; margin-top:12px;"  class="col-xs-12">
+									www
+									eee
+										<a href="/forgotpassword" target="_blank"><wicket:message key="forgot" /></a>
+						  			</div>
+							</form>
+				</div>
+		</div>
+</wicket:panel>
+
+
+

@@ -1,0 +1,407 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" 
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+		http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+		http://www.springframework.org/schema/context
+		http://www.springframework.org/schema/context/spring-context-3.0.xsd 
+		http://www.springframework.org/schema/tx 
+		http://www.springframework.org/schema/tx/spring-tx.xsd">
+		
+
+	<!-- Security -->
+
+	<bean  id="logoutSuccessHandler" class="com.novamens.kbee.security.DefaultSuccessHandler" >
+		<constructor-arg value="/login"/>
+	</bean>
+	
+	<bean id="com.novamens.security.service.SecurityServiceFactory" 
+		class="com.novamens.spring.service.SpringSystemServiceFactory">
+		<property name="bean" value="com.novamens.security.service.SecurityService"/>
+	</bean>
+	
+	<bean id="com.novamens.security.service.SecurityService" 
+		class="com.novamens.kbee.security.WebSecurityService">
+		<property name="securityDao" ref="securityDao"/>
+		<property name="privateKey" ref="internalPrivateKey"/>
+	</bean>	
+	
+	<bean id="internalPrivateKeyFactory"
+		class="com.novamens.kbee.security.jwt.InternalPrivateKeyFactory">
+	</bean>
+	
+	<bean id="internalPrivateKey"
+		factory-bean="internalPrivateKeyFactory"
+		factory-method="createPrivateKey"/>
+	
+	<bean id="securityDao" class="com.novamens.kbee.security.KbeeSecurityDao" >
+		<constructor-arg index="0" ref="sessionFactory"/>
+	</bean>
+
+	<bean id="UserUpdateListener" class="com.novamens.kbee.security.UserUpdateListener"/>
+
+	<!-- Parameters -->
+	
+	<bean id="com.novamens.system.parameters.SystemParameterServiceFactory" class="com.novamens.spring.service.SpringSystemServiceFactory">
+		<property name="bean" value="com.novamens.system.parameters.SystemParameterService"/>
+	</bean>
+	
+	<bean id="com.novamens.system.parameters.SystemParameterService" class="com.novamens.kbee.system.parameters.KbeeSystemParameterService"/>
+	
+	
+	<bean id="ApplicationServerService" class="com.novamens.spring.service.SpringSystemServiceFactory">
+		<property name="bean" value="com.novamens.kbee.service.KbeeApplicationServerService"/>
+	</bean>
+	<bean id="com.novamens.kbee.service.KbeeApplicationServerService" class="com.novamens.kbee.service.KbeeApplicationServerService"/>
+
+	
+	
+	<!-- Locking -->
+	
+	<bean id="com.novamens.lock.service.ObjectLockServiceFactory" class="com.novamens.spring.service.SpringObjectServiceFactory">
+		<property name="bean" value="com.novamens.lock.service.ObjectLockService"/>
+	</bean>
+	
+	<bean id="com.novamens.lock.service.ObjectLockService" class="com.novamens.kbee.lock.KbeeObjectLockService" scope="prototype"/>
+
+	<bean id="com.novamens.lock.service.SystemLockServiceFactory" class="com.novamens.spring.service.SpringSystemServiceFactory">
+		<property name="bean" value="com.novamens.lock.service.SystemLockService"/>
+	</bean>
+	
+	<bean id="com.novamens.lock.service.SystemLockService" class="com.novamens.kbee.lock.KbeeSystemLockService">
+		<property name="lockDao" ref="lockDao"/>
+	</bean>
+	
+	<bean id="lockDao" class="com.novamens.kbee.lock.KbeeLockDao" >
+		<constructor-arg index="0" ref="sessionFactory"/>
+	</bean>
+	
+	<bean id="com.novamens.lock.service.MemLockServiceFactory" class="com.novamens.spring.service.SpringObjectServiceFactory">
+		<property name="bean" value="com.novamens.lock.service.MemLockService"/>
+	</bean>
+	
+	<bean id="com.novamens.lock.service.MemLockService" class="com.novamens.kbee.lock.KbeeMemLockService" scope="prototype"/>
+	
+	<bean id="com.novamens.lock.service.ValueLockerServiceFactory" class="com.novamens.spring.service.SpringSystemServiceFactory">
+		<property name="bean" value="com.novamens.lock.service.ValueLockerService"/>
+	</bean>
+	
+	<bean id="com.novamens.lock.service.ValueLockerService" class="com.novamens.kbee.lock.KbeeValueLockerService"/>
+	
+	
+	
+	<!--  Transaction -->
+	
+	<bean id="com.novamens.transaction.service.TransactionServiceFactory" class="com.novamens.spring.service.SpringSystemServiceFactory">
+		<property name="bean" value="com.novamens.transaction.service.TransactionService"/>
+	</bean>
+	
+	<bean id="com.novamens.transaction.service.TransactionService" class="com.novamens.kbee.transaction.KbeeTransactionService">
+		<property name="sessionFactory" ref="sessionFactory"/>
+		<property name="transactionManager" ref="transactionManager"/>
+	</bean>
+	
+	<bean id="preferencesDao" class="com.novamens.kbee.preferences.KbeePreferencesDao" >
+		<constructor-arg index="0" ref="sessionFactory"/>
+	</bean>
+
+	<bean id="UserPrefrencesServiceFactory" class="com.novamens.spring.service.SpringObjectServiceFactory">
+		<property name="bean" value="UserPreferencesService"/>
+	</bean>
+
+	<bean id="UserPreferencesService" class="com.novamens.kbee.preferences.KbeePreferencesService"  scope="prototype">
+		<property name="preferencesDao" ref="preferencesDao"/>
+	</bean>
+
+
+
+	<!-- File Server Cache -->
+	<bean id="com.novamens.kbee.kbfs.FileServerCacheFactory" class="com.novamens.kbee.kbfs.KbeeLocalFileServerCacheFactory">
+		<property name="service" ref="com.novamens.kbfs.LocalFileServerCache"/>
+	</bean>
+	<bean id="com.novamens.kbfs.LocalFileServerCache" class="com.novamens.kbee.kbfs.KbeeLocalFileServerCache"/>
+
+
+
+	<!-- File Server V1 -->
+	
+	<bean id="com.novamens.kbee.kbfs.v1.FileServerFactory" class="com.novamens.kbee.kbfs.v1.KbeeFileServerFactory">
+		<property name="service" ref="com.novamens.kbfs.v1.FileServerV1"/>
+	</bean>
+	<bean id="com.novamens.kbfs.v1.FileServerV1" class="com.novamens.kbee.kbfs.v1.KbeeFileServer"/>
+
+
+
+	<!-- File Server V2 -->
+	
+	
+	<bean id=" com.novamens.kbee.kbfs.KbeeFileServerMinioFactory" class="com.novamens.kbee.kbfs.KbeeFileServerV2Factory">
+		<property name="service" ref="com.novamens.kbfs.FileServerMinio"/>
+	</bean>
+	<bean id="com.novamens.kbfs.FileServerMinio" class="com.novamens.kbee.kbfs.KbeeShardedMinioFileServer"/>
+
+
+	<!-- File Server S3 -->
+		
+	<bean id="FileServerS3Factory" class="com.novamens.spring.service.SpringSystemServiceFactory">
+		<property name="bean" value="FileServerS3"/>
+	</bean>
+	<bean id="FileServerS3" class="com.novamens.kbee.kbfs.KbeeAmazonS3FileServer"/>
+
+
+
+	<!-- File Server Odilon -->
+	<bean id=" com.novamens.kbee.kbfs.KbeeFileServerOdilonFactory" class="com.novamens.kbee.kbfs.KbeeFileServerOdilonFactory">
+		<property name="service" ref="com.novamens.kbfs.FileServerOdilon"/>
+	</bean>
+	<bean id="com.novamens.kbfs.FileServerOdilon" class="com.novamens.kbee.kbfs.KbeeShardedOdilonFileServer"/>
+
+
+
+
+	<!-- EMail -->
+
+	<bean id="emailServiceFactory" class="com.novamens.spring.service.SpringSystemServiceFactory">
+		<property name="bean" value="emailService"/>
+	</bean>
+	<bean id="emailService" class="kbee.email.KbeeEmailService"/>
+
+
+
+	<!-- Thumbmail Service -->
+	
+	<bean id="com.novamens.thumbnail.ThumbnailServiceFactory" class="com.novamens.kbee.thumbnail.KbeeThumbnailServiceFactory">
+		<property name="service" ref="com.novamens.thumbnail.ThumbnailService"/>
+	</bean>
+	
+	<bean id="com.novamens.thumbnail.ThumbnailService2" class="com.novamens.kbee.thumbnail.KbeeThumbnailService"/>
+	
+	<bean id="com.novamens.thumbnail.ThumbnailService" class="com.novamens.kbee.thumbnail.AspThumbnailService"/>
+
+	<!-- Pdf Service 
+
+	<bean id="com.novamens.file.PdfServiceFactory" class="com.novamens.spring.service.SpringSystemServiceFactory">
+		<property name="bean" value="com.novamens.file.PdfService"/>
+	</bean>
+	<bean id="com.novamens.file.PdfService" class="com.novamens.kbee.file.AspPdfService"/>
+	
+ -->
+ 
+	<!--  CommandService -->
+	
+	<bean id="com.novamens.kbee.command.KbeeCommandServiceFactory" class="com.novamens.spring.service.SpringSystemServiceFactory">
+		<property name="bean" value="com.novamens.kbee.command.CommandService"/>
+	</bean>
+	<bean id="com.novamens.kbee.command.CommandService" class="com.novamens.kbee.command.KbeeCommandService">
+		<property name="dispatcher">
+			<bean class="com.novamens.kbee.scheduler.ThreadPoolDispatcher">
+				<constructor-arg index="0" value="1"/><!-- Priority -->
+				<constructor-arg index="1" value="10"/><!-- Pool Size -->
+				<constructor-arg index="2" value="CMD"/>
+			</bean>
+		</property>
+	</bean>
+
+	<bean id="com.novamens.kbee.email.EmailFetchingServiceFactory" class="com.novamens.kbee.email.EmailFetchingServiceFactory">
+		<property name="service" ref="com.novamens.kbee.email.EmailFetchingService"/>
+	</bean>
+
+	<bean id="com.novamens.kbee.email.EmailFetchingService" class="com.novamens.kbee.email.KbeeEmailFetchingService">
+	</bean>
+
+
+	<!--  Scheduler -->
+
+	<bean id="com.novamens.scheduler.SchedulerServiceFactory" class="com.novamens.kbee.scheduler.KbeeSchedulerServiceFactory">
+		<property name="service" ref="com.novamens.scheduler.SchedulerService"/>
+	</bean>
+
+	<bean id="com.novamens.scheduler.SchedulerService" class="com.novamens.kbee.scheduler.KbeeSchedulerService">
+		<property name="queue" ref="com.novamens.scheduler.SchedulerQueue"/>
+		<property name="dispatchers">
+			<list>
+				<bean class="com.novamens.kbee.scheduler.ThreadPoolDispatcher">
+					<constructor-arg index="0" value="0"/><!-- Priority -->
+					<constructor-arg index="1" value="2"/><!-- Pool Size -->
+					<constructor-arg index="2" value="SCHED_P0"/>
+				</bean>
+				<bean class="com.novamens.kbee.scheduler.ThreadPoolDispatcher">
+					<constructor-arg index="0" value="1"/><!-- Priority -->
+					<constructor-arg index="1" value="10"/><!-- Pool Size -->
+					<constructor-arg index="2" value="SCHED_P1"/>
+				</bean>
+				<bean class="com.novamens.kbee.scheduler.ThreadPoolDispatcher">
+					<constructor-arg index="0" value="2"/><!-- Priority -->
+					<constructor-arg index="1" value="10"/><!-- Pool Size -->
+					<constructor-arg index="2" value="SCHED_P2"/>
+				</bean>
+			</list>
+			
+		</property>	
+		<property name="cronJobs" ref="com.novamens.scheduler.CronJobs"/>
+		<property name="sessionFactory" ref="sessionFactory"/>
+	</bean>
+	
+	<bean id="com.novamens.scheduler.SchedulerQueue" class="com.novamens.kbee.scheduler.KbeeSchedulerQueue">
+		<property name="tableName" value="scheduler"/>
+		<property name="schema" value="${jdbc.schema}"/>
+		<property name="dataSource" ref="dataSource"/>
+		<property name="sessionFactory" ref="sessionFactory"/>
+	</bean>
+	
+	<bean id="com.novamens.scheduler.CronJobs" class="com.novamens.kbee.scheduler.KbeeCronJobsList"/>
+													
+	<bean id="CronJobDao" class="com.novamens.kbee.scheduler.CronJobDao">
+		<property name="tableName" value="kb_cronjob"/>
+		<property name="schema" value="${jdbc.schema}"/>
+		<property name="dataSource" ref="dataSource"/>
+		<property name="sessionFactory" ref="sessionFactory"/>
+	</bean>
+
+	<bean id="com.novamens.scheduler.CronSchedulerServiceFactory" class="com.novamens.kbee.scheduler.CronKbeeSchedulerServiceFactory">
+		<property name="bean" value="com.novamens.scheduler.CronSchedulerService"/>
+	</bean>
+	<bean id="com.novamens.scheduler.CronSchedulerService" class="com.novamens.kbee.scheduler.KbeeCronSchedulerService" />
+
+	<!--  MultiLanguage -->
+
+	<bean id="languageFactory" class="com.novamens.spring.service.SpringSystemServiceFactory">
+		<property name="bean" value="languageService"/>
+	</bean>
+	
+	<bean id="languageService" class="com.novamens.kbee.service.KbeeLanguageService">
+		<property name="dataSource" ref="dataSource"/>
+		<property name="sessionFactory" ref="sessionFactory"/>
+		<property name="schema" value="${jdbc.schema}"/>
+	</bean>
+
+
+	<!--  Web Session Management -->
+	<bean id="webSessionServiceFactory" class="com.novamens.spring.service.SpringSystemServiceFactory">
+		<property name="bean" value="webSessionService"/>
+	</bean>
+
+	<bean id="webSessionService" class="com.novamens.kbee.service.KbeeWebSessionService" />
+
+	<!--  System Metrics -->
+
+	<bean id="metricsServiceFactory" class="com.novamens.spring.service.SpringSystemServiceFactory">
+		<property name="bean" value="metricsService"/>
+	</bean>
+	
+	<bean id="metricsService" class="com.novamens.kbee.metrics.KbeeSystemMetricsService">
+		<property name="dataSource" ref="dataSource"/>
+		<property name="sessionFactory" ref="sessionFactory"/>
+	</bean>
+	
+	
+	<!-- systemPropertiesService  -->
+	<bean id="systemPropertiesServiceFactory" class="com.novamens.spring.service.SpringSystemServiceFactory">
+		<property name="bean" value="systemPropertiesService"/>
+	</bean>
+	<bean id="systemPropertiesService" class="com.novamens.kbee.service.KbeeSystemPropertiesService" />
+
+	
+	
+	<!--  Calendar -->
+	<bean id="com.novamens.calendar.CalendarServiceFactory" class="com.novamens.spring.service.SpringObjectServiceFactory">
+		<property name="bean" value="com.novamens.calendar.CalendarService"/>
+	</bean>
+	<bean id="com.novamens.calendar.CalendarService" class="com.novamens.kbee.calendar.KbeeCalendarService" scope="prototype"/>
+
+	<!--  SMS -->
+	<bean id="com.novamens.sms.SmsServiceFactory" class="com.novamens.spring.service.SpringSystemServiceFactory">
+		<property name="bean" value="com.novamens.sms.SmsService"/>
+	</bean>
+	<bean id="com.novamens.sms.SmsService" class="com.novamens.kbee.sms.KbeeSmsService" scope="prototype"/>
+	
+	<!--  WhatsApp -->
+	<bean id="com.novamens.sms.WhatsAppServiceFactory" class="com.novamens.spring.service.SpringSystemServiceFactory">
+		<property name="bean" value="com.novamens.whatsapp.whatsAppService"/>
+	</bean>
+	<bean id="com.novamens.whatsapp.whatsAppService" class="com.novamens.kbee.whatsapp.KbeeWhatsAppService" scope="prototype"/>
+ 	
+	<!--  Timer -->
+	<bean id="com.novamens.timer.TimerServiceFactory" class="com.novamens.spring.service.SpringSystemServiceFactory">
+		<property name="bean" value="com.novamens.timer.TimerService"/>
+	</bean>
+	
+	<bean id="com.novamens.timer.TimerService" class="com.novamens.kbee.timer.KbeeTimerService">
+		<property name="timerDao" ref="TimerDao"/>
+	</bean>
+	
+	<bean id="TimerDao" class="com.novamens.kbee.timer.KbeeTimerDao">
+		<property name="sessionFactory" ref="sessionFactory"/>
+	</bean>
+	
+	
+	<!--  Sql -->
+	<bean id="com.novamens.sql.SqlServiceFactory" class="com.novamens.spring.service.SpringSystemServiceFactory">
+		<property name="bean" value="com.novamens.sql.SqlService"/>
+	</bean>
+
+	<bean id="com.novamens.sql.SqlService" class="com.novamens.kbee.sql.SqlService">
+		<property name="dataSource" ref="dataSource"/>
+	</bean>
+
+
+
+	<!--  Repositories -->
+	<bean id="com.novamens.repository.RepositoryServiceFactory" class="com.novamens.spring.service.SpringSystemServiceFactory">
+		<property name="bean" value="com.novamens.repository.RepositoryService"/>
+	</bean>
+	
+	<bean id="com.novamens.repository.RepositoryService" class="com.novamens.kbee.repository.KbeeDomRepositoryService"/>
+
+	
+	
+	<!-- Encryption -->
+	 
+	<bean id="com.novamens.kbee.kbfs.encryption.EncryptionServiceFactory" class="com.novamens.spring.service.SpringSystemServiceFactory">
+		<property name="bean" value="com.novamens.kbee.kbfs.encryption.EncryptionService"/>
+	</bean>
+	<bean id="com.novamens.kbee.kbfs.encryption.EncryptionService" class="com.novamens.kbee.kbfs.encryption.EncryptionService"/>
+
+
+	<bean id="KbeeDefaultStreamEncryption" class="com.novamens.kbee.kbfs.encryption.JCipherStreamEncryptor">
+		<property name="encryptionAlgorithm" value="AES/ECB/PKCS5Padding"/>
+		<property name="keyAlgorithm" value="AES" />
+		<property name="keyEncryptor" ref="KbeeKeyEncryptorWrapper" />
+	</bean>
+	
+	<bean id="KbeeKeyEncryptorWrapper" class="com.novamens.kbee.kbfs.encryption.KbeeKeyEncryptorWrapper">
+		<property name="kbeeEncryptor" ref="kbeeKeyEncryptor"/>
+		<property name="vaultEncryptor" ref="vaultKeyEncryptor"/>
+	</bean>
+	
+	<bean id="kbeeKeyEncryptor" class="com.novamens.kbee.kbfs.encryption.KbeeKeyEncryptor"/>
+	<bean id="vaultKeyEncryptor" class="com.novamens.kbee.kbfs.encryption.VaultKeyEncryptor">
+		<property name="keyID" value="transit/kbee-key"/>
+	</bean>
+	
+	<bean id="com.novamens.vault.VaultServiceFactory" class="com.novamens.kbee.vault.VaultServiceFactory"/>
+	<bean id="com.novamens.encryption.EncryptionServiceFactory" class="com.novamens.kbee.encryption.EncryptionSystemServiceFactory">
+		<property name="vaultKey" value="transit/kbee-key"/>
+	</bean>
+	
+	
+	<!-- Signature -->
+	<bean id="com.novamens.signature.SystemSignatureServiceFactory" class="com.novamens.spring.service.SpringSystemServiceFactory">
+		<property name="bean" value="com.novamens.signature.SystemSignatureService"/>
+	</bean>
+	
+	<bean id="com.novamens.signature.SystemSignatureService" class="com.novamens.kbee.signature.BouncyCastleSignatureService"/>
+	
+	<bean id="CertificateParser" class="com.novamens.kbee.signature.KbeeCertificatePEMParser"/>
+	
+	<!-- Rabbit -->
+	<bean id="kbee.queue.SystemQueueServiceFactory" class="com.novamens.spring.service.SpringSystemServiceFactory">
+		<property name="bean" value="kbee.queue.rabbit"/>
+	</bean>
+	
+	<bean id="kbee.queue.rabbit" class="kbee.queue.rabbit.KbeeRabbitService"/>
+	
+</beans>

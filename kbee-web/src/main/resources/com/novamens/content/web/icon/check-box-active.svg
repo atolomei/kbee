@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="21px" height="18px" viewBox="0 0 21 18" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 48.2 (47327) - http://www.bohemiancoding.com/sketch -->
+    <title>check-box</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="RealPage-DM" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" transform="translate(-18.000000, -90.000000)">
+        <g id="Left-Nav" transform="translate(0.000000, 73.000000)">
+            <g id="Navigation/Left/Light/Tier-1">
+                <g id="check-box" transform="translate(16.048632, 13.000000)">
+                    <g id="Frame_-_24px">
+                        <rect id="Rectangle-path" x="0" y="0" width="24.0729483" height="24"></rect>
+                    </g>
+                    <g id="Line_Icons" transform="translate(2.006079, 4.000000)" fill="#0076CC" fill-rule="nonzero">
+                        <g id="Group">
+                            <path d="M16.0907599,18 L2.04820669,18 C0.941854103,18 0.0421276596,17.103 0.0421276596,16 L0.0421276596,4 C0.0421276596,2.898 0.941854103,2 2.04820669,2 L12.0786018,2 L12.0786018,4 L2.04820669,4 L2.04820669,16 L16.0907599,16 L16.0907599,11 L18.0968389,11 L18.0968389,16 C18.0968389,17.103 17.1971125,18 16.0907599,18 Z" id="Shape"></path>
+                            <polygon id="Shape" points="9.11161094 13.811 4.1706383 8.884 5.94300912 7.116 9.02635258 10.19 18.1720669 0.159 20.0266869 1.841"></polygon>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

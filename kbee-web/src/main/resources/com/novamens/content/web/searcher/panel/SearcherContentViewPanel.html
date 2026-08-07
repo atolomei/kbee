@@ -1,0 +1,46 @@
+<wicket:panel>
+
+		<div class="hit-mail-panel" style="float:left; display: block;width: calc(100% - 83px);">
+			
+			<div wicket:id="image-container" class="image-container" style="width:64px; height: 64px; float:left;">
+				<a wicket:id="image-link" href="#"	 style="overflow: hidden; background: #d8dcdf;  border-radius: 4px; position:relative; width:100%; height:100%; float:left;">
+					<i style="color:#666666;  font-size: 28px;" wicket:id="glyphicon"></i>
+					<img class="centered-in-container" style="max-width:150%;" wicket:id="image"></img>
+				</a>
+			</div>
+			
+			<div class="title-container" wicket:id="data-container">
+				<a wicket:id="title-link" class="title" href="#">
+					<span class="list-group-item-heading" wicket:id="title"/>
+				</a>
+				<div wicket:id="metainfo-container" style="float:left; width:100%; margin:0;">
+					<div wicket:id="metainfo" class="metadata"/>
+				</div>
+				<div wicket:id="mylists-container" style="float:left; width:100%; margin:0;">
+					<div wicket:id="mylists" class="mylist"/>
+				</div>
+			</div>
+			
+			<div wicket:id="description-container" style="float:left; width:100%; margin-top: 10px;">
+				<div wicket:id="description" >[]</div>
+			</div>
+			
+			<div wicket:id="resources-container">
+				<ul class="metadata" style="width:100%; margin-right:10px;margin-top: 10px;">
+					<li style="display:block; padding:2px 0; width:100%; float:left;" wicket:id="resource"> 
+						<i style="margin-right:5px;" wicket:id="glyphicon" />
+						<a class="btn-link" style="text-decoration:none; color: #191a1b; margin-right:30px;" wicket:id="link">
+							<span style="font-size:13px; color:#191a1b;" class="media-heading" wicket:id="title"></span>
+							<span style="font-size:11px;" class="ago">( <span wicket:id="size" /> ) </span>
+						</a>
+					</li>
+				</ul>
+			</div>
+
+			<div wicket:id="expanded-container"> <div wicket:id="expanded-panel" /></div>
+		</div>
+	
+</wicket:panel>
+
+
+

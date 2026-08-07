@@ -1,0 +1,47 @@
+<wicket:panel>
+	
+	<nav class="navbar navbar-default navbar-fixed-top idoc">
+	
+		<div class="container-fluid">
+			<div id="navbar">
+				<ul class="nav navbar-nav">
+					
+					<li><a wicket:id="close-link"  alt="close" title="Close"><i class="far fa-times"></i></a></li>
+					<li><a wicket:id="delete-link"  title="Delete"><i class="far fa-trash-alt"></i></a></li>
+					<li><a wicket:id="submit-link" alt="save" title="Save"><i class="far fa-save"></i></a></li>
+					
+					<!-- li><a wicket:id="fullwidth-link" class="glyphicon glyphicon-monitor2" alt="full width" title="full width" ></a></li-->
+					<li class="hidden-xs"><a title="Preview" wicket:id="preview-link" target="_blank"><i class="far fa-browser" alt="Preview"></i></a></li>
+					<li><a wicket:id="info-link"  title="File Information"><i class="far fa-info-circle" aria-hidden="true"></i></a></li>
+					
+					
+					<li class="dropdown hidden-xs"><wicket:container wicket:id="help"/></li>
+					<li>
+						<wicket:container wicket:id="navigator"/>
+					</li>		
+				</ul>
+			
+				<ul class="actions nav navbar-nav navbar-right">
+					<li>
+						<div wicket:id="endconditions"/>
+					</li>
+					<!-- li class="dropdown">
+						<wicket:container wicket:id="monitor-tools"/>
+					</li-->
+				</ul>
+				
+			</div><!--/.nav-collapse -->
+			
+		</div><!--/.container-fluid -->
+		
+	</nav>
+
+</wicket:panel>
+
+
+<wicket:fragment wicket:id="help-fragment">
+	<a class="dropdown visible-md visible-lg" wicket:id="help-link"  title="Help" href="#" style="margin-left:0;"><span class="far fa-question-circle"/></a>
+</wicket:fragment>
+
+
+
