@@ -1,0 +1,204 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+	<parent>
+		<artifactId>kbee</artifactId>
+		<groupId>com.novamens</groupId>
+				<version>8.5-SNAPSHOT</version>
+	</parent>
+	
+	<modelVersion>4.0.0</modelVersion>
+	
+	<artifactId>kbee-services-spring</artifactId>
+	<name>${project.artifactId}</name>
+	<description />
+	<scm>
+		<connection>
+			scm:git:ssh://alejo@git.hq.novamens.com/var/novamens/spring.git
+		</connection>
+		<developerConnection>
+			scm:git:ssh://alejo@git.hq.novamens.com/var/novamens/spring.git
+		</developerConnection>
+	</scm>
+	<dependencies>
+		<dependency>
+			<groupId>com.novamens</groupId>
+			<artifactId>kbee-model-dom</artifactId>
+			<version>${kbee-version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.novamens</groupId>
+			<artifactId>kbee-util</artifactId>
+			<version>${kbee-version}</version>
+		</dependency>
+		
+		
+		<dependency>
+			<!-- Basic building block for Spring that in conjunction with Spring Beans provides dependency injection and IoC features. -->
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-core</artifactId>
+			<version>${spring-version}</version>
+		</dependency>
+		
+		<dependency>
+			<!-- Spring JDBC provides an abstraction layer that simplifies code to use JDBC and the parsing of database-vendor specific error codes. -->
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-jdbc</artifactId>
+			<version>${spring-version}</version>
+		</dependency>
+		
+		<dependency>
+			<!-- Spring AOP provides an Alliance-compliant aspect-oriented programming implementation allowing you to define method interceptors and pointcuts to cleanly decouple code that implements functionality that should be separated. -->
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-aop</artifactId>
+			<version>${spring-version}</version>
+		</dependency>
+		
+		<dependency>
+			<!-- Spring Object/Relational Mapping which provides integration layers for popular object-relational mapping APIs, including JPA, JDO, and Hibernate. -->
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-orm</artifactId>
+			<version>${spring-version}</version>
+		</dependency>
+		
+		<dependency>
+		
+			<!-- Spring Aspects integrates Spring with AspectJ. -->
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-aspects</artifactId>
+			<version>${spring-version}</version>
+		</dependency>
+		
+		<dependency>
+			<!-- Spring Context provides access to configured objects like a registry (a context). It inherits its features from Spring Beans and adds support for internationalization, event propagation, resource loading, and the transparent creation of contexts.  -->
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context</artifactId>
+			<version>${spring-version}</version>
+		</dependency>
+		
+		<dependency>
+			<!-- Spring Context provides access to configured objects like a registry (a context). It inherits its features from Spring Beans and adds support for internationalization, event propagation, resource loading, and the transparent creation of contexts.  -->
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-config</artifactId>
+			<version>${spring-security-version}</version>
+			<exclusions>
+				<exclusion>
+					<artifactId>aopalliance</artifactId>
+					<groupId>aopalliance</groupId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-web</artifactId>
+			<version>${spring-security-version}</version>
+			<exclusions>
+				<exclusion>
+					<artifactId>aopalliance</artifactId>
+					<groupId>aopalliance</groupId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context-support</artifactId>
+			<version>${spring-version}</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-test</artifactId>
+			<version>${spring-version}</version>
+		</dependency>
+		
+
+		<dependency>
+			<!-- Spring Web provides integration features such as multipart file upload functionality and the initialization 
+			of the IoC container using Servlet listeners and a web-oriented application context. 
+			It also contains an HTTP client and the web-related parts of Spring remote support. -->
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-web</artifactId>
+			<version>${spring-version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.ws</groupId>
+			<artifactId>spring-ws-core</artifactId>
+			<version>${spring-ws-version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-oauth2-client</artifactId>
+			<version>${spring-security-version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-oauth2-jose</artifactId>
+			<version>${spring-security-version}</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<!-- 
+				JWT, or JSON Web Token, is a way to transfer sensitive information securely in the widely-accepted JSON format. 
+				The contained information could be about the user, or about the token itself, such as its expiry and issuer.
+				
+				In the context of OAuth 2.0, a resource server is an application that protects resources via OAuth tokens. 
+				These tokens are issued by an authorization server, typically to a client application. The job of the 
+				resource server is to validate the token before serving a resource to the client.
+			-->
+			<artifactId>spring-security-oauth2-resource-server</artifactId>
+			<version>${spring-security-version}</version>
+		</dependency>
+		
+		<dependency>
+				<!-- Non-blocking web stack with support for "Reactive Streams" back pressure, running on Netty, Undertow, and Servlet 3.1+ conts -->
+    			<groupId>org.springframework</groupId>
+   				 <artifactId>spring-webflux</artifactId>
+				<version>${spring-version}</version>
+		</dependency>
+		
+		<dependency>
+			<!-- Non-Blocking Reactive Foundation for the JVM -->
+			<groupId>io.projectreactor</groupId>
+			<artifactId>reactor-core</artifactId>
+			<version>3.3.7.RELEASE</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.springframework.data/spring-data-jpa -->
+
+		<dependency>
+		<!-- Spring Data module for JPA repositories. -->
+		    <groupId>org.springframework.data</groupId>
+		    <artifactId>spring-data-jpa</artifactId>
+		    <version>2.3.1.RELEASE</version>
+		</dependency>
+		
+	</dependencies>
+
+
+	<repositories>
+		<repository>
+			<id>spring-snapshot</id>
+			<name>Spring Snapshot Repository</name>
+			<url>http://repo.springsource.org/snapshot</url>
+		</repository>
+	</repositories>
+	
+		<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<configuration>
+					<source>${java-version}</source>
+					<release>${java-version}</release>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+	
+	
+</project>

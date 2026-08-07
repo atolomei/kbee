@@ -1,0 +1,295 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<!-- status=OFF  			[do not log internal log4 status events]
+    monitorInterval=60 		[reload file every seconds]
+ - -->
+ 
+<configuration status="OFF"  monitorInterval="90">
+	
+	<Properties>
+		<Property name="log-path">logs</Property>
+	</Properties>
+	
+	<appenders>
+		
+		<!--  Console name="Console" target="SYSTEM_OUT">
+			<PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>
+		</Console -->
+		
+		<!-- When Console is redirected to a File, this file collects all log events for a whole day class="org.apache.log4j.varia.NullAppender" -->
+		 
+		<RollingFile name="Console" fileName="${sys:log-path}/console.log" immediateFlush="false"  filePattern="${sys:log-path}/console-%d{yyyy-MM-dd}.log" >
+			<PatternLayout pattern="%d{MM.dd.yyyy HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>
+			<Policies>
+				<TimeBasedTriggeringPolicy interval="1" modulate="true"/>
+				<SizeBasedTriggeringPolicy size="1000 MB" />
+			</Policies>
+		<DefaultRolloverStrategy max="10"/>
+		</RollingFile>		
+
+
+		<!-- kbee log is similar to Console but is is reinitiated every hour, and also when the size exceeds 300 MB -->
+
+		<RollingFile name="kbee" fileName="${sys:log-path}/kbee.log" immediateFlush="false"  filePattern="${sys:log-path}/kbee-%d{yyyy-MM-dd-HH}.log" >
+			<PatternLayout pattern="%d{MM.dd.yyyy HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>
+			<Policies>
+				<TimeBasedTriggeringPolicy interval="1" modulate="true"/>
+				<SizeBasedTriggeringPolicy size="300 MB" />
+			</Policies>
+			<DefaultRolloverStrategy>
+			    <!--
+			      * only files in the log folder, no sub folders
+			      * only rolled over log files (name match)
+			      * only files that are 4 days old or older
+			    -->
+			    <Delete basePath="${sys:log-path}" maxDepth="1">
+			      <IfFileName glob="*.log" />
+			      <IfLastModified age="7d" />
+			    </Delete>
+			  </DefaultRolloverStrategy>
+		</RollingFile>
+
+		<RollingFile name="solr" fileName="${sys:log-path}/solr.log" immediateFlush="false"  filePattern="${sys:log-path}/solr-%d{yyyy-MM-dd}.log" >
+			<PatternLayout pattern="%d{MM.dd.yyyy HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>
+			<Policies>
+				<TimeBasedTriggeringPolicy interval="1" modulate="true"/>
+				<SizeBasedTriggeringPolicy size="100 MB" />
+			</Policies>
+			<DefaultRolloverStrategy max="10"/>
+		</RollingFile>
+		
+
+		<RollingFile name="scheduler" fileName="${sys:log-path}/scheduler.log" immediateFlush="false"  filePattern="${sys:log-path}/scheduler-%d{yyyy-MM-dd}.log" >
+			<PatternLayout>
+					<pattern>%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n</pattern>
+			</PatternLayout>
+			<Policies>
+				<TimeBasedTriggeringPolicy interval="1" modulate="true"/>
+				<SizeBasedTriggeringPolicy size="30 MB" />
+			</Policies>
+			<DefaultRolloverStrategy max="10"/>
+		</RollingFile>
+
+
+
+		<RollingFile name="workflow" fileName="${sys:log-path}/workflow.log" immediateFlush="false"  filePattern="${sys:log-path}/workflow-%d{yyyy-MM-dd}.log" >
+			<PatternLayout pattern="%d{MM.dd.yyyy HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>
+			<Policies>
+				<TimeBasedTriggeringPolicy interval="1" modulate="true"/>
+				<SizeBasedTriggeringPolicy size="40 MB" />
+			</Policies>
+			<DefaultRolloverStrategy max="10"/>
+		</RollingFile>
+		
+
+		<RollingFile name="web" fileName="${sys:log-path}/web.log" immediateFlush="true"  filePattern="${sys:log-path}/web-%d{yyyy-MM-dd}.log" >
+			<PatternLayout pattern="%d{MM.dd.yyyy HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>
+			<Policies>
+				<TimeBasedTriggeringPolicy interval="1" modulate="true"/>
+				<SizeBasedTriggeringPolicy size="100 MB" />
+			</Policies>
+			<DefaultRolloverStrategy max="10"/>
+		</RollingFile>
+								
+
+
+		<RollingFile name="portal" fileName="${sys:log-path}/portal.log" immediateFlush="false"  filePattern="${sys:log-path}/portal-%d{yyyy-MM-dd}.log" >
+				<PatternLayout pattern="%d{MM.dd.yyyy HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>
+			<Policies>
+				<TimeBasedTriggeringPolicy interval="1" modulate="true"/>
+				<SizeBasedTriggeringPolicy size="10 MB" />
+			</Policies>
+			<DefaultRolloverStrategy max="10"/>
+		</RollingFile>
+
+
+
+		<!--Startup.log prints all info and error of the StartUp process   (immediateFlush="false" is not working) -->
+		
+		<RollingFile name="startup" fileName="${sys:log-path}/startup.log" immediateFlush="true" append="false" filePattern="${sys:log-path}/startup-%d{yyyy-MM-dd}.log" >
+			<PatternLayout pattern="%d{MM.dd.yyyy HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>
+			<Policies>
+				<TimeBasedTriggeringPolicy interval="1" modulate="true"/>
+				<SizeBasedTriggeringPolicy size="100 MB" />
+			</Policies>
+			
+			<DefaultRolloverStrategy max="10"/>
+			
+		</RollingFile>
+		
+		<RollingFile name="emaillogger" fileName="${sys:log-path}/emaillogger.log" immediateFlush="true" append="false" filePattern="${sys:log-path}/emaillogger-%d{yyyy-MM-dd}.log" >
+			<PatternLayout pattern="%d{MM.dd.yyyy HH:mm:ss.SSS} [%t] %-5level %c{1.} - %msg%n"/>
+			<Policies>
+				<TimeBasedTriggeringPolicy interval="1" modulate="true"/>
+				<SizeBasedTriggeringPolicy size="200 MB" />
+			</Policies>
+			<DefaultRolloverStrategy max="2"/>
+		</RollingFile>
+		
+		
+
+		<!-- Plug in de Log4j que graba en la tabla de Auditoría los eventos.
+ 			 @Plugin(name = "Auditor", category = "Core", elementType = "appender")  -->
+		
+		<Auditor name="Auditor"/>
+		
+
+		<!-- KbeeNotificationService. El servicio de notificaciones es llamando por un thread distinto del que realizó 
+ 			la acción que genera el evento. Lo hace el EventNotifier, que es un appender de Log4j.		-->
+
+		<EventNotifier name="EventNotifier" />
+		
+		<API name="API"/>
+		<SyncAuditor name="SyncAuditor"/>
+		
+		<Async name="Async">
+			<AppenderRef ref="Auditor"/>
+			<AppenderRef ref="API"/>
+		</Async>
+		
+	</appenders>
+
+
+
+	<loggers>
+
+		<!-- ===============================================================================================================-->
+		<!-- Root Logger -->
+
+		<Asyncroot level="error">
+			<appender-ref ref="Async"/>
+			<appender-ref ref="kbee"/>
+		</Asyncroot>
+
+
+		<!-- =============================================================================================================== -->
+		<!-- Startup. This logger is just used by the services at startup  													 -->
+ 			
+		<Logger name="StartupLogger" level="info" additivity="false">
+			<AppenderRef ref="Console"/>
+			<appender-ref ref="startup"/>
+		</Logger>	
+	
+
+		<!-- =============================================================================================================== 	-->
+		<!-- IMPORTANT: These loggers must be level="info" because they have plug ins that save events in the database					-->
+											
+		<!-- TxLogger has an appender plugin. It runs synchronously with the JPA Transaction (managed by Spring) 
+		     in order to assure that the log is generated only when the transaction commits. 
+		     It must be level="info"	-->
+			
+		<Logger name="TxLogger" level="info" additivity="false"> 
+			<AppenderRef ref="Console"/>
+			<AppenderRef ref="SyncAuditor"/>
+			<AppenderRef ref="EventNotifier"/>
+		</Logger>
+
+
+		<!-- DBEventLogger logs in the System Log table	-->
+
+		<Asynclogger name="DBEventLogger" level="info" additivity="false">
+			<AppenderRef ref="Console"/>
+			<appender-ref ref="Async"/>
+		</Asynclogger>
+		
+		
+		<Asynclogger name="ApiLogger" level="info" additivity="false">
+			<AppenderRef ref="Console"/>
+			<appender-ref ref="Async"/>
+		</Asynclogger>
+			
+		<!-- =============================================================================================================== -->
+			
+		<!--  This logger should not affect DB LogEvents but we still have to test -->
+			
+		<Asynclogger name="com.novamens.kbee.content.security.service" level="error" additivity="false">
+			<appender-ref ref="Async"/>
+		</Asynclogger>
+
+			
+		<!-- =============================================================================================================== -->
+		<!--  This logger should not affect DB LogEvents but we still have to test -->
+			
+		<Asynclogger name="com.novamens.kbee.content.service" level="error" additivity="false">
+			<appender-ref ref="Async"/>
+		</Asynclogger>
+
+		<Asynclogger name="com.novamens.kbee.security.KbeeSpringSecurityDao" level="error" additivity="false">
+			<appender-ref ref="Async"/>
+		</Asynclogger>
+			
+
+		<!-- Scheduler ======================================================================================================= -->
+		
+		<Asynclogger name="Scheduler" level="error" additivity="false">
+			<appender-ref ref="scheduler"/>
+			<appender-ref ref="Console"/>
+		</Asynclogger>
+		
+		
+		<!-- =============================================================================================================== -->
+					
+		<Asynclogger name="SolrIntegrity" level="error" additivity="false">
+			<appender-ref ref="solr"/>
+		</Asynclogger>
+			
+		<Asynclogger name="org.springframework.security" level="error" additivity="false"/>
+		<Asynclogger name="org.apache.pdfbox" level="error" additivity="false"/>
+
+		
+		<!-- =============================================================================================================== -->
+		<!-- Web -->
+															
+		<Asynclogger name="kbee.email" level="error" additivity="false">
+			<appender-ref ref="kbee"/>
+			<appender-ref ref="emaillogger"/>
+		</Asynclogger>
+
+
+
+		<!-- =============================================================================================================== -->
+
+		<Asynclogger name="org.hibernate.engine.internal.StatefulPersistenceContext" level="error" additivity="false"/>
+
+		<Asynclogger name="org.apache.wicket" level="error">
+			<appender-ref ref="Async"/>
+			<appender-ref ref="web"/>
+			<appender-ref ref="kbee"/>
+		</Asynclogger>
+
+		<Asynclogger name="org.apache.wicket.serialize.java.JavaSerializer" level="error" additivity="false">
+			<appender-ref ref="web"/>
+			<appender-ref ref="kbee"/>
+		</Asynclogger>
+			
+		<Asynclogger name="org.springframework.security" level="error" additivity="false">
+			<appender-ref ref="Async"/>
+			<appender-ref ref="kbee"/>
+		</Asynclogger>
+			
+	 	
+		<!-- =============================================================================================================== -->
+		<!-- Hibernate -->
+
+		<Asynclogger name="org.hibernate.orm.deprecation"  level="error" additivity="false">
+			<appender-ref ref="kbee"/>
+		</Asynclogger>´	
+		
+		<!-- This overcomes the proxy narrow log of hibernate -->
+		<Asynclogger name="org.hibernate.engine.StatefulPersistenceContext.ProxyWarnLog">
+			<level value="error" />
+		</Asynclogger>
+		
+
+
+		<!-- =============================================================================================================== -->
+
+
+
+		
+	</loggers>		
+	
+</configuration>
+
+
