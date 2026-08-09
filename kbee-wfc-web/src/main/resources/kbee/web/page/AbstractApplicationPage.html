@@ -1,0 +1,21 @@
+<wicket:extend>
+		
+		<header wicket:id="navigation"/>
+		
+		<div class="kbee-content-main-area-container page-container">
+			<div id="page-content" class="page-content">
+				
+				<wicket:container wicket:id="menu"/>
+				
+				<div class="content-wrapper" style="float:left; width:100%;">
+					<div wicket:id="page-content-header" class="page-content-header"  />
+					<div wicket:id="info-panel-container">
+							<wicket:container wicket:id="info-panel" />
+					</div>
+					<wicket:child />
+					<wicket:container wicket:id="console-footer" />
+				</div>
+			</div>
+		</div>
+		<div wicket:id="page-error-dialog" class="modal window" tabindex="-60" role="dialog" />
+</wicket:extend>

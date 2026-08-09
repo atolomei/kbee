@@ -1,0 +1,25 @@
+<wicket:head>
+	<style>
+		@media (min-width: 1200px) {
+			.kbee .form-horizontal .control-label label {width:100%;	padding-right:15px;	}
+			.kbee .form-horizontal .control {width: 85%;float:left;}
+		}
+		.kbee .form-horizontal .checkbox label {height: 20px;padding-left: 25px;width:100%;}
+	</style>
+</wicket:head>
+
+
+<wicket:panel>
+
+	
+	<div wicket:id="alert" class="mb15" style="float:left; width:100%;"></div>
+	
+	<div wicket:id="components-container">
+		<div wicket:id="component">
+			<wicket:container wicket:id="panel">
+			</wicket:container>	
+		</div>
+	</div>
+	<div wicket:id="error" />
+</wicket:panel>
+

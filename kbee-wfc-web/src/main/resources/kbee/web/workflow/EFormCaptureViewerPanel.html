@@ -1,0 +1,60 @@
+<wicket:head>
+<style>
+	.kbee .eform-error label.control-label {
+		color: #a90000;
+	}
+	
+	@media ( min-width : 1200px) {
+		.kbee .form-horizontal .control-label label {
+			width: 100%;
+			padding-right: 15px;
+		}
+		.kbee .form-horizontal .control {
+			width: 85%;
+			float: left;
+		}
+	}
+	
+	.kbee .eform-audit .eform .form-horizontal .checkbox label {
+		height: 20px;
+		padding-left: 25px;
+		width: 100%;
+	}
+	
+	.kbee .eform-audit .eform  .control {
+		padding: 10px 15px;
+		border: 1px solid #d8dcdf;
+		width: 100%;
+		float: left;
+		border-radius: 4px;
+		background: white;
+	}
+	
+	.kbee .content-container-internal {
+		float: left;
+		padding: 40px 6%;
+		width: 100%;
+	}
+	
+	.kbee  .eform-audit .eform  .efield .resources-panel {
+		float: left;
+		padding: 15px 15px;
+		width: 100%;
+		border: 1px solid #d8dcdf;
+		border-radius: 4px;
+		background: white;
+	}
+	
+.kbee  .eform-audit .eform .check-field-container {padding:15px 15px; border:1px solid #d8dcdf; background:white; border-radius:4px;}	
+	
+</style>
+
+</wicket:head>
+<!-- eform for Audit  -->
+<wicket:panel>
+	<div class="response-container ">
+		<div class="eform-audit">
+			<div class="eform" wicket:id="eform"/>
+		</div>
+	</div>
+</wicket:panel>

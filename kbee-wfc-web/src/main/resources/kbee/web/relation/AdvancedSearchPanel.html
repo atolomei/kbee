@@ -1,0 +1,22 @@
+<wicket:panel>
+<div style="border: 1px solid #dddd; background: #f8f8f8; margin-top: -5px; padding:10px; border-radius: 4px;">
+	<div class="row">
+		<wicket:container wicket:id="form"/>
+	</div>
+	
+	<div class="row" wicket:id="result-container" >
+		<div class="col-lg-12 col-xs-12 col-md-12">
+		<ul style="overflow:auto; width:100%; max-height: 260px; padding:0 5px; font-size: 13px; margin-top:20px;" >
+			<li wicket:id="result" style="margin-bottom: 15px; float:left; width:100%;">
+				<a class="btn-link" wicket:id="selector" style="color: #111111; font-weight: bold; text-decoration: none; float:left; clear:left;">
+					<span class="list-group-item-heading" wicket:id="title"></span>
+				</a>
+				<div wicket:id="metadata" class="metadata" style="float:left; clear:left;"></div>
+			</li>
+		</ul>
+		</div>
+	</div>
+	
+</div>	
+	
+</wicket:panel>

@@ -1,0 +1,69 @@
+<wicket:panel>
+	<div wicket:id="text-changes" style="margin-top:20px; margin-bottom:20px;float: left; display: block;">[]</div>
+	<div style="margin-top: 0px;" wicket:id="history-container" >
+		<nav wicket:id="navigation" class="col-lg-12 col-md-12 col-xs-12" />
+		<div wicket:id="table-container" class="table-responsive table-header-bck" style="clear:left; height: inherit; overflow: auto; max-height: 150vh; overflow: auto;">
+			<table style="float: left;" wicket:id="history" class="table table-bordered  table-hover"/>
+		</div>
+	</div>
+</wicket:panel>
+
+<wicket:fragment wicket:id="date-fragment">
+		<div style="float:left; width:100%; line-height:1.7em;">
+			<a wicket:id="title-link" class="btn-link" target="_blank" style="clear:left; float:left;">
+				<span wicket:id="title"/>
+			</a>
+			<div style="float:left; clear:left;" wicket:id="subtitle"/>
+			<div wicket:id="vigent" style="     font-size: 12px;    text-transform: uppercase; clear:left; float:left;"> 
+				<wicket:message key="vigent" /></div>
+			</div>
+</wicket:fragment>
+
+<wicket:fragment wicket:id="title-fragment">
+	<a style="text-align: right; padding:0 20px; float:left; text-align:center;" wicket:id="title-link" class="btn-link" target="_blank"> 
+		<span wicket:id="version" style="padding-left: 4px; padding-right: 4px;"/>
+	</a>
+</wicket:fragment>
+
+<wicket:fragment wicket:id="user-fragment">
+	<div style="float:left; width:100%;">
+		<span wicket:id="username" style="line-height: 1.7em;  float:left; clear:left; line-height: 1.7em;"/>
+		<span wicket:id="date" style="line-height: 1.7em;  float:left; clear:left;  line-height: 1.7em;"/>
+	 </div>
+</wicket:fragment>
+
+<wicket:fragment wicket:id="text-change-fragment">
+	<span><wicket:message key="text-changes-label"/></span>
+	<div wicket:id="adds">
+		<span><wicket:message key="text-adds"/></span>
+		<ul style="width: 100%;">
+			<li wicket:id="adds">
+				<span ><i wicket:id="label" style="background-color: #e8e8e8;">[]</i></span>
+			</li>
+		</ul>
+	</div>
+	<div wicket:id="updates" style="display: block;  width: 100%;  float: left; padding-top: 10px;">
+		<span><wicket:message key="text-updates"/></span>
+		<ul style="width: 100%;">
+			<li wicket:id="updates">
+				<span ><i wicket:id="label" style="background-color: #e8e8e8;">[]</i></span>
+				<div wicket:id="paragraphs-updates" style="width:100%; padding-left: 25px;">
+					<span><wicket:message key="paragraphs-updates"/></span>
+					<ul style="width:100%" >
+						<li wicket:id="paragraph"><span><i wicket:id="text" style="background-color: #e8e8e8;">[]</i></span></li>
+					</ul>
+				</div>	
+			</li>
+		</ul>
+	</div>
+	<div wicket:id="deletes">
+		<span><wicket:message key="text-deletes"/></span>
+		<ul style="width: 100%;">
+			<li wicket:id="deletes">
+				<span ><i wicket:id="label" style="background-color: #e8e8e8;">[]</i></span>
+			</li>
+		</ul>
+	</div>
+</wicket:fragment>
+
+ 								

@@ -1,0 +1,55 @@
+
+<wicket:panel>
+		<div class="col-lg-12 col-md-12 col-xs-12 list-panel">
+				<div style="float:left" wicket:id="title-container">
+					<h2><span wicket:id="title"></span><span wicket:id="total" style="font-size:1em;" class="ago"></span></h2>
+				</div>
+				<div wicket:id="toolbar" ></div>
+				<div wicket:id="list-items-container" style="width:100%; float:left;">
+					<ul class="list-group" style="width:100%;">
+						<li class="list-group-item" wicket:id="list-items">
+							<wicket:container wicket:id="row-element" />
+						</li>
+					</ul>
+				</div>
+				<div wicket:id="bottom" style="width:100%; float:left;" />
+		</div>
+</wicket:panel>
+
+<wicket:fragment wicket:id="element-row-fragment">
+
+						<div class="row">
+							<div class="col-lg-12 col-md-12 col-xs-12 list-item"> 
+								<div class="item" style="width:100%; float:left; display:inline-block; ">
+									<div wicket:id="menu-container" class="dropdown" style=" float:left; display:inline-block; position:relative;">
+										<a id="dmenu" style="width:32px; height:30px; margin-top:-4px; position:relative; float:left;" data-toggle="dropdown">
+										   <i class="far fa-ellipsis-h panel-centered" aria-hidden="true" style= "float: left; position:absolute;"></i>
+										 </a>
+										 <ul wicket:id="menu" class="dropdown-menu" aria-labelledby="dmenu" />
+									</div>
+									<div wicket:id="expand-container" style="float:left;  position:relative; display:inline-block;">
+											<a wicket:id="expand" style="   height:24px; width:32px; float:left;  position:relative; display:inline-block;">
+											   <i wicket:id="expand-icon" class="far fa-angle-up panel-centered" aria-hidden="true"></i>
+											 </a>
+									 </div>
+									 <div wicket:id="icon-container" style=" position:relative; display:inline-block;    height:24px; width:32px; float:left;">
+									   	<i wicket:id="unread-icon"  class="panel-centered" title="unread" style="margin-left:0px;"></i>
+									 </div>
+ 									 <div wicket:id="item-link" />
+ 								</div>
+ 								<div wicket:id="expanded-container" class="expanded" style="float:left; padding-left:0; overflow-x: auto;   width:100%;">
+									<div style="float:left; padding-left:0;  width:100%;" wicket:id="expanded-row-container" />
+								</div>
+							</div>
+						</div>
+</wicket:fragment>
+
+<wicket:fragment wicket:id="simple-expanded-row-fragment">
+		<div wicket:id="padder" style="width:100%; padding-left: 60px; overflow:auto;">
+			<div wicket:id="item-abstract-container" style="width:100%;"class="description">
+				<span class="text" wicket:id="item-abstract"></span>
+			</div>
+		</div>
+</wicket:fragment>
+	
+	

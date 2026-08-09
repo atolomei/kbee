@@ -1,0 +1,41 @@
+<!-- wicket:head>
+
+	<style>
+		.kbee .eform-audit .eform .relation-viewer .control {
+			width: 100%;border: none;padding: 0px;
+		}
+	</style>
+</wicket:head-->
+
+<wicket:panel>
+	<div wicket:id="container" class="col-xs-12 col-lg-12 col-md-12 form-group">
+		<div class="efield eviewer">
+			<div class="relation-viewer">
+				<div class="control-label">
+					<label for="label" wicket:id="label"></label>
+				</div>
+				<div class="control" wicket:id="horizontal-layout" style=" min-height:45px;">
+					<wicket:container wicket:id="control"/>
+				</div>
+				
+				<wicket:container wicket:id="control"/>
+				
+				<div wicket:id="feedback-panel">
+					<span wicket:id="message">[]</span>
+				</div>
+			</div>
+		</div>
+	</div>
+</wicket:panel>
+
+<wicket:fragment wicket:id="control-fragment">
+	
+	
+	<span wicket:id="subtitle"></span>
+	<ul class="list-group" style="padding-top: 0px; width:100%; float:left;">
+		<li wicket:id="value" class="list-group-item" style="border:none; padding-left:0; padding-right:0;">
+			<span class="list-group-item-heading" wicket:id="label"></span>
+			<span class="list-group-item-text" wicket:id="info" style="display: inherit;line-height: 1.4em; padding: 0; margin-bottom: 5px;"></span>
+		</li>
+	</ul>
+</wicket:fragment>

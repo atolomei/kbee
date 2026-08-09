@@ -1,0 +1,72 @@
+<wicket:panel>
+	
+	<nav  class="navbar navbar-default navbar-fixed-top">
+	
+		<div id="navbar-header">
+		
+				<div id="navbar-mobile">	
+				
+					<wicket:container wicket:id="brand-idoc"/>
+					<wicket:container wicket:id="brand-factory"/>
+					<wicket:container wicket:id="mobile-brand-idoc"/>
+					
+					<!-- ul class="nav navbar-nav navbar-right hidden-xs">
+						<li><div class="navbar-form navbar-left" wicket:id="search"/></li>
+						<li> <wicket:container wicket:id="navigator"/></li>
+						<li class="dropdown hidden-xs"><wicket:container wicket:id="portal"/></li>
+						<li class="dropdown hidden-xs"><wicket:container wicket:id="settings"/></li>
+						<li class="dropdown hidden-xs"><wicket:container wicket:id="notifications"/></li>
+						<li class="dropdown hidden-xs"><wicket:container wicket:id="help"/></li>
+						<li class="dropdown hidden-xs"> <wicket:container wicket:id="user"/></li>
+					</ul-->
+					
+				</div>
+			
+		</div>
+		
+	</nav>
+
+</wicket:panel>
+
+
+
+<wicket:fragment wicket:id="brand-idoc-fragment">
+	<a class="brand visible-md  visible-lg hidden-xs hidden-sm" wicket:id="rp-link"   style="margin-left:0;">
+		<img  wicket:id="brand" class="brand-icon">
+	</a>
+	<a class="brand visible-md  visible-lg hidden-xs hidden-sm" wicket:id="domain-link">
+		<span class="title"  wicket:id="product"></span>
+		<span class="subtitle" wicket:id="domain-name"></span>
+	</a>
+	
+</wicket:fragment>
+
+
+<wicket:fragment wicket:id="mobile-brand-idoc-fragment">
+	<div style="float:right;">
+		<a class="brand" wicket:id="domain-link"  style="text-align: right;">
+			<span class="title"  wicket:id="product"></span>
+			<span class="subtitle" wicket:id="domain-name"></span>
+		</a>
+		
+		
+		<a class="brand" wicket:id="rp-link"   style="margin-left:0;">
+			<img  wicket:id="brand" class="brand-icon">
+		</a>
+	</div>
+</wicket:fragment>
+
+	
+	<!-- FACTORY -->
+<wicket:fragment wicket:id="brand-factory-fragment">
+	<a class="brand visible-md visible-lg visible-xs visible-sm" href="https://www.novamens.com" style="float: left; margin-left:0;"> 
+		<span style=" text-transform: uppercase;   margin-left: 0px; color: #ffffff;  float: left;    font-size: 16px;    margin-top: 0px;    font-weight: 600;" wicket:id="product"></span>
+		<span style="    margin-left:  8px; color: #cccccc;  float: left;    font-size: 16px;    margin-top: 0px;    font-weight: 600;"> <wicket:message key="factory"></wicket:message></span>
+	</a>
+</wicket:fragment>
+	
+	
+
+	
+
+

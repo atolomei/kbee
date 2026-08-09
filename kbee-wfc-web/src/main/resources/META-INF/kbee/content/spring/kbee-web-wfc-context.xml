@@ -1,0 +1,241 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+		http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+		http://www.springframework.org/schema/context
+		http://www.springframework.org/schema/context/spring-context-3.0.xsd 
+		http://www.springframework.org/schema/tx 
+		http://www.springframework.org/schema/tx/spring-tx.xsd">
+
+
+	<context:component-scan base-package="kbee.web.resource" />
+
+	<!--  BlockInternalPanelFactory  ============================================================================================================== -->
+		
+	<bean id="block-panel-dummy" class="kbee.web.portal6.factory.KbeePortalObjectInternalPanelFactory">
+		<property name="id" value="block-panel-dummy"/>
+		<property name="className" value="com.novamens.wicket.util.DummyBlockPanel"/>
+		<property name="key" value="block-dummy"/>
+		<property name="title" value="Dummy block panel"/>
+	</bean>
+
+
+	<bean id="block-panel-billboard" class="kbee.web.portal6.factory.KbeePortalObjectInternalPanelFactory">
+		<property name="id" value="block-panel-billboard"/>
+		<property name="className" value="kbee.web.alert.BillboardPanel"/>
+		<property name="key" value="block-billboard"/>
+		<property name="title" value="billboard block panel"/>
+	</bean>
+
+  <bean id="console-footer" class="kbee.web.page.footer.ConsoleMiniFooterPanel" scope="prototype"/>
+
+   <!--  AreaInternalPanelFactory  ============================================================================================================== -->
+
+	<bean id="area-panel-dummy" class="kbee.web.portal6.factory.KbeePortalObjectInternalPanelFactory">
+		<property name="id" value="area-panel-dummy"/>
+		<property name="className" value="com.novamens.wicket.util.DummyBlockPanel"/>
+		<property name="key" value="area-dummy"/>
+		<property name="title" value="Dummy Area panel"/>
+	</bean>
+
+
+	<bean id="area-panel-billboard" class="kbee.web.portal6.factory.KbeePortalObjectInternalPanelFactory">
+		<property name="id" value="area-panel-billboard"/>
+		<property name="className" value="com.novamens.wicket.util.DummyBlockPanel"/>
+		<property name="key" value="area-billboard"/>
+		<property name="title" value="billboard area panel"/>
+	</bean>
+
+
+   
+   
+
+	
+	
+	<!-- MVC: 
+			
+			PortalObjectViewerRenderService
+			PortalObjectDataProviderService
+			PportalObjectModelService
+	
+	
+	 -->
+	<bean id="portalObjectViewerRenderServiceFactory" class="com.novamens.spring.service.SpringObjectServiceFactory">
+		<property name="bean" value="portalObjectViewerRenderService"/>
+	</bean>
+	<bean id="portalObjectViewerRenderService" class="kbee.web.portal6.KbeePortalObjectViewerRenderService" scope="prototype">
+		<property name="contentDao" ref="contentDao"/>
+		<property name="portalDao" ref="portalDao"/>
+	</bean>
+
+	<bean id="portalObjectModelServiceFatory" class="com.novamens.spring.service.SpringObjectServiceFactory">
+		<property name="bean" value="portalObjectModelService"/>
+	</bean>
+	<bean id="portalObjectModelService" class="kbee.web.portal6.KbeePortalObjectModelService" scope="prototype">
+		<property name="contentDao" ref="contentDao"/>
+		<property name="portalDao" ref="portalDao"/>
+	</bean>
+
+
+	<bean id="portalObjectDataProviderServiceFatory" class="com.novamens.spring.service.SpringObjectServiceFactory">
+		<property name="bean" value="portalObjectDataProviderService"/>
+	</bean>
+	<bean id="portalObjectDataProviderService" class="kbee.web.portal6.KbeePortalObjectDataProviderService" scope="prototype">
+		<property name="contentDao" ref="contentDao"/>
+		<property name="portalDao" ref="portalDao"/>
+	</bean>
+
+
+	<bean id="SiteUpdateListener" class="kbee.web.listener.SiteUpdateListener">
+		<property name="externalDao" ref="externalDao"/>
+	</bean>
+	
+	<bean id="SocialEventListener" 					class="kbee.web.listener.SocialEventListener"/>
+	<bean id="KnowledgeSharingEventListener" 		class="kbee.web.listener.KnowledgeSharingEventListener"/>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	<!-- Esto parace que es de content -->
+	
+	<bean id="objectModelServiceFactory" class="com.novamens.spring.service.SpringSystemServiceFactory">
+		<property name="bean" value="objectModelService"/>
+	</bean>
+	
+	<bean id="objectModelService" class="kbee.web.model.service.KbeeObjectModelService" />
+	
+	
+	
+	<!-- Branding - Branding Web  -->
+		
+	<bean id="BrandingService" class="com.novamens.spring.service.SpringSystemServiceFactory" primary="true">
+		<property name="bean" value="kbee.web.branding.KbeeDefaultBrandingService"/>
+	</bean>
+	
+	<bean id="kbee.web.branding.KbeeDefaultBrandingService" class="kbee.web.branding.KbeeDefaultBrandingService" primary="true"/>
+
+	<bean id="BrandingWebService" class="com.novamens.spring.service.SpringSystemServiceFactory" primary="true">
+		<property name="bean" value="kbee.web.branding.KbeeDefaultBrandingWebService"/>
+	</bean>
+	
+	<bean id="kbee.web.branding.KbeeDefaultBrandingWebService" class="kbee.web.branding.KbeeDefaultBrandingWebService" primary="true"/>
+	
+	<bean id="LoginImageService" class="com.novamens.spring.service.SpringSystemServiceFactory" primary="true">
+		<property name="bean" value="kbee.web.branding.KbeeDefaultLoginImageService"/>
+	</bean>
+	
+	<bean id="kbee.web.branding.KbeeDefaultLoginImageService"  class="kbee.web.branding.KbeeDefaultLoginImageService" primary="true"/>
+
+
+	
+	<!--  Iql Service  -->
+	
+	<bean id="IqlHelpServiceFactory" class="com.novamens.spring.service.SpringObjectServiceFactory">
+		<property name="bean" value="IqlHelpService"/>
+	</bean>
+	
+	<bean id="IqlHelpService" class="kbee.web.iql.KbeeIqlHelpService" scope="prototype"/>
+	
+	
+	
+	<!--  Portal  ESTO ES DE KBEE_WEB -->
+
+	<bean id="PortalUrlMapperServiceFactory" class="com.novamens.spring.service.SpringSystemServiceFactory">
+		<property name="bean" value="PortalUrlMapperService"/>
+	</bean>
+	
+	<bean id="PortalUrlMapperService" class="kbee.web.portal6.directory.KbeePortalUrlMapperService"/>
+	
+	
+	
+	<!--  Statistic Service REVISAR  kbee.web.service.StatisticService -->
+	
+	<bean id="statisticServiceFactory" class="kbee.web.service.StatisticServiceFactory"/>
+	
+	
+	
+	<!--  Reports Library Service  -->
+	
+	<bean id="reportsLibraryServiceFactory" class="com.novamens.spring.service.SpringSystemServiceFactory">
+		<property name="bean" value="reportsLibraryService"/>
+	</bean>
+	
+	<bean id="reportsLibraryService" class="kbee.web.service.KbeeReportsLibraryService"/>
+
+	<bean id="ApplicationSiteMapServiceFactory" class="com.novamens.spring.service.SpringSystemServiceFactory">
+		<property name="bean" value="ApplicationSiteMapService"/>
+	</bean>
+														
+	<bean id="ApplicationSiteMapService" class="kbee.web.content.nav.KbeeApplicationSiteMapService"/>
+	
+
+	<bean id="advancedSearchServiceFactory" class="com.novamens.spring.service.SpringObjectServiceFactory">
+		<property name="bean" value="advancedSearchService"/>
+	</bean>
+	
+	<bean id="advancedSearchService" class="kbee.web.search.service.KbeeAdvancedSearchService" scope="prototype"/>
+	
+	<!--  Search Suggestion Service -->
+	
+	<bean id="parametricSearchSuggestionServiceFactory" class="com.novamens.spring.service.SpringObjectServiceFactory">
+		<property name="bean" value="parametricSearchSuggestionService"/>
+	</bean>
+	
+	<bean id="parametricSearchSuggestionService" class="kbee.web.search.service.ParametricSearchSuggestionService" scope="prototype"/>
+	
+	<bean id="webSiteSearchSuggestionServiceFactory" class="com.novamens.spring.service.SpringObjectServiceFactory">
+		<property name="bean" value="webSiteSearchSuggestionService"/>
+	</bean>
+	
+	<bean id="webSiteSearchSuggestionService" class="kbee.web.search.service.SiteSearchSuggestionService" scope="prototype"/>
+
+	<bean id="principalSuggestionServiceFactory" class="com.novamens.spring.service.SpringSystemServiceFactory">
+		<property name="bean" value="principalSuggestionService"/>
+	</bean>
+	
+	<bean id="principalSuggestionService" class="kbee.web.security.service.PrincipalSuggestionService" scope="prototype"/>
+
+	<!--  Kbee Markup Service -->
+
+	<bean id="KbeeMarkupProvider" class="kbee.web.page.KbeeMarkupDefaultProvider"/>
+	
+	
+	
+	<!--  Uploader Service -->
+	
+	<bean id="uploaderServiceFactory" class="com.novamens.spring.service.SpringSystemServiceFactory">
+		<property name="bean" value="uploaderService"/>
+	</bean>
+	
+	<bean id="uploaderService" class="kbee.web.uploader.UploaderService"/>
+	
+	<!--  EForm Behaviors -->
+	
+	<bean id="ImageViewer" class="kbee.web.resource.ImageViewerBehavior" scope="prototype"/>
+
+</beans>

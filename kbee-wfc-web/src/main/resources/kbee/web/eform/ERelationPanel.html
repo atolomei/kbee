@@ -1,0 +1,81 @@
+<wicket:head>
+<style>
+	.eform-editor .relation-field {float:left;}
+	.eform-editor .eform .relation-field .control{float:left; width:100%; border:1px solid #d8dcdf; border-radius: 4px; min-height:40px;}
+</style>
+</wicket:head>
+
+<wicket:panel>
+	<div wicket:id="container" class="col-xs-12 col-lg-12 col-md-12 form-group">
+			<div class="control-label">
+				<label for="label" wicket:id="label"></label>
+			</div>
+			<div class="control" wicket:id="horizontal-layout">
+				<wicket:container wicket:id="control"/>
+			</div>
+			<wicket:container wicket:id="control"/>
+	</div>
+</wicket:panel>
+
+<wicket:fragment wicket:id="control-fragment">
+	
+	<div class="relation-field" style="float:left; width:100%;">
+		<span wicket:id="subtitle"></span>
+		<div class="control">	
+			<ul class="list-group relation-values" style="width:100%;">
+				<li class="list-group-item" wicket:id="relation" style="border:none;">
+					<div wicket:id="view"/>
+				</li>
+			</ul>
+			<div style="float:left; width:100%;" wicket:id="searcher"></div>
+		</div>
+		
+		<a wicket:id="help-link" class="btn-link" style="font-size: 12px; float: right;  padding: 5px;  margin-right: 3px;">
+			<span> <wicket:message key="help"/></span>
+		</a>
+	</div>
+	
+	<small wicket:id="help" class="help-block" style="float:left;width: calc(100% - 30px);"></small>
+	
+</wicket:fragment>
+
+<wicket:fragment wicket:id="related-view-fragment">
+	<div class="expander cell-container" style="width:40px;float: left;padding-top: 4px;padding-left: 0px;">
+		<a wicket:id="expander"><i class="far fa-angle-up" style="cursor:pointer;" wicket:id="icon"></i></a>
+	</div>
+	<a wicket:id="link" target="_blank">
+		<span class="list-group-item-heading" wicket:id="title"></span>
+	</a>
+	<div class="list-group-item-text" wicket:id="subtitle" style="padding-left: 40px;"></div>
+	<a href="#" class="btn-mini atright" wicket:id="remove-link" style="position: absolute;top: 15px;right: 10px;">
+		<i style=" cursor:pointer;" class="far fa-times"></i>
+	</a>
+	<div class="row" wicket:id="expanded-view">
+		<div style="padding: 5px 10px 0px 52px;" wicket:id="view"/>
+	</div>
+</wicket:fragment>
+
+<wicket:fragment wicket:id="related-resource-view-fragment">
+	<div class="expander cell-container" style="width:25px;width: 25px;float: left;padding-top: 10px;padding-left: 0px;">
+		<a wicket:id="expander"><i class="far fa-angle-up" style="cursor:pointer;" wicket:id="icon"></i></a>
+	</div>
+	<div class="media-left">
+		<a wicket:id="resource-link">
+			<i wicket:id="glyphicon" />
+		</a>			
+	</div>
+	<div class="media-body">
+		<a wicket:id="link">
+			<span class="list-group-item-heading" wicket:id="title"></span>
+		</a>
+		<div class="list-group-item-text" wicket:id="subtitle"></div>
+		<a href="#" class="btn-mini atright" wicket:id="remove-link" style="position: absolute;top: 15px;right: 10px;">
+			<i style=" cursor:pointer;" class="far fa-times"></i>
+		</a>
+		</div>
+		<div class="row" wicket:id="expanded-view">
+			<div style="padding-left: 38px;padding-top: 5px;" wicket:id="view"/>
+		</div>
+</wicket:fragment>
+
+

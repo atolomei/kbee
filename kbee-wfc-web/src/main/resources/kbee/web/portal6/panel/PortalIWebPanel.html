@@ -1,0 +1,81 @@
+<wicket:panel>
+
+		<div wicket:id="kbpanel" class="kbpanel">
+			<div wicket:id="kbpanel-class" class="kbpanel-hierarchy">
+				<wicket:container wicket:id="controller" />
+				
+				
+				<div class="kbpanel-subpanel" wicket:id="all">
+					<wicket:child />
+				</div>
+				
+				
+				<wicket:container wicket:id="data-provider" />
+				
+				
+				
+			</div>
+		</div>		
+</wicket:panel>
+
+
+<wicket:fragment wicket:id="controller-fragment">
+				<div class="controller">
+					<div class="head">
+							<div style="float:left; position: relative;">
+								<a wicket:id="expand" href="#" class="btn-mini"  style="float:left;padding:0px 10px; margin-right:0px;">
+									<i wicket:id="icon-expanded" style="font-size:14px; font-weight:400;" class="far fa-angle-up"></i>
+								</a>
+							</div>
+							
+							<div style="float:left; position: relative;">
+								<a href="#" class="btn-mini dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" style="float:left;padding:0px 10px;">
+									<i style="font-size:15px; font-weight:400;" class="far fa-ellipsis-h"></i>
+								</a>
+								<ul class="dropdown-menu" wicket:id="menu"  style="position:absolute;"/>
+								
+								
+								<a wicket:id="edit-content" href="#" class="btn-mini"  style="float:left;padding:0px 5px; margin-right:0px;">
+									<i style="font-size:15px; font-weight:400;" class="far fa-edit"></i>
+								</a>
+								
+							
+								<a wicket:id="preview-content" href="#" class="btn-mini"  style="float:left;padding:0px 5px; margin-right:0px;">
+									<i style="font-size:15px; font-weight:400;" class="fal fa-code"></i>
+								</a>
+							
+							
+								
+								<a wicket:id="title-more" href="#" style="margin-left:5px;">
+									<span style="font-weight:bold;" wicket:id="title"></span>
+								</a>
+								<span style="font-weight:normal; margin:0px; font-size:11px;"   wicket:id="subtitle"></span>
+								
+								<span style="font-weight:normal; margin:0px; font-size:11px; margin-left:0px;"   wicket:id="state"></span>
+							</div>
+							
+							<div style="float:right;">
+							
+
+								<a wicket:id="down" href="#" class="btn-mini"  style="float:left;padding:0px 10px; margin-right:0px;">
+									<i style="font-size:11px; font-weight:400;" class="far fa-arrow-up"></i>
+								</a>
+								
+								<a wicket:id="up" href="#" class="btn-mini"  style="float:left;padding:0px 10px; margin-right:0px;">
+									<i style="font-size:11px; font-weight:400;" class="far fa-arrow-down"></i>
+								</a>
+							
+								<a wicket:id="more" href="#"   style="margin-left:10px;">
+									<span  style="font-weight:normal; font-size:11px;" wicket:id="clazz"></span>	
+								</a>
+							</div>
+					</div>
+					<div class="body" wicket:id="meta" />
+				</div>
+</wicket:fragment>
+
+
+
+
+
+

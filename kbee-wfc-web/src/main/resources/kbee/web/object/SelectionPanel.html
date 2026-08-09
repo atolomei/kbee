@@ -1,0 +1,23 @@
+<wicket:panel>
+	
+	<div class="container-fluid"     style="padding: 0;">
+		<h2 style="width:100%; float:left;"><span wicket:id="selection-label"/></h2>
+		<table class="table table-striped table-bordered table-hover">
+			<thead>
+				<tr class="headers">
+					<th class="col-lg-5"><span> <wicket:message key="grid.title"/> </span></th>
+					<th class="col-lg-2"><span> <wicket:message key="grid.status"/> </span></th>
+					<th style="text-align: center;" class="col-lg-1"><span> <wicket:message key="grid.action"/> </span></th>
+				</tr>
+			</thead>
+			<tbody>
+		 		<tr wicket:id="selection">
+					<td class="col-lg-5" wicket:id="title"></td>
+					<td class="col-lg-2" wicket:id="status"></td>
+					<td style="text-align: center;" class="col-lg-1"><a wicket:id="remove-link"><span  class="far fa-times"/></a></td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</wicket:panel>
+

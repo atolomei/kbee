@@ -1,0 +1,26 @@
+<wicket:panel>
+	
+	<div style="float: left; width: 100%; overflow: auto; margin-top: 15px; padding: 15px; border-radius: 4px; border:1px solid #d8dcdf;">
+		
+		
+		<div style="float:left;width:100%;padding-top:10px;">
+			<span wicket:id="confirmation-message">[]</span>
+		</div>
+		<div class="vertical-form form-container" style="float:left; width:100%;padding-top:10px;">
+			<div wicket:id="eform"/>	
+			<div wicket:id="collaborator" class="form-group"/>	
+			<div wicket:id="note" class="form-group"/>	
+			<!-- div class="form-group" icket:id="note"/-->
+			<div style="float:right;" icket:id="actions">
+				<a wicket:id="cancel-link" class="btn btn-lg btn-default"><span><wicket:message key="cancel"/></span></a>
+				<a wicket:id="submit-button" class="btn btn-lg btn-primary"><span><wicket:message key="submit"/></span></a>
+			</div>
+			<div wicket:id="feedback"/>
+		</div>
+	</div>
+</wicket:panel>
+
+<wicket:fragment wicket:id="eform-fragment">
+	<div wicket:id="eform" class="form-group" style="margin-bottom:0px;margin-top: 10px;"/>	
+</wicket:fragment>
+

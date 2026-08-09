@@ -1,0 +1,202 @@
+/** ------------------------------------------------
+ EFORM VIEWER V 1.0
+---------------------------------------------------*/
+
+
+/*---------------------------*/
+
+.kbee-eform-viewer  ul			 		{margin: 0; padding: 0; float: left;}
+.kbee-eform-viewer  ul li 				{list-style: none outside none;}
+.kbee-eform-viewer p {margin:0;}
+
+
+
+@media print {
+										
+	.kbee-eform-viewer  		{margin:0; padding:0; background:white; font-family: Helvetica, sans-serif; font-size: 15px; color:#515356; box-sizing: border-box;   line-height: 1.7em; float:left;}							
+	.kbee-eform-viewer div 		{box-sizing: border-box;   }
+	
+	.kbee-eform-viewer .e-main-panel {float:left; width: 21cm;  height: 29.7cm; border: none;background: white; margin:0; box-sizing: border-box;}
+										
+	/** HEADER ------------------------------*/
+	.kbee-eform-viewer .e-header {float: left; width: 100%; height: 5cm; 	background:white;  margin:0; box-sizing: border-box;}
+	.kbee-eform-viewer .e-header .logo-container {display: inline; width: 100%; float: left; text-align: center; margin-top: 4.5em; margin-bottom:0;}
+		
+		
+	/** BODY ------------------------------*/
+	
+	.kbee-eform-viewer .e-body 	{float: left; width: 100%; height: 22.2cm; 	padding: 0 3cm;  background:white;  box-sizing: border-box;  margin:0;}
+	
+	.kbee-eform-viewer .label {float:left; width:100%; font-size: 10px; text-transform: uppercase; text-align:center; font-weight: bold;}
+
+	.kbee-eform-viewer .signature-block {float: none; margin: 0px auto;  width:  100%;  max-width:360px;  position: relative; font-size:0.75em;     }
+	.kbee-eform-viewer .signature-block .signed-data-container	{border-radius: 6px; background: white; border:1px solid #ffc487; float:left; width: 100%; margin-top: 40px;}
+	.kbee-eform-viewer .signature-block .signed-data-container .signed-data  {padding: 0;  border-radius: 6px;       background: white;   float:left; width:  100%; margin-top:0px;}
+	
+	.kbee-eform-viewer .signature-block .signed-data-container .signed-data > div {float:left; width:100%;}
+	
+	
+	
+	.kbee-eform-viewer .signature-block .signed-data-user  	{font-size: 1em;}
+	.kbee-eform-viewer .signature-block .no-signature 	{float:left; width:100%;}
+	
+	.kbee-eform-viewer .signature-icon-contaniner 		{width: 100px;  float:left;  border-right: 1px solid #ffc487;   display: inline-block;    text-align: center;    padding: 15px 20px;    margin-bottom: 0px;}
+	.kbee-eform-viewer .signature-image-contaniner 		{width: 100%;  float:left;  border-right: none;   display: inline-block;    text-align: center;    padding: 0px 0px;    margin-top:0px; margin-bottom: 0px;}
+	.kbee-eform-viewer .signature-image-contaniner 		img {max-width:180px !important; max-height:100px !important;}
+									
+	.kbee-eform-viewer .signature-block .signed-data-user .signed-data-user-text	{float: left; width: 100%;   font-size: 0.85em;    text-transform: uppercase;    text-align: center;    padding: 15px;    margin-left: 0px;    line-height: 1.5em;}
+									
+	.kbee-eform-viewer .no-signature		 			{float: left; width:100%;}
+	.kbee-eform-viewer .no-signature-stamp  			{float: left;   margin: 2rem auto; padding: 2rem 0;   max-width:100%; width: 36em;  position: relative;   background: #f5f6f7  !important;   border: 1px solid #dddddd;   border-radius: 6px; box-sizing: border-box;}
+	.kbee-eform-viewer .no-signature-stamp .info 		{font-size: 0.8em; float:left; margin-top:1em; margin-bottom: 1em; padding:0; text-align:center; width:100%; font-size: 0.9em; font-weight:bold;}
+
+	/** FOOTER */
+	.kbee-eform-viewer .e-footer						{float: left; width: 100%; height: 2.5cm; 	position: initial;  background:white; padding: 0 3cm; box-sizing: border-box;  margin:0;}
+    .kbee-eform-viewer .e-footer-main-panel				{padding:0; margin:0; padding:0; border-top: 1px solid #dddddd;  float:left; width:100%;}
+    .kbee-eform-viewer .e-footer .footer-content 		{display: inline; width: 100%; float: left; font-weight:bold; text-align: center;  text-transform: uppercase; padding: 2em 0 0 0; font-size: 0.9em;}
+	
+	.kbee .eform-audit .pdfViewer .payload { background:white;}
+	
+	
+											
+	}
+
+
+@media screen {
+	
+	
+	
+	/**.kbee .eform-audit  {background:#bcc7cf;}**/
+	
+	.kbee-eform-viewer 									{margin:0; padding:0; background: transparent; font-family: Helvetica, sans serif; font-size: 14px; color:#515356;   box-sizing: border-box; line-height: 1.7em; width:100%; float:left;}
+	.kbee-eform-viewer div 								{box-sizing: border-box;}
+	.kbee-eform-viewer .signature-block .signed-data-container .signed-data > div {float:left; width:100%;}
+	
+	.kbee-eform-viewer .label 							{float:left; width:100%; font-size: 10px; text-transform: uppercase; text-align:center; font-weight: bold;}
+		
+	
+	.kbee-eform-viewer .e-main-panel 					{width: 100%; max-width:1080px; height: 100%; max-height: 1500px; font-size: 15px; float:left;  border: 1px solid #d8dcdf; background: white; box-sizing: border-box; margin: auto; }
+    
+    
+    /*--- HEADER ------------------------*/
+    
+    .kbee-eform-viewer .e-header 						{float: left; width: 100%; height: 200px; background:white; box-sizing: border-box;}
+    .kbee-eform-viewer .e-header .logo-container 		{display: inline; width: 100%; float: left; text-align: center; margin-top: 80px; margin-bottom:0;}
+
+
+	/*--  BODY -------------------------*/
+	
+	.kbee-eform-viewer .e-body 							{float: left; width: 100%; min-height: 800px; padding: 0 100px;  background:white; box-sizing: border-box;}
+
+	
+	/*--FOOTER -------------------------*/
+											
+	.kbee-eform-viewer .e-footer 							{float: left; width: 100%; height: 80px; position: initial; bottom: 80px;  background:white; padding: 0 100px; box-sizing: border-box;}										
+    .kbee-eform-viewer .e-footer .e-footer-main-panel		{display: inline; width: 100%; float: left; text-align: center;  border-top: 1px solid #d8dcdf; padding-top: 25px; border-top: 1px solid #d8dcdf;}
+    .kbee-eform-viewer .e-footer .footer-content 			{display: inline; width: 100%; font-size: 0.9em; font-weight:bold;  text-transform: uppercase;}
+
+
+										
+	.kbee-eform-viewer  .signed-data-container {margin-top:6em; float:left; width:100%;}
+
+	.kbee-eform-viewer .signature-block {float: none;    margin: 0px auto;    width: 100%;    max-width: 360px;    position: relative;    font-size: 0.8em;}
+	
+	.kbee-eform-viewer .signature-block .signed-data-container	{border-radius: 6px;    background: white;    border: 1px solid #ffc487;    float: left;    width: 100%;}
+	.kbee-eform-viewer .signature-block .signed-data-container .signed-data 	{padding: 0;   border-radius: 6px;    background: white;    float: left;    width: 100%;  text-align:center; margin-top:20px;}
+	.kbee-eform-viewer .signature-block .signed-data-user  						{font-size: 1em;}
+
+																		 
+	
+	.kbee-eform-viewer .signature-block .no-signature 	{float:left; width:100%;}
+	
+	
+	.kbee-eform-viewer .signature-icon-contaniner 		{width: 100px; float:left;  border-right: 1px solid #ffc487;   display: block;    text-align: center;    padding: 15px 20px;    margin-bottom: 0px;}
+	.kbee-eform-viewer .signature-image-contaniner 		{width: 100%; float:left;  border-right: none;   display: block;    text-align: center;    padding: 0px 0px;    margin-bottom: 0px;}
+
+
+ 	.kbee .browser .list-group .kbee-eform-viewer .signature-icon-contaniner .far,
+ 	.kbee .browser .list-group .kbee-eform-viewer .signature-icon-contaniner .fal, 
+ 	.kbee .browser .list-group .kbee-eform-viewer .signature-icon-contaniner .fas, 
+ 	.kbee .browser .list-group .kbee-eform-viewer .signature-icon-contaniner .fa-duotone, 
+ 	.kbee .browser .list-group .kbee-eform-viewer .signature-icon-contaniner .fa,
+	.kbee-eform-viewer .signature-icon-contaniner i 	{font-size: 42px;    padding: 10px 0; color: #dd7226;}
+				
+																												
+	.kbee-eform-viewer .signature-block .signed-data-user .signed-data-user-text	{float: left; width: 100%;   font-size: 1em;    text-transform: uppercase;    text-align: center;    padding:0 20px 20px 20px;    margin-left: 0px;    line-height: 1.5em;}
+	
+	
+	.kbee-eform-viewer .no-signature-stamp  			{float: none;   margin: 80px auto 0 auto;   padding: 40px 0;   height: 120px;   max-width:100%; width: 320px;   position: relative;   background: #f5f6f7;   border: 1px solid #dddddd;   border-radius: 6px;}
+	.kbee-eform-viewer .no-signature-stamp .info 		{position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); display: block;  font-size: 0.9em; text-transform: uppercase;  font-weight:bold;}
+
+	
+	}	 
+
+	
+/*---------------------------*/
+									
+
+
+
+
+
+
+
+/** --------------------------------------------------------------------------
+  LG
+*/
+@media (min-width: 1201px) {
+.kbee-eform-viewer .col-lg-1  {width: 8.3333%; 		padding: 0 15px; float:left;}
+.kbee-eform-viewer .col-lg-2  {width: 16.6666%; 		padding: 0 15px; float:left;}
+.kbee-eform-viewer .col-lg-3  {width: 25%;  			padding: 0 15px; float:left;}
+.kbee-eform-viewer .col-lg-4  {width: 33.3333%;  	padding: 0 15px; float:left;}
+.kbee-eform-viewer .col-lg-5  {width: 41.6666%;  	padding: 0 15px; float:left;}
+.kbee-eform-viewer .col-lg-6  {width: 50%;  			padding: 0 15px; float:left;}
+.kbee-eform-viewer .col-lg-7  {width: 58.3333%;  	padding: 0 15px; float:left;}
+.kbee-eform-viewer .col-lg-8  {width: 66.6666%;  	padding: 0 15px; float:left;}
+.kbee-eform-viewer .col-lg-9  {width: 75%;  			padding: 0 15px; float:left;}
+.kbee-eform-viewer .col-lg-10 {width: 83.3333%;  	padding: 0 15px; float:left;}
+.kbee-eform-viewer .col-lg-11 {width: 891.6666%;  	padding: 0 15px; float:left;}
+.kbee-eform-viewer .col-lg-12 {width: 100%;  		padding: 0 15px; float:left;}
+}
+
+
+/** --------------------------------------------------------------------------
+ MD
+*/
+@media (min-width: 701px) and (max-width: 1200px) {
+.kbee-eform-viewer .col-md-1  {width: 8.3333%; 		padding: 0 15px; float:left;}
+.kbee-eform-viewer .col-md-2  {width: 16.6666%; 		padding: 0 15px; float:left;}
+.kbee-eform-viewer .col-md-3  {width: 25%;  			padding: 0 15px; float:left;}
+.kbee-eform-viewer .col-md-4  {width: 33.3333%;  	padding: 0 15px; float:left;}
+.kbee-eform-viewer .col-md-5  {width: 41.6666%;  	padding: 0 15px; float:left;}
+.kbee-eform-viewer .col-md-6  {width: 50%;  			padding: 0 15px; float:left;}
+.kbee-eform-viewer .col-md-7  {width: 58.3333%;  	padding: 0 15px; float:left;}
+.kbee-eform-viewer .col-md-8  {width: 66.6666%;  	padding: 0 15px; float:left;}
+.kbee-eform-viewer .col-md-9  {width: 75%;  			padding: 0 15px; float:left;}
+.kbee-eform-viewer .col-md-10 {width: 83.3333%;  	padding: 0 15px; float:left;}
+.kbee-eform-viewer .col-md-11 {width: 891.6666%;  	padding: 0 15px; float:left;}
+.kbee-eform-viewer .col-md-12 {width: 100%;  		padding: 0 15px; float:left;}
+}
+
+
+
+/** --------------------------------------------------------------------------
+ XS
+*/
+@media (max-width: 700px) {
+.kbee-eform-viewer .col-xs-1  {width: 8.3333%; 		padding: 0 15px; float:left;}
+.kbee-eform-viewer .col-xs-2  {width: 16.6666%; 		padding: 0 15px; float:left;}
+.kbee-eform-viewer .col-xs-3  {width: 25%;  			padding: 0 15px; float:left;}
+.kbee-eform-viewer .col-xs-4  {width: 33.3333%;  	padding: 0 15px; float:left;}
+.kbee-eform-viewer .col-xs-5  {width: 41.6666%;  	padding: 0 15px; float:left;}
+.kbee-eform-viewer .col-xs-6  {width: 50%;  			padding: 0 15px; float:left;}
+.kbee-eform-viewer .col-xs-7  {width: 58.3333%;  	padding: 0 15px; float:left;}
+.kbee-eform-viewer .col-xs-8  {width: 66.6666%;  	padding: 0 15px; float:left;}
+.kbee-eform-viewer .col-xs-9  {width: 75%;  			padding: 0 15px; float:left;}
+.kbee-eform-viewer .col-xs-10 {width: 83.3333%;  	padding: 0 15px; float:left;}
+.kbee-eform-viewer .col-xs-11 {width: 891.6666%;  	padding: 0 15px; float:left;}
+.kbee-eform-viewer .col-xs-12 {width: 100%;  		padding: 0 15px; float:left;}
+
+.kbee-eform-viewer .e-body {padding:0 10%;} 
+
+}

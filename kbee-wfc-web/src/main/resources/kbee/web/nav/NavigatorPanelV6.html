@@ -1,0 +1,28 @@
+<wicket:panel>
+
+	<div style="float:left;">
+	
+		<a style="float:left;" class="btn-mini" wicket:id="back-link" href="#" title="back to results">
+		<i class="fa-light fa-backward-step fa-xl"></i>
+		</a>
+		
+		<a style="float:left;" class="btn-mini" wicket:id="previous-link" href="#"><i class="far fa-chevron-left"></i></a>
+		
+		<div wicket:id="cursorContainer" style="float:left; padding:15px 0px;">
+
+			<div style="float:left;">
+				<span wicket:id="current" style="float:left;"></span>
+				<span style="float:left; margin:0 5px;">/</span>
+				<span wicket:id="total"  style="float:left;"></span>
+			</div>
+			
+			<div style="float:left; position: relative;">
+				<a wicket:id="resultset-link" style="padding:5px 10px; margin:0 0 0 5px;"> <i style="font-size:14px;" class="caret"></i></a>
+				<div wicket:id="resultSetPanel" style="position:absolute;position: absolute;max-width: 100%;min-width: 520px; padding: 0;margin-top: 16px;left: auto;z-index: 19990 !important;max-height: 55vh;border: 1px solid #d8dcdf;box-shadow: 0 6px 12px rgb(0 0 0 / 18%);background: white;overflow: auto; 	right:0;"/>
+			</div>
+		</div>
+		
+		<a style="float:left;" class="btn-mini" wicket:id="next-link" href="#"><i class="far fa-chevron-right"></i></a>
+		
+	</div>
+</wicket:panel>

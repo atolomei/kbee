@@ -1,0 +1,93 @@
+<wicket:panel>
+	<div wicket:id="label-container" class="control-label">
+		<label wicket:id="label" class="col-lg-2" for="condition.batch"></label>
+		<a wicket:id="help-info" style="float:right;"><i class="fal fa-info-circle" style="float:right;"></i></a>
+	</div>
+	
+	<div class="relation-values col-lg-10" wicket:id="horizontal-layout">
+		<wicket:container wicket:id="values"/>
+	</div>
+	<wicket:container wicket:id="values"/>
+	<wicket:child />
+
+	<div class="help-container">
+		<small wicket:id="help" class="help-block" style="float:left;"></small>
+	</div>
+	
+</wicket:panel>
+
+
+<wicket:fragment wicket:id="values-fragment">
+	<ul wicket:id="values" class="list-group relation-values" style="width:100%">
+		<li wicket:id="value" class="list-group-item">
+				<div wicket:id="value-view" />
+		</li>
+		<li class="list-group-item selector" wicket:id="creation-panel">
+		</li>
+		<li class="list-group-item" wicket:id="empty-panel" >
+			<div style="display: block; height: 20px;"></div>
+		</li>
+	</ul>
+</wicket:fragment>
+
+
+<wicket:fragment wicket:id="creation-panel-fragment">
+	<div class="form-vertical">
+		<div class="form-group" wicket:id="selector-field"/>
+		<div wicket:id="add-button-panel" style="margin-bottom: 0px; padding:5px;">
+			<div>
+				<a wicket:id="button" class="btn btn-sm btn-default"><wicket:message key="add"/></a>
+			</div>
+		</div>	
+	</div>
+</wicket:fragment>
+
+<wicket:fragment wicket:id="value-linkview-fragment">
+	
+	<a class="btn-link" wicket:id="value-link" href="#">
+		<span class="list-group-item-heading" wicket:id="title"></span>
+	</a>
+	<div wicket:id="value-nolink">
+		<span class="list-group-item-heading" wicket:id="title"></span>
+	</div>
+	
+	<div class="dropdown" style="position: absolute;top: 5px;right: 10px;">					
+		
+		<a href="#" class="btn-mini dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+				<i class="far fa-ellipsis-h" aria-hidden="true" style="float:right;cursor:pointer;" wicket:id="menulink"></i>
+		</a>
+		<ul wicket:id="menu" style="top:30px; right:0px;" class="dropdown-menu"/>
+	</div>
+	
+	<div wicket:id="text" class="list-group-item-text"></div>
+	
+	<div wicket:id="editor" class="relation-editor" />
+	
+	<a wicket:id="extra-link" href="#" title="Open Procedure" style="position: absolute;    bottom: 15px;    right: 15px;">										
+		<span class="glyphicon glyphicon-workflow" style="float:right; cursor:pointer;"></span>
+	</a>
+</wicket:fragment>
+
+<wicket:fragment wicket:id="value-titleview-fragment">
+	<div>
+		<span class="list-group-item-heading" wicket:id="title"></span>
+	</div>
+	
+	<div class="dropdown open" style="float: right;padding-top: 5px;">					
+																				
+		<a href="#" class="btn-mini dropdown-toggle" style="float:right;cursor:pointer;" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+			<i class="far fa-ellipsis-h" aria-hidden="true"  wicket:id="menulink"></i></a>
+			<ul wicket:id="menu" class="dropdown-menu"/>
+	</div>
+	
+	<div wicket:id="text" class="list-group-item-text"></div>
+	
+	<div wicket:id="editor" class="relation-editor" />
+</wicket:fragment>
+
+
+<wicket:fragment wicket:id="value-editor-fragment">
+	<wicket:container wicket:id="form">
+		<div class="form-group" wicket:id="field"/>
+	</wicket:container>
+</wicket:fragment>

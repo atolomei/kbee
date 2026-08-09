@@ -1,0 +1,52 @@
+<wicket:panel>
+	
+	<div wicket:id="container">
+		<div class=" col-xs-12 col-lg-12 col-md-12 form-group">
+			<div class="control-label">
+			<label for="label" wicket:id="label"></label>
+			</div>
+			<div class="control" wicket:id="horizontal-layout">
+				<div wicket:id="control"/>
+			</div>
+			<div wicket:id="control"/>
+		</div>
+		
+	</div>
+</wicket:panel>
+
+<wicket:fragment wicket:id="control-fragment">
+	<div wicket:id="preview" style="border: 1px solid #d8dcdf; border-radius: 4px; min-height:40px; width:100%; float:left;" />
+	<div class="col-xs-12 col-lg-12 col-md-12" style="float:left; width:100%; padding-left: 0;padding-right: 0;margin-top: -1px;margin-bottom: 0px; border-top:none; " wicket:id="field"/>
+	<div icket:id="feedback-panel">
+		<span icket:id="message"></span>
+	</div>
+</wicket:fragment>
+
+
+<wicket:fragment wicket:id="preview-fragment">
+	
+	<div style="padding:15px;float: left; width:100%;">
+		
+		<div style="width:100%; float:left;">
+			<div><label wicket:id="label-title"> </label></div>
+			<div wicket:id="label">
+			</div>
+		</div>
+		
+		<div style="width:100%; float:left;">
+			<div wicket:id="element" style="padding-top:15px;">
+				<label wicket:id="label">[]</label>
+				<div wicket:id="value">
+					<span wicket:id="label">[]</span>
+				</div>
+			</div>
+		</div>
+						
+		<div  style="float: right;padding-top: 0px;padding-right: 0px;">						
+			<a class="btn-link  btn-sm"  style="padding:0 10px;" wicket:id="remove"> <wicket:message key="remove" /></a>
+			<a class="btn-link  btn-sm"  style="padding:0 10px;" wicket:id="open"> <wicket:message key="open" /></a>
+			
+		</div>
+	</div>	
+	
+</wicket:fragment>

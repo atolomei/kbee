@@ -1,0 +1,60 @@
+<wicket:head>
+
+<!--link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;700&display=swap" rel="stylesheet"-->
+
+<style type="text/css">
+	.kbee .webdoc {width:100%; float:left; font-size:19px; line-height: 1.55em; max-width:980px; font-family: Hind; font-weight: normal; color:#131414; padding:20px 5rem;}
+	.kbee .webdoc a {text-decoration: underline;}
+	.kbee .eform  h2 {color: inherit; width:100%;float:left; font-size:1.7em; margin-bottom:1em; margin-top:1em; font-family: Montserrat}
+	.kbee .eform  h3 {color: inherit; width:100%;float:left; font-size:1.4em; margin-bottom:0.5em; margin-top:1em; font-family: Montserrat}
+	.kbee .kbsearcher .detail .webdoc h4,
+	.kbsearcher  h4  {color: inherit; width:100%;float:left; font-size:1.1em; margin-bottom:0.5em; margin-top:1em; font-family: Montserrat;}
+	.kbee .kbsearcher .eform .alert, 
+	.kbee .eform  .alert {margin:10px 0 20px 0; padding:20px; float:left; width:100%; font-size: inherit;}
+	.kbee .eform  .alert-warn {color: #7d6a23;    background-color: #fff8e5;    border-color: #c3bdb2;    padding-right:0;  border-left: 12px solid #7d6a23;}    
+	.kbee .eform  .alert-info {color: #0d5072;    background-color: #e9f7ff;    border-color: #dde2e6;    border-left: 12px solid #0d5072; }
+	.kbee .eform  .alert-cita {color: #434f5d;    background-color: #f5f6f8;    border-color: #c5c5c5;    border-left: 12px solid #434f5d;}
+	.kbee .eform .cita-src {font-size: 0.87em;   float: left;   padding: 15px 0 0 0;   width: 100%;  color: #0d5072;} 
+	.kbee .eform  .webdoc-footer {font-size: 0.7em;    color: #777777;    margin: 5em 0 0 0;    float: left;    width: 100%;    padding: 2em 0 2em 0;    border-top: 1px solid #dddddd;}
+	.kbee .eform  .webdoc-footer  p {color: #666666;}
+	
+	
+	.kbee .kbsearcher .webdoc table {font-size: 0.9em; border-color: #cccccc; margin:1em 0; float:left;}
+	.kbee .webdoc table thead tr {font-size: 0.87em; background: #f4f5f6; font-weight:bold; text-transform:uppercase; }
+	.kbee .webdoc table tbody tr {font-size: 1em;}
+	.kbee .webdoc table tr td {padding:10px 15px;}
+
+	
+	
+</style>
+</wicket:head>
+
+<wicket:panel>
+	<div style="width:100%;  float: left;  overflow: auto;  padding: 0 15px;  margin: 0 -15px;" class="eform">
+	
+		<div wicket:id="header" />
+		
+		<div class="webdoc" id="webdoc-viewer">	
+			<div wicket:id="content" />
+			<div wicket:id="footer" />
+		</div>
+	</div>
+
+</wicket:panel>
+
+<wicket:fragment wicket:id="header-fragment">
+	<div style="padding: 15px 5rem;    FLOAT: LEFT;    width: 100%;">
+			<a href="#"><span style="font-size: 0.85em; float:left;   color:#0d5072; text-transform: uppercase;">Manual Corporativo de Calidad Operativa</span></a>
+			<div style="float:right; font-size: 2rem;">
+				<a href="#"><span style="float:left; padding: 0px 10px;"> <i class="fa-light fa-chevron-left"></i> </span></a>
+				<a href="#"><span style="float:left; padding: 0px 10px;"> <i class="fa-light fa-chevron-right"></i> </span></a>
+			</div>
+	</div>
+	
+	
+</wicket:fragment>
+	
+	
+

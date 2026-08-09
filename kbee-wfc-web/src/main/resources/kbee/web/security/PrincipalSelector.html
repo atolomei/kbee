@@ -1,0 +1,37 @@
+<wicket:head>
+	<style>
+		.entity-principal-node {
+			font-size: 12px !important;
+			padding-left: 5px;
+		}
+	</style>
+</wicket:head>
+
+<wicket:panel>
+	<div class="dropdown-menu" style="
+		position: absolute;
+ 		top: 10%;
+		padding: 15px;
+		background: white;
+		display: block;
+		width: 60vw;
+		min-width: 200px;
+		width: calc(100% - 0px);
+		min-width: 200px;
+		max-width: none;
+		height: 600px;
+		margin-top:-25px;">
+		<div style="padding:10px;text-align: right;">
+			<a wicket:id="close" style=""><wicket:message key="close.label"/></a>
+		</div>
+		<div wicket:id="tree" style="height:calc(100% - 20px);">[]</div>
+	</div>
+</wicket:panel>
+
+<wicket:fragment wicket:id="tree-label">
+	<span style="display: inline-flex;align-items: center;">
+		<i wicket:id="icon" aria-hidden="true" style="width:30px; text-align:center; font-size: 16px;"></i>
+		<span wicket:id="label">[]</span>
+	</span>	 
+</wicket:fragment>
+

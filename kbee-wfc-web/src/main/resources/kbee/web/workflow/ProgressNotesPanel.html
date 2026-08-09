@@ -1,0 +1,120 @@
+<wicket:head>
+<style>
+.mce-ico.mce-i-fas {
+    display: inline-block;
+    font: normal normal normal 14px/1 FontAwesome;
+    font-size: inherit;
+    text-rendering: auto;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+ .mce-ico.mce-i-fas:before {
+    content: "\f0c7";
+    font-family: "Font Awesome 5 Pro";
+    font-style: normal;
+    font-weight: normal;
+    text-decoration: inherit;
+    color: #000;
+    font-size: 1.5em;
+    padding-right: 0.5em;
+    position: absolute;
+    top: 2px;
+    left: 12px;
+ }
+ .kbee .mce-container, .kbee .mce-container *, .kbee .mce-widget, .kbee .mce-widget *, .kbee .mce-reset {
+    font-size: 14px;
+    color: #515356;
+    background: #d8dcdf;
+    border-radius:4px;
+}
+
+
+ .kbee p {margin:0;}
+ 
+</style>
+</wicket:head>
+
+
+<wicket:panel>
+
+	<div class="section-header" style="width:100%; float:left;">
+		<h2 style="float:left;"> 
+			<wicket:message key="notes" />
+		</h2>
+		<ul class="toolbar-buttons" style="float:right">
+			<li class="items-top-left">
+				<a class="btn btn-primary btn-md" wicket:id="new-button">
+					 <wicket:message key="new-note" />
+				</a>
+			</li>
+		</ul>
+	</div>
+	<div style="width:100%; float:left; margin-top:15px;">
+		<ul class="list-group" style="width:100%; float:left;">
+			<li class="list-group-item" wicket:id="note" style="width:100%; float:left;">
+				<div wicket:id="view" style="padding: 10px 0; width:100%; float:left;"></div>
+			</li>
+		</ul>
+	</div>
+</wicket:panel>
+
+
+<wicket:fragment wicket:id="note-view-fragment">
+	<div class="col-lg-12 col-xs-12 col-md-12">
+		<div wicket:id="photo" style="width:68px;"></div>
+		<div style="margin-left: 68px; width: calc( 100% - 68px );">
+				<div style="float:left; width:100%;">			
+					<span style="position:absolute; right:0; top:0;" wicket:id="state"></span>
+					<div style="float:left; width:100%;">
+						<span style="float:left; font-weight:bold;" wicket:id="user"></span>
+						<span style="float:left; clear:left;"wicket:id="date"></span>
+					</div>
+					<div style="padding-top: 15px; float:left; width:100%;">
+						<div wicket:id="editor" style="margin:15px 0;"></div>
+					</div>
+					<div style="float:left; width:100%; margin-top:15px;" wicket:id="resources">
+					</div>
+					<div wicket:id="toolbar" style="float:left; width:100%; margin-top:15px; padding:0;" class="col-lg-12 col-xs-12 col-md-12">
+							<a class="btn-link btn-md" wicket:id="edit-button"><wicket:message key="edit.label" /></a>		
+							<a class="btn-link btn-md atright" wicket:id="resource-picker-button"><wicket:message key="addresource.label" /></a>
+							<a class="btn-link btn-md atright" wicket:id="close-button"><wicket:message key="save-close.label" /></a>
+							<a class="btn-link btn-md atright" wicket:id="delete-button"><wicket:message key="delete.label" /></a>
+					</div>
+				</div>
+		</div>
+	</div>
+	
+</wicket:fragment>
+
+
+<wicket:fragment wicket:id="resource-view-fragment">
+
+	<div class="dropdown" style="float: right;padding-right: 0px; margin-top:0;">
+		<a id="dmenu" data-toggle="dropdown"> <i class="far fa-ellipsis-h" aria-hidden="true"></i></a>
+		<ul wicket:id="menu" class="dropdown-menu dropdown-menu-right" aria-labelledby="dmenu" />
+	</div>
+
+	<div class="media-left">
+		<a class="resource" wicket:id="image-link" data-toggle="tooltip"  style="float:left; width:initial;">
+			<i wicket:id="glyphicon"  style="font-size: 25px; margin-top:-5px; padding:5px 10px;"/>
+		</a>
+		
+		<a class="btn-link" style="text-decoration:none; color: #191a1b; float:left;" wicket:id="title-link">
+			<span wicket:id="resource-title"></span>
+			<span class="ago"  wicket:id="resource-size"></span>
+			<span wicket:id="resource-tag"></span>
+		</a>
+		
+	</div>
+</wicket:fragment>
+
+<wicket:fragment wicket:id="resources-fragment">
+	<div style="float:left; width:100%;" wicket:id="resources-view">
+		<ul class="list-group" style="width:100%; float:left;">
+			<li style="width:100%; float:left;" class="list-group-item" wicket:id="resource">
+					<div style="float: left;width: 100%;" wicket:id="view"></div>
+			</li>
+		</ul>
+	</div>
+</wicket:fragment>
+

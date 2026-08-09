@@ -1,0 +1,47 @@
+
+<wicket:panel>
+
+	<div wicket:id="container" class="col-xs-12 col-lg-12 col-md-12 form-group">
+
+		<div class="dropdown" wicket:id="menu-container" style="float: right;padding-right: 0px;">
+			<a id="dmenu" data-toggle="dropdown"> <i class="far fa-ellipsis-h" aria-hidden="true"></i></a>
+			<ul wicket:id="menu" class="dropdown-menu dropdown-menu-right" aria-labelledby="dmenu" />
+		</div>
+		
+		<div>
+			<div class="control-label">
+				<label for="label" wicket:id="label"></label>
+			</div>
+			<a wicket:id="help-link-choice" href="#" class="btn-link" style="font-size: 12px;  float: right;  padding: 5px 10px 0px 0px;  margin-right: 12px;  margin-bottom: -40px; position:relative; z-index:1000;">
+				<span wicket:id="helpstr" ></span>
+			</a>
+			<div class="control" wicket:id="horizontal-layout" style="padding: 5px 10px; border: 1px solid  #d8dcdf; border-radius: 4px; display:inline-block; width:100%; min-height:40px;">					
+				<wicket:container wicket:id="control"/>
+			</div>
+			<wicket:container wicket:id="control"/>
+			<small wicket:id="help" class="help-block" style="float:left;width: calc(100% - 30px);"></small>
+			<div wicket:id="feedback-panel">
+				<span wicket:id="message">[]</span>
+			</div>
+		</div>
+	</div>
+</wicket:panel>
+
+	<wicket:fragment wicket:id="control-fragment">
+		<div wicket:id="subtitle-container" style="float:left; width:100%; padding:15px;">
+			<span wicket:id="subtitle" />	
+		</div>
+		<ul wicket:id="list-container" class="list-group" style="padding-top: 0px; min-height:0px; width:100%; float:left;">
+		
+			<li wicket:id="value" class="list-group-item" style="border:none; padding:0; line-height: 1.5em;">
+				<div class="dropdown" wicket:id="menu-container" style="position: absolute;top: 10px;right: 10px;">
+					<a id="dmenu" data-toggle="dropdown"> <i class="far fa-ellipsis-h" aria-hidden="true"></i></a>
+					<ul wicket:id="menu" class="dropdown-menu dropdown-menu-right" aria-labelledby="dmenu" />
+				</div>
+				<span class="list-group-item-heading" wicket:id="label"></span>
+				<span class="list-group-item-text" wicket:id="info" style="display: inherit; padding: 0; line-height: 1.2em;  margin-bottom: 20px; margin-top: 0px; color: #131414;"></span>
+			</li>
+		</ul>
+		<div class="col-xs-12 col-lg-12 col-md-12" style="float:left; width:100%; margin-top:10px; margin-bottom:5px; padding: 0 0px;" wicket:id="field"/>
+		<div wicket:id="selector"></div>
+</wicket:fragment>

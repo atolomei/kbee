@@ -1,0 +1,102 @@
+<wicket:panel>
+	<wicket:container wicket:id="notification-detail"/>
+</wicket:panel>
+							
+
+
+<wicket:fragment wicket:id="noteFragment">
+	
+	
+	<div wicket:id="notification-icon-container" class="icon-container">
+    	
+    	<!-- i wicket:id="notification-icon" class="unread"	 /-->
+    	
+    	<i  wicket:id="unread" class="fa fa-square " title="requires to be marked as read" style="margin-left:0px;" ></i>
+	</div>
+	
+		<div style="margin-left: 32px; float:initial;">
+			<div style="float:left;  width:100%;">
+	
+				<a   class="btn-link" wicket:id="title-note-link" style="float:left; width:initial;">
+					<span class="title" wicket:id="title-note"></span>
+				</a>
+	
+				<div class="metadata" style="float:left; width:100%;  margin-top:0px; padding:0; font-size:14px; color:#333333;">
+					<div style="float:left;  " wicket:id="metadata"></div>
+					<span style="float:left;  " class="circle-separator">&#9679</span>
+					<div style="float:left;  "  wicket:id="date"></div>
+					<!-- span wicket:id="note-type"></span><span wicket:id="user"></span><span wicket:id="date"></span-->
+				</div>
+	 			
+				
+				<div class="dropdown" style="float:right;">
+					<a id="dmenu" data-toggle="dropdown"  wicket:id="menulink"> <i class="far fa-ellipsis-h" aria-hidden="true"></i></a>
+					<ul wicket:id="menu" class="dropdown-menu dropdown-menu-right" aria-labelledby="dmenu" />
+				</div>
+				
+				<!-- div class="metadata" style="float:left; clear:left;">
+					<span wicket:id="note-type"></span><span class="circle-separator">&#9679</span><span wicket:id="user"></span><span class="circle-separator">&#9679</span><span wicket:id="date"></span>
+				</div-->
+				<!-- div class="metadata" style="float:left; clear:left;">
+					<span   wicket:id="generating-alert"></span>
+				</div-->
+			</div>
+
+		<div wicket:id="text-container" style="max-height:380px; overflow-y:auto;  float:left;">
+				<span wicket:id="text"></span> <!-- Notes that expand inline -->
+		</div>
+		
+		<div class="notification-action" style="float:left; width:100%;">	
+			<a wicket:id="expand-collapse-link" title="Expand" class="btn-link" href="#"> 
+				<span wicket:id="expand-collapse"></span>
+			</a>
+			
+			 
+		</div>
+	</div>
+	
+</wicket:fragment>
+
+
+
+
+
+
+
+<wicket:fragment wicket:id="alertFragment">
+
+	<div>
+	<div class="dropdown" style="float:left; width:32px;">
+			<a id="dmenu"   aria-expanded="true" data-toggle="dropdown"  wicket:id="menulink"> 
+				<i class="far fa-ellipsis-h" aria-hidden="true"></i>
+			</a>
+			<ul wicket:id="menu"  style="top:25px;" class="dropdown-menu" aria-labelledby="dmenu" />
+	</div>
+	
+	<div style="width:32px; float:left;" wicket:id="notification-icon-container" class="icon-container">
+       <i  wicket:id="unread" class="fa fa-square  " title="requires to be marked as read" style="margin-left:0px; padding-top: 5px;" ></i>
+	</div>
+	
+	
+ 	<div style="margin-left: 64px;   width:calc(100% - 64px); display: block; positiion: inherit;">
+		<div style="float:left;">
+			<div class="metadata" style="float:left; width:100%;  margin-top:0px; padding:0; font-size:14px; color:#333333;">
+				<div style="float:left;  " wicket:id="metadata"></div>
+				<span style="float:left;  " class="circle-separator">&#9679</span>
+				<div style="float:left;  "  wicket:id="date"></div>
+				<!-- span wicket:id="note-type"></span><span wicket:id="user"></span><span wicket:id="date"></span-->
+			</div>
+			<a  target="_blank"  class="title btn-link" wicket:id="title-link" style="float:left; width:initial;">
+				<span class="title" wicket:id="title"></span> 
+			</a>
+	 		<div class="metadata" style="float:left; clear:left;" wicket:id="subtitle"></div>
+			<div class="metadata" style="float:left; clear:left;"   wicket:id="generating-rule"></div>
+		</div>
+	</div>
+	</div>
+	
+</wicket:fragment>
+
+
+
+    

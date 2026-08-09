@@ -1,0 +1,14 @@
+<wicket:panel>
+	<div wicket:id="container" class="col-xs-12 col-lg-12 col-md-12 form-group">	
+		<div class="dropdown" wicket:id="menu-container" style="float: right;padding-right: 0px;">
+			<a id="dmenu" data-toggle="dropdown"> <i class="far fa-ellipsis-h" aria-hidden="true"></i></a>
+			<ul wicket:id="menu" class="dropdown-menu dropdown-menu-right" aria-labelledby="dmenu" />
+		</div>
+		<div wicket:id="field"/>
+		<div wicket:id="selector"></div>
+	</div>
+</wicket:panel>
+
+<wicket:fragment wicket:id="value-editor-fragment">
+	<div wicket:id="form"></div>
+</wicket:fragment>

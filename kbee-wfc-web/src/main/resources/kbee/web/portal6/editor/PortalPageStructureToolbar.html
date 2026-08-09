@@ -1,0 +1,101 @@
+<wicket:panel>
+
+				<div class="row">
+						<nav style="border:1px solid #d8dcdf; padding-top:8px; padding-bottom:8px; border-top:none;" class="col-lg-12 col-xs-12 col-md-12">
+							<ul class="toolbar-buttons nav navbar-nav navbar-left" style=" padding-left:15px; padding-right:15px;">
+								
+								<li class="items-top-right">
+									
+										<div style="float:left;">
+											<a wicket:id="show-two-panels" class="btn-mini"/>
+										</div>
+														
+										<div style="float:left;">
+											<a wicket:id="show-archived" class="btn-mini" style="text-align:center;">
+												<div style="float:left; text-align:center;  border-radius:6px; background: none; border:none;  ;">	
+													<span style="float:left; clear:left; margin-bottom:3px; font-size:9px; color:#191a1b; text-transform:uppercase;">Archived</span>
+													<i wicket:id="icon" style="position: relative; left:50%; transform:translateX(-50%); clear:left; font-size:18px; float:left;" class="far fa-toggle-off"></i>
+												</div>
+											</a>
+										</div>
+									
+										<div style="float:left;">
+											<a wicket:id="show-deleted" class="btn-mini" style="text-align:center;">
+												<div style="float:left; text-align:center;  border-radius:6px; background: none; border:none;  ">	
+													<span style="float:left; clear:left; margin-bottom:3px; font-size:9px; color: #191a1b; text-transform:uppercase;">Deleted</span>
+													<i wicket:id="icon" style="position: relative; left:50%; transform:translateX(-50%); clear:left; font-size:18px; float:left;" class="far fa-toggle-off"></i>
+												</div>
+											</a>
+										</div>
+									</li>
+							</ul>
+											
+							
+							
+
+							<ul class="toolbar-buttons nav navbar-nav navbar-right" style=" padding-right:15px;">
+									<li class="items-top-right" style="   border-radius:4px;  ">
+										<div style="float:left;">
+											<a wicket:id="show-controller" class="btn-mini" style="text-align:center;">
+												<div style="float:left; text-align:center;  border-radius:6px; background: none;">	
+													<span style="float:left; clear:left; margin-bottom:3px; font-size:7px; color: #191a1b; text-transform:uppercase;">Header</span>
+													<i wicket:id="icon" style="position: relative; left:50%; transform:translateX(-50%); clear:left; font-size:18px; float:left;" class="far fa-toggle-on"></i>
+												</div>
+											</a>
+										</div>
+									
+										<div style="float:left;">
+											<a wicket:id="flat-view" class="btn-mini" style="text-align:center;">
+												<div style="float:left; text-align:center;  border-radius:6px; background: none; border:none; ">	
+													<span style="float:left; clear:left; margin-bottom:3px; font-size:9px; color: #191a1b; text-transform:uppercase;">Hierarchy</span>
+													<i wicket:id="icon" style="position: relative; left:50%; transform:translateX(-50%); clear:left; font-size:18px; float:left;" class="far fa-toggle-on"></i>
+												</div>
+											</a>
+										</div>
+										
+										
+										<div style="float:left;">
+											<a wicket:id="show-preview" class="btn-mini" style="text-align:center;">
+												<div style="float:left; text-align:center;  border-radius:6px; background: none; border:none;">	
+													<span style="float:left; clear:left; margin-bottom:3px; font-size:9px; color:#191a1b; text-transform:uppercase;">Preview</span>
+													<i wicket:id="icon" style="position: relative; left:50%; transform:translateX(-50%); clear:left; font-size:18px; float:left;" class="far fa-toggle-off"></i>
+												</div>
+											</a>
+										</div>
+										
+										
+									</li>
+									
+									
+									
+									
+									<li class="items-top-right">	
+										<div STYLE="padding:6px 0; float:left;">						
+											<a wicket:id="refresh" class="btn-mini" style="text-align:center;">
+												<i style="position: relative; left:50%; transform:translateX(-50%); clear:left; font-size:20px; float:left;" class="far fa-sync"></i>
+											</a>
+										</div>
+									</li>
+									
+									<li class="items-top-right">
+										<div style="float:left; position: relative;">
+											<a href="#" class="btn-mini dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" 
+											style="padding: 10px;    float: left;    border-radius: 4px;    margin: 7px 0px;    border: 1px solid transparent;    height: 34px;">
+												<i style="font-size:20px; font-weight:400;" class="far fa-ellipsis-h"></i>
+											</a>
+											<ul class="dropdown-menu" wicket:id="menu"  style="position:absolute;"/>
+										</div>
+									</li>
+											
+									
+									
+							</ul>
+						</nav>
+					
+				</div>
+	
+	
+		
+</wicket:panel>
+
+

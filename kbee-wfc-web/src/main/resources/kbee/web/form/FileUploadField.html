@@ -1,0 +1,56 @@
+<wicket:panel>
+
+	<div class="field fileupload-field">
+		
+		<div class="control-label">
+			<label class=" col-lg-2" wicket:id="label" for="label"></label>
+			<span class="highlight atright" wicket:id="readonly" >(<wicket:message key="readonly" />)</span>
+		</div>
+		
+		<div class="col-lg-10" wicket:id="horizontal-layout">
+			<wicket:container wicket:id="control"/>
+		</div>
+		<wicket:container wicket:id="control"/>
+	</div>
+	
+</wicket:panel>
+
+<wicket:fragment wicket:id="control-fragment">
+	
+<div class="row">
+	<div class="file-input col-lg-12 col-md-12 col-xs-12">
+	
+	
+		<div wicket:id="subtitle-container" style="float:left; width:100%; padding:15px;">
+				<span wicket:id="subtitle" />	
+		</div>
+	
+		<div class="input-group">
+			<div wicket:id="input" tabindex="500" class="form-control file-caption kv-fileinput-caption">
+				<div wicket:id="file" class="file-caption-name" style="overflow:hidden;"><span style="padding-left:3px;" wicket:id="file-name">[photo.jpg]</span></div>
+			</div>
+			<div  class="input-group-btn">
+				<button wicket:id="pickfiles" id="pickfiles" type="button" class="btn btn-default" style="height: 40px; border-bottom-right-radius: 4px;border-top-right-radius: 4px; opacity: 0.55;"><i class="fad fa-cloud-upload-alt" aria-hidden="true"></i></button>
+			</div>
+		</div>
+		
+		<div wicket:id = "file-info-container" class="col-lg-12 col-md-12 col-xs-12">
+			
+			<div style="padding:10px 0; float:left;">	
+				<i wicket:id="icon" class="fal fa-file-image"></i>
+				<a wicket:id="openfile"><span style="padding:0 10px;">open file </span></a>
+			</div>
+			<a wicket:id="remove" class="btn-link" style="float:right; padding:10px 0px 10px 40px;" href="#"> <wicket:message key="remove" />  </a>
+		</div>
+		
+		<div wicket:id="upload-progress" class="kv-upload-progress hide" style="margin-top:5px;">
+			<div class="progress">
+				<div wicket:id="progress-bar" class="progress-bar progress-bar-success progress-bar-striped active" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width:0%;">
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+	
+	
+</wicket:fragment>

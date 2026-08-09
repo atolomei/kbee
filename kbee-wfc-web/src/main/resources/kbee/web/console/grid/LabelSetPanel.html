@@ -1,0 +1,33 @@
+
+
+
+<wicket:panel>
+	
+	<div wicket:id="add-tag-container">
+		<a id="dmenu"  class="btn btn-default btn-sm" style="margin-top:10px; position:relative; float:left;  background:transparent; font-size:1em;" data-toggle="dropdown">
+		  <span> <wicket:message key="add-tag"/> </span>
+		  <span style="margin-left: 8px;" class="caret"></span>
+		</a>
+		<ul wicket:id="menu" class="dropdown-menu" aria-labelledby="dmenu" />
+	</div>
+	
+	
+	<ul wicket:id="label-list" class="tag-list" style="float:left;">
+		<li wicket:id="label-element" class="label">
+    		<span wicket:id="icon" class="icon" />
+			<span class="title" wicket:id="label"></span>
+				<a wicket:id="remove" style="padding: 1px 10px; border-radius:4px; margin-left:5px; float:right; margin-top: 1px;">
+					<i style="font-size: 15px; color:#777777;" class="fa-solid fa-times"></i>
+				</a>
+		</li>
+	</ul>
+	
+	
+	
+			
+		
+	
+	
+</wicket:panel>
+
+

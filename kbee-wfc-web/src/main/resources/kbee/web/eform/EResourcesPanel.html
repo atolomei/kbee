@@ -1,0 +1,74 @@
+<wicket:head>
+	<style>
+		.kbee .eform-editor .eform .resources-panel {
+			border: 1px solid  #d8dcdf; padding:15px; border-radius:4px; min-height:40px;
+		}
+	</style>
+</wicket:head>
+
+<wicket:panel>
+	<div wicket:id="container" class="col-xs-12 col-lg-12 col-md-12 form-group">
+		<div class="efield">
+			<div class="control-label">
+				<label for="label" wicket:id="label"></label>
+			</div>
+			<div class="col-lg-10" wicket:id="horizontal-layout">
+				<div wicket:id="control"/>
+			</div>
+			<div wicket:id="control"/>
+		</div>
+		<div wicket:id="confirmation-dialog" class="modal window" tabindex="-20" role="dialog"/>
+	</div>
+</wicket:panel>
+
+<wicket:fragment wicket:id="control-fragment">
+	
+	<div class="resources-panel  col-lg-10" id="resources-panel" syle="border: 1px solid  #d8dcdf; padding:15px; border-radius:4px; min-height:40px;">
+		<div class="dropdown" wicket:id="menu-container" style="float: right;padding-right: 0px; margin-top:-40px;margin-right: -10px;">
+			<a id="dmenu" data-toggle="dropdown"> <i class="far fa-ellipsis-h" aria-hidden="true"></i></a>
+			<ul wicket:id="menu" class="dropdown-menu dropdown-menu-right" aria-labelledby="dmenu" />
+		</div>
+		<span wicket:id="subtitle"></span>
+		<ul wicket:id="resources-view" class="media-list">
+			<li class="media" wicket:id="resources-list">
+				<div  wicket:id="resource-view"/>
+			</li>
+			<li>
+				<div id="console"></div>
+			</li>
+		</ul>
+		<div wicket:id="pickfiles" style="position: relative;padding-top: 60px;display: block;float: left;width: 100%;min-height: 80px; background:#fafafa; border: 1px solid #d8dcdf; border-radius:4px;">	
+			<a id="pickfiles">
+			
+				<figure class="fad fa-cloud-upload-alt" style="opacity: 0.50; font-size: 44px; color: #0d5072; width: 100%; text-align: center; padding: 0px 0 10px 0;"></figure>
+			
+				<span style="text-align: center; font-size:14px;  float: left; width: 100%; line-height: 1.45em; color: #0d5072; font-weight: 300; padding-bottom: 72px;">
+					<wicket:message key="drag-and-drop" />
+				</span>
+			</a>
+		</div>
+		<div wicket:id="quotalimit">
+			<span style="text-align: center;width: 100%;display: inline-block;"><wicket:message key="quotalimit" /></span>
+		</div>
+	</div>
+</wicket:fragment>	
+
+<wicket:fragment wicket:id="resource-view-fragment">
+	<div wicket:id="resource-view"/>
+	
+	
+	<div class="dropdown" style="float: right;padding-right: 0px; margin-top:0;">
+		<a id="dmenu" data-toggle="dropdown"> <i class="far fa-ellipsis-h" aria-hidden="true"></i></a>
+		<ul wicket:id="menu" class="dropdown-menu dropdown-menu-right" aria-labelledby="dmenu" />
+	</div>
+	<div wicket:id="editor"   		style="	float: left;
+    width: 100%;
+    z-index: 9999999;
+    overflow: hidden;
+    margin-top: 15px;
+    padding: 15px;
+    border: 1px solid #d8dcdf;
+    background: #fafafa;
+    border-radius: 4px;"/>
+		<div wicket:id="versions" 	style="float: left;    width: 100%;    z-index: 9999999;    overflow: hidden;" />
+</wicket:fragment>

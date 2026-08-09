@@ -1,0 +1,34 @@
+package kbee.web.nav;
+
+import com.novamens.security.acl.KbeeGlobalRole;
+import com.novamens.service.ServiceLocator;
+		
+public class MyWorkspaceDropDownBC extends DropDownMenuBC<Void> {
+
+				
+	final boolean is_root = ServiceLocator.getService(com.novamens.service.SecurityService.class).isRoot();
+	
+	final boolean role_admin = ServiceLocator.getService(com.novamens.service.SecurityService.class).isMember(KbeeGlobalRole.DOMAIN_ADMIN.getId());
+	final boolean role_pending = role_admin || ServiceLocator.getService(com.novamens.service.SecurityService.class).isMember(KbeeGlobalRole.PENDING_TASKS.getId());
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+
+	public MyWorkspaceDropDownBC() {
+		this("bc-menu-item");
+	}
+	
+	public MyWorkspaceDropDownBC(String id) {
+		super(id);
+		
+		addElement(new MyWorkspaceSectionBC(), true);
+		addElement(new WorkspaceBC());
+		addElement(new MyDocumentsBC());
+
+	}
+	
+	
+}

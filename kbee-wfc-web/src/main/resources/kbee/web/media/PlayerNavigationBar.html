@@ -1,0 +1,34 @@
+<wicket:panel>
+	
+	<nav class="navbar navbar-white navbar-fixed-top idoc">
+	
+		<div class="container-fluid" style="background: white;">
+			
+			<ul class="nav navbar-nav">
+					<li class="resource-viewer">
+						<div class="user-photo-container">
+							<img wicket:id="photo">
+						</div>
+						<div style="margin: 10px 0 0 0px;    line-height: 1.4em;    color: #191a1b;    font-size: 13px;    float: left;">
+							<span wicket:id="name" style="width:100%; float:left; font-weight:bold;"></span>
+							<span wicket:id="date" style="width: 100%;        float: left;    color: #666666;    font-size: 12px;"></span>
+						</div>
+					</li>
+			</ul>
+			
+			<ul class="actions nav navbar-nav navbar-right">
+					<li><a wicket:id="rotate-left-link" 	class="far fa-cloud-download-alt" title="Donwload" style="font-size: 20px; color: #191a1b;"></a></li>
+					<li><a wicket:id="rotate-right-link" 	class="far fa-cloud-download-alt" title="Donwload" style="font-size: 20px; color: #191a1b;"></a></li>					
+					<li><a wicket:id="original-size-link" 	class="far fa-cloud-download-alt" title="Donwload" style="font-size: 20px; color: #191a1b;"></a></li>
+					<li><a wicket:id="download-link" 		class="far fa-cloud-download-alt" title="Donwload" style="font-size: 20px; color: #191a1b;"></a></li>
+					<li><a wicket:id="close-link" 			class="far fa-times" alt="close" title="Close" style="font-size: 20px; color: #191a1b;"></a></li>
+			</ul>
+			
+		</div><!--/.container-fluid -->
+
+	</nav>
+
+</wicket:panel>
+
+
+

@@ -1,0 +1,53 @@
+<wicket:panel>
+
+<div class="toolbar-console top">
+
+	<div wicket:id="header-left" class="header" style="margin-right:24px;"/>
+
+	<div class="toolbar-wrapper">
+		<div style="float:left;font-size: 1em; margin-right: 24px; margin-left: 0">	
+			<div style="float: left;padding: 20px 42px 15px 0; display: inline; color: white; margin-left: 0; width: 200px; line-height: 1.5em;">
+					<span style="text-transform: uppercase;" wicket:id="title"></span>	
+			</div>
+		</div>
+		
+		<ul id="toolbar" class="toolbar">
+			<li style="float:left;"> 
+				<div class="toolbar-sub-panel">
+					<ul class="navigation-panel">
+						<li id="edtion" class="button-container tab" style="z-index: 40;" wicket:id="edition-container">
+							<a style="float: left;" wicket:id="edition-link">
+								<div class="button edit-icon">
+									<span class="label" wicket:id="edit-label"></span>
+								</div>	
+							</a>
+						</li>
+						<li id="start" class="button-container tab" style="z-index: 45;" wicket:id="start-container">
+							<a style="float: left;" wicket:id="start-link">
+								<div class="button edit-icon">
+									<span class="label" wicket:id="start-label"></span>
+								</div>	
+							</a>
+						</li>
+						<li id="tools" class="button-container tab" style="z-index: 50;" wicket:id="toolstrigger">
+							<a style="float: left;" >
+								<div class="button tools-icon">
+									<span class="label"><wicket:message key="editortoolbar.tools"/></span>
+								</div>	
+							</a>
+						</li>
+					</ul>
+				</div>
+				<div wicket:id="menu" style="display:none;" class="floating-panel"/>
+			</li>
+			<li style="float:left;"> 
+				<div class="toolbar-sub-panel" wicket:id="navigation"/>
+			</li>
+		</ul>
+	</div>
+	
+	<div wicket:id="header-right" class="header-right" />	
+	
+</div>
+
+</wicket:panel>

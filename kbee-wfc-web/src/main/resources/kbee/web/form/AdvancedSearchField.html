@@ -1,0 +1,48 @@
+<wicket:panel>
+	<div class="control-label" wicket:id="label-container">
+		<label for="label" wicket:id="label"></label>
+		<i wicket:id="mandatory" class="mandatory fas fa-asterisk" title="field is required"></i>
+	</div>
+	<div class="col-lg-10" wicket:id="horizontal-layout">
+		<wicket:container class="suggester-control" wicket:id="control"/>
+	</div>
+	<wicket:container class="suggester-control" wicket:id="control"/>
+</wicket:panel>
+
+<wicket:fragment wicket:id="control-fragment">
+	<div class="input-group suggester-container" wicket:id="th">
+		<input type="text" class="form-control typeahead" wicket:id="input"/>
+		<div class="input-group-btn">
+			<button wicket:id="searcher" type="button" class="btn btn-default" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">&nbsp;<i class="far fa-search"></i></button>
+		</div>
+	</div>	
+	
+	<div  style="float:right;font-size: 13px;">
+		<a wicket:id="clear-link" class="btn-link"><span wicket:id="clear-label"></span></a>
+		<a wicket:id="advanced-link" class="atright btn-link"><span wicket:id="label"></span></a>
+	</div>
+	
+	<a wicket:id="help-link-choice" href="#" class="btn-link" style="font-size: 12px;  float: right;  padding: 11px 20px 11px 10px;  margin-right: 32px;  margin-top: -45px; position:relative; z-index:1000;">
+		<span wicket:id="helpstr" ></span>
+	</a>
+	<small wicket:id="help" class="help-block" style="float:left;width: calc(100% - 30px);">help</small>
+	
+	<wicket:container wicket:id="feedback">
+		<div style="float:left; width:100%; padding:4px 0 6px 0; position:relative;" class="suggester col-xs-12">		
+			<a>
+				<span wicket:id="icon" class="far fa-times form-control-feedback"></span>
+			</a>
+			<span class="error-block" wicket:id="error"></span>
+		</div>			
+	</wicket:container>
+	<div wicket:id="history" class="help-block"/>
+</wicket:fragment>
+
+<wicket:fragment wicket:id="history-fragment">
+	<wicket:container wicket:id="history">
+		<span wicket:id="separator" class="separator" />
+		<a class="text-info" wicket:id="link">
+			<span wicket:id="name" class="name"/>
+		</a>
+	</wicket:container>
+</wicket:fragment>

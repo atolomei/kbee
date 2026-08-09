@@ -1,0 +1,50 @@
+
+
+
+<wicket:panel>
+
+
+	<div wicket:id="history-container" class="section">
+		<div class="section">
+			<div class="section-header">
+				<h2>
+					<wicket:message key="versions" />
+				</h2>
+			</div>
+			<div wicket:id="no-history" class="mb15" />
+			<div class="row">
+				<div style="margin-top: 1px;" class="col-lg-12 col-xs-12 col-md-12" wicket:id="versions" />
+			</div>
+		</div>
+	</div>
+
+
+	<div class="section">
+		<div class="section-header">
+			<h2>
+				<wicket:message key="version-title" />
+			</h2>
+		</div>
+		<table style="border-radius: 0 0 4px 4px; width: 100%; border: 1px solid #d8dcdf;" class="section-body">
+			<tbody>
+				<tr style="line-height: 25px; width: 100%;" class="row" wicket:id="result">
+					<wicket:container wicket:id="command_item" />
+				</tr>
+			</tbody>
+		</table>
+	</div>
+
+
+
+
+</wicket:panel>
+
+
+
+
+
+
+
+
+
+

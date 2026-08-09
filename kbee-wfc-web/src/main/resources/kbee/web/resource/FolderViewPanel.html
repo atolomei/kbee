@@ -1,0 +1,21 @@
+
+
+<wicket:panel>
+	<div wicket:id="image-container" class="media-left" style="min-width:40px;" >
+		<a class="resource" wicket:id="image-link" data-toggle="tooltip" data-placement="right">
+			<!-- img wicket:id="image" class="media-object" / -->
+			<i wicket:id="glyphicon"/>
+		</a>
+	</div>
+	<div class="media-body" wicket:id="body">
+		<a class="btn-link" style="text-decoration:none; color: #191a1b;" wicket:id="title-link">
+			<span class="media-heading" wicket:id="resource-title" style="font-weight: bold;">[]</span>
+		</a>
+		<div style="float:left; width:100%;">
+			<div wicket:id="resource-description" style="white-space: initial; float:left;line-height: 1.7em; max-width:1200px;"></div>
+		</div>
+		<div style="float:left; width:100%;">									
+			<div style="float:left; width:100%;" wicket:id="resource-lastmodified-by" class="metadata"></div>
+		</div>
+	</div>
+</wicket:panel>

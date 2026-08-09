@@ -1,0 +1,44 @@
+<wicket:head>
+	<style>
+		.mce-ico.mce-i-fas {
+			display: inline-block;
+			font: normal normal normal 14px/1 FontAwesome;
+			font-size: inherit;
+			text-rendering: auto;
+			-webkit-font-smoothing: antialiased;
+			-moz-osx-font-smoothing: grayscale;
+		}	
+		.mce-ico.mce-i-fas:before {
+		    content: "\f0c7";
+		    font-family: "Font Awesome 5 Pro";
+		    font-style: normal;
+		    font-weight: normal;
+		    text-decoration: inherit;
+		    color: #000;
+		    font-size: 1.5em;
+		    padding-right: 0.5em;
+		    position: absolute;
+		    top: 2px;
+		    left: 12px;
+		}
+		.kbee .mce-container, .kbee .mce-container *, .kbee .mce-widget, .kbee .mce-widget *, .kbee .mce-reset {
+			font-size: 14px;
+			color: #515356;
+			background: #d8dcdf;
+			border-radius:4px;
+		}
+	</style>
+</wicket:head>
+
+<wicket:panel>
+	<div wicket:id="container" class="form-group col-lg-12 col-md-12 col-xs-12">
+		<div>
+			<div style="float:left; width:100%; height:100%;">
+				<div wicket:id="text-container" class="col-lg-10 col-md-8 col-xs-12">
+					<div wicket:id="text" class="kbeetext" style="min-height:120px; height:100%; display: inline-block;width: 100%;"/>
+				</div>
+			</div>	
+		</div>
+	</div>
+</wicket:panel>
+

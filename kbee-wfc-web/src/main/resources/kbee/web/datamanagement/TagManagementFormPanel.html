@@ -1,0 +1,51 @@
+<wicket:panel>
+    <div class="row">
+        <form wicket:id="form" class="panel form-container" style="width:100%;" role="form">
+            <h2 class="col-lg-12 col-xs-12 col-md-12">
+                <wicket:message key="subset"/>
+            </h2>
+            <wicket:child/>
+            <div class="col-lg-12 col-md-12 col-xs-12 form-group">
+                <div class="row">
+                    <div class="col-lg-12 col-xs-12 col-md-12" wicket:id="condition"/>
+                </div>
+
+                <div class="row">
+	                <div class="col-lg-12 col-xs-12 col-md-12">
+	                    <a href="#" class="btn-link"   style="margin-top:5px"  target="_blank" wicket:id="affectedItemsLink">
+	                        <span wicket:id="affectedItemsLinkTitle"/>
+	                    </a>
+	                </div>
+                </div>
+
+                <div class="row">
+                    <div style="margin-top:20px" class="col-lg-12 col-xs-12 col-md-12" wicket:id="user-history"/>
+                </div>
+            </div>
+
+            <h2 class="col-lg-12 col-xs-12 col-md-12">
+                <wicket:message key="apply"/>
+            </h2>
+
+            <div class="col-lg-12 col-md-12 col-xs-12">
+                <div style="border:1px solid #d8dcdf; border-radius:4px; padding-left:15px;padding-right:15px; margin-bottom:1px;">
+                    <div class="row" style="border-bottom:1px solid #d8dcdf;background: #fafafa; padding-top: 15px;">
+                        <div class="col-lg-12 col-md-12 col-xs-12 form-group main-area" wicket:id="actionSelector"/>
+                    </div>
+                    <div class="row" style="padding-top: 15px;">
+                        <div wicket:id="tagToolActionContainer">
+                            <div wicket:id="tagAction"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="buttons-container col-lg-12 col-md-12 col-xs12" style="margin-top:20px;">
+                <a wicket:id="submit-button" href="#" class="btn btn-md btn-primary">
+                    <wicket:message key="execute"/>
+                </a>
+            </div>
+        </form>
+        <div wicket:id="help-modal" class="modal window" z-index=999999 tabindex="-6" role="dialog"/>
+    </div>
+</wicket:panel>

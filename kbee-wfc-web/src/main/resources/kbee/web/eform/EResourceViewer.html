@@ -1,0 +1,59 @@
+<wicket:head>
+	<style>
+		
+		.kbee .eform-editor .eform .resource-panel {
+			display: block; width: 100%; height:auto;  padding: 15px; float:left; position:relative; min-height:0px; border:1px solid  #d8dcdf;  border-radius:4px;
+		}
+		
+	</style>
+	
+</wicket:head>
+<wicket:panel>
+	<div wicket:id="container">
+		<div class="col-xs-12 col-lg-12 col-md-12 form-group">
+			<div class="control-label">
+				<label for="label" wicket:id="label"></label>
+			</div>
+			<div class="control" wicket:id="horizontal-layout">
+				<div wicket:id="control"/>
+			</div>
+			<div wicket:id="control"/>
+			<div wicket:id="versions"></div>
+				
+		</div>
+	</div>
+</wicket:panel>
+
+<wicket:fragment wicket:id="control-fragment">
+
+	<div id="resource-panel">
+		<div class="dropdown" wicket:id="menu-container" style="float: right;padding-right: 10px; margin-top:-20px;">
+			<a id="dmenu" data-toggle="dropdown"> <i class="far fa-ellipsis-h" aria-hidden="true"></i></a>
+			<ul wicket:id="menu" class="dropdown-menu dropdown-menu-right" aria-labelledby="dmenu" />
+		</div>
+		
+		
+		<span wicket:id="subtitle"></span>
+		
+		<div class="resource-panel" style="display: block; width: 100%; height:auto;  padding: 15px; float:left; position:relative; min-height:0px; border:1px solid  #d8dcdf;  border-radius:4px;">
+			<div style="width:100%; float:left; padding:15px;" wicket:id="resource-view">
+				<div  style="width:100%; float:left;" wicket:id="view"/>
+			</div>
+		</div>
+		<a wicket:id="help-link" class="btn-link" style="font-size: 12px;  float: right;  padding: 5px 5px 5px 10px;   margin-right: 3px;" >
+			<span><wicket:message key="help" /></span>
+		</a>
+		<small wicket:id="help" class="help-block" style="float:left; clear:left; max-width: calc(100% - 60px);">[TEXTO]</small>
+	</div>
+	
+</wicket:fragment>
+
+<wicket:fragment wicket:id="image-view-fragment">
+	<img wicket:id="image" style="width:100%;   max-height: 280px;  margin: 0;    display: block;    position: absolute;    width: auto; height: initial;  transform: translate(-50%, -50%);   left: 50%;    top: 50%;"/>
+</wicket:fragment>
+
+
+
+
+
+

@@ -1,0 +1,48 @@
+<wicket:panel>
+	
+	<div class="standard-canvas">	
+
+			<div wicket:id="main-panel-container">
+					<div class="row">
+						<div class="col-lg-10 col-md-12 col-xs-12" >
+							<h2 style="float:left; padding:12px 0; margin-bottom:0;"><wicket:message key="site-menus"/></h2>
+								<nav class="nav" style="float:right; margin:4px 0;">
+									<a wicket:id="show-all" href="#" class="btn-mini" style="float:right; text-align:center; min-width:50px; padding:3px 10px;" title="all items">
+										<wicket:message key="all"/>
+									</a>
+									
+									<a wicket:id="show-published" href="#" class="btn-mini" style="min-width:50px; text-align:center; float:right; padding:3px 10px;" title="only published items">
+										<!-- span wicket:id="show-all"></span-->
+										<wicket:message key="published"/>
+									</a>
+								</nav>
+						
+						</div>
+					</div>
+					
+					
+						<div class="row">
+							<ul style="padding:0 15px;" class="list-group form-group col-lg-10 col-md-12 col-xs-12">
+								<li class="list-group-item" wicket:id="pages" style="float:left; width:100%;">
+									<wicket:container wicket:id="hit-panel"></wicket:container>
+								</li>
+							</ul>
+						</div>
+						
+						<div class="row">
+								<div class="col-lg-10 col-md-12 col-xs-12 form-group" >
+									<a style="float:left;" wicket:id="add-menu" class="btn btn-md btn-default"><wicket:message key="add-menu"/> </a>
+								</div>
+						</div>
+			</div>
+			
+			
+			<div wicket:id="menu-editor" />
+			
+			
+			<div class="row">
+				<div style="margin-top:15px;" class="col-lg-10 col-md-12 col-xs-12" wicket:id="error-panel" />
+			</div>
+		
+	</div>
+</wicket:panel>

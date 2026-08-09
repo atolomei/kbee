@@ -1,0 +1,34 @@
+
+<wicket:panel>
+			<div class="col-lg-12 col-xs-12 col-md-12" style="border:1px solid #d8dcdf; border-radius:4px; padding-bottom:5px;">
+			<div class="row">
+				<h4 style="font-size:13px;"1 class="col-lg-12 col-xs-12 col-md-12"> <wicket:message key="history" /> </h4>
+			</div>
+			<div class="row">
+				<div class="col-lg-12 col-xs-12 col-md-12">	
+						<ul class="list-group small" style="width:100%; overflow-y: auto; font-size:13px; max-height: 280px;">
+								<li style="float:left; width:100%;" class="list-group-item " wicket:id="properties">
+									<a  style="float:left; width: calc(100% - 42px);"  wicket:id="property-link"><span class="list-group-item-heading" wicket:id="property-label"></span></a>
+			
+									<div style="float:right; height:18px; width:42px; top:8px;">									
+										<a  wicket:id="edit" style="float:left;">    <span class="far fa-edit"   style="float: left;" title="Edit" alt="edit"></span></a>
+										<a  wicket:id="remove" style="float:left;" class="atright" >  <span class="far fa-times" style="float: right;" title="Remove" alt="remove"></span></a>
+									</div>
+								</li>
+						</ul>				
+				</div>
+			</div>
+			
+			<div class="row">
+					<div class="col-lg-12 col-md-12 col-xs-12" style="margin-top:10px; font-size:13px;">
+						<a class="btn-link" wicket:id="remove-all" style="text-decoration:none; float:right; padding:0 5px;">
+							<!--  span class="far fa-trash-alt"></span -->
+							<span> <wicket:message key="delete-all" /> </span>
+						</a>
+						
+						
+					</div>
+			</div>
+			</div>
+		 
+</wicket:panel>

@@ -1,0 +1,53 @@
+<wicket:panel>
+	<a href="#" class="userinfo dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" wicket:id="user-link">
+		<div style="float:left; ">	
+			<div  class="user-info-container">
+				<span  wicket:id="user-name"></span>
+				<span class="subtitle" wicket:id="work-position"></span>
+			</div>
+			<div wicssket:id="photo-container"  class="photo-container">
+				<img style=" height: 32px;" wicket:id="user-photo"/>
+			</div>
+		</div>	
+	</a>
+	<ul class="dropdown-menu" wicket:id="menu"/>
+</wicket:panel>
+
+<wicket:fragment wicket:id="userInfoFragment">
+	
+	<div style="width:100%; float:left; padding:15px; padding-bottom:5px;">
+	
+		<a wicket:id="user-link" style="width:100%; float:left; margin:0; padding:0;">
+			<div style="border:none; width:100%; float:left; padding:15px; margin:0;" class="alert alert-info">
+				<div style="width:100%; float:left; line-height:2em;">
+					<h2> <wicket:message key ="bc.myaccount"/> </h2>
+				 </div>
+				<div style="width:100%; float:left; line-height:2em;">
+					<span style="margin-right:5px;"> <b><wicket:message key="username"/>.</b></span> <span wicket:id="username" ></span>
+				</div>
+				 
+				<div wicket:id="emailContainer" style="width:100%; float:left;  line-height:2em;">
+					<span style="margin-right:5px;"> <b><wicket:message key="email"/>. </b></span> <span wicket:id="email" ></span>
+				</div>
+					
+				
+				<div wicket:id="phoneContainer" style="width:100%; float:left;  line-height:2em;">
+					<span style="margin-right:5px;"> <b><wicket:message key="phone"/>.</b></span> <span wicket:id="phone" ></span>
+				</div>
+				
+				<!-- div style="width:100%; float:left;  line-height:2em;">
+					<span style="margin-right:5px;"><b><wicket:message key="device"/>.</b></span> <span wicket:id="device" ></span>
+				</div-->
+				
+			</div>
+		</a>
+		
+	</div>
+	
+</wicket:fragment>
+
+
+
+
+	
+	

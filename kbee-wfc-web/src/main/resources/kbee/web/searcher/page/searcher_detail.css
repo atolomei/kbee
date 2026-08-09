@@ -1,0 +1,91 @@
+
+
+
+/*  Detail       */
+/**--------------*/
+
+.kbsearcher .filelist {width:100%; float:left;}
+
+.kbee .kbsearcher .abstract {    font-size: 27px;    color: #999999; 	width:100%;    line-height: 1.35em;    font-weight: 300;    padding: 25px 5%;    float: left;}			
+.kbee .kbsearcher  h1.inst 	 {font-size:37px; width:100%; color: #131414;}
+.kbee .kbsearcher  h2.inst 	 {font-size: 1em;  padding-bottom: 10px;  position: relative;  text-transform: none;  font-size: 28px;  font-weight: normal;  color: #131414;  padding: 22px 0 10px 0;}
+.kbee .kbsearcher  h3.inst	 {font-size: 1em;    font-weight: bold;    text-transform: uppercase;   color: #0d5072;  margin-top: 15px;}
+.kbee .kbsearcher  h2.rp-heading {padding-top: 25px;}
+
+
+.kbee .kbsearcher .detail ul.related-list li.list-group-item:first-child {	margin-top:0;}
+.kbee .kbsearcher .detail ul.related-list{ margin-top:15px;}
+.kbee .kbsearcher .detail ul.related-list li.list-group-item {	margin-top:15px;}	
+.kbee .kbsearcher .detail ul.related li.list-group-item:first-child  {	margin-top:0;}
+.kbee .kbsearcher .detail ul.related li.list-group-item {	border:none;	padding:0;	float:left;	width:100%;}
+.kbee .kbsearcher .detail .related .media-body {	margin:0;	float:left;	width:100%;}
+.kbee .kbsearcher li.media-resource-group {padding:0 10px;}
+.kbee .kbsearcher .detail .tab-pane {padding-top:0;}
+.kbee .kbsearcher .detail a.title {color: #131414;;}
+.kbee .kbsearcher .main-searcher .side-form {margin: 0;padding: 0;width: 100%;top: calc(50% - 44px);position: absolute;}
+.kbee .kbsearcher .main-searcher .side-form .suggester-container .tt-menu {    background-color: #fff;    border: 1px solid rgba(0, 0, 0, 0.2);    border-radius: 4px;    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);    margin: 1px 0;    padding: 4px;    font-size: 14px;    width: 112%;}
+.kbee .kbsearcher .main-searcher .side-form .separator {    padding: 0 1px; color: #ffffff;}
+.kbee .kbsearcher .main-searcher .side-form .help-block {  display: block;   margin-top: 6px;   margin-bottom: 0px;   color: white;}
+.kbee .kbsearcher .main-searcher .side-form  .text-info {    color: white;    font-size: 13px;    font-weight: 400;    line-height: 1em; text-decoration:none;	}
+.kbee .kbsearcher .main-searcher .side-form .suggester-container .twitter-typeahead {margin-bottom: -7px;     border-radius: 6px;}
+.kbee .kbsearcher .main-searcher .side-form .form-group {margin:0; margin-bottom:0px; padding-left:8px; padding-right:8px; padding-bottom: 15px;}
+.kbee .kbsearcher .main-searcher .side-form .form-control-static, .kbee .side-form .form-control {height: 40px; font-size:14px;     border-radius: 6px;}
+.kbee .kbsearcher .main-searcher .side-form .form-group:last-child { margin-bottom: 0;}
+.kbee .kbsearcher .main-searcher .side-form  label {margin-bottom: 1px;    color: white;    font-weight: bold;    margin-left: 5px; text-transform: uppercase; font-size:14px;}
+.kbee .kbsearcher .main-searcher .side-form  .input-group-btn .fal, 
+.kbee .kbsearcher .main-searcher .side-form  .input-group-btn .far, 
+.kbee .kbsearcher .main-searcher .side-form  .input-group-btn .fa {    padding: 2px 4px;}
+.kbee .kbsearcher .main-searcher .side-form  .input-group-btn > .btn {    margin-left: 0px;    border-radius: 0;    max-width: 48px;    height: 40px;    border: none;    margin-right: 0px;    background: transparent;    margin-top: 0px;}
+.kbee .kbsearcher .main-searcher .side-form  .input-group {width:100%;}
+.kbee .kbsearcher .main-searcher .side-form  .input-group {border-radius:6px;}
+.kbee .main-searcher .input-group-btn > .btn {   padding: 6px;    margin-left: 0px;    border-radius: 0;    max-width: 48px;    height: 34px;    border: none; }   
+.kbee .panel-header {    margin-bottom: 0px;    float: left;    width: 100%;    position: relative;    margin-top: 0px;    height: 52px;    border: 1px solid transparent;    padding: 15px;}
+
+
+.kbee .kbsearcher 	.left-panel {border-right: 1px solid #d8dcdf;  box-sizing: border-box;}
+.kbee .kbsearcher  .search-right-panel {border-left: 1px solid #d8dcdf;  min-height: calc(100vh - 180px);  display: block;    border-radius: 0px;    top: 0;    right:0;    background: white;    border-bottom: none;    padding: 6px 25px;    }
+
+/*  Detail      */
+.kbee .kbsearcher .mt1em {margin-top: 1em;}
+.kbee .kbsearcher .mt2em {margin-top: 2em;}
+.kbee .kbsearcher .mt3em {margin-top: 3em;}
+.kbee .kbsearcher .mt4em {margin-top: 4em;}
+.kbee .kbsearcher .mt5em {margin-top: 5em;}
+.kbee .kbsearcher .mb1em {margin-bottom: 1em;}
+.kbee .kbsearcher .mb2em {margin-bottom: 2em;}
+.kbee .kbsearcher .mb3em {margin-bottom: 3em;}
+.kbee .kbsearcher .mb4em {margin-bottom: 4em;}
+.kbee .kbsearcher .mb5em {margin-bottom: 5em;}
+.kbee .kbsearcher .mb6em {margin-bottom: 6em;}
+.kbee .kbsearcher .pt6em {padding-top: 6em;}
+.kbee .kbsearcher .pdl0 {padding-left: 0 !important;}
+
+/* --------- */
+/* File List */
+/* --------- */
+.kbee .icon .media-left {    float: left;    padding: 0px 0 0 0;    margin-right: 15px;    margin-top: 2px;}
+.kbee .media-left .fal {font-size:30px; margin-top:0px;}
+.kbee .kbsearcher .media {float:left; width:100%;}
+.kbee .kbsearcher li.media {margin-top: 0em; padding: 15px 10px;}
+.kbee .kbsearcher  .media-body {float: none;  clear: right;     margin-left: 0px;}
+.kbee .kbsearcher .media-left {float:left;}
+.kbee .kbsearcher ul li.media:first-child {margin-top: 0;}
+
+/* --------- */
+.kbee ul.media-list .ago {color: inherit; font-size: inherit;}
+.kbee .resources-panel  .btn-mini {padding:8px;}
+.kbee .media-body textarea {height: 84px; float:left; padding: 12px;}
+.kbee .media .open > .dropdown-menu {    display: block;    overflow: visible;    float: right;    margin-top: 8px;    margin-right:0px}
+.kbee ul.media-list { border: none; float: left; display: block; padding: 0;     margin-left: -10px;}
+.kbee ul.media-list  li.bck:nth-of-type(odd) {background:#fcfcfc;   border-top: 1px solid #dfdfdf; border-bottom: 1px solid #dfdfdf;}
+.kbee ul li.media:hover {background: #f4f4f4;}
+.kbee .thumbnail_large li.media .thumbnail:hover {background: inherit;}
+.kbee ul li.media {display: inline-block;    overflow: initial;   }
+.kbee ul li.media:first-child {    margin-top: 0; }
+.kbee ul li.media {border-radius: 4px; overflow: visible;}
+
+
+
+
+
+

@@ -1,0 +1,148 @@
+<wicket:head>
+<style>
+.responsive-form-wrapper {
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+    width: 100%;
+}
+.responsive-form {
+    flex: 1;
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(auto-fit, minmax(240px, 1fr));
+
+    gap: 16px;
+    padding-left:20px;
+    padding-right:20px;
+}
+
+.field {
+    min-width: 0;
+}
+
+.field-input,
+.field-input .form-group {
+    width: 100%;
+}
+
+
+.actions {
+    flex: 0 0 160px;
+
+    display: flex;
+    flex-direction: column;
+
+    align-items: flex-start;
+
+    padding-top: 25px;
+}
+
+.search-btn {
+    width: 140px;
+    height: 40px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 6px;
+    background: #0d5072;
+    border-color: #0d5072;
+}
+
+.simple-link {
+	width: 140px;
+    text-align: center;
+    font-size: 13px;
+    text-decoration: underline;
+    color: white;
+}
+
+
+		</style>
+
+
+</wicket:head>
+
+<wicket:panel>
+
+	<form wicket:id="form" role="form"  class="side-form form-container search">
+        <div class="responsive-form-wrapper">
+	        <div class="responsive-form">
+	        	<div class="field">
+					<div class="field-input form-group" wicket:id="title"/>
+				</div>
+				<div wicket:id="element" class="field">
+					<div class="field-input form-group" wicket:id="field"/>
+				</div>
+			</div>	
+			<div class="actions">
+				
+				<a  class="btn btn-primary search-btn" style="
+				background: transparent;
+  color: white;
+  font-weight: bold;
+  border: 1px solid white;
+  text-transform: uppercase;
+  font-size: 1em;
+  line-height: 1em;
+  padding: 11px 0;"  wicket:id="submit"> <wicket:message key="search" /></a>
+				
+				<a wicket:id="simple" class="simple-link" style="margin-top: 0.5em; padding:0.2em 0; color:white;">
+					<wicket:message key="simple-search" />
+				</a>
+				
+				 
+				
+				
+			</div>
+		</div>	
+	</form>
+</wicket:panel>
+
+<!-- 
+<wicket:panel>
+	<form wicket:id="form" class="col-md-12 col-lg-12 col-xs-12 side-form form-container search" role="form" style="margin-bottom:0; padding:0 4%;">
+		<div style="width: 100%; margin:auto;  float:inherit;">
+			<div class="col-xs-12 col-md-12 col-lg-2 form-group" wicket:id="title"/>
+			<div class="col-xs-12 col-md-12 col-lg-9">
+			
+				<div wicket:id="element" class="col-lg-2 col-md-12 col-xs-12">
+					<div class="form-group" wicket:id="field"/>
+				</div>
+			</div>	
+			<div class="col-xs-12 col-md-12 col-lg-1 form-group" style="padding-top: 25px;">
+				<a  class="btn btn-primary" wicket:id="submit"> <wicket:message key="search" /></a>
+				<a wicket:id="simple" style="float: left;  color: white; margin:6px 0px; font-size: 13px; text-decoration: underline; text-align: center;  width: 100%;">
+					<wicket:message key="simple-search" />
+				</a>
+			</div>
+		</div>
+	</form>
+</wicket:panel>
+-->
+
+
+<!-- 
+<wicket:panel>
+	<form wicket:id="form" class="col-md-12 col-lg-12 col-xs-12 side-form form-container search" role="form" style="margin-bottom:0; padding:0 4%;">
+		<div style="width: 100%; margin:auto;  float:inherit;">
+			<div class="col-xs-12 col-md-12 col-lg-2 form-group" wicket:id="title"/>
+			<ul class="col-xs-12 col-md-12 col-lg-9">
+				<li wicket:id="element" class="col-lg-2 col-md-12 col-xs-12">
+					<div class="form-group" wicket:id="field"/>
+				</li>
+			</ul>
+			<div class="col-xs-12 col-md-12 col-lg-1 form-group" style="padding-top: 25px;">
+				<a  class="btn btn-primary" wicket:id="submit"> <wicket:message key="search" /></a>
+				<a wicket:id="simple" style="float: left;  color: white; margin:6px 0px; font-size: 13px; text-decoration: underline; text-align: center;  width: 100%;">
+					<wicket:message key="simple-search" />
+				</a>
+			</div>
+		</div>
+	</form>
+</wicket:panel>
+-->

@@ -1,0 +1,26 @@
+
+
+.kbee .kbeetext {font-size:17px; line-height: 1.65em; max-width:1280px; }
+
+.kbee .kbeetext ul {width: 100%;   max-width: 100%;	font-size: 1em;	line-height: inherit;  margin:0 0 1em 0;    padding-left:20px;}
+.kbee .kbeetext ol{width: 100%;   max-width: 100%;	font-size: 1em;	line-height: inherit;  margin:0 0 1em 0;    padding-left:20px;}
+
+.kbee .include {  background-color: #e8e8e8;  border-radius: 3px;  padding: .1rem .2rem;}
+
+.kbee .kbeetext .include p { background-color: #e8e8e8; float:left; width: 100%;   max-width: 100%;	line-height: inherit; margin:0 0 1em 0;}
+
+
+.kbee .kbeetext ol li {	padding-top: 10px;}
+.kbee .kbeetext ul li {	list-style: unset;	padding-top: 0px;}
+.kbee .kbeetext p {float:left; width: 100%;   max-width: 100%;	line-height: inherit; margin:0 0 1em 0;}
+
+.kbee .kbeetext h1 {  float:left; width: 100%;   font-size: 2.0em;    line-height: 1.2em;    		margin: 0 0 1em 0; 	 	color: #131414;}
+.kbee .kbeetext h2 {  float:left; width: 100%;   font-size: 1.50em;    line-height: 1.2em;    		margin: 1em 0 1em 0;  	color: #131414;}
+.kbee .kbeetext h3 {  float:left; width: 100%;   font-size: 1.25em;    line-height: 1.2em; 	  		margin: 1em 0 0.5em 0;  	color: #131414;}
+.kbee .kbeetext h4 {  float:left; width: 100%;   font-size: 1em;    line-height: 1.65em;    		margin: 1em 0 0.5em 0;  	color: #131414;}
+
+.kbee .kbeetext table {font-size: 1em; border-color: #cccccc; margin:1em 0; float:left;}
+.kbee .kbeetext table thead tr {font-size: 0.87em; background: #f4f5f6; font-weight:bold; text-transform:uppercase; }
+.kbee .kbeetext table tbody tr {font-size: 1em;}
+.kbee .kbeetext table tr td {padding:10px 15px;}
+

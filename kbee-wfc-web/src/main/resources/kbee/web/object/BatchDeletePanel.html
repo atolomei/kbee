@@ -1,0 +1,29 @@
+<wicket:panel>
+						<div class="row">
+							<div class="col-lg-12 col-md-12 col-xs-12">
+									<h2> <wicket:message key="howitworkstitle" /></h2>
+										<div style="float:left;">
+												<wicket:message key="howitworks" />
+										</div>
+							</div>
+						</div>
+						
+						<div class="row">
+							<div class="task-form col-lg-12">
+								<h2> <wicket:message key="actions"/></h2>
+								<form wicket:id="form" id="actionsform" method="post" action="#" class="form-container" style="margin-top: 12px;" >
+									<button wicket:id="button-cancel" class="btn btn-sm btn-default"> <wicket:message key="cancel" /></button>
+									<button wicket:id="button-execute" class="btn btn-sm btn-danger atright"> <wicket:message key="delete" /> </button>
+								</form>
+							</div>
+							
+							<div class="col-lg-8" wicket:id="feedback-panel">
+								<div class="panel col-lg-12 alert alert-info" wicket:id="feedback"/>
+							</div>
+						</div>
+						
+						<div class="row"> 
+							<div class="panel col-lg-8" wicket:id="selection" />
+						</div>
+</wicket:panel>
+

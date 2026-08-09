@@ -1,0 +1,46 @@
+<wicket:head>
+<style>
+.mce-ico.mce-i-fas {
+    display: inline-block;
+    font: normal normal normal 14px/1 FontAwesome;
+    font-size: inherit;
+    text-rendering: auto;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+ .mce-ico.mce-i-fas:before {
+    content: "\f0c7";
+    font-family: "Font Awesome 5 Pro";
+    font-style: normal;
+    font-weight: normal;
+    text-decoration: inherit;
+    color: #000;
+    font-size: 1.5em;
+    padding-right: 0.5em;
+    position: absolute;
+    top: 2px;
+    left: 12px;
+ }
+ .kbee .mce-container, .kbee .mce-container *, .kbee .mce-widget, .kbee .mce-widget *, .kbee .mce-reset {
+    font-size: 14px;
+    color: #515356;
+    background: #d8dcdf;
+    border-radius:4px;
+}
+</style>
+</wicket:head>
+
+<wicket:panel>
+	
+	<div wicket:id="container" class="col-xs-6 col-lg-6 col-md-6 form-group ">
+		
+		<div wicket:id="field"/>
+		
+		<div wicket:id="text-container">
+			<!-- div class="control-label">
+				<label for="label" icket:id="label">[label]</label>
+			</div -->
+			<div wicket:id="text" style="border: 1px solid  #d8dcdf; border-radius:4px; min-height:120px; padding:10px; display: inline-block;width: 100%;"/>
+		</div>	
+	</div>
+</wicket:panel>

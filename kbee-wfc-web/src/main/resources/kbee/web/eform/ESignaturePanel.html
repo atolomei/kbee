@@ -1,0 +1,177 @@
+<wicket:panel>
+	<div style="float:left; width:100%;">
+		<div class="efield">
+				<div wicket:id="state" style="display: block; width: 100%; height:auto;  padding: 15px; float:left; position:relative; min-height:0px; border:1px solid  #d8dcdf;  border-radius:4px;">
+			</div> 
+		</div>
+	</div>
+</wicket:panel>
+
+
+<!-- NOT SIGNED -> SIGN BUTTON ----------------------  ----------------------------------------->
+
+<wicket:fragment wicket:id="not-signed-state-fragment">
+	<button wicket:id="sign-button"  class="btn-lg btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown" style="float:right;">	
+		<wicket:message key="sign.label" />
+	</button>
+</wicket:fragment>
+
+
+<!-- SIGN WITH APP TOKEN  ----------------------  ----------------------------------------->
+
+<wicket:fragment wicket:id="signature-state-fragment">
+
+
+	<div class="col-xs-12 col-lg-12 col-md-12 form-group">
+		<div style="padding-bottom: 30px;">
+			<div wicket:id="token"></div>
+		</div>
+		<div style="padding-top: 10px; display: block;float: left;width: 100%;height:30px;" wicket:id="feedback">
+		</div>
+		<div style="padding-top: 20px; display: block;float: left;width: 100%; line-height:1.7em;">
+			<button wicket:id="cancel-button" class="btn btn-default btn-lg">
+				<wicket:message key="cancel.label"/>
+			</button>
+			<button wicket:id="sign-button" class="btn btn-primary btn-lg  atright">
+				<wicket:message key="sign.label"/> 
+			</button>
+		</div>
+	</div>
+</wicket:fragment>
+
+
+<!-- SMS SIGNATURE ----------------------  ----------------------------------------->
+
+<wicket:fragment wicket:id="smssignature-state-fragment">
+	<div class="col-xs-12 col-lg-12 col-md-12">
+		 
+		<h3><wicket:message key="sign-title" /></h3>
+		
+		 
+		
+		<div class="row" wicket:id="sign-selection-container">
+		
+				<span class="col-xs-12 col-lg-12 col-md-12 form-group">
+				 	<span wicket:id="sign-explanation" />
+				</span>
+		
+				<div class="col-xs-12 col-lg-12 col-md-12 form-group">
+						<a style="width:initial" wicket:id="app-token-selector" class="btn btn-default btn-lg">
+							<wicket:message key="app-token"/>
+						</a>
+						<a style="width:initial" wicket:id="sms-token-selector" class="btn btn-default btn-lg">
+							<wicket:message key="sms-token"/>
+						</a>
+						<a style="width:initial" wicket:id="whatsapp-token-selector" class="btn btn-default btn-lg">
+							<wicket:message key="whatsapp-token"/>
+						</a>
+				</div>
+		</div>
+		
+		<!-- SIGN WITH APP TOKEN  -->
+		
+			<div class="row" wicket:id="sign-with-app">
+			
+				<span class="col-xs-12 col-lg-12 col-md-12 form-group"><wicket:message key="app-token-info"/></span>
+			 	
+				<div class="form-group" style="float:left; width:100%;">
+				<div class="col-xs-12 col-lg-12 col-md-12" wicket:id="token"></div>
+					<div class="col-xs-12 col-lg-12 col-md-12" icket:id="feedback">
+					</div>
+				</div>
+				
+				<div class="col-xs-12 col-lg-12 col-md-12 form-group">
+					<button wicket:id="cancel-button" class="btn btn-default btn-lg">
+						<wicket:message key="cancel.label"/>
+					</button>
+					<button wicket:id="sign-button" class="btn btn-primary btn-lg  atright">
+						<wicket:message key="sign.label"/> 
+					</button>
+				</div>
+			</div>
+		
+		
+		
+		
+		<!--  SIGN WITH SMS -->
+
+		<div wicket:id="sign-with-sms" class="row" style="float:left;width:100%;">
+				
+				<span class="col-xs-12 col-lg-12 col-md-12 form-group" wicket:id="security-token-info">[]</span>
+				
+				<div class="col-xs-12 col-lg-12 col-md-12" wicket:id="step1">
+					<div style="padding-top: 20px; display: block;float: left;width: 100%;">
+						<button wicket:id="cancel1-button" class="btn btn-default btn-lg">
+							<wicket:message key="cancel.label"/>
+						</button>
+							
+						<button wicket:id="sendtoken-button" class="btn btn-primary btn-lg atright">
+							<wicket:message key="sendtoken.label"/>
+						</button>
+						
+					</div>
+				</div>
+				
+				<div class="col-xs-12 col-lg-12 col-md-12"  wicket:id="step2">
+					<div style="padding-bottom:30px;">
+						<div wicket:id="smstoken"></div>
+					</div>
+					<div style="padding-top: 20px; display: block;float: left;width: 100%;">
+						<button wicket:id="cancel2-button" class="btn btn-default btn-lg">
+							<wicket:message key="cancel.label"/>
+						</button>
+						<button wicket:id="sign-button" class="btn btn-primary btn-lg atright">
+							<wicket:message key="sign.label"/> 
+						</button>
+					</div>
+					<div style="padding-top: 20px; display: block;float: left;width: 100%;">
+						<button wicket:id="resendtoken-button" class="btn-link">
+							<wicket:message key="resendtoken.label"/>
+						</button>
+					</div>
+				</div>
+				
+		</div>
+		
+		<div style="display: block;float: left;width: 100%; margin-top: 15px;"  wicket:id="feedback"></div>
+		
+	</div>
+</wicket:fragment>
+
+
+
+<!-- SIGNATURE INFO ----------------------  ----------------------------------------->
+
+<wicket:fragment wicket:id="signed-state-fragment">
+	<div style="width:100%;">
+		
+		<img wicket:id="image" style="max-height: 180px; max-width:180px; display:block; margin:auto;"/>
+		
+		<span wicket:id="icon" style="  width: 100%;  display: inline-block;  text-align: center;  padding:30px 0px;">
+			<i class="fa-duotone fa-signature-lock" style="font-size: 58px;   "></i>
+		</span>
+	</div>
+	<div style="width:100%; float:left;">
+		
+		<b><span style="width: 100%;display: inline-block;padding: 0;text-align: center; text-transform: uppercase; font-size: 0.9em;"> <wicket:message key="signed-by" /></span></b>
+		<span wicket:id="user" style="width: 100%;display: inline-block;padding: 0;text-align: center">[]</span>
+		
+		<div wicket:id="dni-container" style="float:left; width:100%;">
+			<b><span style="width: 100%;display: inline-block;padding: 0;text-align: center; text-transform: uppercase; font-size: 0.9em; margin-top:10px;" wicket:id="tipodni"></span></b>
+			<span wicket:id="userid" style="width: 100%;display: inline-block;padding: 0;text-align: center"></span>
+		</div>
+		
+		<b><span style="width: 100%;display: inline-block;padding: 0;text-align: center; text-transform: uppercase; font-size: 0.9em; margin-top:10px;"><wicket:message key="date" /> </span></b>
+		<span wicket:id="device" style="width: 100%;display: inline-block;text-align: center;"></span>
+		
+		<div style="width:100%; float:left; text-align: center; margin-top: 40px; margin-bottom:15px;">
+			<a class="btn btn-lg btn-default"  wicket:id="remove-link">	<wicket:message key="remove-signature"/></a>
+		</div>			
+	</div>
+	<div wicket:id="confirmation-dialog" class="modal window" tabindex="-20" role="dialog"/>
+</wicket:fragment>
+
+
+
+
+

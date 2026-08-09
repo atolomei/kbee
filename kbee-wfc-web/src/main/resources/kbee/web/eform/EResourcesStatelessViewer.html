@@ -1,0 +1,30 @@
+<wicket:panel>
+	<div wicket:id="container" class="col-xs-12 col-lg-12 col-md-12 form-group">
+		<div class="efield">
+			<div class="control-label">
+				<label for="label" wicket:id="label"></label>
+			</div>
+			<div class="col-lg-10" wicket:id="horizontal-layout">
+				<div wicket:id="control"/>
+			</div>
+			<div wicket:id="control"/>
+		</div>
+	</div>
+</wicket:panel>
+
+<wicket:fragment wicket:id="control-fragment">
+	<div class="resources-panel  col-lg-10" id="resources-panel">
+	
+		<span wicket:id="subtitle"></span>
+	
+		<ul wicket:id="resources-view" class="media-list">
+			<li class="media" wicket:id="resources-list" >
+				<div wicket:id="resource-view"/>
+			</li>
+		</ul>
+	</div>
+</wicket:fragment>	
+
+<wicket:fragment wicket:id="resource-view-fragment">
+	<div wicket:id="resource-view"/>
+</wicket:fragment>

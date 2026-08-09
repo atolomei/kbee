@@ -1,0 +1,80 @@
+<wicket:head>
+<style>
+	.mce-ico.mce-i-fas {
+		display: inline-block;
+		font: normal normal normal 14px/1 FontAwesome;
+		font-size: inherit;
+		text-rendering: auto;
+		-webkit-font-smoothing: antialiased;
+		-moz-osx-font-smoothing: grayscale;
+	}
+	.mce-ico.mce-i-fas:before {
+		content: "\f0c7";
+		font-family: "Font Awesome 5 Pro";
+		font-style: normal;
+		font-weight: normal;
+		 text-decoration: inherit;
+		color: #000;
+		font-size: 1.5em;
+		padding-right: 0.5em;
+		position: absolute;
+		top: 2px;
+		left: 12px;
+	}
+	.kbee .mce-container, .kbee .mce-container *, .kbee .mce-widget, .kbee .mce-widget *, .kbee .mce-reset {
+		font-size: 14px;
+		color: #515356;
+		background: #d8dcdf;
+		border-radius:4px;
+	}
+</style>
+</wicket:head>
+
+<wicket:panel>
+	<div wicket:id="container" class="col-xs-6 col-lg-6 col-md-6 form-group ">
+		<div style="float:left; width:100%;">
+			<div class="control-label">
+				<label for="label" wicket:id="label"></label>
+			</div>
+			<div style="float: left; width: 100%; padding: 5px 15px; border: 1px solid #ededef; margin-bottom: 1px; border-radius:4px;" wicket:id="toolbar">
+					<div style="float: left;">
+						<a class="btn-mini" style="font-size:15px" wicket:id="index-switch"><i class="fa-regular fa-list-tree"></i></a>
+						<a class="btn-mini" style="font-size:15px" onClick="fonte('a');"><i class="fa-regular fa-font"></i>+</a>
+						<a class="btn-mini" style="font-size:15px" onClick="fonte('d');"><i class="fa-regular fa-font"></i>-</a>
+					</div>
+					
+					<div style="float: right;">
+							<a href="http://google.com" class="btn-mini" target="_blank" style="font-size:15px;" wicket:id="portalpreview">
+								<i class="fa-duotone fa-browser"></i>
+							</a>
+					</div>
+						
+			</div>
+			
+			<div style="float:left; width:100%; border:1px solid #ededef; border-radius:4px; max-height:1700px; height:100%; padding:0 15px;">
+				<div class="row">	
+					<div wicket:id="index" class="col-lg-3 col-md-5 col-xs-12" style="padding-top:10px;" />
+					<div wicket:id="field-container" class="col-lg-9 col-md-7 col-xs-12">
+						<div wicket:id="field" style="min-height:100vh;"/>
+					</div>
+					<div wicket:id="text-container" class="col-lg-9 col-md-7 col-xs-12" style="max-height:1700px; height:800px;overflow-y:auto; border-left:1px solid #ededef; margin-left:-1px;">
+						<div wicket:id="text" class="kbeetext" style="min-height:120px; height:100%; padding:10px; display: inline-block;width: 100%;"/>
+					</div>
+				</div>
+			</div>	
+		</div>
+	</div>
+</wicket:panel>
+
+<wicket:fragment wicket:id="index-fragment">
+	<div style="float:left; width:100%;">
+		<h4> <wicket:message key="index" /></h4>
+		<ul style="float:left; width:100%;">
+			<li wicket:id="index-view" style="padding:5px 0;">
+				<a style="color:#131414;" wicket:id="link">
+					<span wicket:id="title"></span>
+				</a>
+			</li>
+		</ul>
+	</div>
+</wicket:fragment>

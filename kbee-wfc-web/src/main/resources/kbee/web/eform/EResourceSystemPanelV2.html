@@ -1,0 +1,255 @@
+<wicket:head>
+	<style>
+		.kbee .eform-editor .eform .resources-panel {border: 1px solid  #d8dcdf; padding:15px; border-radius:4px; min-height:40px;}
+		.kbee .navbar .navigation-range-container {padding: 8px 0; margin: 0px 0;}
+		.bggray { background:#fbfbfb;}
+		.kbee .tree-theme-windows span.tree-content .selected span.tree-label { background-color: #d8dcdf; color: black; padding: 2px; border-radius: 4px; font-weight: bold; }
+		
+		
+		.upload-list-wrapper {
+  max-height: 260px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  background: #fff;
+  margin-top: 10px;
+}
+
+.upload-list-header {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  padding: 8px 10px;
+  background: #f5f5f5;
+  border-bottom: 1px solid #ddd;
+  font-weight: bold;
+}
+
+.upload-list {
+  padding: 8px;
+}
+
+.upload-file-row {
+  padding: 8px 6px;
+  border-bottom: 1px solid #eee;
+}
+
+.upload-file-row:last-child {
+  border-bottom: none;
+}
+
+.upload-file-info {
+  margin-bottom: 4px;
+  font-size: 13px;
+}
+
+.file-name-upload {
+  font-weight: 600;
+}
+
+.file-size-upload {
+  color: #666;
+}
+
+.upload-list-wrapper .progress {
+  margin-bottom: 0;
+}
+		
+			
+	</style>
+</wicket:head>
+
+<wicket:panel>
+	<div wicket:id="container" class="col-xs-12 col-lg-12 col-md-12 form-group">
+		<div class="dropdown" wicket:id="menu-container" style="float: right;padding-right: 0px; margin-top:0px;margin-right: 0px;">
+			<a id="dmenu" data-toggle="dropdown"> <i class="far fa-ellipsis-h" aria-hidden="true"></i></a>
+			<ul wicket:id="menu" class="dropdown-menu dropdown-menu-right" aria-labelledby="dmenu" />
+		</div>
+		<div class="efield">
+			<div class="control-label">
+				<label for="label" wicket:id="label"></label>
+			</div>
+			<div class="col-lg-10" wicket:id="horizontal-layout">
+				<div wicket:id="control"/>
+			</div>
+			<div wicket:id="control"/>
+		</div>
+		<div wicket:id="confirmation-dialog" class="modal window" tabindex="-20" role="dialog"/>
+	</div>
+</wicket:panel>
+
+
+
+<!-- TOOLBAR  ----------------------------------------------- -->
+
+<wicket:fragment wicket:id="toolbar-fragment">
+	<div style="margin-bottom:0; border: 1px solid #d8dcdf; border-radius:4px 4px 0 0;	padding:3px 0; float:left; width:100%; background:#fbfbfb;">
+		
+		<ul style="float:left;margin-bottom:0px;">
+			<li style="float:left;">
+				<div wicket:id="breadcrumb" style="float: left;padding-top: 10px;padding-left: 10px;"></div>
+			</li>
+		</ul>
+		
+		<ul class="toolbar-buttons nav navbar-nav navbar-right" style="width:initial; margin:0;">
+		
+			<li wicket:id="selectAll-container" class="items-top-right" style="float:left;">
+			 	<div class="checkbox" style="width: 125px;padding-top: 10px;">
+ 				<input wicket:id="selectAll" type="checkbox"/>
+				</div>
+			</li>
+			<li wicket:id="menu-actions-container" class="items-top-right" style="padding:10px 10px;">				
+				<div>
+				<a id="dmenu" data-toggle="dropdown">
+					<span><wicket:message key="menu.actions"/></span>
+					<i class="far caret"></i>
+				</a>
+				<ul wicket:id="menu" class="dropdown-menu dropdown-menu-right" aria-labelledby="dmenu" />
+				</div>
+			</li>
+
+			<li class="items-top-right" style="float:left;  margin-right:1px;">
+				<div><a wicket:id="tree-view-button"><i class="fal fa-folder-tree" style="font-size:21px;padding: 10px;"></i></a></div>
+			</li>	
+ 
+			<li class="items-top-right" style="float:left;">
+				<div><a wicket:id="new-folder-button"><i class="fal fa-folder" style="font-size:21px;padding: 10px;"></i></a></div>
+			</li>
+
+			<li wicket:id="menu-container" class="items-top-right" >				
+				<div>
+				<a id="dmenu" data-toggle="dropdown">
+					<i class="fad fa-cog"  style="font-size:21px;padding: 10px;" aria-hidden="true" />
+				</a>
+				<ul wicket:id="menu" class="dropdown-menu dropdown-menu-right" aria-labelledby="dmenu" />
+				</div>
+			</li>
+
+			<li class="items-top-right" style="padding: 0 10px;float:left;">
+				<div><select class="form-control" wicket:id="sort" style="font-size: 12px;height: 30px;margin-top: 5px"></select></div>
+			</li>
+				
+			<li class="items-top-right" style="float:left; margin-bottom:0;">
+				<div wicket:id="navigator">[]</div>
+			</li>	
+		</ul>	
+	</div>
+</wicket:fragment>
+
+
+<wicket:fragment wicket:id="tree-fragment">
+	<div wicket:id="tree" style="min-height:480px; padding-top:10px;">[]</div>
+</wicket:fragment>
+
+
+<!-- LIST VIEW  -----------------------------------------------    -->
+
+<wicket:fragment wicket:id="list-fragment">
+	<ul wicket:id="resources-view" class="media-list">
+		<li wicket:id="up-item" style="width: 100%; padding: 15px 15px 0px 70px;">
+			<a wicket:id="up-link">
+				<i class="fa-solid fa-up-from-bracket fa-xs" style="font-size:20px;"></i>
+			</a>
+		</li>
+		<li class="media" wicket:id="resources-list" style="width:100%;padding:15px 15px;">
+			<div wicket:id="resource-view"/>
+		</li>
+		<li>
+			<div id="console"></div>
+		</li>
+	</ul>
+</wicket:fragment>
+
+
+<!--   -----------------------------------------------  -->
+
+<wicket:fragment wicket:id="control-fragment">
+	
+	<div class="resources-panel" id="resources-panel" style="border: none; padding: 0; border-radius:0;  width:100%; min-height: 240px; max-height:2000px; overflow-y:auto;">
+	
+		<span wicket:id="subtitle"></span>
+		<div wicket:id="toolbar"></div>
+		<!-- 		
+		<div wicket:id="browser" style="float:left; width:100%; border:1px solid #d8dcdf; border-top:none; max-height:1700px; height:100%; overflow-y:auto;">
+		-->
+		<div wicket:id="browser" style="float:left; width:100%; border:1px solid #d8dcdf; border-top:none; max-height:1700px; height:100%;">
+			<div wicket:id="tree-view" class="col-lg-2 col-md-4 col-xs-12"  style="border-right:1px solid #d8dcdf; padding:0;"></div>
+			<div wicket:id="list-view" class="col-lg-10 col-md-8 col-xs-12"></div>
+		</div>
+		
+		<div wicket:id="pickfiles" style="position: relative;padding-top: 0px;display: block;float: left;width: 100%;min-height: 80px; background:#fafafa; border: 1px solid #d8dcdf; border-top:none;">	
+			<a id="pickfiles">
+				<figure class="fad fa-cloud-upload-alt" style="opacity: 0.50; font-size: 44px; color: #0d5072; width: 100%; text-align: center; padding: 1.5em 0 10px 0;"></figure>
+				<span style="text-align: center; font-size:14px;  float: left; width: 100%; line-height: 1.45em; color: #0d5072; font-weight: 300; padding-bottom:60px;">
+					<wicket:message key="drag-and-drop" />
+				</span>
+			</a>
+		</div>
+		
+		<div wicket:id="quotalimit">
+			<span style="text-align: center;width: 100%;display: inline-block;"><wicket:message key="quotalimit" /></span>
+		</div>
+		
+		<div wicket:id="selection-view" style="float: left;
+			width: 100%;
+			overflow: auto;
+			margin-top: 15px;
+			padding: 15px;
+			border: 1px solid #d8dcdf;   	
+			background: #fafafa;   
+			border-radius: 4px; 
+			height:800px;">
+			<div wicket:id="selection-panel"/>
+		</div>
+		
+		
+	</div>
+</wicket:fragment>	
+
+<!-------------------------------------------------    -->
+
+<wicket:fragment wicket:id="resource-view-fragment">
+ 	<div wicket:id="selector" class="checkbox" style="float:left;min-width: 48px;padding-right:10px;padding-top:10px">
+ 		<input wicket:id="check" type="checkbox"/>
+	</div>
+
+	<div wicket:id="resource-view" class="draggable" style="float:left;" />
+	
+	<div class="dropdown" wicket:id="menu-container" style="float: right;padding-right: 0px; margin-top:0;">
+		<a id="dmenu" data-toggle="dropdown"> <i class="far fa-ellipsis-h" aria-hidden="true"></i></a>
+		<ul wicket:id="menu" class="dropdown-menu dropdown-menu-right" aria-labelledby="dmenu" />
+	</div>
+	<div wicket:id="editor"  style="float: left;  	width: 100%;  	z-index: 9999999;   	overflow: hidden;   	margin-top: 15px;   	padding: 15px;   	border: 1px solid #d8dcdf;   	background: #fafafa;   	border-radius: 4px;"/>
+    	
+	<div wicket:id="versions" style="float: left;    width: 100%;    z-index: 9999999;    overflow: hidden;" />
+</wicket:fragment>
+
+<!-------------------------------------------------    -->
+
+<wicket:fragment wicket:id="selection-fragment">
+	<ul class="media-list col-lg-12 col-md-12 col-xs-12 icon">
+		<li class="media" wicket:id="up-item" style="width: 100%; padding: 15px 15px 0px 110px;">
+				<a wicket:id="up-link">
+					<i class="fa-solid fa-up-from-bracket fa-xs" style="font-size:20px;"></i>
+				</a>
+		</li>
+		<li class="media" wicket:id="resource" style="width:100%;padding:5px 5px;">
+			<div wicket:id="resource-view"/>
+		</li>
+	</ul>
+	
+		
+			<div wicket:id="action-panel">
+		
+		
+	</div>
+</wicket:fragment>
+
+<!-------------------------------------------------    -->
+
+<wicket:fragment wicket:id="action-fragment">
+	<div style="float: left;  	width: 100%;">
+		<a wicket:id="ok-button"><wicket:message key="ok" /></a>
+		<a wicket:id="cancel-button" style="padding-left:10px;"><wicket:message key="cancel" /></a>
+	</div>
+</wicket:fragment>

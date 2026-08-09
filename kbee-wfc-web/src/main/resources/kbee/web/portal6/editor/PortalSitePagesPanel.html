@@ -1,0 +1,42 @@
+<wicket:panel>
+	
+	<div class="standard-canvas">	
+
+			<div class="row">
+				<div class="col-lg-10 col-md-12 col-xs-12" >
+					<h2 style="float:left; padding:12px 0; margin-bottom:0;"><wicket:message key="pages"/></h2>
+						<div style="float:right;">
+							<a wicket:id="show-deleted" href="#" class="btn-mini" style="float:right;" title="show/hide archived and deleted">
+								<span wicket:id="show-all"></span>
+							</a>
+						</div>
+				</div>
+			</div>
+			
+			<div class="row">
+				<ul style="padding:0 15px;" class="list-group form-group col-lg-10 col-md-12 col-xs-12">
+					<li class="list-group-item" wicket:id="pages" style="float:left; width:100%;">
+						<wicket:container wicket:id="hit-panel"></wicket:container>
+					</li>
+				</ul>
+			</div>
+			
+			<div class="row">
+					<div class="col-lg-10 col-md-12 col-xs-12 form-group" >
+						<a style="float:left;" wicket:id="add-page" class="btn btn-md btn-default"> <wicket:message key="add-page" /></a>
+					</div>
+			</div>
+			
+			<div class="row">
+					<div class="col-lg-10 col-md-12 col-xs-12" >
+						<h2 style="float:left; padding:0;"><wicket:message key="site-sections" /></h2>
+						<a style="float:left; clear:left;" wicket:id="site-sections" class="btn-link"><wicket:message key="open-site-sections" /></a>
+					</div>
+			</div>
+
+			<div class="row">
+				<div style="margin-top:15px;" class="col-lg-10 col-md-12 col-xs-12" wicket:id="error-panel" />
+			</div>
+	</div>
+	
+</wicket:panel>

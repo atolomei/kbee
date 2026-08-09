@@ -1,0 +1,61 @@
+<wicket:panel>
+	<div style="padding-bottom:20px;">
+		<div wicket:id="description">[]</div>
+	</div>
+	<div class="breadcrumb-container" wicket:id="path"></div>	
+	<div wicket:id="model-info">[]</div>
+	<div>
+		<div style="padding-bottom: 5px;padding-left:5px;">
+			<div><a wicket:id="globals-link">Globales</a></div>
+		</div>
+		<div wicket:id="global-info">[]</div>
+	</div>		
+	<div style="padding-bottom:20px;">
+	<div style="padding-top:10px; font-style: italic;padding-left:5px;"><wicket:message key="freemaker"/></div>
+	</div>
+</wicket:panel>
+
+<wicket:fragment wicket:id="path-fragment">
+	<ul class="breadcrumb">
+		<li wicket:id="path" style="float:left;"><a wicket:id="link"><span wicket:id="model">[]</span></a></li>
+	</ul>
+</wicket:fragment>
+
+<wicket:fragment wicket:id="content-info-fragment">
+	<div style="margin-bottom:25px; float:left; width:100%;">
+		<div style="padding-bottom:10px;"><wicket:message key="content-structure"/></div>
+		<ul style="width:100%;">	
+			<li wicket:id="model">
+				<div style="padding-bottom: 5px;">
+					<span wicket:id="template" style="font-weight:bold;">[]</span>
+				</div>
+				<div wicket:id="model-info"></div>
+			</li>
+		</ul>
+	</div>
+</wicket:fragment>
+
+<wicket:fragment wicket:id="model-info-fragment">
+	<div style="margin-bottom:25px; float:left; width:100%;">
+		<table class="table-responsive table table-header-bck  table-hover" id="tasks" style="line-height: 1.5em;">
+			<thead>
+				<tr class="headers">
+					<th class="col-xs-2 col-md-2 col-lg-2"><span> <wicket:message key="name" /></span></th>
+					<th class="col-xs-1 col-md-1 col-lg-1"><span> <wicket:message key="type" /></span></th>
+					<th class="col-xs-1 col-md-2 col-lg-2"><span> <wicket:message key="path" /></span></th>
+					<th class="col-xs-1 col-md-1 col-lg-1"><span> <wicket:message key="modifiers" /></span></th>
+					<th class="col-xs-4 col-md-3 col-lg-3"><span> <wicket:message key="description" /></span></th>
+				</tr>
+			</thead>
+ 			<tbody>
+				<tr wicket:id="element">
+					<td class="col-xs-2 col-md-2 col-lg-2"><div><a class="btn-link" wicket:id="link"><span wicket:id="name"></span></a></div></td>
+					<td class="col-xs-1 col-md-1 col-lg-1"><div><span wicket:id="type"></span></div></td>
+					<td class="col-xs-1 col-md-2 col-lg-2"><div><span wicket:id="path"></span></div></td>
+					<td class="col-xs-1 col-md-1 col-lg-1"><div style="width:100%; text-align:center;"><a class="btn-link" wicket:id="modifiers" target="_blank">View</a></div></td>
+					<td class="col-xs-2 col-md-3 col-lg-3"><div wicket:id="description"></div></td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</wicket:fragment>

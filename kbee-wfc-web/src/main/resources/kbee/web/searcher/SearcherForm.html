@@ -1,0 +1,27 @@
+<wicket:panel>
+
+
+	<form wicket:id="searchform" class="search navbar-form navbar-left">
+			
+			<div class="row">
+				<div class="col-lg-12 col-xs-12 col-md-12" style="width: 100%; margin: auto; float: none; padding:0 0 5px 0; max-width:860px;">
+					<div class="input-group search-field">
+						<div wicket:id="text" class="searcher"/>
+						<div class="input-group-btn">
+							<button wicket:id="search" type="button" class="btn btn-default dropdown-toggle"><span class="far fa-search"></span></button>
+						</div>
+					</div>
+				</div>
+			</div>
+			
+			<div wicket:id="advancedSearchContainer" class="row" style="margin-top: 0.5em;">
+				<a style="margin-right:1em; padding:0.5em 0; text-decoration:underline;" wicket:id="advanced"> 
+					<span style="color:white; padding:1em 0; text-decoration:underline;"> <wicket:message key="filters" /></span>	
+				</a>
+				<a  style="margin-left: 0.5em; padding:1em 0; text-decoration:underline;" wicket:id="explorer"> 
+					<span style="color:white; padding:1em 0; text-decoration:underline;"> <wicket:message key="explorer" /></span>	
+				</a>
+			</div>
+				
+	</form>
+</wicket:panel>

@@ -1,0 +1,57 @@
+		
+<wicket:panel>
+	<div class="billboard" wicket:id="bill-container">
+			<wicket:container wicket:id="billboard-notification" />
+	</div>	
+</wicket:panel>
+
+<wicket:fragment wicket:id="billboard-alert-fragment">
+			
+			
+			
+			<div class="billboard-panel-container">
+    		
+    		
+    			<div style="width:100%; float:left; width:calc(100% - 40px); display: inline-block;">
+
+						<div wicket:id="icon-container" style="padding:0px 0px;">
+							<i wicket:id="icon" style="padding:0; float: left;  margin: 2px 3px 20px 7px; font-size: 63px; color: #0d5072;" class="fal fa-bell"></i>
+						</div>
+						
+						<div wicket:id="image-container" style="padding:0px 0px;">
+							<img wicket:id="image" style="padding:0; float: left;  margin: 2px 5px 20px 5px;"></img>
+						</div>
+
+						
+						<div style="padding-left: 100px;">
+							<h2 wicket:id="title" style="margin-bottom: 5px; line-height: 1.75em; width:100%;"> Title</h2>
+							 
+							 <div wicket:id="text" style="width:100%;" />
+							 
+							 
+							 <div wicket:id="attachment-container" style="width:100%;">
+							 	<div style="padding:10px 0; float:left;">	
+									<a class="btn-link" style="text-decoration:none;" wicket:id="openfile"><span  wicket:id="file"></span></a>
+								</div>
+							 </div>
+						</div>
+					</div>
+				
+				
+				<div style="position: absolute; right: 10px; top: 5px; float:right;"> 
+						<a wicket:id="close" title="close" class="btn-mini"><i   class="fal fa-times"></i></a>
+				</div>
+				<div style="position: absolute;    right: 20px;    bottom: 8px;    float: right;    font-size: 13px;    color:#37474f;"> 
+						<span wicket:id="datetime" />
+				</div>
+				
+			</div>
+			
+</wicket:fragment>
+
+
+
+
+
+
+

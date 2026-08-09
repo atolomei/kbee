@@ -1,0 +1,26 @@
+<wicket:panel>
+	<div wicket:id="bar" style="float:left; width:100%; margin-bottom:15px;">
+		<nav style="border:1px solid #d8dcdf; background: #fbfbfb; height:52px; float:left; border-radius: 4px;" class="col-lg-12 col-xs-12 col-md-12">
+			<ul class="toolbar-buttons nav navbar-nav navbar-right" style=" padding-right:15px;">
+				<li class="items-top-right" style="border-radius:4px;">
+					<a wicket:id="viewEditor" class="btn-mini">
+						<i style="font-size: 17px;  margin-right: 4px;" wicket:id="onoff"></i>
+						<wicket:message key="form" />
+					</a>
+					<a wicket:id="viewPreview" class="btn-mini">
+						<i style="font-size: 17px;  margin-right: 4px;" wicket:id="onoff"></i>
+						<wicket:message key="signed-data" />
+					</a>
+					<a wicket:id="removeSignature" class="btn-mini">
+						<i style="font-size: 17px;  margin-right: 4px;" wicket:id="onoff"></i>
+						<wicket:message key="remove-signature" />
+					</a>
+					<div wicket:id="downloadPdf" style="float:left; padding:12px 15px;"   />
+					<a wicket:id="printPage" class="btn-mini">
+						<wicket:message key="print" />
+					</a>
+				</li>
+			</ul>
+		</nav>
+	</div>
+</wicket:panel>

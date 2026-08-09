@@ -1,0 +1,34 @@
+<wicket:panel>
+
+		
+		<div class="header">
+			<div style="width:100%; float:left;">
+				<h2 style="float:left;margin:0;" wicket:id="title">title</h2>
+				
+				
+				<div style="float:right;">
+				<a class="btn-mini" wicket:id="edit" title="edit" href="#">
+						<i class="far fa-edit"></i>
+				</a>
+
+				<a class="btn-mini" wicket:id="help-button" title="help" href="#">
+					<i class="fal fa-info-circle"></i>
+				</a>
+				
+				<a class="btn-mini" wicket:id="refresh" title="Refresh" href="#">
+						<i class="far fa-sync "></i>
+					</a>
+					
+				</div>
+				
+				
+			</div>
+		</div>			
+				<div wicket:id="container" class="widget-body-container">			
+					<div style="width:100%; float:left;" wicket:id="text"></div>
+					<div wicket:id="data-provider" />
+					<div wicket:id="help" />
+					
+				</div>		
+
+</wicket:panel>

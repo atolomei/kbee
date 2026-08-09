@@ -1,0 +1,55 @@
+<wicket:panel>
+	<div class="suggester-field">
+		<div class="control-label" wicket:id="label-container">
+			<label for="label" wicket:id="label"></label>
+			<i wicket:id="mandatory" class="mandatory fas fa-asterisk" title="field is required"></i>
+			<span class="highlight atright" wicket:id="readonly" >(<wicket:message key="readonly" />)</span>
+		</div>
+		<div class="control" wicket:id="horizontal-layout">
+			<wicket:container class="suggester-control" wicket:id="control"/>
+		</div>
+		<wicket:container class="suggester-control" wicket:id="control"/>
+	</div>
+</wicket:panel>
+
+<wicket:fragment wicket:id="control-fragment">
+	
+	<div class="input-group suggester-container" wicket:id="th" style="width:calc(100% + 1px);">
+		<input type="text" class="form-control typeahead" wicket:id="input"/>
+		<wicket:enclosure>
+			<div class="input-group-btn">
+				<button wicket:id="searcher" type="button" class="btn btn-default" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">&nbsp;<i class="far fa-search"></i></button>
+			</div>
+		</wicket:enclosure>
+	</div>
+		
+	<a wicket:id="help-link-choice" href="#" class="btn-link" style="font-size: 12px;  float: right;  padding: 11px 20px 11px 10px;  margin-right: 32px;  margin-top: -45px; position:relative; z-index:1000;">
+		<span wicket:id="helpstr" ></span>
+	</a>
+	<small wicket:id="help" class="help-block" style="float:left;width: calc(100% - 30px);">help</small>
+	
+	<wicket:container wicket:id="feedback">
+		<div style="float:left; width:100%; padding:4px 0 6px 0; position:relative;" class="suggester col-xs-12">		
+			<a>
+				<span wicket:id="icon" class="far fa-times form-control-feedback"></span>
+			</a>
+			<div class="error-block" style="float:left; width:100%;" wicket:id="error"></div>
+		</div>			
+	</wicket:container>
+	
+	<div wicket:id="history" class="help-block"/>
+	
+	<wicket:container wicket:id="info-panel">
+		<div wicket:id="panel">[]</div>
+	</wicket:container>
+	
+</wicket:fragment>
+
+<wicket:fragment wicket:id="history-fragment">
+	<wicket:container wicket:id="history">
+		<span wicket:id="separator" class="separator" />
+		<a class="text-info" wicket:id="link">
+			<span wicket:id="name" class="name"/>
+		</a>
+	</wicket:container>
+</wicket:fragment>

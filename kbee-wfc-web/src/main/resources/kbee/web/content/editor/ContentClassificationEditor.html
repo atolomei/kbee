@@ -1,0 +1,65 @@
+
+<wicket:panel>
+
+ 		<wicket:container wicket:id="toolbar"/>
+ 		
+		<ul class="col-lg-12 col-xs-12 classification" style="margin-bottom: 0px;">	
+			<li wicket:id="classification">
+				<div wicket:id="members" />
+			</li>
+			
+			<li wicket:id="eid" class="col-lg-12 col-md-12 col-xs-12 nopadding">
+				<div class="col-lg-12 col-xs-12 toleft">
+					<dl class="toleft col-lg-12 col-md-12 col-xs-12 readonly">
+				 		<dt>
+				 			<label style="width:auto;" class="control-label classifier" wicket:id="externalid-label">OneSite Id</label>
+				 		</dt>
+						<dd class="elements-container">
+							<div class="member-item">
+								<span wicket:id="externalid" class="member-element"></span>
+							</div>
+						</dd>
+					</dl>
+				</div>
+			</li>
+  		</ul>
+
+</wicket:panel>
+
+ 
+
+
+<wicket:fragment wicket:id="toolbar-fragment">
+	<nav class="nav navbar">
+
+		<div id="navbar" class="col-lg-12 col-xs-12 col-md-12 toleft toright">
+		
+		<div style="float:left">
+					<a  class="btn btn-sm btn-default" id="expand-all" wicket:id="expand-all"  style="padding-left:0;" title="Edit/Collapse">
+							<span wicket:id="edit-text"></span>
+					</a>
+		</div>
+					
+		<div style="float:right">
+					<!-- div class="dropdown atright" style="float:left;" alt="Labels">
+						<a class="btn-mini" id="rmenu" data-toggle="dropdown" wicket:id="menulabelslink">
+							<span class="far fa-tag" title="labels"></span>
+						</a>
+						<ul wicket:id="menulabels" class="dropdown-menu dropdown-menu-right" aria-labelledby="dmenu" />
+					</div -->
+					
+					<div class="dropdown atright" style="float:left;" alt="Defaults" title="Set as Attributes Defaults">
+						<a class="btn-mini" id="dmenu" data-toggle="dropdown"  wicket:id="menulink"> 
+							<span class="far fa-star"></span>
+						</a>
+						<ul wicket:id="menu" class="dropdown-menu dropdown-menu-right" aria-labelledby="dmenu" />
+					</div>
+			</div>
+		</div>
+	</nav>	
+</wicket:fragment>
+
+
+
+
+		

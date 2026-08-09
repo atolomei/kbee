@@ -1,0 +1,37 @@
+<wicket:panel>
+	
+	<label class="col-lg-2 control-label" wicket:id="label" for="label">[label]</label>
+	<span class="highlight atright" wicket:id="readonly" >(<wicket:message key="readonly" />)</span>
+	
+	
+	<div class="control" wicket:id="horizontal-layout">
+		<wicket:container wicket:id="control"/>
+	</div>
+	<wicket:container wicket:id="control"/>
+</wicket:panel>
+
+<wicket:fragment wicket:id="control-fragment">
+	<div class="input-group">
+		<input type="text" class="form-control" wicket:id="input"/>
+		<div class="input-group-btn">
+			<button wicket:id="searcher" type="button" class="btn btn-default" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">&nbsp;<span class="far fa-search"></span></button>
+		</div>
+		<wicket:container wicket:id="feedback">
+			<a>
+				<span wicket:id="icon" class="far fa-times form-control-feedback"></span>
+			</a>
+			
+			<small wicket:id="error" class="error-block">[]</small>
+		</wicket:container>
+	</div>
+	<div wicket:id="history" class="help-block"/>	
+</wicket:fragment>
+
+<wicket:fragment wicket:id="history-fragment">
+	<wicket:container wicket:id="history">
+		<span wicket:id="separator" class="separator" />
+		<a class="text-info" wicket:id="link">
+			<span wicket:id="name" class="name"/>
+		</a>
+	</wicket:container>
+</wicket:fragment>

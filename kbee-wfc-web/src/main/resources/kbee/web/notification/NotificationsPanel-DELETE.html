@@ -1,0 +1,48 @@
+
+<wicket:panel>
+	<div wicket:id="main-panel" class="notifications-window">
+			<div class="title-container">
+				<h2 ><wicket:message key="notifications.title" /></h2>
+				<span style="color: #999999; font-size: 1.35em; font-weight: normal;" wicket:id="total" />
+			</div>	
+			
+			<div style="float:left; max-height: 470px; overflow-y: scroll; width:100%; margin-bottom:0;">
+			
+				<ul style="float: left; margin-bottom: 24px;  width: 100%;">
+					
+					<li wicket:id="list" style="padding: 8px 0; width:100%; float:left;">
+						<div style="float: left; width: auto; padding: 0 8px 0 32px;">
+							 <span wicket:id="sender" class="sender"></span>
+							 <span class="text" style="width: auto; float: none; margin-right: 5px;"><wicket:message key="notifications.hassent" /></span>
+							 
+								 <a wicket:id="title-link" href="#">
+							     <span wicket:id="title" class="sender"></span>
+							  </a>
+ 							 <div style="width:100%;float:left;">
+ 							 	<span style="float:left; width:100%;" wicket:id="text" class="text"></span>
+							 	<span style="float:left; width:100%;" wicket:id="time" class="time"></span>
+						     </div>
+						 	 <a wicket:id="markasread" href="#" class="button-nobck"><span><wicket:message key="notifications.accept"/></span></a>
+						</div>
+					 </li>
+				</ul>
+			</div>
+
+			<div wicket:id="feedback" class="feedback fdinferior" style="width: 100%; float:left; padding:0; margin:0;"></div>
+			
+			<div class="buttons-container" style="float: left; margin-top: 18px; margin-bottom: 12px;">
+				<div style="float: left;  margin-left: 32px;">
+						<div style="float: left;">
+							<a class="form-submit-button"   wicket:id="acceptall-link">
+								<wicket:message key="notifications.acceptall"/>
+							</a>
+						</div>
+						<a class="form-submit-button atright" wicket:id="close-link" href="#">
+							<wicket:message key="notifications.close"/>
+						</a>
+				</div>
+			</div>
+	</div>
+	
+	
+</wicket:panel>

@@ -1,0 +1,39 @@
+	<wicket:extend>
+			<div class="kbsearcher">	
+				
+				
+				<section wicket:id="browser" id="browser" class="browser" style="padding:30px;">
+							
+						<div class="row">
+							<div class="main-area mb1em" style="float:left; width:100%;">
+									<div class="col-lg-12 col-xs-12 col-md-12">
+										<h1 wicket:id="title"></h1>
+										<div wicket:id="menu-container" style="display: inline-block;   float:right;  position: relative;">
+											<a id="dmenu" class="dmenu"	style="width: 32px;    height: 24px;    padding: 10px 15px;    position: relative;    float: left;" data-toggle="dropdown"><i class="far fa-ellipsis-h" aria-hidden="true"></i></a>
+											<ul wicket:id="menu" class="dropdown-menu dropdown-menu-right" aria-labelledby="dmenu" />
+										</div>
+									</div>
+							</div>
+						</div>
+						<div wicket:id="userlist-editor" />
+
+						<div wicket:id="description-container" class="row">
+							<div class="main-area mb3em" style="float:left; width:100%;">
+									<div class="col-lg-8 col-xs-12 col-md-12">
+										<p wicket:id="description"></p>
+									</div>
+							</div>
+						</div>
+						<div wicket:id="empty-container" class="row">
+							<div class="main-area mb3em" style="float:left; width:100%;">
+									<div wicket:id="empty"></div>
+							</div>
+						</div>
+						<div class="row">
+							<div wicket:id="userlist" class="col-lg-12 col-xs-12 col-md-12"/>
+						</div>
+						
+					</section>			
+			</div>
+	</wicket:extend>
+	

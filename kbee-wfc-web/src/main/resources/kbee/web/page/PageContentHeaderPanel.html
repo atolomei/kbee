@@ -1,0 +1,71 @@
+<wicket:panel>
+	
+	<div wicket:id="header-container" class="console-page-header page-header">		
+		
+		 
+		
+		<div  wicket:id="breadcrumb" class="breadcrumb-container" style="float:left; width:100%; position:relative;" />
+
+		<div style="float:left; width:100%; position:relative;" >
+			<div wicket:id="header-internal-container" class="col-lg-7 col-md-12 col-xs-12 page-header-content" style="float:left;">
+				<div style="float:left; padding: 0px 0px 0px 0px; width:100%;">
+					<div wicket:id="avatar" class="avatar" style="float:left; margin-right:10px; margin-top:-2px;" />
+					<i wicket:id="icon" class="far fa-coffee icon-flipped" style="font-size:27px; color:#0d5072; float:left; margin-right:8px; margin-top:0px;" />
+					<div class="title-container" style="float:left;" wicket:id="titlepanel"/>
+				</div>
+				<div wicket:id ="messagepanel" />
+			</div>
+			
+			<!-- div style="float:right;">
+				[Accesos Rápidos generales]
+			</div-->
+		
+			<div wicket:id ="tools" style="float:right;" />
+			
+			
+		</div>
+		
+		<div style="float:left; width:100%;" wicket:id="toolbar" />
+		
+	</div>
+</wicket:panel>
+
+<wicket:fragment wicket:id="default-title-panel">
+	<h1>
+		<a href="#" wicket:id="h1link">
+			<span wicket:id="title"></span>
+		</a> 	
+	</h1>
+	<span wicket:id="subline" style="float:left; clear:left; padding-top: 3px; font-size:13px;"></span>
+</wicket:fragment>	
+
+
+<wicket:fragment wicket:id="default-message-panel">
+ 	<div style="float:left; width:100%; position:relative; padding-top:15px;">
+			<div  wicket:id="message" style="float:left;"></div>
+	</div>
+</wicket:fragment>	
+ 
+
+
+<wicket:fragment wicket:id="default-tools-panel">
+ 		<div class="page-header-left-tools" style="float:right; position: initial; padding:0;">
+				<div style="position: relative;float:right;">
+					<div style="float:right; clear:right;">
+						<div class="search-box" style=" padding:0; position:relative; display: block;  float:left;" wicket:id="search" />
+						<div class="navigation" style=" padding:0; position:relative; display: block;  float:left;" wicket:id="navigation" />
+					</div>
+					<div style="float:right; clear:left;">
+						<div style="position:relative; display: block;  float:left;" wicket:id="actions" />
+						<div class="menu" style="position:relative; display: block;" wicket:id="menu-panel" />
+					</div>
+				</div>
+		</div>
+</wicket:fragment>	
+ 
+ 
+
+ 
+ 
+ 
+ 

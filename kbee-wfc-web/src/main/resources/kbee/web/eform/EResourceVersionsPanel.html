@@ -1,0 +1,32 @@
+<wicket:panel>
+
+	<table class="table table-bordered table-hover" style="width:100%; float:left; margin:0;">
+		<thead>
+			<tr class="headers">
+				<th class="col-lg-5"><span><wicket:message key="version.name" /></span></th>
+				<th class="col-lg-1" style="text-align: center;"><span><wicket:message key="version.number" /></span></th>
+				<th class="col-lg-2"><span><wicket:message key="version.date" /></span></th>
+				<th class="col-lg-3"><span><wicket:message key="version.user" /></span></th>
+			</tr>
+		</thead>
+		
+		<tbody>
+	 		<tr wicket:id="r-version">
+				<td class="col-lg-2">
+					<a class="btn btn-link" style="padding:0;" wicket:id="link"><span wicket:id="name">[file name]</span></a>
+				</td>
+				
+				<td style="text-align: center;" wicket:id="version" class="col-lg-1">[version]</td>
+				
+				<td wicket:id="date" class="col-lg-2"></td>
+				<td wicket:id="user" class="col-lg-1"></td>
+				
+			</tr>
+		</tbody>
+	</table>
+	
+	<div style="width:100%; float:left;">
+		<a class="btn btn-link" style="float:right" wicket:id="close"> <wicket:message key="close" /></a>
+	</div>	
+	
+</wicket:panel>

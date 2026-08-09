@@ -1,0 +1,123 @@
+.toast-feedback {
+    position: fixed !important;
+
+    bottom: 12px !important;
+    right: 12px !important;
+
+    top: auto !important;
+    left: auto !important;
+
+    z-index: 999999 !important;
+
+    width: 320px;
+
+    pointer-events: none;
+}
+
+.toast-feedback .alert {
+    position: relative;
+
+    pointer-events: auto;
+
+    overflow: hidden;
+
+    margin: 0 0 6px 0 !important;
+
+    padding: 15px 18px !important;
+
+    width: 300px;
+
+    border-radius: 3px !important;
+
+    box-shadow: 0 0 12px #999 !important;
+
+    color: white !important;
+
+    background-color: #0d5072 !important;
+
+    border: 1px solid #d2e5f3 !important;
+
+    opacity: .95;
+
+    animation:
+        toastFadeIn .3s ease,
+        toastFadeOut .4s ease forwards 4s;
+}
+
+.toast-feedback .alert:hover {
+    box-shadow: 0 0 12px #000 !important;
+
+    opacity: 1;
+
+    cursor: pointer;
+}
+
+/* Wicket feedback panel classes */
+
+.toast-feedback .feedbackPanelSUCCESS,
+.toast-feedback .feedbackPanelERROR,
+.toast-feedback .feedbackPanelFATAL,
+.toast-feedback .feedbackPanelINFO,
+.toast-feedback .feedbackPanelWARNING,
+
+/* Bootstrap alert classes */
+
+.toast-feedback .alert-success,
+.toast-feedback .alert-danger,
+.toast-feedback .alert-error,
+.toast-feedback .alert-info,
+.toast-feedback .alert-warning {
+    color: white !important;
+
+    background-color: #0d5072 !important;
+
+    border: 1px solid #d2e5f3 !important;
+}
+
+.toast-feedback ul {
+    margin: 0;
+
+    padding: 0;
+
+    list-style: none;
+}
+
+.toast-feedback li {
+    margin: 0 !important;
+
+    padding: 0 !important;
+
+    color: inherit !important;
+}
+
+.toast-feedback span {
+    color: inherit !important;
+
+    word-wrap: break-word;
+
+    display: block;
+}
+
+@keyframes toastFadeIn {
+    from {
+        opacity: 0;
+
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: .95;
+
+        transform: translateY(0);
+    }
+}
+
+@keyframes toastFadeOut {
+    to {
+        opacity: 0;
+
+        transform: translateY(20px);
+
+        visibility: hidden;
+    }
+}

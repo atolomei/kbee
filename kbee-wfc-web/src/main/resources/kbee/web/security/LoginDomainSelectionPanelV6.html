@@ -1,0 +1,36 @@
+<wicket:panel>
+	<div wicket:id="box" class="loginmodal-container-idoc idoc">
+
+        <div class="login-container">
+
+            <div class="logo-container" wicket:id="logo-container">
+                <img class="logo" wicket:id="logo"></img>
+            </div>
+
+            <form wicket:id="form" >
+
+                <div class="col-xs-12 form-group">
+                    <div class="form-group col-md-12 col-xs-12" wicket:id="domain"></div>
+                </div>
+
+                <div style="text-align: center; margin-top:18px;" class="col-xs-12 form-group">
+                    <input wicket:id="tmpSubmit" class="btn btn-primary fullw login loginmodal-submit" type="submit" name="login" value="Sign on"/>
+                </div>
+
+                <input wicket:id="submit" style="display: none;" type="submit" value=""/>
+
+            </form>
+
+
+            <div class="login-disclaimer-container" wicket:id="message-container">
+                <span wicket:id="message"></span>
+            </div>
+        </div>
+
+        <div class="login-learn-more-container" wicket:id="learn-more-container">
+            <a wicket:id="learn-more-link" href="https://www.realpage.com/document-management-solutions/enterprise/" target="_blank"><span wicket:id="learn-more-text"/></a>
+        </div>
+
+
+	 </div>
+</wicket:panel>

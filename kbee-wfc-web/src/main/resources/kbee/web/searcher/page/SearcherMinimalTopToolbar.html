@@ -1,0 +1,71 @@
+<wicket:panel>
+
+	<nav wicket:id="top-navbar" class="navbar navbar-default navbar-fixed-top kbsearcher">
+
+			<div id="navbar-header">
+					<div id="navbar-mobile">
+							<ul class="nav navbar-nav navbar-right hidden-xs">
+								<li><wicket:container wicket:id="search"/></li>
+							</ul>
+					</div>
+			</div>
+	</nav>
+
+</wicket:panel>
+			 
+
+<!-- BRAND -->
+
+<wicket:fragment wicket:id="favs-fragment">
+	<wicket:container wicket:id="favs-panel"/> 
+</wicket:fragment>
+
+<wicket:fragment wicket:id="mylists-fragment">
+	<a class="dropdown " wicket:id="link"  title="My Lists and Saved Queries">
+		<span class="fal fa-star"></span>
+	</a>
+	<div class="dropdown-menu" 	style="padding: 15px;	background:white;    display:block;    width: 60vw; min-width:200px; max-width:680px;"   wicket:id="bookmarks"></div>
+</wicket:fragment>
+
+<wicket:fragment wicket:id="help-fragment">
+	<a class="dropdown" wicket:id="help-link"  title="Help" href="#" style="margin-left:0;"><i class="fal fa-question-circle"/></a>
+</wicket:fragment>
+
+<wicket:fragment wicket:id="dashboard-fragment">
+	<a class="dropdown" wicket:id="dashboard-link"  title="Help" href="#" style="margin-left:0;">
+	 <!-- span> <wicket:message key="workspace" /> </span --> 
+		<i title="my tasks" class="fal fa-home"/>
+	</a>
+</wicket:fragment>
+
+<wicket:fragment wicket:id="submit-fragment">
+	<a class="dropdown" wicket:id="submit-link"  title="Help" href="#" style="margin-left:0;">
+	 <span> <wicket:message key="submit" /> </span> 
+	<!-- i class="fal fa-coffee "/ -->
+	</a>
+</wicket:fragment>
+							
+<wicket:fragment wicket:id="media-info-fragment">
+	<a class="dropdown" wicket:id="media-info-link"  title="Info" href="#" style="margin-left:0;"><i class="fal fa-info"/></a>
+</wicket:fragment>
+
+<wicket:fragment wicket:id="notifications-fragment">
+	<a class="dropdown" wicket:id="notifications-link"title="Alerts" href="#" style="margin-left:0; ">
+		<i wicket:id="icon" style="float:left; font-size: 20px;" class="fa fal fa-bell" aria-hidden="true"></i>
+		<span wicket:id="total-notifications" class="total-at-side"></span>
+	</a>
+</wicket:fragment>
+
+
+<wicket:fragment wicket:id="mynotes-fragment">
+	<a class="dropdown" wicket:id="mynotes-link"  title="My Notepad" href="#" style="margin-left:0;  max-width:80px;">
+			<i style="font-size: 20px;       float: left; " class="fal fa-edit"/>
+	</a>
+</wicket:fragment>
+
+
+<wicket:fragment wicket:id="myqueries-fragment">
+	<a class="dropdown" wicket:id="myqueries-link"  title="My Saved Queries" href="#">
+		<i style="font-size: 20px;    float: left; " class="fal fa-star"/>
+	</a>
+</wicket:fragment>

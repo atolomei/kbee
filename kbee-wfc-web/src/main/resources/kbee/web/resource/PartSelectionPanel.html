@@ -1,0 +1,50 @@
+<wicket:head>
+
+	<script type="text/javascript">
+		
+		var FileBrowserDialogue = {
+			init : function () {
+				 alert("init called");
+			},
+			mySubmit : function (URL) {
+		        top.cb(URL, { title: 'file' });
+				top.tiny.windowManager.close();
+			}
+		}
+		
+		function returnvalue(value) {
+			FileBrowserDialogue.mySubmit(value);
+		}
+		 
+	</script>
+</wicket:head>
+
+<wicket:panel>
+	<div>
+		<a wicket:id="content">
+			<span wicket:id="title">[]</span>
+		</a>
+	</div>
+	<div>
+		<div wicket:id="index">[]</div>
+	</div>
+	<div>
+		<form wicket:id="form"  class="form-container col-md-9 col-lg-7 col-xs-12" role="form">
+			<div class="col-xs-12 col-lg-4 col-md-4 form-group" wicket:id="include"/>
+		</form>
+	</div>
+
+</wicket:panel>
+
+
+<wicket:fragment wicket:id="index-fragment">
+	<div>
+		<ul>
+			<li wicket:id="index-view">
+				<a wicket:id="link">
+				<span wicket:id="title"></span>
+				</a>
+			</li>
+		</ul>
+	</div>
+</wicket:fragment>

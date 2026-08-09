@@ -1,0 +1,31 @@
+<wicket:panel>
+	<nav class="navbar navbar-default navbar-fixed-top idoc">
+		<div class="container-fluid">
+			<div id="navbar" class="navbar-collapse collapse">
+				<ul class="navbar-right actions nav navbar-nav">
+					<li class="dropdown hidden-xs"><wicket:container wicket:id="help"/></li>
+					<li style="position: relative; right:0; margin:0;">				
+									<a class="dmenu" id="dmenu" data-toggle="dropdown">
+										<span><icket:message key="edit" /></span>
+										<!-- i class="far fa-ellipsis-h" aria-hidden="true"></i-->
+									</a>
+									
+									<ul wicket:id="menu"  class="dropdown-menu" aria-labelledby="dmenu" />
+					</li>
+				</ul>
+			</div> <!--/.nav-collapse -->
+		</div> <!--/.container-fluid -->
+	</nav>
+</wicket:panel>
+
+
+<wicket:fragment wicket:id="help-fragment">
+	<a class="dropdown visible-md visible-lg" wicket:id="help-link"  title="Help" href="#" style="margin-left:0;"><span class="far fa-question-circle"/></a>
+</wicket:fragment>
+
+
+
+
+
+
+

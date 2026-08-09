@@ -1,0 +1,38 @@
+<wicket:panel>
+	<div style="margin-top: 0px;" >
+		<h2> <wicket:message key="inbounds" /></h2>
+		
+		<div class="row">
+			<div class="col-lg-12 col-md-12 col-xs-12 mb15">
+				<wicket:message key="inbound-desc" />
+			</div>
+		</div>
+
+		
+		<div wicket:id="inbounds-container" class="table-responsive table-header-bck" style="clear:left; height: inherit; overflow: auto; max-height: 680px; overflow: auto;">
+			<table style="float: left;" wicket:id="inbounds" class="table table-bordered  table-hover"/>
+		</div>
+
+
+		<h2 style="margin-top:20px;"> <wicket:message key="outbounds" /></h2>
+		
+			<div class="row">
+			<div class="col-lg-12 col-md-12 col-xs-12 mb15">
+				<wicket:message key="outbound-desc" />.
+			</div>
+		</div>
+
+
+		<div wicket:id="outbounds-container" class="table-responsive table-header-bck" style="clear:left; height: inherit; overflow: auto; max-height: 680px; overflow: auto;">
+			<table style="float: left;" wicket:id="outbounds" class="table table-bordered  table-hover"/>
+		</div>
+		
+	</div>
+</wicket:panel>
+
+<wicket:fragment wicket:id="link-fragment">
+	<a wicket:id="link" target="_blank">
+		<span wicket:id="title">[]</span>
+	</a>
+</wicket:fragment>
+ 								

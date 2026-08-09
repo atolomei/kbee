@@ -1,0 +1,18 @@
+<wicket:panel>
+
+	<div wicket:id="audittrail-container" class="standard-canvas" style="float:left; width:100%;">
+		<h2 style="padding:0;" class="col-md-12 col-lg-12 col-xs-12"> <wicket:message key="bc.audit"/></h2>
+		<nav wicket:id="navigation" />
+		<div wicket:id="table-container" class="row" style="clear:left; height: inherit; overflow: auto;">
+			<div class="table-responsive col-lg-12 col-md-12 col-xs-12">
+				<table wicket:id="activity" class="table table-header-bck table-bordered table-hover" style="border:1px solid #d8dcdf;"/>
+			</div>
+		</div>
+	</div>	
+	<div wicket:id="resolution-modal" class="modal window" data-dismiss="modal" data-toggle="modal" tabindex="-6" role="dialog"/>
+</wicket:panel>
+
+<wicket:fragment wicket:id="description-fragment">
+	<div wicket:id="note">[note]</div>
+	<a wicket:id="resolution" class="btn-link" target="_blank">Task Resolution</a>
+</wicket:fragment>
