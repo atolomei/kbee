@@ -1,0 +1,28 @@
+
+<wicket:panel>
+
+	<div class="browser-menu" wicket:id="menu-container">
+		<wicket:container wicket:id="menu"/>
+	</div>
+
+	<div wicket:id="layouts" />
+
+	<div class="order" style="margin-left: 0px; ">
+		<ul class="view-list" style="float: left; margin:0; display: block;">																		
+			<li style="float: left; padding:0; margin:0;" wicket:id="viewmode"><a wicket:id="link" class="button"><img wicket:id="icon" class="icon"/></a></li>
+		</ul>
+	</div>
+
+
+
+	<div wicket:id="fontsize" class="order" style=" float: left; padding-left:0;">
+		<a wicket:id="fontlarger-link" class="button">
+			<img wicket:id="icon" alt="font larger" title="font larger" />
+		</a>
+	
+		<a wicket:id="fontsmaller-link" class="button">
+			<img wicket:id="icon"  alt="font smaller" title="font smaller" />
+		</a>
+	</div>
+	
+</wicket:panel>

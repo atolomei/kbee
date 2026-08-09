@@ -1,0 +1,73 @@
+<wicket:panel>
+
+	<div class="tabbed-panel vertical-tabbed-panel">		
+		
+				<!--  global toolbar  -->
+				<div  style="float:left; width:100%;" wicket:id="toolbar" />
+		
+				<!--  one-panel header -->		
+				<div wicket:id="one-panel-menu-container">
+							<div class="internal-hideshow">
+								<div style="position: relative; right:15px; padding:10px 0;">
+									<a wicket:id="columns-view"><i wicket:id="col-icon" class="fal fa-table-columns"></i></a>
+									<a class="dmenu" id="dmenuop" data-toggle="dropdown" style="padding:15px 15px 10px 15px;"><i class="far fa-ellipsis-h" aria-hidden="true"></i></a>
+									<ul wicket:id="menuop" class="dropdown-menu dropdown-menu-right" aria-labelledby="dmenuop" />
+								</div>
+							</div>
+				</div>
+		
+			<!--  navigation Left or Right panel with the "table of panels"  -->					
+			<div wicket:id="header-container" class="col-lg-2 col-md-3 col-xs-12 head-right">
+					<div style="position:absolute; right:0; margin:15px;">
+						<a wicket:id="columns-view"><i wicket:id="col-icon" class="far fa-table-columns"></i></a>
+						<a class="dmenu" id="dmenu" data-toggle="dropdown" style="padding:20px 15px;"><i class="far fa-ellipsis-h" aria-hidden="true"></i></a>
+						<ul wicket:id="menu" class="dropdown-menu dropdown-menu-right" aria-labelledby="dmenu" />
+					</div>
+					
+					<div wicket:id="header-top-panel" style="width:100%; float:left;"></div>
+					
+					<h2 wicket:id="title" style="margin: 15px 0 0 0;"></h2>
+
+					<div wicket:id="header-info-panel" />
+					<div wicket:id="header-nav-title" />
+					
+					<ul  wicket:id="header-tabs-container" style="float:left; width:100%; margin-top:15px;" class="nav nav-pills nav-stacked">
+						
+						<li wicket:id="tabs">
+							
+							<div style="width:100%; float:left;" wicket:id="title-nolink"><span wicket:id="title"></span>
+							</div>
+							
+							<a style="width:100%; float:left;" wicket:id="link">
+								<i wicket:id="icon"  aria-hidden="true" style="margin-right: 4px;"></i>				
+								<span wicket:id="title"></span>
+							</a>
+						</li>
+					</ul>
+					<div wicket:id="header-bottom-panel" class="blockseparator" style="width:100%; float:left;"></div>
+			</div>
+				
+			<!--  main -->
+			<div wicket:id="content-container" class="col-lg-10 col-md-9 col-xs-12 content-left">
+					<div wicket:id="content-panel" class="vtab-content-panel">
+						<div wicket:id="content-toolbar" style="width:100%; float:left;" />
+						<div class="content-container-internal">
+							<div wicket:id="content-top-panel" />
+							<div wicket:id="tab-content" class="tab-content">
+									<div wicket:id="panel" class="tab-pane fade" style="width:100%; float:left;"/>
+							</div>
+							<div wicket:id="content-bottom-panel" style="width:100%; float:left;" />
+						</div>
+					</div>
+			</div>
+		
+	
+		</div>
+			
+</wicket:panel>
+
+
+
+
+
+		 

@@ -1,0 +1,25 @@
+<wicket:panel>
+	
+    <div wicket:id="main-panel" class="advanced-search-panel">
+
+		<form id="advanced-search-form" name="search-form23" method="post" action="#" wicket:id="form" style="float:left;">
+			<textarea style="float: left; border-radius: 4px; width: 320px; resize: none; margin: 12px; border: 1px solid #999999; font-family: Segoe UI, Arial, sans serif; font-size: 1em; padding: 8px;" rows="12" cols="40" wicket:id="statement"/>
+			<div wicket:id="feedback" style="background-color: yellow; margin-left: 10px; position: fixed; top: 140px; z-index: 100;">
+			</div>
+		</form>
+		
+		   
+		   <div class="buttons-container" style="float: left; width:auto; margin:  6px 12px 12px 12px;">
+				<div style="width: 100%; float: left; margin-bottom: 8px;">
+						<div style="float: left; ">
+							<a class="form-submit-button" wicket:id="search-link">
+								<wicket:message key="advancedsearch.submit"/>
+							</a>
+						</div>
+						<a wicket:id="close-link" href="#"  class="form-submit-button atright">
+							<wicket:message key="advancedsearch.cancel"/>
+						</a>
+				</div>
+			</div>
+		</div>
+</wicket:panel>

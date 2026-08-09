@@ -1,0 +1,28 @@
+<wicket:panel>
+
+<!--  The structure must be this because it inhertis AbstractLinkMenuItemPanelV5  -->
+
+
+<div style="float:left; width:100%;" class="menu-item" wicket:id="lcontainer"> 
+		<a style="float:left;" wicket:id="item-link" href="#">
+		       
+		       <i wicket:id="item-tag" style="float: left; margin: 2px 10px 0 0;"></i>
+		       <span wicket:id="item-label"/>
+		       <i wicket:id="item-icon"></i>
+		       	
+		       	
+		 </a>
+		<div class="contextual-help-container" wicket:id="contextual-help"> 
+			<a class="contextual-help-link" wicket:id="contextual-help-link" href="#">
+				<i style="font-size:16px; margin-right:1px;" class="fal fa-info-square"></i> 
+			</a>	
+		</div>
+</div>
+
+<div wicket:id="contextual-help-detail-container" class="contextual-help-detail-container"> 
+	<div wicket:id="contextual-help-detail"  class="contextual-help-detail"/>
+</div>
+
+	
+</wicket:panel>
+

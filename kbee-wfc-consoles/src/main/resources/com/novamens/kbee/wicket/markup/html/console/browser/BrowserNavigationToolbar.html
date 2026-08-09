@@ -1,0 +1,40 @@
+<wicket:panel>
+	<div class="row">
+		<div class="col-lg-12 col-md-12 col-xs-12">
+			<ul class="pagination">
+				<li class="page-item">
+					<a wicket:id="prev-page" class="page-link" href="#" tabindex="-1" aria-label="Previous">
+						<span aria-hidden="true">&laquo;</span>
+						<span class="sr-only">Previous</span>
+					</a>
+				</li>
+				<li class="page-item active" wicket:id="page">
+					<a wicket:id="link" class="page-link" href="#"><span wicket:id="number">[9]</span></a>
+				</li>
+				<li class="page-item">
+					<a wicket:id="next-page" class="page-link" href="#" aria-label="Next">
+						<span aria-hidden="true">&raquo;</span>
+						<span class="sr-only">Next</span>
+					</a>
+				</li>
+			</ul>
+			<ul class="toolbar-buttons nav navbar-nav navbar-right">
+
+				<li>
+					<div>
+						<div wicket:id="total-container" class="table-total">
+							<span class="label">Total: </span>
+							<span class="value" wicket:id="total"></span>
+						</div>
+						<a class="btn-mini atright" style="float:right;" wicket:id="download"><span class="far fa-cloud-download-alt"></span></a>
+					</div>
+				</li>
+				
+				<wicket:container wicket:id="items">
+					<li wicket:id="item-container"><div wicket:id="item">[]</div></li>
+				</wicket:container>
+				
+			</ul>
+		</div>
+	</div>
+</wicket:panel>

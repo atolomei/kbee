@@ -1,0 +1,31 @@
+<wicket:panel>
+	
+	<div class="navigation-toolbar">
+		<div style="margin-top:10px; float: left;">
+			<h2 style="font-size:1em;"><wicket:message key="filterspanel.label"/></h2>
+		</div>
+		
+		<div class="tools">	
+			<div class="order">
+				<a wicket:id="save-query-link" style="float: left; display: inline-block;" class="button">
+				 	<img wicket:id="favorite" />
+				 </a>
+			</div>
+			<div wicket:id="layouts" style="float: left; display: inline-block;" />
+		</div>
+		
+		<div wicket:id="save-query-window" class="save-query-window" />
+		
+	</div>
+
+	
+	<div id="scrollpanel" wicket:id="scrollpanel" class="scroll-list-container">
+		<div wicket:id="parameters" class="search-parameters"/>
+		<div wicket:id="facets" class="facets"/>
+	</div>
+	
+</wicket:panel>
+
+
+
+

@@ -1,0 +1,54 @@
+
+<wicket:panel>
+
+	<div class="container-fluid">
+	
+		<div class="row">
+				<div class="col-lg-12 col-xs-12 col-md-12 form-container" style="margin: 0 0 24px 0;">
+					<div class="row">
+						<div class="col-lg-4" style="padding:0;">
+							<div class="control-label" ><label><wicket:message key="property.page-size" /></label></div>
+							<div class="fullw" style="padding-right:1px;" wicket:id="page-size"></div>
+						</div>
+					
+					<div class="col-lg-4" style="padding:0;">
+							<div class="control-label" ><label><wicket:message key="property.date-format" /></label></div>
+							<div class="fullw" style="padding-left:1px;" wicket:id="date-format"></div>
+						</div>
+						
+						<div class="col-lg-4" style="padding:0;">
+							<div class="control-label" ><label><wicket:message key="property.icon-mode" /></label></div>
+							<div class="fullw" style="padding-left:1px;" wicket:id="icon-size"></div>
+						</div>
+						
+					</div>
+				</div>
+		</div>
+	
+	
+		<div class="row">
+			<ul wicket:id="columns-view" class="list-group col-lg-12" style="border: 1px solid  #d8dcdf;  height: 392px;max-height: 60vh;  overflow-y: auto;    overflow-x: hidden;border-radius: 4px;">
+			 	<li wicket:id="column" class="list-group-item">
+			 		<div class="menu-item">
+			 		<div class="checkbox" style="float:left;">
+						<input wicket:id="selector" type="checkbox">
+						<label ></label>
+					</div>
+					<span  class="label" style="margin-left: 15px; font-weight:normal;" wicket:id="name"></span>
+					<span class="far fa-ellipsis-h"  style="float:right;cursor:pointer;		float: right;    cursor: pointer;    padding: 10px 15px 5px 15px;    margin-top: -6px					" wicket:id="menulink" id="dmenu" data-toggle="dropdown" />
+					<ul wicket:id="menu" class="dropdown-menu dropdown-menu-right" aria-labelledby="dmenu" />
+				</div>
+					
+				</li>
+			</ul>
+		</div>
+		
+		<div class="row">
+				<div class="col-lg-12 col-xs-12"  style="margin:12px 0 0 0;">
+					<span class=" alert alert-info" style="margin-bottom:0;"> <wicket:message key="reorder" /></span>
+				</div>
+		</div>
+		
+	</div>
+	
+</wicket:panel>

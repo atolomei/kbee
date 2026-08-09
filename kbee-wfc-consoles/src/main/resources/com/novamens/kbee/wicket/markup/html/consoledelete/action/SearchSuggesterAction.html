@@ -1,0 +1,22 @@
+<wicket:panel>
+	
+	
+	<div wicket:id="search-panel" class="search-panel">
+		<form id="search-form23" name="search-form23" method="post" action="#" wicket:id="form">
+			<div style="float: left; display: inline-block;">
+				<input wicket:id="text" class="text-default" placeholder="Search" style="float:left;background-image: none;"/>
+				<input wicket:id="search" class="button" type="submit" value="Buscar" style="display:none"/>
+				<div class="icon-container" style="float:left;     margin-left: -4px;    margin-top: 0px;">
+					<a wicket:id="magnifier" class="magnifier">
+					<img src="/images/magnifier-999999.png" class="magnifier" style="width: 20px; padding-top: 7px; padding-right:2px;"></a>
+				</div>
+			</div>
+			<div style="float:left; margin-left: 0px;" wicket:id="advanced-search-container">
+				<a wicket:id="advanced"  class="advanced">+</a>
+			</div>
+		</form>
+		<div style="float:left;" class="advanced-search" wicket:id="advanced-search-panel"/>
+	</div>
+	
+	
+</wicket:panel>

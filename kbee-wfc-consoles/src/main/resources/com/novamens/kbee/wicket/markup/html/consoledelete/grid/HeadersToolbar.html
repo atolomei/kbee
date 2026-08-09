@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<wicket:head>
+	<script>	 
+		function resizecell(tableid, cellindex, width) {
+			alert(1);
+			var table = document.getElementById(tableid);
+			var index;
+			var rows = table.rows;
+			for (index = 0; index < rows.length; ++index) {
+				var row = rows[index];
+				var cells = row.cells;
+				var cell = cells[cellindex];
+				console.log(cell);
+			}
+		}
+	</script>
+</wicket:head>
+<wicket:panel xmlns:wicket="http://wicket.apache.org">
+	<tr class="headers" >
+		<th wicket:id="headers"><wicket:container wicket:id="header"><span wicket:id="label"></span></wicket:container></th>
+	</tr>
+</wicket:panel>

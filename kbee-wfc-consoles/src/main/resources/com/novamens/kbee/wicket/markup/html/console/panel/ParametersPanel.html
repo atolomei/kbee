@@ -1,0 +1,70 @@
+<wicket:panel>
+
+	<div wicket:id="parameters-container" class="parameters-panel toleft toright col-lg-12 col-md-12 col-xs-12">
+		
+		<div class="alert-info">
+			
+			<div wicket:id="toolbar"></div>
+			
+			<div class="col-lg-12 col-xs-12 col-md-12" style="padding-left:0;">
+				
+				<wicket:container wicket:id="text-panel">
+					<a wicket:id="text-link" class="btn-link" style="width: auto;">
+						<span wicket:id="text" style="font-style: italic; margin-top: 0px;float: left;"></span>
+						<span class="fal fa-times-square" />
+					</a>
+			
+				</wicket:container>
+				
+				<dl wicket:id="iqlPanel">
+					<dt class="texto" style="float: left; font-weight: bold;">IQL.&nbsp;</dt>
+					<a wicket:id="deleteLink">
+						<dd wicket:id="iql" class="texto"></dd>
+					</a>
+				</dl>
+				
+				<wicket:container wicket:id="ParmametersPanelAppliedFiltersPanel" style="float:left"/>
+				
+			</div>
+		</div>
+	</div>
+</wicket:panel>
+
+
+	<wicket:fragment wicket:id="filtersFragment">
+	
+		<wicket:container wicket:id="values">
+			<a wicket:id="deleteLink" class="btn-link" style="  text-align: left; width: auto;">
+				<span wicket:id="value" style="margin-top: 0px;float: left;">value</span>
+				<span class=" fal fa-times-square" />
+			</a>
+		</wicket:container>
+		
+		<wicket:container wicket:id="members">
+			<wicket:container wicket:id="parents">
+				<a wicket:id="parentLink" class="btn-link" style="width: auto; text-align: left;">
+					<span wicket:id="value">value</span>				
+					<span> / </span>
+				</a>
+			</wicket:container>
+			<a wicket:id="deleteLink" class="btn-link" style="text-align: left; width: auto; margin-left: 0px;">
+				<span wicket:id="value" style="margin-top: 0px;float: left;">value</span>
+				<span class=" fal fa-times-square" />
+			</a>
+		</wicket:container>
+
+
+	
+	<wicket:container wicket:id="ormembers">
+		<a wicket:id="deleteLink" class="btn-link" style="text-align: left; width: auto;">
+			<div style="float:inherit">	
+				<wicket:container wicket:id="members">
+					<span wicket:id="value" style="margin-top: 0px;float: left;"></span>
+					<span wicket:id="or" style="float: left; margin:0 4px; padding:0; color: #999999;"> | </span>
+				</wicket:container>
+			</div>
+			<span class=" fal fa-times-square"/>
+		</a>
+	</wicket:container>
+
+</wicket:fragment>

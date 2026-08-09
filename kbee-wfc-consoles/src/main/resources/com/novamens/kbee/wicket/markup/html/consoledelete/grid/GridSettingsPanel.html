@@ -1,0 +1,101 @@
+
+<wicket:panel>
+	
+ <div class="modal-dialog">
+
+	<div class="modal-dialog-body">
+
+			<form wicket:id="grid-settings-form" class="gridform" id="gridform" method="post" action="#">
+			
+				<div wicket:id="feedback" class="feedback fdsuperior"></div>
+			
+				<!--  COLUMNS ------------------------------------------------------------------------------------------------------------------------->
+							
+				<div style="float: left; width:100%;">
+					<div style="float: left; width:100%;">
+						<div style="float: left; width:100%;">
+							<h2 style="float:left;"><wicket:message key="columns" /></h2>
+						</div>
+						
+						<ul class="list" >
+							<li class="row" wicket:id="column">
+								<div style="float:left; padding: 0 4px 0 8px;">
+									<input wicket:id="visible" style="float:left; margin-top: 4px;height: 11px; width: 11px;" type="checkbox" class="check"/>
+								</div>
+								
+								<div style="float:left; min-width: 50%;">
+									<span wicket:id="name"></span>
+								</div>
+								<div style="float:right; margin-right:4px;">
+									<a class="updown" wicket:id="uplink"><wicket:message key="up" /></a>
+									<a class="updown" wicket:id="downlink"><wicket:message key="down" /></a>
+								</div>
+							</li>
+						</ul>
+					
+						<div class="field-block" style="margin-top: 7px; float:left;">
+									<input wicket:id="resize-defaults" style="float:left; margin-top: 5px;height: 11px; width: 11px;" type="checkbox" class="check"/>
+									<span style="color: #666666;"><wicket:message key="resize-defaults" /></span>
+									<a wicket:id="hide-unselected2" style="float: left; padding: 1px 12px; float: right; border-radius: 4px; color:#0d5072; font-size:0.9em;"><span wicket:id="hslabel"></span></a>
+						</div>
+						
+					</div>
+
+					<!--  DISPLAY -------------------------------------------------------------------------------------------------------------------->
+
+					<div style="margin-top: 24px; float: left; width:100%;">
+						
+						<div style="float: left; width:100%;">
+						
+							<div style="float: left; width:100%;">
+								<h2><wicket:message key="display-options" /></h2>
+							</div>
+							
+							<div style="    float: left;    width: calc(100% - 2px);    height: 222px; overflow-y: auto; border: 1px solid #cccccc; padding: 1px;    border-radius: 4px;">
+								<div class="field-block-box">
+										<span class="label"><wicket:message key="cell-borders" /></span>
+										<select id="cell-border" wicket:id="cell-border" name="cell-border"></select>
+								</div>
+								
+								<div class="field-block-box">
+							 			<span class="label"><wicket:message key="row-bck" /></span>
+										<select id="row-bck" wicket:id="row-bck" name="row-bck"></select>
+							 	</div>
+							 	
+								<div class="field-block-box">
+										<span class="label"><wicket:message key="date-mode" /></span>
+										<select id="date-colloquial" wicket:id="date-colloquial" name="date-colloquial"></select>
+								</div>
+							 	
+								<div class="field-block-box">							 			
+											<span class="label"> <wicket:message key="resources" /></span>
+											<select id="resources" wicket:id="display-mode" name="display-mode" ></select>
+							 	</div>
+							 	
+							 	<div class="field-block-box">							 			
+											<span class="label"> <wicket:message key="list-size" /></span>
+											<select id="list-size" wicket:id="list-size" name="list-size" ></select>
+							 	</div>
+							 	
+							 	<div class="field-block-box">							 			
+											<span class="label"> <wicket:message key="repeat-title-end" /></span>
+											<select id="repeat-title-end" wicket:id="repeat-title-end" name="repeat-title-end" ></select>
+							 	</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="buttons-container" style="margin-top: 36px; margin-bottom: 12px; float: left;">	
+					<div style="float: left; width: 100%;">
+						<div  style="float: left; width:100%;">
+							<a class="form-submit-button p47left" wicket:id="submitener"><wicket:message key="send" /></a>
+						</div>
+						<a class="form-submit-button p47right"  wicket:id="cancel" style="float:right;"><wicket:message key="cancel" /></a>
+					</div>
+				</div>
+					
+			</form>
+	</div>
+ </div>
+</wicket:panel>

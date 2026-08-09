@@ -1,0 +1,85 @@
+
+<wicket:panel>
+	
+ <div class="modal-dialog">
+	
+	<div class="modal-dialog-body">
+			<form class="gridform" id="gridform" method="post" action="#">
+			
+				<div style="float: left; width:100%;">
+
+					<div style="float: left; width:100%;">
+						<div style="float: left; width:100%;">
+							<h2>Columns</h2>
+						</div>
+						<ul class="list" >
+							<li class="row"  wicket:id="column">
+								<div style="float:left; padding: 0 6px;	">
+									<input wicket:id="visible" class="check" style="float:left; margin-top: 2px;height: 17px; width: 17px;" type="checkbox"/>
+								</div>
+								<div style="float:left; min-width: 50%;">
+									<span wicket:id="name"></span>
+								</div>
+								<div style="float:right;">
+									<a class="updown" wicket:id="uplink"><wicket:message key="columnspanel.up" /></a>
+									<a class="updown" wicket:id="downlink"><wicket:message key="columnspanel.down" /></a>
+								</div>
+							</li>
+						</ul>
+					</div>
+
+					<div style="margin-top: 24px; float: left; width:100%;">
+						<div style="float: left; width:100%;">
+							<div style="float: left; width:100%;">
+								<h2>Display options</h2>
+							</div>
+							<div style="float: left; width:100%;">
+								<div style= "float: left; width:100%;">
+										<span class="label">Cell Borders</span>
+										<span class="field">(select yes/no)</span>
+								</div>
+								
+							 	<div style= "float: left; width:100%;">
+							 			<span class="label">Row Background</span>
+										<span class="field">(select yes/no)</span>
+							 	</div>
+							 	
+							 	<div style= "float: left; width:100%;">
+							 			<span class="label">Date</span>
+										<span class="field">colloquial, timestamp</span>
+							 	</div>
+							 	
+							 	<div style= "float: left; width:100%;">
+							 			<span class="label">Icon</span>
+										<span class="field">Select: Icon, Icon Description, Thumbnail</span>
+							 	</div>
+							</div>
+						</div>
+					</div>
+					
+					
+					<!-- div style="margin-top: 24px; float: left; width:100%;">
+						<div style="float: left; width:100%;">
+							<div style="float: left; width:100%;">
+								<h2>List options</h2>
+							</div>
+							<div style="float: left; width:100%;">
+							 	<div style= "float: left; width:100%;">Date (Simple. Timestamp)</div>
+							 	<div style= "float: left; width:100%;">Icon (Select: Icon, Icon Description, Thumbnail)</div>
+							</div>
+						</div>
+					</div-->
+				</div>
+				
+			<div class="buttons-container" style="margin-top: 28px; float: left;">	
+				<div style="float: left; width: 100%;">
+					<a wicket:id="applylink" style="float: left;" class="form-submit-button">
+						<wicket:message key="columnspanel.apply" />
+					</a>
+					<a class="form-submit-button atright" wicket:id="cancellink" href="#"><wicket:message key="columnspanel.cancel" /></a>
+				</div>
+			</div>	
+			</form>
+	</div>
+ </div>
+</wicket:panel>

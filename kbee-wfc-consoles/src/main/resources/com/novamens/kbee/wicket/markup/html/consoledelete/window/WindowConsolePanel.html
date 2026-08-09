@@ -1,0 +1,25 @@
+<wicket:panel>
+  <div class="modal-dialog console-window">
+  	<form id="form" method="post" action="#">
+		<div style="float: left; width: 100%;">
+				<div class="field-block first">
+			    	<div class="title-block">
+			    		<label  wicket:id="window-title" for="title" accesskey="t" tabindex="2" class="label" style="float: left;"/>
+		    		</div>
+		    		<div style="float: left; width: 100%;">
+		    			<span wicket:id="window-text" style="float: left;"/>
+		    		</div>
+				</div>
+		</div>
+		<div wicket:id="buttons-container" style="float: left;margin:8px 0 0 0; text-align: center;">
+			<div style="float:left">
+				<a class="form-submit-button" wicket:id="submitener"><wicket:message key="windowconsole.button.submit" /></a>
+			</div>
+			<div style="float:left">
+				<a class="form-submit-button" style="float: left; margin-left: 6px;" wicket:id="cancel"><wicket:message key="windowconsole.button.cancel" /></a>
+			</div>
+		</div>
+	</form>
+  </div>	
+</wicket:panel>
+

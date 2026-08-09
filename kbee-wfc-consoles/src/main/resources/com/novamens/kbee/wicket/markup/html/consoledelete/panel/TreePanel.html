@@ -1,0 +1,31 @@
+
+
+<wicket:head>
+	<style>
+		.tree-theme-windows:hover {background: none;}
+		.tree-theme-windows div.tree-branch {margin: 0;padding: 3px 0 3px 0}
+		.tree-theme-windows div.tree-branch:hover {background: #ededed;}
+		.tree-theme-windows div.tree-branch:hover a {text-decoration: none; }
+		.tree-theme-windows span.tree-content a:hover {text-decoration: none; }
+
+		.tree-theme-windows div.tree-branch:hover {text-transform:none;}
+		.tree-theme-windows .tree-folder-other {padding-left: 4px;background-image: none;background-position: 0px 50%;background-repeat: no-repeat}
+		.tree-theme-windows span.tree-content a:hover {text-decoration: none;  }
+		.browser .search-result ul li.tree-theme-windows:hover {background: none;}
+	</style>
+</wicket:head>
+
+
+<wicket:panel>
+	<div style="height:100%" wiket:id="viewcontainer">
+		<div wicket:id="navigation-toolbar" class="navigation-toolbar" />
+		<div id="scrolllist" class="scroll-list-container" wcket:id="scrolllist">
+			<div class="data">
+				<ul>
+					<li wicket:id="tree">
+					</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+</wicket:panel>

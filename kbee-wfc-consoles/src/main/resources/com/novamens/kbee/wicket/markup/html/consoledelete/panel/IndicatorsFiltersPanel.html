@@ -1,0 +1,35 @@
+<wicket:panel>
+	
+	<div class="navigation-toolbar">
+		<div style="margin-top:9px; float: left;">
+			<h2 style="font-size:1em;"><wicket:message key="indicatorspanel.label"/></h2>
+		</div>
+		
+		<div style="float: right; display: inline-block; margin-left: 1em;">	
+			<!-- div class="order" style="margin-left: 0px;  margin-right: 2em;">
+				<a class="button" wicket:id="prev-link" >
+				 	<img wicket:id="prev" style="float:right" title="Previous element" />
+				 </a>
+				<a class="button"  wicket:id="next-link">
+				 	<img wicket:id="next" style="float:right"/>
+				 </a>
+			</div-->
+			<div wicket:id="layouts" style="float: left; display: inline-block;" />
+		</div>
+
+		<!-- div wicket:id="save-query-window" class="save-query-window" /-->
+		
+	</div>
+	
+	<div id="scrollpanel" wicket:id="scrollpanel" class="scroll-list-container">
+		<div wicket:id="parameters" class="search-parameters"/>
+		<div wicket:id="indicators" class="facets"/>
+	</div>
+	
+	
+	
+</wicket:panel>
+
+
+
+

@@ -1,0 +1,16 @@
+<wicket:panel>
+
+	<div class="menu-item" wicket:id="lcontainer">
+		<a wicket:id="item-link" href="#">
+			<i wicket:id="item-icon"></i>
+			<span wicket:id="item-label">[label]</span>
+		</a>
+	</div>	
+	
+	<div wicket:id="menu-container" class="submenu-container">
+		<ul wicket:id="menu" class="submenu">
+			<li wicket:id="item"><wicket:container wicket:id="panel"/></li>
+		</ul>
+	</div>
+	
+</wicket:panel>

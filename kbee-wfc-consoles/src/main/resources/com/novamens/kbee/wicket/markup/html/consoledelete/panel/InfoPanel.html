@@ -1,0 +1,23 @@
+<wicket:panel>
+
+	<!-- h2><wicket:message key="console.browser.infopanel.label"/></h2 -->
+
+	<div class="navigation-toolbar">
+		<div style="float: left; margin-top: 10px;">
+			<h2 wicket:id="title" />
+		</div>
+		<div style="float: right; display: inline-block; margin-left: 1em;">	
+			<div class="order" style="padding:0;  margin-right: 0;">
+				<a wicket:id="change-viewmode-link" class="button">
+			 		<img wicket:id="viewmode" style="float:right" title="Next element" />
+			 	</a>
+			</div>
+			<div wicket:id="layouts" style="float: left; display: inline-block;" />
+		</div>
+
+	</div>
+
+	<div class="scroll-list-container" wicket:id="info">		
+	</div>
+
+</wicket:panel>

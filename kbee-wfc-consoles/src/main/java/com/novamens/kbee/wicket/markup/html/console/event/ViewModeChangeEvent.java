@@ -1,0 +1,12 @@
+package com.novamens.kbee.wicket.markup.html.console.event;
+
+import org.apache.wicket.ajax.AjaxRequestTarget;
+
+import com.novamens.kbee.wicket.markup.html.event.AbstractWicketAjaxEvent;
+
+public class ViewModeChangeEvent extends AbstractWicketAjaxEvent {
+
+	public ViewModeChangeEvent(AjaxRequestTarget target) {
+		super(target);
+	}
+}

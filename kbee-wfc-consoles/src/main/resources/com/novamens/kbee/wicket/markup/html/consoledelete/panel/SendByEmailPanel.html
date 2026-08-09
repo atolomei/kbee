@@ -1,0 +1,60 @@
+<wicket:panel>
+
+
+
+ <div class="form-with-bottom-bar">
+		<div class="title-container mf-form">
+		<div class="title-block">
+		<span class="label">
+			<wicket:message key="sendbyemailpanel.title"/>
+	  	</span>
+		</div>
+			<h1 class="title"><span wicket:id="title"></span></h1>
+		</div>
+	
+		<form wicket:id="send-by-email-form" id="send-by-email-form" method="post" action="#" >
+
+			<div class="fields-container mf-form">
+				<div class="field-block">
+			    	<div class="title-block">
+			    		<label for="to" accesskey="t" tabindex="2" class="label">
+				    			<wicket:message key="sendbyemailpanel.to"/>
+				    	</label>
+				    	<span class="label-description">
+				    		<wicket:message key="sendbyemailpanel.to.explanation"/>
+				    	</span>
+		    		</div>
+					<input wicket:id="to" type="text">
+				</div>
+
+
+				<div class="field-block">
+					<div class="title-block">
+						<label for="message" accesskey="m" tabindex="7" style="font-weight:bold; width: 100%; float: left; margin-bottom: 3px;">
+						<wicket:message key="sendbyemailpanel.message"/></label>
+					</div>
+						<textarea id="message" rows="18" cols="60" style="border-radius: 4px 18px; height: 240px; float: left; line-height: 1.45em; width: 90%; float: left; font-size: 1em; padding: 12px; font-family: sans serif; border: 1px solid #cccccc;"  wicket:id="message"/>
+				</div>
+		
+				<div style="color:red; width: 100%; position: relative; float: left;" wicket:id="feedbackMessage">
+				</div>
+				
+			</div>
+		
+			<div class="buttons-container-bar">
+						<div class="buttons-container mf-form">
+							<div style="float: left; width: 100%;">
+								<a wicket:id="ok-link" style="float: left;" class="form-submit-button">
+									<wicket:message key="sendbyemailpanel.button.submit"/>
+								</a>
+								<a class="button-nobck atright" wicket:id="cancel-link" href="#">
+									<wicket:message key="sendbyemailpanel.button.cancel"/>
+							 	</a>
+							</div>
+						</div>
+			</div>
+		</form>
+
+  </div>	
+		
+</wicket:panel>

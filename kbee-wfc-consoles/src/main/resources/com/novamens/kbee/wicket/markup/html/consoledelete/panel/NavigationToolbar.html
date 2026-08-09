@@ -1,0 +1,77 @@
+
+<wicket:panel>
+	
+	<div wicket:id="check-all-container" class="order" style="    margin: 0px; padding: 18px 8px;">
+		<input wicket:id="check-all" type="checkbox" class="check" alt="select all" style="    float: left;
+    width: 1.05em;
+    height: 1.05em;"/>
+	</div>
+	
+		
+	<div class="browser-menu" wicket:id="menu-container">
+		<div style="float:left;">
+			<wicket:container wicket:id="menu"/>
+		</div>
+	</div>
+
+	<div wicket:id="top-toolbar" />
+
+	<div wicket:id="paging" class="paging">
+		<a wicket:id="previous-link" class="button" style="float: left;">
+			<img wicket:id="icon"  alt="previous page" title="previous page"/>
+		</a>
+		<a wicket:id="next-link" class="button" style="float: left;">
+			<img wicket:id="icon"  alt="next page" title="next page"/>
+		</a>
+	</div>
+	
+	<div wicket:id="viewmodes" />
+	
+	<div class="order" style="margin-top: 0px;">
+		<div class="text-selector">
+			<label for="orden" style="margin-right: 4px;"><wicket:message key="console.toolbar.order-action"/></label>
+			<select id="orden" wicket:id="order-selector" title="Ordenar por">  
+				<option value="1"></option>
+			</select>
+		</div>
+	</div>
+
+	<div wicket:id="buttons" class="order" style=" float: left; padding-left:0;">
+
+		<!-- a wicket:id="audit-link" class="button">
+			<img wicket:id="icon" alt="audit" title="audit trail" />
+		</a-->
+
+		<a wicket:id="row-thumbnailmode-link" class="button">
+			<img wicket:id="icon"  alt="thumbnail mode on/off" title="thumbnail mode on/off" />
+		</a>	
+	
+		<a wicket:id="onepanel-link" class="button">
+			<img wicket:id="icon"  alt="show/hide right panel" title="show/hide right panel" />
+		</a>
+
+	</div>
+
+	<div class="order" style="padding-left:0;">
+		<a class="button" wicket:id="filters-applied-link" style="color:#cc0000;" href="#">
+			<div wicket:id="filters-applied-container" style="float: left;     height: 25px;">
+				<span style="padding: 5px 0 0 0; float: left;">
+						<img wicket:id="warningicon" class="icon" style="height:15px;"/>
+				</span>		
+				<span style=" padding: 4px 0 0 8px;  float: left;">
+					<wicket:message key="navigation.filtersapplied" />
+				</span>
+			</div>
+		</a>
+		<div wicket:id="filters-detail" class="parameters-container"> 
+			<div wicket:id="parameters" class="search-parameters"/>
+		</div>
+	</div>
+
+	<div class="size">
+		<div class="text-selector">
+			<span wicket:id="from" class="value"></span> <span style="color: #666666; font-weight: normal;">-</span><span wicket:id="to" class="value">5</span><span style="color: #666666; font-weight: normal; padding:0 4px;">of</span><span wicket:id="size" class="value"></span>
+		</div>
+	</div>		
+
+</wicket:panel>

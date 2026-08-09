@@ -1,0 +1,25 @@
+<wicket:panel>
+
+		<ul class="padding-noset list-group col-lg-12 col-md-12 col-xs-12 compressed-list" style="padding:0; min-height:230px; max-height:480px; overflow-y: auto; overflow-x: hidden;">
+			<li class="list-group-item" style="float:left; width:100%;" wicket:id="list-items">
+					<div style="float: left;    display: inline-block;    position: relative;">
+						<!-- a class="dmenu" id="dmenu" data-toggle="dropdown"><i class="far fa-ellipsis-h" aria-hidden="true"></i></a-->
+						<a id="dmenu" class="dmenu"	style="width: 32px;    height: 24px;    padding: 2px 6px;    position: relative;    float: left;" data-toggle="dropdown"><i class="far fa-ellipsis-h" aria-hidden="true"></i></a>
+						<ul wicket:id="menu" class="dropdown-menu" aria-labelledby="dmenu" />
+					</div>
+					<div style="margin-left:35px; width:calc(100% - 35px);">				
+						<a wicket:id="link">
+							<span class="membername"  style="float:left; margin-right:15px; float:left; width:100%;"  wicket:id="title"/>
+							<span class="metadata" style="float:left; width:100%; padding-left:0;" wicket:id="subtitle"></span>
+						</a>
+					</div>
+			</li>
+		</ul>
+		
+		<div wicket:id="actions" class="col-lg-12 col-md-12 col-xs-12 actions-block" style="padding:10px 0 0 0;">
+			<a href="#" class="btn btn-link" style="float:left;" wicket:id="close"> <wicket:message key = "close" /></a>
+		</div>
+		 
+</wicket:panel>
+
+			

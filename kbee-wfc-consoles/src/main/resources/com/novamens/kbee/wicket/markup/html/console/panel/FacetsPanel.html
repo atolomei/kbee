@@ -1,0 +1,104 @@
+<wicket:panel>
+<div class="container facets" style="width:100%;">
+	<div class="row">
+		<div class="col-md-12 toleft toright" style="width:100%;">
+			<div class="panel-group"  style="float:left;">
+				<dl wicket:id="facets" class="panel panel-default">
+					<dt class="panel-heading">
+						<h4 class="panel-title">
+							<a wicket:id="accordion-toggle"  data-toggle="collapse" href="#facet" aria-expanded="true">
+								<span wicket:id="facet"></span>
+							</a>
+						</h4>
+					</dt>
+					<dd wicket:id="facet-container" class="panel-collapse collapse in">
+						<div wicket:id="breadcrumb" style="padding-top:10px;padding-bottom:10px;float:left;">[breadcrumb]</div>
+						<div wicket:id="filter">[filter]</div>
+						<div wicket:id="members">[members]</div>
+						<div wicket:id="applyor-container" class="apply-or-container">
+							<button wicket:id="applyor-link" class="btn btn-xs btn-default">
+								<span><wicket:message key="apply-selection" /></span> 
+							</button>
+						</div>
+						
+						<ul wicket:id="range-container">
+							<li class="more" style="padding-top: 12px;">
+								<div wicket:id="range"/>
+							</li>
+						</ul>
+					</dd>
+				 </dl>
+			</div>		 
+		</div>
+		
+	</div>
+</div >
+<span>&nbsp;</span>
+</wicket:panel>
+
+<wicket:fragment wicket:id="membersFragment">
+	<ul class="list-group">
+		<li class="filtro-cl" wicket:id="parent-label"></li>
+							
+		<li wicket:id="members" class="list-group-item member">
+			
+			<div wicket:id="member-container">
+				<div class="checkbox" style="float:left;">
+				<input wicket:id="check" class="styled" type="checkbox" />
+					<label for=""></label>
+				</div>
+				<div wicket:id="navigationlink-container" style="float:left;margin-left:10px; font-size:1.5em;"> 
+					<a wicket:id="navigationLink"><span wicket:id="mark"></span></a>
+				</div>
+				<div style="display: initial; margin-left: 9px;"> 
+					<span  class="membername" wicket:id="memberName">[value]</span>
+					<span wicket:id="memberCount" class="membercount"></span>
+				</div>
+			 </div>
+			 <ul wicket:id="navigation" style="float:unset; padding-left: 40px;"/>
+		</li>
+	</ul>
+</wicket:fragment>
+
+<wicket:fragment wicket:id="navigationFragment">
+	<li style="padding-bottom:5px; margin-left:10px;" wicket:id="members">
+		<a wicket:id="memberLink">
+			<span wicket:id="memberName"></span>
+		</a> 
+		<span class="membercount" wicket:id="memberCount"></span>
+	</li>
+</wicket:fragment>
+
+<wicket:fragment wicket:id="filterFragment">
+	<ul class="list-group" wicket:id="container">
+		<li  class="list-group-item"><input class="form-control" wicket:id="filter-input" type="text" placeholder="filter"/></li>
+	</ul>
+</wicket:fragment>
+
+<wicket:fragment wicket:id="rangeFragment">
+	<a wicket:id="link"> <wicket:message key="set-range" /></a>
+	<form wicket:id="form" class="vertical-form inline-form form-container" style="margin-bottom:15px;" role="form">
+		<div class="form-group col-lg-12" wicket:id="from" style="margin-bottom:15px;"/>
+		<div class="form-group col-lg-12" wicket:id="to" style="margin-bottom:15px;"/>
+			
+		<div class="col-md-12 col-lg-12 col-xs-12" style="width:100%; margin-top:2px; margin-bottom:2px; display: inline-block;">
+			<a class="btn btn-xs btn-default" wicket:id="cancel-link"><wicket:message key="cancel" /></a>
+			<a class="btn btn-xs btn-default" wicket:id="apply-link"><wicket:message key="apply" /></a>
+		</div>
+	</form>
+</wicket:fragment>
+
+<wicket:fragment wicket:id="breadcrumbFragment">
+	<ul class="breadcrumb">
+		<li style="float:left;">
+			<a wicket:id="root-link"><span style="float:left;" wicket:id="root-label"></span></a>
+		</li>
+		<li style="float:left;" wicket:id="breadcrumb-element">
+			<a wicket:id="bc-link"><span style="float:left;" wicket:id="bc-item"></span></a>
+		</li>
+	</ul>
+</wicket:fragment>
+
+
+
+

@@ -1,0 +1,32 @@
+<wicket:panel>
+	
+	<div wicket:id="title-container" style="float: left; width: 100%;">
+		<a href="#" wicket:id="expander" class="btn-toggle">
+			<span wicket:id="toggle" class="far fa-angle-down" style="padding-right: 8px; margin-top:-3px; float:left; clear: left;"></span>
+			<h2 style="padding-left:0px; float:left;" > <span wicket:id="title" /> </h2>
+			<a wicket:id="help-info"><i class="fal fa-info-circle" style="float:right;"></i></a>
+		</a>
+		
+	</div>
+	
+	<div wicket:id="collapsable_panel" style="float:left;width:100%;">
+		<nav wicket:id="navigation" style="width: 100%; float: left;" />
+		<div class="panel" style="clear: left;">
+			<div class="panel-body table-responsive" style="padding: 0; border-top: none;">
+				<table wicket:id="grid"	class="table table-lateral-border table-bordered table-header-bck table-hover" />
+			</div>
+		</div>
+	</div>
+	
+	
+	<div wicket:id="panel-link-container" style="float:left;width:100%;">
+		<a href="#" wicket:id="panel-link"  class="btn-link" style="margin-left:0px;">
+				<span wicket:id="panel-link-label"></span>
+		</a>
+	</div>
+		
+	
+</wicket:panel>
+
+
+

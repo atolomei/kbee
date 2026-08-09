@@ -1,0 +1,18 @@
+<wicket:panel>
+	
+	<div wicket:id="search-panel" class="search-panel" style="float:left;">
+	
+		<form id="search-form23" name="search-form23" method="post" action="#" wicket:id="form" style="float:left;">
+			<div style="float: left; display: inline-block;">
+				<input wicket:id="text" class="input len120" placeholder="Search" />
+				<input wicket:id="search" class="button" type="submit" value="Buscar" style="display:none"/>
+			</div>
+			 <div style="float:left; margin-left: 0px;" wicket:id="advanced-search-container">
+				<a wicket:id="advanced"  class="advanced">+</a>
+			</div>
+		</form>
+	
+		<div style="float:left;" class="advanced-search" wicket:id="advanced-search-panel"/>
+	</div>
+	
+</wicket:panel>

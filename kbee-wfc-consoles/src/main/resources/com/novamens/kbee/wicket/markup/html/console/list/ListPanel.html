@@ -1,0 +1,71 @@
+<wicket:panel>
+	<div class="list" style="width: 100%; float:left;">	
+		<div wicket:id="container" style="width: 100%;">
+ 			<ul class="list-group col-lg-12 grid-compressed">
+				<li wicket:id="row" class="row-container">
+					<div wicket:id="row-container"  style="width:100%; float:left;  padding:0;"/>
+				</li>
+			</ul>
+		</div>	
+	</div>
+</wicket:panel>
+
+<wicket:fragment wicket:id="row-fragment">
+	
+	<div style="float:left; width: 100%; display: block; position:relative;">
+		<div wicket:id="menu-container" class="dropdown" style="float:left;display:block; position:relative;">
+			<a wicket:id="dmenu" style="width:32px; height:30px; padding:2px 2px; position:relative; float:left;" data-toggle="dropdown"  data-display="static">
+				<i class="far fa-ellipsis-h" aria-hidden="true"></i>
+			</a>
+			<ul wicket:id="menu" class="dropdown-menu" aria-labelledby="dmenu" />
+		</div>
+	
+		<a wicket:id="expander" style="display: block; font-size:1em; padding: 1px 15px 0 0; margin-top: 0;  float: left; cursor:pointer;" href="javascript:;">
+			<i wicket:id="icon" class="far fa-angle-up"/>
+		</a>
+		
+		<a wicket:id="icon-container" style="width:30px; display: block; font-size:1em; padding: 1px 15px 0 0; margin-top: 0;  float: left; cursor:pointer;" href="javascript:;">
+			<i wicket:id="icon"/>
+		</a>
+		
+		<div style="float:left; display:block;  text-overflow: ellipsis; width: calc(100% - 125px);" wicket:id="item"/>
+	</div>
+	
+     <div class="expanded" style="width:100%; float:left;" wicket:id="editor"/>
+</wicket:fragment>
+
+
+<wicket:fragment wicket:id="error-row-fragment">
+	<div class="row grid-row"  style="background:white;">
+		<div class="col col-lg-12">
+			<span class="panel" wicket:id="msg"></span>
+		</div>
+	</div>
+</wicket:fragment>
+
+
+<wicket:fragment wicket:id="selector-fragment">
+	<div class="checkbox">
+		<input wicket:id="selector" type="checkbox">
+		<label></label>
+	</div>
+</wicket:fragment>
+
+<wicket:fragment wicket:id="menu-fragment">
+	<div class="btn-group">
+		<a wicket:id="menulink" data-toggle="dropdown" href="#"><i class="far fa-ellipsis-h"  ></i></a>
+		<ul wicket:id="menu" class="dropdown-menu" aria-labelledby="dmenu" />
+	</div>
+</wicket:fragment>
+
+<wicket:fragment wicket:id="expander-fragment">
+	<a><i wicket:id="expander" class="fal caret" style="cursor:pointer;"></i></a>
+</wicket:fragment>
+
+
+<wicket:fragment wicket:id="item-fragment">
+	<a wicaaket:id="item-link" class="btn-link">
+		<span wicket:id="title"></span>
+	</a>
+</wicket:fragment>
+

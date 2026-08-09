@@ -1,0 +1,25 @@
+<wicket:panel>
+
+	<div wicket:id="main" class="mute-container"> 
+					<form id="form" method="post" action="#" wicket:id="form" class="form-container">
+						<div class="form-group col-md-12 col-xs-12" wicket:id="name" />
+						<div class="form-group col-md-12 col-xs-12" wicket:id="email" />
+						<div class="form-group col-md-12 col-xs-12" wicket:id="message" />
+						
+						<div wicket:id="feedbackContainer" class="col-lg-12 col-xs-12 col-md-12">
+							<span class="info" wicket:id="feedback" />
+						</div>
+						
+						<div class="button-container">
+							<div class="col-lg-12 col-xs-12 col-md-12">
+								<button wicket:id="close" 	type="cancel" class="btn btn-default btn-sm"> <wicket:message key="cancel" /></button>
+								<button wicket:id="submit" 	type="submit" class="btn btn-primary btn-sm"> <wicket:message key="submit" /></button>
+							</div>
+						</div>
+						
+						
+					</form>
+	</div>
+	
+</wicket:panel>
+

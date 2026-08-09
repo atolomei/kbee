@@ -1,0 +1,26 @@
+<wicket:panel>
+    <style type="text/css">
+        .sidebar-wrap {
+            height: 100%;
+            overflow:auto;
+            scrollbar-width: none;
+        }
+    </style>
+
+    <div id="sidebar" wicket:id="sidebar-container" class="sidebar sidebar-main">
+        <div class="sidebar-wrap">
+            <div class="sidebar-content">
+                <div class="sidebar-category sidebar-category-visible">
+                    <div class="category-content no-padding">
+                        <ul class="navigation navigation-main navigation-accordion">
+                            <li wicket:id="item">
+                                <wicket:container wicket:id="panel"/>
+                            </li>
+                        </ul>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</wicket:panel>

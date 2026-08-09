@@ -1,0 +1,18 @@
+<wicket:panel>
+  
+  
+  <div class="modal-dialog">
+	<div class="modal-dialog-body">
+				<form wicket:id="form">
+					<div style="float: left; width: 99%;">
+						<label for="title" accesskey="t" tabindex="2" style="text-transform: uppercase; margin-bottom: 6px; font-weight:bold; float: left; width: 100%;"><wicket:message key="savequerypanel.title"/></label>
+						<input wicket:id="title" type="text" style="float: left; width:100%; box-sizing: border-box; padding: 10px; border: 1px solid #cccccc; border-radius: 4px; font-family: Segoe UI, Arial, sans serif; font-size: 1em;"/>
+					</div>
+						<div class="buttons-container" style="margin-top: 32px; float: left;">
+								<a wicket:id="ok-link" class="form-submit-button"><wicket:message key="savequerypanel.button.save"/></a>
+								<a class="form-submit-button atright" wicket:id="cancel-link" href="#"><wicket:message key="savequerypanel.button.cancel"/></a>
+					 	</div>
+				</form>
+		</div>
+	</div>
+</wicket:panel>	

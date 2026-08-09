@@ -1,0 +1,20 @@
+<wicket:panel>
+	
+	<div class="navigation-toolbar">
+		<div style="margin-top:10px; float: left;">
+			<h2><wicket:message key="console.preview.label"/></h2>
+		</div>
+		<div style="float: right; display: inline-block; margin-left: 1em;">	
+			<div class="order" style="margin-left: 0px; margin-right: 2em;">
+				<a class="button" wicket:id="prev-link" >
+				 	<img wicket:id="prev" style="float:right" title="Previous element" />
+				 </a>
+				<a class="button"  wicket:id="next-link">
+				 	<img wicket:id="next" style="float:right"/>
+				 </a>
+			</div>
+			<div wicket:id="layouts" style="float: left; display: inline-block;" />
+		</div>
+	</div>
+	<div class="scroll-list-container" wicket:id="preview"></div>
+</wicket:panel>

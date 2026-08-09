@@ -1,0 +1,50 @@
+<wicket:panel>
+		<ul class="list-group col-lg-12 col-md-12 col-xs-12 compressed-list" style="padding:0; min-height:320px; max-height:100vh; overflow-y: auto; overflow-x: hidden;">
+			<li class="list-group-item" wicket:id="userlists">
+					<div style="float: left;    display: inline-block;    position: relative;">
+						<a id="dmenu" class="dmenu"	style="width: 32px;    height: 24px;   padding: 2px 6px;    position: relative;    float: left;" data-toggle="dropdown"><i class="far fa-ellipsis-h" aria-hidden="true"></i></a>
+						<ul wicket:id="menu" class="dropdown-menu dropdown-menu-left" aria-labelledby="dmenu" />
+					</div>
+					
+					<div style="margin-left:35px; width:calc(100% - 35px);">				
+						<a wicket:id="link">
+							<div>
+								<span class="membername" wicket:id="title"/>
+								<span class="membercount" wicket:id="total"/>
+							</div>
+						</a>
+					</div>
+			</li>
+		</ul>
+		<div wicket:id="actions" class="col-lg-12 col-md-12 col-xs-12 actions-block" style="padding:10px 0 0 0;">
+			<a href="#" class="btn btn-link" style="float:left;" wicket:id="close"> <wicket:message key = "close" /></a>
+			<a href="#" class="btn btn-link" style="float:left;" wicket:id="clear-all"> <wicket:message key = "clearall" /></a>
+			<a href="#" class="btn btn-link" style="float:left;" wicket:id="addlist"> <span><wicket:message key = "addlist" /></span></a>
+			<a href="#" class="btn btn-link" style="float:right;" wicket:id="remove-all"> <wicket:message key = "removeall" /></a>
+		</div>
+		<div style="width:100%; float:left;" wicket:id="list-editor" />
+</wicket:panel>
+
+
+<wicket:fragment wicket:id="user-list-editor-fragment">
+			<div class="panel panel-bck mt20">
+				<div class="row">
+					<form wicket:id="form" class="col-md-12 col-lg-12 col-xs-12" role="form">
+							<div class="row">
+								<div class="col-xs-12 col-lg-12 col-md-12 form-group" wicket:id="name"/>
+							</div>
+							<div class="row">
+								<div class="col-xs-12 col-lg-12 col-md-12 form-group" wicket:id="description"/>
+							</div>
+					</form>
+				</div>				
+				<div class="row">
+					<div class="col-md-12 col-lg-12 col-xs-12"> 
+						<a href="#" class="btn btn-default btn-xs" wicket:id="cancel"><wicket:message key = "cancel" /></a>
+						<a href="#" class="btn btn-primary btn-xs" wicket:id ="save"><wicket:message key = "save" /></a>
+					</div>
+				</div>
+			</div>
+			
+</wicket:fragment>
+			

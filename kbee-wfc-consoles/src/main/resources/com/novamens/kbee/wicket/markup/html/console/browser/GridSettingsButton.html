@@ -1,0 +1,30 @@
+<wicket:head>
+	<style>
+		.kbee .dropdown-menu > li > span > em {
+			padding: 7px 20px;
+			font-style: italic;
+			color: #666666;
+			margin: 0 6px;
+			border-radius: 4px;
+		}
+		.dropdown-menu > li > span > em {
+			display: block;
+			padding: 3px 20px;
+			clear: both;
+			font-weight: normal;
+			line-height: 1.42857143;
+			color: #666666;
+			white-space: nowrap;
+		}
+	</style>
+</wicket:head>
+
+
+<wicket:panel>
+	<a class="btn-mini  dropdown-toggle" data-toggle="dropdown" title="Page View" style="display:block; cursor:pointer;">
+		<span class="far fa-cog  "></span>
+	</a>
+	<ul class="dropdown-menu" wicket:id="menu">
+	</ul>
+</wicket:panel>
+

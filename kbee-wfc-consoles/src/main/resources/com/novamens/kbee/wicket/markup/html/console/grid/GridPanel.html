@@ -1,0 +1,120 @@
+<wicket:panel>
+
+    <div wicket:id="container" style="width: 100%;">
+        <div class="scrollbar-external_wrapper" style="width: auto !important;">
+            <div class="scrollbar-external" style="overflow: hidden; width: 100%;">
+                <div style="width:15000px;">
+                    <div class="row grid-header">
+                        <div class="col header col-xs-1 col-md-1 col-lg-1 " wicket:id="header">
+                            <div wicket:id="selectall" style="display: inline-block; float:left;">
+                                <div class="checkbox" style="float:left;  margin-left: 0px;  margin-top: -7px;">
+                                    <input wicket:id="check" type="checkbox">
+                                    <label></label>
+                                </div>
+                            </div>
+
+                            <a style="width:100%; overflow: hidden" wicket:id="column-title" class="btn-link" href="#">
+                                <span wicket:id="label"/>
+                                <i wicket:id="sorted-icon"></i>
+                            </a>
+
+                            <div wicket:id="selection-actions" class="dropdown" style="float:left; position:relative;">
+                                <a class="btn-link dropdown-toggle" style="float:left; width:100%; margin: 0px; padding:0 0 0 15px;" data-toggle="dropdown" role="button" id="s1" aria-haspopup="true"
+                                   aria-expanded="true" href="#" title="Apply on the selected items">
+                                    <span wicket:id="selection-actions-label" style="float:left;"/>
+                                    <i class="far caret" style="margin: 11px 0;font-size: 13px;right: -16px;position: absolute;"></i>
+                                </a>
+                                <ul class="dropdown-menu" wicket:id="menu"/>
+                            </div>
+                            <div wicket:id="col-menu"/>
+                        </div>
+                    </div>
+
+                    <div class="row grid-body">
+                        <wicket:container wicket:id="row">
+                            <div wicket:id="row-container" class="row-container"/>
+                        </wicket:container>
+                    </div>
+                </div>
+            </div>
+
+            <div class="external-scroll_x">
+                <div class="scroll-element_outer">
+                    <div class="scroll-element_size"></div>
+                    <div class="scroll-element_track"></div>
+                    <div class="scroll-bar"></div>
+                </div>
+            </div>
+
+            <div class="external-scroll_y">
+                <div class="scroll-element_outer">
+                    <div class="scroll-element_size"></div>
+                    <div class="scroll-element_track"></div>
+                    <div class="scroll-bar"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</wicket:panel>
+
+
+<wicket:fragment wicket:id="header-menu-fragment">
+    <div class="dropdown">
+        <a class="btn-link dropdown-toggle" style="margin-top:-15px; right:5px; float:right;" data-toggle="dropdown" role="button" id="s2" aria-haspopup="true"
+           aria-expanded="true" href="#" title="menu">
+            <i style="font-size:15px; margin-top:10px;" font-size: class="far fa-bars"></i>
+        </a>
+        <ul class="dropdown-menu" wicket:id="col-menu"/>
+    </div>
+</wicket:fragment>
+
+
+<wicket:fragment wicket:id="row-fragment">
+    <div class="row grid-row">
+        <div class="col col-xs-1 col-md-1 col-lg-1" wicket:id="td">
+            <wicket:container wicket:id="td-container"/>
+        </div>
+    </div>
+    
+    <div class="row" style="width:auto;" wicket:id="expanded-row">
+        <div class="col" style="height:auto;">
+            <div style="width:fit-content;" wicket:id="editor"/>
+        </div>
+    </div>
+</wicket:fragment>
+
+
+<wicket:fragment wicket:id="error-row-fragment">
+    <div class="row grid-row">
+        <div class="col col-lg-12">
+            <span class="panel" wicket:id="msg"></span>
+        </div>
+    </div>
+</wicket:fragment>
+
+
+<wicket:fragment wicket:id="selector-fragment">
+
+
+    <div class="checkbox">
+        <input wicket:id="selector" type="checkbox">
+        <label></label>
+    </div>
+
+
+</wicket:fragment>
+
+<wicket:fragment wicket:id="menu-fragment">
+    <div wicket:id="dropdown" class="btn-group dropdown">
+        <a id="dmenu" class="btn-mini" wicket:id="menulink" data-toggle="dropdown" href="#"><i class="far fa-ellipsis-h"></i></a>
+        <ul wicket:id="menu" class="dropdown-menu" aria-labelledby="dmenu"/>
+    </div>
+</wicket:fragment>
+
+<wicket:fragment wicket:id="expander-fragment">
+    <a style="float:left;" href="#"><i wicket:id="expander" class="fal caret"></i></a>
+</wicket:fragment>
+
+
+

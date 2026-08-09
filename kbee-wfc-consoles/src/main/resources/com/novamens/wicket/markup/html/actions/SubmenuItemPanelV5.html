@@ -1,0 +1,21 @@
+<wicket:panel>
+    <a wicket:id="item-link" href="#">
+        <i wicket:id="icon"></i><span wicket:id="item-label">[label]</span>
+    </a>
+
+    <ul wicket:id="menu">
+        <li wicket:id="item">
+            <wicket:container wicket:id="panel"/>
+        </li>
+    </ul>
+
+    <div wicket:id="popup-menu" style="display: none" class="sidebar-popup-menu">
+        <span class="sidebar-popup-menu-header" wicket:id="popup-item-label">[label]</span>
+        <ul wicket:id="popup-menu-list">
+            <li class="sidebar-popup-menu-item" wicket:id="item">
+                <wicket:container wicket:id="panel"/>
+            </li>
+        </ul>
+    </div>
+
+</wicket:panel>

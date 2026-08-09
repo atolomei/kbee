@@ -1,0 +1,79 @@
+
+
+<wicket:panel>
+
+NOT USER ANYMOTRE
+ 
+<div class="filters-content-container">
+	
+	<div class="filters-content">
+		<dl wicket:id="textPanel">
+			<dt class="texto" style="margin-right: 8px;"><wicket:message key="text"/></dt>
+			<dd wicket:id="text-container" class="texto">
+				<a wicket:id="deleteLink">
+					<span wicket:id="text"> </span>
+				</a>
+			</dd>
+		</dl>
+		
+		<dl wicket:id="iqlPanel">
+			<dt class="texto" style="float: left; font-weight: bold;">IQL.&nbsp;</dt>
+			<a wicket:id="deleteLink">
+				<dd wicket:id="iql" class="texto"></dd>
+			</a>
+		</dl>
+		
+		<wicket:container wicket:id="filtersPanel" style="float:left"/>
+	
+	</div>
+</div>
+ 
+</wicket:panel>
+
+
+<wicket:fragment wicket:id="filtersFragment">
+	<div wicket:id="values" class="filter">
+		<div wicket:id="name" style="font-weight: bold;" />
+		<div style="float:left;">
+			<a wicket:id="deleteLink">
+				<div wicket:id="value" style="font-weight: normal;"></div>
+			</a>
+		</div>
+	</div>
+	
+	
+	<div class="filter" wicket:id="members">
+		
+		<span wicket:id="name" class="facet-name" style="padding:0;">name</span>
+		
+		<div style="padding: 0px; float: left;" wicket:id="parents">
+			<a wicket:id="parentLink">
+				<span wicket:id="value">value</span>				
+			</a>
+			<span style="font-size: 0.92em; margin: 0 0 0 2px;">+</span>
+		</div>
+
+		<div style="padding: 0px 0px; float: left;">
+			<a wicket:id="deleteLink">
+				<span wicket:id="value">value</span>
+			</a>
+		</div>
+	</div>
+	
+	<div class="filter" wicket:id="ormembers">
+		
+		<span wicket:id="name"  class="facet-name">name</span>
+		
+		<a wicket:id="deleteLink"  style="margin-left: 0px; float: left;">
+			<div class="ormembers" style="float: left;">
+				<div wicket:id="members" class="member" style="float: left;">
+					<span wicket:id="value">value</span>
+					<span wicket:id="or" style="margin:0 4px 0 4px;">|</span>
+				</div>
+			</div>
+		</a>
+	</div>
+
+	
+
+</wicket:fragment>
