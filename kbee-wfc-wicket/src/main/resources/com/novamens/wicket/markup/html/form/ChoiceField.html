@@ -1,0 +1,38 @@
+<wicket:panel>
+	<div class="field choice-field">
+		<div class="control-label" wicket:id="label-container" style="float:left;">
+			<label for="label" wicket:id="label"></label>
+			<i wicket:id="mandatory" class="mandatory fas fa-asterisk" title="field is required"></i>
+			<span class="highlight atright" wicket:id="readonly" >(<wicket:message key="readonly" />)</span>
+		</div>
+		<a href="#" wicket:id="help-info">
+			<i class="fal fa-info-circle" style="float:right;"></i>
+		</a>
+		<div class="control" wicket:id="horizontal-layout">
+			<wicket:container wicket:id="control"/>
+		</div>
+		<wicket:container wicket:id="control"/>
+	</div>
+</wicket:panel>
+
+<wicket:fragment wicket:id="control-fragment">
+
+	<div wicket:id="subtitle-container" style="float:left; width:100%; padding:15px;">
+		<span wicket:id="subtitle" />	
+	</div>
+
+	<select class="form-control" wicket:id="input">
+	</select>
+
+	<a wicket:id="help-link-choice" href="#" class="btn-link" style="font-size: 12px;  float: right;  padding: 11px 20px 11px 10px;  margin-right: 3px;  margin-top: -40px; position:relative;">
+		<span wicket:id="helpstr"></span>
+	</a>
+	 
+	<small wicket:id="help" class="help-block" style="float:left;width: calc(100% - 40px);"></small>
+
+	<wicket:container wicket:id="feedback">
+		<span wicket:id="icon" class=" far fa-times form-control-feedback" style="right: 28px;"></span>
+		<small style="float: left;  width: 100%;" wicket:id="error" class="error-block"></small>
+	</wicket:container>
+	
+</wicket:fragment>

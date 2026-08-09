@@ -1,0 +1,47 @@
+
+<wicket:panel>
+	<div class="field textarea-field">
+		<div class="control-label" wicket:id="label-container">
+			<label for="label" wicket:id="label"></label><span wicket:id="mandatory">
+			<i class="mandatory fas fa-asterisk" title="field is required"></i></span>
+			<span class="highlight atright" wicket:id="readonly" >(<wicket:message key="readonly" />)</span>
+			<a wicket:id="help-info-circle"><i class="fal fa-info-circle" style="float:right;"></i></a>
+		</div>
+		<div class="col-lg-10" wicket:id="horizontal-layout">
+			<wicket:container wicket:id="control"/>
+		</div>
+		<wicket:container wicket:id="control"/>
+		
+		<div wicket:id="froala-toolbar">
+				<div wicket:id="link-container">
+					<a class="btn btn-md btn-default" style="float:right; margin-top:15px;" wicket:id="close-link">
+					<wicket:message key="close" />
+					</a>
+				</div>
+		</div>
+	</div>
+</wicket:panel>
+
+<wicket:fragment wicket:id="control-fragment">
+
+	<div wicket:id="subtitle-container" style="float:left; width:100%; padding:15px;">
+		<span wicket:id="subtitle" />	
+	</div>
+		
+	<div class="form-control-container">	
+		<textarea class="form-control" style="max-width: 980px; float:left;" wicket:id="input"></textarea>
+	</div>
+	
+	<a href="#" class="btn-link" style="font-size:12px; float: right; padding: 4px;" wicket:id="help-link">
+	 	<span wicket:message key="help" />
+	</a>
+	
+	<small wicket:id="help" class="help-block" style="float:left;width: calc(100% - 30px);"></small>
+	
+	<wicket:container wicket:id="feedback">
+		<span wicket:id="icon" class=" far fa-times form-control-feedback"></span>
+		<small wicket:id="error" class="error-block" style="float:left;"></small>
+	</wicket:container>
+	
+</wicket:fragment>
+

@@ -1,0 +1,32 @@
+<wicket:panel>
+    <div class="col-lg-8 col-xs-12 col-md-8;" style="border: 1px solid  #d8dcdf; padding-top: 10px" wicket:id="container">
+        
+        
+        <div class="control-label">
+            <label for="label" wicket:id="label"></label>
+            <span class="highlight atright" wicket:id="readonly" >(<wicket:message key="readonly" />)</span>
+        </div>
+        
+        
+        <div wicket:id="subtitle-container" style="float:left; width:100%; padding:15px;">
+				<span wicket:id="subtitle" />	
+		</div>
+        
+        <div class="row">
+            <ul class="list-group col-md-12" >
+                <li class="list-group-item" wicket:id="items">
+                    <span class="list-group-item-heading" wicket:id="itemLabel">[]</span>
+                    <a><i class="far fa-times" style="float:right; top: 6px; cursor:pointer;" title="remove"
+                          alt="remove"
+                          wicket:id="removeItem"></i></a>
+                </li>
+            </ul>
+        </div>
+        <div class="row">
+            <div style="padding: 10px 15px">
+                <div class="form-group col-md-8" wicket:id="valueAdd"/>
+                <button wicket:id="btnAdd" type="button" class="btn btn-primary btn-md col-md-4">Add</button>
+            </div>
+        </div>
+    </div>
+</wicket:panel>

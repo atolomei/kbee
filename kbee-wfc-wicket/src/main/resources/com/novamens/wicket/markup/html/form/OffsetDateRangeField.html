@@ -1,0 +1,26 @@
+<wicket:panel>
+
+	<div class="control-label" wicket:id="label-container">
+		<label for="label" wicket:id="label"></label>
+		<i wicket:id="mandatory" class="mandatory fas fa-asterisk" title="field is required"></i>
+	</div>
+	
+	<div class="col-lg-10" wicket:id="horizontal-layout">
+		<div id="date" class="date-container" wicket:id="daterange">
+			<div wicket:id="from"/>
+			<div wicket:id="to"/>	
+			<small wicket:id="help" class="help-block"></small>
+			
+			<wicket:container wicket:id="feedback">
+					<i wicket:id="icon"  style="font-size: 10px;    padding: 13px;    border: none;    top: 0; border:none;" class=" far fa-times form-control-feedback"></i>
+					<small  wicket:id="error" c class="error-block"></small>
+			</wicket:container>
+		</div>
+	</div>
+	
+</wicket:panel>
+
+
+
+
+

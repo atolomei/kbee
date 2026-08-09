@@ -1,0 +1,50 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:wicket="http://wicket.apache.org/" xml:lang="es" lang="es">
+<wicket:head>
+<style>
+	.hidden {display:none;}
+</style>
+<script>
+	function show(divId) {
+	    document.getElementById(divId).style.display='block';
+	}
+	function hide(divId) {
+	    document.getElementById(divId).style.display='none';
+	}
+	function selected(tabId) {
+		document.getElementById(tabId).className='selected';
+	}
+	function unSelected(tabId) {
+		document.getElementById(tabId).className='noselected';
+	}
+	function lastSelected(tabId) {
+		document.getElementById(tabId).className='selected last';
+	}
+	function lastUnSelected(tabId) {
+		document.getElementById(tabId).className='noselected last';
+	}
+</script>
+</wicket:head>
+<wicket:panel>
+	<div class="tab-row">
+		<div wicket:id="tabs-container" class="tabs-container" style="width:100%;float: left;">
+			<ul>
+				<li wicket:id="tab">
+					<span><a wicket:id="trigger"></a></span>
+				</li>
+			</ul>
+		</div>	
+	</div>
+	<ul style="width: 100%; float: left;">
+		<li wicket:id="xpanel" class="panel" style="display:block;">
+		  	<div style="width:100%; float:left; display: block">	
+		  		<div wicket:id="internal-panel" class="editorPanel"></div>
+			</div>	
+		</li>
+	</ul>
+	
+	
+</wicket:panel>
+<wicket:fragment wicket:id="ajaxTab">
+	<a wicket:id="trigger"/>
+</wicket:fragment>
+</html>

@@ -1,0 +1,77 @@
+
+@media (min-width: 1201px) {
+	.kbee .square {margin:0; width:calc(100% - 10px);}
+	.kbee .col-lg-20pc {width:20%;}
+}
+
+@media (min-width: 1201px) and (max-width: 1600px) { 
+	
+			
+			.kbee .dashboard .c100 {width: 100%; max-width:initial;}
+			.kbee .dashboard .c40 {width: 14em;   float:left;}
+
+			.kbee .dashboard .onecol .label-container  	  {float:left; display:block;	text-overflow: ellipsis;  white-space: nowrap;  overflow: hidden; padding-left:4px;}
+			.kbee .dashboard .twocol .metadata	         {max-width: calc( 100% - 14em );  text-overflow: ellipsis;  white-space: nowrap;  overflow: hidden; padding-left:10px;}
+						
+													 
+						
+ 	.kbee  .task-form .left-panel	 	{box-sizing: border-box;  width: calc(54% + 1px);border-right: 1px solid #e2e2e2;    padding-right: 42px;    padding-left: 64px; padding-top: 32px; }
+	.kbee  .task-form .right-panel 	{ box-sizing: border-box; min-height: 240vh;       width: 46%;  padding: 15px 0 0 0;    border-left: 1px solid #e2e2e2;    right: 0;    margin-left: -1px;}
+	.kbee .navbar-default a.logo 		{margin-left:0; padding: 16px 20px;}
+
+													
+													.kbee .left-panel				    {width: calc(70.5% - 2px); border-right: 1px solid #e2e2e2;  box-sizing: border-box;}
+							 						.kbee .leftpanel 					{width: calc(70.5% - 2px); border-right: 1px solid #e2e2e2;  box-sizing: border-box;}
+													
+													.kbee .content .secondary-panel  {width: calc(29.5% + 3px);}
+																										
+													.kbee .content .right-panel  {
+													 	box-sizing: border-box;
+													    margin-left: -1px;
+    													padding-left: 20px;
+    													padding-right: 20px;
+    													z-index: 12;
+    													flex-direction: initial;
+    													height: 100%; }
+
+
+															
+													.kbee .report     .right-panel	{width: 19.5% !important;}
+													.kbee .withbcrumb .right-panel 		{margin-top: -81px !important;     height: calc(100% + 81px);} 
+							 						
+							 						
+							 						.kbee .layout-twopanels .external-scroll_x.scroll-scrollx_visible {width: calc(74.5% - 2px);}		
+							 						.kbee .report .left-panel,
+							 						.kbee .report .leftpanel 			{width: calc(80.5% + 1px);}
+												 	.kbee  .layout-onepanel 			{border-right: none; }
+
+
+
+
+.kbee  .audio .player-panel 	 	{height: 66px;    min-width: 60vw;}
+.kbee  .audio .player 				{max-height: initial;}
+.kbee  .video .player-panel 	 	{height: 60vh;    max-height: 60vw;        min-width: 60vw;}
+.kbee  .video .player 				{max-height: 56vh;}
+.kbee  .image .player 				{max-height: 56vh;}
+
+.kbee .browser .expanded .tabs .nav>li>a {padding: 10px 32px}
+
+	.kbee .resources-panel .thumbnail_large li.media 					{padding: 24px; border: 1px solid #d8dcdf;    border-left: none; border-radius: 0;  margin: 0;    border-top: none;   height: 384px; position:relative;}
+	.kbee .resources-panel .thumbnail_large li.media:nth-of-type(1) 		{margin-top:0; border-top:1px solid #d8dcdf;}
+	.kbee .resources-panel .thumbnail_large li.media:nth-of-type(2) 		{margin-top:0; border-top:1px solid #d8dcdf;}
+	.kbee .resources-panel .thumbnail_large li.media:nth-of-type(3) 		{margin-top:0; border-top:1px solid #d8dcdf;}
+	.kbee .resources-panel .thumbnail_large li.media:nth-of-type(3n+1) 	{clear: left;     border-left: 1px solid #d8dcdf;}
+	.kbee .resources-panel .thumbnail_large .thumbnail 					{height: 192px; padding:0; overflow:hidden; background: #f7f7f7;  border: 1px solid #f7f7f7;  position: relative;}
+}
+
+
+
+@media (min-width: 1460px)  and (max-width: 1600px) {	.kbee .resources-panel li.action-container:nth-of-type(2n) {margin-right:6px;} }
+@media (max-width: 1459px)  and (max-width: 1600px) {	.kbee .resources-panel li.action-container:nth-of-type(2n) {margin-left:0px;}  }
+
+
+		
+
+		
+		
+													

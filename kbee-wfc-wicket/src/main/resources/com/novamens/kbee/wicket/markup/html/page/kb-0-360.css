@@ -1,0 +1,45 @@
+
+@media (max-width: 700px)  {
+		
+			.kbee .dashboard .list-panel .list-group .list-group-item {padding: 15px 0;}
+	
+			.sidebar {width:100% !important;}
+			.sidebar-xs .content-wrapper { padding-left:0px !important;}
+	
+	
+			.kbee .dashboard .c100 {width: 100%; max-width:initial;}
+			.kbee .dashboard .c40 {width: 100%; max-width:100%; float:left;}
+
+			.kbee .dashboard .onecol .label-container  	  {float:left; display:block;	text-overflow: ellipsis;  white-space: nowrap;  overflow: hidden;}
+			.kbee .dashboard .twocol .metadata	         {max-width: initial;  text-overflow: initial;  white-space: initial;  overflow: initial;}
+	
+	
+ .kbee .resources-panel .thumbnail_large li.media 						{border: 1px solid #d8dcdf;	border-top: none;clear:left; border-radius: 0;  margin: 0;  height: 398px;    padding-bottom: 12px;}
+ .kbee .resources-panel .thumbnail_large li.media:nth-of-type(1) 		{margin-top:0; border-top:1px solid #d8dcdf;}
+ .kbee .resources-panel .thumbnail_large .thumbnail 						{height: 220px; padding:0; overflow:hidden; background: #d8dcdf;     border: 1px solid #d8dcdf; position: relative; margin-top:15px;}
+ .kbee ul li.label {margin-bottom: 8px;}
+ .kbee .sqltools-twopanels {position: inherit; top:inherit;}
+ 
+ .kbee .login-container {width: 100%;    border: none; }
+  .kbee .forgot-canvas {  width: 100%;    border: none;}
+  
+  .kbee .loginmodal-container-idoc {
+    z-index: 9999999;
+    left: 0;
+    top: 0;
+    background: white;
+    height: 100vh;
+    position: absolute;
+    border: nono;
+    width: 100%;
+    max-width: 100%;
+    padding: 1%;
+}
+
+
+.kbee .detail h1 {  font-size: 24px;  line-height: 1.45em;}
+ 
+ .kbee .detail .metadata-container { text-align:center;}
+  
+}
+ 

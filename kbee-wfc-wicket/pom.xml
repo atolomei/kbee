@@ -1,0 +1,207 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+	<parent>
+		<artifactId>kbee</artifactId>
+		<groupId>com.novamens</groupId>
+		<version>8.5-SNAPSHOT</version>
+	</parent>
+
+	<modelVersion>4.0.0</modelVersion>
+
+	<artifactId>kbee-wfc-wicket</artifactId>
+	<name>${project.artifactId}</name>
+
+	<description />
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	</properties>
+
+	<developers>
+		<developer>
+			<id>aferraria</id>
+			<name>Alejo Ferraria</name>
+			<email>aferraria@novamens.com</email>
+		</developer>
+		<developer>
+			<id>atolomei</id>
+			<name>Alejandro Tolomei</name>
+			<email>atolomei@novamens.com</email>
+		</developer>
+	</developers>
+
+	<scm>
+		<connection>
+			scm:git:ssh://alejo@git.hq.novamens.com/var/git/novamens/wicket.git
+		</connection>
+		<developerConnection>
+			scm:git:ssh://alejo@git.hq.novamens.com/var/git/novamens/wicket.git
+		</developerConnection>
+	</scm>
+
+	<dependencies>
+		<dependency>
+			<groupId>com.novamens</groupId>
+			<artifactId>kbee-services-spring</artifactId>
+			<version>${kbee-version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.novamens</groupId>
+			<artifactId>kbee-content-model</artifactId>
+			<version>${kbee-version}</version>
+		</dependency>
+
+
+		<!--  =========  External  =========================   -->
+
+		<dependency>
+			<groupId>com.cronutils</groupId>
+			<artifactId>cron-utils</artifactId>
+			<version>${cron-utils-version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>jakarta.servlet</groupId>
+			<artifactId>jakarta.servlet-api</artifactId>
+			<version>${jakarta.servlet-api-version}</version>
+		</dependency>
+
+
+		<dependency>
+			<!-- 	With proper mark-up/logic separation, a POJO data model, and a
+			refreshing lack of XML, 
+				Apache Wicket makes developing web-apps simple and enjoyable again. Swap the
+			boilerplate, 
+				complex debugging and brittle code for powerful, reusable components written
+			with plain Java and HTML. 
+		-->
+			<groupId>org.apache.wicket</groupId>
+			<artifactId>wicket-core</artifactId>
+			<version>${wicket-version}</version>
+			<exclusions>
+				<exclusion>
+					<artifactId>slf4j-api</artifactId>
+					<groupId>org.slf4j</groupId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+
+
+		<dependency>
+			<groupId>org.apache.wicket</groupId>
+			<artifactId>wicket-extensions</artifactId>
+			<version>${wicket-extensions-version}</version>
+			<exclusions>
+				<exclusion>
+					<artifactId>slf4j-api</artifactId>
+					<groupId>org.slf4j</groupId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.wicket</groupId>
+			<artifactId>wicket-spring</artifactId>
+			<version>${wicket-version}</version>
+			<exclusions>
+				<exclusion>
+					<artifactId>asm</artifactId>
+					<groupId>asm</groupId>
+				</exclusion>
+				<exclusion>
+					<artifactId>log4j</artifactId>
+					<groupId>log4j</groupId>
+				</exclusion>
+				<exclusion>
+					<artifactId>spring</artifactId>
+					<groupId>org.springframework</groupId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+
+		<dependency>
+			<groupId>net.ftlines.wicket-source</groupId>
+			<artifactId>wicket-source</artifactId>
+			<version>${wicket-source-version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.googlecode.wicket-jquery-ui</groupId>
+			<artifactId>wicket-jquery-ui</artifactId>
+			<version>${wicket-jquery-version}</version>
+		</dependency>
+
+
+		<dependency>
+			<groupId>com.googlecode.wicket-jquery-ui</groupId>
+			<artifactId>wicket-kendo-ui</artifactId>
+			<version>${wicket-jquery-version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.googlecode.wicket-jquery-ui</groupId>
+			<artifactId>wicket-kendo-ui-theme-default</artifactId>
+			<version>${wicket-jquery-version}</version> <!--  7/2022 -->
+		</dependency>
+
+
+		<dependency>
+			<groupId>org.wicketstuff</groupId>
+			<artifactId>wicketstuff-serializer-common</artifactId>
+			<version>${wicket-version}</version><!--  1/2022 -->
+		</dependency>
+
+		<dependency>
+			<!-- A fast java serialization drop in-replacement and some
+			serialization based utils such as Structs and OffHeap Memory.  -->
+			<groupId>de.ruedigermoeller</groupId>
+			<artifactId>fst</artifactId>
+			<version>${fst-version}</version>
+		</dependency>
+
+
+		<dependency>
+			<groupId>jp.try0.wicket</groupId>
+			<artifactId>wicket-toastr-core</artifactId>
+			<!-- version 2.0.0  no compilo 7/Jul/2021 1.0.2< -->
+			<version>1.0.2</version>
+		</dependency>
+		
+
+
+		<!--
+		https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-api -->
+		<dependency>
+			<groupId>org.junit.jupiter</groupId>
+			<artifactId>junit-jupiter-api</artifactId>
+			<version>${junit-version}</version>
+			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<!-- jsoup is a Java library for working with real-world HTML. It
+			provides a very 
+		     convenient API for fetching URLs and extracting and manipulating data, 
+		     using the best of HTML5 DOM methods and CSS selector -->
+			<groupId>org.jsoup</groupId>
+			<artifactId>jsoup</artifactId>
+			<version> ${jsoup-version}</version>
+			<!-- version> 1.14.3 </version -->
+			<!-- 10/22  1.15.3  cannot find symboll:   class Whitelist -->
+		</dependency>
+	</dependencies>
+
+	<repositories>
+		<repository>
+			<id>wicket-menu-release</id>
+			<url>http://wicket-menu.googlecode.com/svn/maven/repo</url>
+		</repository>
+		<repository>
+			<id>wicket-menu-snapshot</id>
+			<url>http://wicket-menu.googlecode.com/svn/maven/snapshot-repo</url>
+		</repository>
+	</repositories>
+
+</project>

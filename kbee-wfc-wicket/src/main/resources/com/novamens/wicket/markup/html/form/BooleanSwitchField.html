@@ -1,0 +1,43 @@
+<wicket:panel>
+	
+	<div class="field booleanswitch-field">
+		<div class="control-label" style="float:left; width:auto; clear:left;" wicket:id="label-container"><label wicket:id="label" for="label"></label></div>
+		<div class="col-lg-2" wicket:id="horizontal-layout">
+			<wicket:container wicket:id="control"/>
+		</div>
+		<wicket:container wicket:id="control"/>
+	</div>
+</wicket:panel>
+
+
+
+<wicket:fragment wicket:id="control-fragment">
+	
+	<div >
+	
+		<div wicket:id="subtitle-container" style="float:left; width:100%; padding:15px;">
+				<span wicket:id="subtitle" />	
+		</div>
+		
+		<div wicket:id="control-container" class="control-container">
+			<div class="switch-container">
+				<a wicket:id="switch-link" class="switch" href="#">
+				<i wicket:id="switch" class="switch-on far fa fa-circle"></i></a>
+			</div>
+			<small style="clear:left; padding:0; width:calc(100% - 132px);" wicket:id="help" class="help-block"></small>
+			<wicket:container wicket:id="feedback">
+				<span wicket:id="icon" class=" far fa-times form-control-feedback"></span>
+				<small wicket:id="error" class="error-block">[]</small>
+			</wicket:container>
+		</div>																
+		<small	style="clear:left; padding-left:0; width:100%;"	wicket:id="help2" class="help-block"></small>
+		
+	</div>
+	
+</wicket:fragment>
+
+
+
+	
+	
+

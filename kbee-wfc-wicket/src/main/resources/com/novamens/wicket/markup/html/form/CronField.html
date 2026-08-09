@@ -1,0 +1,35 @@
+
+<wicket:head>
+	<style type="text/css">
+	</style>
+
+</wicket:head>
+
+
+
+
+<wicket:panel>
+    <div class="control-label" wicket:id="label-container">
+        <label for="label" wicket:id="label"></label>
+        <i wicket:id="mandatory" class="mandatory fas fa-asterisk" title="field is required"></i>
+        <span class="highlight atright" wicket:id="readonly" >(<wicket:message key="readonly" />)</span>
+    </div>
+    <div class="col-lg-10" wicket:id="horizontal-layout">
+        <wicket:container wicket:id="control"/>
+    </div>
+    <div wicket:id="control"/>
+</wicket:panel>
+
+
+<wicket:fragment wicket:id="control-fragment">
+    
+	<div wicket:id="control-container" class="control-container">
+	    <input wicket:id="input" type="text" class="form-control typeahead" style="position: relative; width: inherit; display: none;"/>
+	    <small wicket:id="help" class="help-block"></small>
+	    <wicket:container wicket:id="feedback">
+	        <i wicket:id="icon" style="font-size: 10px;    padding: 13px;    border: none;    top: 0; border:none;" class=" far fa-times form-control-feedback"></i>
+	        <small wicket:id="error" class="error-block"></small>
+	    </wicket:container>
+ 	</div>    
+ 	<small	style="clear:left; padding-left:0; width:100%;"	wicket:id="help2" class="help-block"></small>
+</wicket:fragment>

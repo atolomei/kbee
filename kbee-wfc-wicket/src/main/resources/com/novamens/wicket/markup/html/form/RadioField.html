@@ -1,0 +1,39 @@
+<wicket:panel>
+
+		
+<div class="field check-field">
+
+	<wicket:container wicket:id="control"/>
+	
+	<div class="col-lg-2 control-label">
+		<label wicket:id="label" for="label"></label>
+		<span class="highlight atright" wicket:id="readonly" >(<wicket:message key="readonly" />)</span>
+	</div>
+	
+	<div class="col-lg-2" wicket:id="horizontal-layout">
+		<wicket:container wicket:id="control"/>
+	</div>
+</div>
+	
+	
+</wicket:panel>
+
+<wicket:fragment wicket:id="control-fragment">
+
+
+		<div wicket:id="subtitle-container" style="float:left; width:100%; padding:15px;">
+				<span wicket:id="subtitle" />	
+		</div>
+		
+		
+	<div class="radio">
+		<input wicket:id="input" class="styled" type="radio" />
+		<label for=""></label>
+		<small wicket:id="help" class="help-block"></small>
+	
+	<wicket:container wicket:id="feedback">
+		<span wicket:id="icon" class=" far fa-times form-control-feedback"></span>
+		<small wicket:id="error" class="error-block"></small>
+	</wicket:container>
+	</div>
+</wicket:fragment>

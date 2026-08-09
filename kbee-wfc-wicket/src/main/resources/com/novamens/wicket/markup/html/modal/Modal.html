@@ -1,0 +1,19 @@
+<wicket:panel>
+		<div wicket:id="modal-dialog" class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					<div style="float:left;"><h2 class="modal-title" wicket:id="title"></h2><span class="modal-subtitle" wicket:id="subtitle"></span></div>
+				</div>
+				<div class="modal-body">
+					<div wicket:id="body"></div>
+				</div>
+				<div wicket:id="modal-footer" class="modal-footer">
+					<wicket:container wicket:id="buttons">
+					<button wicket:id="button" type="button" class="btn btn-default btn-sm" data-dismiss="modal">
+							<wicket:container wicket:id="label"></wicket:container></button>
+					</wicket:container>
+				 </div>
+			</div><!-- /.modal-content -->
+		</div><!-- /.modal-dialog -->
+</wicket:panel>

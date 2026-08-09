@@ -1,0 +1,37 @@
+<wicket:panel>
+	<div class="control-label" wicket:id="label-container">
+		<label for="label" wicket:id="label"></label>
+			<i wicket:id="mandatory" class="mandatory fas fa-asterisk" title="field is required"></i>
+	</div>
+	<div class="control" wicket:id="horizontal-layout">
+		<wicket:container wicket:id="control"/>
+	</div>
+	<wicket:container wicket:id="control"/>
+</wicket:panel>
+
+<wicket:fragment wicket:id="control-fragment">
+	<div class="date-container" wicket:id="date">
+		<div class="input-group suggester-container date" style="width:100%; float:left;">
+			<input wicket:id="input" type="text" class="form-control typeahead" />
+			<wicket:enclosure>
+			<div class=" input-group-addon" >
+				<span>
+					<i  wicket:id="datetimepicker" class="fad fa-calendar-alt" aria-hidden="true" style="cursor:pointer;"></i>
+				</span>
+			</div>
+			</wicket:enclosure>
+			
+			
+		</div>
+		
+		<small wicket:id="help" class="help-block"></small>
+		
+		<wicket:container wicket:id="feedback">
+			<i wicket:id="icon"  style="font-size: 10px;    padding: 13px;    border: none;    top: 0; border:none;" class=" far fa-times form-control-feedback"></i>
+			<small  wicket:id="error" c class="error-block"></small>
+		</wicket:container>
+		<wicket:container wicket:id="info-panel">
+			<div wicket:id="panel">[]</div>
+		</wicket:container>
+	</div>	
+</wicket:fragment>

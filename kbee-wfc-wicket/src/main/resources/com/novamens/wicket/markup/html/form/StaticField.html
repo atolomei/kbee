@@ -1,0 +1,23 @@
+<wicket:panel>
+
+	<div class="field static-field">
+		<div  class="control-label" style="float:left;">
+			<label wicket:id="label" for="label"></label>
+			<span class="highlight atright">(<wicket:message key="readonly" />)</span>
+		</div>
+		<div class="col-lg-10" wicket:id="horizontal-layout">
+			<wicket:container wicket:id="control"/>
+		</div>
+		<wicket:container wicket:id="control"/>
+	</div>
+</wicket:panel>
+
+<wicket:fragment wicket:id="control-fragment">
+
+	<div wicket:id="subtitle-container" style="float:left; width:100%; padding:15px;">
+				<span wicket:id="subtitle" />	
+		</div>
+		
+		
+	<p class="form-control-static" wicket:id="input"></p>
+</wicket:fragment>
