@@ -1,0 +1,1981 @@
+# 23 Oct 2015
+#
+#
+alter table DataSet add suggester boolean DEFAULT true;
+update dataset set suggester=true;
+
+#----------------------------------------------------------------------------------
+# 1 Dic 2015
+#
+#
+alter table contenttemplate add column relations boolean DEFAULT FALSE;
+alter table contenttemplate add column acl bigint;
+alter table contenttemplate add column abstract  boolean DEFAULT TRUE;
+alter table contenttemplate add column abstract  boolean DEFAULT TRUE;
+
+alter table contenttemplate add column istemplate boolean default false;
+update contenttemplate set istemplate=false;
+update contenttemplate set istemplate=true where name like '%Template%';
+
+
+#----------------------------------------------------------------------------------
+# 9 Dic 2015
+#
+#
+CREATE TABLE kb_sendemailevent
+(
+  event_id bigint NOT NULL,
+  event_type character varying(32) NOT NULL,
+  event_time timestamp with time zone DEFAULT now(),
+  event_user bigint,
+  event_domain_id bigint,
+  event_object_id character varying(32),
+  email_from character varying(128),
+  email_to character varying(128),
+  email_subject character varying(256),
+  email_text text,
+  email_attachments text,
+  event_result character varying(64),
+  event_generator_action character varying(64),
+  CONSTRAINT sendemailevent_pkey PRIMARY KEY (event_id)
+)
+WITH (
+  OIDS=FALSE
+);
+ALTER TABLE kb_sendemailevent OWNER TO kbee;
+
+CREATE INDEX kb_sendemailevent_event_domain_id_event_time_idx  ON kb_sendemailevent  USING btree  (event_domain_id, event_time DESC);
+
+#	sendemail_log_sequence
+
+CREATE SEQUENCE sendemail_log_sequence
+	INCREMENT 1
+	MINVALUE 1
+	MAXVALUE 9223372036854775807
+	START 1
+	CACHE 1;
+
+ALTER SEQUENCE sendemail_log_sequence OWNER TO kbee;
+
+
+#----------------------------------------------------------------------------------
+# 13 Dic 2015
+#
+CREATE TABLE kb_domain_settings ( domain_id bigint NOT NULL, category character varying(64), values text,
+CONSTRAINT ds_pkey PRIMARY KEY (domain_id , category),
+CONSTRAINT ds_domain_fk FOREIGN KEY (domain_id) REFERENCES domain (id) MATCH SIMPLE ON UPDATE NO ACTION ON DELETE CASCADE
+) WITH (OIDS=FALSE);
+
+ALTER TABLE kb_domain_settings OWNER TO kbee;
+
+#----------------------------------------------------------------------------------
+# 16 Dic 2015
+#
+alter table contentclass add column indexable boolean default true;
+agregar fila: "KbeeSite";TRUE;"Site";"com.novamens.kbee.portal.model.KbeeSite";TRUE
+
+#----------------------------------------------------------------------------------
+# 17 Dic 2015
+#
+ALTER TABLE kb_domain_settings DROP column values;
+alter table kb_domain_settings add column values_json text;
+
+
+#----------------------------------------------------------------------------------
+# 23 Dic 2015
+#
+alter table logevent add column event_kbeeclass character varying(64);
+
+update logevent set event_kbeeclass='Text' where event_object_id like 'kbeeorganizational%';
+update logevent set event_kbeeclass='OrgChart' where event_object_id like 'kbeeorgchart%';
+update logevent set event_kbeeclass='File' where event_object_id like 'kbeeidoc%';
+update logevent set event_kbeeclass='Text' where event_object_id like 'kbeeorganizational%';
+update logevent set event_kbeeclass='DataSet' where event_object_id like 'kbeevalueme%';
+update logevent set event_kbeeclass='DataSet external' where event_object_id like 'kbeeexternal%';
+update logevent set event_kbeeclass='User' where event_object_id like 'kbeeuser%';
+
+#----------------------------------------------------------------------------------
+# 24 Dic 2015
+#
+alter table contenttemplate add column hasdetailpage boolean default true;
+update contenttemplate set hasdetailpage=true;
+update contenttemplate set hasdetailpage=false where name like 'Banner%';
+
+
+
+ alter table kgroup add column description character varying(256);
+
+
+#----------------------------------------------------------------------------------
+# 4 Ene 2016
+#
+alter table userlabel add column scope int default 1;
+
+
+#----------------------------------------------------------------------------------
+# 20 Ene 2016
+#
+alter table kfile add column width bigint default 0;
+alter table kfile add column height  bigint default 0;
+
+
+#----------------------------------------------------------------------------------
+# 31 Ene 2016
+#
+
+alter table kb_enotirule add column owner bigint;
+alter table kb_enotirule add CONSTRAINT owner_fk FOREIGN KEY (owner) REFERENCES users (id) MATCH SIMPLE ON UPDATE NO ACTION ON DELETE CASCADE;
+update kb_enotirule set owner=1;
+CREATE INDEX kb_enoti_owner_idx ON kb_enotirule  USING btree (owner, lower(name));
+
+
+#----------------------------------------------------------------------------------
+# 8 Feb 2016
+#
+insert into domain (id, lastmodifieduser, state, name) values(0, 1, 1, 'idoc');
+insert into kb_domain_settings (domain_id, category, values_json) values (1, 'globalMenu', '[{"label":"iDOC"}, {"OneSite":"http://www.realpage.com", "Resident Screening":"http://www.realpage.com"}]')
+insert into kb_domain_settings (domain_id, category, values_json) values (150, 'globalMenu', '[{"label":"iDOC"}, {"OneSite":"http://www.realpage.com", "Resident Screening":"http://www.realpage.com"}]');
+
+
+#----------------------------------------------------------------------------------
+# 9 Feb 2016
+#
+ALTER TABLE classifier ALTER COLUMN dataset_id DROP NOT NULL;
+
+
+Alter table kb_contenttemplate add column isvideo boolean default false;
+ 
+alter table kfile alter column description set data type character varying(2048);
+alter table kfile alter column title set data type character varying(256);
+alter table kfile alter column subtitle set data type character varying(256);
+
+
+#----------------------------------------------------------------------------------
+# 11 Marzo 2016
+#
+
+
+
+
+#----------------------------------------------------------------------------------
+# 16 Marzo 2016
+#
+
+ALTER TABLE Property ALTER COLUMN value TYPE text;
+
+#----------------------------------------------------------------------------------
+# 24 Marzo 2016
+#
+
+CREATE SEQUENCE workflow_sequence
+	INCREMENT 1
+	MINVALUE 1
+	MAXVALUE 9223372036854775807
+	START 1000
+	CACHE 1;
+
+ALTER SEQUENCE workflow_sequence OWNER TO kbee;
+
+CREATE TABLE Wf_Process (
+	id					 	 bigint   NOT   NULL,
+	procedure				 character  varying(128),
+	startime				 TIMESTAMP   WITH   TIME   ZONE,
+	endtime					 TIMESTAMP   WITH   TIME   ZONE,
+	status					 character  varying(20),
+	
+	CONSTRAINT workflowprocess_pkey PRIMARY KEY (id)
+)
+WITH (
+	OIDS=FALSE
+);
+
+ALTER TABLE Wf_Process OWNER TO kbee;
+
+CREATE TABLE Wf_Activity (
+
+	id	 					bigint NOT NULL,
+	process_id	 			bigint NOT NULL,
+	task		 			character varying(128),
+	user_id		 			bigint NOT NULL, 
+	assigned_by	 			bigint, 
+	content_id 	 			bigint NOT NULL,
+	startime	 			TIMESTAMP WITH  TIME ZONE,
+	endtime		 			TIMESTAMP WITH  TIME ZONE,
+	event		 			character varying(128),
+	note		 			text,
+	resolution	 			text,
+	status		 			character varying(20),
+	 
+	CONSTRAINT wf_activity_pkey PRIMARY KEY (id),
+	CONSTRAINT process_fk FOREIGN KEY (process_id) REFERENCES wf_process(id),		
+	CONSTRAINT content_fk FOREIGN KEY (content_id) REFERENCES content(id) ON DELETE CASCADE,		
+	CONSTRAINT user_fk FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,		
+	CONSTRAINT assigned_fk FOREIGN KEY (assigned_by) REFERENCES users(id)		
+)
+WITH (
+	OIDS=FALSE
+);
+
+ALTER TABLE Wf_Activity OWNER TO kbee;
+
+ 
+#----------------------------------------------------------------------------------
+# 28 Marzo 2016
+#
+ 
+ALTER  table  kgroupmember drop constraint principal_fk; 
+ALTER  table  kgroupmember add constraint principal_fk FOREIGN KEY (principal) REFERENCES principal (id) MATCH SIMPLE ON UPDATE NO ACTION ON DELETE CASCADE; 
+
+ALTER  table  kgroupmember drop constraint group_fk; 
+ALTER  table  kgroupmember add constraint group_fk FOREIGN KEY (kgroup) REFERENCES kgroup (id) MATCH SIMPLE  ON UPDATE NO ACTION ON DELETE CASCADE;
+ 
+
+#----------------------------------------------------------------------------------
+# 1 Abril 2016
+#
+
+alter table kb_aclentry drop constraint principal_fk;
+alter table kb_aclentry add constraint principal_fk FOREIGN KEY (principal) REFERENCES Principal(id) ON DELETE RESTRICT;
+alter  table userprofile add column email_notifications boolean default true; 
+alter table classifier add column visibility text;  
+CREATE INDEX resource_modified ON kresource (domain_id, lastmodifieddate DESC);  
+CREATE INDEX resource_name ON kresource (domain_id, lower(name));
+alter table users alter column  password_md5  set data type  character    varying(512); 
+alter table classifiertemplate add column isvisible boolean default true;
+
+#----------------------------------------------------------------------------------
+# 11 Mayo 2016
+#
+
+alter table users add column canonical boolean default false;
+
+#----------------------------------------------------------------------------------
+# 17 Mayo 2016
+#
+
+alter table wf_activity add assigned_by bigint;
+alter table wf_activity	  add   CONSTRAINT assigned_fk FOREIGN KEY (assigned_by) REFERENCES users(id);	
+
+#----------------------------------------------------------------------------------
+# 23 Mayo 2016
+#
+
+CREATE TABLE Kb_OrganizationalData (
+	id					 bigint not null,					 
+	person_id			 bigint,
+	group_id			 bigint,
+	securityrule_id		 bigint,
+
+	CONSTRAINT organizationaldata_pkey PRIMARY KEY (id),
+							
+	CONSTRAINT person_fk FOREIGN KEY (person_id) REFERENCES person(entity_id) ON DELETE CASCADE,
+	CONSTRAINT group_fk FOREIGN KEY (group_id) REFERENCES kgroup(id) ON DELETE CASCADE,
+	CONSTRAINT rule_fk FOREIGN KEY (securityrule_id) REFERENCES securityrule(id) ON DELETE CASCADE
+)
+WITH (
+	OIDS=FALSE
+);
+
+ALTER TABLE Kb_OrganizationalData OWNER TO kbee;
+
+#----------------------------------------------------------------------------------
+# 28 Mayo 2016
+#
+
+alter table kb_sendemailevent alter column event_generator_action set data type character varying(128);
+alter table kb_sendemailevent alter column event_type set data type character varying(64);
+
+#----------------------------------------------------------------------------------
+# 31 Mayo 2016
+#
+
+alter table wf_activity add event character varying(128);
+
+#----------------------------------------------------------------------------------
+# 5 Junio 2016
+#
+alter table datasetmember add column external_url character varying(1024);
+ 
+#----------------------------------------------------------------------------------
+# 14 Junio 2016
+#
+alter table domain add column creationDate TIMESTAMP WITH TIME ZONE DEFAULT now();
+
+
+
+#----------------------------------------------------------------------------------
+# 18 Junio 2016
+#
+
+CREATE TABLE kb_usage_stat
+(
+  domain_id bigint NOT NULL,
+  ts timestamp with time zone DEFAULT now(),
+  hard_disk_usage bigint,
+  users bigint,
+  contents bigint,
+  resources bigint,
+  attributes  text,
+
+  CONSTRAINT usage_stat_pkey PRIMARY KEY (domain_id, ts),
+  CONSTRAINT usage_stat_domain_id FOREIGN KEY (domain_id) REFERENCES domain(id) on delete cascade
+  
+)
+WITH (
+  OIDS=FALSE
+);
+
+ALTER TABLE kb_usage_stat  OWNER TO kbee;
+
+CREATE INDEX kb_usage_domain_idx  ON kb_usage_stat USING btree (domain_id, ts);
+
+
+
+#----------------------------------------------------------------------------------
+# 19 Junio 2016
+#
+alter table kcomment add column parent_comment bigint;
+alter table kcomment add constraint comment_responses_fk foreign key(parent_comment) references kcomment(content_id) on delete cascade;
+alter table kcomment add column isfirstlevel boolean default true;
+
+#----------------------------------------------------------------------------------
+# 21 Junio 2016
+#
+#
+
+alter table attributetemplate rename to kb_attributetemplate;
+
+alter table kb_attributetemplate drop column contenttemplate_id;
+
+alter table kb_attributetemplate drop column position;
+
+alter table contenttemplateresourcegroup rename to kb_contentresourcegroup;
+ 
+create table kb_ContentAttribute (
+	contenttemplate_id		 bigint not null,
+	attributetemplate_id	 bigint not null,
+	position				 integer,
+	CONSTRAINT contentattribute_pkey PRIMARY KEY  (contenttemplate_id, attributetemplate_id),
+	CONSTRAINT attribute_fk FOREIGN KEY (attributetemplate_id)
+		REFERENCES kb_attributetemplate (id) MATCH SIMPLE
+		ON UPDATE NO ACTION ON DELETE RESTRICT,
+	CONSTRAINT contenttemplate_fk FOREIGN KEY (contenttemplate_id)
+		REFERENCES contenttemplate (id) MATCH SIMPLE
+		ON UPDATE NO ACTION ON DELETE RESTRICT
+);
+
+
+#----------------------------------------------------------------------------------
+# 23 Junio 2016
+# esto me faltaba en el modelo.
+
+ alter table classifier alter  column dataset_id drop not null;
+ 
+#----------------------------------------------------------------------------------
+# 24 Junio 2016
+
+create table kb_DataSetAttribute (
+	dataset_id				 bigint not null,
+	attributetemplate_id	 bigint not null,
+	position				 integer,
+	CONSTRAINT datasetattribute_pkey PRIMARY KEY  (dataset_id, attributetemplate_id),
+	CONSTRAINT attribute_fk FOREIGN KEY (attributetemplate_id)
+		REFERENCES kb_attributetemplate (id) MATCH SIMPLE
+		ON UPDATE NO ACTION ON DELETE RESTRICT,
+	CONSTRAINT dataset_fk FOREIGN KEY (dataset_id)
+		REFERENCES dataset (id) MATCH SIMPLE
+		ON UPDATE NO ACTION ON DELETE RESTRICT
+);
+	
+alter table contenttemplate rename to kb_contenttemplate;
+	
+alter table kb_contenttemplate add column title_rule character varying(256);
+
+alter table datasetmember add column attributes character varying(2048);
+ 
+#----------------------------------------------------------------------------------
+# 24 Junio 2016
+ 
+ alter table Wf_Activity drop column procedure;
+
+#----------------------------------------------------------------------------------
+# 3 Julio 2016
+ 
+CREATE TABLE Wf_Procedure (
+	id					 bigint   NOT    NULL,
+	alias				 character varying(64),
+	lastModifiedDate	 TIMESTAMP WITH TIME ZONE DEFAULT current_timestamp,
+	creationDate		 TIMESTAMP  WITH TIME ZONE DEFAULT now(),
+	lastModifiedUser	 bigint  NOT NULL,
+	domain_id			 bigint 	NOT NULL,
+	state				 int,
+	name				 character varying(128),
+	tasks				 text,
+	states				 character varying(128),
+	
+	CONSTRAINT workflowprocedure_pkey PRIMARY KEY (id),
+	CONSTRAINT lastModifiedUser_fk 	FOREIGN KEY (lastModifiedUser) REFERENCES  users(id) ON DELETE CASCADE,		
+	CONSTRAINT domain_fk FOREIGN KEY (domain_id) REFERENCES domain (id) MATCH SIMPLE ON UPDATE NO ACTION ON DELETE CASCADE
+)
+WITH (
+	OIDS=FALSE
+);
+
+
+ALTER TABLE Wf_Procedure OWNER TO kbee;
+
+CREATE TABLE Wf_Launcher (
+	id	 					 bigint   NOT  NULL,
+	domain_id				 bigint	  NOT  NULL,
+	label					 character varying(128),
+	contenttemplate_id	 	 bigint,
+	procedure_id			 bigint,
+	contextual				 boolean,
+		
+	CONSTRAINT wf_launcher_pkey PRIMARY KEY (id),
+	CONSTRAINT contenttemplate_fk FOREIGN KEY (contenttemplate_id) REFERENCES kb_contenttemplate ON DELETE CASCADE,		
+	CONSTRAINT procedure_fk FOREIGN KEY (procedure_id) REFERENCES wf_procedure,		
+	CONSTRAINT domain_fk FOREIGN KEY (domain_id) REFERENCES domain (id) MATCH SIMPLE ON UPDATE NO ACTION ON DELETE CASCADE
+)
+WITH (
+	OIDS=FALSE
+);
+
+ALTER TABLE Wf_Launcher OWNER TO kbee;
+
+alter table wf_process add column procedure_id bigint;
+alter table wf_process add CONSTRAINT procedure_fk FOREIGN KEY (procedure_id) REFERENCES wf_procedure;
+
+#----------------------------------------------------------------------------------
+# 8 Julio 2016
+
+alter table classifiertemplate rename to kb_classifiertemplate;
+
+alter table  kb_classifiertemplate  add  column  inherited  boolean  default  false;
+ 
+#----------------------------------------------------------------------------------
+# 9 Julio 2016
+ 
+alter table kb_enotirule drop constraint user_fk;
+alter table kb_enotirule add CONSTRAINT user_fk FOREIGN KEY (lastmodifieduser) REFERENCES users (id) MATCH SIMPLE  ON UPDATE NO ACTION ON DELETE CASCADE;
+ 
+#----------------------------------------------------------------------------------
+# 13 Julio 2016
+ 
+alter table domain add column organization character varying(512);
+alter table domain add column type int default 1;
+alter table domain add column service int default 1;
+ 
+#----------------------------------------------------------------------------------
+# 15 Julio 2016
+ 
+alter table wf_launcher add column acl bigint;
+alter table wf_launcher add CONSTRAINT acl_fk FOREIGN KEY (acl) REFERENCES acl;
+
+alter table domain add column description text;
+
+
+#----------------------------------------------------------------------------------
+# 17 Julio 2016
+ 
+alter table domain add column quota int default 0;
+
+
+#-------------------------------------------
+# Popeye/idoc6. 17 Julio 2016 AT
+# Local AT/kbee.rio 4. 18 Julio AT
+# idoc5 staging/idoc6 21 Julio 2016 AT
+#-------------------------------------------
+
+
+#----------------------------------------------------------------------------------
+# 22 Julio 2016
+ 
+ 
+alter table domain add column file_reader_directory character varying (4096);
+alter table kfile add column crc32str character(8);
+alter table dataset add column canonical boolean default false;
+alter table domain add column password_renew_months integer default 0;
+ 
+
+# Popeye/idoc6. 23 Julio 2016 AT
+# idoc5 staging/idoc6 23 Julio 2016 AT
+
+
+#----------------------------------------------------------------------------------
+# 26 Julio 2016
+  
+drop table Kb_OrganizationalData;  
+  
+CREATE TABLE Kb_SecurityData(
+	id					 bigint   not   null,					 
+	person_id			 bigint,
+	group_id			 bigint,
+	securityrule_id		 bigint,
+
+	CONSTRAINT  securitydata_pkey  PRIMARY KEY (id),
+							
+	CONSTRAINT person_fk FOREIGN KEY  (person_id) REFERENCES person(entity_id) ON DELETE CASCADE,
+	CONSTRAINT group_fk FOREIGN KEY  (group_id) REFERENCES kgroup(id) ON DELETE CASCADE,
+	CONSTRAINT rule_fk FOREIGN KEY  (securityrule_id) REFERENCES securityrule(id) ON DELETE CASCADE
+)
+WITH (
+	OIDS=FALSE
+);
+
+ALTER TABLE Kb_SecurityData OWNER TO kbee;
+
+#-------------------------------------------
+#
+# idoc5 staging/idoc6 27 Julio 2016 AT
+
+
+ 
+# indice para ser usado en Dominios de tipo File System Reader
+# 
+CREATE INDEX file_path_idx ON kfile USING btree(path);
+
+ 
+
+#-------------------------------------------
+# idoc5 staging/idoc6 30 Julio 2016 AT
+# popeye/idoc6        31 Julio 2016 AT
+ 
+
+#-------------------------------------------
+#
+ 
+
+#-------------------------------------------
+# idoc5 staging/idoc6 15 Ago 2016 AT
+# popeye              23 Ago 2016 AT
+# local at edgewood   23 Ago 2016 AT
+
+
+alter table kb_enotirule add column event_type integer default 0;
+
+ 
+ 
+#----------------------------------------------------------------------------------
+# 12 Setiembre 2016
+
+alter table person add column photo bigint;
+ALTER table person add CONSTRAINT file_fk FOREIGN KEY (photo) REFERENCES kfile (resource_id) MATCH SIMPLE ON UPDATE NO ACTION ON DELETE RESTRICT 
+
+
+
+#----------------------------------------------------------------------------------
+# idoc5 staging/idoc6 12 Sep 2016 AT
+# popeye              12 Sep 2016 AT
+# local at idoctest   12 Sep 2016 AT
+
+
+#----------------------------------------------------------------------------------
+# 6 Octubre 2016
+
+alter table kb_contenttemplate add isdefault boolean default false;
+
+
+#----------------------------------------------------------------------------------
+# 17 Octubre 2016
+
+alter table kb_enotirule add column state integer;
+
+
+# idoc-compliance         19 Oct 2016 AT
+
+
+
+
+#----------------------------------------------------------------------------------
+# 29 Octubre 2016
+
+CREATE TABLE kb_preference
+(
+  id  bigint NOT NULL,
+  user_id bigint NOT NULL,
+  name character varying(128) NOT NULL,
+  properties text,
+  CONSTRAINT user_name_fk UNIQUE(user_id, name),
+  CONSTRAINT user_id_fk FOREIGN KEY (user_id)  REFERENCES users (id) MATCH SIMPLE  ON UPDATE NO ACTION ON DELETE CASCADE
+)
+WITH (
+  OIDS=FALSE
+);
+
+#----------------------------------------------------------------------------------
+# 9 Noviembre 2016
+
+alter table kb_classifiertemplate add iscanonical boolean default true;
+
+
+# idoc-compliance         29  Nov 2016 AT
+
+
+# 6 Ene 2017
+# 
+alter table kb_contenttemplate add column isaudio    boolean default false;
+alter table kb_contenttemplate add column istext 	 boolean default false;
+alter table kb_contenttemplate add column isdocument boolean default false;
+alter table kb_contenttemplate add column isphoto 	 boolean default false;	
+
+
+
+
+# 21 Enero
+#
+alter table UserLabel add column context character varying(128);
+
+
+#-------------------
+# 18 Febrero
+#
+#
+
+CREATE TABLE kb_tip
+(
+  id 			bigint NOT NULL,
+  domain_id 	bigint,
+
+  area character(6),
+  
+  status  			integer,
+  lastmodifieddate 	timestamp with time zone DEFAULT now(),
+  lastmodifieduser 	bigint,
+  
+  tip_title 		character varying(256) NOT NULL,
+  tip_text 			text,
+  tip_texyid  		character varying(32),
+  tip_lang	   		character varying(32),
+	
+  CONSTRAINT tip_pkey PRIMARY KEY (id)
+  
+)
+WITH (
+  OIDS=FALSE
+);
+ALTER TABLE kb_tip OWNER TO kbee;
+
+CREATE INDEX kb_tip_id_idx  ON kb_tip  USING btree  (tip_lang, area, lower(tip_title));
+
+
+
+
+#-------------------
+# 19 Febrero
+
+alter table kb_contenttemplate add column istool boolean default false;
+alter table kb_contenttemplate add column isactivity boolean default false;	
+
+alter table kb_classifier add column metadatasubtitle boolean default false;
+alter table KB_CLASSIFIERTEMPLATE add column ismetadatasubtitle boolean default false;
+alter table wf_launcher add column isenabled boolean default true;
+
+
+
+
+#-------------------
+# 22 Febrero
+
+
+alter table kb_tip add column tip_area character(18);
+alter table userprofile add column tipoftheday boolean default true;
+
+ alter table  kb_contenttemplate add column linkresources boolean default true;
+
+
+#-------------------
+# 23 Febrero
+
+alter table dataset add column abbreviation character(18);
+
+
+#-------------------
+# 25 Febrero
+
+alter table domain add column istemplate boolean default false;
+update domain set type=4 where name='kbee';
+alter table domain add column maxusers integer default 0;
+
+#-------------------
+# 26 Febrero
+alter table users add column active boolean default true;
+
+#-------------------
+# 27 Febrero
+alter table aclentry alter column permissions type character varying(128);
+
+#-------------------
+# 2 Marzo
+alter table wf_procedure add column initial_rules text;
+
+
+#-------------------
+# 9 Marzo
+
+alter table users add column creationdate timestamp with time zone default now();
+alter table profile add column creationdate timestamp with time zone default now();
+alter table principal add column creationdate timestamp with time zone default now();
+alter table kb_domain_settings add column lastmodifieddate timestamp with time zone default now();
+alter table kcomment add column creationdate timestamp with time zone default now();
+alter table userlabel add column creationdate timestamp with time zone default now();
+alter table kb_enotirule add column creationdate timestamp with time zone default now();
+alter table securityrule add column creationdate timestamp with time zone default now();					
+alter table acl add column creationdate timestamp with time zone default now();
+alter table users add column timezone character varying(256) default 'US/Central';
+ 
+#-------------------
+# 13 Marzo
+
+update kgroup set name = 'User' where name ='ROLE_USER';
+update kgroup set name = 'Domain Admin' where name ='ROLE_DOMAIN_ADMIN';
+update kgroup set name = 'Support' where name ='ROLE_SUPPORT';
+update kgroup set name = 'Security' where name ='ROLE_SECURITY';
+update kgroup set name = 'Information Model' where name ='ROLE_INFORMATION_MODEL';
+update kgroup set name = 'Datasets Members' where name ='ROLE_DATASET_MEMBERS';
+update kgroup set name = 'Monitor' where name ='ROLE_MONITOR';
+update kgroup set name = 'Workspace' where name ='ROLE_WORKSPACE';
+update kgroup set name = 'Content Base' where name ='ROLE_CONTENT_BASE';
+update kgroup set name = 'Auditor' where name ='ROLE_AUDITOR';
+update kgroup set name = 'Portal Admin' where name ='ROLE_PORTAL_ADMIN';
+update kgroup set name = 'Forms Library' where name ='ROLE_FORMS_LIBRARY';
+
+
+#-------------------
+# 16 Marzo
+#
+# Delete UserProfile -> Cascade SavedQueries
+#
+
+ALTER TABLE savedquery DROP CONSTRAINT userprofile_id; 
+ALTER TABLE savedquery ADD CONSTRAINT userprofile_id FOREIGN KEY (userprofile_id)  REFERENCES public.userprofile (id) MATCH SIMPLE ON UPDATE NO ACTION ON DELETE CASCADE;
+
+drop table activity;
+drop table banner;
+drop table htmltext;
+drop table tool;
+
+alter table acl 	   rename to kb_acl;
+alter table aclentry   rename to kb_aclentry;
+alter table vote       rename to kb_vote;
+
+alter table domain add column tipoftheday boolean default true;
+alter table UserProfile add column editperson boolean default true;
+
+
+update kgroup set name = 'Templates' where name ='ROLE_FORMS_LIBRARY';
+
+
+#-------------------
+# 23 Marzo
+#
+alter table notification rename to kb_notification;
+alter table kcomment rename to kb_comment;
+ 
+#-------------------
+# 27 Marzo
+#
+
+alter table content drop constraint content_prev_version_key;
+
+#--------------------
+# Local AT 31 Marzo
+
+
+CREATE TABLE kb_email_template
+(
+    id bigint NOT NULL,
+    creationdate timestamp with time zone DEFAULT now(),
+    lastmodifieddate timestamp with time zone DEFAULT now(),
+    lastmodifieduser bigint NOT NULL,
+    state integer,
+    domain_id bigint,
+	lang		 character varying(24),
+	xkey			 character varying(256),
+    title 		 character varying(256),
+	fromstr	 	 character varying(512),
+	subject 	 character varying(512),
+    strtext 	 text,
+    
+    CONSTRAINT email_template_pkey PRIMARY KEY (id),
+    CONSTRAINT dlk unique (domain_id, lang, xkey),	 
+    CONSTRAINT domain_fk FOREIGN KEY (domain_id) REFERENCES domain (id) MATCH SIMPLE ON UPDATE NO ACTION ON DELETE CASCADE,
+    CONSTRAINT user_fk FOREIGN KEY (lastmodifieduser) REFERENCES users (id) MATCH SIMPLE ON UPDATE NO ACTION ON DELETE RESTRICT
+)
+WITH (
+    OIDS = FALSE
+);
+
+
+CREATE INDEX kb_email_template_domain_idx ON public.kb_email_template USING btree (domain_id, lang, xkey);
+
+----------------------------------------------------------------------------------------------------------------
+-- Pasar Rio a tipo Basic
+
+update domain set type=3 where name='rio';
+
+
+alter table kfile drop constraint file_fk;
+
+alter table kfile add constraint file_fk FOREIGN KEY (resource_id) REFERENCES public.kresource (id) MATCH SIMPLE ON UPDATE NO ACTION ON DELETE CASCADE;
+alter table person drop constraint file_fk;
+alter table person add constraint file_fk foreign key(photo) references kfile(resource_id) match simple on update no action on delete set null;
+ 
+
+#--------------------
+# idoc test 10 Abril
+
+create role kbee with password 'novamens' superuser;
+
+alter table scheduler add column title character varying(64);
+alter table logevent add column event_procedure character varying(64);
+
+
+#--------------------
+# idoc test 15 Abril
+
+alter table dataset add column secured boolean default false;
+
+#--------------------
+# idoc test 18 Abril
+
+alter table kb_attributetemplate add column metadatasubtitle boolean default false;
+
+
+CREATE TABLE kb_attribute
+(
+	id bigint			 NOT NULL,
+	creationdate		 timestamp with time zone DEFAULT now(),
+	lastmodifieddate	 timestamp with time zone DEFAULT now(),
+	lastmodifieduser	 bigint NOT NULL,
+	state				 integer,
+	domain_id			 bigint,
+	name		 		 character varying(128),
+	type				 integer,
+	multiplicity		 integer,
+	uniquename			 character varying(128),
+	korder				 integer,
+	iscanonical			 boolean default false,
+	metadatasubtitle	 boolean default false,
+	visibility			 text,
+	
+	CONSTRAINT attribute_pkey PRIMARY KEY (id),
+	CONSTRAINT domain_fk FOREIGN KEY (domain_id) REFERENCES domain (id) MATCH SIMPLE ON UPDATE NO ACTION ON DELETE CASCADE,
+	CONSTRAINT user_fk FOREIGN KEY (lastmodifieduser) REFERENCES users (id) MATCH SIMPLE ON UPDATE NO ACTION ON DELETE RESTRICT
+)
+WITH (
+    OIDS = FALSE
+);
+
+
+
+alter table  classifier rename to kb_classifier;
+
+alter table  kb_attributetemplate drop column name;
+alter table  kb_attributetemplate drop column type;
+alter table  kb_attributetemplate drop column multiplicity;
+alter table  kb_attributetemplate drop column mandatory;
+
+
+#--------------------
+# idoc test 18 Abril
+
+alter  table     datasetmember add column rule_id bigint;
+alter  table	 datasetmember add CONSTRAINT rule_fk FOREIGN KEY (rule_id) REFERENCES securityrule (id) MATCH SIMPLE ON UPDATE NO ACTION ON DELETE CASCADE;
+
+alter  table     datasetmember add column group_id bigint;
+alter  table	 datasetmember add CONSTRAINT group_fk FOREIGN KEY (group_id) REFERENCES kgroup (id) MATCH SIMPLE ON UPDATE NO ACTION ON DELETE CASCADE;
+
+alter table   kb_attributetemplate add  column attribute_id bigint;
+alter table	  kb_attributetemplate add CONSTRAINT attribute_fk FOREIGN KEY (attribute_id) REFERENCES kb_attribute (id) MATCH SIMPLE ON UPDATE NO ACTION ON DELETE RESTRICT;
+alter table   kb_classifiertemplate rename column ismetadatasubtitle to metadatasubtitle;
+
+# ----------------------------------------
+# 19 Abril 2017
+#
+# testing rc1 
+# local rio3
+#
+
+#--------------------
+# idoc test 21 Abril
+
+
+# ----------------------------------------
+# 22 Abril 2017
+#
+alter table kgroupmember drop constraint group_fk;
+alter table kgroupmember add constraint group_fk foreign key(kgroup) references kgroup(id) on delete cascade;
+
+alter  table  securityrule add column derived boolean default false;
+
+alter table domain add column lang character(6) default 'en';
+
+# ----------------------------------------
+# 27 Abril 2017
+#
+
+alter  table  securityrule add column displaycondition character varying(4096);
+update  securityrule set displaycondition=description;
+
+# ----------------------------------------
+# 29 Abril 2017
+#
+
+alter table  datasetmember drop constraint rule_fk;
+alter table	 datasetmember add CONSTRAINT rule_fk FOREIGN KEY (rule_id) REFERENCES securityrule (id) MATCH SIMPLE ON UPDATE NO ACTION ON DELETE RESTRICT;
+
+alter table datasetmember drop constraint group_fk;
+alter table datasetmember add CONSTRAINT group_fk FOREIGN KEY (group_id) REFERENCES kgroup (id) MATCH SIMPLE ON UPDATE NO ACTION ON DELETE RESTRICT;
+
+ALTER TABLE classification drop constraint content_fk;
+ALTER TABLE classification ADD CONSTRAINT content_fk FOREIGN KEY (content_id) REFERENCES content(id) ON DELETE CASCADE;
+
+
+alter table kgroup add column derived boolean default false;
+
+
+
+
+# ----------------------------------------
+# 1 Mayo 2017
+# 
+
+delete from report;
+alter table report rename  to kb_report;
+alter table kb_report add column id bigint not null;
+alter table kb_report drop constraint report_pkey;
+alter table kb_report add constraint report_pkey primary key (id);
+
+alter table kb_vote add column id bigint;
+update kb_vote set id=-1 * (user_id  * 10000000 + content_id);
+
+alter table kb_vote drop constraint vote_pkey;
+alter table kb_vote add constraint vote_pkey primary key(id);  
+
+alter table securityrule rename to kb_security_rule;
+alter table kb_security_rule add column parent_objectid character varying(48);
+ 
+# ----------------------------------------
+# Test idoc 3 Mayo
+#
+ 
+alter table content add column user_defined_properties text;
+
+# ----------------------------------------
+# 14 Mayo 2017
+# 
+
+alter table content add column external_id character varying(64);
+
+
+
+# ----------------------------------------
+# 16 Mayo 2017
+# 
+alter table kb_contenttemplate add column isadd boolean default false;
+alter table kb_contenttemplate add column iscustomattributes boolean default false;
+
+
+alter table content alter column external_id type character varying(128);
+
+
+# ----------------------------------------
+# 6 Junio 2017
+# 
+
+CREATE TABLE public.kb_user_property
+(
+    id bigint NOT NULL,
+    type integer,
+    name character varying(128) COLLATE pg_catalog."default",
+    user_id bigint NOT NULL,
+    value text COLLATE pg_catalog."default",
+    
+	CONSTRAINT userproperty_pkey PRIMARY KEY (id),
+    CONSTRAINT user_fk FOREIGN KEY (user_id)
+        REFERENCES public.users (id) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE CASCADE
+)
+WITH (
+    OIDS = FALSE
+)
+TABLESPACE pg_default;
+
+ALTER TABLE public.kb_user_property OWNER to kbee;
+
+CREATE INDEX property_user_id_idx ON public.kb_user_property USING btree (user_id) TABLESPACE pg_default;
+	
+
+# ----------------------------------------
+# 20 Junio 2017
+# 
+
+alter table kb_aclentry drop constraint principal_fk;
+alter table kb_aclentry add constraint principal_fk FOREIGN KEY (principal) REFERENCES Principal(id) ON DELETE CASCADE;
+
+
+# ----------------------------------------
+# 27 Junio 2017
+# 
+	
+CREATE TABLE Kb_Cabinet (
+	id				 		 bigint  NOT  NULL,
+	domain_id				 bigint 	NOT  NULL,
+	lastModifiedDate		 TIMESTAMP WITH TIME ZONE DEFAULT current_timestamp,
+	creationDate			 TIMESTAMP  WITH TIME ZONE DEFAULT current_timestamp,
+	lastModifiedUser		 bigint  NOT NULL,
+	display_name 			 character varying(256),
+	criteria				 character varying(256),
+	state					 int,
+	readonly				 boolean default false,
+	reader_group			 bigint,
+	listorder				 int default 0,	
+	CONSTRAINT cabinet_pkey PRIMARY KEY (id),
+	CONSTRAINT lastModifiedUser_fk 	FOREIGN KEY (lastModifiedUser) REFERENCES  users(id),		
+	CONSTRAINT domain_fk FOREIGN KEY (domain_id) REFERENCES domain (id) MATCH SIMPLE ON UPDATE NO ACTION ON DELETE CASCADE,
+	CONSTRAINT group_fk FOREIGN KEY (reader_group) REFERENCES content(id)		
+)
+WITH (
+	OIDS=FALSE
+);
+
+
+CREATE INDEX cabinet_domain_idx ON public.kb_cabinet USING btree (domain_id, listorder) TABLESPACE pg_default;
+
+alter table datasetmember add column notes text;
+alter table kb_contenttemplate add column iskbase boolean default false;
+
+
+#--------------------
+# 30 Junio 2017
+#
+alter table domain add column cabinet_template boolean default true;
+alter table domain add column cabinet_kbase  boolean default false;
+alter table domain add column cabinet_external  boolean default false;
+
+alter table kb_cabinet add column key character varying(24);
+update kb_cabinet  set key=lower(display_name);
+update kb_cabinet  set key='kbase' where key like 'k%';
+
+
+#--------------------
+#
+#
+alter table domain add column logo_url character varying(1024);
+
+
+
+#--------------------
+# 4 Julio 2017
+#
+
+alter table kb_classifiertemplate add CONSTRAINT classifier_fk FOREIGN KEY (classifier_id) REFERENCES kb_classifier (id) ON DELETE RESTRICT;
+alter table datasetmember add column  external_url character varying(1024)
+
+
+#--------------------
+# 9 Julio 2017
+#
+# El idoc faltaba (el el rio no): 
+#
+alter table dataset add column external_subtype integer DEFAULT 0;
+alter table datasetmember   add column  external_url character varying(1024);
+
+
+
+#--------------------
+# 13 Julio 2017
+#
+
+#--------------------
+# 14 Julio 2017
+#
+
+ 
+
+
+CREATE TABLE public.kb_system_properties
+(
+    key    character varying(256) not null,
+	value  character varying(2048),
+	CONSTRAINT sp_pkey PRIMARY KEY (key)
+)
+WITH (
+    OIDS = FALSE
+)
+TABLESPACE pg_default;
+
+
+CREATE UNIQUE INDEX sp_lower_case_key ON kb_system_properties ((lower(key)));
+
+delete from kb_system_properties;
+
+insert into kb_system_properties (key, value) values ('support1.pwd', 				'1Aqqqqqq');
+insert into kb_system_properties (key, value) values ('support1.email', 			'ryan.garneau@realpage.com');
+insert into kb_system_properties (key, value) values ('support1.phone', 			'802-316-3521');
+
+insert into kb_system_properties (key, value) values ('support2.pwd', 				'1Aqqqqqq');
+insert into kb_system_properties (key, value) values ('support2.email', 			'james.burbo@realpage.com');
+insert into kb_system_properties (key, value) values ('support2.phone', 			'802-316-3525');
+																	
+insert into kb_system_properties (key, value) values ('default_timezone', 			'US/Central');
+insert into kb_system_properties (key, value) values ('default_noreply',   			'noreply@rpdm.realpage.com');
+insert into kb_system_properties (key, value) values ('default_labels',   			'Draft;Delete;Follow up;Duplicate');
+																				
+insert into kb_system_properties (key, value) values ('default_type_values',         'Training;Tenant Selection Plan;Contract;EOM Financials;Mortgage Statement;Lease Agreement;Rent Schedule;Management Agreements;Non-Disclosure Agreement;Shareholder Meetings;Lawsuits;Acquisitions;Due Diligence;Territory Assignments;Sales Incentives;Compensation Plan;Hardware;Software;System Logs;Benefits;Organizational Chart;Annual Reviews;Offer Letters;Signage;Brochures;Flyers');
+insert into kb_system_properties (key, value) values ('default_status_values',       'Draft;Under Review;Approved;Final;Cancelled');
+insert into kb_system_properties (key, value) values ('default_department_values',   'Marketing;HR;IT;Sales;Legal;Finance;Compliance;Property Management;Facilities;Training');
+
+
+
+
+
+
+
+insert into kb_system_properties (key, value) values ('dataset_type.name', 'File Type');
+insert into kb_system_properties (key, value) values ('classifier_type.name', 'File Type');
+
+
+insert into kb_system_properties (key, value) values ('dataset_status.name', 'Status');
+insert into kb_system_properties (key, value) values ('classifier_status.name', 'Status');
+
+
+insert into kb_system_properties (key, value) values ('"dataset_property.name', 'Property');
+insert into kb_system_properties (key, value) values ('classifier_property.name', 'Property');
+
+
+insert into kb_system_properties (key, value) values ('dataset_department.name', 'Department');
+insert into kb_system_properties (key, value) values ('classifier_department.name', 'Department');
+
+
+insert into kb_system_properties (key, value) values ('dataset_organization.name', 'Organization');
+insert into kb_system_properties (key, value) values ('classifier_organization.name', 'Organization');
+
+
+insert into kb_system_properties (key, value) values ('dataset_owner.name', 'Owner');
+insert into kb_system_properties (key, value) values ('classifier_owner.name', 'Owner');
+
+
+insert into kb_system_properties (key, value) values ('attribute_date.name.name', 'Effective Date');
+
+insert into kb_system_properties (key, value) values ('cabinet_standard',	'Enterprise');
+insert into kb_system_properties (key, value) values ('cabinet_templates',	'Templates');
+insert into kb_system_properties (key, value) values ('cabinet_kbase',		'Knowledge Base');
+insert into kb_system_properties (key, value) values ('cabinet_external',	'OneSite');
+insert into kb_system_properties (key, value) values ('cabinet_all',		'All');
+insert into kb_system_properties (key, value) values ('rpdm.login.banner.url', 'https://www.realpage.com/document-management-solutions/');
+ 
+alter table content add column private_notes text;
+
+
+#--------------------
+# 15 Julio 2017
+#
+
+alter table kb_contenttemplate add column private_notes boolean default false;
+
+
+# Testing Windsor AT (idoc-windsor)
+# Faltaba esto para que ande: alter table kb_comment add column site_id bigint;
+
+
+# ----------------------------------------
+# 26 Julio 2017
+# 
+	
+CREATE TABLE Kb_Import_Data (
+	server_url				 character varying(256)  NOT  NULL,
+	remote_domain			 character varying(64)   NOT  NULL,
+	object_class			 character varying(128)  NOT  NULL,
+	remote_id				 bigint  NOT  NULL,
+	local_id				 bigint  NOT  NULL,
+	local_domain			 character varying(64) NOT  NULL,
+	import_time				 TIMESTAMP WITH TIME ZONE DEFAULT current_timestamp,
+	CONSTRAINT import_data_pkey PRIMARY KEY (server_url, remote_domain, local_domain, object_class, remote_id)
+)
+WITH (
+	OIDS=FALSE
+);
+
+# ----------------------------------------
+# 18 Agosto 2017
+# 
+alter table kresource add column ispublic boolean default true;
+
+
+
+
+# ----------------------------------------
+# 9 Septiembre
+#
+alter table domain add column isapienabled boolean default true;
+
+
+
+
+# ----------------------------------------
+# 11 Septiembre
+#
+alter table person add workposition character varying(256)  (agregada a rio prod)
+
+
+
+# ----------------------------------------
+# 14 Sept
+#
+
+update kgroup set name='domain-admin' where name='Domain Admin';
+update kgroup set name='user' where name='User';
+update kgroup set name='mytasks' where name='Workspace';
+update kgroup set name='library' where name='Content Base';
+update kgroup set name='archive' where name='Archive';
+update kgroup set name='security' where name='Security';
+update kgroup set name='monitor' where name='monitor';
+update kgroup set name='workflow' where name='Workflow';
+update kgroup set name='templates' where name='Templates';
+update kgroup set name='information-model' where name='Information Model';
+update kgroup set name='support' where name='Support';
+update kgroup set name='dataset-values' where name like 'DataSet %';
+update kgroup set name='system-log' where name='System Log';
+update kgroup set name='auditor' where name='Auditor';
+update kgroup set name='portal-admin' where name='Portal Admin';
+update kgroup set name='external' where name like 'External %';
+update kgroup set name='knowledge-base' where name='Knowledge Base';
+update kgroup set name='enterprise' where name='Corporate';
+update kgroup set name='corporate-admin' where name='Corporate Admin';
+update kgroup set name='corporate-auditor' where name='Corporate Auditor';
+update kgroup set name='corporate-editor' where name='Corporate Editor';
+
+
+update kgroup set name='monitor' where name='Monitor';
+update kgroup set name='external' where name='External';
+update kgroup set name='templates' where name='Templates';	
+
+update kgroup set name='knowledge-base' where name='Forms Library';
+update kgroup set name='archive' where name='ROLE_ARCHIVE';
+update kgroup set name='root' where name='ROLE_ROOT';
+
+update kgroup set name='dataset-values' where name like 'dataSet-%';
+ 
+			
+# ----------------------------------------
+# 18 Sept
+#
+alter table kb_contenttemplate add abstract_label 			character varying(128);
+alter table kb_contenttemplate add private_notes_label  	character varying(128);
+alter table kb_contenttemplate add text_notes_label 		character varying(128);
+alter table kb_contenttemplate add text_label 				character varying(128);
+alter table kb_contenttemplate add customattributes_label 	character varying(128);
+
+
+
+# ----------------------------------------
+# 22 Sept
+#
+
+
+#Alter table kfile  add descriptionlastmodifieddate timestamp with time zone DEFAULT now(),
+#Alter table kfile  add descriptionlastmodifieduser bigint;
+
+#update      kfile set descriptionlastmodifieduser = (select id from users where username='root@kbee');
+#alter table kfile add CONSTRAINT des_user_fk FOREIGN KEY (  descriptionlastmodifieduser) REFERENCES public.users (id) MATCH SIMPLE;
+
+#alter table externalresource add descriptionlastmodifieddate timestamp with time zone DEFAULT now();
+#alter table externalresource add descriptionlastmodifieduser bigint;
+#update      externalresource set descriptionlastmodifieduser = (select id from users where username='root@kbee');
+#alter table externalresource add CONSTRAINT des_user_fk FOREIGN KEY (  descriptionlastmodifieduser) REFERENCES public.users (id) MATCH SIMPLE;
+
+#update kfile set descriptionlastmodifieduser  = (select k.lastmodifieduser from kresource k where k.id=resource_id);
+#update kfile set descriptionlastmodifieddate  = (select k.lastmodifieddate from kresource k where k.id=resource_id);
+
+#alter table kfile rename  descriptionlastmodifieduser to uploadeduser;
+#alter table kfile rename  descriptionlastmodifieddate to uploadeddate;
+--
+
+
+alter table kfile  add uploadeddate timestamp with time zone DEFAULT now();
+alter table kfile  add uploadeduser bigint;
+update      kfile set uploadeduser = (select id from users where username='root@kbee');
+alter table kfile add CONSTRAINT des_user_fk FOREIGN KEY (uploadeduser) REFERENCES public.users (id) MATCH SIMPLE;
+
+update kfile set uploadeduser = (select k.lastmodifieduser from kresource k where k.id=resource_id);
+update kfile set uploadeddate  = (select k.lastmodifieddate from kresource k where k.id=resource_id);
+
+
+
+# --------------------------------------------------------------
+#																																
+# 26 Sept
+#
+alter table wf_activity add resolutiontitle character varying(256);
+
+# --------------------------------------------------------------
+# 29 Set
+#
+alter table wf_procedure add code character(12);
+
+update wf_procedure set code='AS' where name='Assign';
+update wf_procedure set code='CS' where name='Submission2';
+update wf_procedure set code='CN' where name='Submission';
+update wf_procedure set code='ST' where name='Standard';
+update wf_procedure set code='CF' where name like 'Compliance %';
+
+
+# 1 Oct Testing Wsor, Testing demo
+
+
+#alter table wf_activity add event_label character varying(64);
+#update wf_activity set event_label=event where event_label is null;
+
+
+#------------------------------------------------------------------------------
+# 13 Oct (desde aca falta en Edgewood) 
+#
+alter table kb_classifiertemplate add column multiplicity integer default 4;
+
+
+# 15 Oct 
+#
+create table kb_user_note 
+(
+  id  bigint NOT NULL,
+  user_id bigint NOT NULL,
+  
+  title character varying(256),
+  notetext text,
+  
+  creationdate 		timestamp with time zone DEFAULT now(),
+  lastmodifieddate 	timestamp with time zone DEFAULT now(),
+  
+  lastmodifieduser 	bigint NOT NULL,
+  priority character varying(24),
+  domain_id bigint NOT NULL,
+  
+  CONSTRAINT user_note_id_pk PRIMARY KEY(id),
+  CONSTRAINT user_note_id_fk FOREIGN KEY (user_id)     REFERENCES users (id) MATCH SIMPLE  ON UPDATE NO ACTION ON DELETE CASCADE,
+  CONSTRAINT user_note_lmu_id_fk FOREIGN KEY (user_id) REFERENCES users (id) MATCH SIMPLE  ON UPDATE NO ACTION ON DELETE SET NULL,
+  CONSTRAINT un_domain_fk FOREIGN KEY (domain_id) REFERENCES domain (id) MATCH SIMPLE ON UPDATE NO ACTION ON DELETE CASCADE
+)
+WITH (
+  OIDS=FALSE
+);
+
+CREATE INDEX kb_un_user_idx ON kb_user_note USING btree (user_id, creationdate desc);
+
+
+
+# 24 Oct 
+#
+insert into kb_system_properties (key, value) values ('welcome-note.title', 'What is My Notepad ?');
+insert into kb_system_properties (key, value) values ('welcome-note.text', '<p>The Notepad is a panel easily accesible from the toolbar where you can create and manage simple notes.</p><p>Notes can include&nbsp;<a href=\"http://www.realpage.com\">links</a> and formats like <strong>bold</strong> or <em>italic</em>.</p><p>&nbsp;</p><p>Notes are private, no one else can read or edit them.</p>');
+
+
+# ---------------------------
+# 26 Oct 
+#
+
+CREATE TABLE kb_work_note
+(
+    id bigint NOT NULL,
+    user_id bigint NOT NULL,
+    title character varying(256) COLLATE pg_catalog."default",
+    notetext text COLLATE pg_catalog."default",
+    creationdate timestamp with time zone DEFAULT now(),
+    lastmodifieddate timestamp with time zone DEFAULT now(),
+    lastmodifieduser bigint NOT NULL,
+    priority character varying(24) COLLATE pg_catalog."default",
+    domain_id bigint NOT NULL,
+    CONSTRAINT wn_id_pk PRIMARY KEY (id),
+    CONSTRAINT wn_domain_fk FOREIGN KEY (domain_id)
+        REFERENCES public.domain (id) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE CASCADE,
+    CONSTRAINT wn_id_fk FOREIGN KEY (user_id)
+        REFERENCES public.users (id) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE CASCADE,
+    CONSTRAINT wn_lmu_id_fk FOREIGN KEY (user_id)
+        REFERENCES public.users (id) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE SET NULL
+)
+WITH (
+    OIDS = FALSE
+);
+
+CREATE INDEX kb_wn_user_idx ON public.kb_work_note USING btree (domain_id, creationdate DESC);
+
+
+
+
+CREATE TABLE kb_work_note_user_read
+(
+    id bigint NOT NULL,
+    work_note_id bigint NOT NULL,
+	user_id bigint NOT NULL,
+    readdate timestamp with time zone DEFAULT now(),
+
+	CONSTRAINT wnur_id_pk PRIMARY KEY (id),
+    CONSTRAINT wnur_uid_fk FOREIGN KEY  (user_id)    	  REFERENCES users 			(id) MATCH SIMPLE ON UPDATE NO ACTION ON DELETE CASCADE,
+	CONSTRAINT wnur_wnid_fk FOREIGN KEY (work_note_id)    REFERENCES kb_work_note   (id) MATCH SIMPLE ON UPDATE NO ACTION ON DELETE CASCADE
+)
+WITH (
+    OIDS = FALSE
+);
+
+
+CREATE INDEX kb_wnur_user_idx   ON kb_work_note_user_read USING btree (user_id, work_note_id);
+
+
+
+
+#-----------
+# 29 Oct
+#
+alter table kb_notification add column notification_type integer not null default 10;
+alter table kb_notification add column work_note_id bigint;
+alter table kb_notification add constraint wn_fk foreign key (work_note_id) references kb_work_note (id) on delete cascade;
+alter table kb_notification drop column contentid;
+
+
+
+create index kb_notification_user_state_idx on kb_notification using btree (receiver_id, notification_state);
+
+##--
+# Instalado en Wsor prod 30 Oct 2017 AT
+# Instalado en rc1 test 2 Nov por AT
+
+
+#-----------
+# 23 Nov
+#
+
+alter table wf_activity add column duedate timestamp with time zone;
+
+
+#-----------
+# 29 Nov
+#
+
+CREATE SEQUENCE public.contentresourceid_sequence
+	INCREMENT 1
+	START 100
+	MINVALUE 1
+	MAXVALUE 9223372036854775807
+	CACHE 1;
+
+ALTER SEQUENCE public.contentresourceid_sequence OWNER TO kbee;
+
+alter table contentresource add id bigint;
+update contentresource set id = nextval('contentresourceid_sequence');
+alter table contentresource drop constraint contentresource_pkey;
+alter table contentresource alter column id set not null;
+alter table contentresource add constraint contentresource_pkey PRIMARY KEY (id);
+ALTER TABLE contentresource ADD CONSTRAINT contentresource_unique UNIQUE (content_id, resource_id);
+
+ALTER SEQUENCE contentresourceid_sequence INCREMENT BY 50;
+ALTER SEQUENCE log_sequence INCREMENT BY 50;
+ALTER SEQUENCE resourceid_sequence INCREMENT BY 50;
+ALTER SEQUENCE workflow_sequence INCREMENT BY 50;
+
+
+# AT Linux Montaneses 4 Dic 2017
+# AT Laptop 6 Dic 2017
+
+
+#-----------
+# 7 Dic
+#
+
+# Desde aca para actualizar idoc6 en produccion
+# Desde aca para pasar a prod 25 de enero:
+#
+#
+#
+#
+#
+
+alter table wf_activity drop column duedate;
+
+
+#-----------
+# AT Laptop 8 Dic 2017
+# AT Testing Windsor IDOC-windsor2017  (12 Dic)
+	
+
+#-----------
+# 20 Dic
+#
+
+
+CREATE SEQUENCE public.timer_sequence
+	INCREMENT 1
+	START 100
+	MINVALUE 1
+	MAXVALUE 9223372036854775807
+	CACHE 1;
+	
+ALTER SEQUENCE public.timer_sequence OWNER TO kbee;
+
+CREATE TABLE kb_timer (
+	id bigint NOT NULL,
+	creationdate timestamp with time zone DEFAULT now(),
+	duedate timestamp with time zone,
+	callback bytea,
+	CONSTRAINT timer_id_pk PRIMARY KEY (id)
+)
+WITH (
+	OIDS = FALSE
+);
+
+#-----------
+# AT PC chacra 21 Dic 2017 (idoc-windsor4)
+# AT PC chacra 22 Dic 2017 (rio) 
+
+
+
+
+#-----------
+# 25 Dic
+#
+
+alter table kb_timer add attemps smallint;
+alter table kb_timer add error_message character varying(256);
+
+#-----------
+# 25 Dic 2017
+#
+# Para sacar Serializable de kb_domain_settings
+#  
+
+alter table kb_domain_settings add column  id bigint;
+update kb_domain_settings  set id=nextval('objectid_sequence');
+alter table kb_domain_settings  drop constraint ds_pkey;
+alter table kb_domain_settings alter column id set not null;
+alter table kb_domain_settings add primary key(id);
+alter table kb_domain_settings add constraint domain_cat_unique unique(domain_id, category);
+
+
+#-----------
+#
+# AT PC chacra 26 Dic 2017 (idoc-windsor6)
+# AT PC chacra 2 Ene 2018 (idoc-windsor7) - Bajado de produccion (actualize desde donde dice "desde aca")
+# 
+#-------------------------------------------------------------------------------------------------------------
+# DESDE ACA PARA MARZO 9
+#-------------------------------------------------------------------------------------------------------------
+
+# 3 Ene 2018		
+alter table savedquery alter column statement set data type text;
+
+ 		
+# 8 Ene 2018		
+# Testing: IDOC-windsor-prod
+
+
+
+
+# 12 Ene 2018
+
+alter table kb_security_rule add notes text;
+alter table kb_enotirule add notes text;
+alter table kb_user_property add column uset character varying(256);	
+alter table property add column uset character varying(256);
+
+alter table property add column lastModifiedDate timestamp with time zone default now();
+alter table kb_user_property add column lastModifiedDate timestamp with time zone default now();
+
+
+
+
+# 20 Enero 2018
+#
+alter table datasetmember alter column datevalue set data type timestamp with time zone;
+alter table classification alter column datevalue set data type timestamp with time zone;
+alter table entitymatching  alter column lastmodifieddate  set data type timestamp with time zone;
+
+
+alter table drb_answer  alter column date_accepted set data type timestamp with time zone;
+alter table drb_answer  alter column date_submitted set data type timestamp with time zone;
+alter table drb_answer  alter column date_Edited_Admin set data type timestamp with time zone;
+
+alter table drb_question  alter column date_submitted set data type timestamp with time zone;
+alter table drb_question  alter column date_edited_admin set data type timestamp with time zone;
+
+alter table domain add column  timezone character varying(256) DEFAULT 'US/Central';
+
+
+
+alter table kb_classifier add column is_rule_condition boolean default true;
+
+
+# IDOC-windsor-prod en Testing actualizado 25/1
+
+
+
+# 27 Jan 2018
+create index resource_name_global on kresource using btree (lower(name));
+
+
+# 31 Jan 2018
+alter table content add column checkindate timestamp with time zone;
+update content set checkindate = lastmodifieddate where checkindate is null;
+
+# 27 Feb 2018
+alter table wf_activity add column  role character varying(512);
+
+
+# 1 Marzo Feb 2018
+alter table kb_email_template add column available_macros text;
+
+
+
+
+
+# 1 Mar 2018
+alter table wf_activity drop column  role;
+alter table wf_procedure add column roles character varying(256);
+
+
+alter table kb_aclentry alter column permissions type character varying(1024);
+
+
+# 8 Marzo
+
+delete from scheduler;
+
+delete from kb_system_properties where key like 'dataset%' or key like 'support%' or key like 'noreply%' or key like 'cabinet%' or key like 'labels%';
+insert into kb_system_properties (key, value) values    ('dataset1', 'Secured Access');
+insert into kb_system_properties (key, value) values    ('dataset2', 'Site ID');
+insert into kb_system_properties (key, value) values    ('dataset3', 'Cabinet');
+insert into kb_system_properties (key, value) values    ('dataset4', 'Pmc Id');
+insert into kb_system_properties (key, value) values    ('dataset5', 'Document Entity');
+insert into kb_system_properties (key, value) values    ('dataset6', 'Packet Type');
+insert into kb_system_properties (key, value) values    ('cabinet.external', 'OneSite');
+insert into kb_system_properties (key, value) values    ('labels.default', 	'Draft;Delete;Follow up;Duplicate;Review');
+insert into kb_system_properties (key, value) values    ('dataset_type.default', 'Training;Tenant Selection Plan;Contract;EOM Financials;Mortgage Statement;Lease Agreement;Rent Schedule;Management Agreements;Non-Disclosure Agreement;Shareholder Meetings;Lawsuits;Acquisitions;Due Diligence;Territory Assignments;Sales Incentives;Compensation Plan;Hardware;Software;System Logs;Benefits;Organizational Chart;Annual Reviews;Offer Letters;Signage;Brochures;Flyers');
+insert into kb_system_properties (key, value) values    ('dataset_status.default', 'Draft;Under Review;Approved;Final;Cancelled');
+insert into kb_system_properties (key, value) values    ('dataset_department.default',	'Marketing;HR;IT;Sales;Legal;Finance;Compliance;Property Management;Facilities;Training');
+
+insert into kb_system_properties (key, value) values    ('support1.email', 'idocsupport1@realpage.com');
+insert into kb_system_properties (key, value) values    ('support2.email', 'idocsupport2@realpage.com');
+insert into kb_system_properties (key, value) values    ('noreply.email',  'noreply@idoc.realpage.com');
+
+
+#-------------------------------------------------------------------------------------------------------------
+# HASTA ACA PARA MARZO 9
+#-------------------------------------------------------------------------------------------------------------
+#
+# para ajustar la base de ???
+
+update person set lastname=firstname where lastname is null;
+update person set firstname=null where firstname=lastname;
+update person set lastname=entity_id where lastname is null;
+
+
+																					
+
+
+-- 6 Abril
+-- ya pasados a idoc prod (25 Junio. idoc-windsor5, idoc6, idoc-basic)
+--
+alter table userprofile add column  email_rule_notifications boolean default true; 
+alter table kfile add column externallystored boolean default false;
+alter table kfile add column storagemode integer  default 1;
+alter table userprofile add column sendfilesemail boolean default true;
+alter table kfile add column bucketname character varying(512);
+alter table kfile add column objectname character varying (512);
+
+
+
+alter table content add column external_time timestamp with time zone;
+
+CREATE TABLE kb_file_loader (
+	id bigint NOT NULL,
+	name character varying(128),
+	javaclass character varying(128),
+	CONSTRAINT fileloader_pk PRIMARY KEY (id)
+)
+WITH (
+	OIDS = FALSE
+);
+
+CREATE TABLE kb_file_proxy (
+	resource_id bigint NOT NULL,
+	file_loader bigint NOT NULL,
+	CONSTRAINT fileproxy_pk PRIMARY KEY (resource_id),
+	CONSTRAINT fileproxy_loader_fk FOREIGN KEY (file_loader) REFERENCES kb_file_loader(id) ON DELETE RESTRICT,
+	CONSTRAINT fileproxy_resource_fk FOREIGN KEY (resource_id) REFERENCES kresource(id) ON DELETE RESTRICT
+)
+WITH (
+	OIDS = FALSE
+);
+
+
+-- 25 Abril
+alter table kb_security_rule alter column description set data type text;
+alter table kb_security_rule alter column condition set data type text;
+alter table kb_security_rule alter column displaycondition set data type text;
+
+-- 26 Abril
+alter table kb_classifier add column is_api boolean default false;
+alter table kb_attribute add column is_api boolean default false;
+alter table kb_contenttemplate  add column is_api boolean default false;
+
+
+----------------------------------------------------------
+
+alter table kfile add column shard integer default 1;
+
+
+
+delete from kb_system_properties where key like 'dataset%' or key like 'support%' or key like 'noreply%' or key like 'cabinet%' or key like 'labels%';
+insert into kb_system_properties (key, value) values    ('dataset1', 'Secured Access');
+insert into kb_system_properties (key, value) values    ('dataset2', 'Site ID');
+insert into kb_system_properties (key, value) values    ('dataset3', 'Cabinet');
+insert into kb_system_properties (key, value) values    ('dataset4', 'Pmc Id');
+insert into kb_system_properties (key, value) values    ('dataset5', 'Document Entity');
+insert into kb_system_properties (key, value) values    ('dataset6', 'Packet Type');
+insert into kb_system_properties (key, value) values    ('cabinet.external', 'OneSite');
+															
+insert into kb_system_properties (key, value) values    ('dataset_label.name', 		'Label');
+insert into kb_system_properties (key, value) values    ('dataset_label.values', 	'Draft;Delete;Follow up;Duplicate;Review');
+
+insert into kb_system_properties (key, value) values    ('dataset_type.default', 'Training;Tenant Selection Plan;Contract;EOM Financials;Mortgage Statement;Lease Agreement;Rent Schedule;Management Agreements;Non-Disclosure Agreement;Shareholder Meetings;Lawsuits;Acquisitions;Due Diligence;Territory Assignments;Sales Incentives;Compensation Plan;Hardware;Software;System Logs;Benefits;Organizational Chart;Annual Reviews;Offer Letters;Signage;Brochures;Flyers');
+insert into kb_system_properties (key, value) values    ('dataset_status.default', 'Draft;Under Review;Approved;Final;Cancelled');
+insert into kb_system_properties (key, value) values    ('dataset_department.default',	'Marketing;HR;IT;Sales;Legal;Finance;Compliance;Property Management;Facilities;Training');
+insert into kb_system_properties (key, value) values    ('attribute_fileid.name', 'FileID');
+insert into kb_system_properties (key, value) values    ('support1.email', 'idocsupport1@realpage.com');
+insert into kb_system_properties (key, value) values    ('support2.email', 'idocsupport2@realpage.com');
+insert into kb_system_properties (key, value) values    ('noreply.email',  'noreply@idoc.realpage.com');
+
+
+
+
+-- esto es para el api realpage 
+insert into kb_file_loader(id, name, javaclass) values(1, 'realpage file', 'com.novamens.realpage.resource.FileLoader');
+insert into kb_file_loader(id, name, javaclass) values(2, 'realpage certificate', 'com.novamens.realpage.resource.CertificateLoader');
+
+alter table api_logevent add column event_retry bigint;
+alter table api_logevent add column event_retrynumber int;
+alter table api_logevent add column event_source character varying(32);
+
+
+
+
+alter table logevent add column auditset integer default 0;
+update logevent set auditset=10 where not event_content_id is null;
+
+
+
+alter table userprofile add column uitheme character varying(32) default 'rpdm';
+alter table users add column uitheme character varying(32) default 'rpdm';
+
+
+alter table kb_file_proxy add url character varying(512);
+
+alter table kb_usage_stat add column hard_disk_usage_gateway bigint default 0;
+alter table kb_usage_stat add column resources_external bigint default 0;
+
+CREATE INDEX ON api_logevent (event_time desc);
+CREATE INDEX ON api_soapevent (event_time desc);
+
+alter table kfile add  kfsize integer default 0;
+
+
+CREATE INDEX kfile_storagemode_idx ON kfile (storagemode, bucketname);
+CREATE INDEX kfile_bucket_idx ON kfile (bucketname, objectname);
+
+CREATE TABLE kb_relationtemplate (
+	id bigint NOT NULL,
+	name character varying(128),
+	source_label character varying(128),
+	sourcetemplate_id bigint NOT NULL,
+	target_label character varying(128),
+	targettemplate_id bigint NOT NULL,
+	multiplicity integer DEFAULT 4,
+	aggregation boolean DEFAULT false,
+	CONSTRAINT relationtemplate_id_pk PRIMARY KEY (id),
+	CONSTRAINT rt_source_fk FOREIGN KEY (sourcetemplate_id) REFERENCES kb_contenttemplate (id), 
+	CONSTRAINT rt_target_fk FOREIGN KEY (targettemplate_id) REFERENCES kb_contenttemplate (id)
+)
+WITH (
+	OIDS = FALSE
+);
+
+
+alter table kb_relationtemplate add column "position" integer default 0;
+
+alter table domain add column storagemode integer default 1;
+
+alter table dataset add column readonly boolean default false;
+alter table dataset	add column external_id character varying(128);
+alter table domain 	add column external_id character varying(128);
+alter table datasetmember add column labelcolor integer default 1;
+alter table kb_attribute add column isfilterable boolean default false;
+
+
+
+
+#-------------------------------------------------------------------------------------------------------------
+# Para Junio 27
+#-------------------------------------------------------------------------------------------------------------
+
+drop table contentrelation;
+
+CREATE TABLE kb_contentrelation (
+	id bigint NOT NULL,
+	source_id bigint NOT NULL,
+	target_id bigint NOT NULL,
+	template_id bigint NOT NULL,
+	position integer,
+	CONSTRAINT contentrelation_id_pk PRIMARY KEY (id),
+	CONSTRAINT cr_source_fk FOREIGN KEY (source_id) REFERENCES content (id) ON DELETE CASCADE, 
+	CONSTRAINT cr_target_fk FOREIGN KEY (target_id) REFERENCES content (id) ON DELETE CASCADE,
+	CONSTRAINT cr_template_fk FOREIGN KEY (template_id) REFERENCES kb_relationtemplate(id) ON DELETE RESTRICT
+)
+WITH (
+	OIDS = FALSE
+);
+
+insert into contentclass(id, enabled, name, javaclass, indexable) values('KbeeLinkView', true, 'LinkView', 'com.novamens.kbee.portal.model.publish.KbeeViewBKLink', true);
+insert into contentclass(id, enabled, name, javaclass, indexable) values('KbeeView', true, 'View', 'com.novamens.kbee.portal.model.publish.KbeeViewDetailContent', true);
+
+alter table organizationaltext alter column contentdate type timestamp with time zone;			
+
+alter table datasetmember 	add   column external_member_id bigint;
+alter table datasetmember 	alter column external_id type character varying(128);
+alter table api_logevent 	add   column event_contentclass character varying(64);
+
+update kfile K 			set bucketName=(select name from domain D where D.id=(select domain_id from kresource R where R.id=K.resource_id and R.domain_id=D.id)) where bucketname is null;
+update kfile K 			set objectname=path where objectname is null;
+update kb_file_proxy p 	set url = (select path from kfile f where f.resource_id = p.resource_id);
+update kfile 			set  kfsize=(select ksize from kresource where id=resource_id);
+
+
+---------------------------------------------------------------------------
+-- 16 Junio
+-- ROLES 
+
+CREATE TABLE kb_role (
+	id bigint NOT NULL,
+	name character varying(128),
+	domain_id bigint NOT NULL,
+	state integer,
+	type integer,
+	classifier_id bigint, 
+	condition text,
+	displaycondition text,
+	permissions character varying(1024),
+	negative_permissions character varying(1024),
+	canonical boolean default false,
+	securityrule_id bigint, 
+	creationDate TIMESTAMP WITH TIME ZONE DEFAULT now(),
+	lastModifiedDate TIMESTAMP WITH TIME ZONE DEFAULT now(),
+	lastModifiedUser bigint  NOT NULL,
+	CONSTRAINT role_id_pk PRIMARY KEY (id),
+	CONSTRAINT role_domain_fk FOREIGN KEY (domain_id) REFERENCES domain (id), 
+	CONSTRAINT role_classifier_fk FOREIGN KEY (classifier_id) REFERENCES kb_classifier (id), 
+	CONSTRAINT role_securityrule_fk FOREIGN KEY (securityrule_id) REFERENCES kb_security_rule (id) ON DELETE CASCADE, 
+	CONSTRAINT role_modifieduser_fk FOREIGN KEY (lastModifiedUser) REFERENCES users (id) 
+)
+WITH (
+	OIDS = FALSE
+);
+
+CREATE TABLE kb_user_role (
+	id bigint NOT NULL,
+	userprofile_id bigint NOT NULL,
+	role_id bigint NOT NULL,
+	entity_id bigint,
+	CONSTRAINT userrole_id_pk PRIMARY KEY (id),
+	CONSTRAINT userrole_profile_fk FOREIGN KEY (userprofile_id) REFERENCES userprofile (id), 
+	CONSTRAINT userrole_role_fk FOREIGN KEY (role_id) REFERENCES kb_role (id), 
+	CONSTRAINT userrole_entity_fk FOREIGN KEY (entity_id) REFERENCES datasetmember (id) 
+)
+WITH (
+	OIDS = FALSE
+);
+
+CREATE TABLE kb_member_role (
+	id bigint NOT NULL,
+	entity_id bigint NOT NULL,
+	role_id bigint NOT NULL,
+	securityrule_id bigint,
+	CONSTRAINT memberrole_id_pk PRIMARY KEY (id),
+	CONSTRAINT memberrole_role_fk FOREIGN KEY (role_id) REFERENCES kb_role (id), 
+	CONSTRAINT memberrole_securityrule_fk FOREIGN KEY (securityrule_id) REFERENCES kb_security_rule (id), 
+	CONSTRAINT memberrole_entity_fk FOREIGN KEY (entity_id) REFERENCES datasetmember (id) 
+)
+WITH (
+	OIDS = FALSE
+);
+
+CREATE TABLE kb_group_role (
+	role_id bigint NOT NULL,
+	group_id bigint NOT NULL,
+	CONSTRAINT grouprole_role_fk FOREIGN KEY (role_id) REFERENCES kb_role (id), 
+	CONSTRAINT grouprole_group_fk FOREIGN KEY (group_id) REFERENCES kgroup (id) 
+)
+WITH (
+	OIDS = FALSE
+);
+
+alter table DATASETMEMBER add securityrule_id bigint;
+alter table	DATASETMEMBER add CONSTRAINT member_securityrule_fk FOREIGN KEY (securityrule_id) REFERENCES kb_security_rule (id);
+
+CREATE TABLE kb_object_property (
+	id bigint NOT NULL,
+	type integer,
+	name character varying(128),
+	object_id character varying(64) NOT NULL,
+	value text,
+	uset character varying(128),
+	lastModifiedDate TIMESTAMP WITH TIME ZONE DEFAULT now(),
+	CONSTRAINT objectproperty_pkey PRIMARY KEY (id)
+)
+WITH (
+	OIDS = FALSE
+);
+
+CREATE INDEX property_object_id_idx ON kb_object_property USING btree (object_id);
+
+---------------------------------------------------------------------------
+-- 10 Julio
+
+
+alter table kb_user_role add column user_id bigint;
+alter table kb_user_role add CONSTRAINT userrole_user_fk FOREIGN KEY (user_id) REFERENCES users (id) 
+
+
+CREATE INDEX member_external_id_idx ON DATASETMEMBER USING btree (external_id);
+CREATE INDEX content_external_id_idx ON CONTENT USING btree (external_id);
+
+---------------------------------------------------------------------------
+-- 13 Julio
+
+alter table kb_file_proxy add column size integer default -1;
+
+
+
+alter table userprofile add column startpage character varying(64) default 'mytasks';
+
+---------------------------------------------------------------------------
+-- 13 Julio
+alter table api_logevent add column event_closed boolean default false;
+alter table api_logevent rename column event_respone  to event_response;
+
+---------------------------------------------------------------------------
+-- 3 Agosto
+
+alter table api_soapevent add column event_source character varying(32);
+alter table api_soapevent add column event_retry bigint;
+alter table api_soapevent add column event_retrynumber int;
+alter table api_soapevent add column event_closed boolean default false
+alter table api_soapevent add column event_contentclass character varying(64);
+
+alter table api_soapevent rename column event_respone  to event_response;
+
+

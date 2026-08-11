@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+		http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+		http://www.springframework.org/schema/context
+		http://www.springframework.org/schema/context/spring-context-3.0.xsd 
+		http://www.springframework.org/schema/tx 
+		http://www.springframework.org/schema/tx/spring-tx.xsd">
+		
+	<bean id="default-question-schema" class="com.novamens.indexer.java.DocumentSchema" scope="prototype">
+		<property name="name" value="Question"/>
+		<property name="javaClass" value="com.novamens.kbee.content.questionanswer.KbeeQuestion"/>
+		<property name="fieldsSchemas">
+			<list>
+				<bean class="com.novamens.indexer.java.AttributeFieldSchema">
+					<property name="fieldName" value="domain"/>
+					<property name="path" value="domain/id"/>
+				</bean>
+				<bean class="com.novamens.indexer.java.AttributeFieldSchema">
+					<property name="fieldName" value="id"/>
+					<property name="path" value="id"/>
+					<property name="asId" value="true"/>
+				</bean>
+				<bean class="com.novamens.indexer.java.AttributeFieldSchema">
+					<property name="fieldName" value="title"/>
+					<property name="path" value="title"/>
+				</bean>
+				<bean class="com.novamens.indexer.java.AttributeFieldSchema">
+					<property name="fieldName" value="text"/>
+					<property name="path" value="text"/>
+				</bean>
+				<bean class="com.novamens.indexer.java.AttributeFieldSchema">
+					<property name="fieldName" value="head"/>
+					<property name="path" value="headVersion"/>
+				</bean>
+				<bean class="com.novamens.indexer.java.AttributeFieldSchema">
+					<property name="fieldName" value="workspace"/>
+					<property name="path" value="workspace"/>
+				</bean>
+				<bean class="com.novamens.indexer.java.AttributeFieldSchema">
+					<property name="fieldName" value="answer"/>
+					<property name="path" value="answers/text"/>
+				</bean>
+				<bean class="com.novamens.indexer.java.CustomFieldSchema">
+					<property name="fieldName" value="comment"/>
+					<property name="extractor">
+						<bean class="com.novamens.kbee.content.multidimensional.SocialExtractor"/>
+					</property>
+				</bean>
+				<bean class="com.novamens.indexer.java.ConstantFieldSchema">
+					<property name="fieldName" value="type"/>
+					<property name="value" value="question"/>
+				</bean>
+				<bean class="com.novamens.indexer.java.AttributeFieldSchema">
+					<property name="fieldName" value="state"/>
+					<property name="path" value="state/id"/>
+				</bean>
+			</list>	
+		</property>
+	</bean>
+				
+</beans>

@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+		http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+		http://www.springframework.org/schema/context
+		http://www.springframework.org/schema/context/spring-context-3.0.xsd 
+		http://www.springframework.org/schema/tx 
+		http://www.springframework.org/schema/tx/spring-tx.xsd">
+
+	<bean id="com.novamens.idoc.service.BeansServiceFactory" class="com.novamens.spring.beans.SpringBeansServiceFactory"/>
+	
+	<tx:annotation-driven />
+
+	<bean id="dataSource" 
+		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName" value="${jdbc.driverClassName}" />
+		<property name="url" value="${jdbc.url}" />
+		<property name="username" value="${jdbc.username}" />
+		<property name="password" value="${jdbc.password}" />
+	</bean>
+	
+	<bean id="sessionFactory" 
+		class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
+ 
+		<property name="dataSource">
+			<ref bean="dataSource"/>
+		</property>
+ 
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.dialect">org.hibernate.dialect.PostgreSQLDialect</prop>
+				<!-- prop key="hibernate.dialect">org.hibernate.dialect.Oracle10gDialect</prop-->
+				<prop key="hibernate.show_sql">true</prop>
+				<prop key="hibernate.cache.use_second_level_cache">true</prop>
+				<prop key="hibernate.cache.provider_class">org.hibernate.cache.EhCacheProvider</prop>
+				<prop key="hibernate.cache.region.factory_class">org.hibernate.cache.ehcache.EhCacheRegionFactory</prop>
+				<prop key="net.sf.ehcache.configurationResourceName">/META-INF/ehcache.xml</prop>
+			</props>
+		</property>
+	
+		<property name="entityInterceptor">
+			<ref bean="entityInterceptor"/>
+  		</property>
+  		
+		<!-- property name="entityInterceptor">
+			<ref bean="updateInterceptor"/>
+		</property-->
+		
+		<property name="annotatedClasses">
+			<list>
+				<value>com.novamens.content.test.model.Message</value>
+				<value>com.novamens.content.test.model.Author</value>
+				<value>com.novamens.content.test.model.Article</value>
+
+				<value>com.novamens.kbee.content.model.entity.KbeePerson</value>
+				<value>com.novamens.content.model.entity.KbeeOrganization</value>
+
+	  			<value>com.novamens.content.model.impl.DataSetImpl</value>
+				<value>com.novamens.content.model.impl.DataSetMemberImpl</value>
+				<value>com.novamens.content.model.impl.ClassifierImpl</value>
+				<value>com.novamens.content.base.impl.ContentClassImpl</value>
+				<value>com.novamens.content.model.impl.ClassificationImpl</value>
+
+				<value>com.novamens.content.base.impl.ContentClassImpl</value>
+				<value>com.novamens.content.base.impl.AbstractContentTemplate</value>
+				<value>com.novamens.content.base.impl.AbstractContent</value>
+				
+
+				<value>com.novamens.content.resource.impl.AbstractResource</value>
+				<value>com.novamens.content.resource.impl.KBFileImpl</value>
+				<value>com.novamens.content.resource.impl.HTMLTextImpl</value>
+				
+				<value>com.novamens.content.ad.impl.BannerImpl</value>
+				<value>com.novamens.content.communication.impl.OrganizationalTextImpl</value>
+				
+				<value>com.novamens.kbee.content.document.KbeeIDoc</value>
+				<value>com.novamens.kbee.content.document.IDocSectionImpl</value>
+				
+				<value>com.novamens.content.questionanswer.impl.QuestionImpl</value>
+				<value>com.novamens.content.questionanswer.impl.AnswerImpl</value>
+ 				<value>com.novamens.content.questionanswer.impl.QuestionStatImpl</value>
+
+				<value>com.novamens.content.social.impl.CommentImpl</value>
+				<value>com.novamens.content.social.impl.Vote</value>
+  
+				<value>com.novamens.dom.impl.AbstractDomain</value>
+
+				<value>com.novamens.content.security.UserImpl</value>
+				<value>com.novamens.hibernate.security.HibernateUser</value>
+			</list>
+		</property>	
+	</bean>
+
+	
+	<bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+			<property name="host"			value="${com.novamens.kbee.mail.server}" />
+			<property name="port" 			value="${com.novamens.kbee.mail.port}" />
+			<property name="username" 		value="${com.novamens.kbee.mail.username}" />
+			<property name="password" 		value="${com.novamens.kbee.mail.password}" />
+			<property name="javaMailProperties">
+				<props>
+					<prop key="mail.smtp.auth">${com.novamens.kbee.mail.auth}</prop>
+					<prop key="mail.smtp.starttls.enable">true</prop>
+					<prop key="mail.smtp.socketFactory.port">465</prop>
+					<prop key="mail.smtp.socketFactory.class">javax.net.ssl.SSLSocketFactory</prop>
+					<!-- prop key="mail.debug">true</prop-->
+				</props>
+			</property>
+	</bean>
+	
+	<bean id="txInterceptor" 
+		class="org.springframework.transaction.interceptor.TransactionInterceptor">
+			<property name="transactionManager" ref="transactionManager" />
+			<property name="transactionAttributes">
+				<props>
+					<prop key="save">PROPAGATION_REQUIRED</prop>
+				</props>
+			</property>
+	</bean>
+	
+	<bean id="transactionManager" class="org.springframework.orm.hibernate5.HibernateTransactionManager">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+	
+	
+	<bean id="entityInterceptor" class="com.novamens.dom.impl.EntityInterceptor"/>
+</beans>

@@ -1,0 +1,1982 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+		http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+		http://www.springframework.org/schema/context
+		http://www.springframework.org/schema/context/spring-context-3.0.xsd 
+		http://www.springframework.org/schema/tx 
+		http://www.springframework.org/schema/tx/spring-tx.xsd">
+		
+	<bean id="object-builder" class="com.novamens.kbee.content.indexer.HibernateObjectBuilder"/>
+		
+	<bean id="default-content-cube" class="com.novamens.solr.indexer.multidimensional.SolrCube" scope="prototype">
+		<property name="facets">
+			<list>
+				<bean class="com.novamens.kbee.content.multidimensional.RelationFacet">
+					<property name="displayName" value="Modified By"/>
+					<property name="name" value="lastmodifieduser"/>
+					<property name="className" value="user"/>
+					<property name="displayNamePath" value="displayName"/>
+					<property name="order" value="10"/>
+					<property name="filterable" value="true"/>
+				</bean>
+				<!-- 
+				<bean class="com.novamens.kbee.content.multidimensional.DateFacet">
+					<property name="displayName" value="Modified"/>
+					<property name="name" value="modifiedmember"/>
+					<property name="order" value="11"/>
+				</bean>
+				-->
+				<bean class="com.novamens.kbee.content.multidimensional.SolrDateFacet">
+					<property name="displayName" value="Modified"/>
+					<property name="name" value="modified"/>
+					<property name="order" value="11"/>
+				</bean>
+				<bean class="com.novamens.kbee.content.multidimensional.DateFacet">
+					<property name="displayName" value="Created"/>
+					<property name="name" value="createdmember"/>
+					<property name="order" value="12"/>
+				</bean>
+				<bean class="com.novamens.kbee.content.multidimensional.RelationFacet">
+					<property name="displayName" value="Workspace"/>
+					<property name="name" value="usermember"/>
+					<property name="className" value="user"/>
+					<property name="displayNamePath" value="displayName"/>
+					<property name="order" value="13"/>
+					<property name="filterable" value="true"/>
+				</bean>
+				<bean class="com.novamens.kbee.content.multidimensional.GroupFacet">
+					<property name="displayName" value="Group"/>
+					<property name="name" value="groupmember"/>
+					<property name="order" value="14"/>
+					<property name="filterable" value="true"/>
+					<property name="navigable" value="true"/>
+				</bean>
+				<bean class="com.novamens.kbee.content.multidimensional.RoleFacet">
+					<property name="displayName" value="Role"/>
+					<property name="name" value="rolemember"/>
+					<property name="order" value="15"/>
+					<property name="filterable" value="true"/>
+					<property name="navigable" value="true"/>
+				</bean>
+				<bean class="com.novamens.kbee.content.workflow.multidimensional.TaskFacet">
+					<property name="displayName" value="Task"/>
+					<property name="name" value="taskmember"/>
+					<property name="order" value="16"/>
+					<property name="filterable" value="true"/>
+				</bean>
+				<bean class="com.novamens.kbee.content.multidimensional.LabelFacet">
+					<property name="displayName" value="Label"/>
+					<property name="name" value="labelmember"/>
+					<property name="order" value="17"/>
+					<property name="filterable" value="false"/>
+				</bean>
+				<bean class="com.novamens.kbee.content.multidimensional.StateFacet">
+					<property name="displayName" value="Status"/>
+					<property name="name" value="state"/>
+					<property name="order" value="18"/>
+					<property name="filterable" value="false"/>
+				</bean>
+				<bean class="com.novamens.kbee.content.multidimensional.PublishingStatusFacet">
+					<property name="displayName" value="Publishing Status"/>
+					<property name="name" value="publishingstatus"/>
+					<property name="order" value="90"/>
+					<property name="filterable" value="false"/>
+				</bean>
+				<bean class="com.novamens.kbee.content.multidimensional.ContentTemplateFacet">
+					<property name="displayName" value="Template"/>
+					<property name="name" value="template"/>
+					<property name="order" value="95"/>
+					<property name="filterable" value="true"/>
+					<property name="navigable" value="true"/>
+				</bean>
+				
+			</list>
+		</property>
+	</bean>
+		
+	<bean id="default-log-cube" class="com.novamens.solr.indexer.multidimensional.SolrCube" scope="prototype">
+		<property name="facets">
+			<list>
+				<!-- 
+				<bean class="com.novamens.content.web.multidimensional.DateFacet">
+ 					<property name="displayName" value="Date"/>
+					<property name="name" value="executedmember"/>
+					<property name="order" value="6"/>
+				</bean>
+				-->
+				<bean class="com.novamens.kbee.content.multidimensional.SolrDateFacet">
+					<property name="displayName" value="Date"/>
+					<property name="name" value="executed"/>
+					<property name="order" value="6"/>
+				</bean>
+				<bean class="com.novamens.kbee.content.multidimensional.RelationFacet">
+					<property name="displayName" value="User"/>
+					<property name="name" value="usermember"/>
+					<property name="className" value="user"/>
+					<property name="displayNamePath" value="displayName"/>
+					<property name="order" value="7"/>
+					<property name="filterable" value="true"/>
+				</bean>
+				<bean class="com.novamens.kbee.content.multidimensional.ValueFacet">
+					<property name="displayName" value="Type"/>
+					<property name="name" value="eventtype"/>
+					<property name="order" value="12"/>
+					<property name="filterable" value="false"/>
+					<property name="navigable" value="false"/>
+				</bean>
+				<bean class="com.novamens.kbee.content.multidimensional.ValueFacet">
+					<property name="displayName" value="Class"/>
+					<property name="name" value="class"/>
+					<property name="order" value="15"/>
+					<property name="filterable" value="false"/>
+					<property name="navigable" value="false"/>
+				</bean>
+				
+				<!--  SendEmail: From email  												 -->
+				<!--  SendEmail: To email    												 -->
+				<!--  SendEmail: 								 -->
+				<!--  SendEmail: Result  "OK" o "Successful" | "Error"  para todo lo demas   -->
+				
+			</list>
+		</property>
+	</bean>
+										
+
+						
+	<bean id="default-treeidoc-schema" class="com.novamens.indexer.java.DocumentSchema" scope="prototype">
+		<property name="name" value="TreeIDoc"/>
+		<property name="javaClass" value="com.novamens.kbee.content.document.KbeeTreeIDoc"/>
+		<property name="fieldsSchemas">
+			<list>
+				<bean class="com.novamens.indexer.java.AttributeFieldSchema">
+					<property name="fieldName" value="id"/>
+					<property name="path" value="id"/>
+					<property name="asId" value="true"/>
+				</bean>
+				
+				<bean class="com.novamens.indexer.java.AttributeFieldSchema">
+					<property name="fieldName" value="state"/>
+					<property name="path" value="state/id"/>
+				</bean>
+				
+				<bean class="com.novamens.indexer.java.ConstantFieldSchema">
+					<property name="fieldName" value="type"/>
+					<property name="value" value="treeidoc"/>
+				</bean>
+				
+				<bean class="com.novamens.indexer.java.AttributeFieldSchema">
+					<property name="fieldName" value="objectid"/>
+					<property name="path" value="oId"/>
+				</bean>
+				
+				<bean class="com.novamens.indexer.java.AttributeFieldSchema">
+					<property name="fieldName" value="externalid"/>
+					<property name="path" value="externalId"/>
+				</bean>
+				<bean class="com.novamens.indexer.java.AttributeFieldSchema">
+					<property name="fieldName" value="domain"/>
+					<property name="path" value="domain/id"/>
+				</bean>
+				<bean class="com.novamens.indexer.java.AttributeFieldSchema">
+					<property name="fieldName" value="title"/>
+					<property name="path" value="title"/>
+				</bean>
+				<bean class="com.novamens.indexer.java.AttributeFieldSchema">
+					<property name="fieldName" value="template"/>
+					<property name="path" value="contentTemplate/id"/>
+				</bean>
+				<bean class="com.novamens.indexer.java.AttributeFieldSchema">
+					<property name="fieldName" value="taskmember"/>
+					<property name="extractor">
+						<bean class="com.novamens.kbee.content.workflow.multidimensional.TaskExtractor"/>
+					</property>
+				</bean>
+				<bean class="com.novamens.indexer.java.AttributeFieldSchema">
+					<property name="fieldName" value="priority"/>
+					<property name="extractor">
+						<bean class="com.novamens.kbee.content.workflow.multidimensional.PriorityExtractor"/>
+					</property>
+				</bean>
+				<bean class="com.novamens.indexer.java.AttributeFieldSchema">
+					<property name="fieldName" value="duedate"/>
+					<property name="extractor">
+						<bean class="com.novamens.kbee.content.workflow.multidimensional.DueDateExtractor"/>
+					</property>
+				</bean>
+				<bean class="com.novamens.indexer.java.AttributeFieldSchema">
+					<property name="fieldName" value="assigned"/>
+					<property name="extractor">
+						<bean class="com.novamens.kbee.content.workflow.multidimensional.AssignedExtractor"/>
+					</property>
+				</bean>
+				<bean class="com.novamens.indexer.java.AttributeFieldSchema">
+					<property name="fieldName" value="assignedby"/>
+					<property name="extractor">
+						<bean class="com.novamens.kbee.content.workflow.multidimensional.AssignedByExtractor"/>
+					</property>
+				</bean>
+				<bean class="com.novamens.indexer.java.CustomFieldSchema">
+					<property name="fieldName" value="labelmember"/>
+					<property name="extractor">
+						<bean class="com.novamens.kbee.content.multidimensional.LabelsExtractor"/>
+					</property>
+				</bean>
+				<bean class="com.novamens.indexer.java.CustomFieldSchema">
+					<property name="fieldName" value="groupmember"/>
+					<property name="extractor">
+						<bean class="com.novamens.kbee.content.multidimensional.ContentGroupsExtractor"/>
+					</property>
+				</bean>
+				<bean class="com.novamens.indexer.java.CustomFieldSchema">
+					<property name="fieldName" value="rolemember"/>
+					<property name="extractor">
+						<bean class="com.novamens.kbee.content.multidimensional.ContentRoleExtractor"/>
+					</property>
+				</bean>
+				<bean class="com.novamens.indexer.java.AttributeFieldSchema">
+					<property name="fieldName" value="head"/>
+					<property name="path" value="headVersion"/>
+				</bean>
+				<bean class="com.novamens.indexer.java.AttributeFieldSchema">
+					<property name="fieldName" value="workspace"/>
+					<property name="path" value="workspace"/>
+				</bean>
+				<bean class="com.novamens.indexer.java.AttributeFieldSchema">
+					<property name="fieldName" value="usermember"/>
+					<property name="path" value="workspace"/>
+				</bean>
+				<bean class="com.novamens.indexer.java.AttributeFieldSchema">
+					<property name="fieldName" value="workspacename"/>
+					<property name="extractor">
+						<bean class="com.novamens.kbee.content.multidimensional.WorkspaceNameExtractor"/>
+					</property>
+				</bean>
+				<bean class="com.novamens.indexer.java.AttributeFieldSchema">
+					<property name="fieldName" value="inworkspace"/>
+					<property name="extractor">
+						<bean class="com.novamens.kbee.content.multidimensional.NotNullExtractor">
+							<property name="path" value="workspace"/>
+						</bean>
+					</property>
+				</bean>
+				<bean class="com.novamens.indexer.java.AttributeFieldSchema">
+					<property name="fieldName" value="istemplate"/>
+					<property name="extractor">
+						<bean class="com.novamens.kbee.content.multidimensional.TemplateExtractor"/>
+					</property>
+				</bean>
+				<bean class="com.novamens.indexer.java.AttributeFieldSchema">
+					<property name="fieldName" value="isexternal"/>
+					<property name="extractor">
+						<bean class="com.novamens.kbee.content.multidimensional.ExternalExtractor"/>
+					</property>
+				</bean>
+				<bean class="com.novamens.indexer.java.AttributeFieldSchema">
+					<property name="fieldName" value="isknowledgebase"/>
+					<property name="extractor">
+						<bean class="com.novamens.kbee.content.multidimensional.KnowledgeBaseExtractor"/>
+					</property>
+				</bean>
+				<bean class="com.novamens.indexer.java.AttributeFieldSchema">
+					<property name="fieldName" value="customattributes"/>
+					<property name="extractor">
+						<bean class="com.novamens.kbee.content.multidimensional.CustomAttributesExtractor"/>
+					</property>
+				</bean>
+				<bean class="com.novamens.indexer.java.AttributeFieldSchema">
+					<property name="fieldName" value="modified"/>
+					<property name="extractor">
+						<bean class="com.novamens.kbee.content.multidimensional.SimpleDateExtractor">
+							<property name="path" value="lastModifiedOffsetDateTime"/>
+						</bean>
+					</property>
+				</bean>
+				<bean class="com.novamens.indexer.java.AttributeFieldSchema">
+					<property name="fieldName" value="modifiedmember"/>
+					<property name="extractor">
+						<bean class="com.novamens.kbee.content.multidimensional.DateExtractor">
+							<property name="path" value="lastModifiedOffsetDateTime"/>
+						</bean>
+					</property>
+				</bean>
+				<bean class="com.novamens.indexer.java.AttributeFieldSchema">
+					<property name="fieldName" value="lastmodifieduser"/>
+					<property name="path" value="lastModifiedUser/id"/>
+				</bean>
+				<bean class="com.novamens.indexer.java.AttributeFieldSchema">
+					<property name="fieldName" value="reader"/>
+ 					<property name="extractor">
+						<bean class="com.novamens.kbee.content.multidimensional.ReaderExtractor"/>
+					</property>
+				</bean>
+				<bean class="com.novamens.indexer.java.AttributeFieldSchema">
+					<property name="fieldName" value="taker"/>
+					<property name="extractor">
+						<bean class="com.novamens.kbee.content.multidimensional.TakerExtractor"/>
+					</property>
+				</bean>
+				<bean class="com.novamens.indexer.java.AttributeFieldSchema">
+					<property name="fieldName" value="publishingstatus"/>
+					<property name="extractor">
+						<bean class="com.novamens.kbee.content.multidimensional.PublishingStatusExtractor"/>
+					</property>
+				</bean>
+				<bean class="com.novamens.indexer.java.FileFieldSchema">
+					<property name="fieldName" value="filetext"/>
+					<property name="extractor">
+						<bean class="com.novamens.solr.indexer.util.SolrFileTextExtractor">
+							<property name="path" value="resources"/>
+						</bean>
+					</property>
+				</bean>
+			</list>	
+		</property>
+	</bean>
+
+
+
+						
+	<bean id="default-treefile-schema" class="com.novamens.indexer.java.DocumentSchema" scope="prototype">
+		<property name="name" value="TreeFile"/>
+		<property name="javaClass" value="com.novamens.kbee.content.document.KbeeTreeFile"/>
+		<property name="aggregation" value="FALSE"/>
+		<property name="fieldsSchemas">
+			<list>
+				<bean class="com.novamens.indexer.java.AttributeFieldSchema">
+					<property name="fieldName" value="id"/>
+					<property name="path" value="id"/>
+					<property name="asId" value="true"/>
+				</bean>
+				
+				<bean class="com.novamens.indexer.java.AttributeFieldSchema">
+					<property name="fieldName" value="subtype"/>
+					<property name="path" value="type"/>
+				</bean>
+				
+				<bean class="com.novamens.indexer.java.AttributeFieldSchema">
+					<property name="fieldName" value="level"/>
+					<property name="path" value="level"/>
+				</bean>
+				
+				<bean class="com.novamens.indexer.java.AttributeFieldSchema">
+					<property name="fieldName" value="objectid"/>
+					<property name="path" value="oId"/>
+				</bean>
+				
+				<bean class="com.novamens.indexer.java.AttributeFieldSchema">
+					<property name="fieldName" value="state"/>
+					<property name="path" value="state/id"/>
+				</bean>
+				
+				<bean class="com.novamens.indexer.java.ConstantFieldSchema">
+					<property name="fieldName" value="type"/>
+					<property name="value" value="treefile"/>
+				</bean>
+				
+				<bean class="com.novamens.indexer.java.AttributeFieldSchema">
+					<property name="fieldName" value="domain"/>
+					<property name="path" value="domain/id"/>
+				</bean>
+
+				<bean class="com.novamens.indexer.java.AttributeFieldSchema">
+					<property name="fieldName" value="title"/>
+					<property name="path" value="title"/>
+				</bean>
+				<bean class="com.novamens.indexer.java.AttributeFieldSchema">
+					<property name="fieldName" value="name"/>
+					<property name="path" value="name"/>
+				</bean>
+				
+				<bean class="com.novamens.indexer.java.AttributeFieldSchema">
+					<property name="fieldName" value="lastmodifieduser"/>
+					<property name="path" value="lastModifiedUser/id"/>
+				</bean>
+				
+				<bean class="com.novamens.indexer.java.AttributeFieldSchema">
+					<property name="fieldName" value="modified"/>
+					<property name="extractor">
+						<bean class="com.novamens.kbee.content.multidimensional.SimpleDateExtractor">
+							<property name="path" value="lastModifiedOffsetDateTime"/>
+						</bean>
+					</property>
+				</bean>
+				
+				<bean class="com.novamens.indexer.java.AttributeFieldSchema">
+					<property name="fieldName" value="modifiedmember"/>
+						<property name="extractor">
+						<bean class="com.novamens.kbee.content.multidimensional.DateExtractor">
+							<property name="path" value="lastModifiedOffsetDateTime"/>
+						</bean>
+					</property>
+				</bean>
+				
+				
+				<bean class="com.novamens.indexer.java.AttributeFieldSchema">
+					<property name="fieldName" value="created"/>
+					<property name="extractor">
+						<bean class="com.novamens.kbee.content.multidimensional.SimpleDateExtractor">
+							<property name="path" value="creationOffsetDateTime"/>
+						</bean>
+					</property>
+				</bean>
+				<bean class="com.novamens.indexer.java.AttributeFieldSchema">
+					<property name="fieldName" value="createdmember"/>
+						<property name="extractor">
+						<bean class="com.novamens.kbee.content.multidimensional.DateExtractor">
+							<property name="path" value="creationOffsetDateTime"/>
+						</bean>
+					</property>
+				</bean>
+			</list>
+		</property>
+	</bean>
+
+						
+	<bean id="default-domain-schema" class="com.novamens.indexer.java.DocumentSchema" scope="prototype">
+		<property name="name" value="Domain"/>
+		<property name="javaClass" value="com.novamens.kbee.domain.KbeeDomain"/>
+		<property name="aggregation" value="FALSE"/> 
+		<property name="fieldsSchemas">
+			<list>
+				<bean class="com.novamens.indexer.java.AttributeFieldSchema">
+					<property name="fieldName" value="id"/>
+					<property name="path" value="id"/>
+					<property name="asId" value="true"/>
+				</bean>
+				<bean class="com.novamens.indexer.java.AttributeFieldSchema">
+					<property name="fieldName" value="title"/>
+					<property name="path" value="displayName"/>
+				</bean>
+				<bean class="com.novamens.indexer.java.AttributeFieldSchema">
+					<property name="fieldName" value="name"/>
+					<property name="path" value="name"/>
+				</bean>
+				<bean class="com.novamens.indexer.java.AttributeFieldSchema">
+					<property name="fieldName" value="lastmodifieduser"/>
+					<property name="path" value="lastModifiedUser/id"/>
+				</bean>
+				<bean class="com.novamens.indexer.java.AttributeFieldSchema">
+					<property name="fieldName" value="modified"/>
+					<property name="extractor">
+						<bean class="com.novamens.kbee.content.multidimensional.SimpleDateExtractor">
+							<property name="path" value="lastModifiedOffsetDateTime"/>
+						</bean>
+					</property>
+				</bean>
+				<bean class="com.novamens.indexer.java.AttributeFieldSchema">
+					<property name="fieldName" value="modifiedmember"/>
+						<property name="extractor">
+						<bean class="com.novamens.kbee.content.multidimensional.DateExtractor">
+							<property name="path" value="lastModifiedOffsetDateTime"/>
+						</bean>
+					</property>
+				</bean>
+				<bean class="com.novamens.indexer.java.AttributeFieldSchema">
+					<property name="fieldName" value="created"/>
+					<property name="extractor">
+						<bean class="com.novamens.kbee.content.multidimensional.SimpleDateExtractor">
+							<property name="path" value="creationOffsetDateTime"/>
+						</bean>
+					</property>
+				</bean>
+				<bean class="com.novamens.indexer.java.AttributeFieldSchema">
+					<property name="fieldName" value="createdmember"/>
+						<property name="extractor">
+						<bean class="com.novamens.kbee.content.multidimensional.DateExtractor">
+							<property name="path" value="creationOffsetDateTime"/>
+						</bean>
+					</property>
+				</bean>
+				<bean class="com.novamens.indexer.java.AttributeFieldSchema">
+					<property name="fieldName" value="kbfs"/>
+					<property name="path" value="storageType/id"/>
+				</bean>
+				<bean class="com.novamens.indexer.java.AttributeFieldSchema">
+					<property name="fieldName" value="api"/>
+					<property name="path" value="apiEnabled"/>
+				</bean>
+				<bean class="com.novamens.indexer.java.AttributeFieldSchema">
+					<property name="fieldName" value="state"/>
+					<property name="path" value="state/id"/>
+				</bean>
+				<bean class="com.novamens.indexer.java.AttributeFieldSchema">
+					<property name="fieldName" value="organization"/>
+					<property name="path" value="organization"/>
+				</bean>
+				<bean class="com.novamens.indexer.java.AttributeFieldSchema">
+					<property name="fieldName" value="domaintype"/>
+					<property name="path" value="domaintype/id"/>
+				</bean>
+				<bean class="com.novamens.indexer.java.ConstantFieldSchema">
+					<property name="fieldName" value="type"/>
+					<property name="value" value="domain"/>
+				</bean>
+			</list>
+		</property>
+	</bean>
+
+
+	<bean id="default-idoc-schema" class="com.novamens.indexer.java.DocumentSchema" scope="prototype">
+		<property name="name" value="IDoc"/>
+		<property name="javaClass" value="com.novamens.kbee.content.document.KbeeIDoc"/>
+		<property name="fieldsSchemas">
+			<list>
+				<bean class="com.novamens.indexer.java.AttributeFieldSchema">
+					<property name="fieldName" value="id"/>
+					<property name="path" value="id"/>
+					<property name="asId" value="true"/>
+				</bean>
+				<bean class="com.novamens.indexer.java.AttributeFieldSchema">
+					<property name="fieldName" value="objectid"/>
+					<property name="path" value="oId"/>
+				</bean>
+				<bean class="com.novamens.indexer.java.AttributeFieldSchema">
+					<property name="fieldName" value="resources"/>
+					<property name="extractor">
+						<bean class="com.novamens.kbee.content.indexer.FileObjectIdExtractor">
+							<property name="path" value="resources"/>
+						</bean>
+					</property>
+				</bean>
+				<bean class="com.novamens.indexer.java.AttributeFieldSchema">
+					<property name="fieldName" value="externalid"/>
+					<property name="path" value="externalId"/>
+				</bean>
+				<bean class="com.novamens.indexer.java.AttributeFieldSchema">
+					<property name="fieldName" value="source"/>
+					<property name="path" value="source/id"/>
+				</bean>
+				<bean class="com.novamens.indexer.java.AttributeFieldSchema">
+					<property name="fieldName" value="domain"/>
+					<property name="path" value="domain/id"/>
+				</bean>
+				<bean class="com.novamens.indexer.java.AttributeFieldSchema">
+					<property name="fieldName" value="title"/>
+					<property name="path" value="title"/>
+				</bean>
+				<bean class="com.novamens.indexer.java.AttributeFieldSchema">
+					<property name="fieldName" value="abstract"/>
+					<property name="path" value="abstract/asString"/>
+				</bean>
+				<bean class="com.novamens.indexer.java.AttributeFieldSchema">
+					<property name="fieldName" value="template"/>
+					<property name="path" value="contentTemplate/id"/>
+				</bean>
+				<bean class="com.novamens.indexer.java.AttributeFieldSchema">
+					<property name="fieldName" value="taskmember"/>
+					<property name="extractor">
+						<bean class="com.novamens.kbee.content.workflow.multidimensional.TaskExtractor"/>
+					</property>
+				</bean>
+				<bean class="com.novamens.indexer.java.AttributeFieldSchema">
+					<property name="fieldName" value="priority"/>
+					<property name="extractor">
+						<bean class="com.novamens.kbee.content.workflow.multidimensional.PriorityExtractor"/>
+					</property>
+				</bean>
+				<bean class="com.novamens.indexer.java.AttributeFieldSchema">
+					<property name="fieldName" value="duedate"/>
+					<property name="extractor">
+						<bean class="com.novamens.kbee.content.workflow.multidimensional.DueDateExtractor"/>
+					</property>
+				</bean>
+				<bean class="com.novamens.indexer.java.AttributeFieldSchema">
+					<property name="fieldName" value="assigned"/>
+					<property name="extractor">
+						<bean class="com.novamens.kbee.content.workflow.multidimensional.AssignedExtractor"/>
+					</property>
+				</bean>
+				<bean class="com.novamens.indexer.java.AttributeFieldSchema">
+					<property name="fieldName" value="assignedby"/>
+					<property name="extractor">
+						<bean class="com.novamens.kbee.content.workflow.multidimensional.AssignedByExtractor"/>
+					</property>
+				</bean>
+				<bean class="com.novamens.indexer.java.CustomFieldSchema">
+					<property name="fieldName" value="labelmember"/>
+					<property name="extractor">
+						<bean class="com.novamens.kbee.content.multidimensional.LabelsExtractor"/>
+					</property>
+				</bean>
+				<bean class="com.novamens.indexer.java.CustomFieldSchema">
+					<property name="fieldName" value="groupmember"/>
+					<property name="extractor">
+						<bean class="com.novamens.kbee.content.multidimensional.ContentGroupsExtractor"/>
+					</property>
+				</bean>
+				<bean class="com.novamens.indexer.java.CustomFieldSchema">
+					<property name="fieldName" value="rolemember"/>
+					<property name="extractor">
+						<bean class="com.novamens.kbee.content.multidimensional.ContentRoleExtractor"/>
+					</property>
+				</bean>
+				<bean class="com.novamens.indexer.java.AttributeFieldSchema">
+					<property name="fieldName" value="head"/>
+					<property name="path" value="headVersion"/>
+				</bean>
+				<bean class="com.novamens.indexer.java.AttributeFieldSchema">
+					<property name="fieldName" value="state"/>
+					<property name="path" value="state/id"/>
+				</bean>
+				<bean class="com.novamens.indexer.java.AttributeFieldSchema">
+					<property name="fieldName" value="workspace"/>
+					<property name="path" value="workspace"/>
+				</bean>
+				<bean class="com.novamens.indexer.java.AttributeFieldSchema">
+					<property name="fieldName" value="usermember"/>
+					<property name="path" value="workspace"/>
+				</bean>
+				<bean class="com.novamens.indexer.java.AttributeFieldSchema">
+					<property name="fieldName" value="workspacename"/>
+					<property name="extractor">
+						<bean class="com.novamens.kbee.content.multidimensional.WorkspaceNameExtractor"/>
+					</property>
+				</bean>
+				<bean class="com.novamens.indexer.java.AttributeFieldSchema">
+					<property name="fieldName" value="inworkspace"/>
+					<property name="extractor">
+						<bean class="com.novamens.kbee.content.multidimensional.NotNullExtractor">
+							<property name="path" value="workspace"/>
+						</bean>
+					</property>
+				</bean>
+				<bean class="com.novamens.indexer.java.AttributeFieldSchema">
+					<property name="fieldName" value="istemplate"/>
+					<property name="extractor">
+						<bean class="com.novamens.kbee.content.multidimensional.TemplateExtractor"/>
+					</property>
+				</bean>
+				<bean class="com.novamens.indexer.java.AttributeFieldSchema">
+					<property name="fieldName" value="isexternal"/>
+					<property name="extractor">
+						<bean class="com.novamens.kbee.content.multidimensional.ExternalExtractor"/>
+					</property>
+				</bean>
+				<bean class="com.novamens.indexer.java.AttributeFieldSchema">
+					<property name="fieldName" value="isknowledgebase"/>
+					<property name="extractor">
+						<bean class="com.novamens.kbee.content.multidimensional.KnowledgeBaseExtractor"/>
+					</property>
+				</bean>
+				<bean class="com.novamens.indexer.java.AttributeFieldSchema">
+					<property name="fieldName" value="customattributes"/>
+					<property name="extractor">
+						<bean class="com.novamens.kbee.content.multidimensional.CustomAttributesExtractor"/>
+					</property>
+				</bean>
+				<bean class="com.novamens.indexer.java.AttributeFieldSchema">
+					<property name="fieldName" value="modified"/>
+					<property name="extractor">
+						<bean class="com.novamens.kbee.content.multidimensional.SimpleDateExtractor">
+							<property name="path" value="lastModifiedOffsetDateTime"/>
+						</bean>
+					</property>
+				</bean>
+				<bean class="com.novamens.indexer.java.AttributeFieldSchema">
+					<property name="fieldName" value="modifiedmember"/>
+					<property name="extractor">
+						<bean class="com.novamens.kbee.content.multidimensional.DateExtractor">
+							<property name="path" value="lastModifiedOffsetDateTime"/>
+						</bean>
+					</property>
+				</bean>
+				<bean class="com.novamens.indexer.java.AttributeFieldSchema">
+					<property name="fieldName" value="lastmodifieduser"/>
+					<property name="path" value="lastModifiedUser/id"/>
+				</bean>
+				<bean class="com.novamens.indexer.java.AttributeFieldSchema">
+					<property name="fieldName" value="published"/>
+					<property name="extractor">
+						<bean class="com.novamens.kbee.content.multidimensional.SimpleDateExtractor">
+							<property name="path" value="checkinOffsetDateTime"/>
+						</bean>
+					</property>
+				</bean>
+				<bean class="com.novamens.indexer.java.AttributeFieldSchema">
+					<property name="fieldName" value="reader"/>
+ 					<property name="extractor">
+						<bean class="com.novamens.kbee.content.multidimensional.ReaderExtractor"/>
+					</property>
+				</bean>
+				<bean class="com.novamens.indexer.java.AttributeFieldSchema">
+					<property name="fieldName" value="taker"/>
+					<property name="extractor">
+						<bean class="com.novamens.kbee.content.multidimensional.TakerExtractor"/>
+					</property>
+				</bean>
+				<bean class="com.novamens.indexer.java.AttributeFieldSchema">
+					<property name="fieldName" value="writer"/>
+					<property name="extractor">
+						<bean class="com.novamens.kbee.content.multidimensional.WriterExtractor"/>
+					</property>
+				</bean>
+				<bean class="com.novamens.indexer.java.AttributeFieldSchema">
+					<property name="fieldName" value="publishingstatus"/>
+					<property name="extractor">
+						<bean class="com.novamens.kbee.content.multidimensional.PublishingStatusExtractor"/>
+					</property>
+				</bean>
+				<bean class="com.novamens.indexer.java.ConstantFieldSchema">
+					<property name="fieldName" value="type"/>
+					<property name="value" value="idoc"/>
+				</bean>
+				<bean class="com.novamens.indexer.java.FileFieldSchema">
+					<property name="fieldName" value="filetext"/>
+					<property name="extractor">
+						<bean class="com.novamens.solr.indexer.util.SolrFileTextExtractor">
+							<property name="path" value="resources"/>
+						</bean>
+					</property>
+				</bean>
+				<bean class="com.novamens.indexer.java.FileFieldSchema">
+					<property name="fieldName" value="portaltext"/>
+					<property name="extractor">
+						<bean class="com.novamens.solr.indexer.util.SolrPortalFileTextExtractor">
+							<property name="path" value="resources"/>
+						</bean>
+					</property>
+				</bean>
+				
+			</list>	
+		</property>
+	</bean>
+	
+	<bean id="default-contentproxy-schema" class="com.novamens.indexer.java.DocumentSchema" scope="prototype">
+		<property name="name" value="IDocProxy"/>
+		<property name="javaClass" value="com.novamens.kbee.content.base.KbeeContentProxy"/>
+		<property name="fieldsSchemas">
+			<list>
+				<bean class="com.novamens.indexer.java.AttributeFieldSchema">
+					<property name="fieldName" value="id"/>
+					<property name="path" value="id"/>
+					<property name="asId" value="true"/>
+				</bean>
+				<bean class="com.novamens.indexer.java.AttributeFieldSchema">
+					<property name="fieldName" value="objectid"/>
+					<property name="path" value="oId"/>
+				</bean>
+				<bean class="com.novamens.indexer.java.AttributeFieldSchema">
+					<property name="fieldName" value="resources"/>
+					<property name="extractor">
+						<bean class="com.novamens.kbee.content.indexer.FileObjectIdExtractor">
+							<property name="path" value="resources"/>
+						</bean>
+					</property>
+				</bean>
+				<bean class="com.novamens.indexer.java.AttributeFieldSchema">
+					<property name="fieldName" value="externalid"/>
+					<property name="path" value="externalId"/>
+				</bean>
+				<bean class="com.novamens.indexer.java.AttributeFieldSchema">
+					<property name="fieldName" value="source"/>
+					<property name="path" value="source/id"/>
+				</bean>
+				<bean class="com.novamens.indexer.java.AttributeFieldSchema">
+					<property name="fieldName" value="domain"/>
+					<property name="path" value="domain/id"/>
+				</bean>
+				<bean class="com.novamens.indexer.java.AttributeFieldSchema">
+					<property name="fieldName" value="title"/>
+					<property name="path" value="title"/>
+				</bean>
+				<bean class="com.novamens.indexer.java.AttributeFieldSchema">
+					<property name="fieldName" value="abstract"/>
+					<property name="path" value="abstract/asString"/>
+				</bean>
+				<bean class="com.novamens.indexer.java.AttributeFieldSchema">
+					<property name="fieldName" value="template"/>
+					<property name="path" value="contentTemplate/id"/>
+				</bean>
+				<bean class="com.novamens.indexer.java.AttributeFieldSchema">
+					<property name="fieldName" value="taskmember"/>
+					<property name="extractor">
+						<bean class="com.novamens.kbee.content.workflow.multidimensional.TaskExtractor"/>
+					</property>
+				</bean>
+				<bean class="com.novamens.indexer.java.AttributeFieldSchema">
+					<property name="fieldName" value="priority"/>
+					<property name="extractor">
+						<bean class="com.novamens.kbee.content.workflow.multidimensional.PriorityExtractor"/>
+					</property>
+				</bean>
+				<bean class="com.novamens.indexer.java.AttributeFieldSchema">
+					<property name="fieldName" value="duedate"/>
+					<property name="extractor">
+						<bean class="com.novamens.kbee.content.workflow.multidimensional.DueDateExtractor"/>
+					</property>
+				</bean>
+				<bean class="com.novamens.indexer.java.AttributeFieldSchema">
+					<property name="fieldName" value="assigned"/>
+					<property name="extractor">
+						<bean class="com.novamens.kbee.content.workflow.multidimensional.AssignedExtractor"/>
+					</property>
+				</bean>
+				<bean class="com.novamens.indexer.java.AttributeFieldSchema">
+					<property name="fieldName" value="assignedby"/>
+					<property name="extractor">
+						<bean class="com.novamens.kbee.content.workflow.multidimensional.AssignedByExtractor"/>
+					</property>
+				</bean>
+				<bean class="com.novamens.indexer.java.CustomFieldSchema">
+					<property name="fieldName" value="labelmember"/>
+					<property name="extractor">
+						<bean class="com.novamens.kbee.content.multidimensional.LabelsExtractor"/>
+					</property>
+				</bean>
+				<bean class="com.novamens.indexer.java.CustomFieldSchema">
+					<property name="fieldName" value="groupmember"/>
+					<property name="extractor">
+						<bean class="com.novamens.kbee.content.multidimensional.ContentGroupsExtractor"/>
+					</property>
+				</bean>
+				<bean class="com.novamens.indexer.java.CustomFieldSchema">
+					<property name="fieldName" value="rolemember"/>
+					<property name="extractor">
+						<bean class="com.novamens.kbee.content.multidimensional.ContentRoleExtractor"/>
+					</property>
+				</bean>
+				<bean class="com.novamens.indexer.java.AttributeFieldSchema">
+					<property name="fieldName" value="head"/>
+					<property name="path" value="headVersion"/>
+				</bean>
+				<bean class="com.novamens.indexer.java.AttributeFieldSchema">
+					<property name="fieldName" value="state"/>
+					<property name="path" value="state/id"/>
+				</bean>
+				<bean class="com.novamens.indexer.java.AttributeFieldSchema">
+					<property name="fieldName" value="workspace"/>
+					<property name="path" value="workspace"/>
+				</bean>
+				<bean class="com.novamens.indexer.java.AttributeFieldSchema">
+					<property name="fieldName" value="usermember"/>
+					<property name="path" value="workspace"/>
+				</bean>
+				<bean class="com.novamens.indexer.java.AttributeFieldSchema">
+					<property name="fieldName" value="workspacename"/>
+					<property name="extractor">
+						<bean class="com.novamens.kbee.content.multidimensional.WorkspaceNameExtractor"/>
+					</property>
+				</bean>
+				<bean class="com.novamens.indexer.java.AttributeFieldSchema">
+					<property name="fieldName" value="inworkspace"/>
+					<property name="extractor">
+						<bean class="com.novamens.kbee.content.multidimensional.NotNullExtractor">
+							<property name="path" value="workspace"/>
+						</bean>
+					</property>
+				</bean>
+				<bean class="com.novamens.indexer.java.AttributeFieldSchema">
+					<property name="fieldName" value="istemplate"/>
+					<property name="extractor">
+						<bean class="com.novamens.kbee.content.multidimensional.TemplateExtractor"/>
+					</property>
+				</bean>
+				<bean class="com.novamens.indexer.java.AttributeFieldSchema">
+					<property name="fieldName" value="isexternal"/>
+					<property name="extractor">
+						<bean class="com.novamens.kbee.content.multidimensional.ExternalExtractor"/>
+					</property>
+				</bean>
+				<bean class="com.novamens.indexer.java.AttributeFieldSchema">
+					<property name="fieldName" value="isknowledgebase"/>
+					<property name="extractor">
+						<bean class="com.novamens.kbee.content.multidimensional.KnowledgeBaseExtractor"/>
+					</property>
+				</bean>
+				<bean class="com.novamens.indexer.java.AttributeFieldSchema">
+					<property name="fieldName" value="customattributes"/>
+					<property name="extractor">
+						<bean class="com.novamens.kbee.content.multidimensional.CustomAttributesExtractor"/>
+					</property>
+				</bean>
+				<bean class="com.novamens.indexer.java.AttributeFieldSchema">
+					<property name="fieldName" value="modified"/>
+					<property name="extractor">
+						<bean class="com.novamens.kbee.content.multidimensional.SimpleDateExtractor">
+							<property name="path" value="lastModifiedOffsetDateTime"/>
+						</bean>
+					</property>
+				</bean>
+				<bean class="com.novamens.indexer.java.AttributeFieldSchema">
+					<property name="fieldName" value="modifiedmember"/>
+					<property name="extractor">
+						<bean class="com.novamens.kbee.content.multidimensional.DateExtractor">
+							<property name="path" value="lastModifiedOffsetDateTime"/>
+						</bean>
+					</property>
+				</bean>
+				<bean class="com.novamens.indexer.java.AttributeFieldSchema">
+					<property name="fieldName" value="lastmodifieduser"/>
+					<property name="path" value="lastModifiedUser/id"/>
+				</bean>
+				<bean class="com.novamens.indexer.java.AttributeFieldSchema">
+					<property name="fieldName" value="published"/>
+					<property name="extractor">
+						<bean class="com.novamens.kbee.content.multidimensional.SimpleDateExtractor">
+							<property name="path" value="checkinOffsetDateTime"/>
+						</bean>
+					</property>
+				</bean>
+				<bean class="com.novamens.indexer.java.AttributeFieldSchema">
+					<property name="fieldName" value="reader"/>
+ 					<property name="extractor">
+						<bean class="com.novamens.kbee.content.multidimensional.ReaderExtractor"/>
+					</property>
+				</bean>
+				<bean class="com.novamens.indexer.java.AttributeFieldSchema">
+					<property name="fieldName" value="taker"/>
+					<property name="extractor">
+						<bean class="com.novamens.kbee.content.multidimensional.TakerExtractor"/>
+					</property>
+				</bean>
+				<bean class="com.novamens.indexer.java.AttributeFieldSchema">
+					<property name="fieldName" value="publishingstatus"/>
+					<property name="extractor">
+						<bean class="com.novamens.kbee.content.multidimensional.PublishingStatusExtractor"/>
+					</property>
+				</bean>
+				<bean class="com.novamens.indexer.java.ConstantFieldSchema">
+					<property name="fieldName" value="type"/>
+					<property name="value" value="idocproxy"/>
+				</bean>
+				<bean class="com.novamens.indexer.java.FileFieldSchema">
+					<property name="fieldName" value="filetext"/>
+					<property name="extractor">
+						<bean class="com.novamens.solr.indexer.util.SolrFileTextExtractor">
+							<property name="path" value="resources"/>
+						</bean>
+					</property>
+				</bean>
+				<bean class="com.novamens.indexer.java.FileFieldSchema">
+					<property name="fieldName" value="portaltext"/>
+					<property name="extractor">
+						<bean class="com.novamens.solr.indexer.util.SolrPortalFileTextExtractor">
+							<property name="path" value="resources"/>
+						</bean>
+					</property>
+				</bean>
+				
+			</list>	
+		</property>
+	</bean>
+	
+	
+	<bean id="default-datasetmember-schema" class="com.novamens.indexer.java.DocumentSchema" scope="prototype">
+		<property name="name" value="DataSetMember"/>
+		<property name="javaClass" value="com.novamens.kbee.content.model.KbeeDataSetMember"/>
+		<property name="fieldsSchemas">
+			<list>
+				<bean class="com.novamens.indexer.java.AttributeFieldSchema">
+					<property name="fieldName" value="id"/>
+					<property name="path" value="id"/>
+					<property name="asId" value="true"/>
+				</bean>
+				<bean class="com.novamens.indexer.java.AttributeFieldSchema">
+					<property name="fieldName" value="title"/>
+					<property name="path" value="displayName"/>
+				</bean>
+				<bean class="com.novamens.indexer.java.AttributeFieldSchema">
+					<property name="fieldName" value="dataset"/>
+					<property name="path" value="dataSet/id"/>
+				</bean>
+				<bean class="com.novamens.indexer.java.AttributeFieldSchema">
+					<property name="fieldName" value="domain"/>
+					<property name="path" value="domain/id"/>
+				</bean>
+				<bean class="com.novamens.indexer.java.AttributeFieldSchema">
+					<property name="fieldName" value="notes"/>
+					<property name="path" value="notes/asString"/>
+				</bean>
+				<bean class="com.novamens.indexer.java.AttributeFieldSchema">
+					<property name="fieldName" value="firstname"/>
+					<property name="path" value="firstName"/>
+				</bean>
+				<bean class="com.novamens.indexer.java.FileFieldSchema">
+					<property name="fieldName" value="filetext"/>
+					<property name="extractor">
+						<bean class="com.novamens.solr.indexer.util.SolrFileTextExtractor">
+							<property name="path" value="photo"/>
+						</bean>
+					</property>
+				</bean>
+				<bean class="com.novamens.indexer.java.AttributeFieldSchema">
+					<property name="fieldName" value="lastname"/>
+					<property name="path" value="lastName"/>
+				</bean>
+				<bean class="com.novamens.indexer.java.AttributeFieldSchema">
+					<property name="fieldName" value="email"/>
+					<property name="path" value="email"/>
+				</bean>
+				<bean class="com.novamens.indexer.java.AttributeFieldSchema">
+					<property name="fieldName" value="modifiedmember"/>
+					<property name="extractor">
+						<bean class="com.novamens.kbee.content.multidimensional.DateExtractor">
+							<property name="path" value="lastModifiedOffsetDateTime"/>
+						</bean>
+					</property>
+				</bean>
+				<bean class="com.novamens.indexer.java.CustomFieldSchema">
+					<property name="fieldName" value="groupmember"/>
+					<property name="extractor">
+						<bean class="com.novamens.kbee.content.multidimensional.GroupsExtractor"/>
+					</property>
+				</bean>
+				<bean class="com.novamens.indexer.java.CustomFieldSchema">
+					<property name="fieldName" value="rolemember"/>
+					<property name="extractor">
+						<bean class="com.novamens.kbee.content.multidimensional.RolesExtractor"/>
+					</property>
+				</bean>
+				<bean class="com.novamens.indexer.java.CustomFieldSchema">
+					<property name="fieldName" value="username"/>
+					<property name="extractor">
+						<bean class="com.novamens.kbee.content.multidimensional.UserExtractor"/>
+					</property>
+				</bean>
+				<bean class="com.novamens.indexer.java.CustomFieldSchema">
+					<property name="fieldName" value="userid"/>
+					<property name="extractor">
+						<bean class="com.novamens.kbee.content.multidimensional.UserIdExtractor"/>
+					</property>
+				</bean>
+				<bean class="com.novamens.indexer.java.CustomFieldSchema">
+					<property name="fieldName" value="active"/>
+					<property name="extractor">
+						<bean class="com.novamens.kbee.content.multidimensional.UserActiveExtractor"/>
+					</property>
+				</bean>
+				<bean class="com.novamens.indexer.java.AttributeFieldSchema">
+					<property name="fieldName" value="modified"/>
+					<property name="extractor">
+						<bean class="com.novamens.kbee.content.multidimensional.SimpleDateExtractor">
+							<property name="path" value="lastModifiedOffsetDateTime"/>
+						</bean>
+					</property>
+				</bean>
+				<bean class="com.novamens.indexer.java.AttributeFieldSchema">
+					<property name="fieldName" value="lastmodifieduser"/>
+					<property name="path" value="lastModifiedUser/id"/>
+				</bean>
+				<bean class="com.novamens.indexer.java.AttributeFieldSchema">
+					<property name="fieldName" value="level"/>
+					<property name="path" value="level"/>
+				</bean>
+				<bean class="com.novamens.indexer.java.AttributeFieldSchema">
+					<property name="fieldName" value="parent"/>
+					<property name="path" value="parents/id"/>
+				</bean>
+				<bean class="com.novamens.indexer.java.AttributeFieldSchema">
+					<property name="fieldName" value="state"/>
+					<property name="path" value="state/id"/>
+				</bean>
+				<bean class="com.novamens.indexer.java.CustomFieldSchema">
+					<property name="fieldName" value="state"/>
+					<property name="extractor">
+						<bean class="com.novamens.kbee.content.multidimensional.UserStateExtractor"/>
+					</property>
+				</bean>
+				<bean class="com.novamens.indexer.java.AttributeFieldSchema">
+					<property name="fieldName" value="reader"/>
+ 					<property name="extractor">
+						<bean class="com.novamens.kbee.content.multidimensional.MemberReaderExtractor"/>
+					</property>
+				</bean>
+				<bean class="com.novamens.indexer.java.AttributeFieldSchema">
+					<property name="fieldName" value="writer"/>
+ 					<property name="extractor">
+						<bean class="com.novamens.kbee.content.multidimensional.MemberWriterExtractor"/>
+					</property>
+				</bean>
+				<bean class="com.novamens.indexer.java.AttributeFieldSchema">
+					<property name="fieldName" value="childwriter"/>
+ 					<property name="extractor">
+						<bean class="com.novamens.kbee.content.multidimensional.MemberChildWriterExtractor"/>
+					</property>
+				</bean>
+				<bean class="com.novamens.indexer.java.ConstantFieldSchema">
+					<property name="fieldName" value="type"/>
+					<property name="value" value="datasetmember"/>
+				</bean>
+			</list>	
+		</property> 
+	</bean>
+	
+	
+	
+	<bean id="default-kbfile-schema" class="com.novamens.indexer.java.DocumentSchema" scope="prototype">
+		<property name="name" value="KBFile"/>
+		<property name="javaClass" value="com.novamens.kbee.content.resource.KBFileImpl"/>
+		<property name="aggregation" value="TRUE"/>
+		<property name="fieldsSchemas">
+			<list>
+				<bean class="com.novamens.indexer.java.AttributeFieldSchema">
+					<property name="fieldName" value="id"/>
+					<property name="path" value="id"/>
+					<property name="asId" value="true"/>
+				</bean>
+				<bean class="com.novamens.indexer.java.AttributeFieldSchema">
+					<property name="fieldName" value="title"/>
+					<property name="path" value="title"/>
+				</bean>
+
+				<bean class="com.novamens.indexer.java.AttributeFieldSchema">
+					<property name="fieldName" value="kbfs"/>
+					<property name="path" value="storageType/id"/>
+				</bean>
+
+				<bean class="com.novamens.indexer.java.AttributeFieldSchema">
+					<property name="fieldName" value="domain"/>
+					<property name="path" value="domain/id"/>
+				</bean>
+				<bean class="com.novamens.indexer.java.AttributeFieldSchema">
+					<property name="fieldName" value="filetext"/>
+					<property name="extractor">
+						<bean class="com.novamens.indexer.java.FileTextExtractor">
+							<property name="path" value="getFile"/>
+						</bean>
+					</property>
+				</bean>
+				<bean class="com.novamens.indexer.java.ConstantFieldSchema">
+					<property name="fieldName" value="type"/>
+					<property name="value" value="kbfile"/>
+				</bean>
+				<bean class="com.novamens.indexer.java.AttributeFieldSchema">
+					<property name="fieldName" value="lastmodifieduser"/>
+					<property name="path" value="lastModifiedUser/id"/>
+				</bean>
+				<bean class="com.novamens.indexer.java.AttributeFieldSchema">
+					<property name="fieldName" value="modified"/>
+					<property name="extractor">
+						<bean class="com.novamens.kbee.content.multidimensional.SimpleDateExtractor">
+							<property name="path" value="lastModifiedOffsetDateTime"/>
+						</bean>
+					</property>
+				</bean>
+				<bean class="com.novamens.indexer.java.AttributeFieldSchema">
+					<property name="fieldName" value="modifiedmember"/>
+						<property name="extractor">
+						<bean class="com.novamens.kbee.content.multidimensional.DateExtractor">
+							<property name="path" value="lastModifiedOffsetDateTime"/>
+						</bean>
+					</property>
+				</bean>
+				<bean class="com.novamens.indexer.java.AttributeFieldSchema">
+					<property name="fieldName" value="created"/>
+					<property name="extractor">
+						<bean class="com.novamens.kbee.content.multidimensional.SimpleDateExtractor">
+							<property name="path" value="creationOffsetDateTime"/>
+						</bean>
+					</property>
+				</bean>
+				<bean class="com.novamens.indexer.java.AttributeFieldSchema">
+					<property name="fieldName" value="createdmember"/>
+						<property name="extractor">
+						<bean class="com.novamens.kbee.content.multidimensional.DateExtractor">
+							<property name="path" value="creationOffsetDateTime"/>
+						</bean>
+					</property>
+				</bean>
+				<bean class="com.novamens.indexer.java.AttributeFieldSchema">
+					<property name="fieldName" value="usermember"/>
+					<property name="path" value="workspace"/>
+				</bean>
+			</list>
+		</property>
+	</bean>
+					
+	<bean id="default-role-schema" class="com.novamens.indexer.java.DocumentSchema" scope="prototype"> 
+		<property name="name" value="Role"/>
+		<property name="javaClass" value="com.novamens.kbee.content.security.KbeeAbstractRole"/>
+		<property name="fieldsSchemas">
+			<list>
+				<bean class="com.novamens.indexer.java.AttributeFieldSchema">
+					<property name="fieldName" value="id"/>
+					<property name="path" value="id"/>
+					<property name="asId" value="true"/>
+				</bean>
+				<bean class="com.novamens.indexer.java.AttributeFieldSchema">
+					<property name="fieldName" value="title"/>
+					<property name="path" value="name"/>
+				</bean>
+				<bean class="com.novamens.indexer.java.AttributeFieldSchema">
+					<property name="fieldName" value="modified"/>
+					<property name="extractor">
+						<bean class="com.novamens.kbee.content.multidimensional.SimpleDateExtractor">
+							<property name="path" value="lastModifiedOffsetDateTime"/>
+						</bean>
+					</property>
+				</bean>
+				<bean class="com.novamens.indexer.java.AttributeFieldSchema">
+					<property name="fieldName" value="modifiedmember"/>
+					<property name="extractor">
+						<bean class="com.novamens.kbee.content.multidimensional.DateExtractor">
+							<property name="path" value="lastModifiedOffsetDateTime"/>
+						</bean>
+					</property>
+				</bean>
+				<bean class="com.novamens.indexer.java.AttributeFieldSchema">
+					<property name="fieldName" value="state"/>
+					<property name="path" value="state/id"/>
+				</bean>
+				<bean class="com.novamens.indexer.java.AttributeFieldSchema">
+					<property name="fieldName" value="domain"/>
+					<property name="path" value="domain/id"/>
+				</bean>
+				<bean class="com.novamens.indexer.java.ConstantFieldSchema">
+					<property name="fieldName" value="type"/>
+					<property name="value" value="role"/>
+				</bean>
+			</list>	
+		</property>
+	</bean>
+
+	
+	<bean id="default-group-schema" class="com.novamens.indexer.java.DocumentSchema" scope="prototype"> 
+		<property name="name" value="Group"/>
+		<property name="javaClass" value="com.novamens.kbee.security.acl.KbeeGroup"/>
+		<property name="fieldsSchemas">
+			<list>
+				<bean class="com.novamens.indexer.java.AttributeFieldSchema">
+					<property name="fieldName" value="id"/>
+					<property name="path" value="id"/>
+					<property name="asId" value="true"/>
+				</bean>
+				<bean class="com.novamens.indexer.java.AttributeFieldSchema">
+					<property name="fieldName" value="title"/>
+					<property name="path" value="name"/>
+				</bean>
+				<bean class="com.novamens.indexer.java.AttributeFieldSchema">
+					<property name="fieldName" value="modified"/>
+					<property name="extractor">
+						<bean class="com.novamens.kbee.content.multidimensional.SimpleDateExtractor">
+							<property name="path" value="lastModifiedOffsetDateTime"/>
+						</bean>
+					</property>
+				</bean>
+				<bean class="com.novamens.indexer.java.AttributeFieldSchema">
+					<property name="fieldName" value="modifiedmember"/>
+					<property name="extractor">
+						<bean class="com.novamens.kbee.content.multidimensional.DateExtractor">
+							<property name="path" value="lastModifiedOffsetDateTime"/>
+						</bean>
+					</property>
+				</bean>
+				<bean class="com.novamens.indexer.java.AttributeFieldSchema">
+					<property name="fieldName" value="domain"/>
+					<property name="path" value="domain/id"/>
+				</bean>
+				<bean class="com.novamens.indexer.java.AttributeFieldSchema">
+					<property name="fieldName" value="canonical"/>
+					<property name="path" value="isCanonical"/>
+				</bean>
+				
+				<bean class="com.novamens.indexer.java.ConstantFieldSchema">
+					<property name="fieldName" value="type"/>
+					<property name="value" value="group"/>
+				</bean>
+			</list>	
+		</property>
+	</bean>
+	
+	<bean id="default-securityrule-schema" class="com.novamens.indexer.java.DocumentSchema" scope="prototype">
+		<property name="name" value="SecurityRule"/>
+		<property name="javaClass" value="com.novamens.kbee.content.security.KbeeSecurityRule"/>
+		<property name="fieldsSchemas">
+			<list>
+				<bean class="com.novamens.indexer.java.AttributeFieldSchema">
+					<property name="fieldName" value="id"/>
+					<property name="path" value="id"/>
+					<property name="asId" value="true"/>
+				</bean>
+				<bean class="com.novamens.indexer.java.AttributeFieldSchema">
+					<property name="fieldName" value="title"/>
+					<property name="path" value="name"/>
+				</bean>
+				<bean class="com.novamens.indexer.java.AttributeFieldSchema">
+					<property name="fieldName" value="modified"/>
+					<property name="extractor">
+						<bean class="com.novamens.kbee.content.multidimensional.SimpleDateExtractor">
+							<property name="path" value="lastModifiedOffsetDateTime"/>
+						</bean>
+					</property>
+				</bean>
+				<bean class="com.novamens.indexer.java.AttributeFieldSchema">
+					<property name="fieldName" value="modifiedmember"/>
+					<property name="extractor">
+						<bean class="com.novamens.kbee.content.multidimensional.DateExtractor">
+							<property name="path" value="lastModifiedOffsetDateTime"/>
+						</bean>
+					</property>
+				</bean>
+				<bean class="com.novamens.indexer.java.CustomFieldSchema">
+					<property name="fieldName" value="groupmember"/>
+					<property name="extractor">
+						<bean class="com.novamens.kbee.content.multidimensional.RuleGroupExtractor"/>
+					</property>
+				</bean>
+				<bean class="com.novamens.indexer.java.CustomFieldSchema">
+					<property name="fieldName" value="usermember"/>
+					<property name="extractor">
+						<bean class="com.novamens.kbee.content.multidimensional.RuleUserExtractor"/>
+					</property>
+				</bean>
+				<bean class="com.novamens.indexer.java.AttributeFieldSchema">
+					<property name="fieldName" value="domain"/>
+					<property name="path" value="domain/id"/>
+				</bean>
+				<bean class="com.novamens.indexer.java.ConstantFieldSchema">
+					<property name="fieldName" value="type"/>
+					<property name="value" value="rule"/>
+				</bean>
+			</list>	
+		</property>
+	</bean>
+	
+			
+	<bean id="default-logevent-schema" class="com.novamens.indexer.java.DocumentSchema" scope="prototype">
+		<property name="name" value="LogEvent"/>
+		<property name="javaClass" value="com.novamens.event.LogEvent"/>
+		<property name="fieldsSchemas">
+			<list>
+				<bean class="com.novamens.indexer.java.AttributeFieldSchema">
+					<property name="fieldName" value="id"/>
+					<property name="path" value="id"/>
+					<property name="asId" value="true"/>
+				</bean>
+				<bean class="com.novamens.indexer.java.AttributeFieldSchema">
+					<property name="fieldName" value="title"/>
+					<property name="path" value="title"/>
+				</bean>
+				<bean class="com.novamens.indexer.java.AttributeFieldSchema">
+					<property name="fieldName" value="contentid"/>
+					<property name="path" value="contentOId"/>
+				</bean>
+				<bean class="com.novamens.indexer.java.AttributeFieldSchema">
+					<property name="fieldName" value="auditset"/>
+					<property name="path" value="auditSet/id"/>
+				</bean>
+				<bean class="com.novamens.indexer.java.AttributeFieldSchema">
+					<property name="fieldName" value="text"/>
+					<property name="path" value="text"/>
+				</bean>
+				<bean class="com.novamens.indexer.java.AttributeFieldSchema">
+					<property name="fieldName" value="to"/>
+					<property name="path" value="to"/>
+				</bean>
+				<bean class="com.novamens.indexer.java.AttributeFieldSchema">
+					<property name="fieldName" value="from"/>
+					<property name="path" value="from"/>
+				</bean>
+				<bean class="com.novamens.indexer.java.AttributeFieldSchema">
+					<property name="fieldName" value="objectid"/>
+					<property name="path" value="objectId"/>
+				</bean>
+				<bean class="com.novamens.indexer.java.AttributeFieldSchema">
+					<property name="fieldName" value="eventtype"/>
+					<property name="path" value="eventType"/>
+				</bean>
+				<bean class="com.novamens.indexer.java.AttributeFieldSchema">
+					<property name="fieldName" value="class"/>
+					<property name="path" value="kbeeClass"/>
+				</bean>
+				<bean class="com.novamens.indexer.java.AttributeFieldSchema">
+					<property name="fieldName" value="date"/>
+					<property name="extractor">
+						<bean class="com.novamens.kbee.content.multidimensional.SimpleDateExtractor">
+							<property name="path" value="time"/>
+						</bean>
+					</property>
+				</bean>
+				<bean class="com.novamens.indexer.java.AttributeFieldSchema">
+					<property name="fieldName" value="executed"/>
+					<property name="extractor">
+						<bean class="com.novamens.kbee.content.multidimensional.SimpleDateExtractor">
+							<property name="path" value="time"/>
+						</bean>
+					</property>
+				</bean>
+				<bean class="com.novamens.indexer.java.CustomFieldSchema">
+					<property name="fieldName" value="executedmember"/>
+					<property name="extractor">
+						<bean class="com.novamens.kbee.content.multidimensional.DateExtractor">
+							<property name="path" value="time"/>
+						</bean>
+					</property>
+				</bean>
+				<bean class="com.novamens.indexer.java.AttributeFieldSchema">
+					<property name="fieldName" value="domain"/>
+					<property name="path" value="domainId"/>
+				</bean>
+				<bean class="com.novamens.indexer.java.AttributeFieldSchema">
+					<property name="fieldName" value="usermember"/>
+					<property name="path" value="eventUser/id"/>
+				</bean>
+				<bean class="com.novamens.indexer.java.AttributeFieldSchema">
+					<property name="fieldName" value="rc"/>
+					<property name="path" value="result"/>
+				</bean>
+				<bean class="com.novamens.indexer.java.ConstantFieldSchema">
+					<property name="fieldName" value="type"/>
+					<property name="value" value="logevent"/>
+				</bean>
+			</list>	
+		</property>
+	</bean>
+	
+	<bean id="default-orgchart-schema" class="com.novamens.indexer.java.DocumentSchema" scope="prototype">
+		<property name="name" value="OrgChart"/>
+		<property name="javaClass" value="com.novamens.kbee.content.orgchart.KbeeOrgChart"/>
+		<property name="fieldsSchemas">
+			<list>
+				<bean class="com.novamens.indexer.java.AttributeFieldSchema">
+					<property name="fieldName" value="id"/>
+					<property name="path" value="id"/>
+					<property name="asId" value="true"/>
+				</bean>
+				<bean class="com.novamens.indexer.java.AttributeFieldSchema">
+					<property name="fieldName" value="state"/>
+					<property name="path" value="state/id"/>
+				</bean>
+				<bean class="com.novamens.indexer.java.AttributeFieldSchema">
+					<property name="fieldName" value="head"/>
+					<property name="path" value="headVersion"/>
+				</bean>
+				<bean class="com.novamens.indexer.java.AttributeFieldSchema">
+					<property name="fieldName" value="domain"/>
+					<property name="path" value="domain/id"/>
+				</bean>
+				<bean class="com.novamens.indexer.java.AttributeFieldSchema">
+					<property name="fieldName" value="name"/>
+					<property name="path" value="name"/>
+				</bean>
+				<bean class="com.novamens.indexer.java.AttributeFieldSchema">
+					<property name="fieldName" value="title"/>
+					<property name="path" value="title"/>
+				</bean>
+				<bean class="com.novamens.indexer.java.AttributeFieldSchema">
+					<property name="fieldName" value="title"/>
+					<property name="path" value="title"/>
+				</bean>
+				<bean class="com.novamens.indexer.java.AttributeFieldSchema">
+					<property name="fieldName" value="modified"/>
+					<property name="extractor">
+						<bean class="com.novamens.kbee.content.multidimensional.SimpleDateExtractor">
+							<property name="path" value="lastModifiedOffsetDateTime"/>
+						</bean>
+					</property>
+				</bean>
+				<bean class="com.novamens.indexer.java.AttributeFieldSchema">
+					<property name="fieldName" value="modifiedmember"/>
+					<property name="extractor">
+						<bean class="com.novamens.kbee.content.multidimensional.DateExtractor">
+							<property name="path" value="lastModifiedOffsetDateTime"/>
+						</bean>
+					</property>
+				</bean>
+				<bean class="com.novamens.indexer.java.AttributeFieldSchema">
+					<property name="fieldName" value="inworkspace"/>
+					<property name="extractor">
+						<bean class="com.novamens.kbee.content.multidimensional.NotNullExtractor">
+							<property name="path" value="workspace"/>
+						</bean>
+					</property>
+				</bean>
+				<bean class="com.novamens.indexer.java.AttributeFieldSchema">
+					<property name="fieldName" value="workspace"/>
+					<property name="path" value="workspace"/>
+				</bean>
+				<bean class="com.novamens.indexer.java.CustomFieldSchema">
+					<property name="fieldName" value="labelmember"/>
+					<property name="extractor">
+						<bean class="com.novamens.kbee.content.multidimensional.LabelsExtractor"/>
+					</property>
+				</bean>
+				<bean class="com.novamens.indexer.java.ConstantFieldSchema">
+					<property name="fieldName" value="type"/>
+					<property name="value" value="orgchart"/>
+				</bean>
+			</list>	
+		</property>
+	</bean>
+	
+	<bean id="default-organizationaltext-schema" class="com.novamens.indexer.java.DocumentSchema" scope="prototype">
+		<property name="name" value="OrganizationalText"/>
+		<property name="javaClass" value=" com.novamens.kbee.content.communication.KbeeOrganizationalText"/>
+		<property name="fieldsSchemas">
+			<list>
+				<bean class="com.novamens.indexer.java.AttributeFieldSchema">
+					<property name="fieldName" value="id"/>
+					<property name="path" value="id"/>
+					<property name="asId" value="true"/>
+				</bean>
+				<bean class="com.novamens.indexer.java.AttributeFieldSchema">
+					<property name="fieldName" value="objectid"/>
+					<property name="path" value="oId"/>
+				</bean>
+				<bean class="com.novamens.indexer.java.AttributeFieldSchema">
+					<property name="fieldName" value="domain"/>
+					<property name="path" value="domain/id"/>
+				</bean>
+				<bean class="com.novamens.indexer.java.AttributeFieldSchema">
+					<property name="fieldName" value="title"/>
+					<property name="path" value="title"/>
+				</bean>
+				<bean class="com.novamens.indexer.java.AttributeFieldSchema">
+					<property name="fieldName" value="text"/>
+					<property name="path" value="text/asString"/>
+				</bean>
+				<bean class="com.novamens.indexer.java.AttributeFieldSchema">
+					<property name="fieldName" value="abstract"/>
+					<property name="path" value="abstract/asString"/>
+				</bean>
+				<bean class="com.novamens.indexer.java.AttributeFieldSchema">
+					<property name="fieldName" value="template"/>
+					<property name="path" value="contentTemplate/id"/>
+				</bean>
+				<bean class="com.novamens.indexer.java.CustomFieldSchema">
+					<property name="fieldName" value="labelmember"/>
+					<property name="extractor">
+						<bean class="com.novamens.kbee.content.multidimensional.LabelsExtractor"/>
+					</property>
+				</bean>
+				<bean class="com.novamens.indexer.java.CustomFieldSchema">
+					<property name="fieldName" value="groupmember"/>
+					<property name="extractor">
+						<bean class="com.novamens.kbee.content.multidimensional.ContentGroupsExtractor"/>
+					</property>
+				</bean>
+				<bean class="com.novamens.indexer.java.AttributeFieldSchema">
+					<property name="fieldName" value="head"/>
+					<property name="path" value="headVersion"/>
+				</bean>
+				<bean class="com.novamens.indexer.java.AttributeFieldSchema">
+					<property name="fieldName" value="workspace"/>
+					<property name="path" value="workspace"/>
+				</bean>
+				<bean class="com.novamens.indexer.java.AttributeFieldSchema">
+					<property name="fieldName" value="inworkspace"/>
+					<property name="extractor">
+						<bean class="com.novamens.kbee.content.multidimensional.NotNullExtractor">
+							<property name="path" value="workspace"/>
+						</bean>
+					</property>
+				</bean>
+				<bean class="com.novamens.indexer.java.AttributeFieldSchema">
+					<property name="fieldName" value="istemplate"/>
+					<property name="extractor">
+						<bean class="com.novamens.kbee.content.multidimensional.TemplateExtractor"/>
+					</property>
+				</bean>
+				<bean class="com.novamens.indexer.java.AttributeFieldSchema">
+					<property name="fieldName" value="isexternal"/>
+					<property name="extractor">
+						<bean class="com.novamens.kbee.content.multidimensional.ExternalExtractor"/>
+					</property>
+				</bean>
+				<bean class="com.novamens.indexer.java.AttributeFieldSchema">
+					<property name="fieldName" value="customattributes"/>
+					<property name="extractor">
+						<bean class="com.novamens.kbee.content.multidimensional.CustomAttributesExtractor"/>
+					</property>
+				</bean>
+				<bean class="com.novamens.indexer.java.AttributeFieldSchema">
+					<property name="fieldName" value="isknowledgebase"/>
+					<property name="extractor">
+						<bean class="com.novamens.kbee.content.multidimensional.KnowledgeBaseExtractor"/>
+					</property>
+				</bean>
+				<bean class="com.novamens.indexer.java.AttributeFieldSchema">
+					<property name="fieldName" value="state"/>
+					<property name="path" value="state/id"/>
+				</bean>
+				<bean class="com.novamens.indexer.java.AttributeFieldSchema">
+					<property name="fieldName" value="modified"/>
+					<property name="extractor">
+						<bean class="com.novamens.kbee.content.multidimensional.SimpleDateExtractor">
+							<property name="path" value="lastModifiedOffsetDateTime"/>
+						</bean>
+					</property>
+				</bean>
+				<bean class="com.novamens.indexer.java.AttributeFieldSchema">
+					<property name="fieldName" value="modifiedmember"/>
+					<property name="extractor">
+						<bean class="com.novamens.kbee.content.multidimensional.DateExtractor">
+						<property name="path" value="lastModifiedOffsetDateTime"/>
+					</bean>
+					</property>
+				</bean>
+				<bean class="com.novamens.indexer.java.AttributeFieldSchema">
+					<property name="fieldName" value="usermember"/>
+					<property name="path" value="workspace"/>
+				</bean>
+				<bean class="com.novamens.indexer.java.AttributeFieldSchema">
+					<property name="fieldName" value="reader"/>
+ 					<property name="extractor">
+						<bean class="com.novamens.kbee.content.multidimensional.ReaderExtractor"/>
+					</property>
+				</bean>
+				<bean class="com.novamens.indexer.java.AttributeFieldSchema">
+					<property name="fieldName" value="taker"/>
+					<property name="extractor">
+						<bean class="com.novamens.kbee.content.multidimensional.TakerExtractor"/>
+					</property>
+				</bean>
+				<bean class="com.novamens.indexer.java.FileFieldSchema">
+					<property name="fieldName" value="filetext"/>
+					<property name="path" value="files"/>
+				</bean>
+				<bean class="com.novamens.indexer.java.ConstantFieldSchema">
+					<property name="fieldName" value="type"/>
+					<property name="value" value="text"/>
+				</bean>
+			</list>	
+		</property>
+	</bean>
+	
+	<!--  bean id="default-worknote-schema" class="com.novamens.indexer.java.DocumentSchema" scope="prototype">
+		<property name="name" value="WorkNote"/>
+		<property name="javaClass" value="com.novamens.kbee.content.notes.KbeeWorkNote"/>
+		<property name="fieldsSchemas">
+			<list>
+				<bean class="com.novamens.indexer.java.AttributeFieldSchema">
+					<property name="fieldName" value="id"/>
+					<property name="path" value="id"/>
+					<property name="asId" value="true"/>
+				</bean>
+				<bean class="com.novamens.indexer.java.AttributeFieldSchema">
+					<property name="fieldName" value="domain"/>
+					<property name="path" value="domain/id"/>
+				</bean>
+				<bean class="com.novamens.indexer.java.AttributeFieldSchema">
+					<property name="fieldName" value="title"/>
+					<property name="path" value="title"/>
+				</bean>
+				<bean class="com.novamens.indexer.java.AttributeFieldSchema">
+					<property name="fieldName" value="text"/>
+					<property name="path" value="text"/>
+				</bean>
+				<bean class="com.novamens.indexer.java.AttributeFieldSchema">
+					<property name="fieldName" value="modified"/>
+					<property name="extractor">
+						<bean class="com.novamens.kbee.content.multidimensional.SimpleDateExtractor">
+							<property name="path" value="modifiedOffsetDateTime"/>
+						</bean>
+					</property>
+				</bean>
+					<bean class="com.novamens.indexer.java.AttributeFieldSchema">
+					<property name="fieldName" value="modifiedmember"/>
+					<property name="extractor">
+						<bean class="com.novamens.kbee.content.multidimensional.DateExtractor">
+						<property name="path" value="modifiedOffsetDateTime"/>
+					</bean>
+					</property>
+				</bean>
+				<bean class="com.novamens.indexer.java.ConstantFieldSchema">
+					<property name="fieldName" value="type"/>
+					<property name="value" value="worknote"/>
+				</bean>
+			</list>	
+		</property>
+	</bean-->
+	
+
+	<bean id="default-billboard-schema" class="com.novamens.indexer.java.DocumentSchema" scope="prototype">
+		<property name="name" value="Billboard"/>
+		<property name="javaClass" value="com.novamens.kbee.content.notes.KbeeBillboard"/>
+		<property name="fieldsSchemas">
+			<list>
+				<bean class="com.novamens.indexer.java.AttributeFieldSchema">
+					<property name="fieldName" value="id"/>
+					<property name="path" value="id"/>
+					<property name="asId" value="true"/>
+				</bean>
+				<bean class="com.novamens.indexer.java.AttributeFieldSchema">
+					<property name="fieldName" value="domain"/>
+					<property name="path" value="domain/id"/>
+				</bean>
+				<bean class="com.novamens.indexer.java.AttributeFieldSchema">
+					<property name="fieldName" value="title"/>
+					<property name="path" value="title"/>
+				</bean>
+				<bean class="com.novamens.indexer.java.AttributeFieldSchema">
+					<property name="fieldName" value="text"/>
+					<property name="path" value="text"/>
+				</bean>
+				<bean class="com.novamens.indexer.java.AttributeFieldSchema">
+					<property name="fieldName" value="modified"/>
+					<property name="extractor">
+						<bean class="com.novamens.kbee.content.multidimensional.SimpleDateExtractor">
+							<property name="path" value="modifiedOffsetDateTime"/>
+						</bean>
+					</property>
+				</bean>
+					<bean class="com.novamens.indexer.java.AttributeFieldSchema">
+					<property name="fieldName" value="modifiedmember"/>
+					<property name="extractor">
+						<bean class="com.novamens.kbee.content.multidimensional.DateExtractor">
+						<property name="path" value="modifiedOffsetDateTime"/>
+					</bean>
+					</property>
+				</bean>
+				<bean class="com.novamens.indexer.java.ConstantFieldSchema">
+					<property name="fieldName" value="type"/>
+					<property name="value" value="billboard"/>
+				</bean>
+			</list>	
+		</property>
+	</bean>
+
+
+
+	<bean id="default-library-schema" class="com.novamens.indexer.java.DocumentSchema" scope="prototype"> 
+		<property name="name" value="Library"/>
+		<property name="javaClass" value="com.novamens.kbee.content.library.KbeeLibrary"/>
+		<property name="fieldsSchemas">
+			<list>
+				<bean class="com.novamens.indexer.java.AttributeFieldSchema">
+					<property name="fieldName" value="id"/>
+					<property name="path" value="id"/>
+					<property name="asId" value="true"/>
+				</bean>
+				<bean class="com.novamens.indexer.java.AttributeFieldSchema">
+					<property name="fieldName" value="title"/>
+					<property name="path" value="displayName"/>
+				</bean>
+				<bean class="com.novamens.indexer.java.AttributeFieldSchema">
+					<property name="fieldName" value="modified"/>
+					<property name="extractor">
+						<bean class="com.novamens.kbee.content.multidimensional.SimpleDateExtractor">
+							<property name="path" value="lastModifiedOffsetDateTime"/>
+						</bean>
+					</property>
+				</bean>
+				<bean class="com.novamens.indexer.java.AttributeFieldSchema">
+					<property name="fieldName" value="domain"/>
+					<property name="path" value="domain/id"/>
+				</bean>
+				<bean class="com.novamens.indexer.java.AttributeFieldSchema">
+					<property name="fieldName" value="modifiedmember"/>
+					<property name="extractor">
+						<bean class="com.novamens.kbee.content.multidimensional.DateExtractor">
+							<property name="path" value="lastModifiedOffsetDateTime"/>
+						</bean>
+					</property>
+				</bean>
+				<bean class="com.novamens.indexer.java.AttributeFieldSchema">
+					<property name="fieldName" value="created"/>
+					<property name="extractor">
+						<bean class="com.novamens.kbee.content.multidimensional.SimpleDateExtractor">
+							<property name="path" value="creationOffsetDateTime"/>
+						</bean>
+					</property>
+				</bean>
+				<bean class="com.novamens.indexer.java.AttributeFieldSchema">
+					<property name="fieldName" value="createdmember"/>
+						<property name="extractor">
+						<bean class="com.novamens.kbee.content.multidimensional.DateExtractor">
+							<property name="path" value="creationOffsetDateTime"/>
+						</bean>
+					</property>
+				</bean>
+				<bean class="com.novamens.indexer.java.AttributeFieldSchema">
+					<property name="fieldName" value="state"/>
+					<property name="path" value="state/id"/>
+				</bean>
+				<bean class="com.novamens.indexer.java.AttributeFieldSchema">
+					<property name="fieldName" value="domain"/>
+					<property name="path" value="domain/id"/>
+				</bean>
+				<bean class="com.novamens.indexer.java.ConstantFieldSchema">
+					<property name="fieldName" value="type"/>
+					<property name="value" value="library"/>
+				</bean>
+			</list>	
+		</property>
+	</bean>
+	
+	<bean id="default-site-schema" class="com.novamens.indexer.java.DocumentSchema" scope="prototype">
+		<property name="name" value="Site"/>
+		<property name="javaClass" value="com.novamens.kbee.portal.model.KbeeSite"/>
+		<property name="fieldsSchemas">
+			<list>
+				<bean class="com.novamens.indexer.java.AttributeFieldSchema">
+					<property name="fieldName" value="id"/>
+					<property name="path" value="id"/>
+					<property name="asId" value="true"/>
+				</bean>
+				<bean class="com.novamens.indexer.java.AttributeFieldSchema">
+					<property name="fieldName" value="domain"/>
+					<property name="path" value="domain/id"/>
+				</bean>
+				<bean class="com.novamens.indexer.java.AttributeFieldSchema">
+					<property name="fieldName" value="state"/>
+					<property name="path" value="state/id"/>
+				</bean>
+				<bean class="com.novamens.indexer.java.AttributeFieldSchema">
+					<property name="fieldName" value="description"/>
+					<property name="path" value="description"/>
+				</bean>
+				<bean class="com.novamens.indexer.java.AttributeFieldSchema">
+					<property name="fieldName" value="title"/>
+					<property name="path" value="title"/>
+				</bean>
+				<bean class="com.novamens.indexer.java.AttributeFieldSchema">
+					<property name="fieldName" value="modified"/>
+					<property name="extractor">
+						<bean class="com.novamens.kbee.content.multidimensional.SimpleDateExtractor">
+							<property name="path" value="lastModifiedOffsetDateTime"/>
+						</bean>
+					</property>
+				</bean>
+				<bean class="com.novamens.indexer.java.ConstantFieldSchema">
+					<property name="fieldName" value="type"/>
+					<property name="value" value="site"/>
+				</bean>
+			</list>	
+		</property>
+	</bean>
+	
+	<bean id="default-userlistitem-schema" class="com.novamens.indexer.java.DocumentSchema" scope="prototype">
+		<property name="name" value="UserList"/>
+		<property name="javaClass" value="com.novamens.kbee.content.userlist.KbeeUserListItem"/>
+		<property name="fieldsSchemas">
+			<list>
+				<bean class="com.novamens.indexer.java.AttributeFieldSchema">
+					<property name="fieldName" value="id"/>
+					<property name="path" value="id"/>
+					<property name="asId" value="true"/>
+				</bean>
+				<bean class="com.novamens.indexer.java.AttributeFieldSchema">
+					<property name="fieldName" value="domain"/>
+					<property name="path" value="domain/id"/>
+				</bean>
+				<bean class="com.novamens.indexer.java.AttributeFieldSchema">
+					<property name="fieldName" value="userlist"/>
+					<property name="path" value="userlist/id"/>
+				</bean>
+				<bean class="com.novamens.indexer.java.AttributeFieldSchema">
+					<property name="fieldName" value="title"/>
+					<property name="path" value="object/displayName"/>
+				</bean>
+				<bean class="com.novamens.indexer.java.AttributeFieldSchema">
+					<property name="fieldName" value="modified"/>
+					<property name="extractor">
+						<bean class="com.novamens.kbee.content.multidimensional.SimpleDateExtractor">
+							<property name="path" value="object/lastModifiedOffsetDateTime"/>
+						</bean>
+					</property>
+				</bean>
+				<bean class="com.novamens.indexer.java.AttributeFieldSchema">
+					<property name="fieldName" value="objectid"/>
+					<property name="path" value="object/oId"/>
+				</bean>
+				<bean class="com.novamens.indexer.java.AttributeFieldSchema">
+					<property name="fieldName" value="dataset"/>
+					<property name="path" value="object/dataSet/id"/>
+				</bean>
+				<bean class="com.novamens.indexer.java.AttributeFieldSchema">
+					<property name="fieldName" value="title"/>
+					<property name="path" value="object/title"/>
+				</bean>
+				<bean class="com.novamens.indexer.java.AttributeFieldSchema">
+					<property name="fieldName" value="abstract"/>
+					<property name="path" value="object/abstract/asString"/>
+				</bean>
+				<bean class="com.novamens.indexer.java.AttributeFieldSchema">
+					<property name="fieldName" value="template"/>
+					<property name="path" value="object/contentTemplate/id"/>
+				</bean>
+				<bean class="com.novamens.indexer.java.AttributeFieldSchema">
+					<property name="fieldName" value="head"/>
+					<property name="path" value="object/headVersion"/>
+				</bean>
+				<bean class="com.novamens.indexer.java.AttributeFieldSchema">
+					<property name="fieldName" value="state"/>
+					<property name="path" value="object/state/id"/>
+				</bean>
+				<bean class="com.novamens.indexer.java.AttributeFieldSchema">
+					<property name="fieldName" value="workspace"/>
+					<property name="path" value="object/workspace"/>
+				</bean>
+				<bean class="com.novamens.indexer.java.AttributeFieldSchema">
+					<property name="fieldName" value="usermember"/>
+					<property name="path" value="object/workspace"/>
+				</bean>
+				<bean class="com.novamens.indexer.java.AttributeFieldSchema">
+					<property name="fieldName" value="inworkspace"/>
+					<property name="extractor">
+						<bean class="com.novamens.kbee.content.multidimensional.NotNullExtractor">
+							<property name="path" value="object/workspace"/>
+						</bean>
+					</property>
+				</bean>
+				<bean class="com.novamens.indexer.java.AttributeFieldSchema">
+					<property name="fieldName" value="modifiedmember"/>
+					<property name="extractor">
+						<bean class="com.novamens.kbee.content.multidimensional.DateExtractor">
+							<property name="path" value="object/lastModifiedOffsetDateTime"/>
+						</bean>
+					</property>
+				</bean>
+				<bean class="com.novamens.indexer.java.AttributeFieldSchema">
+					<property name="fieldName" value="lastmodifieduser"/>
+					<property name="path" value="object/lastModifiedUser/id"/>
+				</bean>
+				<bean class="com.novamens.indexer.java.AttributeFieldSchema">
+					<property name="fieldName" value="reader"/>
+ 					<property name="extractor">
+						<bean class="com.novamens.kbee.content.multidimensional.UserItemReaderExtractor"/>
+					</property>
+				</bean>
+				<bean class="com.novamens.indexer.java.ConstantFieldSchema">
+					<property name="fieldName" value="type"/>
+					<property name="value" value="useritem"/>
+				</bean>
+			</list>	
+		</property>
+	</bean>
+	
+	<bean id="default-progressnote-schema" class="com.novamens.indexer.java.DocumentSchema" scope="prototype">
+		<property name="name" value="ProgressNote"/>
+		<property name="javaClass" value="com.novamens.kbee.content.workflow.KbeeActivityProgressNote"/>
+		<property name="fieldsSchemas">
+			<list>
+				<bean class="com.novamens.indexer.java.AttributeFieldSchema">
+					<property name="fieldName" value="id"/>
+					<property name="path" value="id"/>
+					<property name="asId" value="true"/>
+				</bean>
+				<bean class="com.novamens.indexer.java.AttributeFieldSchema">
+					<property name="fieldName" value="domain"/>
+					<property name="path" value="domain/id"/>
+				</bean>
+				<bean class="com.novamens.indexer.java.AttributeFieldSchema">
+					<property name="fieldName" value="state"/>
+					<property name="path" value="state/id"/>
+				</bean>
+				<bean class="com.novamens.indexer.java.AttributeFieldSchema">
+					<property name="fieldName" value="contentid"/>
+					<property name="extractor">
+						<bean class="com.novamens.kbee.content.multidimensional.IdExtractor">
+							<property name="path" value="activity/content"/>
+						</bean>
+					</property>
+				</bean>
+				<bean class="com.novamens.indexer.java.ConstantFieldSchema">
+					<property name="fieldName" value="type"/>
+					<property name="value" value="progressnote"/>
+				</bean>
+			</list>	
+		</property>
+	</bean>
+	
+	
+	
+
+	
+</beans>

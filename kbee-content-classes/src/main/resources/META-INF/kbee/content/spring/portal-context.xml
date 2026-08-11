@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+		http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+		http://www.springframework.org/schema/context
+		http://www.springframework.org/schema/context/spring-context-3.0.xsd 
+		http://www.springframework.org/schema/tx 
+		http://www.springframework.org/schema/tx/spring-tx.xsd">
+	
+	
+	
+	<!--  BlockFactory  ============================================================================================================== -->
+		
+	<bean id="block-billboard" class=" com.novamens.kbee.portal.factory.KbeeBlockFactory">
+		<property name="id" value="block-billboard"/>
+		<property name="title" value="Billboard"/>
+		<property name="key" value="block-billboard"/>
+		<property name="className" value="com.novamens.kbee.portal.model.KbeeBlock"/>
+		<property name="usageInfoKey" value="billboard"/>
+	</bean>
+	
+
+	<bean id="block-dummy" class=" com.novamens.kbee.portal.factory.KbeeBlockFactory">
+		<property name="id" value="block-dummy"/>
+		<property name="title" value="Dummy"/>
+		<property name="key" value="block-dummy"/>
+		<property name="className" value="com.novamens.kbee.portal.model.KbeeBlock"/>
+		<property name="usageInfoKey" value="dummy"/>
+	</bean>
+	
+
+<!--  AreaFactory  ============================================================================================================== -->
+		
+	<bean id="area-billboard" class=" com.novamens.kbee.portal.factory.KbeeAreaFactory">
+		<property name="id" value="area-billboard"/>
+		<property name="title" value="Area Billboard"/>
+		<property name="key" value="area-billboard"/>
+		<property name="className" value="com.novamens.kbee.portal.model.KbeeArea"/>
+		<property name="usageInfoKey" value="billboard"/>
+	</bean>
+	
+					
+	<bean id="area-dummy" class=" com.novamens.kbee.portal.factory.KbeeAreaFactory">
+		<property name="id" value="area-dummy"/>
+		<property name="title" value="Area Dummy"/>
+		<property name="key" value="area-dummy"/>
+		<property name="className" value="com.novamens.kbee.portal.model.KbeeArea"/>
+		<property name="usageInfoKey" value="dummy"/>
+	</bean>
+
+	
+	
+	<!--  Stats de visitas  ============================================================================================================== -->
+	
+	<bean id="portalStatServiceFactory" class="com.novamens.spring.service.SpringSystemServiceFactory">
+		<property name="bean" value="portalStatService"/>
+	</bean>
+	<bean id="portalStatService" class="com.novamens.site.logging.KbeePortalStatService">
+		<property name="tableNameIn" value="po_sitelogin"/>
+		<property name="tableNameOut" value="po_sitelogout"/>
+		<property name="schema" value="${jdbc.schema}"/>
+		<property name="dataSource" ref="dataSource"/>
+		<property name="sessionFactory" ref="sessionFactory"/>
+	</bean>
+	
+	
+	<bean id="portalDirectoryServiceFactory" class="com.novamens.spring.service.SpringSystemServiceFactory">
+		<property name="bean" value="portalDirectoryService"/>
+	</bean>
+	<bean id="portalDirectoryService" class="com.novamens.kbee.portal.service.KbeePortalDirectoryService">
+		<property name="contentDao" ref="contentDao"/>
+		<property name="portalDao" ref="portalDao"/>
+		<property name="sessionFactory" ref="sessionFactory"/>
+	</bean>
+	
+	
+	<!-- Portal  ============================================================================================================== -->
+	
+	<bean id="portalDao" class="com.novamens.kbee.content.dao.KbeePortalDao" >
+		<property name="dataSource" ref="dataSource"/>
+		<property name="sessionFactory" ref="sessionFactory"/>
+		<property name="schema" value="${jdbc.schema}"/>
+	</bean>
+	
+	<bean id="portalAnalyticsFactory" class="com.novamens.spring.service.SpringSystemServiceFactory">
+		<property name="bean" value="portalAnalyticsService"/>
+	</bean>
+	<bean id="portalAnalyticsService" class="com.novamens.kbee.portal.service.KbeePortalAnalyticsService">
+		<property name="portalDao" ref="portalDao"/>
+	</bean>
+	
+	<bean id="directoryService" class="com.novamens.kbee.portal.service.KbeePortalDirectoryService">
+		<property name="sessionFactory" ref="sessionFactory"/>
+	</bean>
+	
+	<bean id="portalSecurityFactory" class="com.novamens.spring.service.SpringSystemServiceFactory">
+		<property name="bean" value="portalSecurityService"/>
+	</bean>
+	<bean id="portalSecurityService" class="com.novamens.kbee.portal.service.KbeePortalSecurityService">
+	</bean>
+				
+	<bean id="portalUrlServiceFactory" class="com.novamens.spring.service.SpringSystemServiceFactory">
+		<property name="bean" value="portalUrlService"/>
+	</bean>
+	<bean id="portalUrlService" class="com.novamens.kbee.portal.service.KbeePortalUrlService">
+	</bean>
+	
+	
+	<bean id="portalUserServiceFactory" class="com.novamens.spring.service.SpringObjectServiceFactory">
+		<property name="bean" value="portalUserService"/>
+	</bean>
+	<bean id="portalUserService" class="com.novamens.kbee.portal.service.KbeePortalUserService" scope="prototype"/>		
+	
+
+	<bean id="siteFactoryServiceFactory" class="com.novamens.spring.service.SpringSystemServiceFactory">
+		<property name="bean" value="siteFactoryService"/>
+	</bean>
+
+	<bean id="siteFactoryService" class="com.novamens.kbee.portal.service.KbeeSiteFactoryService">
+		<property name="dataSource" ref="dataSource"/>
+		<property name="portalDao" ref="portalDao"/>
+		<property name="contentDao" ref="contentDao"/>
+		<property name="schema" value="${jdbc.schema}"/>
+	</bean>
+	
+
+	<bean id="siteServiceFactory" class="com.novamens.spring.service.SpringObjectServiceFactory">
+		<property name="bean" value="siteService"/>
+	</bean>
+	
+								  
+	<bean id="siteService" class="com.novamens.kbee.portal.service.KbeeSiteService" scope="prototype">
+			<property name="portalDao" ref="portalDao"/>
+			<property name="contentDao" ref="contentDao"/>
+	</bean>
+	
+				
+	<bean id="siteModelFactory" class="com.novamens.spring.service.SpringObjectServiceFactory">
+		<property name="bean" value="siteModelService"/>
+	</bean>
+	
+	<bean id="siteModelService" class="com.novamens.kbee.portal6.service.KbeeSiteModelService" scope="prototype">
+			<!-- property name="portalDao" ref="portalDao"/ -->
+	</bean>
+	
+	<bean id="viewServiceFactory" class="com.novamens.spring.service.SpringObjectServiceFactory">
+		<property name="bean" value="viewService"/>
+	</bean>						
+	<bean id="viewService" class="com.novamens.kbee.portal.service.KbeeViewService" scope="prototype">
+		<property name="portalDao" ref="portalDao"/>
+	</bean>
+	
+
+
+</beans>

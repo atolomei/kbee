@@ -1,0 +1,1563 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+		http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+		http://www.springframework.org/schema/context
+		http://www.springframework.org/schema/context/spring-context-3.0.xsd 
+		http://www.springframework.org/schema/tx 
+		http://www.springframework.org/schema/tx/spring-tx.xsd">
+		
+	<bean id="com.novamens.workflow.process" class="com.novamens.kbee.content.workflow.KbeeProcess" scope="prototype"/>	
+			
+	<bean id="com.novamens.workflow.activity" class="com.novamens.kbee.content.workflow.KbeeWorkflowActivity" scope="prototype"/>
+
+	<bean id="WorkflowDomainServiceFactory" class="com.novamens.kbee.content.workflow.KbeeWorkflowDomainServiceFactory"/>
+	
+	<bean id="WorkflowFactory" class="com.novamens.kbee.content.workflow.KbeeFactory">
+		<property name="dataSource" ref="dataSource"/>
+		<property name="schema" value="${jdbc.schema}"/>
+	</bean>
+	
+	<bean id="WorkflowDao" class="com.novamens.kbee.content.workflow.KbeeWorkflowDao">
+		<property name="sessionFactory" ref="sessionFactory"/>
+		<property name="factory" ref="WorkflowFactory"/>
+	</bean>
+	
+	<bean id="domain-workflow-service" class="com.novamens.kbee.content.workflow.KbeeWorkflowDomainService" scope="prototype">
+		<property name="workflowDao" ref="WorkflowDao"/>
+	</bean>
+	
+	<bean id="content-workflow-service" class="com.novamens.kbee.content.workflow.KbeeWorkflowService" scope="prototype">
+		<property name="workflowDao" ref="WorkflowDao"/>
+		<property name="factory" ref="WorkflowFactory"/>
+	</bean>
+	
+	<bean id="WorkflowServiceFactory" class="com.novamens.kbee.content.workflow.KbeeWorkflowServiceFactory"/>
+	
+	<bean id="WorkflowAlertsCommand" class="com.novamens.kbee.content.workflow.KbeeAlertsCommand"/>
+	
+	<bean id="WorkflowRoleParser" class="com.novamens.kbee.content.workflow.KbeeWRoleParser"/>
+	
+	<bean id="ProcedurePhaseParser" class="com.novamens.kbee.content.workflow.KbeePhaseParser"/>
+	
+	<bean id="WorkflowProcedureParser" class="com.novamens.kbee.content.workflow.KbeeProcedureParser"/>
+	
+	<bean id="edition-procedure" class="com.novamens.kbee.content.workflow.KbeeProcedureBean">
+		<property name="id">
+			<value>Edit</value>
+		</property>
+		<property name="name">
+			<value>Standard</value>
+		</property>
+		<property name="tasks">
+			<list>
+				<bean class="com.novamens.kbee.content.workflow.WebTask">
+					<property name="id" value="edit"/>
+					<property name="name" value="Edit"/>
+					<property name="initial" value="true"/>
+					<property name="cancelEnabled" value="true"/>
+					<property name="enableEditingAllResources" value="true"/>
+					<property name="EndConditions">
+						<list>
+							<bean class="com.novamens.kbee.content.workflow.ManualEndCondition">
+								<constructor-arg><value>Send to Library</value></constructor-arg>
+								<constructor-arg><value>publish</value></constructor-arg>
+								<property name="batch" value="true"/>
+								<property name="perms" value="write"/>
+							</bean>
+							<bean class="com.novamens.kbee.content.workflow.ManualEndCondition">
+								<constructor-arg><value>Send to Approval</value></constructor-arg>
+								<constructor-arg><value>approval_request</value></constructor-arg>
+								<property name="batch" value="true"/>
+								<property name="enablePriority" value="true"/>
+							</bean>
+							<bean class="com.novamens.kbee.content.workflow.ManualEndCondition">
+								<constructor-arg><value>Collaboration</value></constructor-arg>
+								<constructor-arg><value>collaboration_request</value></constructor-arg>
+								<property name="enablePriority" value="true"/>
+								<property name="batch" value="true"/>
+								<property name="collaboration" value="true"/>
+							</bean>
+						</list>	
+					</property>
+				</bean>
+				<bean class="com.novamens.kbee.content.workflow.WebTask">
+					<property name="id" value="Collaboration"/>
+					<property name="name" value="Collaboration"/>
+					<property name="EndConditions">
+						<list>
+							<bean class="com.novamens.kbee.content.workflow.ManualEndCondition">
+								<constructor-arg><value>Return File</value></constructor-arg>
+								<constructor-arg><value>return_to_editor</value></constructor-arg>
+							</bean>
+						</list>	
+					</property>
+				</bean>
+				<bean class="com.novamens.kbee.content.workflow.WebTask">
+					<property name="id" value="Approval"/>
+					<property name="name" value="Approval"/>
+					<property name="alias" value="Approve"/>
+					<property name="trigger">
+						<bean class="com.novamens.kbee.content.workflow.KbeeUserAutomaticTrigger">
+							<property name="userAssignationStrategy">
+								<bean class="com.novamens.kbee.content.workflow.KbeeRoundRobin">
+									<property name="permission">
+										<bean class="com.novamens.kbee.security.acl.KbeePermission">
+											<constructor-arg><value>approve</value></constructor-arg>
+											<constructor-arg><value>Approve</value></constructor-arg>
+										</bean>
+									</property>
+								</bean>
+							</property>
+						</bean>
+					</property>
+					<property name="EndConditions">
+						<list>
+							<bean class="com.novamens.kbee.content.workflow.ManualEndCondition">
+								<constructor-arg><value>Correction Required</value></constructor-arg>
+								<constructor-arg><value>correction_request</value></constructor-arg>
+							</bean>
+							<bean class="com.novamens.kbee.content.workflow.ManualEndCondition">
+								<constructor-arg><value>Approve</value></constructor-arg>
+								<constructor-arg><value>approve</value></constructor-arg>
+								<property name="batch" value="true"/>
+							</bean>
+						</list>	
+					</property>
+				</bean>
+			</list>
+		</property>
+		<property name="states">
+			<bean class="com.novamens.kbee.content.workflow.DynamicStates"/>
+		</property>
+	</bean>
+	
+	<bean id="edition-procedure-es" class="com.novamens.kbee.content.workflow.KbeeProcedureBean">
+		<property name="id">
+			<value>edicion-aprobacion</value>
+		</property>
+		<property name="name">
+			<value>Edición con Aprobación</value>
+		</property>
+		<property name="locale">
+			<value>es</value>
+		</property>
+				<property name="roles">
+			<list>
+				<bean class="com.novamens.kbee.content.workflow.KbeeWRole">
+					<property name="name" value="editor"/>
+					<property name="label" value="Editor"/>
+				</bean>
+				<bean class="com.novamens.kbee.content.workflow.KbeeWRole">
+					<property name="name" value="colaborador"/>
+					<property name="label" value="Editor"/>
+				</bean>
+				<bean class="com.novamens.kbee.content.workflow.KbeeWRole">
+					<property name="name" value="aprobador"/>
+					<property name="label" value="Aprobador"/>
+				</bean>
+			</list>	
+		</property>
+		<property name="phases">
+			<list>
+				<bean class="com.novamens.kbee.content.workflow.KbeeProcedurePhase">
+					<property name="name" value="edicion"/>
+					<property name="label" value="Edición"/>
+				</bean>
+				<bean class="com.novamens.kbee.content.workflow.KbeeProcedurePhase">
+					<property name="name" value="aprobacion"/>
+					<property name="label" value="Aprobación"/>
+				</bean>
+				<bean class="com.novamens.kbee.content.workflow.KbeeProcedurePhase">
+					<property name="name" value="publicado"/>
+					<property name="label" value="Publicado"/>
+				</bean>
+			</list>	
+		</property>
+		<property name="tasks">
+			<list>
+				<bean class="com.novamens.kbee.content.workflow.WebTask">
+					<property name="id" value="editar"/>
+					<property name="name" value="Editar"/>
+					<property name="initial" value="true"/>
+					<property name="cancelEnabled" value="true"/>
+					<property name="enableEditingAllResources" value="true"/>
+					<property name="roleName" value="editor"/>
+					<property name="phaseName" value="edicion"/>
+					<property name="EndConditions">
+						<list>
+							<bean class="com.novamens.kbee.content.workflow.ManualEndCondition">
+								<constructor-arg><value>Publicar</value></constructor-arg>
+								<constructor-arg><value>publicacion</value></constructor-arg>
+								<property name="routerType" value="PUBLISH"/>
+								<property name="batch" value="true"/>
+								<property name="perms" value="write"/>
+							</bean>
+							<bean class="com.novamens.kbee.content.workflow.ManualEndCondition">
+								<constructor-arg><value>Enviar a Aprobar</value></constructor-arg>
+								<constructor-arg><value>requerimiento_aprobacion</value></constructor-arg>
+								<property name="enablePriority" value="true"/>
+								<property name="routerType" value="TASK"/>
+								<property name="nextTaskId" value="aprobacion"/>
+							</bean>
+							<bean class="com.novamens.kbee.content.workflow.ManualEndCondition">
+								<constructor-arg><value>Pedir Colaboración</value></constructor-arg>
+								<constructor-arg><value>requerimiento_colaboracion_edicion</value></constructor-arg>
+								<property name="enablePriority" value="true"/>
+								<property name="collaboration" value="true"/>
+								<property name="routerType" value="TASK"/>
+								<property name="nextTaskId" value="colaboracion"/>
+							</bean>
+						</list>	
+					</property>
+				</bean>
+				<bean class="com.novamens.kbee.content.workflow.WebTask">
+					<property name="id" value="colaboracion"/>
+					<property name="name" value="Colaborción"/>
+					<property name="roleName" value="colaborador"/>
+					<property name="trigger">
+						<bean class="com.novamens.kbee.content.workflow.KbeeCollaboratorTrigger"/>
+					</property>
+					<property name="EndConditions">
+						<list>
+							<bean class="com.novamens.kbee.content.workflow.ManualEndCondition">
+								<constructor-arg><value>Retornar al Editor</value></constructor-arg>
+								<constructor-arg><value>retorno_al_editor</value></constructor-arg>
+								<property name="routerType" value="RETURN_TO_CALLER"/>
+							</bean>
+						</list>	
+					</property>
+				</bean>
+				<bean class="com.novamens.kbee.content.workflow.WebTask">
+					<property name="id" value="aprobacion"/>
+					<property name="name" value="Aprobación"/>
+					<property name="alias" value="aprobacion"/>
+					<property name="roleName" value="aprobador"/>
+					<property name="phaseName" value="aprobacion"/>
+					<property name="trigger">
+						<bean class="com.novamens.kbee.content.workflow.KbeeLastUserManualTrigger">
+							<property name="manualPermission">
+								<bean class="com.novamens.kbee.security.acl.KbeePermission">
+									<constructor-arg><value>take-aprobacion</value></constructor-arg>
+									<constructor-arg><value>Tomar Aprobación</value></constructor-arg>
+								</bean>
+							</property>
+						</bean>
+					</property>
+					<property name="EndConditions">
+						<list>
+							<bean class="com.novamens.kbee.content.workflow.ManualEndCondition">
+								<constructor-arg><value>Pedir Corrección</value></constructor-arg>
+								<constructor-arg><value>requerimiento_correccion</value></constructor-arg>
+								<property name="routerType" value="TASK"/>
+								<property name="nextTaskId" value="editar"/>
+							</bean>
+							<bean class="com.novamens.kbee.content.workflow.ManualEndCondition">
+								<constructor-arg><value>Aprobar</value></constructor-arg>
+								<constructor-arg><value>aprobacion</value></constructor-arg>
+								<property name="routerType" value="PUBLISH"/>
+							</bean>
+							<bean class="com.novamens.kbee.content.workflow.ManualEndCondition">
+								<constructor-arg><value>Pedir Colaboración</value></constructor-arg>
+								<constructor-arg><value>requerimiento_colaboracion_aprobacion</value></constructor-arg>
+								<property name="enablePriority" value="true"/>
+								<property name="collaboration" value="true"/>
+								<property name="routerType" value="TASK"/>
+								<property name="nextTaskId" value="colaboracion"/>
+							</bean>
+						</list>	
+					</property>
+				</bean>
+			</list>
+		</property>
+		<property name="states">
+			<bean class="com.novamens.kbee.content.workflow.DynamicStates"/>
+		</property>
+	</bean>
+	
+	
+	<bean id="assign-procedure" class="com.novamens.kbee.content.workflow.KbeeProcedureBean">
+		<property name="id">
+			<value>assign</value>
+		</property>
+		<property name="name">
+			<value>Edition with Assign</value>
+		</property>
+		<property name="version">
+			<value>2</value>
+		</property>
+		<property name="locale">
+			<value>en</value>
+		</property>
+		<property name="phases">
+			<list>
+				<bean class="com.novamens.kbee.content.workflow.KbeeProcedurePhase">
+					<property name="name" value="edition"/>
+					<property name="label" value="Edition"/>
+				</bean>
+				<bean class="com.novamens.kbee.content.workflow.KbeeProcedurePhase">
+					<property name="name" value="published"/>
+					<property name="label" value="Published"/>
+				</bean>
+			</list>	
+		</property>
+		<property name="roles">
+			<list>
+				<bean class="com.novamens.kbee.content.workflow.KbeeWRole">
+					<property name="name" value="Editor"/>
+					<property name="label" value="Editor"/>
+				</bean>
+			</list>	
+		</property>
+		<property name="tasks">
+			<list>
+				<bean class="com.novamens.kbee.content.workflow.WebTask">
+					<property name="id" value="Edition"/>
+					<property name="name" value="Edit"/>
+					<property name="initial" value="true"/>
+					<property name="cancelEnabled" value="true"/>
+					<property name="roleName" value="Editor"/>
+					<property name="enableEditingAllResources" value="true"/>
+					<property name="trigger">
+						<bean class="com.novamens.kbee.content.workflow.KbeeCollaboratorTrigger"/>
+					</property>
+					<property name="EndConditions">
+						<list>
+							<bean class="com.novamens.kbee.content.workflow.ManualEndCondition">
+								<constructor-arg><value>Assign</value></constructor-arg>
+								<constructor-arg><value>assign</value></constructor-arg>
+								<property name="enablePriority" value="true"/>
+								<property name="collaboration" value="true"/>
+								<property name="routerType" value="TASK"/>
+								<property name="nextTaskId" value="Edition"/>
+							</bean>
+							<bean class="com.novamens.kbee.content.workflow.ManualEndCondition">
+								<constructor-arg><value>Publish</value></constructor-arg>
+								<constructor-arg><value>publish</value></constructor-arg>
+								<property name="perms" value="write"/>
+								<property name="routerType" value="PUBLISH"/>
+							</bean>
+						</list>	
+					</property>
+				</bean>
+			</list>
+		</property>
+		<property name="states">
+			<bean class="com.novamens.kbee.content.workflow.DynamicStates"/>
+		</property>
+	</bean>
+	
+	<bean id="assign-procedure-es" class="com.novamens.kbee.content.workflow.KbeeProcedureBean">
+		<property name="id">
+			<value>edicion-asignacion</value>
+		</property>
+		<property name="name">
+			<value>Edición con Asignación</value>
+		</property>
+		<property name="version">
+			<value>2</value>
+		</property>
+		<property name="locale">
+			<value>es</value>
+		</property>
+		<property name="roles">
+			<list>
+				<bean class="com.novamens.kbee.content.workflow.KbeeWRole">
+					<property name="name" value="editor"/>
+					<property name="label" value="Editor"/>
+				</bean>
+			</list>	
+		</property>
+		<property name="phases">
+			<list>
+				<bean class="com.novamens.kbee.content.workflow.KbeeProcedurePhase">
+					<property name="name" value="edicion"/>
+					<property name="label" value="Edición"/>
+				</bean>
+				<bean class="com.novamens.kbee.content.workflow.KbeeProcedurePhase">
+					<property name="name" value="publicado"/>
+					<property name="label" value="Publicado"/>
+				</bean>
+			</list>	
+		</property>
+		<property name="tasks">
+			<list>
+				<bean class="com.novamens.kbee.content.workflow.WebTask">
+					<property name="id" value="editar"/>
+					<property name="name" value="Edición"/>
+					<property name="initial" value="true"/>
+					<property name="cancelEnabled" value="true"/>
+					<property name="roleName" value="editor"/>
+					<property name="phaseName" value="edicion"/>
+					<property name="enableEditingAllResources" value="true"/>
+					<property name="trigger">
+						<bean class="com.novamens.kbee.content.workflow.KbeeCollaboratorTrigger"/>
+					</property>
+					<property name="EndConditions">
+						<list>
+							<bean class="com.novamens.kbee.content.workflow.ManualEndCondition">
+								<constructor-arg><value>Asignar</value></constructor-arg>
+								<constructor-arg><value>asignar</value></constructor-arg>
+								<property name="enablePriority" value="true"/>
+								<property name="collaboration" value="true"/>
+								<property name="routerType" value="TASK"/>
+								<property name="nextTaskId" value="editar"/>
+							</bean>
+							<bean class="com.novamens.kbee.content.workflow.ManualEndCondition">
+								<constructor-arg><value>Publicar</value></constructor-arg>
+								<constructor-arg><value>publicacion</value></constructor-arg>
+								<property name="perms" value="write"/>
+								<property name="routerType" value="PUBLISH"/>
+							</bean>
+						</list>	
+					</property>
+				</bean>
+			</list>
+		</property>
+		<property name="states">
+			<bean class="com.novamens.kbee.content.workflow.DynamicStates"/>
+		</property>
+	</bean>
+	
+	
+	<bean id="submission-procedure" class="com.novamens.kbee.content.workflow.KbeeProcedureBean">
+		<property name="id">
+			<value>Submission</value>
+		</property>
+		<property name="name">
+			<value>Submission</value>
+		</property>
+		<property name="version">
+			<value>2</value>
+		</property>
+		<property name="roles">
+			<list>
+				<bean class="com.novamens.kbee.content.workflow.KbeeWRole">
+					<property name="name" value="Submitter"/>
+					<property name="label" value="Submitter"/>
+				</bean>
+				<bean class="com.novamens.kbee.content.workflow.KbeeWRole">
+					<property name="name" value="Analyst"/>
+					<property name="label" value="Analyst"/>
+				</bean>
+				<bean class="com.novamens.kbee.content.workflow.KbeeWRole">
+					<property name="name" value="Collaborator"/>
+					<property name="label" value="Collaborator"/>
+				</bean>
+			</list>	
+		</property>
+		<property name="tasks">
+			<list>
+				<bean class="com.novamens.kbee.content.workflow.WebTask">
+					<property name="id" value="Submission"/>
+					<property name="name" value="Submission"/>
+					<property name="roleName" value="Submitter"/>
+					<property name="initial" value="true"/>
+					<property name="trigger">
+						<bean class="com.novamens.kbee.content.workflow.KbeeWRoleTrigger"/>
+					</property>
+					<property name="cancelEnabled" value="true"/>
+					<property name="EndConditions">
+						<list>
+							<bean class="com.novamens.kbee.content.workflow.ManualEndCondition">
+								<constructor-arg><value>Send File</value></constructor-arg>
+								<constructor-arg><value>submission</value></constructor-arg>
+								<property name="enablePriority" value="false"/>
+								<property name="routerType" value="TASK"/>
+								<property name="nextTaskId" value="File Review"/>
+							</bean>
+						</list>	
+					</property>
+				</bean>
+				<bean class="com.novamens.kbee.content.workflow.WebTask">
+					<property name="id" value="File Review"/>
+					<property name="name" value="File Review"/>
+					<property name="roleName" value="Analyst"/>
+					<property name="trigger">
+						<bean class="com.novamens.kbee.content.workflow.KbeeLastUserManualTrigger">
+							<property name="manualPermission">
+								<bean class="com.novamens.kbee.security.acl.KbeePermission">
+									<constructor-arg><value>take-review</value></constructor-arg>
+									<constructor-arg><value>Take Review</value></constructor-arg>
+								</bean>
+							</property>
+						</bean>
+					</property>
+					<property name="cancelEnabled" value="true"/>
+					<property name="EndConditions">
+						<list>
+							<bean class="com.novamens.kbee.content.workflow.ManualEndCondition">
+								<constructor-arg><value>Approve</value></constructor-arg>
+								<constructor-arg><value>approve_request</value></constructor-arg>
+								<property name="routerType" value="TASK"/>
+								<property name="nextTaskId" value="Edition"/>
+							</bean>
+							<bean class="com.novamens.kbee.content.workflow.ManualEndCondition">
+								<constructor-arg><value>Approve&amp;Publish</value></constructor-arg>
+								<constructor-arg><value>approveandpublish_request</value></constructor-arg>
+								<property name="routerType" value="PUBLISH"/>
+							</bean>
+							<bean class="com.novamens.kbee.content.workflow.ManualEndCondition">
+								<constructor-arg><value>Correction Request</value></constructor-arg>
+								<constructor-arg><value>resubmission_request</value></constructor-arg>
+								<property name="routerType" value="TASK"/>
+								<property name="nextTaskId" value="Resubmission"/>
+							</bean>
+							<bean class="com.novamens.kbee.content.workflow.ManualEndCondition">
+								<constructor-arg><value>Peer Review</value></constructor-arg>
+								<constructor-arg><value>collaboration_request</value></constructor-arg>
+								<property name="collaboration" value="true"/>
+								<property name="routerType" value="TASK"/>
+								<property name="nextTaskId" value="Collaboration"/>
+							</bean>
+							<bean class="com.novamens.kbee.content.workflow.ManualEndCondition">
+								<constructor-arg><value>Deny</value></constructor-arg>
+								<constructor-arg><value>denegation_request</value></constructor-arg>
+								<property name="routerType" value="TASK"/>
+								<property name="nextTaskId" value="Acknowledge Cancel"/>
+							</bean>
+							<bean class="com.novamens.kbee.content.workflow.ManualEndCondition">
+								<constructor-arg><value>Cancel Submission</value></constructor-arg>
+								<constructor-arg><value>review_cancel_request</value></constructor-arg>
+								<property name="routerType" value="PUBLISH"/>
+							</bean>
+						</list>	
+					</property>
+				</bean>
+				<bean class="com.novamens.kbee.content.workflow.WebTask">
+					<property name="id" value="Resubmission"/>
+					<property name="name" value="Re-Submission"/>
+					<property name="roleName" value="Submitter"/>
+					<property name="trigger">
+						<bean class="com.novamens.kbee.content.workflow.KbeeWRoleTrigger"/>
+					</property>
+					<property name="EndConditions">
+						<list>
+							<bean class="com.novamens.kbee.content.workflow.ManualEndCondition">
+								<constructor-arg><value>Cancel</value></constructor-arg>
+								<constructor-arg><value>submitter_cancel_request</value></constructor-arg>
+								<property name="css" value="cancel"/>
+								<property name="routerType" value="TASK"/>
+								<property name="nextTaskId" value="Cancelation"/>
+							</bean>
+							<bean class="com.novamens.kbee.content.workflow.ManualEndCondition">
+								<constructor-arg><value>Return File</value></constructor-arg>
+								<constructor-arg><value>resubmission_response</value></constructor-arg>
+								<property name="routerType" value="TASK"/>
+								<property name="nextTaskId" value="File Review"/>
+							</bean>
+						</list>	
+					</property>
+				</bean>
+				<bean class="com.novamens.kbee.content.workflow.WebTask">
+					<property name="id" value="Cancelation"/>
+					<property name="name" value="Cancel File"/>
+					<property name="roleName" value="Analyst"/>
+					<property name="trigger">
+						<bean class="com.novamens.kbee.content.workflow.KbeeWRoleTrigger"/>
+					</property>
+ 					<property name="EndConditions">
+						<list>
+							<bean class="com.novamens.kbee.content.workflow.ManualEndCondition">
+								<constructor-arg><value>Done</value></constructor-arg>
+								<constructor-arg><value>cancelation_request</value></constructor-arg>
+								<property name="routerType" value="PUBLISH"/>
+							</bean>
+						</list>	
+					</property>
+				</bean>
+				<bean class="com.novamens.kbee.content.workflow.WebTask">
+					<property name="id" value="Collaboration"/>
+					<property name="name" value="Peer Review"/>
+					<property name="roleName" value="Collaborator"/>
+					<property name="trigger">
+						<bean class="com.novamens.kbee.content.workflow.KbeeCollaboratorTrigger"/>
+					</property>
+					<property name="EndConditions">
+						<list>
+							<bean class="com.novamens.kbee.content.workflow.ManualEndCondition">
+								<constructor-arg><value>Return File to Editor</value></constructor-arg>
+								<constructor-arg><value>return_to_editor</value></constructor-arg>
+								<property name="routerType" value="RETURN_TO_CALLER"/>
+							</bean>
+						</list>	
+					</property>
+				</bean>
+				<bean class="com.novamens.kbee.content.workflow.WebTask">
+					<property name="id" value="Acknowledge"/>
+					<property name="name" value="Acknowledge"/>
+					<property name="roleName" value="Submitter"/>
+					<property name="trigger">
+						<bean class="com.novamens.kbee.content.workflow.KbeeWRoleTrigger"/>
+					</property>
+					<property name="readOnly" value="false"/>
+					<property name="enableEditingAllResources" value="false"/>
+					<property name="EndConditions">
+						<list>
+							<bean class="com.novamens.kbee.content.workflow.ManualEndCondition">
+								<constructor-arg><value>Cancel</value></constructor-arg>
+								<constructor-arg><value>submitter_cancel_request</value></constructor-arg>
+								<property name="css" value="cancel"/>
+								<property name="routerType" value="TASK"/>
+								<property name="nextTaskId" value="Cancelation"/>
+							</bean>
+							<bean class="com.novamens.kbee.content.workflow.ManualEndCondition">
+								<constructor-arg><value>Acknowledge</value></constructor-arg>
+								<constructor-arg><value>acknowledge_response</value></constructor-arg>
+								<property name="routerType" value="TASK"/>
+								<property name="nextTaskId" value="Final Review"/>
+							</bean>
+						</list>	
+					</property>
+				</bean>
+				<bean class="com.novamens.kbee.content.workflow.WebTask">
+					<property name="id" value="Acknowledge Cancel"/>
+					<property name="name" value="Acknowledge Cancel"/>
+					<property name="roleName" value="Submitter"/>
+					<property name="trigger">
+						<bean class="com.novamens.kbee.content.workflow.KbeeWRoleTrigger"/>
+					</property>
+					<property name="readOnly" value="true"/>
+					<property name="EndConditions">
+						<list>
+							<bean class="com.novamens.kbee.content.workflow.ManualEndCondition">
+								<constructor-arg><value>Acknowledge</value></constructor-arg>
+								<constructor-arg><value>acknowledge_cancel_response</value></constructor-arg>
+								<property name="routerType" value="PUBLISH"/>
+							</bean>
+						</list>	
+					</property>
+				</bean>
+				<bean class="com.novamens.kbee.content.workflow.WebTask">
+					<property name="id" value="Final Review"/>
+					<property name="name" value="Final Review"/>
+					<property name="roleName" value="Analyst"/>
+					<property name="trigger">
+						<bean class="com.novamens.kbee.content.workflow.KbeeWRoleTrigger"/>
+					</property>
+					<property name="cancelEnabled" value="true"/>
+					<property name="EndConditions">
+						<list>
+							<bean class="com.novamens.kbee.content.workflow.ManualEndCondition">
+								<constructor-arg><value>Correction Request</value></constructor-arg>
+								<constructor-arg><value>final_submission_request</value></constructor-arg>
+								<property name="routerType" value="TASK"/>
+								<property name="nextTaskId" value="Final Submission"/>
+							</bean>
+							<bean class="com.novamens.kbee.content.workflow.ManualEndCondition">
+								<constructor-arg><value>Send to Library</value></constructor-arg>
+								<constructor-arg><value>publish_request</value></constructor-arg>
+								<property name="routerType" value="PUBLISH"/>
+							</bean>	
+						</list>	
+					</property>
+				</bean>
+				<bean class="com.novamens.kbee.content.workflow.WebTask">
+					<property name="id" value="Final Submission"/>
+					<property name="name" value="Post Termination Submission"/>
+					<property name="roleName" value="Submitter"/>
+					<property name="trigger">
+						<bean class="com.novamens.kbee.content.workflow.KbeeWRoleTrigger"/>
+					</property>
+					<property name="EndConditions">
+						<list>
+							<bean class="com.novamens.kbee.content.workflow.ManualEndCondition">
+								<constructor-arg><value>Cancel</value></constructor-arg>
+								<constructor-arg><value>cancel_request</value></constructor-arg>
+								<property name="routerType" value="TASK"/>
+								<property name="nextTaskId" value="Final Submission"/>
+								<property name="css" value="cancel"/>
+							</bean>
+							<bean class="com.novamens.kbee.content.workflow.ManualEndCondition">
+								<constructor-arg><value>Submit File</value></constructor-arg>
+								<constructor-arg><value>final_submission_response</value></constructor-arg>
+								<property name="routerType" value="TASK"/>
+								<property name="nextTaskId" value="Final Review"/>
+							</bean>
+						</list>	
+					</property>
+				</bean>
+			</list>
+		</property>
+		<property name="states">
+			<bean class="com.novamens.kbee.content.workflow.DynamicStates"/>
+		</property>
+	</bean>
+	
+	<bean id="submission-checkout-procedure" class="com.novamens.kbee.content.workflow.KbeeProcedureBean">
+		<property name="id">
+			<value>SubmissionCheckout</value>
+		</property>
+		<property name="name">
+			<value>Submission Checkout</value>
+		</property>
+		<property name="version">
+			<value>2</value>
+		</property>
+		<property name="roles">
+			<list>
+				<bean class="com.novamens.kbee.content.workflow.KbeeWRole">
+					<property name="name" value="Submitter"/>
+					<property name="label" value="Submitter"/>
+				</bean>
+				<bean class="com.novamens.kbee.content.workflow.KbeeWRole">
+					<property name="name" value="Analyst"/>
+					<property name="label" value="Analyst"/>
+				</bean>
+				<bean class="com.novamens.kbee.content.workflow.KbeeWRole">
+					<property name="name" value="Collaborator"/>
+					<property name="label" value="Collaborator"/>
+				</bean>
+			</list>	
+		</property>
+		<property name="tasks">
+			<list>
+				<bean class="com.novamens.kbee.content.workflow.WebTask">
+					<property name="id" value="File Review"/>
+					<property name="name" value="File Review"/>
+					<property name="initial" value="true"/>
+					<property name="roleName" value="Analyst"/>
+					<property name="trigger">
+						<bean class="com.novamens.kbee.content.workflow.KbeeWRoleTrigger"/>
+					</property>
+					<property name="cancelEnabled" value="true"/>
+					<property name="EndConditions">
+						<list>
+							<bean class="com.novamens.kbee.content.workflow.ManualEndCondition">
+								<constructor-arg><value>Publish</value></constructor-arg>
+								<constructor-arg><value>publish_request</value></constructor-arg>
+								<property name="routerType" value="PUBLISH"/>
+							</bean>
+							<bean class="com.novamens.kbee.content.workflow.ManualEndCondition">
+								<constructor-arg><value>Correction Request</value></constructor-arg>
+								<constructor-arg><value>resubmission_request</value></constructor-arg>
+								<property name="routerType" value="TASK"/>
+								<property name="nextTaskId" value="Resubmission"/>
+							</bean>
+							<bean class="com.novamens.kbee.content.workflow.ManualEndCondition">
+								<constructor-arg><value>Peer Review</value></constructor-arg>
+								<constructor-arg><value>collaboration_request</value></constructor-arg>
+								<property name="collaboration" value="true"/>
+								<property name="routerType" value="TASK"/>
+								<property name="nextTaskId" value="Collaboration"/>
+							</bean>
+						</list>	
+					</property>
+				</bean>
+				<bean class="com.novamens.kbee.content.workflow.WebTask">
+					<property name="id" value="Resubmission"/>
+					<property name="name" value="Re-Submission"/>
+					<property name="roleName" value="Submitter"/>
+					<property name="trigger">
+						<bean class="com.novamens.kbee.content.workflow.KbeeLastUserManualTrigger">
+							<property name="manualPermission">
+								<bean class="com.novamens.kbee.security.acl.KbeePermission">
+									<constructor-arg><value>take-resubmission</value></constructor-arg>
+									<constructor-arg><value>Take Re-Submission</value></constructor-arg>
+								</bean>
+							</property>
+						</bean>
+					</property>
+					<property name="EndConditions">
+						<list>
+							<bean class="com.novamens.kbee.content.workflow.ManualEndCondition">
+								<constructor-arg><value>Cancel</value></constructor-arg>
+								<constructor-arg><value>submitter_cancel_request</value></constructor-arg>
+								<property name="css" value="cancel"/>
+								<property name="routerType" value="TASK"/>
+								<property name="nextTaskId" value="Cancelation"/>
+							</bean>
+							<bean class="com.novamens.kbee.content.workflow.ManualEndCondition">
+								<constructor-arg><value>Return File</value></constructor-arg>
+								<constructor-arg><value>resubmission_response</value></constructor-arg>
+								<property name="routerType" value="TASK"/>
+								<property name="nextTaskId" value="File Review"/>
+							</bean>
+						</list>	
+					</property>
+				</bean>
+				<bean class="com.novamens.kbee.content.workflow.WebTask">
+					<property name="id" value="Collaboration"/>
+					<property name="name" value="Peer Review"/>
+					<property name="roleName" value="Collaborator"/>
+					<property name="trigger">
+						<bean class="com.novamens.kbee.content.workflow.KbeeCollaboratorTrigger"/>
+					</property>
+					<property name="EndConditions">
+						<list>
+							<bean class="com.novamens.kbee.content.workflow.ManualEndCondition">
+								<constructor-arg><value>Return File to Editor</value></constructor-arg>
+								<constructor-arg><value>return_to_editor</value></constructor-arg>
+								<property name="routerType" value="RETURN_TO_CALLER"/>
+							</bean>
+						</list>	
+					</property>
+				</bean>
+				<bean class="com.novamens.kbee.content.workflow.WebTask">
+					<property name="id" value="Cancelation"/>
+					<property name="name" value="Cancel File"/>
+					<property name="roleName" value="Analyst"/>
+					<property name="trigger">
+						<bean class="com.novamens.kbee.content.workflow.KbeeWRoleTrigger"/>
+					</property>
+ 					<property name="EndConditions">
+						<list>
+							<bean class="com.novamens.kbee.content.workflow.ManualEndCondition">
+								<constructor-arg><value>Done</value></constructor-arg>
+								<constructor-arg><value>cancelation_request</value></constructor-arg>
+								<property name="routerType" value="PUBLISH"/>
+							</bean>
+						</list>	
+					</property>
+				</bean>
+			</list>
+		</property>
+		<property name="states">
+			<bean class="com.novamens.kbee.content.workflow.DynamicStates"/>
+		</property>
+	</bean>
+	
+	
+	<bean id="envio-procedure-es" class="com.novamens.kbee.content.workflow.KbeeProcedureBean">
+		<property name="id">
+			<value>envio</value>
+		</property>
+		<property name="name">
+			<value>Envío Documento</value>
+		</property>
+		<property name="version">
+			<value>2</value>
+		</property>
+		<property name="locale">
+			<value>es</value>
+		</property>
+		<property name="roles">
+			<list>
+				<bean class="com.novamens.kbee.content.workflow.KbeeWRole">
+					<property name="name" value="remitente"/>
+					<property name="label" value="Remitente"/>
+				</bean>
+				<bean class="com.novamens.kbee.content.workflow.KbeeWRole">
+					<property name="name" value="analista"/>
+					<property name="label" value="Analista"/>
+				</bean>
+				<bean class="com.novamens.kbee.content.workflow.KbeeWRole">
+					<property name="name" value="colaborador"/>
+					<property name="label" value="Colaborador"/>
+				</bean>
+			</list>	
+		</property>
+		<property name="phases">
+			<list>
+				<bean class="com.novamens.kbee.content.workflow.KbeeProcedurePhase">
+					<property name="name" value="envio"/>
+					<property name="label" value="Envío"/>
+				</bean>
+				<bean class="com.novamens.kbee.content.workflow.KbeeProcedurePhase">
+					<property name="name" value="evaluacion"/>
+					<property name="label" value="Evaluación"/>
+				</bean>
+				<bean class="com.novamens.kbee.content.workflow.KbeeProcedurePhase">
+					<property name="name" value="publicado"/>
+					<property name="label" value="Publicado"/>
+				</bean>
+			</list>	
+		</property>
+		<property name="tasks">
+			<list>
+				<bean class="com.novamens.kbee.content.workflow.WebTask">
+					<property name="id" value="enviar"/>
+					<property name="name" value="Enviar"/>
+					<property name="roleName" value="remitente"/>
+					<property name="phaseName" value="envio"/>
+					<property name="initial" value="true"/>
+					<property name="trigger">
+						<bean class="com.novamens.kbee.content.workflow.KbeeWRoleTrigger"/>
+					</property>
+					<property name="cancelEnabled" value="true"/>
+					<property name="EndConditions">
+						<list>
+							<bean class="com.novamens.kbee.content.workflow.ManualEndCondition">
+								<constructor-arg><value>Enviar Documento</value></constructor-arg>
+								<constructor-arg><value>envio</value></constructor-arg>
+								<property name="enablePriority" value="false"/>
+								<property name="routerType" value="TASK"/>
+								<property name="nextTaskId" value="revision"/>
+							</bean>
+						</list>	
+					</property>
+				</bean>
+				<bean class="com.novamens.kbee.content.workflow.WebTask">
+					<property name="id" value="revision"/>
+					<property name="name" value="Revisión"/>
+					<property name="phaseName" value="evaluacion"/>
+					<property name="roleName" value="analista"/>
+					<property name="trigger">
+						<bean class="com.novamens.kbee.content.workflow.KbeeLastUserManualTrigger">
+							<property name="manualPermission">
+								<bean class="com.novamens.kbee.security.acl.KbeePermission">
+									<constructor-arg><value>take-revision</value></constructor-arg>
+									<constructor-arg><value>Tomar Revisión</value></constructor-arg>
+								</bean>
+							</property>
+						</bean>
+					</property>
+					<property name="cancelEnabled" value="true"/>
+					<property name="EndConditions">
+						<list>
+							<bean class="com.novamens.kbee.content.workflow.ManualEndCondition">
+								<constructor-arg><value>Aprobar</value></constructor-arg>
+								<constructor-arg><value>requerimiento_aprobacion</value></constructor-arg>
+								<property name="routerType" value="TASK"/>
+								<property name="nextTaskId" value="aceptar"/>
+							</bean>
+							<bean class="com.novamens.kbee.content.workflow.ManualEndCondition">
+								<constructor-arg><value>Aprobar y Publicar</value></constructor-arg>
+								<constructor-arg><value>requerimiento_aprobacionypublicacion</value></constructor-arg>
+								<property name="routerType" value="PUBLISH"/>
+							</bean>
+							<bean class="com.novamens.kbee.content.workflow.ManualEndCondition">
+								<constructor-arg><value>Requerir Corrección</value></constructor-arg>
+								<constructor-arg><value>requerimiento_correccion</value></constructor-arg>
+								<property name="routerType" value="TASK"/>
+								<property name="nextTaskId" value="reenviar"/>
+							</bean>
+							<bean class="com.novamens.kbee.content.workflow.ManualEndCondition">
+								<constructor-arg><value>Requerir Colaboración</value></constructor-arg>
+								<constructor-arg><value>requerimiento_colaboracion</value></constructor-arg>
+								<property name="collaboration" value="true"/>
+								<property name="routerType" value="TASK"/>
+								<property name="nextTaskId" value="colaborar"/>
+							</bean>
+							<bean class="com.novamens.kbee.content.workflow.ManualEndCondition">
+								<constructor-arg><value>Denegar</value></constructor-arg>
+								<constructor-arg><value>requerimiento_denegacion</value></constructor-arg>
+								<property name="routerType" value="TASK"/>
+								<property name="nextTaskId" value="aceptar"/>
+							</bean>
+							<bean class="com.novamens.kbee.content.workflow.ManualEndCondition">
+								<constructor-arg><value>Cancelar Envío</value></constructor-arg>
+								<constructor-arg><value>requerimiento_cancelacion</value></constructor-arg>
+								<property name="routerType" value="PUBLISH"/>
+							</bean>
+						</list>	
+					</property>
+				</bean>
+				<bean class="com.novamens.kbee.content.workflow.WebTask">
+					<property name="id" value="reenviar"/>
+					<property name="name" value="Reenviar"/>
+					<property name="roleName" value="remitente"/>
+					<property name="phaseName" value="envio"/>
+					<property name="trigger">
+						<bean class="com.novamens.kbee.content.workflow.KbeeWRoleTrigger"/>
+					</property>
+					<property name="EndConditions">
+						<list>
+							<bean class="com.novamens.kbee.content.workflow.ManualEndCondition">
+								<constructor-arg><value>Cancelar</value></constructor-arg>
+								<constructor-arg><value>reqremitente_cancelacion</value></constructor-arg>
+								<property name="css" value="cancel"/>
+								<property name="routerType" value="TASK"/>
+								<property name="nextTaskId" value="cancelar"/>
+							</bean>
+							<bean class="com.novamens.kbee.content.workflow.ManualEndCondition">
+								<constructor-arg><value>Reenviar Documento</value></constructor-arg>
+								<constructor-arg><value>respuesta_reenvio</value></constructor-arg>
+								<property name="routerType" value="TASK"/>
+								<property name="nextTaskId" value="revision"/>
+							</bean>
+						</list>	
+					</property>
+				</bean>
+				<bean class="com.novamens.kbee.content.workflow.WebTask">
+					<property name="id" value="cancelar"/>
+					<property name="name" value="Cancelar"/>
+					<property name="roleName" value="analista"/>
+					<property name="phaseName" value="evaluacion"/>
+					<property name="trigger">
+						<bean class="com.novamens.kbee.content.workflow.KbeeWRoleTrigger"/>
+					</property>
+ 					<property name="EndConditions">
+						<list>
+							<bean class="com.novamens.kbee.content.workflow.ManualEndCondition">
+								<constructor-arg><value>Hecho</value></constructor-arg>
+								<constructor-arg><value>requerimiento_cancelacion</value></constructor-arg>
+								<property name="routerType" value="PUBLISH"/>
+							</bean>
+						</list>	
+					</property>
+				</bean>
+				<bean class="com.novamens.kbee.content.workflow.WebTask">
+					<property name="id" value="colaborar"/>
+					<property name="name" value="Colaborar"/>
+					<property name="roleName" value="colaborador"/>
+					<property name="trigger">
+						<bean class="com.novamens.kbee.content.workflow.KbeeCollaboratorTrigger"/>
+					</property>
+					<property name="EndConditions">
+						<list>
+							<bean class="com.novamens.kbee.content.workflow.ManualEndCondition">
+								<constructor-arg><value>Retornar Documento</value></constructor-arg>
+								<constructor-arg><value>retorno_al_analista</value></constructor-arg>
+								<property name="routerType" value="RETURN_TO_CALLER"/>
+							</bean>
+						</list>	
+					</property>
+				</bean>
+				<bean class="com.novamens.kbee.content.workflow.WebTask">
+					<property name="id" value="aceptar"/>
+					<property name="name" value="Aceptar"/>
+					<property name="roleName" value="remitente"/>
+					<property name="phaseName" value="evaluacion"/>
+					<property name="trigger">
+						<bean class="com.novamens.kbee.content.workflow.KbeeWRoleTrigger"/>
+					</property>
+					<property name="readOnly" value="false"/>
+					<property name="enableEditingAllResources" value="false"/>
+					<property name="EndConditions">
+						<list>
+							<bean class="com.novamens.kbee.content.workflow.ManualEndCondition">
+								<constructor-arg><value>Cancelar</value></constructor-arg>
+								<constructor-arg><value>reqremitente_cancelacion_posteval</value></constructor-arg>
+								<property name="css" value="cancel"/>
+								<property name="routerType" value="TASK"/>
+								<property name="nextTaskId" value="cancelar"/>
+							</bean>
+							<bean class="com.novamens.kbee.content.workflow.ManualEndCondition">
+								<constructor-arg><value>Aceptar</value></constructor-arg>
+								<constructor-arg><value>respuesta_aceptacion</value></constructor-arg>
+								<property name="routerType" value="TASK"/>
+								<property name="nextTaskId" value="revision_final"/>
+							</bean>
+						</list>	
+					</property>
+				</bean>
+				<bean class="com.novamens.kbee.content.workflow.WebTask">
+					<property name="id" value="revision_final"/>
+					<property name="name" value="Revisión Final"/>
+					<property name="roleName" value="analista"/>
+					<property name="phaseName" value="evaluacion"/>
+					<property name="trigger">
+						<bean class="com.novamens.kbee.content.workflow.KbeeWRoleTrigger"/>
+					</property>
+					<property name="cancelEnabled" value="true"/>
+					<property name="EndConditions">
+						<list>
+							<bean class="com.novamens.kbee.content.workflow.ManualEndCondition">
+								<constructor-arg><value>Requerir Corrección</value></constructor-arg>
+								<constructor-arg><value>requerimiento_correccion_final</value></constructor-arg>
+								<property name="routerType" value="TASK"/>
+								<property name="nextTaskId" value="envio_final"/>
+							</bean>
+							<bean class="com.novamens.kbee.content.workflow.ManualEndCondition">
+								<constructor-arg><value>Publicar</value></constructor-arg>
+								<constructor-arg><value>requerimiento_publicacion</value></constructor-arg>
+								<property name="routerType" value="PUBLISH"/>
+							</bean>	
+						</list>	
+					</property>
+				</bean>
+				<bean class="com.novamens.kbee.content.workflow.WebTask">
+					<property name="id" value="envio_final"/>
+					<property name="name" value="Envío Final"/>
+					<property name="roleName" value="remitente"/>
+					<property name="phaseName" value="envio"/>
+					<property name="trigger">
+						<bean class="com.novamens.kbee.content.workflow.KbeeWRoleTrigger"/>
+					</property>
+					<property name="EndConditions">
+						<list>
+							<bean class="com.novamens.kbee.content.workflow.ManualEndCondition">
+								<constructor-arg><value>Cancelar</value></constructor-arg>
+								<constructor-arg><value>reqremitente_cancelacion_final</value></constructor-arg>
+								<property name="routerType" value="TASK"/>
+								<property name="nextTaskId" value="cancelar"/>
+								<property name="css" value="cancel"/>
+							</bean>
+							<bean class="com.novamens.kbee.content.workflow.ManualEndCondition">
+								<constructor-arg><value>Enviar Documeto</value></constructor-arg>
+								<constructor-arg><value>respuesta_envio_final</value></constructor-arg>
+								<property name="routerType" value="TASK"/>
+								<property name="nextTaskId" value="revision_final"/>
+							</bean>
+						</list>	
+					</property>
+				</bean>
+			</list>
+		</property>
+		<property name="states">
+			<bean class="com.novamens.kbee.content.workflow.DynamicStates"/>
+		</property>
+	</bean>
+	
+	
+	<bean id="edition-revision-procedure" class="com.novamens.kbee.content.workflow.KbeeProcedureBean">
+		<property name="id">
+			<value>EditionWithRevision</value>
+		</property>
+		<property name="name">
+			<value>Edition With Revision</value>
+		</property>
+		<property name="version">
+			<value>2</value>
+		</property>
+		<property name="tasks">
+			<list>
+				<bean class="com.novamens.kbee.content.workflow.WebTask">
+					<property name="id" value="Edition"/>
+					<property name="name" value="Edit"/>
+					<property name="cancelEnabled" value="true"/>
+					<property name="EndConditions">
+						<list>
+							<bean class="com.novamens.kbee.content.workflow.ManualEndCondition">
+								<constructor-arg><value>Send to Revision</value></constructor-arg>
+								<constructor-arg><value>revision1_request</value></constructor-arg>
+								<property name="enablePriority" value="true"/>
+							</bean>
+							<bean class="com.novamens.kbee.content.workflow.ManualEndCondition">
+								<constructor-arg><value>Collaboration</value></constructor-arg>
+								<constructor-arg><value>collaboration_request</value></constructor-arg>
+								<property name="enablePriority" value="true"/>
+								<property name="collaboration" value="true"/>
+							</bean>
+						</list>	
+					</property>
+				</bean>
+				<bean class="com.novamens.kbee.content.workflow.WebTask">
+					<property name="id" value="Revision1"/>
+					<property name="name" value="Revision 1"/>
+					<property name="trigger">
+						<bean class="com.novamens.kbee.content.workflow.KbeeUserAutomaticTrigger">
+							<property name="userAssignationStrategy">
+								<bean class="com.novamens.kbee.content.workflow.KbeeRoundRobin">
+									<property name="permission">
+										<bean class="com.novamens.kbee.security.acl.KbeePermission">
+											<constructor-arg><value>revision1</value></constructor-arg>
+											<constructor-arg><value>Revision 1</value></constructor-arg>
+										</bean>
+									</property>
+									<property name="backupPermission">
+										<bean class="com.novamens.kbee.security.acl.KbeePermission">
+											<constructor-arg><value>revision1-backup</value></constructor-arg>
+											<constructor-arg><value>Backup Revision 1</value></constructor-arg>
+										</bean>
+									</property>
+								</bean>
+							</property>
+							<property name="manualPermission">
+								<bean class="com.novamens.kbee.security.acl.KbeePermission">
+									<constructor-arg><value>take-revision1</value></constructor-arg>
+									<constructor-arg><value>Take Revision 1</value></constructor-arg>
+								</bean>
+							</property>
+						</bean>
+					</property>
+					<property name="cancelEnabled" value="true"/>
+					<property name="EndConditions">
+						<list>
+							<bean class="com.novamens.kbee.content.workflow.ManualEndCondition">
+								<constructor-arg><value>Approve</value></constructor-arg>
+								<constructor-arg><value>revision1_approve_request</value></constructor-arg>
+							</bean>
+							<bean class="com.novamens.kbee.content.workflow.ManualEndCondition">
+								<constructor-arg><value>Correction Request</value></constructor-arg>
+								<constructor-arg><value>revision1_correction_request</value></constructor-arg>
+							</bean>
+							<bean class="com.novamens.kbee.content.workflow.ManualEndCondition">
+								<constructor-arg><value>Peer Review</value></constructor-arg>
+								<constructor-arg><value>collaboration_request</value></constructor-arg>
+								<property name="collaboration" value="true"/>
+							</bean>
+						</list>	
+					</property>
+				</bean>
+				<bean class="com.novamens.kbee.content.workflow.WebTask">
+					<property name="id" value="Revision2"/>
+					<property name="name" value="Revision 2"/>
+					<property name="trigger">
+						<bean class="com.novamens.kbee.content.workflow.KbeeUserAutomaticTrigger">
+							<property name="userAssignationStrategy">
+								<bean class="com.novamens.kbee.content.workflow.KbeeRoundRobin">
+									<property name="permission">
+										<bean class="com.novamens.kbee.security.acl.KbeePermission">
+											<constructor-arg><value>revision2</value></constructor-arg>
+											<constructor-arg><value>Revision 2</value></constructor-arg>
+										</bean>
+									</property>
+									<property name="backupPermission">
+										<bean class="com.novamens.kbee.security.acl.KbeePermission">
+											<constructor-arg><value>revision2-backup</value></constructor-arg>
+											<constructor-arg><value>Backup Revision 2</value></constructor-arg>
+										</bean>
+									</property>
+								</bean>
+							</property>
+							<property name="manualPermission">
+								<bean class="com.novamens.kbee.security.acl.KbeePermission">
+									<constructor-arg><value>take-revision2</value></constructor-arg>
+									<constructor-arg><value>Take Revision 2</value></constructor-arg>
+								</bean>
+							</property>
+						</bean>
+					</property>
+					<property name="cancelEnabled" value="true"/>
+					<property name="EndConditions">
+						<list>
+							<bean class="com.novamens.kbee.content.workflow.ManualEndCondition">
+								<constructor-arg><value>Approve</value></constructor-arg>
+								<constructor-arg><value>revision2_approve_request</value></constructor-arg>
+							</bean>
+							<bean class="com.novamens.kbee.content.workflow.ManualEndCondition">
+								<constructor-arg><value>Correction Request</value></constructor-arg>
+								<constructor-arg><value>revision2_correction_request</value></constructor-arg>
+							</bean>
+							<bean class="com.novamens.kbee.content.workflow.ManualEndCondition">
+								<constructor-arg><value>Peer Review</value></constructor-arg>
+								<constructor-arg><value>collaboration_request</value></constructor-arg>
+								<property name="collaboration" value="true"/>
+							</bean>
+						</list>	
+					</property>
+				</bean>
+				<bean class="com.novamens.kbee.content.workflow.WebTask">
+					<property name="id" value="Revision3"/>
+					<property name="name" value="Revision 3"/>
+					<property name="trigger">
+						<bean class="com.novamens.kbee.content.workflow.KbeeUserAutomaticTrigger">
+							<property name="userAssignationStrategy">
+								<bean class="com.novamens.kbee.content.workflow.KbeeRoundRobin">
+									<property name="permission">
+										<bean class="com.novamens.kbee.security.acl.KbeePermission">
+											<constructor-arg><value>revision3</value></constructor-arg>
+											<constructor-arg><value>Revision 3</value></constructor-arg>
+										</bean>
+									</property>
+									<property name="backupPermission">
+										<bean class="com.novamens.kbee.security.acl.KbeePermission">
+											<constructor-arg><value>revision3-backup</value></constructor-arg>
+											<constructor-arg><value>Backup Revision 3</value></constructor-arg>
+										</bean>
+									</property>
+								</bean>
+							</property>
+							<property name="manualPermission">
+								<bean class="com.novamens.kbee.security.acl.KbeePermission">
+									<constructor-arg><value>take-revision3</value></constructor-arg>
+									<constructor-arg><value>Take Revision 3</value></constructor-arg>
+								</bean>
+							</property>
+						</bean>
+					</property>
+					<property name="cancelEnabled" value="true"/>
+					<property name="EndConditions">
+						<list>
+							<bean class="com.novamens.kbee.content.workflow.ManualEndCondition">
+								<constructor-arg><value>Approve</value></constructor-arg>
+								<constructor-arg><value>revision3_approve_request</value></constructor-arg>
+							</bean>
+							<bean class="com.novamens.kbee.content.workflow.ManualEndCondition">
+								<constructor-arg><value>Correction Request</value></constructor-arg>
+								<constructor-arg><value>revision3_correction_request</value></constructor-arg>
+							</bean>
+							<bean class="com.novamens.kbee.content.workflow.ManualEndCondition">
+								<constructor-arg><value>Peer Review</value></constructor-arg>
+								<constructor-arg><value>collaboration_request</value></constructor-arg>
+								<property name="collaboration" value="true"/>
+							</bean>
+						</list>	
+					</property>
+				</bean>
+				<bean class="com.novamens.kbee.content.workflow.WebTask">
+					<property name="id" value="Collaboration"/>
+					<property name="name" value="Peer Review"/>
+					<property name="EndConditions">
+						<list>
+							<bean class="com.novamens.kbee.content.workflow.ManualEndCondition">
+								<constructor-arg><value>Return File to Editor</value></constructor-arg>
+								<constructor-arg><value>return_to_editor</value></constructor-arg>
+							</bean>
+						</list>	
+					</property>
+				</bean>
+				<bean class="com.novamens.kbee.content.workflow.WebTask">
+					<property name="id" value="Approval"/>
+					<property name="name" value="Approval"/>
+					<property name="alias" value="Approve"/>
+					<property name="trigger">
+						<bean class="com.novamens.kbee.content.workflow.KbeeUserAutomaticTrigger">
+							<property name="userAssignationStrategy">
+								<bean class="com.novamens.kbee.content.workflow.KbeeRoundRobin">
+									<property name="permission">
+										<bean class="com.novamens.kbee.security.acl.KbeePermission">
+											<constructor-arg><value>approve</value></constructor-arg>
+											<constructor-arg><value>Approve</value></constructor-arg>
+										</bean>
+									</property>
+								</bean>
+							</property>
+						</bean>
+					</property>
+					<property name="EndConditions">
+						<list>
+							<bean class="com.novamens.kbee.content.workflow.ManualEndCondition">
+								<constructor-arg><value>Correction Required</value></constructor-arg>
+								<constructor-arg><value>correction_request</value></constructor-arg>
+							</bean>
+							<bean class="com.novamens.kbee.content.workflow.ManualEndCondition">
+								<constructor-arg><value>Approve</value></constructor-arg>
+								<constructor-arg><value>approve</value></constructor-arg>
+								<property name="batch" value="true"/>
+							</bean>
+						</list>	
+					</property>
+				</bean>
+			</list>
+		</property>
+		<property name="states">
+			<bean class="com.novamens.kbee.content.workflow.DynamicStates"/>
+		</property>
+	</bean>
+	
+	<bean id="edition-collaboration-procedure" class="com.novamens.kbee.content.workflow.KbeeProcedureBean">
+		<property name="id">
+			<value>edition-collaboration</value>
+		</property>
+		<property name="name">
+			<value>Edition with Collaboration</value>
+		</property>
+		<property name="version">
+			<value>2</value>
+		</property>
+		<property name="roles">
+			<list>
+				<bean class="com.novamens.kbee.content.workflow.KbeeWRole">
+					<property name="name" value="editor"/>
+					<property name="label" value="Editor"/>
+				</bean>
+				<bean class="com.novamens.kbee.content.workflow.KbeeWRole">
+					<property name="name" value="collaborator"/>
+					<property name="label" value="Collaborator"/>
+				</bean>
+			</list>	
+		</property>
+		<property name="phases">
+			<list>
+				<bean class="com.novamens.kbee.content.workflow.KbeeProcedurePhase">
+					<property name="name" value="edition"/>
+					<property name="label" value="Edition"/>
+				</bean>
+				<bean class="com.novamens.kbee.content.workflow.KbeeProcedurePhase">
+					<property name="name" value="publlished"/>
+					<property name="label" value="Published"/>
+				</bean>
+			</list>	
+		</property>
+		<property name="tasks">
+			<list>
+				<bean class="com.novamens.kbee.content.workflow.WebTask">
+					<property name="id" value="edit"/>
+					<property name="name" value="Edit"/>
+					<property name="initial" value="true"/>
+					<property name="cancelEnabled" value="true"/>
+					<property name="enableEditingAllResources" value="true"/>
+					<property name="roleName" value="editor"/>
+					<property name="phaseName" value="edition"/>
+					<property name="trigger">
+						<bean class="com.novamens.kbee.content.workflow.KbeeManualTrigger">
+							<property name="manualPermission">
+								<bean class="com.novamens.kbee.security.acl.KbeePermission">
+									<constructor-arg><value>take-edit</value></constructor-arg>
+									<constructor-arg><value>Take Edit</value></constructor-arg>
+								</bean>
+							</property>
+						</bean>
+					</property>
+					<property name="EndConditions">
+						<list>
+							<bean class="com.novamens.kbee.content.workflow.ManualEndCondition">
+								<constructor-arg><value>Assign</value></constructor-arg>
+								<constructor-arg><value>assign</value></constructor-arg>
+								<property name="enablePriority" value="true"/>
+								<property name="collaboration" value="true"/>
+								<property name="routerType" value="TASK"/>
+								<property name="nextTaskId" value="edit"/>
+								<property name="trigger">
+									<bean class="com.novamens.kbee.content.workflow.KbeeCollaboratorTrigger"/>
+								</property>
+							</bean>
+							<bean class="com.novamens.kbee.content.workflow.ManualEndCondition">
+								<constructor-arg><value>Send to Library</value></constructor-arg>
+								<constructor-arg><value>publish</value></constructor-arg>
+								<property name="perms" value="write"/>
+								<property name="routerType" value="PUBLISH"/>
+							</bean>
+							<bean class="com.novamens.kbee.content.workflow.ManualEndCondition">
+								<constructor-arg><value>Collaboration Request</value></constructor-arg>
+								<constructor-arg><value>collaboration_request</value></constructor-arg>
+								<property name="enablePriority" value="true"/>
+								<property name="collaboration" value="true"/>
+								<property name="routerType" value="TASK"/>
+								<property name="nextTaskId" value="collaboration"/>
+							</bean>
+							<bean class="com.novamens.kbee.content.workflow.ManualEndCondition">
+								<constructor-arg><value>Send to Pending</value></constructor-arg>
+								<constructor-arg><value>pending_request</value></constructor-arg>
+								<property name="routerType" value="TASK"/>
+								<property name="nextTaskId" value="edit"/>
+							</bean>
+						</list>	
+					</property>
+				</bean>
+				<bean class="com.novamens.kbee.content.workflow.WebTask">
+					<property name="id" value="collaboration"/>
+					<property name="name" value="Collaboration"/>
+					<property name="cancelEnabled" value="false"/>
+					<property name="enableEditingAllResources" value="true"/>
+					<property name="roleName" value="collaborator"/>
+					<property name="phaseName" value="edition"/>
+					<property name="trigger">
+						<bean class="com.novamens.kbee.content.workflow.KbeeCollaboratorTrigger"/>
+					</property>
+					<property name="EndConditions">
+						<list>
+							<bean class="com.novamens.kbee.content.workflow.ManualEndCondition">
+								<constructor-arg><value>Return to Editor</value></constructor-arg>
+								<constructor-arg><value>retunt_to_editor</value></constructor-arg>
+								<property name="routerType" value="RETURN_TO_CALLER"/>
+							</bean>
+						</list>	
+					</property>
+				</bean>
+			</list>
+		</property>
+		<property name="states">
+			<bean class="com.novamens.kbee.content.workflow.DynamicStates"/>
+		</property>
+	</bean>
+	
+	<bean id="edition-collaboration-procedure-es" class="com.novamens.kbee.content.workflow.KbeeProcedureBean">
+		<property name="id">
+			<value>edicion-colaboracion</value>
+		</property>
+		<property name="name">
+			<value>Edición con Colaboración</value>
+		</property>
+		<property name="version">
+			<value>2</value>
+		</property>
+		<property name="locale">
+			<value>es</value>
+		</property>
+		<property name="roles">
+			<list>
+				<bean class="com.novamens.kbee.content.workflow.KbeeWRole">
+					<property name="name" value="editor"/>
+					<property name="label" value="Editor"/>
+				</bean>
+				<bean class="com.novamens.kbee.content.workflow.KbeeWRole">
+					<property name="name" value="colaboador"/>
+					<property name="label" value="Colaborador"/>
+				</bean>
+			</list>	
+		</property>
+		<property name="phases">
+			<list>
+				<bean class="com.novamens.kbee.content.workflow.KbeeProcedurePhase">
+					<property name="name" value="edicion"/>
+					<property name="label" value="Edición"/>
+				</bean>
+				<bean class="com.novamens.kbee.content.workflow.KbeeProcedurePhase">
+					<property name="name" value="publicado"/>
+					<property name="label" value="Publicado"/>
+				</bean>
+			</list>	
+		</property>
+		<property name="tasks">
+			<list>
+				<bean class="com.novamens.kbee.content.workflow.WebTask">
+					<property name="id" value="editar"/>
+					<property name="name" value="Editar"/>
+					<property name="initial" value="true"/>
+					<property name="cancelEnabled" value="true"/>
+					<property name="enableEditingAllResources" value="true"/>
+					<property name="roleName" value="editor"/>
+					<property name="phaseName" value="edicion"/>
+					<property name="trigger">
+						<bean class="com.novamens.kbee.content.workflow.KbeeManualTrigger">
+							<property name="manualPermission">
+								<bean class="com.novamens.kbee.security.acl.KbeePermission">
+									<constructor-arg><value>take-editar</value></constructor-arg>
+									<constructor-arg><value>Tomar Editar</value></constructor-arg>
+								</bean>
+							</property>
+						</bean>
+					</property>
+					<property name="EndConditions">
+						<list>
+							<bean class="com.novamens.kbee.content.workflow.ManualEndCondition">
+								<constructor-arg><value>Asignar</value></constructor-arg>
+								<constructor-arg><value>asignar</value></constructor-arg>
+								<property name="enablePriority" value="true"/>
+								<property name="collaboration" value="true"/>
+								<property name="routerType" value="TASK"/>
+								<property name="nextTaskId" value="editar"/>
+								<property name="trigger">
+									<bean class="com.novamens.kbee.content.workflow.KbeeCollaboratorTrigger"/>
+								</property>
+							</bean>
+							<bean class="com.novamens.kbee.content.workflow.ManualEndCondition">
+								<constructor-arg><value>Publicar</value></constructor-arg>
+								<constructor-arg><value>publicacion</value></constructor-arg>
+								<property name="perms" value="write"/>
+								<property name="routerType" value="PUBLISH"/>
+							</bean>
+							<bean class="com.novamens.kbee.content.workflow.ManualEndCondition">
+								<constructor-arg><value>Pedir Colaboración</value></constructor-arg>
+								<constructor-arg><value>requerimiento_colaboracion</value></constructor-arg>
+								<property name="enablePriority" value="true"/>
+								<property name="collaboration" value="true"/>
+								<property name="routerType" value="TASK"/>
+								<property name="nextTaskId" value="colaboracion"/>
+							</bean>
+							<bean class="com.novamens.kbee.content.workflow.ManualEndCondition">
+								<constructor-arg><value>Enviar a Pendiente</value></constructor-arg>
+								<constructor-arg><value>requerimiento_pendiente</value></constructor-arg>
+								<property name="routerType" value="TASK"/>
+								<property name="nextTaskId" value="editar"/>
+							</bean>
+						</list>	
+					</property>
+				</bean>
+				<bean class="com.novamens.kbee.content.workflow.WebTask">
+					<property name="id" value="colaboracion"/>
+					<property name="name" value="Colaboración"/>
+					<property name="cancelEnabled" value="true"/>
+					<property name="enableEditingAllResources" value="true"/>
+					<property name="roleName" value="colaborador"/>
+					<property name="phaseName" value="edicion"/>
+					<property name="trigger">
+						<bean class="com.novamens.kbee.content.workflow.KbeeCollaboratorTrigger"/>
+					</property>
+					<property name="EndConditions">
+						<list>
+							<bean class="com.novamens.kbee.content.workflow.ManualEndCondition">
+								<constructor-arg><value>Retornar al Editor</value></constructor-arg>
+								<constructor-arg><value>retorno_al_editor</value></constructor-arg>
+								<property name="routerType" value="RETURN_TO_CALLER"/>
+							</bean>
+						</list>	
+					</property>
+				</bean>
+			</list>
+		</property>
+		<property name="states">
+			<bean class="com.novamens.kbee.content.workflow.DynamicStates"/>
+		</property>
+	</bean>
+	
+	
+</beans>

@@ -1,0 +1,350 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<parent>
+		<artifactId>kbee</artifactId>
+		<groupId>com.novamens</groupId>
+		<version>8.5-SNAPSHOT</version>
+	</parent>
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+
+		<maven.test.skip>true</maven.test.skip>
+	</properties>
+
+	<modelVersion>4.0.0</modelVersion>
+	<artifactId>kbee-content-classes</artifactId>
+	<name>${project.artifactId}</name>
+	<description>Implementation of Content Management Information Model, based
+		on API defined in novamens-content</description>
+
+	<!-- 
+    <build>
+        <plugins>
+            <plugin>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <version>${maven-javadoc-plugin-version}</version>
+                <configuration>
+                    <source>${java-version}</source>
+                    <links>
+                        <link>https://docs.oracle.com/javase/8/docs/api/</link>
+                    </links>
+                    <encoding>UTF-8</encoding>
+                    <notimestamp>true</notimestamp>
+                </configuration>
+            </plugin>
+
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-source-plugin</artifactId>
+                <version>3.2.1</version>
+                <executions>
+                    <execution>
+                        <id>attach-sources</id>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+        </plugins>
+    </build>
+-->
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<configuration>
+					<source>${java-version}</source>
+					<release>${java-version}</release>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+
+
+	<developers>
+		<developer>
+			<id>aferraria</id>
+			<name>Alejo Ferraria</name>
+			<email>aferraria@novamens.com</email>
+		</developer>
+
+		<developer>
+			<id>atolomei</id>
+			<name>Alejandro Tolomei</name>
+			<email>atolomei@novamens.com</email>
+		</developer>
+	</developers>
+	<scm>
+		<connection>
+			scm:git:ssh://alejo@git.hq.novamens.com/var/novamens/kbee/content.git
+		</connection>
+		<developerConnection>
+			scm:git:ssh://alejo@git.hq.novamens.com/var/novamens/kbee/content.git
+		</developerConnection>
+	</scm>
+
+	<dependencies>
+		<dependency>
+			<groupId>com.novamens</groupId>
+			<artifactId>kbee-services-classes</artifactId>
+			<version>${kbee-version}</version>
+			
+		</dependency>
+		<dependency>
+			<groupId>com.novamens</groupId>
+			<artifactId>kbee-content-model</artifactId>
+			<version>${kbee-version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.novamens</groupId>
+			<artifactId>kbee-model-security</artifactId>
+			<version>${kbee-version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.novamens</groupId>
+			<artifactId>kbee-dm-indexer-java</artifactId>
+			<version>${kbee-version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.novamens</groupId>
+			<artifactId>kbee-dm-solr</artifactId>
+			<version>${kbee-version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.novamens</groupId>
+			<artifactId>kbee-services-logging</artifactId>
+			<version>${kbee-version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.novamens</groupId>
+			<artifactId>kbee-services-spring</artifactId>
+			<version>${kbee-version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.novamens</groupId>
+			<artifactId>kbee-api-client</artifactId>
+			<version>${kbee-version}</version>
+			<scope>compile</scope>
+		</dependency>
+
+		<!--  =========  External  =========================   -->
+		<dependency>
+			<groupId>org.junit.jupiter</groupId>
+			<artifactId>junit-jupiter-api</artifactId>
+			<version>${junit-version}</version>
+			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.postgresql</groupId>
+			<artifactId>postgresql</artifactId>
+			<version>${postgres-jdbc-version}</version> <!-- 5/2023 -->
+		</dependency>
+
+		<dependency>
+			<groupId>com.google.jimfs</groupId>
+			<artifactId>jimfs</artifactId>
+			<version>${jimfs-version}</version> <!--  1/2022  -->
+			<exclusions>
+				<exclusion>
+					<groupId>com.google.guava</groupId>
+					<artifactId>guava</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+
+
+		<!-- https://mvnrepository.com/artifact/com.google.guava/guava -->
+		<dependency>
+			<groupId>com.google.guava</groupId>
+			<artifactId>guava</artifactId>
+			<version>${google.guava-version}</version>
+		</dependency>
+
+
+		<dependency>
+			<groupId>net.sourceforge.jexcelapi</groupId>
+			<artifactId>jxl</artifactId>
+			<version>${jxl-version}</version>
+
+			<exclusions>
+				<exclusion>
+					<groupId>xml-apis</groupId>
+					<artifactId>xml-apis</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>org.w3c.dom</groupId>
+					<artifactId>dom</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>org.xml.sax</groupId>
+					<artifactId>org.xml.sax</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>log4j</groupId>
+					<artifactId>log4j</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+
+		<dependency>
+			<groupId>net.coobird</groupId>
+			<artifactId>thumbnailator</artifactId>
+			<version>[0.4, 0.5)</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.swinglabs</groupId>
+			<artifactId>pdf-renderer</artifactId>
+			<version>1.0.5</version>
+		</dependency>
+
+		<dependency>
+			<groupId>net.sourceforge.nekohtml</groupId>
+			<artifactId>nekohtml</artifactId>
+			<version>1.9.22</version>
+
+			<exclusions>
+				<exclusion>
+					<groupId>xml-apis</groupId>
+					<artifactId>xml-apis</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>org.w3c.dom</groupId>
+					<artifactId>dom</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>org.xml.sax</groupId>
+					<artifactId>org.xml.sax</artifactId>
+				</exclusion>
+			</exclusions>
+
+		</dependency>
+
+		<dependency>
+			<!-- Apache Commons Lang, a package of Java utility classes for the
+			classes that are in java.lang's hierarchy, or are considered to be
+			so standard as to justify existence in java.lang -->
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-lang3</artifactId>
+			<version>${commons-lang3-version}</version>
+
+			<exclusions>
+				<exclusion>
+					<groupId>xml-apis</groupId>
+					<artifactId>xml-apis</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>org.w3c.dom</groupId>
+					<artifactId>dom</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>org.xml.sax</groupId>
+					<artifactId>org.xml.sax</artifactId>
+				</exclusion>
+			</exclusions>
+
+		</dependency>
+
+		<dependency>
+			<!-- The Apache Commons Math project is a library of lightweight,
+			self-contained mathematics and statistics components addressing the
+			most common practical problems not immediately available in the Java
+			programming language or commons-lang. -->
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-math3</artifactId>
+			<version>${commons-math3-version}</version>
+
+			<exclusions>
+				<exclusion>
+					<groupId>xml-apis</groupId>
+					<artifactId>xml-apis</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>org.w3c.dom</groupId>
+					<artifactId>dom</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>org.xml.sax</groupId>
+					<artifactId>org.xml.sax</artifactId>
+				</exclusion>
+			</exclusions>
+
+		</dependency>
+
+		<dependency>
+			<!-- The Commons Text library provides additions to the standard JDK
+			text handling. It includes algorithms for string similarity and for
+			calculating the distance between strings. -->
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-text</artifactId>
+			<version>${commons-text-version}</version>
+
+			<exclusions>
+				<exclusion>
+					<groupId>xml-apis</groupId>
+					<artifactId>xml-apis</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>org.w3c.dom</groupId>
+					<artifactId>dom</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>org.xml.sax</groupId>
+					<artifactId>org.xml.sax</artifactId>
+				</exclusion>
+			</exclusions>
+
+		</dependency>
+
+		<dependency>
+			<!-- A collection of various utility classes to ease working with
+			strings, files, command lines, XML and more. -->
+			<groupId>org.codehaus.plexus</groupId>
+			<artifactId>plexus-utils</artifactId>
+			<version>${plexus-utils-version}</version>
+
+			<exclusions>
+				<exclusion>
+					<groupId>xml-apis</groupId>
+					<artifactId>xml-apis</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>org.w3c.dom</groupId>
+					<artifactId>dom</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>org.xml.sax</groupId>
+					<artifactId>org.xml.sax</artifactId>
+				</exclusion>
+			</exclusions>
+
+		</dependency>
+
+		<dependency>
+			<groupId>org.freemarker</groupId>
+			<artifactId>freemarker</artifactId>
+			<version>${freemarker-version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.mercadopago</groupId>
+			<artifactId>sdk-java</artifactId>
+			<version>${mercado-pago-sdk}</version>
+		</dependency>
+		<dependency>
+  			<groupId>org.openjdk.nashorn</groupId>
+  			<artifactId>nashorn-core</artifactId>
+  			<version>15.4</version>
+		</dependency>
+	</dependencies>
+
+</project>

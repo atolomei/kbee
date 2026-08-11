@@ -1,0 +1,575 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+		http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+		http://www.springframework.org/schema/context
+		http://www.springframework.org/schema/context/spring-context-3.0.xsd 
+		http://www.springframework.org/schema/tx 
+		http://www.springframework.org/schema/tx/spring-tx.xsd">
+
+
+	<!-- User -->
+
+
+					
+	<bean id="UserNotesServiceFactory" class="com.novamens.spring.service.SpringObjectServiceFactory">
+		<property name="bean" value="UserNotesService"/>
+	</bean>
+
+	<bean id="UserNotesService" class="com.novamens.kbee.content.notes.KbeeUserNotesService"  scope="prototype">
+		<property name="contentDao" ref="contentDao"/>
+	</bean>
+
+	<bean id="RolesServiceFactory" class="com.novamens.spring.service.SpringObjectServiceFactory">
+		<property name="bean" value="RolesService"/>
+	</bean>
+
+	<bean id="RolesService" class="com.novamens.kbee.content.security.KbeeRolesService"  scope="prototype"/>
+
+	<!-- Finders -->
+	
+	<bean id="datasetfinder" class="com.novamens.kbee.content.util.DataSetFinder">
+		<property name="contentDao" ref="contentDao"/>
+		<property name="sessionFactory" ref="sessionFactory"/>
+	</bean>
+	
+	<bean id="classifierfinder" class="com.novamens.kbee.content.util.ClassifierFinder">
+		<property name="contentDao" ref="contentDao"/>
+		<property name="sessionFactory" ref="sessionFactory"/>
+	</bean>
+	
+	<bean id="contentfinder" class="com.novamens.kbee.content.util.ContentFinder">
+		<property name="contentDao" ref="contentDao"/>
+		<property name="sessionFactory" ref="sessionFactory"/>
+	</bean>
+	
+	<bean id="templatefinder" class="com.novamens.kbee.content.util.ContentTemplateFinder">
+		<property name="contentDao" ref="contentDao"/>
+		<property name="sessionFactory" ref="sessionFactory"/>
+	</bean>
+	
+	<bean id="aclfinder" class="com.novamens.kbee.content.util.AclFinder">
+		<property name="securityDao" ref="securityDao"/>
+		<property name="sessionFactory" ref="sessionFactory"/>
+	</bean>
+	
+	<bean id="domainfinder" class="com.novamens.kbee.content.util.DomainFinder">
+		<property name="contentDao" ref="contentDao"/>
+		<property name="sessionFactory" ref="sessionFactory"/>
+	</bean>
+	
+	
+	<!-- Labels -->
+	
+	<bean id="labelsServiceFactory" class="com.novamens.spring.service.SpringObjectServiceFactory">
+		<property name="bean" value="labelsService"/>
+	</bean>
+		
+	<bean id="labelsService" class="com.novamens.kbee.content.service.KbeeLabelsService" scope="prototype">
+		<property name="labelDao" ref="userLabelDao"/>
+	</bean>
+	
+	<bean id="userLabelsServiceFactory" class="com.novamens.spring.service.SpringObjectServiceFactory">
+		<property name="bean" value="userLabelsService"/>
+	</bean>
+		
+	<bean id="userLabelsService" class=" com.novamens.kbee.content.user.KbeeUserLabelsService" scope="prototype">
+		<property name="labelDao" ref="userLabelDao"/>
+	</bean>
+	
+	<bean id="userLabelDao" class="com.novamens.kbee.content.user.KbeeUserLabelDao" >
+		<property name="sessionFactory" ref="sessionFactory"/>
+	</bean>
+	
+	<bean id="userSelfServiceFactory" class="com.novamens.spring.service.SpringObjectServiceFactory">
+		<property name="bean" value="userSelfService"/>
+	</bean>
+	<bean id="userSelfService" class=" com.novamens.kbee.content.user.KbeeUserSelfService" scope="prototype">
+			<property name="contentDao" ref="contentDao"/>
+	</bean>
+
+	
+	<!-- QA -->
+	<bean id="qaServiceFactory" class="com.novamens.spring.service.SpringObjectServiceFactory">
+		<property name="bean" value="qaService"/>
+	</bean>
+		
+	<bean id="qaService" class="com.novamens.kbee.content.qa.ContentQAService" scope="prototype"/>
+
+	
+
+	<!-- Semantic -->
+
+	<bean id="SemanticServiceFactory" class="com.novamens.spring.service.SpringObjectServiceFactory">
+		<property name="bean" value="semanticService"/>
+	</bean>
+	
+	<bean id="semanticService" class="com.novamens.kbee.content.service.KbeeSemanticService" scope="prototype"/>
+
+
+
+	<!-- Subscription -->
+
+	<bean id="SubscriptionServiceFactory" class="com.novamens.spring.service.SpringObjectServiceFactory">
+		<property name="bean" value="subscriptionService"/>
+	</bean>
+
+	<bean id="subscriptionService" class="com.novamens.kbee.content.service.KbeeSubscriptionService" scope="prototype"/>
+
+	<bean id="subscriptionDao" class="com.novamens.kbee.content.dao.SubscriptionDao" >
+		<property name="dataSource" ref="dataSource"/>
+		<property name="sessionFactory" ref="sessionFactory"/>
+		<property name="service" ref="com.novamens.scheduler.SchedulerService"/>
+		<property name="schema" value="${jdbc.schema}"/>
+	</bean>
+
+
+
+	<!-- Domain -->
+	
+	<bean id="domainServiceFactory" class="com.novamens.spring.service.SpringObjectServiceFactory">
+		<property name="bean" value="domainService"/>
+	</bean>
+	<bean id="domainService" class="com.novamens.kbee.content.service.KbeeDomainService" scope="prototype">
+			<property name="contentDao" ref="contentDao"/>
+	</bean>			
+	
+	<bean id="DomainSettingsServiceFactory" class="com.novamens.spring.service.SpringObjectServiceFactory">
+		<property name="bean" value="DomainSettingsService"/>
+	</bean>
+	<bean id="DomainSettingsService" class="com.novamens.kbee.content.service.domain.KbeeDomainSettingsService" scope="prototype">
+			<property name="contentDao" ref="contentDao"/>
+	</bean>
+	
+	
+	
+	<bean id="domainPreferencesDao" class="com.novamens.kbee.content.service.domain.KbeeDomainPreferencesDao" >
+		<constructor-arg index="0" ref="sessionFactory"/>
+	</bean>
+
+	<bean id="DomainPrefrencesServiceFactory" class="com.novamens.spring.service.SpringObjectServiceFactory">
+		<property name="bean" value="DomainPreferencesService"/>
+	</bean>
+
+	<bean id="DomainPreferencesService" class="com.novamens.kbee.content.service.domain.KbeeDomainPreferencesService" scope="prototype">
+		<property name="domainPreferencesDao" ref="domainPreferencesDao"/>
+	</bean>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+
+	<!-- Domain Life Cycle -->
+	
+	<bean id="domainLifeCycleServiceFactory" class="com.novamens.spring.service.SpringSystemServiceFactory">
+		<property name="bean" value="DomainLifeCycleService"/>
+	</bean>
+	<bean id="DomainLifeCycleService" class="com.novamens.kbee.content.service.KbeeDomainLifeCycleService">
+		<property name="contentDao" ref="contentDao"/>	
+	</bean>
+
+	<bean id="domainBuilderServiceFactory" class="com.novamens.spring.service.SpringSystemServiceFactory">
+		<property name="bean" value="domainBuilderService"/>
+	</bean>
+	<bean id="domainBuilderService" class=" com.novamens.kbee.content.domain.provisioning.KbeeDomainBuilderService">
+		<property name="contentDao" ref="contentDao"/>	
+	</bean>
+	
+	
+	<!-- Domain set up -->
+	
+	<bean id="domainSettingsBuilderServiceFactory" class="com.novamens.spring.service.SpringObjectServiceFactory">
+		<property name="bean" value="domainSettingsBuilderService"/>
+	</bean>
+	<bean id="domainSettingsBuilderService" class="com.novamens.kbee.content.domain.provisioning.DomainSettingsBuilderService" scope="prototype"/>
+
+			
+	<bean id="domainModelBuilderServiceFactory" class="com.novamens.spring.service.SpringObjectServiceFactory">
+		<property name="bean" value="domainModelBuilderService"/>
+	</bean>
+	<bean id="domainModelBuilderService" class="com.novamens.kbee.content.domain.provisioning.DomainModelBuilderService" scope="prototype"/>
+	
+				
+	<bean id="domainRolesCanonicalBuilderServiceFactory" class="com.novamens.spring.service.SpringObjectServiceFactory">
+		<property name="bean" value="domainRolesCanonicalBuilderService"/>
+	</bean>
+	<bean id="domainRolesCanonicalBuilderService" class="com.novamens.kbee.content.domain.provisioning.DomainRolesCanonicalBuilderService" scope="prototype"/>
+
+
+	<bean id="domainRolesEntityBuilderServiceFactory" class="com.novamens.spring.service.SpringObjectServiceFactory">
+		<property name="bean" value="domainRolesEntityBuilderService"/>
+	</bean>
+	<bean id="domainRolesEntityBuilderService" class="com.novamens.kbee.content.domain.provisioning.DomainRolesEntityBuilderService" scope="prototype"/>
+					
+
+	<bean id="domainUsersBuilderServiceFactory" class="com.novamens.spring.service.SpringObjectServiceFactory">
+		<property name="bean" value="domainUsersBuilderService"/>
+	</bean>
+	<bean id="domainUsersBuilderService" class="com.novamens.kbee.content.domain.provisioning.DomainUsersBuilderService" scope="prototype"/>
+
+
+
+	<!-- Help -->
+			
+	<bean id="helpServiceFactory" class="com.novamens.spring.service.SpringSystemServiceFactory">
+		<property name="bean" value="HelpService"/>
+	</bean>
+	<bean id="HelpService" class="com.novamens.kbee.content.service.KbeeHelpService"/>
+
+
+
+	<!-- Objects -->
+	
+	<bean id="objectFactoryServiceFactory" class="com.novamens.spring.service.SpringSystemServiceFactory">
+		<property name="bean" value="objectFactoryService"/>
+	</bean>
+	
+	<bean id="objectFactoryService" class="com.novamens.kbee.content.service.KbeeObjectFactoryService">
+		<property name="contentSecurityDao" ref="contentSecurityDao"/>
+		<property name="contentDao" ref="contentDao"/>
+		<property name="propertyDao" ref="propertyDao"/>
+	</bean>
+
+	<bean id="objectServiceFactory" class="com.novamens.spring.service.SpringObjectServiceFactory">
+		<property name="bean" value="objectContentService"/>
+	</bean>
+	
+	<bean id="objectContentService" class="com.novamens.kbee.content.service.KbeeObjectService" scope="prototype">
+		<property name="contentDao" ref="contentDao"/>
+	</bean>
+	
+	<bean id="AttributeValidatorParser" class="com.novamens.kbee.content.model.KbeeValidatorParser"/>
+	
+	
+
+	<!-- TreeFile  -->
+				
+	<bean id="treeFileFactoryServiceFactory" class="com.novamens.spring.service.SpringSystemServiceFactory">
+		<property name="bean" value="treeFileFactoryService"/>
+	</bean>
+	<bean id="treeFileFactoryService" class="com.novamens.kbee.content.service.KbeeTreeFileFactoryService">
+		<property name="contentDao" ref="contentDao"/>
+	</bean>
+										
+	<bean id="treeFileServiceFactory" class="com.novamens.spring.service.SpringObjectServiceFactory">
+		<property name="bean" value="treeFileService"/>
+	</bean>
+	
+	<bean id="treeFileService" class="com.novamens.kbee.content.service.KbeeTreeFileService" scope="prototype">
+			<property name="contentDao" ref="contentDao"/>
+	</bean>
+	
+	
+	
+	<!--  TexyMarketingService -->
+	<!-- bean id=" TexyMarketingService" class="com.novamens.spring.service.SpringSystemServiceFactory">
+		<property name="bean" value="com.novamens.kbee.sysmessage.KbeeTexyMarketingService"/>
+	</bean>
+	<bean id="com.novamens.kbee.sysmessage.KbeeTexyMarketingService" class="com.novamens.kbee.sysmessage.KbeeTexyMarketingService"/-->
+
+	<bean id="MercadoPagoPaymentServiceFactory" class="com.novamens.spring.service.SpringSystemServiceFactory">
+		<property name="bean" value="mercadoPagoPaymentService"/>
+	</bean>
+
+	<bean id="mercadoPagoPaymentService" class="kbee.payment.KbeeMercadoPagoPaymentService" scope="prototype">
+		<property name="contentDao" ref="contentDao"/>
+	</bean>
+
+	<!-- DateTimeService  -->
+	
+	<bean id="dateTimeServiceFactory" class="com.novamens.spring.service.SpringSystemServiceFactory">
+		<property name="bean" value="dateTimeService"/>
+	</bean>
+	
+	<bean id="dateTimeService" class="com.novamens.datetime.DateTimeService" />
+	
+	
+
+	<!-- DomainMetricsService	 -->
+
+	<bean id="domainMetricsServiceFactory" class="com.novamens.spring.service.SpringSystemServiceFactory">
+		<property name="bean" value="domainMetricsService"/>
+	</bean>
+		
+	<bean id="domainMetricsService" class="com.novamens.metrics.domain.KbeeDomainMetricsService" />
+
+
+
+	<!-- Security =============================================================================================================== -->
+
+	<bean id="com.novamens.security.service.AuthenticationManager" class="org.springframework.security.authentication.ProviderManager">
+		<constructor-arg>
+			<list>
+				<ref bean="com.novamens.security.service.AuthenticationProvider" />
+				<ref bean="com.novamens.security.service.LocalAuthenticationProvider" />
+			</list>
+		</constructor-arg>
+	</bean>
+
+	<bean id="com.novamens.security.service.AuthenticationProvider" class="org.springframework.security.authentication.dao.DaoAuthenticationProvider">
+		<property name="userDetailsService" ref="myUserDetailsService" />
+		<property name="passwordEncoder" ref="myPasswordEncoder" />
+	</bean>
+
+	<bean id="com.novamens.security.service.LocalAuthenticationProvider" class="com.novamens.kbee.security.KbeeLocalAuthenticationProvider">
+		<property name="userDetailsService" ref="myUserDetailsService" />
+	</bean>
+
+	<bean id="myUserDetailsService" class="com.novamens.kbee.security.KbeeSpringSecurityDao">
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+
+	<bean id="myPasswordEncoder" class="com.novamens.kbee.security.KbeeDelegatingPasswordEncoder" />
+
+	<bean id="com.novamens.security.service.UserServiceFactory" class="com.novamens.spring.service.SpringSystemServiceFactory">
+		<property name="bean" value="com.novamens.security.service.UserService"/>
+	</bean>
+	
+	<bean id="com.novamens.security.service.UserService" class="com.novamens.kbee.content.user.KbeeUserService"/>
+	
+	<bean id="com.novamens.security.service.SecurityBusinessServiceFactory" class="com.novamens.spring.service.SpringSystemServiceFactory">
+		<property name="bean" value="com.novamens.content.service.SecurityContentMgmtService"/>
+	</bean>
+	
+	<bean id="com.novamens.content.service.SecurityContentMgmtService" class="com.novamens.kbee.content.security.KbeeSecurityContentMgmtService">
+		<property name="securityDao" ref="contentSecurityDao"/>
+	</bean>
+	
+	<bean id="com.novamens.content.security.service.ContentSystemSecurityServiceFactory" class="com.novamens.spring.service.SpringSystemServiceFactory">
+		<property name="bean" value="com.novamens.content.security.service.ContentSystemSecurityService"/>
+	</bean>
+	
+	<bean id="com.novamens.content.security.service.ContentSystemSecurityService" class="com.novamens.kbee.content.security.KbeeContentSystemSecurityService">
+		<property name="securityDao" ref="contentSecurityDao"/>
+	</bean>
+	
+	<bean id="contentSecurityDao" class="com.novamens.kbee.content.security.KbeeContentSecurityDao">
+		<property name="sessionFactory" ref="sessionFactory"/>
+		<property name="securityDao" ref="securityDao"/>
+	</bean>
+	
+	<bean id="com.novamens.content.security.AuthenticationEventListener" class="com.novamens.kbee.content.security.AuthenticationEventListener"/>
+	
+	<bean id="com.novamens.content.security.SessionDestroyedEventListener" class="com.novamens.kbee.content.security.SessionDestroyedEventListener"/>
+
+	<bean id="tokenServiceFactory" class="com.novamens.spring.service.SpringSystemServiceFactory">
+		<property name="bean" value="tokenService"/>
+	</bean>
+		
+	<bean id="tokenService" class="com.novamens.kbee.content.service.KbeeTokenService" />
+	
+	
+	<!-- Log -->
+	
+	<bean id="logDao" class="com.novamens.logging.LogDao">
+		<property name="sessionFactory" ref="sessionFactory"/>
+	</bean>
+
+	
+	
+	<!-- NotificationService	 -->
+	
+	<bean id="NotificationServiceFactory" class="com.novamens.spring.service.SpringSystemServiceFactory">
+		<property name="bean" value="NotificationService"/>
+	</bean>
+
+	<bean id="NotificationService" class="com.novamens.kbee.content.notification.KbeeNotificationService"/>
+
+	
+	
+	<!-- ENotiService -->
+
+	<bean id="enotiRuleDao" class="com.novamens.kbee.content.enoti.KbeeENotiRuleDao">
+		<property name="sessionFactory" ref="sessionFactory"/>
+	</bean>
+
+	<bean id="ENotiRuleServiceFactory" class="com.novamens.spring.service.SpringSystemServiceFactory">
+		<property name="bean" value="ENotiRuleService"/>
+	</bean>
+	
+	<bean id="ENotiRuleService" class="com.novamens.kbee.content.enoti.KbeeENotiRuleService">
+		<property name="dao" ref="enotiRuleDao"/>
+	</bean>
+
+
+
+	<bean id="AppMonitoringServiceFactory" class="com.novamens.spring.service.SpringSystemServiceFactory">
+		<property name="bean" value="AppMonitoringService"/>
+	</bean>
+	
+	<bean id="AppMonitoringService" class="com.novamens.kbee.content.service.KbeeAppMonitoringService">
+	</bean>
+				
+				
+				
+				
+				
+				
+	<bean id="auditResourceServiceFactoryServiceFactory" class="com.novamens.spring.service.SpringSystemServiceFactory">
+		<property name="bean" value="auditResourceService"/>
+	</bean>
+	<bean id="auditResourceService" class="com.novamens.kbee.content.service.KbeeAuditResourceService">
+		<property name="contentDao" ref="contentDao"/>
+	</bean>
+
+
+
+
+
+	
+	<!-- Commands =============================================================================================================== -->
+	
+	<bean id="CleanUpContentRulesCommand" class="com.novamens.kbee.content.rule.CleanUpContentRulesCommand"/>
+	
+	
+	<!-- bean id="CreateEmailTemplatesCommand" class="com.novamens.kbee.service.email.CreateEmailTemplatesCommand"/-->
+		
+	<bean id="CheckIndexDBConsistency" class="com.novamens.kbee.content.command.CheckIndexDBConsistency"/>
+	
+	<bean id="ObjectStoragePurgeCommand" class="kbee.objectstorage.command.ObjectStoragePurgeCommand"/>
+	
+	<bean id="TestCommand" class="com.novamens.kbee.content.command.TestCommand"/>
+	
+	<bean id="ShutdownCommand" class="com.novamens.kbee.content.command.ShutdownCommand"/>
+	
+	<bean id="RestartCommand" class="com.novamens.kbee.content.command.RestartCommand"/>
+	
+	<bean id="ExecuteCronJobCommand" class="com.novamens.kbee.content.command.CronJobExecuteCommand" />
+	
+	<bean id="DBDumpCommand" class="com.novamens.kbee.content.command.DBDumpCommand"/>
+	<bean id="DBQueryDumpCommand" class="com.novamens.kbee.content.command.DBQueryDumpCommand"/>
+	
+	<bean id="FixFileSizeCommand" class="com.novamens.kbee.content.command.FixFileSizeCommand"/>
+	
+	<bean id="ObjectStorageDomainMoveCommand"    class="kbee.objectstorage.command.ObjectStorageDomainMoveCommand" 		scope="prototype"/>
+	<bean id="ObjectStorageDomainDeleteCommand"  class="kbee.objectstorage.command.ObjectStorageDomainDeleteCommand"   	scope="prototype"/>
+	<bean id="ObjectStorageDomainEncryptCommand" class="kbee.objectstorage.command.ObjectStorageDomainEncryptCommand"  	scope="prototype"/>
+	
+	
+	<bean id="ReindexEverythingCommand" class="com.novamens.kbee.content.command.ReindexEverythingCommand">
+		<property name="attachments" value="false"/>
+	</bean>
+	
+	<bean id="ReindexEverythingCommand-Attachments" class="com.novamens.kbee.content.command.ReindexEverythingCommand">
+		<property name="attachments" value="true"/>
+	</bean>
+	
+	<bean id="ReindexDomainCommand" class="com.novamens.kbee.content.command.ReindexDomainCommand" />
+	<bean id="ReindexAllCommand" class="com.novamens.kbee.content.command.ReindexAllCommand" />
+	<bean id="LogApiUsageStatCommand" class="com.novamens.kbee.logging.usage.LogApiUsageStatCommand" />
+	<bean id="AddGeneralRolesCommand" class="com.novamens.kbee.content.domain.provisioning.AddGeneralRolesCommand" />
+	<bean id="AddEntityRolesCommand" class="com.novamens.kbee.content.domain.provisioning.AddEntityRolesCommand" />
+
+
+	<bean id="ReindexBatchCommand" class="com.novamens.kbee.content.command.mt.BatchReindexCommand" scope="prototype">
+		<property name="queue" ref="ReindexQueue"/>
+		<property name="dispatcher" ref="reindex-dispatcher"/>
+	</bean>
+	
+	
+	<bean id="ReindexBatchCursorCommand" class="com.novamens.kbee.content.command.mt.BatchReindexCommand" scope="prototype">
+		<property name="queue" ref="ReindexCursorQueue"/>
+		<property name="dispatcher" ref="reindex-dispatcher"/>
+	</bean>
+	
+	
+	
+	
+	<bean id="ReindexAllBatchCommand" class="com.novamens.kbee.content.command.mt.BatchReindexCommand" scope="prototype">
+		<property name="queue" ref="ReindexAllQueue"/>
+		<property name="dispatcher" ref="reindex-dispatcher"/>
+	</bean>
+
+	<bean id="CleanQueue" class="com.novamens.kbee.content.command.mt.SolrQueue" scope="prototype"/>
+	<!-- bean id="ReindexQueue" class="com.novamens.kbee.content.command.mt.IndexerQueue" scope="prototype"/-->
+	
+	<bean id="ReindexQueue" class="com.novamens.kbee.content.command.mt.IndexerIDQueue" scope="prototype"/>
+	<bean id="ReindexCursorQueue" class="com.novamens.kbee.content.command.mt.IndexerQueue" scope="prototype"/>
+	
+	
+	<bean id="ReindexAllQueue" class="com.novamens.kbee.content.command.mt.IndexerAllListIDQueue" scope="prototype"/>
+	<bean id="ReindexAllCursorQueue" class="com.novamens.kbee.content.command.mt.IndexerAllQueue" scope="prototype"/>
+	
+	
+
+	<bean id="CleanBatchCommand" class="com.novamens.kbee.content.command.mt.BatchCleanCommand" scope="prototype">
+		<property name="queue" ref="CleanQueue"/>
+		<property name="dispatcher" ref="reindex-dispatcher"/>
+	</bean>
+	
+	<bean id="CleanIndexCommand" class="com.novamens.kbee.content.command.CleanIndexCommand" scope="prototype"/>
+
+	<bean id="BatchMonitorIndexClean" class="com.novamens.kbee.content.command.mt.BatchMonitorIndexClean" scope="prototype">
+		<property name="queue" ref="CleanQueue"/>
+		<property name="dispatcher" ref="reindex-dispatcher"/>
+	</bean>
+
+	<bean id="reindex-dispatcher" class="com.novamens.kbee.content.command.mt.RunnableDispatcher">
+		<constructor-arg><value>12</value></constructor-arg>
+	</bean>
+	
+	<bean id="batch-indexer" class="com.novamens.kbee.content.command.mt.BatchReindexExecutor" scope="prototype"/>
+	
+	<bean id="batch-cleaner" class="com.novamens.kbee.content.command.mt.BatchCleanExecutor" scope="prototype"/>
+	
+	<bean id="TestSchedulerLoadCommand" class="com.novamens.kbee.content.command.TestSchedulerLoadCommand"/>
+
+	<bean id="Posgresql-copy-manager-command" class="com.novamens.kbee.content.command.PostgresCopyManagerCommand" scope="prototype" />
+
+	<bean id="ProcessPendingPaymentsCommand-command" class="kbee.payment.ProcessPendingPaymentsCommand" scope="prototype" />
+	
+	<bean id="WorkflowTimeOutCommand" class="com.novamens.kbee.content.workflow.KbeeActionTimeoutCommand" scope="prototype"/>
+
+	
+
+	<!-- Import TreeDoc from FS ======================================================================================= -->
+	
+	<bean id="ImportTreeIDocFileSystem" class="com.novamens.kbee.content.document.ImportTreeIDocFileSystem"/>
+
+
+	
+	<!-- Action Rules ================================================================================================== -->
+	
+	<bean id="RuleActionParser" class="com.novamens.kbee.content.rule.KbeeActionParser"/>
+	
+	<bean id="RulesCommand" class="com.novamens.kbee.content.rule.KbeeRulesCommand"/>
+	
+	
+	
+	<!-- Extraction Rules  ============================================================================================= -->
+	
+	<bean id="ExtractionRuleParser" class="com.novamens.kbee.content.model.KbeeExtractionRuleParser"/>
+	
+	
+	
+	<!-- Forms ======================================================================================================== -->
+	
+	<bean id="EFormComponentParser" class="com.novamens.kbee.content.form.KbeeEFormParser"/>
+	
+	
+	
+	<!-- Templates =================================================================================================== -->
+	
+	<bean id="TemplateModelParser" class="com.novamens.kbee.template.KbeeTemplateModelParser"/>
+	
+	
+	<!-- SupportTickets ============================================================================================= -->
+	                                                 
+	<bean id="SupportTicketsSubmitterCommand" class="kbee.content.support.SupportTicketsSubmitterCommand"/>
+	<bean id="SupportTicketsSubmitterDailyCommand" class="kbee.content.support.SupportTicketsDailySubmitterCommand"/>
+	
+	
+
+</beans>

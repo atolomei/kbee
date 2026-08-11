@@ -1,0 +1,42 @@
+<html>
+<div style="float:left; display:block; width:100%; text-align:center; font-family: Arial, Sans Serif; font-size:17px; line-height: 1.25em;">
+<div style="margin:auto; width: 100%;  max-width: 1200px; float: none; background: white; border-radius: 10px;">
+	<div style="float:left; width:100%; border: 1px solid #d8dcdf;">
+	<div style="background: #fbfbfb; float: left; width: 100%; border-radius: 10px; margin-bottom: 30px; padding: 30px 0;  border-radius: 10px 10px 0 0; border-bottom: 1px solid  #d8dcdf;">	
+		<div style="float: left;  width: 100%;">
+			<a style="float: none; margin: auto;   display: block; margin-left: 0;" href="https://kbee.io" target="_blank"> <img src="http://kbee.io/images/kbee-vert.png"></a>
+		</div>
+		<div style="float: left; margin: auto; width: 100%; padding: 15px 0 0 0;">
+			<a	style="float: left; padding: 15px 0; text-align: center; width: 100%;" title="KBEE"> 				
+				<div style="width:100%; float: left; margin-bottom:5px;">			
+					<span  style="font-weight: bold;">KBEE</span>
+				</div>
+			 	<div style="width:100%; float: left; margin-bottom:0px;">
+			 		<span>${domain-name}</span>
+			 	</div>
+			</a>
+		</div>
+	</div>
+	<div style="float: none; margin: auto; width: 100%; max-width:980px; padding-left:30px; padding-right:30px; box-sizing: border-box;">
+					<span style="margin-bottom:20px; width:100%; float:left;">Tenés una nueva tarea</span>
+					<span style="margin-bottom:5px; width:100%; float:left;"><b>Contenido</b></span>		
+					<span style="margin-bottom:20px; width:100%; float:left;">${file-title}</span>
+					<span style="margin-bottom:5px; width:100%; float:left;"><b>Asignada por</b></span>
+					<span style="margin-bottom:20px; width:100%; float:left;">${previous-task-person-name}</span>
+					<span style="margin-bottom:5px; width:100%; float:left;"><b>Tarea</b></span>
+					<span style="margin-bottom:20px; width:100%; float:left;">${task-name}<br /></span> 
+					<span style="margin-bottom:5px; width:100%; float:left;"><b>Fecha de asignación</b></span>
+					<span style="margin-bottom:20px; width:100%; float:left;">${task-start-date}</span>
+					<span style="margin-bottom:5px; width:100%; float:left;"><b>Comentario</b></span>
+					<span style="margin-bottom:20px; width:100%; float:left;">${comment}</span>
+	</div>
+	<div style="float: left; width: 100%; margin-top: 40px; margin-bottom: 60px;">
+					<a title="abrir tarea" href= ${task-url} style="text-decoration: none; border-radius: 10px; width: 60%; height: 34px; font-size: 16px; box-shadow: none; color: white; border: 1px solid #0d5072; background: #0d5072; padding: 15px 40px;"	target="_blank">Abrir Tarea</a>
+	</div>
+	<div style="float: left; width: 100%; margin-top: 0px; margin-bottom: 60px;">
+		<a style="color: #0d5072;" href="${my-tasks-url}" target="_blank">Mis Tareas</a>
+	</div>
+</div>
+</div>
+</div>
+</html>

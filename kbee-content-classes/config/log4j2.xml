@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<Configuration status="DEBUG">
+   <Appenders>
+    <Console name="STDOUT" target="SYSTEM_OUT">
+	      <PatternLayout pattern="%d{HH:mm:ss,SSS} %-5p [%c{1}] (%t) %m%n"/>
+    </Console>
+    <File name="MainLogFile" fileName="logs/novamens-content.log" append="false">
+      	<PatternLayout pattern="%d{HH:mm:ss,SSS} %-5p [%c{1}] (%t) %m%n"/>
+    </File>
+  </Appenders>
+
+  <Loggers>
+    <Root level="debug">
+      <AppenderRef ref="STDOUT"/>
+      <AppenderRef ref="MainLogFile"/>
+    </Root>
+  </Loggers>
+</Configuration>

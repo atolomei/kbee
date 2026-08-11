@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?><beans xmlns="http://www.springframework.org/schema/beans"	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 	xmlns:context="http://www.springframework.org/schema/context"	xmlns:tx="http://www.springframework.org/schema/tx"	xmlns:p="http://www.springframework.org/schema/p"	xsi:schemaLocation="http://www.springframework.org/schema/beans		http://www.springframework.org/schema/beans/spring-beans-3.0.xsd		http://www.springframework.org/schema/context		http://www.springframework.org/schema/context/spring-context-3.0.xsd 		http://www.springframework.org/schema/tx 		http://www.springframework.org/schema/tx/spring-tx.xsd">
+
+	
+	<bean id="default-view-schema" class="com.novamens.indexer.java.DocumentSchema" scope="prototype">
+		<property name="name" value="View"/>
+		<property name="javaClass" value="com.novamens.kbee.portal.model.KbeeViewDetailContent"/>
+		<property name="fieldsSchemas">
+			<list>
+				<bean class="com.novamens.indexer.java.AttributeFieldSchema">
+					<property name="fieldName" value="domain"/>
+					<property name="path" value="domain/id"/>
+				</bean>
+				<bean class="com.novamens.indexer.java.AttributeFieldSchema">
+					<property name="fieldName" value="id"/>
+					<property name="path" value="id"/>
+					<property name="asId" value="true"/>
+				</bean>
+				<bean class="com.novamens.indexer.java.AttributeFieldSchema">
+					<property name="fieldName" value="head"/>
+					<property name="path" value="headVersion"/>
+				</bean>
+				<bean class="com.novamens.indexer.java.AttributeFieldSchema">
+					<property name="fieldName" value="state"/>
+					<property name="path" value="state/id"/>
+				</bean>
+				<bean class="com.novamens.indexer.java.AttributeFieldSchema">
+					<property name="fieldName" value="title"/>
+					<property name="path" value="title"/>
+				</bean>
+				<bean class="com.novamens.indexer.java.AttributeFieldSchema">
+					<property name="fieldName" value="subtitle"/>
+					<property name="path" value="subtitle"/>
+				</bean>
+				<bean class="com.novamens.indexer.java.AttributeFieldSchema">
+					<property name="fieldName" value="issearchable"/>
+					<property name="path" value="searchable"/>
+				</bean>
+				<bean class="com.novamens.indexer.java.AttributeFieldSchema">
+					<property name="fieldName" value="description"/>
+					<property name="path" value="abstract/asString"/>
+				</bean>
+				<bean class="com.novamens.indexer.java.AttributeFieldSchema">
+					<property name="fieldName" value="text"/>
+					<property name="path" value="text/asString"/>
+				</bean>
+				<bean class="com.novamens.indexer.java.FileFieldSchema">
+					<property name="fieldName" value="filetext"/>
+					<property name="extractor">
+						<bean class="com.novamens.solr.indexer.util.SolrFileTextExtractor">
+							<property name="path" value="resources"/>
+						</bean>
+					</property>
+				</bean>
+				<bean class="com.novamens.indexer.java.AttributeFieldSchema">
+					<property name="fieldName" value="publicationmember"/>
+					<property name="extractor">
+						<bean class="com.novamens.kbee.content.multidimensional.DateExtractor">
+							<property name="path" value="publicationDate"/>
+						</bean>
+					</property>
+				</bean>
+				<bean class="com.novamens.indexer.java.AttributeFieldSchema">
+					<property name="fieldName" value="publisher"/>
+					<property name="path" value="publisher/id"/>
+				</bean>
+				<bean class="com.novamens.indexer.java.FileFieldSchema">
+					<property name="fieldName" value="filetext"/>
+					<property name="extractor">
+						<bean class="com.novamens.solr.indexer.util.SolrFileTextExtractor">
+							<property name="path" value="content/resources"/>
+						</bean>
+					</property>
+				</bean>
+				<bean class="com.novamens.indexer.java.ConstantFieldSchema">
+					<property name="fieldName" value="type"/>
+					<property name="value" value="view"/>
+				</bean>
+			</list>	
+		</property>
+	</bean>
+	
+	<bean id="default-linkview-schema" class="com.novamens.indexer.java.DocumentSchema" scope="prototype">
+		<property name="name" value="Linkview"/>
+		<property name="javaClass" value="com.novamens.kbee.portal.model.KbeeViewBKLink"/>
+		<property name="fieldsSchemas">
+			<list>
+				<bean class="com.novamens.indexer.java.AttributeFieldSchema">
+					<property name="fieldName" value="id"/>
+					<property name="path" value="id"/>
+					<property name="asId" value="true"/>
+				</bean>
+				<bean class="com.novamens.indexer.java.AttributeFieldSchema">
+					<property name="fieldName" value="domain"/>
+					<property name="path" value="domain/id"/>
+				</bean>
+				<bean class="com.novamens.indexer.java.AttributeFieldSchema">
+					<property name="fieldName" value="issearchable"/>
+					<property name="path" value="searchable"/>
+				</bean>
+				<bean class="com.novamens.indexer.java.ConstantFieldSchema">
+					<property name="fieldName" value="head"/>
+					<property name="value" value="true"/>
+				</bean>
+				<bean class="com.novamens.indexer.java.AttributeFieldSchema">
+					<property name="fieldName" value="state"/>
+					<property name="path" value="state/id"/>
+				</bean>
+				<bean class="com.novamens.indexer.java.AttributeFieldSchema">
+					<property name="fieldName" value="title"/>
+					<property name="path" value="title"/>
+				</bean>
+				<bean class="com.novamens.indexer.java.AttributeFieldSchema">
+					<property name="fieldName" value="description"/>
+					<property name="path" value="description"/>
+				</bean>
+				<bean class="com.novamens.indexer.java.AttributeFieldSchema">
+					<property name="fieldName" value="metadata"/>
+					<property name="path" value="metadata"/>
+				</bean>
+				<bean class="com.novamens.indexer.java.AttributeFieldSchema">
+					<property name="fieldName" value="modified"/>
+					<property name="path" value="lastModifiedDate"/>
+				</bean>
+				<bean class="com.novamens.indexer.java.ConstantFieldSchema">
+					<property name="fieldName" value="type"/>
+					<property name="value" value="linkview"/>
+				</bean>
+			</list>	
+		</property>
+	</bean>
+		
+				
+</beans>

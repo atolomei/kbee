@@ -1,0 +1,346 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+		http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+		http://www.springframework.org/schema/context
+		http://www.springframework.org/schema/context/spring-context-3.0.xsd 
+		http://www.springframework.org/schema/tx 
+		http://www.springframework.org/schema/tx/spring-tx.xsd">
+		
+		
+	<context:component-scan base-package="com.novamens.kbee.content" />
+	
+	<bean id="domServiceFactory" class="com.novamens.kbee.content.service.KbeeDomServiceFactory"/>
+		
+	<!-- Content ============================================================================================================= -->
+
+	<bean id="contentFilteringService" class="com.novamens.kbee.content.service.KbeeContentFilteringService" >
+		<property name="sessionFactory" ref="sessionFactory"/>
+	</bean>
+
+	<bean id="contentDao" class="com.novamens.kbee.content.dao.KbeeContentDao" >
+		<property name="sessionFactory" ref="sessionFactory"/>
+		<property name="dataSource" ref="dataSource"/>
+		<property name="schema" value="${jdbc.schema}"/>
+	</bean>
+	
+	<bean id="domainWipeDao" class="com.novamens.kbee.content.dao.KbeeDomainWipeDao" >
+		<property name="sessionFactory" ref="sessionFactory"/>
+		<property name="dataSource" ref="dataSource"/>
+		<property name="schema" value="${jdbc.schema}"/>
+	</bean>
+	
+	<bean id="usageStatService" class="com.novamens.kbee.logging.usage.KbeeUsageStatService" >
+		<property name="sessionFactory" ref="sessionFactory"/>
+	</bean>
+	
+	<bean id="supportServiceFactory" class="com.novamens.spring.service.SpringSystemServiceFactory">
+		<property name="bean" value="supportService"/>
+	</bean>
+		
+	<bean id="supportService" class="com.novamens.kbee.content.support.KbeeSupportService" scope="prototype">
+		<property name="sessionFactory" ref="sessionFactory"/>
+	</bean>
+
+	<bean id="externalDao" class="com.novamens.kbee.content.model.KbeeExternalDao" >
+		<property name="sessionFactory" ref="sessionFactory"/>
+	</bean>
+	
+	<bean id="contentFactoryServiceFactory" class="com.novamens.spring.service.SpringSystemServiceFactory">
+		<property name="bean" value="contentFactoryService"/>
+	</bean>
+	
+	<bean id="contentFactoryService" class="com.novamens.kbee.content.service.KbeeContentFactoryService">
+		<property name="dataSource" ref="dataSource"/>
+		<property name="contentDao" ref="contentDao"/>
+		<property name="schema" value="${jdbc.schema}"/>
+	</bean>
+
+	<bean id="contentServiceFactory" class="com.novamens.spring.service.SpringObjectServiceFactory">
+		<property name="bean" value="contentService"/>
+	</bean>
+	
+	<bean id="contentService" class="com.novamens.kbee.content.service.KbeeContentService" scope="prototype">
+		<property name="contentDao" ref="contentDao"/>
+	</bean>
+
+	<bean id="contentExportServiceFactory" class="com.novamens.spring.service.SpringObjectServiceFactory">
+		<property name="bean" value="contentExportService"/>
+	</bean>
+	
+	<bean id="contentExportService" class="com.novamens.kbee.content.service.KbeeContentExportService" scope="prototype"/>
+	
+	<bean id="dataAccessServiceFactory" class="com.novamens.kbee.content.service.DataAccessServiceFactory"/>
+	
+	<bean id="contentSubscriptionServiceFactory" class="com.novamens.spring.service.SpringObjectServiceFactory">
+		<property name="bean" value="contentSubscriptionService"/>
+	</bean>
+	
+	<bean id="contentSubscriptionService" class="com.novamens.kbee.content.subscription.KbeeContentSubscriptionService" scope="prototype"/>
+	
+	<bean id="memberServiceFactory" class="com.novamens.spring.service.SpringObjectServiceFactory">
+		<property name="bean" value="memberService"/>
+	</bean>
+	
+	<bean id="memberService" class="com.novamens.kbee.content.service.KbeeDataSetMemberService" scope="prototype">
+	</bean>
+	
+	
+	<!--  PortalObjectService -->
+	
+	<bean id="portalObjectServiceFactory" class="com.novamens.spring.service.SpringObjectServiceFactory">
+		<property name="bean" value="portalObjectService"/>
+	</bean>
+	<bean id="portalObjectService" class="com.novamens.kbee.portal.service.KbeePortalObjectService" scope="prototype">
+		<property name="portalDao" ref="portalDao"/>
+	</bean>
+	
+	<bean id="monitorSerarcSuggestionServiceFactory" class="com.novamens.spring.service.SpringObjectServiceFactory">
+		<property name="bean" value="monitorSearchSuggestionService"/>
+	</bean>
+	
+	<bean id="monitorSearchSuggestionService" 
+		class="com.novamens.kbee.portal.service.MonitorSearchSuggestionService" 
+		scope="prototype"/>
+	
+	<!-- 
+	<bean id="searchSuggestionServiceFactory" class="com.novamens.spring.service.SpringObjectServiceFactory">
+		<property name="bean" value="searchSuggestionService"/>
+	</bean>
+	<bean id="searchSuggestionService" class="com.novamens.kbee.portal.service.SearchSuggestionService" scope="prototype"/>
+	-->
+	
+	<!--  Version --> 
+	
+	<bean id="com.novamens.version.service.VersionServiceFactory" class="com.novamens.spring.service.SpringObjectServiceFactory">
+		<property name="bean" value="com.novamens.version.service.VersionService"/>
+	</bean>
+	
+	<bean id="com.novamens.version.service.VersionService" class="com.novamens.kbee.content.version.KbeeVersionService" scope="prototype">
+		<property name="contentDao" ref="contentDao"/>
+	</bean>
+	
+	<!--  Relationships By Criteria -->
+	 
+	<bean id="com.novamens.content.service.RelationshipsByCriteriaServiceFactory" class="com.novamens.spring.service.SpringObjectServiceFactory">
+		<property name="bean" value="com.novamens.content.service.RelationshipsByCriteriaService"/>
+	</bean>
+	
+	<bean id="com.novamens.content.service.RelationshipsByCriteriaService" class="com.novamens.kbee.content.relationshipsbycriteria.KbeeRelationshipsByCriteriaService" scope="prototype"/>
+	
+	
+		
+	<!-- Model   ============================================================================================================= -->
+	
+	<bean id="modelServiceFactory" class="com.novamens.spring.service.SpringObjectServiceFactory">
+		<property name="bean" value="modelService"/>
+	</bean>
+	
+	<bean id="modelService" class="com.novamens.kbee.content.model.KbeeModelService" scope="prototype"/>
+
+	<bean id="dataSetServiceFactory" class="com.novamens.spring.service.SpringObjectServiceFactory">
+		<property name="bean" value="dataSetService"/>
+	</bean>
+	
+	<bean id="dataSetService" class="com.novamens.kbee.content.service.KbeeDataSetService" scope="prototype"/>
+	
+	
+	<!-- IQL ================================================================================================================= -->
+	
+	<bean id="com.novamens.content.iql.IqlServiceFactory" class="com.novamens.kbee.content.iql.KbeeIqlServiceFactory"/>
+	
+	
+		
+	<!-- File Service ======================================================================================================== -->
+	
+	<bean id="resourceServiceFactory" class="com.novamens.spring.service.SpringObjectServiceFactory">
+		<property name="bean" value="resourceService"/>
+	</bean>
+	
+	<bean id="resourceService" class="com.novamens.kbee.content.service.KbeeResourceService" scope="prototype"/>
+	
+	<bean id="fileServiceFactory" class="com.novamens.spring.service.SpringObjectServiceFactory">
+		<property name="bean" value="fileService"/>
+	</bean>
+	
+	<bean id="fileService" class="com.novamens.kbee.content.service.KbeeFileService" scope="prototype"/>
+	
+	<bean id="kbfsServiceFactory" class="com.novamens.spring.service.SpringObjectServiceFactory">
+		<property name="bean" value="kbfsService"/>
+	</bean>
+	
+	<bean id="kbfsService" class="com.novamens.kbee.content.service.kbfs.KbeeKBFSResourceService" scope="prototype">
+		<property name="KBFS1"    		ref="com.novamens.kbfs.v1.FileServerV1"/>
+		<property name="KBFS2"    		ref="com.novamens.kbfs.FileServerMinio"/>
+		<property name="odilon"    		ref="com.novamens.kbfs.FileServerOdilon"/>
+		<property name="KBFSAmazonS3"   ref="FileServerS3"/>
+		<property name="contentDao" ref="contentDao"/>
+	</bean>
+			
+
+
+	<!-- Libraries =========================================================================================================== -->
+	
+	<bean id="com.novamens.content.service.LibraryServiceFactory" class="com.novamens.spring.service.SpringObjectServiceFactory">
+		<property name="bean" value="com.novamens.content.service.LibraryService"/>
+	</bean>
+	
+	<bean id="com.novamens.content.service.LibraryService" class="com.novamens.kbee.content.library.KbeeLibraryService" scope="prototype"/>
+	
+	<!-- Url ================================================================================================================== -->
+	
+	<bean id="com.novamens.content.service.UrlServiceFactory" class="com.novamens.kbee.content.service.KbeeUrlServiceFactory"/>
+	
+	
+	<!-- UserImagesService =================================================================================================== -->
+
+	<bean id="UserImagesService" class="com.novamens.spring.service.SpringSystemServiceFactory">
+		<property name="bean" value="com.novamens.kbee.content.service.KbeeUserImagesService"/>
+	</bean>
+
+	<bean id="com.novamens.kbee.content.service.KbeeUserImagesService" class="com.novamens.kbee.content.service.KbeeUserImagesService"/>
+	
+	
+	
+	<!-- Properties ============================================================================================================= -->
+	
+	<bean id="propertyServiceFactory" class="com.novamens.spring.service.SpringObjectServiceFactory">
+		<property name="bean" value="propertyService"/>
+	</bean>
+		
+	<bean id="propertyService" class="com.novamens.kbee.content.properties.KbeePropertyService" scope="prototype">
+		<property name="propertyDao" ref="propertyDao"/>
+	</bean>
+	
+	<bean id="userPropertyServiceFactory" class="com.novamens.spring.service.SpringObjectServiceFactory">
+		<property name="bean" value="userPropertyService"/>
+	</bean>
+
+	<bean id="userPropertyService" class="com.novamens.kbee.content.user.KbeeUserPropertyService" scope="prototype">
+		<property name="propertyDao" ref="propertyDao"/>
+	</bean>
+	
+	<bean id="objectPropertyServiceFactory" class="com.novamens.spring.service.SpringObjectServiceFactory">
+		<property name="bean" value="objectPropertyService"/>
+	</bean>
+
+	<bean id="objectPropertyService" class="com.novamens.kbee.content.properties.KbeeObjectPropertyService" scope="prototype">
+		<property name="propertyDao" ref="propertyDao"/>
+	</bean>
+	
+	<bean id="propertyDao" class="com.novamens.kbee.content.properties.KbeePropertyDao" >
+		<property name="sessionFactory" ref="sessionFactory"/>
+	</bean>
+				
+		
+	<!-- User List ============================================================================================================= -->
+	
+	<bean id="userListServiceFactory" class="com.novamens.spring.service.SpringObjectServiceFactory">
+		<property name="bean" value="userListService"/>
+	</bean>
+		
+	<bean id="userListService" class="com.novamens.kbee.content.userlist.KbeeUserListService" scope="prototype">
+		<property name="propertyDao" ref="propertyDao"/>
+	</bean>
+	
+	<bean id="userListUpdateListener" class="com.novamens.kbee.content.userlist.UserListUpdateListener">
+	</bean>
+	
+	<!-- Social ============================================================================================================== -->
+	
+	<bean id="socialServiceFactory" class="com.novamens.spring.service.SpringObjectServiceFactory">
+		<property name="bean" value="socialService"/>
+	</bean>
+		
+	<bean id="socialService" class="com.novamens.kbee.content.social.KbeeSocialService" scope="prototype"/>
+	
+	<bean id="socialDao" class="com.novamens.kbee.content.social.KbeeSocialDao" >
+		<property name="sessionFactory" ref="sessionFactory"/>
+	</bean>
+	
+	<bean id="communityManager" class="com.novamens.kbee.content.social.KbeeCommunityManager"/>
+	
+	
+	
+	<!-- Interface  ========================================================================================================== -->
+	
+	<bean id="facetServiceFactory" class="com.novamens.spring.service.SpringObjectServiceFactory">
+		<property name="bean" value="facetService"/>
+	</bean>
+		
+	<bean id="facetService" class="com.novamens.kbee.content.multidimensional.KbeeFacetService" scope="prototype">
+		<property name="facetDao" ref="facetDao"/>
+	</bean>
+	
+	<bean id="facetDao" class="com.novamens.kbee.content.multidimensional.KbeeFacetDao">
+		<property name="sessionFactory" ref="sessionFactory"/>
+	</bean>
+
+
+
+	<!-- User   ============================================================================================================== -->
+	
+	<bean id="com.novamens.content.user.SecurityServiceFactory" class="com.novamens.spring.service.SpringObjectServiceFactory">
+		<property name="bean" value="com.novamens.content.user.SecurityService"/>
+	</bean>
+		
+	<bean id="com.novamens.content.user.SecurityService" class="com.novamens.kbee.content.service.KbeeUserSecurityService" scope="prototype">
+		<property name="contentDao" ref="contentDao"/>
+	</bean>
+	
+	
+	
+
+	<!-- Test   ============================================================================================================== -->
+	
+	<bean id="com.novamens.content.TestServiceFactory" class="com.novamens.spring.service.SpringObjectServiceFactory">
+		<property name="bean" value="com.novamens.content.TestService"/>
+	</bean>
+		
+	<bean id="com.novamens.content.TestService" class="com.novamens.kbee.content.service.KbeeTestService" scope="prototype"/>
+	
+	
+	
+	<!-- Person ============================================================================================================== -->
+	
+	<bean id="com.novamens.content.person.PersonServiceFactory" class="com.novamens.spring.service.SpringObjectServiceFactory">
+		<property name="bean" value="com.novamens.content.person.PersonService"/>
+	</bean>
+		
+	<bean id="com.novamens.content.person.PersonService" class="com.novamens.kbee.content.service.KbeePersonService" scope="prototype"/>
+	
+	<bean id="com.novamens.content.person.SignatureServiceFactory" class="com.novamens.spring.service.SpringObjectServiceFactory">
+		<property name="bean" value="com.novamens.content.person.SignatureService"/>
+	</bean>
+		
+	<bean id="com.novamens.content.person.SignatureService" class="com.novamens.kbee.content.service.KbeeSignatureService" scope="prototype"/>
+	
+	
+	<!-- Members ============================================================================================================== -->
+	
+	<bean id="memberSuggestionServiceFactory" class="com.novamens.spring.service.SpringObjectServiceFactory">
+		<property name="bean" value="memberSuggestionService"/>
+	</bean>
+	
+	<bean id="memberSuggestionService" class="com.novamens.kbee.content.service.MemberSuggestionService" scope="prototype"/>
+	
+	<bean id="treeServiceFactory" class="com.novamens.spring.service.SpringSystemServiceFactory">
+		<property name="bean" value="treeService"/>
+	</bean>
+	
+	<bean id="treeService" class="com.novamens.kbee.content.tree.KbeeTreeService"/>
+	
+	<!-- Replicas ============================================================================================================== -->
+	
+	
+	<bean id="ReplicaServiceFactory" class="com.novamens.spring.service.SpringSystemServiceFactory">
+		<property name="bean" value="ReplicaService"/>
+	</bean>
+		
+	<bean id="ReplicaService" class="kbee.replica.KbeeReplicaService"/>
+	
+</beans>

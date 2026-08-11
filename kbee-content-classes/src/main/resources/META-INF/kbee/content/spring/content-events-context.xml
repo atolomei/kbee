@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+		http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+		http://www.springframework.org/schema/context
+		http://www.springframework.org/schema/context/spring-context-3.0.xsd 
+		http://www.springframework.org/schema/tx 
+		http://www.springframework.org/schema/tx/spring-tx.xsd">
+										
+	<bean id="IndexerListener"	class="com.novamens.kbee.content.event.IndexerListener"/>
+	
+	<bean id="MemberClassificationUpdateListener" class="com.novamens.kbee.content.event.MemberClassificationUpdateListener"/>
+	
+	<bean id="ContentUpdateListener" class="com.novamens.kbee.content.event.ContentUpdateListener"/>
+
+	<!-- 	
+	<bean id="SocialEventListener" 					class="kbee.web.listener.SocialEventListener"/>
+	<bean id="KnowledgeSharingEventListener" 		class="kbee.web.listener.KnowledgeSharingEventListener"/>
+	-->
+	
+	<bean id="MemberUpdateListener" class="com.novamens.kbee.content.event.MemberUpdateListener"/>
+	
+	<bean id="AnswerUpdateListener"	class="com.novamens.kbee.content.questionanswer.AnswerUpdateListener"/>
+	
+	<bean id="QuestiontUpdateListener" 	class="com.novamens.kbee.content.questionanswer.QuestionUpdateListener">
+		<property name="typeClassifierName" value="Tipo de Contenido"/>
+		<property name="typeMemberName" value="Pregunta"/>
+	</bean>
+	
+	<bean id="SecurityRuleUpdateListener" class="com.novamens.kbee.content.security.RuleUpdateListener"/>
+	
+	<bean id="SecurityRuleDeleteListener" class="com.novamens.kbee.content.security.RuleDeleteListener"/>
+	
+	<bean id="ContentUserUpdateListener" class="com.novamens.kbee.content.security.UserUpdateListener"/>
+	
+	<bean id="ModelUserBeforeUpdateListener" class="com.novamens.kbee.content.model.UserBeforeUpdateListener"/>
+	
+	<bean id="ModelUserUpdateListener" class="com.novamens.kbee.content.model.UserUpdateListener"/>
+
+	<!--<bean id="UserUpdatePasswordReplicationListener" class="com.novamens.kbee.content.model.UserUpdatePasswordReplicationListener"/>-->
+	
+	<bean id="UserUpdateListener" class="com.novamens.kbee.security.UserUpdateListener"/>
+
+	<bean id="RoleUpdateListener" class="com.novamens.kbee.content.security.RoleUpdateListener"/>
+	
+	<bean id="PersonUpdateListener" class="com.novamens.kbee.content.security.PersonUpdateListener"/>
+										
+	<bean id="ContentQAUpdateListener" class="com.novamens.kbee.content.qa.ContentUpdateListener"/>
+
+	<bean id="ConfigurationUpdateListener" class="com.novamens.kbee.content.security.UserUpdateListener"/>
+	
+	<bean id="ContentDistributionListener" class="com.novamens.kbee.content.distribution.CheckinListener"/>
+	
+	<bean id="TextChangeListener" class="com.novamens.kbee.content.text.CheckinListener"/>
+	
+</beans>
