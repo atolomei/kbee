@@ -1,0 +1,30 @@
+<wicket:panel>
+			<div class="row">
+				<form wicket:id="form" class="col-lg-7 col-md-10 col-xs-12 form-container"style="margin-bottom: 0;" autocomplete="on" role="form">
+					<fieldset>
+							<div class="panel" style="width: 100%; float: left;">
+								<h2 class=" col-md-12 col-lg-12 col-xs-12"> <wicket:message key="domain" /></h2>
+								<div class="col-md-6 col-lg-12 col-xs-12 form-group"	wicket:id="informationmodel" />
+								<div class="col-md-6 col-lg-12 col-xs-12 form-group"	wicket:id="name" />
+								<div class="col-xs-12 col-lg-12 col-md-12 form-group" wicket:id="locale"/>
+								<div class="col-xs-12 col-lg-12 col-md-12 form-group" wicket:id="timezone"/>
+								<div class="col-md-12 col-lg-12 col-xs-12 form-group"	wicket:id="organization" />
+								<div class="col-md-12 col-lg-12 col-xs-12 form-group"     wicket:id="externalid" />
+							</div>
+							<div class="panel" style="width: 100%; float: left; margin-bottom: 0;">
+								<h2 class="col-md-12 col-lg-12 col-xs-12"> <wicket:message key="admin-user" /></h2>
+								<div class="col-md-12 col-lg-12 col-xs-12 form-group"		wicket:id="admin-name" />
+								<div class="col-md-12 col-lg-12 col-xs-12 form-group"		wicket:id="admin-lastname" />
+								<div class="col-md-12 col-lg-12 col-xs-12 form-group"		wicket:id="admin-username" />
+								<div class="col-md-12 col-lg-12 col-xs-12 form-group"		wicket:id="admin-email" />
+								<div class="col-md-12 col-lg-12 col-xs-12 form-group"		wicket:id="admin-notify" />
+							</div>
+					</fieldset>
+				</form>
+			</div>
+			<div class="row" style="margin:0;">			
+				<div class="col-lg-7 col-md-10 col-xs-12 form-group" wicket:id="buttons" />
+				<div class="col-lg-7 col-md-10 col-xs-12"  wicket:id="results" />
+			</div>
+
+</wicket:panel>

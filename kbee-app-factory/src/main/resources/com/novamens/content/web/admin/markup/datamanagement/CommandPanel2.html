@@ -1,0 +1,39 @@
+<wicket:panel>
+
+	<div class="container-fluid">
+		<div class="row" style="margin-bottom: 2em;">
+			<div class="col-lg-4 col-md-6 col-xs-12" style="margin-bottom: 2em;">
+				<h2>
+					<wicket:message key="select-command" />
+				</h2>
+				<form id="form" method="post" action="#" wicket:id="form"
+					class="form-container">
+					<div class="form-group">
+						<label class="control-label"> <wicket:message key="name" /></label>
+						<select wicket:id="command" class="form-control"></select>
+					</div>
+					<div class="form-group">
+						<label class="control-label"><wicket:message
+								key="parameters" /> </label>
+						<textarea wicket:id="statement" rows="6" class="form-control"></textarea>
+					</div>
+					<div class="buttons-container">
+						<a wicket:id="reset-button" href="#"
+							class="btn btn-sm btn-default"><wicket:message key="reset" /></a>
+						<a wicket:id="submit-button" href="#"
+							class="btn btn-sm btn-primary"><wicket:message key="execute" /></a>
+					</div>
+					<div wicket:id="feedback"></div>
+				</form>
+			</div>
+
+
+			<div wicket:id="status" class="col-lg-7 col-md-5 col-xs-12"
+				style="float: right;" />
+		</div>
+	</div>
+
+</wicket:panel>
+
+
+

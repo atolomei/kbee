@@ -1,0 +1,21 @@
+<wicket:panel>
+    <div class="panel panel-bck">
+        <div class="row">
+            <form wicket:id="downloadForm" class="col-lg-12 col-xs-12 col-md-12" autocomplete="on" role="form" style="margin-bottom: 0;">
+                <fieldset style="margin-bottom: 0;">
+                    <div class="row">
+                        <div class="col-lg-8">
+                            <div class="row">
+                                <div class="col-md-12 col-lg-6 col-xs-12 form-group" wicket:id="branchSelector"/>
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>
+                <button wicket:id="download" class="btn btn-default btn-sm">
+                    <wicket:message key="download"/>
+                </button>
+                <span style="clear:left; font-weight:bold;" wicket:id="downloadFeedback"/>
+            </form>
+        </div>
+    </div>
+</wicket:panel>

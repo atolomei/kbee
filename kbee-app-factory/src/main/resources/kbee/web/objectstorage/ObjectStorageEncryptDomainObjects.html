@@ -1,0 +1,39 @@
+<wicket:panel>
+			<form wicket:id="form" class="form-container standard-canvas" role="form">
+				<fieldset style="margin:0;">
+					<div class="row">
+						<div class="panel" style="width: 100%; float: left; margin-bottom:0px;">
+								<div class="col-md-2 col-lg-2 col-xs-12  button-container" wicket:id="buttons"/>
+								<h2 class=" col-md-10 col-lg-10 col-xs-10">
+								 	<wicket:message key="encrypt-domain-objects"/>
+								 </h2>
+								 
+								<div class="col-lg-10 col-md-10 col-xs-12" style="padding:0;">
+										<div class="col-lg-12 col-md-12 col-xs-12">
+											<div class="alert alert-info">
+											 		<wicket:message key="alert-encrypt"/>
+											</div>
+											
+										</div>
+										<div class="col-md-12 col-lg-12 col-xs-12 form-group"	wicket:id="domainmodel" />
+										<div class="col-md-12 col-lg-12 col-xs-12 form-group"    wicket:id="maxmodel" />
+								</div>
+							</div>
+						</div>
+						
+						<div  wicket:id="domain-info-container" class="row">
+							<div  class ="col-lg-10 col-md-12 col-xs-12 form-group form-command-status" wicket:id="domain-info" />			
+						</div>
+						
+						<div class="row">
+							<div  class ="col-lg-10 col-md-12 col-xs-12 form-command-status" wicket:id="command-status" />			
+						</div>
+					</fieldset>
+			</form>
+			<div class="row">
+					<div  class ="col-lg-10 col-md-12 col-xs-12">
+						<a class="btn btn-link" href="#" wicket:id="clear-form" style="margin-bottom: 60px";> <wicket:message key="clear-form" /></a>
+					</div>			
+			</div>
+</wicket:panel>
+

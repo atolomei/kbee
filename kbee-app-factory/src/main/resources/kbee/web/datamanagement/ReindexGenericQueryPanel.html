@@ -1,0 +1,22 @@
+<wicket:panel>
+			<form wicket:id="form" class="form-container standard-canvas" role="form">
+				<fieldset style="margin:0;">
+							<div class="row">
+								<div class="col-md-2 col-lg-2 col-xs-12  button-container" wicket:id="buttons"/>
+								<h2 class=" col-md-10 col-lg-10 col-xs-10">
+									<wicket:message key="reindex" />
+								</h2>
+								<div class="col-md-12 col-lg-10 col-xs-12 form-group"	wicket:id="condition" />
+								<div class="col-md-12 col-lg-10 col-xs-12 form-group"	wicket:id="threads" />
+								<div class="col-md-12 col-lg-10 col-xs-12 form-group"	wicket:id="batchsize" />
+								<div class="col-md-12 col-lg-10 col-xs-12 form-group"	wicket:id="attachments" />
+								<div class="col-md-12 col-lg-10 col-xs-12 form-group"	wicket:id="user-history" />
+							</div>
+							<div class="row">
+								<div  class ="col-lg-10 col-md-12 col-xs-12 form-command-status" wicket:id="command-status" />			
+							</div>
+					</fieldset>
+			</form>
+			<div wicket:id="help-modal" class="modal window" z-index=999999 tabindex="-6" role="dialog"/>
+
+</wicket:panel>

@@ -1,0 +1,29 @@
+<wicket:extend>
+
+	<div class="container">
+		<div class="row">
+			<dl class="col-lg-12 col-md-12 col-xs-12" tabindex="0"
+				style="margin: 50px 0;">
+
+				<dt
+					style="line-height: 1.6em; margin-bottom: 0px; font-weight: bold; margin-left: 0px; font-size: 1em; width: 100%; float: left;">
+					<h2>
+						<wicket:message key="dbexport" />
+					</h2>
+				</dt>
+
+				<dd class="elements-container"
+					style="margin-bottom: 0px; font-weight: bold; margin-left: 0px; font-size: 1em; float: left; line-height: 1.6em;">
+					<div class="member-element">
+						<a class="btn-link title mr6" wicket:id="download" href="#"><span
+							wicket:id="zip"></span></a><span wicket:id="size"></span>
+					</div>
+				</dd>
+			</dl>
+		</div>
+	</div>
+
+	<div wicket:id="tip" class="fixed bottom-right" tabindex="-6" />
+
+
+</wicket:extend>

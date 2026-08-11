@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:wicket="http://wicket.apache.org">
+<body>
+<wicket:panel>
+
+</wicket:panel>
+</body>
+</html>
+
+
+<wicket:panel>
+    <wicket:extend>
+        <div class="console-page-header page-header internal-page-header">
+            <div class="page-header-content">
+                <h1><wicket:message key="console.name"/></h1>
+        </div>
+        <div class="content console-top">
+            <div wicket:id="billboard" />
+				<div wicket:id="error-panel-container">
+						<wicket:container wicket:id="error-panel" />
+				</div>
+            
+            <div wicket:id="browser"/>
+        </div>
+    </wicket:extend>
+</wicket:panel>

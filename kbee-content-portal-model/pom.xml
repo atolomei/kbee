@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	
+	<parent>
+		<artifactId>kbee</artifactId>
+		<groupId>com.novamens</groupId>
+				<version>8.5-SNAPSHOT</version>
+	</parent>
+	
+	<modelVersion>4.0.0</modelVersion>
+	<name>${project.artifactId}</name>
+	<artifactId>kbee-content-portal-model</artifactId>
+
+	<scm>
+		<connection>
+			scm:git:ssh://alejo@git.hq.novamens.com/var/novamens/content.git
+		</connection>
+		<developerConnection>
+			scm:git:ssh://alejo@git.hq.novamens.com/var/novamens/content.git
+		</developerConnection>
+	</scm>
+	
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	</properties>
+	
+	<dependencies>
+		<dependency>
+			<groupId>com.novamens</groupId>
+			<artifactId>kbee-model-dom</artifactId>
+			<version>${kbee-version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.novamens</groupId>
+			<artifactId>kbee-dm-indexer-api</artifactId>
+			<version>${kbee-version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.novamens</groupId>
+			<artifactId>kbee-services-model</artifactId>
+			<version>${kbee-version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.novamens</groupId>
+			<artifactId>kbee-content-model</artifactId>
+			<version>${kbee-version}</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>com.novamens</groupId>
+			<artifactId>kbee-wfc-wicket</artifactId>
+			<version>${kbee-version}</version>
+		</dependency>
+				
+		
+		<!--  =========  External  =========================   -->
+		
+	<!-- https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-api -->
+	<dependency>
+	    <groupId>org.junit.jupiter</groupId>
+	   	<artifactId>junit-jupiter-api</artifactId>
+		<version>${junit-version}</version>
+	    <scope>test</scope>
+	</dependency>
+
+
+	</dependencies>
+</project>

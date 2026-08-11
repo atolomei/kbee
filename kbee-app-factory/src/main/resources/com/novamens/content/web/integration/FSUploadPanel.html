@@ -1,0 +1,81 @@
+<wicket:panel>
+ 	
+	<section class="browser">
+
+	
+	<div class="panel" style="margin-top: 30px; min-height: calc(100vh - 230px);">
+
+		<div class="row">
+
+			<form wicket:id="form"	class="col-md-12 col-lg-5 col-xs-12 form-container"style="margin-bottom: 0;" autocomplete="on" role="form">			
+					
+						<fieldset>
+
+						<div class="row">	
+
+							<div class="panel" style="width: 100%; float: left;">
+								<h2 class="col-md-12 col-lg-12 col-xs-12"><wicket:message key="upload-file"/></h2>
+
+	        					<div class="form-group col-md-12 col-lg-12 col-xs-12">	
+		        					<label for="uploadWithProgress"><wicket:message key="localfile"/></label>
+		        					
+		       						<input style="padding:8px; margin-right: 12px;" class="form-control-static"  wicket:id="fileInput" type="file" id="uploadWithProgress" webkitdirectory multiple/>
+								</div>	       				
+
+								<div class="form-group col-md-12 col-lg-12 col-xs-12">		
+			       					<input  class="btn btn-primary btn-md" type="submit" value="Upload"/>
+			       				
+			       					<!-- a class="btn btn-default btn-md"> <wicket:message key="close"/> </a -->
+			       					<span class="col-md-4 col-lg-3 col-xs-12" wicket:id="progress"></span>
+	 							</div>
+ 							</div>	       					
+ 							
+							<div class="panel" style="width: 100%; float: left;">
+
+								<h2 class="col-md-12 col-lg-12 col-xs-12"><wicket:message key="uploaded"/></h2>
+
+	        					<div class="form-group col-md-12 col-lg-12 col-xs-12">	
+			        					<label  for="folder"><wicket:message key="folder"/></label>
+			        					<p  class="form-control-static" wicket:id="folder"></p>
+								</div>	       				
+
+
+	        					<div class="form-group col-md-12 col-lg-12 col-xs-12">	
+									<ul style="width:100%; margin: 0 -15px;" class="row">		
+										<li style="line-height:1.75em; padding-top: 4px; padding-bottom:4px;"  class="col-lg-12 col-xs-12 col-md-12" wicket:id="already-uploaded">
+										<i wicket:id="icon"  style="padding:0 7px"> </i> <span wicket:id="name"></span> <span class="ago" wicket:id="size"></span></li>
+		 							</ul>
+
+								</div>	       				
+								
+
+	 							 <a class="btn btn-link" wicket:id="back" href="/fileserver"> <wicket:message key="file-server"/> </a>
+
+								
+								
+
+	 						</div>
+							
+		
+						</div>	       				
+						
+ 	 				</fieldset>
+ 	 				
+
+  				</form>
+  				
+  				<div>
+        			<span wicket:id="uploadFeedback"/>
+     			</div>
+    		</div>
+	</div>
+	
+
+	
+
+	
+		</section>
+
+</wicket:panel>
+
+

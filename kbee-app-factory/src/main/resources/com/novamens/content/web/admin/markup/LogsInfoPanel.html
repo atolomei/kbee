@@ -1,0 +1,80 @@
+<wicket:panel>
+	<div class="row">
+		<h2 class="col-lg-12 col-xs-12 col-md-12">LOG FILES</h2>
+	</div>
+	<div class="row">
+		<div class="col-lg-12 col-xs-12 col-md-12">
+			<div class="panel panel-default">
+				<div class="panel-body table-responsive"
+					style="padding: 0; border-top: none;">
+					<table class="table table-header-bck  table-bordered table-hover">
+						<thead>
+							<tr class="headers">
+								<th class="col-lg-5 col-xs-6"><span>Name</span></th>
+								<th class="col-lg-2 col-xs-3"><span>Size</span></th>
+								<th class="col-lg-5 col-xs-3"><span>Modified</span></th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr wicket:id="log">
+								<td class="col-lg-5 col-xs-6">
+									<div>
+										<a wicket:id="loglink" class="btn-link"> <span
+											class="title" wicket:id="name"></span>
+										</a>
+									</div>
+								</td>
+								<td class="col-lg-2 col-xs-3">
+									<div>
+										<span wicket:id="size" class="value colStatus"></span>
+									</div>
+								</td>
+								<td class="col-lg-5 col-xs-3">
+									<div>
+										<span wicket:id="date"></span>
+									</div>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div style="margin-bottom: 40px;">
+		<div class="row">
+			<h2 class="col-lg-12 col-xs-12 col-md-12">LOG LEVEL</h2>
+		</div>
+		<div class="panel panel-bck">
+			<div class="row">
+				<form wicket:id="form" class="col-lg-12 col-xs-12 col-md-12" autocomplete="on"
+					role="form" style="margin-bottom: 0;">
+					<fieldset style="margin-bottom: 0;">
+
+						<div class="row">
+							<div class="col-lg-6">
+								<div class="row">
+									<div class="col-md-12 col-lg-12 col-xs-12 form-group"
+										wicket:id="rootlevel" />
+
+									<div class="col-md-12 col-lg-6 col-xs-12 form-group"
+										wicket:id="logclass" />
+									<div class="col-md-12 col-lg-6 col-xs-12 form-group"
+										wicket:id="classlevel" />
+								</div>
+							</div>
+						</div>
+					</fieldset>
+				</form>
+			</div>
+			<div class="row">
+				<div class="col-md-12 col-lg-12 col-xs-12" wicket:id="buttons" />
+			</div>
+		</div>
+	</div>
+
+</wicket:panel>
+
+
+

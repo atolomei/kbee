@@ -1,0 +1,23 @@
+<wicket:panel>
+
+	<div class="row standard-canvas">
+		<div class="col-lg-9 col-md-9 col-xs-12">
+			<h2 class="col-md-12 col-lg-10 col-xs-12" style="padding:0;"> <wicket:message key="alerts-email"/></h2>
+			
+			<div wicket:id="disclaimer" style="margin:0 0 15px 0; float:left; width:100%;" />
+			
+			<div class="row">
+				<form wicket:id="form"  class="col-md-12 col-lg-12 col-xs-12 form-container" autocomplete="on" role="form">
+					<fieldset>
+						<div class="row">
+							<div class="col-md-12 col-lg-12 col-xs-12 form-group" wicket:id="eMailServiceStatus"/>					
+							<div class="col-md-12 col-lg-12 col-xs-12 form-group" wicket:id="eMailServiceNoReply"/>
+						</div>	
+					</fieldset>
+				</form>
+			</div>
+		</div>			
+		<div class="button-container col-md-3 col-lg-3 col-xs-12" wicket:id="buttons"/>
+	</div>
+		
+</wicket:panel>
