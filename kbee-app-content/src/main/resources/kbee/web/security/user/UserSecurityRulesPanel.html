@@ -1,0 +1,26 @@
+<wicket:panel>
+
+	<div class="row"> 
+		<div class="col-lg-8 col-md-8 col-xs-12">
+			<div class="form-group alert alert-info" role="alert"><wicket:message key="readonly" /></div>
+		</div>	
+	</div>
+	
+	<div class="row ">
+		<div class="col-lg-8 col-md-8 col-xs-12 form-group">	
+			<h2> <wicket:message key="securityrules" /> </h2>
+			<div>
+				<wicket:message key="securityrules.text" />
+			</div>
+			<ul class="list-group" style="width:100%;">
+				<li class="list-group-item" wicket:id="rules">
+					<a wicket:id="rule-link"><span class="list-group-item-heading" wicket:id="rule-label">[]</span></a>
+				</li>
+			</ul>
+		</div>			
+	</div>
+	
+	<div wicket:id="error-dialog" class="modal window" tabindex="-3" role="dialog"/>
+	
+
+</wicket:panel>

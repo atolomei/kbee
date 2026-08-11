@@ -1,0 +1,17 @@
+ <wicket:panel>
+
+	<div class="form-group" wicket:id="token"/>
+	
+	<div wicket:id="feedback" style="display: block;  float: left;  width: 100%;  margin-top: -25px;">
+		<span wicket:id="message">[]</span>
+	</div>
+	
+	<div class="form-group">	
+		<a wicket:id="resend-link"><wicket:message key="resend.label"/></a>
+	</div>
+	
+	<div class="form-group" wicket:id="receiver"/>
+	
+	<div wicket:id="confirmation-dialog" class="modal window" 	tabindex="-4" role="dialog"/>
+	
+</wicket:panel>

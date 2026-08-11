@@ -1,0 +1,52 @@
+<wicket:extend>
+	<div wicket:id="canvas">		
+		<div class="forgot-canvas" >
+			<div style="line-height: 1.6em; margin: 0 aut; text-align: center;  font-size: 1em;">
+				<div class="logo-container">
+					<img class="logo" wicket:id="logo"></img>
+				</div>
+				
+				<h2 wicket:id="organization" style="float:left; width: 100%; margin-top: 20px; margin-bottom: 24px;"></h2>
+				
+				<span style="float:left; width: 100%; font-weight:bold; text-transform:uppercase; margin-bottom:1em;"><wicket:message key="title"/></span>
+				
+				<span wicket:id="instructions-label"></span>
+				
+			</div>
+			<div style="float:left; width:100%; font-size: 1em;" wicket:id="form-panel">	
+				<form id="formulario"  method="post" action="#" wicket:id="form" >
+					<fieldset style="border: none; margin-bottom:5px;">
+						<!-- 
+						<div style="text-align:center;" class="col-xs-12 form-group">
+							<label style="font-weight:bold;" class="label"><wicket:message key="name.label"/></label>
+							<input style="text-align: center;" class="form-control" wicket:id="person" tabindex="1"></input>
+						</div>
+						<div style="text-align:center;" id="password" class="col-xs-12 form-group">
+							<label style="font-weight:bold;" class="label" for="email"><wicket:message key="email"/></label>
+							<input style="text-align: center;" class="form-control" type="text" wicket:id="email" tabindex="2"></input>
+						</div>
+						-->
+						
+						<div style="text-align:center;" wcket:id="feedback" class="col-xs-12 col-md-12 col-lg-12 form-group"/>
+						
+						<div  style="text-align: center;" class="col-xs-12 col-md-12 col-lg-12 form-group">
+							<input wicket:id="submit" class="btn btn-primary btn-lg login loginmodal-submit" type="submit" name="login"  value="Register" />
+						</div>
+					</fieldset>
+				</form>
+													
+				<div style="text-align: center;" class="col-xs-12 col-md-12 col-lg-12 form-group">
+					<a href="/login"><wicket:message key="gotologin"/></a>
+				</div>						  	
+			</div>
+			<div wicket:id="error-panel">
+			
+				<div style="text-align:center;" class="col-xs-12 col-md-12 col-lg-12 form-group"><span wicket:id="error.message">[]</span></div>
+				
+				<div style="text-align:center;" class="col-xs-12 col-md-12 col-lg-12 form-group">
+					<a href="/login"><wicket:message key="gotologin"/></a>
+				</div>	
+			</div>	
+		</div>
+	</div>	
+</wicket:extend>

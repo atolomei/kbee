@@ -1,0 +1,67 @@
+<wicket:panel>
+
+    <div class="panel panel-default" style="min-width: 495px">
+        <div class="panel-heading" style="font-weight: bold;">
+            <wicket:message key="PanelTitle"/>
+        </div>
+        <div class="panel-body" style="">
+            <div style="padding: 10px 15px;">
+                <table>
+                    <thead>
+                    <tr>
+                        <th scope="col">
+                            <wicket:message key="itemHeader"/>
+                        </th>
+                        <th scope="col">
+                            <wicket:message key="priceHeader"/>
+                        </th>
+                    </tr>
+                    </thead>
+                    <tr>
+                        <td>
+                            <span wicket:id="itemDescription"/>
+                        </td>
+                        <td style=" width: 1%;white-space: nowrap;">
+                            <span wicket:id="itemPrice"/>
+                        </td>
+                    </tr>
+                </table>
+                <div style="display: flex; justify-content:right;margin-top: 10px;">
+                    <div>
+                        <span style="font-weight: bold;">
+                            <wicket:message key="totalPrice"/>&nbsp;
+                        </span>&nbsp;
+
+                        <span wicket:id="totalPrice"/>
+                    </div>
+                </div>
+            </div>
+
+            <hr style="margin: 0px;"/>
+            <div style="padding: 10px 15px;">
+
+                <div wicket:id="alreadyPaidPanel" style="width: 100%">
+                    <div style="float:left">
+                        <wicket:message key="orderAlreadyPaid"/>&nbsp;
+                        <i style="color:lightgreen" class="fas fa-check"/>
+                    </div>
+                    <div style="float:right">
+                        &nbsp;<wicket:message key="paymentLinkLabel"/>&nbsp;
+                        <a wicket:id="paymentLink" class="label-container">
+                            <span class="cell-label" wicket:id="paymentLinkTitle"></span>
+                        </a>
+                    </div>
+                    <div style="clear: both" />
+                </div>
+
+                <div wicket:id="paymentMethodPanel">
+                    <strong>
+                        <wicket:message key="PaymentMethods"/>
+                    </strong>
+                    <div wicket:id="btnMercadoPagoPayment"/>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</wicket:panel>

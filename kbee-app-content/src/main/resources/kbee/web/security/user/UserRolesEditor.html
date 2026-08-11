@@ -1,0 +1,71 @@
+<wicket:panel>
+	
+	<div class="row">
+				<form wicket:id="form" class="form-container col-md-9 col-lg-10 col-xs-12" style="min-height: calc(100vh - 330px);" role="form">
+					<div class="row">
+						<div class="col-lg-12 col-md-12 ol-xs-12 form-group">
+							<h2> <wicket:message key="assigned-roles" /> <span wicket:id="total" style="font-size:1em;" class="ago"></span></h2>
+					
+					
+					<div wicket:id="roles-text" style="margin:15px 0; float:left; width:100%;" />
+							<div wicket:id="admin-message" class="alert alert-info" />
+							<ul class="list-group" style="width:100%; margin-bottom:10px;">
+								<li class="list-group-item" wicket:id="default-roles">
+									<div class="row">
+										<div class="col-lg-12 col-md-12 ol-xs-12"> 
+											<span wicket:id="role">[]</span>
+										</div>
+									</div>
+								</li>
+							</ul>
+							<ul class="list-group" style="width:100%; margin-bottom:10px;">
+								<li class="list-group-item" wicket:id="roles">
+									<div class="row">
+										<div class="col-lg-12 col-md-12 ol-xs-12"> 
+											<a wicket:id="role-link" target="_blank"><span wicket:id="role">[]</span></a>
+											<a wicket:id="deleterole-button"><i class="fa-fw fal fa-times" aria-hidden="true" style="margin-top: -2px; float:right; " id="menulink147d"></i></a>
+										</div>
+									</div>
+								</li>
+							</ul>
+ 							<div class="row" wicket:id="note100-container">
+								<div class="col-lg-12 col-md-12 ol-xs-12">
+									<span  style="color:#666666; font-size:1em;"><wicket:message key="nt100" />  </span>
+								</div>
+							</div>
+						</div>
+					</div>
+	
+					<div wicket:id="add-role-container">
+						<h2> <wicket:message key="add"/></h2>
+						
+						<div class="panel panel-bck" wicket:id="choice-container">
+							<div class="row">
+								<div class="col-xs-12 col-lg-12 col-md-12 form-group" wicket:id="role"/>
+							</div>
+							<div class="row">
+								<div class="col-xs-12 col-lg-12 col-md-12 form-group" wicket:id="entity"/>
+							</div>
+							<a class="btn btn-default btn-sm" wicket:id="addrole-button"><wicket:message key="add" /></a>
+						</div>
+						
+						<div class="panel" wicket:id="add-role-from-user-container">
+							<div class="row">
+								<div class="col-xs-12 col-lg-12 col-md-12 form-group" wicket:id="copy-user"/>
+							</div>
+						</div>
+						
+						<div wicket:id="selector-button" style="width:100%; display:flex; justify-content: right;">
+							<button wicket:id="button" class="btn btn-primary btn-sm">
+								<span><wicket:message key="role-selector" /></span>	
+							</button>
+						</div>
+						
+						<div wicket:id="selector"></div>
+					</div>
+					
+				</form>
+				<div class="button-container col-md-3 col-lg-2 col-xs-12" wicket:id="buttons"/>
+	</div>
+	
+</wicket:panel>

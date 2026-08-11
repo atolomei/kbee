@@ -1,0 +1,177 @@
+<wicket:panel>
+	
+	<div class="standard-canvas">
+		<div class="row">
+			<h2  class="col-md-12 col-lg-10 col-xs-12"> <span wicket:id="title"></span></h2>
+			<div class="button-container col-md-4 col-lg-2 col-xs-12" wicket:id="buttons"/>
+		</div>
+		<div class="row">
+			<form wicket:id="form" class="form-container" style="padding:15px 0 0 0; margin:0;" role="form">
+				<div style="margin-top:15px; float:left; width:100%;">
+					<div class="mb20" style="padding:0 15px; float:left; width:100%;" wicket:id="template-structure" />
+					<div class="col-xs-12 col-lg-12 col-md-12 form-group" wicket:id="name"/>
+					<div class="col-xs-12 col-lg-12 col-md-12 form-group" wicket:id="displayName"/>
+					<div style="width:100%; float:left;">
+						<div class="col-xs-4 col-lg-4 col-md-12 form-group" wicket:id="formAccessLevel"/>
+						<div class="col-xs-4 col-lg-4 col-md-12 form-group" wicket:id="useInline"/>
+						<div class="col-xs-4 col-lg-4 col-md-12 form-group" wicket:id="fileContainer"/>
+					</div>
+					
+					<div class="col-xs-12 col-lg-12 col-md-12 form-group" wicket:id="cssClass"/>
+					<div class="dropdown" wicket:id="factory" style="padding-right: 15px;float: right;"/>
+					<div class="browser" wicket:id="components" style="margin-left: 15px;padding-right: 30px;min-height:unset;"/>
+		
+				</div>	
+			</form>
+		</div>
+	</div>
+	<div wicket:id="help-modal" class="modal window" z-index=999999 tabindex="-6" role="dialog"/>
+</wicket:panel>
+
+<wicket:fragment wicket:id="eform-factory-fragment">
+	<button wicket:id="new-multiple-button"  class="btn-md btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
+		<wicket:message key="new-component" />
+		<span style="margin-left: 8px;" class="caret"></span>
+	</button>
+	<ul class="dropdown-menu dropdown-menu-right" style="margin-right: 20px;     max-height: 400px;    OVERFLOW: auto;">
+		<li  wicket:id="menu"><a href="#"></a></li>
+	</ul>
+</wicket:fragment>
+
+<wicket:fragment wicket:id="eform-grid-fragment">
+	<div class="control-label">
+		<label class="control-label"> <wicket:message key="components"/></label>
+	</div>
+	<div class="grid compact" style="padding:0; border-left:1px solid #dfdfdf; border-right:1px solid #dfdfdf; overflow:visible;">
+		<div class="xgrid compact" wicket:id="values">
+			<div class="row grid-header" wicket:id="header">
+				<div class="header col col-xs-1 col-md-1 col-lg-1" style="width:45px;  height: 40px;"/>
+				<div class="header col col-xs-1 col-md-1 col-lg-1" style="width:45px;  height: 40px;"/>
+				<div class="header col col-xs-3 col-md-3 col-lg-3">
+					<div><wicket:message key="type"/> </div>
+				</div>
+				<div class="header col col-xs-4 col-md-4 col-lg-4">
+					<div><wicket:message key="label"/></div>
+				</div>
+				<div class="header col col-xs-3 col-md-3 col-lg-3">
+					<div><wicket:message key="model"/></div>
+				</div>
+			</div>
+			<div class="row grid-body" style="min-height:40px; padding-bottom:0;" wicket:id="body">
+				<div wicket:id="component" class="value">
+					<div wicket:id="component-view" class="row-container"/>
+				</div>
+			</div>
+		</div>
+	</div>
+</wicket:fragment>
+
+<wicket:fragment wicket:id="component-rowview-fragment">
+	<div class="row grid-row">
+		<div class="menu cell-container" style="width:45px;">
+			<div class="btn-group" wicket:id="menu-cell">
+				<a class="btn-mini" wicket:id="menulink" href="#" data-toggle="dropdown">
+					<i class="far fa-ellipsis-h" aria-hidden="true"></i>
+				</a>
+				<ul wicket:id="menu" class="dropdown-menu"/>
+			</div>
+		</div>
+		<div class="expander cell-container" style="width:45px;">
+			<a wicket:id="expander"><i class="far fa-angle-up" style="cursor:pointer;" wicket:id="icon"></i></a>
+		</div>
+		<div class="col col-xs-3 col-md-3 col-lg-3">
+			<div class="cell-container" wicket:id="type"/>
+		</div>
+		<div class="col col-xs-4 col-md-4 col-lg-4">
+			<div class="cell-container" wicket:id="label"/>
+		</div>
+		<div class="col col-xs-3 col-md-3 col-lg-3">
+			<div class="cell-container" wicket:id="model"/>
+		</div>
+	</div>
+	<div class="row" wicket:id="expanded-row" >
+		<div class="col relation-grid-editor" style="background: #fbfbfb; 
+			padding: 15px 106px;
+			height:auto; 
+			border:none;">
+			<div wicket:id="editor"/>
+		</div>
+	</div>
+</wicket:fragment>
+
+<wicket:fragment wicket:id="component-editor-fragment">
+	<div wicket:id="tabs"/>
+</wicket:fragment>
+
+<wicket:fragment wicket:id="data-editor-fragment">
+	<div class="col-xs-12 col-lg-12 col-md-12 form-group" wicket:id="name"/>
+	<div class="col-xs-12 col-lg-12 col-md-12 form-group" wicket:id="label"/>
+	<div class="col-xs-12 col-lg-12 col-md-12 form-group" wicket:id="sublabel"/>
+	<div class="col-xs-6 col-lg-6 col-md-6 form-group" wicket:id="required"/>
+	<div class="col-xs-6 col-lg-6 col-md-6 form-group" wicket:id="readOnly"/>
+	<div class="col-xs-12 col-lg-12 col-md-12 form-group" wicket:id="text"/>
+	<div class="col-xs-12 col-lg-12 col-md-12 form-group" wicket:id="cssClass"/>
+	<div class="col-xs-12 col-lg-12 col-md-12 form-group" wicket:id="editor"/>
+	<div class="col-xs-12 col-lg-12 col-md-12 form-group" wicket:id="toolbar"/>
+	<div class="col-xs-12 col-lg-12 col-md-12 form-group" wicket:id="valueTemplate"/>
+	<div class="col-xs-12 col-lg-12 col-md-12 form-group" wicket:id="infoTemplate"/>
+</wicket:fragment>
+
+<wicket:fragment wicket:id="model-resources-fragment">
+	<div class="col-xs-12 col-lg-12 col-md-12 form-group" wicket:id="type"/>
+	<div class="col-xs-12 col-lg-12 col-md-12 form-group" wicket:id="tag"/>
+</wicket:fragment>
+
+<wicket:fragment wicket:id="model-resource-distribution-fragment">
+	<div class="col-xs-12 col-lg-12 col-md-12 form-group" wicket:id="type"/>
+	<div class="col-xs-12 col-lg-12 col-md-12 form-group" wicket:id="tag"/>
+	<div wicket:id="launcher">
+		<div class="col-xs-12 col-lg-12 col-md-12 form-group" wicket:id="check"/>
+	</div>
+	<div class="col-xs-12 col-lg-12 col-md-12 form-group" wicket:id="targetTag"/>
+	<div class="col-xs-12 col-lg-12 col-md-12 form-group" wicket:id="doneTag"/>
+</wicket:fragment>
+
+<wicket:fragment wicket:id="attribute-model-editor-fragment">
+	<div class="col-xs-12 col-lg-12 col-md-12 form-group" wicket:id="type"/>
+	<div class="col-xs-12 col-lg-12 col-md-12 form-group" wicket:id="attribute"/>
+</wicket:fragment>
+
+<wicket:fragment wicket:id="classifier-model-editor-fragment">
+	<div class="col-xs-12 col-lg-12 col-md-12 form-group" wicket:id="type"/>
+	<div class="col-xs-12 col-lg-12 col-md-12 form-group" wicket:id="classifier"/>
+	<div class="col-xs-12 col-lg-12 col-md-12 form-group" wicket:id="accessibility"/>
+	<div class="col-xs-12 col-lg-12 col-md-12 form-group" wicket:id="iql"/>
+</wicket:fragment>
+
+<wicket:fragment wicket:id="relation-model-editor-fragment">
+	<div class="col-xs-12 col-lg-12 col-md-12 form-group" wicket:id="type"/>
+	<div class="col-xs-12 col-lg-12 col-md-12 form-group" wicket:id="relation"/>
+</wicket:fragment>
+
+<wicket:fragment wicket:id="help-editor-fragment">
+	<div class="col-xs-12 col-lg-12 col-md-12 form-group" wicket:id="text"/>
+</wicket:fragment>
+
+<wicket:fragment wicket:id="calculation-editor-fragment">
+	<div class="col-xs-12 col-lg-12 col-md-12 form-group" wicket:id="calculation"/>
+</wicket:fragment>
+
+<wicket:fragment wicket:id="onupdate-editor-fragment">
+	<div class="col-xs-12 col-lg-12 col-md-12 form-group" wicket:id="onUpdate"/>
+</wicket:fragment>  
+
+<wicket:fragment wicket:id="visibility-editor-fragment">
+	<div class="col-xs-12 col-lg-12 col-md-12 form-group" wicket:id="condition"/>
+</wicket:fragment>
+
+<wicket:fragment wicket:id="activation-editor-fragment">
+	<div class="col-xs-12 col-lg-12 col-md-12 form-group" wicket:id="condition"/>
+</wicket:fragment>  
+
+<wicket:fragment wicket:id="validation-editor-fragment">
+	<div class="col-xs-12 col-lg-12 col-md-12 form-group" wicket:id="script"/>
+	<div class="col-xs-12 col-lg-12 col-md-12 form-group" wicket:id="message"/>
+</wicket:fragment> 
+
+

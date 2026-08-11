@@ -1,0 +1,27 @@
+
+<wicket:panel>
+
+          <div class="row">      
+                <form wicket:id="form" class="form-container col-md-8 col-lg-8 col-xs-12" style="min-height: calc(100vh - 292px); "role="form">
+                	<div class="row">
+                		<h2 class="col-xs-12">Reports</h2>
+                	</div>
+                	<div class="row">
+                		<div class="col-xs-12 col-lg-10 col-md-11">
+                			<div class="alert alert-info"><span>We will send Reports as MS Excel files to </span> <b><span wicket:id="email"></span></b><span><br /> You can change your email address in <a class="btn-link" href="/myaccount" target="_blank">User Settings</a></span></div>
+                		</div>
+                	</div>
+                	<div class="row">
+	                    <ul class="col-xs-12 col-lg-10 col-md-11" style="padding: 0 15px;">
+		                    <li style="width:100%; float:left;"  wicket:id="reportsubscription">
+		                        <div style="float:left; width:100%;" class="form-group" wicket:id="selector" />
+		                     </li>
+	                    </ul>
+                    </div>
+                    
+                </form>
+                <div class="button-container col-md-4 col-lg-4 col-xs-12" wicket:id="buttons"/>
+    
+    </div>
+
+</wicket:panel>

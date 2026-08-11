@@ -1,0 +1,40 @@
+<wicket:panel>
+
+    <div class="content">
+        <div class=" container-fluid">
+
+           
+                <ul class="list-group col-lg-12">
+                    <li class="list-group-item" wicket:id="subscriptionExport">
+                        
+                        <div class="row" wicket:id="scheduleEditor"/>
+                        
+                        <div class="row">
+	                        <div class="col-md-8 col-lg-7 col-xs-12">
+	                        
+	                        		<div class="row">
+			                        <form class="form-container" style="width:100%; float:left;" wicket:id="testSubscriptionForm">
+			                                	<div class="col-xs-12" wicket:id="userSelector"/>
+			                                	<!-- small class="help-block">
+				                                        <wicket:message key="emailWillBeSentTo"/>
+				                                        <div style="font-weight: bold" wicket:id="currentUserEmail"></div>
+				                                  </small -->
+											<div class="row">
+				                                <div class="col-xs-12">
+				                                    <button style="padding-left: 10px;" wicket:id="testSubscriptionBtn" type="button" class="btn btn-link bt-lg">
+				                                        <wicket:message key="testSubscriptionBtn"/>
+				                                    </button>
+				                            	</div>
+			                            	</div>
+			                            <div style="clear:both"/>
+			                        </form>
+			                        </div>
+		                        </div>
+                         </div>
+                    </li>
+                </ul>
+        </div>
+    </div>
+    <div wicket:id="information-modal" class="modal window" tabindex="-8" role="dialog"/>
+</wicket:panel>
+

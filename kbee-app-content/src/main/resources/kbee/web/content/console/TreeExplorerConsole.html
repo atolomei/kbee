@@ -1,0 +1,22 @@
+<wicket:head>
+	<style>
+	.kbee .tt-menu {  max-height: 650px; }
+	.kbee .grid .list .grid-compressed .row-container .c100 {
+  width: 100%;
+  float: left;
+}
+	</style>
+</wicket:head>
+<wicket:panel>
+	<wicket:extend>
+		<div class="content console-top">
+			<div wicket:id="billboard" />
+				<div wicket:id="error-panel-container">
+						<wicket:container wicket:id="error-panel" />
+				</div>
+			<div wicket:id="browser"/>
+		</div>
+		<div wicket:id="objectaudit-modal" class="modal window" tabindex="-9" role="dialog"/>
+	</wicket:extend>
+</wicket:panel>
+ 

@@ -1,0 +1,30 @@
+
+<wicket:panel>
+
+<div class="usernotes">
+
+	<div class="col-lg-12 col-xs-12 col-md-12">
+	
+		<div class="row">
+			<div class="nav" style="margin:10px 0;">
+					<a  class="btn btn-default btn-xs"  wicket:id="create-note"><span>   <wicket:message key="new" /></span></a>
+					<a class="btn btn-default btn-xs"  style="float:right;" wicket:id="delete-all"><span><wicket:message key="delete-all" /> </span></a>
+					
+			</div>
+		</div>
+
+		<div class="row">
+			<ul class="list-group  col-lg-12 col-xs-12">
+	 			<li style="float: left; width:100%;" class="list-group-item" wicket:id="user-notes">
+	 					<!--  user note panel instead of the editor to avoid loading js editor unless it's necessary  -->
+	 					<div wicket:id="user-note-panel"></div>
+	 			</li>	
+			</ul>
+		</div>
+		
+		
+		
+		
+	</div>	
+</div>
+</wicket:panel>

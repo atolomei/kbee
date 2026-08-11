@@ -1,0 +1,30 @@
+
+
+<wicket:panel>
+
+	<div class="row">
+		
+		<div class="button-container col-md-3 col-lg-2 col-xs-12" wicket:id="buttons"/>
+		<div class="col-xs-12 col-lg-10 col-md-9">
+				<h2> <wicket:message key="task-info" /></h2>
+		</div>
+					
+		<form wicket:id="form"  class="col-md-12 col-lg-12 col-xs-12 form-container" style="padding:0;" role="form">
+
+			<div class="form-group col-md-12 col-lg-6 col-xs-12" wicket:id="name"/>
+			<div class="form-group col-md-12 col-lg-6 col-xs-12" wicket:id="id"/>
+
+			<div class="form-group col-md-12 col-xs-12 col-lg-6" wicket:id="phase"/>
+			
+			<div class="form-group col-md-12 col-xs-12" wicket:id="description"/>
+			
+			<div class="form-group col-lg-12 col-md-12 col-xs-12" wicket:id="routerScript"/>
+			
+			<div class="form-group col-lg-12 col-md-12 col-xs-12" wicket:id="onStart"/>
+			
+		</form>
+</div>
+		<div wicket:id="help-modal" class="modal window" z-index=999999 tabindex="-6" role="dialog"/>
+</wicket:panel>
+
+

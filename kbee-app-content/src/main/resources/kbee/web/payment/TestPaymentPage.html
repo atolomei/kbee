@@ -1,0 +1,32 @@
+<wicket:head >
+    <script src="https://sdk.mercadopago.com/js/v2"></script>
+</wicket:head>
+
+<wicket:extend>
+    <div class="container-fluid" style="padding-left:20px;height: 900px">
+        <h1>Actualizacion a dominio premium</h1>
+        <br/><br/>
+        <h3>Medios de pago:</h3>
+        <div class="row">
+            <div wicket:id="btnPaymentPremium" class="col-xs-12 col-lg-4 col-md-4"/>
+        </div>
+        <br/>
+        <br/>
+
+        <h1>Prueba de pago de contenido</h1>
+        <br/><br/>
+        <h3>Medios de pago:</h3>
+        <div class="row">
+            <div wicket:id="btnPaymentContent" class="col-xs-12 col-lg-4 col-md-4"/>
+        </div>
+
+        <h1>Prueba factura</h1>
+        <br/>
+        <br/>
+        <div class="row">
+            <div class="col-xs-12 col-lg-4 col-md-4">
+                    <div wicket:id="orderPanel"/>
+            </div>
+        </div>
+    </div>
+</wicket:extend>

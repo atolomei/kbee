@@ -1,0 +1,39 @@
+<wicket:panel>
+	<div class="launcher-editor-container">
+		<h2  class="col-md-9 col-lg-10 col-xs-12"><wicket:message key="editor.launchers" /></h2>
+	
+		<div style="margin-bottom:25px; float:left; width:100%;">
+			<table class="table-responsive table table-header-bck  table-hover" id="tasks" style="line-height: 1.5em;">
+				<thead>
+					<tr class="headers">
+						<th class="col-xs-2 col-md-2 col-lg-2"><span><wicket:message key="launcher.name" /></span></th>
+						<th class="col-xs-5 col-md-5 col-lg-5"><span><wicket:message key="launcher.description" /></span></th>
+						<th class="col-xs-2 col-md-2 col-lg-2"><span><wicket:message key="launcher.context" /></span></th>
+						<th class="col-xs-1 col-md-1 col-lg-1"><span></span></th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr wicket:id="launchers">
+						<td class="col-xs-2 col-md-2 col-lg-2">
+							<a wicket:id="launcher.link">
+							<span wicket:id="launcher.name">[]</span>
+							</a>
+						</td>
+						<td class="col-xs-5 col-md-5 col-lg-5"><span wicket:id="launcher.description">[]</span></td>
+						<td class="col-xs-2 col-md-2 col-lg-2"><span wicket:id="launcher.context">[]</span></td>
+						<td class="col-xs-1 col-md-1 col-lg-1">
+							<div class="dropdown" style="text-align: center;width: 100%;" wicket:id="menu-container">
+								<a id="dmenu" data-toggle="dropdown"> <i class="far fa-ellipsis-h" aria-hidden="true"></i></a>
+								<ul wicket:id="menu" class="dropdown-menu dropdown-menu-right" aria-labelledby="dmenu" />
+							</div>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+			<div  style="padding-top: 10px;">
+			<a wicket:id="creation-link" style="float:right;" class="btn btn-default btn-md"> <wicket:message key="launcher.newlink" /></a>
+			</div>
+		</div>
+		<div wicket:id="confirmation-dialog" class="modal window" 	tabindex="-4" role="dialog"/>
+	</div>
+</wicket:panel>

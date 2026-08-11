@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="es" lang="es">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<script type="module" src="https://cs-cdn.realpage.com/RAUL/omnibar/v1/omnibar/omnibar.esm.js"></script>
+	<script nomodule src="https://cs-cdn.realpage.com/RAUL/omnibar/v1/omnibar/omnibar.js"></script>
+	<link rel="stylesheet" href="https://cs-cdn.realpage.com/RAUL/omnibar/v1/omnibar/omnibar.css" />
+</head>
+<body class="kbee">
+	<omnibar-shell>
+	<omnibar-scope
+	slot="scope"
+	product="IDoc"
+	base="Domain"
+	selected="Park Place" >
+	</omnibar-scope>
+		<omnibar-unified-menu slot="unified-menu">
+			<a href="#" slot="user">
+				<omnibar-user-menu-item menu-name="AnotherCustomUserLink">
+					Another Custom User Link
+				</omnibar-user-menu-item>
+			</a>
+		</omnibar-unified-menu>
+	<omnibar-navigation slot="navigation"></omnibar-navigation>
+		<main slot="page">
+			<div wicket:id="console"></div>
+		</main>
+	</omnibar-shell>
+</body>
+</html>

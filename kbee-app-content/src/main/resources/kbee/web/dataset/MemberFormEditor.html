@@ -1,0 +1,32 @@
+<wicket:panel>
+		<div class="row standard-canvas">
+			<div class="col-md-9 col-lg-10 col-xs-12">
+				<form wicket:id="form"  class="form-container"     style=" width:100%;  float: left;" role="form">
+					<h2><wicket:message key="info" /></h2>
+					<div style="margin-bottom: 15px; float:left; width:100%;" wicket:id="display-name-generated"></div>
+					<div wicket:id="displayname"/>
+					<a wicket:id="apply-rule" class="btn btn-link" style="padding-left:0; margin-top:-10px; margin-bottom:20px;"> <wicket:message key="edit" /></a>
+					<div wicket:id="eform"/>
+					<a wicket:id="dataset" class="btn btn-link" style="padding-left:0;"> <wicket:message key="open-dataset" /></a>
+				</form>
+				<div wicket:id="feedback"></div>	
+			</div>
+			<div class="button-container col-md-3 col-lg-2 col-xs-12" wicket:id="buttons" />
+		</div>
+</wicket:panel>
+
+<wicket:fragment wicket:id="feedback-fragment">
+		<ul>
+			<li wicket:id="message"><span wicket:id="text"></span></li>
+		</ul>
+</wicket:fragment>
+
+<wicket:fragment wicket:id="aggregations-fragment">
+		<ul style="width:100%; float:left;">
+			<li wicket:id="integrated" class="row">
+				<div class="col-lg-12 col-md-12 col-xs-12">  
+					<a wicket:id="item-link" href="#"> <span wicket:id ="dataset-name" /></a>
+				</div>
+			</li>
+		</ul>
+</wicket:fragment>

@@ -1,0 +1,43 @@
+<wicket:panel>
+	<div class="dashboard-widget">
+		<div class="header" wicket:id="header"></div>
+		<div class="widget-body-container">
+			<div class="col-lg-12 col-md-12 col-xs-12 list-panel">
+				<div wicket:id="eform"/>
+			</div>
+			<div>
+				<a class="btn-link" wicket:id="entity-link" target="_blank"><wicket:message key="botton.entity"/></a>
+			</div>
+		</div>
+	</div>		
+</wicket:panel>
+
+<wicket:fragment wicket:id="base-header-fragment">
+	<div style="width:100%; float:left;">
+
+
+				<a wicket:id="title-link" class="btn-link">
+						<h2 wicket:id="title" style="float:left; padding-top:7px; margin:0;"></h2>
+					</a>
+
+
+		<div style="float:right;">
+			<a class="btn-mini" wicket:id="edit" title="edit" href="#">
+				<i class="far fa-edit"></i>
+			</a>
+			<a class="btn-mini" wicket:id="help" title="help" href="#">
+				<i class="fal fa-info-circle"></i>
+			</a>
+			<a class="btn-mini" wicket:id="refresh" title="Refresh" href="#">
+				<i class="far fa-sync "></i>
+			</a>
+			<a class="btn-mini" wicket:id="collapse" title="Collapse" href="#">
+						<span class="expand" wicket:id="expand-label"></span>
+						<i wicket:id="collapse-icon" class="far fa-angle-up"></i>
+			</a>
+					
+			
+		</div>
+	</div>			
+</wicket:fragment>		
+

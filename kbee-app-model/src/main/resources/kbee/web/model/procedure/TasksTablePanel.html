@@ -1,0 +1,44 @@
+<wicket:panel>
+
+	<div class="control-label">
+		<label for="tasks"> <wicket:message key="tasks" /></label>
+		<a class="btn-link" style="float:right;" wicket:id="help-info"><i class="fal fa-info-circle"></i></a>
+	</div>
+	
+	
+		<div style="margin-bottom:25px; float:left; width:100%;">
+		
+			<table class="table-responsive table table-header-bck  table-hover" id="tasks" style="line-height: 1.5em;">
+				<thead>
+					<tr class="headers">
+						<th class="col-xs-2 col-md-2 col-lg-2"><span> <wicket:message key="name" /></span></th>
+						<th class="col-xs-1 col-md-2 col-lg-2"><span> <wicket:message key="trigger" /></span></th>
+						<th class="col-xs-4 col-md-3 col-lg-4"><span> <wicket:message key="actions" /></span></th>
+						<th class="col-xs-1 col-md-2 col-lg-1"><span> <wicket:message key="role" /></span></th>
+						<th class="col-xs-1 col-md-2 col-lg-2"><span> <wicket:message key="enabledroles" /></span></th>
+						<th class="col-xs-1 col-md-1 col-lg-1"><span></span></th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr wicket:id="tasks">
+						<td class="col-xs-2 col-md-2 col-lg-2"><div><a class="btn-link" wicket:id="task-link"><span wicket:id="task-name"></span></a> <span class="ago" wicket:id="initial"></span></div></td>
+						<td class="col-xs-1 col-md-2 col-lg-2"><div><span wicket:id="trigger"></span></div></td>
+						<td class="col-xs-2 col-md-3 col-lg-4"><div wicket:id="conditions" style="width:100%;"></div></td>
+						<td class="col-xs-1 col-md-2 col-lg-1"><div><span wicket:id="role"></span></div></td>
+						<td class="col-xs-2 col-md-2 col-lg-2"><div><span wicket:id="precondition"></span></div></td>
+						<td class="col-xs-1 col-md-1 col-lg-1" style="text-align: center;"> <div><a class="btn-link" wicket:id="delete-link"><i class="fal fa-trash"></i></a></div></td>
+					</tr>
+				</tbody>
+			</table>
+			<a wicket:id="addforktask-link" style="margin-bottom:0; right:150px; bottom:-5px; position:absolute;" class="btn btn-default btn-md"> <wicket:message key="add-forktask" /></a>
+			<a wicket:id="addtask-link" style="margin-bottom:0; right:15px; bottom:-5px; position:absolute;" class="btn btn-default btn-md"> <wicket:message key="add-task" /></a>
+			<small class="help-block"><wicket:message key="task-table-help"/></small>
+		</div>
+	
+	<div wicket:id="confirmation-dialog" class="modal window" tabindex="-20" role="dialog"/>
+	<div wicket:id="help-modal" class="modal window" z-index=999999 tabindex="-6" role="dialog"/>
+	
+	
+</wicket:panel>
+
+ 

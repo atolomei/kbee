@@ -1,0 +1,43 @@
+<wicket:panel>
+	<nav wicket:id="top-navbar" class="navbar navbar-fixed-top navbar-default">
+			<div id="navbar-header">
+					<div id="navbar-mobile">
+							<ul class="nav navbar-nav navbar-left">					
+								<li><wicket:container style="display:block; float:left;" wicket:id="brand"/></li>
+							</ul>
+							
+							<ul class="nav navbar-nav navbar-right">
+								<li><wicket:container wicket:id="user"/></li>
+								<!-- li><wicket:container wicket:id="login"/></li-->
+							</ul>
+					</div>
+			</div>
+	</nav>
+</wicket:panel>
+
+
+<!-- BRAND -->
+<wicket:fragment wicket:id="brand-fragment">
+	<a class="brand visible-lg visible-md  visible-sm  hidden-xs" wicket:id="icon-link" target="_blank">
+		<img  wicket:id="brand" class="rp">
+	</a>
+	
+	<a  class="brand visible-lg visible-md  visible-sm  hidden-xs" wicket:id="domain-link">
+		<span  class="title" wicket:id="product"></span>
+    	 
+		<span class="subtitle"  wicket:id="domain-name"></span>
+	</a>
+</wicket:fragment>
+
+
+
+
+<wicket:fragment wicket:id="login-fragment">
+	<a wicket:id="login-link" style="float:left; padding:25px 30px; display: block; margin-left:0;" target="_blank">
+		<span style="float:left;"> <wicket:message key="signin" /></span>
+	</a>
+	
+		
+	
+</wicket:fragment>
+ 

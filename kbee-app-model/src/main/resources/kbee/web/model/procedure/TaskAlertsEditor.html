@@ -1,0 +1,28 @@
+<wicket:panel>
+
+	<div class="row standard-canvas">
+	
+		<div class="button-container col-md-3 col-lg-2 col-xs-12" wicket:id="buttons"/>
+		<div class="col-xs-1 col-lg-10 col-md-9">
+			<h2><wicket:message key="task-alerts" /></h2>
+		</div>
+					
+		<form wicket:id="form"  class="col-md-9 col-lg-12 col-xs-12 form-container" style="padding:0;" role="form">
+			<div class="form-group col-md-12 col-xs-12" wicket:id="dueDateAlerts"/>
+			<div class="form-group col-md-12 col-xs-12" wicket:id="maxTimePending"/>
+			<div class="form-group col-md-12 col-xs-12" wicket:id="maxTimeRunning"/>
+
+			<div class="form-group col-md-12 col-xs-12">
+				<a wicket:id="email-template" class="btn-link" target="_blank"><wicket:message key="open-email-template" /></a>
+			</div>
+
+			<div class="form-group col-md-12 col-xs-12">
+				<a wicket:id="send-test-email" class="btn-link"><wicket:message key="send-test-email" /></a>
+			</div>
+			
+		</form>
+		
+	</div>
+	<div wicket:id="help-modal" class="modal window" z-index=999999 tabindex="-6" role="dialog"/>
+	
+</wicket:panel>

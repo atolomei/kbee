@@ -1,0 +1,31 @@
+<wicket:panel>
+	
+	<div class="field-block first">
+		<span class="title-label"><wicket:message key="personeditor.firstname" /></span>			
+		<input id="fititle" wicket:id="firstname" type="text" class="viewmode"/>
+	</div>		
+			
+	<div class="field-block" style="float: left;">
+		<label for="lastname" class="title-label"><span><wicket:message key="personeditor.lastname" /></span></label>			
+		<input id="lastname" wicket:id="lastname" type="text" class="viewmode"/>
+	</div>
+	
+	<div class="field-block" style="float: left;">
+		<label for="phone" class="title-label"><span><wicket:message key="personeditor.phone" /></span></label>			
+		<input id="phone" wicket:id="phone" type="text" class="viewmode"/>
+	</div>
+			
+	<div class="field-block" style="float: left;">
+		<label for="email" class="title-label"><span><wicket:message key="personeditor.email" /></span></label>			
+		<input id="email" wicket:id="email" type="text" class="viewmode"/>
+	</div>		
+
+	<div class="members-block datasetmember">
+		<div class="field-block">
+			<label for="archived" class="title-label"><span><wicket:message key="personeditor.archive.title" /></span></label>			
+			<input id="archived" wicket:id="archived" type="checkbox" class="field" style="padding-top: 4px;"  width="22" height="22"/>
+			<span><wicket:message key="personeditor.archive.archived" /></span>
+		</div>
+ 	</div>
+	
+</wicket:panel>

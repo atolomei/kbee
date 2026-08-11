@@ -1,0 +1,56 @@
+<wicket:panel>
+
+	<div class="row standard-canvas">
+		
+		<div class="col-md-9 col-lg-12 col-xs-12">
+				<form wicket:id="form" class="form-container" style="width:100%; float: left;" role="form">
+					<div class="row">
+						<h2 class="col-md-4 col-lg-9 col-xs-12"><wicket:message key="sms"/></h2>
+						<div class="button-container col-md-4 col-lg-3 col-xs-12" wicket:id="buttons" />
+					</div>
+					<div class="row">
+						<div class="col-xs-12 col-md-12 col-lg-9">
+								<div class="alert alert-info"> <wicket:message key="info-sms" /></div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-xs-12 col-md-12 col-lg-9 form-group" wicket:id="phone"/>
+					</div>
+				</form>
+			
+				<div class="panel-bordered col-xs-12 col-md-12 col-lg-9">
+						<div class="col-xs-12 col-md-12 col-lg-12">
+						<h3> <wicket:message key="test-sms-title"/></h3>
+							<!-- 
+							VALIDATE BUTTON  
+							-->
+							<div wicket:id="validate-container" class="row">
+									<div class="col-xs-12 col-md-12 col-lg-12 mt10">
+										<a wicket:id="test-sms" class="btn btn-default btn-md" style="width: initial; width:initial; padding: 0 15px; margin-top:10px;"> <wicket:message key="test-sms" /></a>
+									</div>
+									
+									<div wicket:id="result" style="margin-top:10px; float:left; width:100%; padding:0 15px;"></div>
+									
+							</div>
+					
+							<!--VERIFY SMS SENT -->
+							
+							<!-- div wicket:id="input-token-container" class="row">
+									<div class="col-xs-12 col-md-12 col-lg-12 form-group mt20">
+										<label><wicket:message key="token" /> </label>	
+										<input class="form-control" wicket:id="tokenValidation"/>
+									</div>
+									
+									<div class="col-xs-12 col-md-12 col-lg-12 form-group">
+										<a wicket:id="check" style="float:left;" class="btn btn-default btn-md"> <wicket:message key="check" /> </a>
+										<div wicket:id="result" style="margin-top:10px; float:left; width:100%;"></div>
+									</div>
+							</div-->
+						</div>
+				</div>
+			</div>
+		
+		
+	</div>
+</wicket:panel>
+

@@ -1,0 +1,19 @@
+<wicket:panel>
+	<div wicket:id="panel-container" class="row standard-canvas">
+		<div class="col-md-9 col-lg-10 col-xs-12">
+			<form wicket:id="form" class="form-container" style=" width:100%; float: left;" role="form">
+				<h2> <wicket:message key="personal-info.label"/></h2>
+				<div wicket:id="displayname"/>
+				<div class="eform" wicket:id="eform"/>
+			</form>
+			<div wicket:id="feedback" />	
+		</div>
+		<div class="button-container col-md-3 col-lg-2 col-xs-12" wicket:id="buttons" />
+	</div>
+</wicket:panel>
+
+<wicket:fragment wicket:id="feedback-fragment">
+	<ul>
+		<li  wicket:id="message"><span wicket:id="text">[]</span></li>
+	</ul>
+</wicket:fragment>

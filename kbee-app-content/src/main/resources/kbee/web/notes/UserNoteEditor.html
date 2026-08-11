@@ -1,0 +1,46 @@
+
+<wicket:panel>
+		
+		<div wicket:id="viewer" class="row text-viewer" style="margin:0; background: #f7f8f9; margin:10px 0; padding:5px 0;">
+			
+			
+			<div class="col-lg-12 col-md-12 col-xs-12">
+			
+			
+					<a  title="click to expand/collapse" class="title btn-link" wicket:id="title-link">
+						<span class="title" wicket:id="title"></span>
+						<span style="float:right;" class="metadata" wicket:id="modified"></span>
+					</a>
+																						
+					<div style="width:100%; margin-top:10px; margin-bottom: 0px;   float:left;">
+							<div style="margin:0;"  class="postit" wicket:id="text">
+							</div>
+																
+							<div class="buttons-container" style="float:left; width:100%;  margin:10px 0 0 0; padding: 6px 0px;   border-top:none; background: none;">
+							
+								<button class="btn-link"  style="float:left; padding-left: 0;" wicket:id="close">
+									<span><wicket:message key="close" /> </span>
+								</button>
+								<button class="btn-link" wicket:id="edit">
+									<span> <wicket:message key="edit" /></span>
+								</button>
+								
+								<button class="btn-link" wicket:id="delete">
+									<!-- i class="fal fa-trash-alt" style="line-height:16px; font-size:16px;" aria-hidden="true"></i -->
+									<span> <wicket:message key="delete" /></span>
+								</button>
+							</div>
+					</div>
+			</div>
+		</div>
+		
+		<form wicket:id="form" class="form-mini-editor-container col-lg-12 col-md-12 col-xs-12" style="margin-bottom:5px; padding:0;">
+				
+				<div title="click to edit" class="form-group col-lg-12 col-md-12 col-xs-12"  wicket:id="title" />
+				<div class="form-group col-lg-12 col-md-12 col-xs-12"  wicket:id="text" style="margin:0px 0 15px 0; /* box-shadow: 0 1px 14px rgba(0, 0, 0, 0.1)*/ "/>
+				<div class="form-group col-lg-12 col-md-12 col-xs-12"  style="margin-bottom: 0;" wicket:id="buttons"/>
+				
+		</form>
+
+</wicket:panel>
+

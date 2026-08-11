@@ -1,0 +1,32 @@
+<wicket:panel>
+		
+	
+ 	
+		<div class="row standard-canvas">
+			<div class="col-lg-10 col-xs-12 col-md-9">
+			
+				<h2 style="padding:0;" class="col-md-12 col-lg-10 col-xs-12">Groups</h2>
+
+				<!-- div class="row"> 
+					<div class="col-lg-12 col-md-12 col-xs-12">
+						<div class="form-group alert alert-info" role="alert"><wicket:message key="deprecated" /></div>
+					</div>	
+				</div-->
+
+				<div class="row">
+					<div wicket:id="readonly" class="col-lg-12 col-xs-12">
+						<span class="col-lg-12 col-xs-12 alert alert-info" role="alert"> <wicket:message key="readonly" /></span>
+					</div>
+					
+					<form wicket:id="form"  class="form-container" role="form">
+						<div class="col-lg-12  form-group" wicket:id="standardGroups"/>
+					</form>
+					
+				</div>
+			</div>
+			
+			<div class="button-container col-lg-2 col-xs-12 col-md-3" wicket:id="buttons"/>
+		</div>
+	 
+		
+</wicket:panel>

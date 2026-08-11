@@ -1,0 +1,60 @@
+<wicket:panel>
+    <div class="standard-canvas">
+		
+		<div class="row">
+			<h2 class="col-md-12 col-lg-10 col-xs-12">
+	    		<wicket:message key="externalLogin"/>
+	 		</h2>
+	 		<div class="button-container col-md-3 col-lg-2 col-xs-12" wicket:id="buttons"/>
+ 		</div>
+
+ 		
+ 		
+ 		<div class="row">
+ 			<div class="col-xs-12 col-md-10 col-lg-8">
+				<form wicket:id="form" class="form-container"  style=" width:100%;  float: left;" role="form">
+		 			<div class="panel-bordered" style="width:100%; float:left; margin-top:10px;">
+			 			<h2 class="col-xs-12 col-md-12 col-lg-12">Google</h2>
+			 			<div class="col-xs-12 col-md-12 col-lg-12 form-group" wicket:id="googleAuth"/>
+			 			<div class="col-xs-12 col-md-12 col-lg-12 form-group" wicket:id="googleUserPlatformId"/>
+			 			
+		 			</div>
+		 			
+		 			<div class="panel-bordered" style="width:100%; float:left; margin-top:1px;">
+			 			<h2 class="col-xs-12 col-md-12 col-lg-12">Facebook</h2>
+						<div class="col-xs-12 col-md-12 col-lg-12 form-group" wicket:id="facebookAuth"/>
+						<div class="col-xs-12 col-md-12 col-lg-12 form-group" wicket:id="facebookUserPlatformId"/>
+					</div>
+					
+				</form>
+			</div>
+ 		</div>
+ 		
+        
+        <!--         
+        <div class="col-xs-12 col-lg-12 col-md-12">
+                    <a style="width: 100%; margin-top: 0px; padding:20px; border-color:#d8dcdf;" href='/oauth2/authorization/google?op=link_account' class="btn btn-default">
+                        <img class="external-login-icon" src="/images/logo_google.svg" style="float:left; height: 40px; width:auto;"/>
+                        <span class="external-login-text" style="float:left; padding: 10px 0;  margin-left: 15px;">
+                           <wicket:message key="add-google"/> 
+                        </span>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <br/>
+        <div class="col-xs-12">
+            <div class="row">
+                <div class="col-xs-12 col-lg-12 col-md-12">
+                    <a style="width: 100%; margin-top: 2px; padding:20px;  border-color:#d8dcdf;" href='/oauth2/authorization/facebook?op=link_account' class="btn btn-default">
+                        <img class="external-login-icon" src="/images/logo_facebook.png" style="float:left; height: 40px; width:auto;"/>
+                        <span class="external-login-text" style="float:left; padding: 10px 0;  margin-left: 15px;">
+                             <wicket:message key="add-facebook"/>
+                        </span>
+                    </a>
+                </div>
+            </div>
+        </div>
+        -->
+    </div>
+</wicket:panel>

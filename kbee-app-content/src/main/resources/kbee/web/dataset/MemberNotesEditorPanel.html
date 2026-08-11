@@ -1,0 +1,43 @@
+<wicket:panel>
+		
+
+<div class="standard-canvas">
+	<form wicket:id="form"  class="form-container" role="form">
+	
+	<h2 style="padding:0" class="col-md-12 col-lg-10 col-xs-12"> <wicket:message key="notes"/></h2>		
+	
+	<nav wicket:id="add-container" class="col-lg-2" style="margin-top: 0px; padding-right:0;">
+		<div id="navbar" class="col-lg-12 col-xs-12 col-md-12 toleft toright" style="padding:0;">
+			<a class="btn btn-primary btn-sm" wicket:id="add" style="margin-left: 0px;  padding:0; float:right;">
+				<span wicket:id="edit"></span>
+			</a>
+		</div>
+	</nav>
+		
+	<div wicket:id="container-text" class="row" style="margin: 0 -15px;">
+		<div class="col-lg-12 col-md-12 col-xs-12 text-block basic-text" style=" float:left; margin:0;  margin-top: 12px;" wicket:id="xcontent-text" ></div>
+	</div>		
+		
+	<div wicket:id="container-editor">
+			<div class="col-lg-10 col-md-12 col-xs-12">
+				<div class="form-group text-block" wicket:id="ztext-editor" style="margin:0; margin-top:12px; width:100%;"/>
+				
+				<div class="col-lg-10 col-md-12 col-xs-12 form-group" style="padding-top:12px; margin:0;">
+					<a  wicket:id="cancel-link" class="btn btn-sm btn-default">
+						<span><wicket:message key="cancel"/></span>
+					</a>
+					<a wicket:id="save-link" class="btn btn-sm btn-primary">
+						<span><wicket:message key="save"/></span>
+					</a>
+				</div>
+			</div>
+		</div>
+	</form>
+</div>
+
+		
+</wicket:panel>
+
+
+
+ 

@@ -1,0 +1,65 @@
+<wicket:panel>
+	
+	<div class="row">
+	
+		<h2 class="col-lg-12 col-md-12 col-xs-21"> <wicket:message key="related" /> </h2>
+
+		<ul class="list-group" style="float:left; width:100%; padding:0 15px;">
+ 			<li  wicket:id="content"  class="list-group-item" style="float:left; width:100%;">
+			
+				<div style="float:left;">
+					<a wicket:id="expand">
+						<i wicket:id="icon" class="far fa-angle-up" style="margin-top:2px;"></i>
+					</a>
+				</div>	
+				
+				
+				<div style="padding-left:15px; float:left; width: calc(100% - 15px)">
+				
+					<a class="btn-link" wicket:id="title-link" style="float:left;">
+						<span class="list-group-item-heading" wicket:id="content-title"></span>
+					</a>
+				
+					<span class="metadata" style="clear:left;" wicket:id="metadata"></span>
+				
+					<div class="col-lg-12 col-xs-12 col-md-12" style="padding:30px 0;" wicket:id="editor"></div>
+				</div>
+			</li>
+		</ul>
+	</div>
+
+	<div class="row" style="margin: 24px 0; ">
+		<a wicket:id="kbase" class="btn-link" target="_blank"  style="min-width:172px;" href="#">
+			<span> <wicket:message key="kbase" /></span>
+		</a>
+	</div>	
+	
+	
+	
+	
+	
+	
+	
+	<!-- div class="row">
+		<div class="form-group col-lg-12">	
+				<a wicket:id="view-iql-query" class="btn-link" href="#">
+					<span>view iql</span>
+				</a>
+		</div>
+		<div class="form-group col-lg-12">	
+			<span style="font-size: 0.92em;" class="metadata" wicket:id="iql-query"></span>
+		</div>
+		<div class="form-group col-lg-12">	
+			<span style="font-size: 0.92em;" class="metadata" wicket:id="instanced-iql-query"></span>
+		</div>
+	</div-->				
+				
+
+</wicket:panel>
+
+
+<wicket:fragment wicket:id="resources-fragment">
+	<div>
+				asssss
+	</div>
+</wicket:fragment>

@@ -1,0 +1,47 @@
+<wicket:panel>
+
+	<div class="row standard-canvas">
+		
+		<div class="button-container col-md-3 col-lg-2 col-xs-12" wicket:id="buttons"/>
+		
+		<form wicket:id="form"  class="col-md-9 col-lg-10 col-xs-12 form-container" role="form">
+
+
+
+			<h2 style="padding:0;" class="col-md-12 col-lg-10 col-xs-12"> <wicket:message key="person" /></h2>
+			
+			<div wicket:id="account-disabled" class="alert alert-info">
+					<span> <wicket:message key="account-disabled" /> </span>
+			</div>
+			
+			<div wicket:id="system-user" style="float:left; margin-bottom:20px; width:100%;"/>
+			
+			
+			<div class="row">
+				<div class="col-xs-12 col-md-12 col-lg-6 form-group" wicket:id="firstName"/>
+				<div class="col-xs-12 col-md-12 col-lg-6 form-group" wicket:id="lastName"/>
+				<div class="col-xs-12 col-md-12 col-lg-12 form-group" wicket:id="email"/>
+				
+				<!-- div class="col-xs-12 col-md-12 col-lg-12 form-group" wicket:id="emailValidated"/-->
+
+			</div>
+			<div class="row">
+				<div class="col-xs-12 col-md-12 col-lg-12 form-group" wicket:id="photo"/>
+				<!-- div class="col-xs-12 col-md-12 col-lg-6 form-group" wicket:id="photoDomainLogo"/-->
+			</div>
+				
+			<div class="row">
+					<!-- div class="col-xs-12 col-md-12 col-lg-6 form-group" wicket:id="phone"/-->
+					
+					<div class="col-xs-12 col-md-12 col-lg-12 form-group" wicket:id="workPosition"/>
+					<div class="col-xs-12 col-md-12 col-lg-12 form-group" wicket:id="id"/>
+			</div>
+			
+			
+				
+			
+		</form>
+		
+	</div>
+
+</wicket:panel>

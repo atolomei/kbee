@@ -1,0 +1,46 @@
+<wicket:extend>
+	<div class="console-top">
+		<div wicket:id="billboard" style="padding:0 30px; margin-bottom:30px; float:left; width:100%;"/>
+		
+		<div class="dashboard" wicket:id="dashboard" style="width: 100%;    padding: 0 30px;    min-height: calc(100vh - 153px);">
+			
+			<div wicket:id="alert" style="margin-bottom:30px; float:left; width:100%;" />
+			
+			<div class="row">	
+				<ul class="col-lg-7 col-md-12 col-xs-12">
+					<li wicket:id="widget-left" style="width:100%; float:left; padding:0 15px 0 15px; margin-bottom: 30px;">
+						<div wicket:id="panel" style="float:left; width:100%; position:relative; ">
+						</div>	
+					</li>
+				</ul>
+				<div class="col-lg-5 col-md-12 col-xs-12" style="padding:0;">
+					<ul class="col-lg-6 col-md-12 col-xs-12">
+						<li wicket:id="widget-center" style=" float:left; width:100%;padding:0 15px 0 15px; margin-bottom: 30px;">
+							<div wicket:id="panel" style="float:left; width:100%; position:relative;">
+							</div>	
+						</li>
+					</ul>
+					<ul class="col-lg-6 col-md-12 col-xs-12">
+						<li wicket:id="widget-right" style=" float:left; width:100%;padding:0 15px 0 15px; margin-bottom: 30px;">
+							<div wicket:id="panel" style="float:left; width:100%; position:relative;">
+							</div>	
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		
+			<div wicket:id="modal-container">
+				<div wicket:id="audit-trail-modal" class="modal window" 	tabindex="-1" role="dialog"/>
+				<div wicket:id="send-email-modal" class="modal window" 		tabindex="-2" role="dialog"/>
+				<div wicket:id="error-dialog" class="modal window" 			tabindex="-3" role="dialog"/>
+				<div wicket:id="confirmation-dialog" class="modal window" 	tabindex="-4" role="dialog"/>
+			</div>
+		
+		
+		
+		
+		<div wicket:id="feedback"/>
+	</div>
+</wicket:extend>
+

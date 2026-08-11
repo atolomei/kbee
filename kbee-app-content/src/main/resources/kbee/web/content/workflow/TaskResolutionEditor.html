@@ -1,0 +1,31 @@
+<wicket:head>
+	<style>
+		.kbee .task-form .inline-form {
+			border:none !important;
+		}
+	</style>
+</wicket:head>
+
+<wicket:panel>
+	<div class="vertical-form form-container" style="float:left; width:100%;">
+		<div class="form-group" wicket:id="description"/>
+		<div class="form-group" wicket:id="action"/>
+		<div class="form-group" wicket:id="token"/>
+		<div class="form-group" wicket:id="priority"/>
+		<div wicket:id="collaborator" class="form-group"/>	
+		<div class="form-group" wicket:id="reason"/>
+		<div class="form-group" wicket:id="template"  style="margin-bottom:10px;" />
+		<div class="form-group" wicket:id="letter"/>
+		<div class="form-group" wicket:id="note"/>
+		<div style="float:right;" wicket:id="actions">
+			<a wicket:id="cancel-link"     class="btn btn-lg btn-default"><span><wicket:message key="cancel"/></span></a>
+			<a wicket:id="submit-button"   class="btn btn-lg btn-primary"><span wicket:id="label"></span></a>
+		</div>
+		<div wicket:id="feedback"/>
+		<div wicket:id="resolution-modal" class="modal window" tabindex="-5" role="dialog"/>
+	</div>
+</wicket:panel>
+
+
+  
+

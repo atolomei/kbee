@@ -1,0 +1,25 @@
+<wicket:head>
+
+	<style type="text/css">
+		.text ul li { margin-top:5px }
+	</style>
+</wicket:head>
+
+
+<wicket:panel>
+
+	<div class="row standard-canvas">
+		<div class="col-xs-1 col-lg-10 col-md-9">
+				<h2> <wicket:message key="related-queries" /></h2>
+		</div>
+		<div style="margin-bottom:10px;" class="button-container col-md-3 col-lg-2 col-xs-12" wicket:id="buttons"/>
+		<form wicket:id="form"  class="col-md-9 col-lg-12 col-xs-12 form-container" style="padding:0;" role="form">
+			<div class="form-group col-md-12 col-xs-12" wicket:id="knowledgeCriteria"/>
+			<div class="form-group col-md-12 col-xs-12" wicket:id="relatedCriteria"/>
+		</form>
+	</div>
+	<div wicket:id="help-modal" class="modal window" z-index=999999 tabindex="-6" role="dialog"/>
+
+	
+</wicket:panel>
+

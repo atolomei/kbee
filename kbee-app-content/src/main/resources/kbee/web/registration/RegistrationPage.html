@@ -1,0 +1,25 @@
+<wicket:extend>
+	<div wicket:id="canvas">		
+		<div class="forgot-canvas" >
+			<div style="line-height: 1.6em; float: left; text-align: center;  font-size: 1em; margin-bottom: 24px;">
+				<div class="logo-container">
+					<img class="logo" wicket:id="logo"></img>
+				</div>
+				<span wicket:id="organization" style="float:left; width: 100%; font-size: 1.2em; text-transform: uppercase; color: #666666; margin-top: 20px; margin-bottom: 24px; font-weight:bold;">
+					[]
+				</span>
+				<span style="float:left; width: 100%; font-size: 1.2em; text-transform: uppercase; color: #666666; margin-top: 20px; margin-bottom: 24px; font-weight:500;"><wicket:message key="title"/></span>
+				<p style="margin-bottom: 0; line-height: 1.75em; color:#333333;"><wicket:message key="instructions"/></p>
+			</div>
+			<div style="float:left; width:100%; font-size: 1em;" wicket:id="form-panel">
+				<div wicket:id="account-editor"/>
+			</div>	
+			<div wicket:id="error-panel">
+				<div style="text-align:center; color:red;" class="col-xs-12 form-group"><span wicket:id="message">[]</span></div>
+				<div style="text-align: center;" class="col-xs-12 form-group">
+					<a href="/login"><wicket:message key="gotologin"/></a>
+				</div>	
+			</div>	
+		</div>
+	</div>	
+</wicket:extend>

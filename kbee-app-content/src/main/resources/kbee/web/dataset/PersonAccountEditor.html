@@ -1,0 +1,73 @@
+<wicket:panel>
+
+<div class="standard-canvas">
+
+	<div class="row">
+		<h2 class="col-md-12 col-lg-12 col-xs-12"> <wicket:message key="user" /></h2>
+	</div>
+	
+	<div class="row">
+		<div class="col-md-12 col-lg-12 col-xs-12">
+			<button wicket:id="creation-button" class="btn-link" style="padding-left:0;"><wicket:message key="creation-label" /></button>
+			<button wicket:id="link-user-button" class="btn-link"><wicket:message key="link-user-label" /></button>
+		</div>
+	</div>
+
+	<div style="float:left; width:100%;" wicket:id="editor"></div>
+	<div style="float:left; width:100%;" wicket:id="linker"></div>
+	
+</div>	
+	
+</wicket:panel>
+
+<wicket:fragment wicket:id="link-editor-fragment">
+	
+	<div class="row">
+			<h3 class="col-md-8 col-lg-10 col-xs-12"> <wicket:message key="luser" /></h3>
+			<div class="button-container col-md-4 col-lg-2 col-xs-12">
+				<button wicket:id="cancel-button" class="btn btn-default btn-sm"><wicket:message key="cancel" /></button>
+				<button wicket:id="save-button" class="btn btn-primary btn-sm"><wicket:message key="save" /></button>
+			</div>
+	</div>
+		
+	<div class="col-md-12 col-lg-12 col-xs-12" style="padding:0;">
+		<form wicket:id="form" class="form-container"  style=" width:100%;  float: left;" role="form">
+			<div class="row">	
+				<div class="form-group col-xs-12 col-md-8 col-lg-8" wicket:id="linked"/>
+			</div>
+		</form>
+	</div>
+
+
+</wicket:fragment>
+
+<wicket:fragment wicket:id="editor-fragment">
+
+	<div class="row">
+		<h3 class="col-md-8 col-lg-9 col-xs-12"> <span wicket:id="title"></span></h3>
+		<div class="button-container col-md-4 col-lg-3 col-xs-12">
+			<button wicket:id="cancel-button" type="reset" class="btn btn-default btn-sm"><wicket:message key="cancel-label" /></button>
+			<button wicket:id="edit-button" class="btn btn-primary btn-sm"><wicket:message key="edit-label" /></button>
+			<button wicket:id="create-button" type="submit" class="btn btn-primary btn-sm"><wicket:message key="create-label" /></button>
+			<button wicket:id="update-button" type="submit" class="btn btn-primary btn-sm"><wicket:message key="update-label" /></button>
+		</div>	
+	</div>
+	
+	<div class="col-md-8 col-lg-8 col-xs-12" style="padding:0;">
+		<form wicket:id="form" class="form-container"  style=" width:100%;  float: left;" role="form">
+	
+			<!-- div class="alert alert-warning">Por favor antes de crear el usuario verifique en no existe el usuario que corresponde a esta persona</div-->
+	
+			<div class="row">	
+				<div class="form-group col-xs-12 col-md-12 col-lg-12" wicket:id="name"/>
+				<div class="form-group col-xs-12 col-md-12 col-lg-12"  wicket:id="email"/>
+				<div class="form-group col-xs-12 col-md-12 col-lg-12" wicket:id="role"/>
+				<div class="form-group">
+					<h4 class="col-xs-12 col-md-12 col-lg-12"><wicket:message key="authentication" /></h4>
+					<div class="col-xs-12 col-md-12 col-lg-12 mb15" wicket:id="googleAuth"/>
+					<div class="col-xs-12 col-md-12 col-lg-12 mb15" wicket:id="facebookAuth"/>
+				</div>
+			</div>
+		</form>
+	</div>
+</wicket:fragment> 

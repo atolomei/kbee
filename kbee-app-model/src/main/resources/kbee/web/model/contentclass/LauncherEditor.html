@@ -1,0 +1,52 @@
+<wicket:panel>
+	
+	<div class="launcher-editor-container">
+		
+		<h2 style="margin-bottom:15px; float:left;"><wicket:message key="launcher.label" /></h2>
+		<div style="float:right;" wicket:id="buttons"/>
+		
+		<form wicket:id="form" role="form" class="form-container">
+				
+			<div wicket:id="launcher.info" style="margin:15px 0; float:left; width:100%;" />
+				
+			<div class="row">
+				<div class="col-xs-12 col-md-12 col-lg-12 form-group" 	wicket:id="label"/>
+				<div class="col-xs-12 col-md-12 col-lg-12 form-group" 	wicket:id="launcherGroup"/>
+				<div class="col-xs-12 col-md-12 col-lg-12 form-group" 	wicket:id="description"/>
+					
+				<div class="col-xs-12 col-lg-12">
+				<h2><wicket:message key="contexts.section" /></h2>	
+				</div>
+					
+				<div class="col-xs-12 col-md-3 col-lg-3 form-group" 	wicket:id="enabled"/>
+				<div class="col-xs-12 col-md-3 col-lg-3 form-group" 	wicket:id="library"/>
+				<div class="col-xs-12 col-md-3 col-lg-3 form-group" 	wicket:id="apiEnabled"/>
+				<div class="col-xs-12 col-md-3 col-lg-3 form-group" 	wicket:id="mobile"/>
+					
+				<div class="col-xs-12 col-lg-12">
+				<h2><wicket:message key="start.section" /></h2>	
+				</div>
+				<div class="col-xs-12 col-md-12 col-lg-12 form-group" 	wicket:id="classifiersrules"/>
+				<div class="col-xs-12 col-md-12 col-lg-12 form-group" 	wicket:id="attributesrules"/>
+				<div class="col-xs-12 col-md-12 col-lg-12 form-group" 	wicket:id="scriptrule"/>
+					
+				<div class="col-xs-12 col-md-12 col-lg-12 form-group" 	wicket:id="condition"/>
+					
+				<div class="col-xs-12 col-md-12 col-lg-12 form-group" 	wicket:id="router"/>
+				
+				<div class="col-xs-12 col-md-12 col-lg-12 form-group" 	wicket:id="useTemplate"/>
+			</div>
+					
+			<div class="row">
+				<div class="col-xs-12 col-lg-12">
+					<h2><wicket:message key="security.section" /></h2>	
+				</div>
+				<div class="col-xs-12 col-md-12 col-lg-12" style="margin:0;" wicket:id="acl-editor"/>
+			</div>
+		</form>
+		
+	</div>
+	
+</wicket:panel>
+
+

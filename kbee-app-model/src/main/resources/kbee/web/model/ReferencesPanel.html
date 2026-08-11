@@ -1,0 +1,37 @@
+<wicket:head>
+
+<style>
+	.kbee .navbar .navigation-range-container { padding: 7px 0;  margin: 4px 0; line-height: 20px; }
+	.kbee .navbar .btn-mini	{ padding: 7px 9px; float: left; border-radius: 4px; margin: 4px 0px; border: 1px solid transparent;height: 34px; }
+</style>
+
+</wicket:head>
+
+
+<wicket:panel>
+	
+	<div class="row standard-canvas">
+		
+			<h2 style="float:left;" class="col-md-12 col-lg-12 col-xs-12"> <wicket:message key="references" /></h2>
+			
+			<div class="col-md-12 col-lg-12 col-xs-12">		
+				<div wicwwsket:id="info-alert" class="alert alert-info" role="alert"> 
+						<span wicwwket:id = "info">
+							 <wicket:message key="references-info" />
+						</span>
+				</div>
+			</div>
+				
+			<ul style="padding:0 15px;" class="col-md-12 col-lg-12 col-xs-12"> 
+					<li wicket:id="group">
+						<section class="section" wicket:id="container"> 
+							<h2   style="float:left;" wicket:id="name">[group]</h2>
+							<div wicket:id="pager"/>
+							<ul class="list-group"> 
+								<li class="list-group-item" wicket:id="reference"><a wicket:id="link"><span wicket:id="description">[Reference]</span></a></li>
+							</ul>
+						</section>
+					</li>
+			</ul>	
+	</div>
+</wicket:panel>

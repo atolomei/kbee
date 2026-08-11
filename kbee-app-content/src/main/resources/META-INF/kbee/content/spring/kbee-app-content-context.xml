@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+		http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+		http://www.springframework.org/schema/context
+		http://www.springframework.org/schema/context/spring-context-3.0.xsd 
+		http://www.springframework.org/schema/tx 
+		http://www.springframework.org/schema/tx/spring-tx.xsd">
+
+	
+	<bean id="app-lateral-menu" class="kbee.web.content.nav.LateralMenuFactory"/>
+	
+	<bean id="app-top-bar" class="com.novamens.content.web.nav.markup.GlobalNavigationBar" scope="prototype"/>
+	
+	<bean id="home-page" class="kbee.web.page.HomeSimplePage" scope="prototype"/>
+	
+	<bean id="kbeeidoc-V6panel" class="kbee.web.idoc.IDocHitExpandedPanelV6" scope="prototype"/>
+	<bean id="kbeecontentproxy-V6panel" class="kbee.web.idoc.IDocHitExpandedPanelV6" scope="prototype"/>
+	
+	<bean id="taskpage-factory" class="kbee.web.workflow.task.DefaultTaskPageFactory"/>
+	<bean id="kbeeidoc-page" class="kbee.web.idoc.IDocPageV6" scope="prototype"/>
+	
+	<!-- bean id="kbeeidoc-taskpage" class="kbee.web.idoc.IDocTaskPageV5" scope="prototype"/-->
+	<!-- eForms version  -->
+	<bean id="kbeeidoc-taskpage-V2" class="kbee.web.idoc.IDocTaskPageV6" scope="prototype"/>
+	<bean id="kbeeorganizationaltext-taskpage-V2" class="kbee.web.text.eforms.TextTaskPageV6" scope="prototype"/>
+	<bean id="kbeecontentproxy-taskpage-V2" class="kbee.web.idoc.IDocTaskPageV6" scope="prototype"/>
+	
+	<bean id="webMappingAbstract" abstract="true" class="kbee.web.util.WebMapping" >
+		<property name="mapping">
+			<map>
+				
+				<!-- entry key="/login" value="com.novamens.content.web.security.login.LoginSimplePage"/-->
+				<!-- entry key="/login" value="kbee.web.login.AALoginPage"/-->
+				
+				
+				<entry key="/reports" value="kbee.web.report.ReportsHomePage"/>
+				<entry key="/reports/subscriptions" value="com.novamens.content.web.report.markup.ReportSubscriptionPage"/>
+				<entry key="/loginDomainSelection" value="kbee.web.security.LoginDomainSelectionPage"/>
+				<entry key="/reports/subscriptions" value="com.novamens.content.web.report.markup.ReportSubscriptionPage"/>
+				<entry key="/close" value="kbee.web.page.ClosePage"/>
+				<entry key="/home" value="kbee.web.page.HomeSimplePage"/>
+				<entry key="/import" value="kbee.web.importer.ImportPage"/>
+				<entry key="/new" value="kbee.web.security.user.NewUserPage2"/>
+				<entry key="/paymentTest" value="kbee.web.payment.TestPaymentPage"/>
+				<entry key="/clone" value="kbee.web.importer.ClonePage"/>
+				<entry key="/registration" value="kbee.web.registration.RegistrationPage"/>
+				<entry key="/maintenance" value="com.novamens.content.web.security.markup.MaintenancePage"/>
+				<entry key="/froala/images" value="kbee.wicket.froala.FroalaImagesPage"/>
+			</map>
+		</property>
+	</bean>
+	
+	<bean id="webMapping" parent="webMappingAbstract" />
+
+	
+	
+	
+	<!--  Iql Service  -->
+	
+	<bean id="portalPanelServiceFactory" class="com.novamens.spring.service.SpringSystemServiceFactory">
+		<property name="bean" value="portalPanelService"/>
+	</bean>
+	
+	<bean id="portalPanelService" class="kbee.web.portal6.KbeePortalPanelService"/>
+	
+	
+	
+	<bean id="portalMVCServiceFactory" class="com.novamens.spring.service.SpringSystemServiceFactory">
+		<property name="bean" value="portalMVCService"/>
+	</bean>
+	<bean id="portalMVCService" class="kbee.web.portal6.KbeePortalMVCService"/>
+					
+
+	<bean id="portalLiteralsServiceFactory" class="com.novamens.spring.service.SpringSystemServiceFactory">
+		<property name="bean" value="portalLiteralsService"/>
+	</bean>
+	<bean id="portalLiteralsService" class="kbee.web.portal6.KbeePortalLiteralsService"/>
+
+
+	<!--  InlineHelp Service -->
+	
+	<bean id="kbee.web.help.InlineHelpWebServiceFactory" class="com.novamens.spring.service.SpringSystemServiceFactory">
+		<property name="bean" value="kbee.web.help.InlineHelpWebService"/>
+	</bean>
+	
+	<bean id="kbee.web.help.InlineHelpWebService" class="kbee.web.help.KbeeInlineHelpWebService"/>
+	
+	
+	<!--  Dashboard  -->
+	
+	<bean id="userDashboardServiceFactory" class="com.novamens.spring.service.SpringObjectServiceFactory">
+		<property name="bean" value="userDashboardService"/>
+	</bean>
+	<bean id="userDashboardService" class="kbee.web.dashboard.KbeeUserDashboardService" scope="prototype">
+			<property name="contentDao" ref="contentDao"/>
+			<property name="portalDao" ref="portalDao"/>
+	</bean>
+	
+	<!--  Consola Explorer  -->
+	
+	<bean id="kbee.web.console.ExplorerConsole" class="kbee.web.content.console.TreeExplorerPage" scope="prototype"/>
+	
+
+</beans>

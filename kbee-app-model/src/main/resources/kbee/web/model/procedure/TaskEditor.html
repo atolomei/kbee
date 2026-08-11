@@ -1,0 +1,109 @@
+
+
+<wicket:panel>
+
+	<div class="row">
+		
+		<div class="button-container col-md-3 col-lg-2 col-xs-12" wicket:id="buttons"/>
+		<div class="col-xs-12 col-lg-10 col-md-9">
+				<h2> <wicket:message key="task-info" /></h2>
+		</div>
+					
+		<form wicket:id="form"  class="col-md-12 col-lg-12 col-xs-12 form-container" style="padding:0;" role="form">
+
+			<div class="form-group col-md-12 col-lg-6 col-xs-12" wicket:id="name"/>
+			<div class="form-group col-md-12 col-lg-6 col-xs-12" wicket:id="id"/>
+
+			<div class="form-group col-md-12 col-xs-12 col-lg-6" wicket:id="phase"/>
+			<div class="form-group col-md-12 col-xs-12 col-lg-6" wicket:id="role"/>
+			
+			<div class="form-group col-md-12 col-xs-12 col-lg-12" wicket:id="initial"/>
+			<div class="form-group col-md-12 col-xs-12" wicket:id="description"/>
+			
+			
+			<div class="col-md-12 col-xs-12 col-lg-12">
+				<h2><wicket:message key="actions" /></h2>
+			</div>
+			<div class="form-group col-md-12 col-xs-12" style="margin-bottom:25px;" wicket:id="conditions"/>
+
+			<div class="col-md-12 col-xs-12 col-lg-12">
+				<h2><wicket:message key="security" /></h2>
+			</div>
+			
+			<div wicket:id="trigger" class="form-group col-md-12 col-xs-12" style="padding:0;"/>
+
+			<div class="form-group col-md-12 col-lg-12 col-xs-12" wicket:id="enableEditingAllResources"/>
+			<div class="form-group col-md-12 col-lg-12 col-xs-12" wicket:id="editableTitle"/>
+			
+				
+				
+			<div class="form-group col-md-12 col-lg-12 col-xs-12" wicket:id="cancelEnabled"/>
+				
+			<div class="form-group col-md-12 col-lg-12 col-xs-12" wicket:id="enableProgressNotes"/>
+				
+			<div class="form-group col-md-12 col-lg-12 col-xs-12" wicket:id="enablePublicLink"/>
+							
+			<div class="form-group col-md-12 col-lg-12 col-xs-12" wicket:id="enableLabels"/>
+			
+			<div class="form-group col-md-12 col-xs-12" wicket:id="enabledRoles"/>
+
+			<!-- div class="col-md-12 col-xs-12 col-lg-12">
+				<h2><wicket:message key="failover" /></h2>
+			</div>
+
+			<div class="form-group col-md-12 col-xs-12" wicket:id="precondition"/>
+			<div class="form-group col-md-12 col-xs-12" wicket:id="taskOnPreconditionFail"/-->
+
+
+		    <div class="col-md-12 col-xs-12 col-lg-12">
+				<h2><wicket:message key="letters" /></h2>
+			</div>
+			<div class="form-group col-md-12 col-xs-12" wicket:id="resolutionAction"/>
+			
+		    <div class="col-md-12 col-xs-12 col-lg-12">
+				<h2><wicket:message key="due-date" /></h2>
+			</div>
+			
+			<div class="form-group col-lg-12 col-md-12 col-xs-12" wicket:id="duedateAction"/>
+			<div class="form-group col-lg-12 col-md-12 col-xs-12" wicket:id="duedateExpression"/>
+			
+			<div class="col-md-12 col-xs-12 col-lg-12">
+				<h2><wicket:message key="events" /></h2>
+			</div>
+			
+			<div class="form-group col-lg-12 col-md-12 col-xs-12" wicket:id="onStart"/>
+			
+		</form>
+</div>
+		<div wicket:id="help-modal" class="modal window" z-index=999999 tabindex="-6" role="dialog"/>
+</wicket:panel>
+
+<wicket:fragment wicket:id="conditions-table-fragment">
+
+	<div style="margin-bottom:25px; float:left; width:100%;">
+		<table class="table table-header-bck table-hover">
+			<thead>
+				<tr class="headers">
+					<th class="col-xs-2 col-md-2 col-lg-2"><span><wicket:message key="condition.label" /></span></th>
+					<th class="col-xs-1 col-md-1 col-lg-1"><span><wicket:message key="condition.enabled" /></span></th>
+					<th class="col-xs-5 col-md-5 col-lg-5"><span><wicket:message key="condition.router" /></span></th>
+					<th class="col-xs-3 col-md-3 col-lg-3"><span><wicket:message key="condition.precondition" /></span></th>
+					<th class="col-xs-1 col-md-1 col-lg-1"><span></span></th>
+				</tr>
+			</thead>
+			<tbody wicket:id="body">
+				<tr wicket:id="condition" class="condition">
+					<td class="col-xs-2 col-md-2 col-lg-2"><div><a class="btn-link" wicket:id="condition-link"><span wicket:id="condition-label"></span></a></div></td>
+					<td class="col-xs-1 col-md-1 col-lg-1"><div><span wicket:id="condition-enabled"></span></div></td>
+					<td class="col-xs-5 col-md-5 col-lg-5"><div wicket:id="condition-router"></div></td>
+					<td class="col-xs-3 col-md-3 col-lg-3"><div wicket:id="condition-precondition"></div></td>
+					<td class="col-xs-1 col-md-1 col-lg-1" style="text-align: center;"><a class="btn-link" wicket:id="delete-link"><i class="fal fa-trash-alt"></i></a></td>
+				</tr>
+			</tbody>
+		</table>
+		<a wicket:id="addcondition-link" style="margin-top: 10px; margin-bottom: 0;right: 0; bottom: 0px;position: relative;float: right;" class="btn btn-default btn-sm"> <wicket:message key="add-action"/></a>
+		<div wicket:id="confirmation-dialog" class="modal window" tabindex="-20" role="dialog"/>
+	</div>
+
+</wicket:fragment>
+

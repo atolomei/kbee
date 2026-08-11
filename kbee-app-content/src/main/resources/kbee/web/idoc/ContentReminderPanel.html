@@ -1,0 +1,26 @@
+<wicket:panel>
+	<div class="section-header" style="width:100%; float:left;">
+		<h2 style="float:left;"> 
+			<wicket:message key="reminder" />
+		</h2>
+		<ul class="toolbar-buttons" style="float:right">
+			<li class="items-top-left">
+				<a class="btn btn-primary btn-md" wicket:id="add">
+					 <wicket:message key="add" />
+				</a>
+			</li>
+		</ul>
+	</div>
+	<div style="width:100%; float:left; margin-top:15px;">
+		<div wicket:id ="no-alerts" class="alert alert-info">
+			<wicket:message key="no-alerts-msg" />
+		</div>
+		<div wicket:id ="edit-alert">
+			<div style="float:left; width:100%;" wicket:id ="content-alert-info"></div>
+			<div class="alert" style="margin-top:-50px;">
+				<wicket:message key="console-alerts" />
+			</div>
+		</div>
+	</div>
+	
+</wicket:panel>

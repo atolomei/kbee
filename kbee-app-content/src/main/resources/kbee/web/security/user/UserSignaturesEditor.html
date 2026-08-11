@@ -1,0 +1,270 @@
+<wicket:panel>
+	
+	<div class="standard-canvas">
+		<div class="row">				
+			<div class="col-lg-12 col-md-12 col-xs-12">
+				<h2><wicket:message key="stitle" /></h2>
+			</div>
+			<div class="mb15 col-lg-12 col-md-12 col-xs-12"  wicket:id="alert-info" />
+		</div>
+					
+		<div class="row">
+		
+			<!--  NO REGISTER  ------------------------------------------->
+			<div wicket:id="no-device-panel" style="width:100%; float:left;"/>
+
+			<!--  DEVICE REGISTER  ------------------------------------------->
+			<div wicket:id="device-register" style="width:100%; float:left;"/>
+
+			<!--  DEVICE ARCHIVE  ------------------------------------------->
+			<div wicket:id="device-archive"  class="row" style="width:100%; float:left;"/>
+					
+			<!--  SIGNATURE TYPE -> SMS | PHONE APP ---------------------------->
+			<div class="col-lg-12 col-md-12 col-xs-12" wicket:id="signature-type" style="text-align: center;"/>
+
+			<!--  DEVICES ------------------------------------------->
+			<div class="col-lg-12 col-md-12 col-xs-12" wicket:id="devices" style=" text-align: center;"/>
+				
+			<!--  SIGNATURE REGISTERED  --------------->
+			<div wicket:id="signature-panel"/>
+					
+		</div>
+				
+		<div wicket:id="confirmation-dialog" class="modal window" tabindex="-20" role="dialog"/>
+	</div>
+	
+</wicket:panel>
+
+
+
+<!--  UPLOAD  ------------------------------------------->
+		
+<wicket:fragment wicket:id="signature-upload-fragment">
+					<div class="col-lg-12 col-md-12 col-xs-12">
+							<div style="border: 1px solid #d8dcdf; padding-top:15px; padding:15px;	border-radius: 4px;display: block;width: 100%;  margin-top:1px; float:left;">	
+								
+								<h3 style="width:100%; text-align:center;"><wicket:message key="registered-signature" /></h3>		
+								<form wicket:id="form"  class="col-md-9 col-lg-10 col-xs-12 form-container" role="form">
+									<div class="row">
+										<div class="col-xs-12 col-md-12 col-lg-12 form-group" wicket:id="handWriteImage"/>
+									</div>
+								</form>
+								
+								<div class="button-container col-md-12 col-lg-12 col-xs-12">
+										<a wicket:id="cancel"  class="btn btn-sm btn-default">
+												<span> <wicket:message key="cancel" /></span>
+										</a>
+										<a wicket:id="save" class="btn btn-sm btn-primary">
+												<span> <wicket:message key="save" /></span>
+										</a>
+								</div>
+								
+								
+							</div>
+					</div>
+</wicket:fragment>
+
+
+<!--  NO DEVICE  ------------------------------------------->
+
+<wicket:fragment wicket:id="no-device-fragment">
+	<div class="col-lg-12 col-md-12 col-xs-12" wicket:id="nodevice">
+		<div style="border: 1px solid #d8dcdf; padding-top:15px; padding:15px;	border-radius: 4px;display: block;width: 100%;  margin-top:0px; float:left;">	
+			<div style="float:left; width:100%;"  wicket:id="nodevice-alert" />
+			<!-- 
+			<div wicket:id="actions" style="width: 100%; display:inline-block; text-align:right; margin-top:15px;">
+				<a class="btn btn-default btn-lg" wicket:id="devicearchive-link" ><span><wicket:message key="archive.label" /></span></a>
+			</div>
+			-->
+		</div>
+	</div>
+</wicket:fragment>
+				
+							
+<!--  SIGNATURE ARCHIVE  ------------------------------------------->
+
+<wicket:fragment wicket:id="signatures-archive-fragment">
+	<div wicket:id="archive-table" class="col-lg-12">
+			 <div style="border: 1px solid #d8dcdf; float:left; width:100%; padding:15px;  margin-top:1px;">
+				
+				<div style="float:right; padding:10px 0;">
+						<a class="btn-link" wicket:id="close-link"> <span><wicket:message key="close" /></span></a>
+				</div>
+				
+				<!-- i class="fa-solid fa-xmark"></i-->
+				
+				<table class="table-responsive table table-header-bck  table-hover" id="tasks" style="line-height: 1.5em;">
+					<thead>
+						<tr class="headers">
+							<th class="col-xs-2 col-md-3 col-lg-3"><span> <wicket:message key="image.label" /></span></th>
+							<th class="col-xs-1 col-md-2 col-lg-2"><span> <wicket:message key="registered.label" /></span></th>
+							<th class="col-xs-2 col-md-3 col-lg-3"><span> <wicket:message key="archived.label" /></span></th>
+							<th class="col-xs-2 col-md-3 col-lg-3"><span> <wicket:message key="device.label" /></span></th>
+							<th class="col-xs-1 col-md-2 col-lg-2"><span> <wicket:message key="state.label" /></span></th>
+							<th class="col-xs-1 col-md-1 col-lg-1"><span></span></th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr wicket:id="signature">
+							<td class="col-xs-6 col-md-3 col-lg-3">
+								<div style="width:100%; text-align:center;">
+									<img wicket:id="image" class="player" style="max-width:140px;"/>
+									<span wicket:id="icon" style="width: 100%;  display: inline-block;  text-align: center; font-size: 30px;">
+										<i class="fal fa-file-signature" style="color: #e55932; font-size:30px;"></i>
+									</span>
+								</div>
+							</td>
+							<td class="col-xs-6 col-md-2 col-lg-2"><div wicket:id="date"></div></td>
+							<td class="col-xs-2 col-md-3 col-lg-3"><div wicket:id="archived"></div></td>
+							<td class="col-xs-6 col-md-3 col-lg-3"><div wicket:id="device"></div></td>
+							<td class="col-xs-6 col-md-2 col-lg-2"><div wicket:id="state"></div></td>
+							<td class="col-xs-1 col-md-1 col-lg-1" style="text-align: center;"></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+	</div>
+</wicket:fragment>
+
+				
+
+<!-- DEVICE ARCHIVE  ---------------------------------------------------------------- -->
+
+<wicket:fragment wicket:id="device-archive-fragment">
+	<div wicket:id="device-archive-table" class="panel">
+		<div style="float:right;padding-right:2px;"><a wicket:id="close-link"><span><i class="fa-solid fa-xmark"></i></span></a></div>
+		<table class="table-responsive table table-header-bck  table-hover" id="tasks" style="line-height: 1.5em;">
+			<thead>
+				<tr class="headers">
+					<th class="col-xs-2 col-md-3 col-lg-3"><span> <wicket:message key="description.label" /></span></th>
+					<th class="col-xs-2 col-md-3 col-lg-3"><span> <wicket:message key="registered.label" /></span></th>
+					<th class="col-xs-2 col-md-3 col-lg-3"><span> <wicket:message key="archived.label" /></span></th>
+					<th class="col-xs-1 col-md-2 col-lg-2"><span> <wicket:message key="state.label" /></span></th>
+					<th class="col-xs-1 col-md-1 col-lg-1"><span></span></th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr wicket:id="device">
+					<td class="col-xs-2 col-md-3 col-lg-3"><div><span wicket:id="description"></span></div></td>
+					<td class="col-xs-2 col-md-3 col-lg-3"><div wicket:id="registered"></div></td>
+					<td class="col-xs-2 col-md-3 col-lg-3"><div wicket:id="archived"></div></td>
+					<td class="col-xs-1 col-md-2 col-lg-2"><div><span wicket:id="state"></span></div></td>
+					<td class="col-xs-1 col-md-1 col-lg-1" style="text-align: center;"><!--  <div><a class="delete-link" wicket:id="delete-link"><i class="fal fa-trash"></i></a></div>--></td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</wicket:fragment>
+
+
+<!-- SIGNATURE TYPE  ---------------------------------------------------------------- -->
+
+<wicket:fragment wicket:id="signature-type-fragment">
+	
+	<div style="border: 1px solid #d8dcdf; padding: 15px;border-radius: 4px;display: block;width: 100%; margin:auto; margin-top:1px; float:left;">
+			<div class="row">
+					<div class="col-xs-12 col-md-12 col-lg-12"> 
+						<span><h3>Firma</h3></span>
+						<span wicket:id="type" />
+					</div>
+			</div>
+	</div>
+</wicket:fragment>
+
+
+<!-- DEVICE REGISTER  ---------------------------------------------------------------- -->
+
+<wicket:fragment wicket:id="device-register-fragment">
+	<div class="panel col-lg-12 col-md-12 col-xs-12">
+		<div wicket:id="wizard" style="border: 1px solid #d8dcdf; padding: 15px;border-radius: 4px;display: block;width: 100%; margin:auto; margin-top:0px; float:left;">
+			<h3> <wicket:message key="device-register" /></h3>
+			<div wicket:id="step1" style="float:left; width:100%;">
+				<div class="mt15" style="float:left; width:100%; margin-bottom:10px;">
+					<span style="width: 100%;display: inline-block;"> <wicket:message key="register.explanation" /></span>
+				</div>
+				<div class="row">
+					<div class="col-xs-12 col-md-12 col-lg-12" wicket:id="number" />
+				</div>
+				<div class="row">
+					<div class="col-xs-12 col-md-12 col-lg-12 mt15" style="text-align:right;">
+						<button wicket:id="cancel" 		type="reset"	class="btn btn-default btn-lg"><wicket:message key="button.cancel" /></button>
+						<button wicket:id="register" 	type="submit"	class="btn btn-primary btn-lg atright"><wicket:message key="button.register"/></button>
+					</div>
+				</div>
+			</div>
+			<div wicket:id="step2" style="float:left; width:100%;">
+				<div style="padding: 10px;">
+					<span style="width: 100%;display: inline-block;" wicket:id="registered-message" />
+				</div>
+				<div style="width: 100%;display: inline-block; text-align:right;">	
+					<button wicket:id="ok" type="submit" class="btn btn-default btn-lg">OK</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</wicket:fragment>
+
+
+<!-- DEVICES  ---------------------------------------------------------------- -->
+
+<wicket:fragment wicket:id="devices-fragment">
+	<div  class="panel">
+		<table class="table-responsive table table-header-bck  table-hover" id="tasks" style="line-height: 1.5em;">
+			<thead>
+				<tr class="headers">
+					<th class="col-xs-2 col-md-3 col-lg-3"><span> <wicket:message key="description.label" /></span></th>
+					<th class="col-xs-2 col-md-3 col-lg-3" style="text-align:center"><span><wicket:message key="registered.label"/></span></th>
+					<!-- 
+					<th class="col-xs-2 col-md-3 col-lg-3" style="text-align:center"><span><wicket:message key="archived.label"/></span></th>
+					-->
+					<th class="col-xs-1 col-md-2 col-lg-2" style="text-align:center"><span><wicket:message key="state.label"/></span></th>
+					<th class="col-xs-1 col-md-1 col-lg-1"><span></span></th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr wicket:id="device">
+					<td class="col-xs-2 col-md-3 col-lg-3"><div><span wicket:id="description"></span></div></td>
+					<td class="col-xs-2 col-md-3 col-lg-3"><div wicket:id="registered" style="text-align:center; width:100%;"></div></td>
+					<!-- 
+					<td class="col-xs-2 col-md-3 col-lg-3"><div wicket:id="archived" style="text-align:center; width:100%;"></div></td>
+					-->
+					<td class="col-xs-1 col-md-2 col-lg-2"><div style="text-align:center; width:100%;"><span wicket:id="state"></span></div></td>
+					<td class="col-xs-1 col-md-1 col-lg-1" style="text-align: center;"><div>
+						<a class="delete-link" wicket:id="delete-link"><span><wicket:message key="button.archive"/></span></a>
+						<a wicket:id="restore-link"><span><wicket:message key="button.restore"/></span></a></div>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</wicket:fragment>
+
+
+<!-- SIGNATURE  ---------------------------------------------------------------- -->
+
+<wicket:fragment wicket:id="signature-fragment">
+	<div class="col-lg-12 col-md-12 col-xs-12">
+		<div style="border:1px solid  #d8dcdf; border-radius: 4px;display: block;width: 100%; margin:auto; margin-top:1px; padding:15px 0;">
+			<div wicket:id="signature" style=" text-align: center;">
+				<h3><wicket:message key="registered-signature" /></h3>
+				<img wicket:id="image" style="max-width:300px; max-height:300px; margin-bottom: 10px;margin-top: 10px; "/>
+				<span wicket:id="icon" style="  width: 100%;  display: inline-block;  text-align: center;  padding: 20px; font-size: 40px;">
+					<i class="fa-solid fa-signature" style="font-size: 86px; padding: 40px 60px; border: 1px solid #d8dcdf; border-radius: 12px; background: #fbfbfb; color:#e55932;;"></i>
+				</span>
+				<span  wicket:id="device" style="width: 100%;display: inline-block;text-align: center; font-size: 1em;"></span>
+				<span wicket:id="date" style="width: 100%;display: inline-block;text-align: center; font-size: 1em;"></span>
+			</div>
+			<div wicket:id="nosignature" />
+			<!-- 							
+			<div style="width: 100%;padding: 15px 15px 0 15px; display:inline-block; text-align:right;">
+			<a class="btn btn-md btn-link" style="text-decoration: underline;"  wicket:id="archive-link"><span><wicket:message key="archive.label" /></span></a>
+			<!-- a class="btn btn-md btn-default" wicket:id="upload-link"><span><wicket:message key="upload.label" /></span></a-->
+			<!-- 
+			<a class="btn btn-md btn-default atright" wicket:id="remove-link"><span><wicket:message key="delete.label" /></span></a>
+			</div>
+			-->							
+		</div>
+	</div>
+</wicket:fragment>
+
+

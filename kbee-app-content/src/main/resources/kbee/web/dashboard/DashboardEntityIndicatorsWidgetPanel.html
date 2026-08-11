@@ -1,0 +1,47 @@
+<wicket:panel>
+	<div class="dashboard-widget">
+		<div class="header" wicket:id="header"></div>
+		<div class="widget-body-container">
+			<div style="padding-top: 15px;float: left; width: 100%;">
+				<dl>
+		    		<dt><wicket:message key="tasks-label"/></dt>
+	    			<dd><a wicket:id="tasks-link"><span wicket:id="tasks-total">[]</span></a></dd>
+		    		<dt><wicket:message key="last-activity-label"/></dt>
+	    			<dd><span wicket:id="last-activity-time">[]</span></dd>
+		    		<dt><wicket:message key="published-label"/></dt>
+	    			<dd><span wicket:id="published-total">[]</span></dd>
+				</dl>
+			</div>
+		</div>
+	</div>		
+</wicket:panel>
+
+<wicket:fragment wicket:id="base-header-fragment">
+	
+	<div style="width:100%; float:left;">
+		
+		
+					<a wicket:id="title-link" class="btn-link">
+						<h2 wicket:id="title" style="float:left; padding-top:7px; margin:0;"></h2>
+					</a>
+		
+		
+		<div style="float:right;">
+			<a class="btn-mini" wicket:id="edit" title="edit" href="#">
+				<i class="far fa-edit"></i>
+			</a>
+			<a class="btn-mini" wicket:id="help" title="help" href="#">
+				<i class="fal fa-info-circle"></i>
+			</a>
+			<a class="btn-mini" wicket:id="refresh" title="Refresh" href="#">
+				<i class="far fa-sync "></i>
+			</a>
+			
+			<a class="btn-mini" wicket:id="collapse" title="Collapse" href="#">
+						<span class="expand" wicket:id="expand-label"></span>
+						<i wicket:id="collapse-icon" class="far fa-angle-up"></i>
+			</a>
+		</div>
+	</div>			
+</wicket:fragment>		
+

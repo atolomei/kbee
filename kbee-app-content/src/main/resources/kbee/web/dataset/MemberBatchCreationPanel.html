@@ -1,0 +1,73 @@
+<wicket:panel>
+	
+
+	  <div class="container-fluid">
+
+				<div class="canvas"  wicket:id="canvas">
+								<div class="content-header">
+									<h1> <wicket:message key="batchcreation" /></h1>
+								</div>
+								
+								<div class="col-lg-4">
+									<form id="form" method="post" action="#" wicket:id="form" class="form-container">
+										<div class="form-group">
+												<div  class="control-label"><label>Dataset</label></div>
+												<select wicket:id="datasets"  class="form-control"></select>
+										</div>
+
+										<div class="form-group">
+											<div  class="control-label"><label>Elements</label></div>
+											<span style="color: #777777; margin-left: 4px;" class="description">(One per line)</span>											
+											<textarea wicket:id="elements"  class="form-control" rows="12"></textarea>
+										</div>
+										
+										<div class="button-container" style="float:left;">
+							 				<a wicket:id="submit-button"  href="#" class="btn btn-sm btn-default"> <wicket:message key="save"/></a>
+							 				<a wicket:id="close-button"  href="#"   class="btn btn-sm btn-default"><wicket:message key="cancel"/></a>
+										</div>
+										<div wicket:id="feedback"></div>   
+									</form>
+								</div>
+								
+								
+								
+								<div wicket:id="status" class="col-lg-8">
+										<h2>Status</h2>
+										<div class="field-block first">
+											<ul style="width:100%; float:left;">	
+												<li wicket:id="status-container">
+													<span class="label">Status.</span>   	<span class="value" wicket:id="status">Executing</span>
+												</li>
+												<li wicket:id="date-start-container">
+													<span class="label">Started.</span>  	<span class="value" wicket:id="date-start">12 Oct 2012 (12 minutes ago)</span>
+												</li>
+												<li wicket:id="progress-container">
+													<span class="label">Progress.</span><span class="value" wicket:id="progress">20%</span>
+												</li>
+												<li wicket:id="etc-container">
+													<span class="label">Estimated time to complete.</span><span class="value" wicket:id="etc">23 secs</span>
+												</li>
+											</ul>
+										</div>
+										
+										<div class="field-block expanded" wicket:id="command-result" style="float:left;">
+											<ul style="width:100%; float:left;">	
+												<li wicket:id="date-end-container" style="margin-top:24px;"><span class="label">Terminated.</span> <span class="value" wicket:id="date-end"></span></li>
+												<li wicket:id="duration-container">
+													<span class="label">Duration.</span> <span class="value" wicket:id="duration"></span></li>
+												<li wicket:id="resultcomments-container"><span class="label">Comments.</span><span class="value" wicket:id="resultcomments"></span></li>
+												<li wicket:id="result-container"><span class="label">Result.</span><span class="value" wicket:id="result"></span></li>
+												<li wicket:id="result-details-container"><span class="label"  style="float:left; width:100%; margin-top:0;">Result details.</span><span class="text-value" wicket:id="result-details"></span></li>
+											</ul>
+										</div>
+										<div style="float:left;">
+											<a wicket:id="stop-link" class="highlight-button" style="float:left; margin-top:2em;"href="#" >Stop</a>
+										</div>
+								</div>
+					
+				</div>
+			</div>
+
+
+</wicket:panel>
+

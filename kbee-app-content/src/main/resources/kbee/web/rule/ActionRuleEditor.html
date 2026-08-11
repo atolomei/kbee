@@ -1,0 +1,42 @@
+<wicket:panel>
+	
+	<div class="row">
+		<form wicket:id="form" class="form-container col-lg-8 col-md-9 col-xs-12" role="form">
+			<div class="row">
+				<div class="panel" style="width:100%; float:left;">
+					<div class="col-lg-12 col-md-12 col-xs-12 form-group" wicket:id="name"/>
+				</div>
+			</div>
+			<div wicket:id="content-container" class="row">
+				<div class="col-lg-12 col-md-12 col-xs-12 form-group" wicket:id="content">
+				</div>
+			</div>
+			
+			<div class="row">
+				<div class="col-lg-12 col-md-12 col-xs-12 form-group" wicket:id="condition"/>
+				<div class="col-lg-12 col-md-12 col-xs-12 form-group" wicket:id="executionDate"/>
+			</div>
+			
+			
+			<div class="row">
+				<h2 class="col-lg-12 col-xs-12 col-md-12"><wicket:message key="actions" /></h2>
+				<div class="col-lg-12 col-xs-12 col-md-12" style="margin-bottom:15px" wicket:id="new-action"/>
+			</div>
+			
+			<div wicket:id="actions">
+				<div wicket:id="action" style="padding-bottom: 10px;">
+					<div class="dropdown" style="float: right; padding-right: 10px;">
+						<a class="btn btn-mini" id="dmenu" data-toggle="dropdown" wicket:id="menulink"><i class="far fa-ellipsis-h" aria-hidden="true"></i></a>
+						<ul wicket:id="menu" class="dropdown-menu dropdown-menu-right" aria-labelledby="dmenu" />
+					</div>
+					<div wicket:id="editor" />
+				</div>
+			</div>
+		</form>
+		
+		<div class="button-container col-md-3 col-lg-3 col-xs-12" wicket:id="buttons"/>
+	</div>
+	
+	<div wicket:id="help-modal" class="modal window" z-index=999999 tabindex="-6" role="dialog"/>
+	
+</wicket:panel>

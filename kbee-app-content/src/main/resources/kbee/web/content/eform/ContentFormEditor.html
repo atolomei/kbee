@@ -1,0 +1,27 @@
+
+<!-- 
+
+
+eform       -> Editor  
+eform-audit -> Auditoria y Biblioteca
+  
+Visualizacion -> Editor | View  
+
+
+-->
+
+
+<wicket:panel>
+	<!-- eform editable and view only (from monitor or library)  -->
+	<div style="width:100%; float:left;" class="eform-editor" id="content-form-editor">
+		<div wicket:id="alert" class="mb25" style="float:left; width:100%;"></div>
+		<div wicket:id="toolbar"></div>
+		<div wicket:id="main-panel" class="eform-editor">	
+			<div wicket:id="eform-container">
+				<div wicket:id="signature" class="mb15ss"  style="float:left; width:100%; margin-bottom:1px;"/>
+				<div wicket:id="eform"     class="eform" style="float:left; width:100%;"/>
+			</div>
+			<div wicket:id="preview" class="mb25 eform-template-view"/>
+		</div>
+	</div>
+</wicket:panel>

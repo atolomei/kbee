@@ -1,0 +1,35 @@
+<wicket:panel>
+
+		<div class="row standard-canvas">
+			<div class="col-md-8 col-lg-8 col-xs-12">
+				
+				
+				<h2 style="padding:0" class="col-md-12 col-lg-12 col-xs-12">DataSet Value</h2>
+				<div wicket:id="alert-external" class="alert alert-info" role="alert"><span wicket:id="note-external"></span></div>
+				
+				<div class="row">
+					<form wicket:id="form"  class="form-container"     style="margin-bottom: 72px;   width:100%;  float: left;" role="form">
+						<div class="form-group col-xs-12 col-lg-12 col-md-12" wicket:id="value"/>
+
+						<div class="form-group col-xs-12 col-lg-12 col-md-12" wicket:id="labelcolor" />
+							
+						
+						<div class="col-xs-12 col-lg-12 col-md-12"> 
+								<div class="col-xs-12 col-lg-12 col-md-12" wicket:id="classification">
+								</div>
+							 	<div style="border:1px solid #d8dcdf; border-radius:4px; padding:30px;  margin-top:-34px; ">
+									<i wicket:id="icon" class="far fa-tag crimson" style="font-size:84px;"></i>
+								</div>
+						</div>
+						
+						<!-- div class="form-group col-xs-12">
+							<i  style="font-size:15px; padding: 3px 0px;" class="far fa-tag red"></i>
+							<span style="font-size: 12px;   margin-left: 8px;  font-weight: normal;    vertical-align: middle;    color: #191a1b;    text-transform: uppercase;    line-height: 19px;">Sample</span>
+						</div-->
+					</form>
+				</div>					
+			</div>
+			<div class="button-container col-md-4 col-lg-4 col-xs-12" wicket:id="buttons" />
+		</div>
+
+</wicket:panel>

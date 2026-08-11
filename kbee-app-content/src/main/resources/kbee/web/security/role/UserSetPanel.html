@@ -1,0 +1,52 @@
+<wicket:panel>
+	 
+		<div class="row standard-canvas">
+				
+				
+				
+				<h2 class="col-md-12 col-lg-12 col-xs-12"> <wicket:message key="members"/></h2>
+				
+				<div class="col-lg-12 col-md-12 col-xs-12">
+						
+						<nav wicket:id="navigation-bar" class="navbar" style="border-radius:4px; border:1px solid  #d8dcdf;  background: #fbfbfb; padding:10px; margin-bottom:1px;">
+							<ul class="toolbar-buttons nav navbar-nav navbar-left" style="border-bottom:none; width:auto;">
+								<wicket:container wicket:id="navigator"/>
+							</ul>
+							<ul class="toolbar-buttons nav navbar-nav navbar-right" style="border-bottom:none; width:auto;">
+								<li>
+									<div style="padding-right:15px;" wicket:id="navigation-label"/>
+								</li>
+							</ul>
+						</nav>
+						
+						<ul class="list-group" style="width:100%; margin-bottom:15px;">
+							<li wicket:id="members" class="list-group-item">
+								
+									<div class="list-group-item-heading" wicket:id="member">
+										<a class="btn-link" title="open User"  wicket:id="user-link">
+											<span wicket:id="name"></span>
+										</a>
+										<span wicket:id="entity"></span>
+									</div>
+								
+								<!-- div class="dropdown open" style="float:right;">
+									<a wicket:id="delete-link"><i class="far fa-times" style="float:right;cursor:pointer;" id="menulinkd1a"></i></a>
+								</div-->
+							</li>
+							<!-- li wicket:id="memberselector" class="list-group-item selector">
+								<div class="form-vertical">
+									<div wicket:id="member"/>
+								</div>
+							</li-->
+						</ul>
+							
+						<!--  To add or remove Roles to users go to <a href="/security/users">Section Users  -->
+						
+					<div class="help-container"><wicket:message key="toadd" /></div>
+				
+						
+								
+				</div>
+
+		</div>
+</wicket:panel>

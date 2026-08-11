@@ -1,0 +1,35 @@
+<wicket:panel>
+
+	<a style="float:right; margin-top:-30px;" wicket:id="show-help" href="#"><span wicket:id="help" /></a>
+
+	
+	<!-- div wicket:id="alert-container" class="alert alert-info"><span wicket:id="text"/></div -->
+	
+	
+	<div wicket:id="pending-text" style="margin:15px 0; float:left; width:100%;" />
+	
+	
+	
+
+	<ul style="width:100%; float:left;" wicket:id="take-panel">
+		<li class="dropdown" style="padding-bottom:1px; width:100%; float:left;padding-top: 1px;">
+			<div style="width: 100%;float: left">
+				<button wicket:id="take-button" class="btn  btn-default" style="padding:30px 0; border-radius:4px; width:100%; border:1px solid #d8dcdf; margin:0; background: #fbfbfb; ">
+					<span style="width:100%; float:left; font-weight:bold; font-size: 0.92em; text-transform: uppercase;" wicket:id="label"/>
+					<span style="width:100%; float:left; font-size:0.9em;  white-space: initial; color: #131414; padding: 5px 15px 0 15px;" wicket:id="description">[]</span>
+				</button>
+			</div>
+		</li>
+	</ul>
+	
+	<ul wicket:id="conditions-container" style="width:100%; float:left;">
+		<li wicket:id="condition" class="dropdown" style="padding-bottom:1px; width:100%; float:left;padding-top: 1px;">
+			<div style="width: 100%;float: left">
+				<button wicket:id="submit-button" class="btn  btn-default" style="padding:30px 0; border-radius:4px; width:100%; border:1px solid #d8dcdf; margin:0; background: #fbfbfb;">
+					<span style="width:100%; float:left; font-size:1em; font-weight:bold; font-size: 0.92em; text-transform: uppercase;" wicket:id="label"/>
+					<span style="width:100%; float:left; font-size:0.9em;  white-space: initial; color: #131414; padding: 5px 15px 0 15px;" wicket:id="description">[]</span>
+				</button>
+			</div>
+		</li>
+	</ul>
+</wicket:panel>

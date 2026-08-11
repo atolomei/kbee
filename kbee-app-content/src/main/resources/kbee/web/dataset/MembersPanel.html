@@ -1,0 +1,35 @@
+<wicket:head>
+
+
+</wicket:head>
+<wicket:panel>
+	<div><h3 class="title" wicket:id="classifier"></h3></div>
+	<fieldset>
+		<ul style="float: left; width: 100%">
+			<li class="item" wicket:id="membersview">
+				<div class="control">
+					<div class="panel" style="width: 100%; float: left;">
+						<div>
+							<label>
+								<a>
+									<span wicket:id="member"></span>
+									<span wicket:id="remove-link2" class="menutrigger"> x</span>
+								</a>
+							</label>
+						</div>
+					</div>
+				</div> 
+			</li>
+			<li class=" finder">
+				<div class="control" style="float:left;">
+					<div style="float:left;">
+							<input id="member" wicket:id="member" class="field"/>
+								<div class="icon-container">	
+									<img wicket:id="searcher" src="/images/magnifier-999999.png" />
+								</div>	
+					</div>	
+				</div>
+			</li>
+ 		</ul>
+	</fieldset>
+</wicket:panel>

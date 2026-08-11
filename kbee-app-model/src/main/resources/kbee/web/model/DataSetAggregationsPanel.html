@@ -1,0 +1,78 @@
+<wicket:panel>
+	<div class="row standard-canvas">
+		<h2  class="col-md-10 col-lg-10 col-xs-12"><wicket:message key="label.aggregations"/></h2>
+		<form wicket:id="form" class="form-container" role="form">
+			<div class="form-group col-xs-12 col-lg-12 col-md-12">
+				<div wicket:id="wizard" style="margin-bottom:10px;"></div>
+				<div class="browser" wicket:id="browser"></div>
+				
+			</div>
+		</form>
+	</div> 
+</wicket:panel>
+
+<wicket:fragment wicket:id="browser-fragment">
+	
+	<div class="grid compact" style="padding:0; border-left:1px solid #dfdfdf; border-right:1px solid #dfdfdf;">
+		
+		<div class="xgrid compact">
+			
+			<div class="row grid-header" icket:id="header">
+				<div class="header col col-xs-4 col-md-4 col-lg-4">
+					<div><wicket:message key="label.name"/></div>
+				</div>
+				<div class="header col col-xs-2 col-md-2 col-lg-2">
+					<div><wicket:message key="label.type"/></div>
+				</div>
+				<div class="header col col-xs-3 col-md-3 col-lg-3">
+					<div><wicket:message key="label.modified"/></div>
+				</div>
+				<div class="header col col-xs-2 col-md-2 col-lg-2">
+					<div><wicket:message key="label.members"/></div>
+				</div>
+				<div class="header col col-xs-1 col-md-1 col-lg-1">
+					<div></div>
+				</div>
+			</div>
+			
+			<div class="row grid-body" style="min-height:40px; padding-bottom:0;">
+				<div class="row-container row grid-row" wicket:id="aggregation">
+					<div class="col col-xs-4 col-md-4 col-lg-4">
+						<div class="cell-container">
+							<a wicket:id="dataset-link"><span wicket:id="name">[]</span></a>
+						</div>
+					</div>
+					<div class="col col-xs-2 col-md-2 col-lg-2">
+						<div class="cell-container" wicket:id="type">[]</div>
+					</div>
+					<div class="col col-xs-3 col-md-3 col-lg-3">
+						<div class="cell-container" wicket:id="modified">[]</div>
+					</div>
+					<div class="col col-xs-2 col-md-2 col-lg-2">
+						<div class="cell-container" wicket:id="members">[]</div>
+					</div>
+					<div class="col-xs-1 col-md-1 col-lg-1" style="text-align: center;"> 
+						<div class="cell-container"><a class="btn-link" wicket:id="delete-link"><i class="fal fa-trash"></i></a></div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div wicket:id="confirmation-dialog" class="modal window" tabindex="-20" role="dialog"/>
+</wicket:fragment>
+
+<wicket:fragment wicket:id="creation-wizard-fragment">
+	<button style="float:right; margin-top:-30px;" wicket:id="new-button" type="submit" class="btn btn-primary btn-sm"><wicket:message key="button.new"/></button>
+	<div  wicket:id="data">
+		<div class="row">
+			<div class="col-xs-12 col-lg-10 col-md-9 form-group" wicket:id="newname"/>
+			<div class="col-xs-12 col-lg-2 col-md-3" style="float:right; margin-top:-30px;">
+				<div style="float:right;">	
+						<button wicket:id="cancel-button" class="btn btn-default btn-sm"><wicket:message key="button.cancel"/></button>
+						<button wicket:id="create-button" class="btn btn-primary btn-sm"><wicket:message key="button.create"/></button>
+				</div>
+			</div>
+		</div>
+	</div>		
+</wicket:fragment>
+

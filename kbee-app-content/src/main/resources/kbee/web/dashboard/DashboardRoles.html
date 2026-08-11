@@ -1,0 +1,88 @@
+<wicket:panel>
+	<div class="dashboard-widget">
+		<div class="header" wicket:id="header"></div>
+		<div class="widget-body-container">
+			<div class="col-lg-12 col-md-12 col-xs-12 list-panel">
+				<ul class="list-group" style="width:100%;">
+					<li class="list-group-item" wicket:id="userrole">
+						<span class="list-group-item-heading" wicket:id="user"></span>
+						<span class="list-group-item-text" wicket:id="role" style="display: inherit;line-height: 1em;color: #888888;font-size: 13px;">[]</span>
+						<a wicket:id="remove-link" style="position:absolute; top:14px; right:10px;"><i class="fal fa fa-times" style="font-size:16px;"></i></a>
+					</li>
+				</ul>
+			</div>
+			<div style="padding-top: 30px;float: left;">
+				<a wicket:id="add-link" class="btn btn-default btn-xs" >
+					<span>Agregar</span>
+				</a>
+			</div>
+			<div wicket:id="editor" style="padding-top: 15px;float: left;">
+				[]			
+			</div>
+			<div wicket:id="remove-confirmation" style="padding-top: 15px;float: left;">
+				[]			
+			</div>
+		</div>
+	</div>		
+</wicket:panel>
+
+
+<wicket:fragment wicket:id="remove-confirmation-fragment">
+	<div>
+		<span wicket:id="remove-confirmation-message">[]</span>
+	</div>
+	<div class="col-xs-12 col-lg-12 col-md-12">
+		<button class="btn-link" wicket:id="remove-button">
+			<span>Desasignar</span>
+		</button>
+		<button class="btn-link" wicket:id="cancel-button">
+			<span>Cancelar</span>
+		</button>
+	</div>
+</wicket:fragment>
+
+<wicket:fragment wicket:id="user-role-editor">
+	<form wicket:id="form">
+		<div class="col-xs-12 col-lg-12 col-md-12 form-group" wicket:id="user"/>
+		<div class="col-xs-12 col-lg-12 col-md-12 form-group" wicket:id="role"/>
+	</form>	
+	<div class="col-xs-12 col-lg-12 col-md-12">
+		<button class="btn-link" wicket:id="add-button">
+			<span>Agregar</span>
+		</button>
+		<button class="btn-link" wicket:id="cancel-button">
+			<span>Cancelar</span>
+		</button>
+	</div>
+</wicket:fragment>
+
+<wicket:fragment wicket:id="base-header-fragment">
+	<div style="width:100%; float:left;">
+		
+					<a wicket:id="title-link" class="btn-link">
+						<h2 wicket:id="title" style="float:left; padding-top:7px; margin:0;"></h2>
+					</a>
+
+		
+		
+		<div style="float:right;">
+			<a class="btn-mini" wicket:id="edit" title="edit" href="#">
+				<i class="far fa-edit"></i>
+			</a>
+			<a class="btn-mini" wicket:id="help" title="help" href="#">
+				<i class="fal fa-info-circle"></i>
+			</a>
+			<a class="btn-mini" wicket:id="refresh" title="Refresh" href="#">
+				<i class="far fa-sync "></i>
+			</a>
+			
+			<a class="btn-mini" wicket:id="collapse" title="Collapse" href="#">
+						<span class="expand" wicket:id="expand-label"></span>
+						<i wicket:id="collapse-icon" class="far fa-angle-up"></i>
+			</a>
+			
+			
+			
+		</div>
+	</div>			
+</wicket:fragment>					

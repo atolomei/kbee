@@ -1,0 +1,99 @@
+<wicket:panel>
+	
+<div class="launcher-editor-container" style="float:left; width:100%;">
+	
+		<div style="float:left; width:100%;">
+			<h2 style="float:left;" class="col-lg-9 col-md-9 col-xs-12"> <span wicket:id="main-title"/> </h2>
+			<div  class="button-container col-lg-3 col-md-3 col-xs-12" wicket:id="buttons"/>
+		</div>
+		
+		
+		<form wicket:id="form" class="col-md-9 col-lg-9 col-xs-12 form-container" style="padding:0;" role="form">
+			
+			<div class="form-group col-md-6 col-xs-12 col-lg-6" wicket:id="label"/>
+			<div class="form-group col-md-6 col-xs-12 col-lg-6" wicket:id="event"/>
+			<div class="form-group col-md-12 col-xs-12 col-lg-12" wicket:id="description"/>
+			<div class="form-group col-md-12 col-xs-12 col-lg-12" wicket:id="reasons"/>
+
+				
+			<div wicket:id="routing" class="col-xs-12 col-lg-12">
+				<h2><wicket:message key="router"/></h2>
+			</div>
+			<div class="form-group col-md-12 col-xs-12 col-lg-12">
+				<fieldset style="border: 1px solid #d8dcdf; background: #f8f8f8; border-radius: 4px;padding: 1.35em 0.625em 0.75em;padding-top: 15px;padding-bottom: 15px;padding-right: 10px;padding-left: 10px;">
+					<div class="form-group col-md-12 col-xs-12 col-lg-12" wicket:id="router" style="margin-bottom:5px;"/>
+					<small class="col-md-12 col-xs-12 col-lg-12 text" wicket:id="router.help" style="margin-bottom:15px;"/>
+					<div class="form-group col-md-12 col-xs-12 col-lg-12" wicket:id="nextTask"/>
+					<div class="form-group col-md-12 col-xs-12 col-lg-12" wicket:id="routerScript"/>
+					<div wicket:id="trigger" class="form-group col-md-12 col-xs-12" style="padding:0;"/>
+					<div class="form-group col-md-12 col-xs-12 col-lg-12" wicket:id="collaboration"/>
+					<div class="form-group col-md-12 col-xs-12 col-lg-12" wicket:id="collaborationGroups"/>
+					<div class="form-group col-md-12 col-xs-12 col-lg-12" wicket:id="collaborationSet"/>
+					<div class="form-group col-md-12 col-xs-12 col-lg-12" wicket:id="default"/>
+				</fieldset>
+			</div>
+
+
+			<div class="col-xs-12 col-lg-12">
+				<h2><wicket:message key="security"/></h2>
+			</div>
+			
+			<div class="form-group col-md-12 col-xs-12 col-lg-12" wicket:id="enabled"/>
+			<!-- 
+			<div class="form-group col-md-12 col-xs-12 col-lg-12" wicket:id="requiredResources"/>
+			-->
+			<div class="form-group col-md-12 col-xs-12 col-lg-12" wicket:id="perms"/>
+			<div class="form-group col-md-12 col-xs-12 col-lg-12" wicket:id="precondition"/>
+			<div class="form-group col-md-12 col-xs-12 col-lg-12" wicket:id="condition"/>
+			<div class="form-group col-md-12 col-xs-12 col-lg-12" wicket:id="enablePriority"/>
+			<div class="form-group col-md-12 col-xs-12 col-lg-12" wicket:id="tokenValidation"/>
+			
+
+			<div class="col-xs-12 col-lg-12">
+				<h2><wicket:message key="post-termination"/></h2>
+			</div>
+			
+			<div class="form-group col-md-12 col-xs-12 col-lg-12" wicket:id="classifiersrules"/>
+			<div class="form-group col-md-12 col-xs-12 col-lg-12" wicket:id="attributesrules"/>
+			<div class="form-group col-md-12 col-lg-12 col-xs-12" wicket:id="scriptrule" />
+			
+			<div class="form-group col-md-12 col-lg-12 col-xs-12">
+				<label class="control-label">Send Alert to</label>
+				<div wicket:id="notification"></div>
+			</div>
+
+				
+			<div class="col-xs-12 col-lg-12">
+				<h2><wicket:message key="due-date"/></h2>
+			</div>
+			
+			<div class="form-group col-lg-12 col-md-12 col-xs-12" wicket:id="duedateAction"/>
+			<div class="form-group col-lg-12 col-md-12 col-xs-12" wicket:id="duedateExpressionType"/>
+			<div class="form-group col-lg-12 col-md-12 col-xs-12" wicket:id="duedateExpression"/>
+			
+			<div class="col-xs-12 col-lg-12">
+				<h2><wicket:message key="automatic-execution"/></h2>
+			</div>
+			
+			<div class="form-group col-lg-12 col-md-12 col-xs-12" wicket:id="autoRunAfter"/>
+			
+			
+			<div class="col-xs-12 col-lg-12">
+				<h2><wicket:message key="letter"/></h2>
+			</div>
+			
+			<div class="form-group col-lg-12 col-md-12 col-xs-12" wicket:id="mandatoryLetter"/>
+			<div class="form-group col-lg-12 col-md-12 col-xs-12" wicket:id="templates"/>
+			
+			<div class="form-group col-md-12 col-lg-12 col-xs-12">
+				<label class="control-label">Set Letter to</label>
+				<div wicket:id="letter"></div>
+			</div>
+			
+
+			
+		</form>
+		<div wicket:id="help-modal" class="modal window" z-index=999999 tabindex="-6" role="dialog"/>
+		
+</div>
+</wicket:panel>

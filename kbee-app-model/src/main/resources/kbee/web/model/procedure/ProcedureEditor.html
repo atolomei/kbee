@@ -1,0 +1,48 @@
+<wicket:panel>
+	<div class="row standard-canvas">
+		<h2  class="col-md-9 col-lg-10 col-xs-12"> <wicket:message key="procedure.label" /></h2>
+		<div class="button-container col-md-3 col-lg-2 col-xs-12" wicket:id="buttons"/>
+		<form wicket:id="form" class="col-md-12 col-lg-12 col-xs-12 form-container" role="form" style="margin-top:20px;">
+			<div class="row">
+				<div class="form-group col-lg-8" wicket:id="name"/>
+				<div class="form-group col-lg-2" wicket:id="code"/>
+				<div class="form-group col-lg-2" wicket:id="id"/>
+			</div>
+			<div class="row">
+				<div class="form-group col-xs-12" wicket:id="tasks"/>
+			</div>
+			
+			<div class="row" wicket:id="subprocedure" style="padding-left:18px; padding-right:18px; padding-bottom: 18px;">
+				<div style="border: 1px solid #d8dcdf;  border-radius:4px; display: block;  float: left;  width: 100%;  padding-left: 10px; padding-right: 10px; padding-top: 24px;" 
+					wicket:id="specification">[]</div>
+			</div>
+			
+			<div class="row" wicket:id="subprocedure-toolbar" style="padding:20px;">
+				<a wicket:id="addsubprocedure-link"  class="btn btn-default btn-md">Add Subprocedure</a>
+			</div>
+			
+			<div class="row">
+				<div class="form-group col-md-12 col-xs-12 col-lg-12" wicket:id="roles"/>
+			</div>
+			<div class="row">
+				<div class="form-group col-md-12 col-xs-12 col-lg-12" wicket:id="phases"/>
+			</div>
+			<h2><wicket:message key="start"/></h2>
+			<div class="row">
+				<div class="form-group col-md-12 col-xs-12 col-lg-12" wicket:id="classifiersrules"/>
+				<div class="form-group col-md-12 col-xs-12 col-lg-12" wicket:id="attributesrules"/>
+				<div class="form-group col-md-12 col-xs-12 col-lg-12" wicket:id="scriptrule"/>
+			</div>
+			
+		</form>
+	</div>
+	<div wicket:id="help-modal" class="modal window" z-index=999999 tabindex="-6" role="dialog"/>
+</wicket:panel>
+
+<wicket:fragment wicket:id="subprocedure-fragment">
+	<div class="form-group col-xs-12" wicket:id="subprocedure"/>
+	<div class="form-group col-xs-12" wicket:id="tasks"/>
+	<div>
+		<a wicket:id="delete-link" style="float:right;"><i class="fal fa-trash"></i></a>
+	</div>
+</wicket:fragment>

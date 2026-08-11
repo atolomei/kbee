@@ -1,0 +1,61 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<parent>
+		<artifactId>kbee</artifactId>
+		<groupId>com.novamens</groupId>
+		<version>8.5-SNAPSHOT</version>
+	</parent>
+	<modelVersion>4.0.0</modelVersion>
+
+	<artifactId>kbee-app-model</artifactId>
+	<name>${project.artifactId}</name>
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	</properties>
+
+	<build>
+		<resources>
+			<resource>
+				<directory>src/main/resources</directory>
+				<includes>
+					<include>**/*.*</include>
+				</includes>
+			</resource>
+		</resources>
+		
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<configuration>
+					<source>${java-version}</source>
+					<release>${java-version}</release>
+				</configuration>
+			</plugin>
+		</plugins>
+		
+	</build>
+
+	<description>Model</description>
+	<developers>
+		<developer>
+			<id>aferraria</id>
+			<name>Alejo Ferraria</name>
+			<email>aferraria@novamens.com</email>
+		</developer>
+		<developer>
+			<id>atolomei</id>
+			<name>Alejandro Tolomei</name>
+			<email>atolomei@novamens.com</email>
+		</developer>
+	</developers>
+
+	<dependencies>
+		<dependency>
+			<groupId>com.novamens</groupId>
+			<artifactId>kbee-web</artifactId>
+			<version>${kbee-version}</version>
+		</dependency>
+	</dependencies>
+	
+</project>

@@ -1,0 +1,17 @@
+<wicket:panel>
+	<div class="row standard-canvas">
+		<h2 class="col-md-9 col-lg-9 col-xs-12"> <wicket:message key="emailtemplate.plain"/></h2> 
+		<div class="buttons-container col-lg-3 col-md-3 col-xs-12" style="text-align: right;" wicket:id="buttons"/>
+
+		<div class="col-lg-10 col-md-10 col-xs-12">
+
+	
+			<form wicket:id="form" style="width:100%; clear:left;" class="form-container" role="form">
+				<div class="row">
+					<div class="col-lg-12 col-md-12 col-xs-12 form-group" wicket:id="plainTextTemplate" />
+				</div>
+			</form>
+		</div>
+	</div>
+	<div wicket:id="help-modal" class="modal window" z-index=999999 tabindex="-6" role="dialog"/>
+</wicket:panel>

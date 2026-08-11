@@ -1,0 +1,29 @@
+
+<wicket:extend>
+	<div  wicket:id="main-container" style="width:100%; float:left; max-height: 520px; overflow-y: auto;" >
+		<ul wicket:id="list-container" class="list-group-items">
+			<li class="list-item" wicket:id="note" style=" margin-bottom: 20px; float:left; width:100%;">
+				<div style="width:100%; float:left;">
+					<a wicket:id="note-link">
+					 
+						<span wicket:id="content"></span>
+					</a> 
+				</div>
+				<div style="float:left; width:100%;">
+						<span wicket:id="user"></span>
+						<span style="padding:0;">.</span>
+						<span wicket:id="date" />
+				</div>
+				<div style="float:left; width:100%;">
+					<div wicket:id="text" ></div>
+				</div>
+			</li>
+		</ul>
+		<div style="width:100%; float:left;" wicket:id="help" />
+	</div>
+	
+	
+	
+	
+</wicket:extend>
+

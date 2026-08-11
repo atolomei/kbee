@@ -1,0 +1,94 @@
+<wicket:head>
+
+	<style>
+		.kbee .navbar .navigation-range-container { padding: 7px 0;  margin: 4px 0; line-height: 20px; }
+		.kbee .navbar .btn-mini	{ padding: 7px 9px; float: left; border-radius: 4px; margin: 4px 0px; border: 1px solid transparent;height: 34px; }
+		.kbee .toolbar-buttonsr .navbar .btn-mini	{ padding: 7px 9px; }
+		.kbee .table .headers .col-xs-menu { width: 2%;padding: 5px; min-width: 25px;}
+		.kbee .table >tbody .col-xs-menu { width: 2%;padding: 5px; min-width: 25px;}
+	</style>
+
+</wicket:head>
+
+<wicket:panel>
+
+<div class="row standard-canvas">
+	<div class="col-lg-12 col-md-12 col-xs-12">	
+		<h2 style="padding:0;" class="col-md-12 col-lg-10 col-xs-12"> <wicket:message key="roles" /></h2>
+		<div class="row" style="margin:0;">
+			<ul style="width:100%;">
+				<li  wicket:id="roles" style="padding-top: 20px; padding-bottom: 20px;float: left;display: block;width: 100%;">
+					<div wicket:id="role">[]</div>
+				</li>
+			</ul>
+		</div>
+		<div wicket:id="emptypanel" class="row">
+			<div class="col-lg-12 col-xs-12">
+				<p><wicket:message key="noroles" /></p>
+			</div>
+		</div>
+	</div>
+	<div wicket:id="confirmation-dialog" class="modal window" tabindex="-20" role="dialog"/>
+</div>
+</wicket:panel>
+
+<wicket:fragment wicket:id="role-fragment">
+	<div>
+		<a style="float:left;padding-right: 10px;padding-top: 0px;" href="#"><i class="far fa-angle-up" wicket:id="expander" ></i></a>
+		<h3 wicket:id="name">[]</h3>
+	</div>
+
+	<div wicket:id="members">
+		<div style="margin-bottom:0; border: 1px solid #d8dcdf;	border-radius:4px 4px 0 0;	padding:3px 0; float:left; width:100%; background:#fbfbfb; margin-bottom:1px;">
+			<ul>
+				<li>
+					<h3  style="float:left;padding: 15px 0px 0px 15px;">Miembros</h3>
+				</li>
+			</ul>
+			<ul class="toolbar-buttons nav navbar-nav navbar-right" style="width:initial; margin:0;">
+				<!-- 
+	 			<li class="items-top-right" style="float:left;">
+					<div><a wicket:id="add-user-button"><i class="fa fa-plus" style="font-size:21px;padding: 12px;"></i></a></div>
+				</li>
+				-->
+				<li class="items-top-right" style="float:left; margin-bottom:0;">
+					<div wicket:id="navigator">[]</div>
+				</li>	
+			</ul>	
+		</div>
+		<div class="row" style="clear:left; height: inherit; overflow: auto;">
+			<div class="table-responsive col-lg-12 col-md-12 col-xs-12">
+				<table wicket:id="user" class="table table-header-bck table-bordered table-hover" style="border:1px solid #d8dcdf;"/>
+			</div>
+			<div style="display: flex; justify-content: flex-end; width: 100%;">
+			 <a wicket:id="add-user-button"><i class="fa fa-plus" style="font-size:21px;padding: 12px;"></i></a>
+			 </div>
+			 
+		</div>
+		<div wicket:id="user-selector" style="float: left;width: 100%;margin-bottom: 20px;">[]</div>
+	</div>
+</wicket:fragment>
+
+<wicket:fragment wicket:id="user-link-fragment">
+	<a wicket:id="user-link" target="_blank" style="text-decoration:none;">	
+		<span wicket:id="user-name">[]</span>
+	</a>
+</wicket:fragment>
+
+<wicket:fragment wicket:id="user-menu-fragment">
+	<div class="dropdown" wicket:id="menu-container" style="padding-right: 4px;">
+		<a id="dmenu" data-toggle="dropdown"> <i style="position: absolute;margin-left: 0px;top: 4px;left: 0px;" class="far fa-ellipsis-h" aria-hidden="true"></i></a>
+		<ul wicket:id="menu" class="dropdown-menu dropdown-menu-right" aria-labelledby="dmenu" />
+	</div>
+</wicket:fragment>
+
+<wicket:fragment wicket:id="user-selector-fragment">
+	<form wicket:id="form" >
+   		<div class="col-xs-12 col-lg-12 form-group" wicket:id="user"/>
+		<div class="col-xs-12 col-lg-12">
+			<a class="btn btn-xs btn-default" wicket:id="cancel-button"><wicket:message key="cancel.label"/></a>
+			<a class="btn btn-primary btn-sm" wicket:id="confirm-button"><wicket:message key="confirm.label" /></a>
+		</div>
+	</form>
+	<div wicket:id="feedback" style="display: block;float: left;padding: 20px;color: #A90000;"><span wicket:id="message">[]</span></div>
+</wicket:fragment>

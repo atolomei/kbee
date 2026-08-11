@@ -1,0 +1,26 @@
+<wicket:panel>
+			<div style="float:left;">
+				<ul>
+					<li style="float:left;"><a class="btn-mini"  wicket:id="delete-link"  title="Delete">					<i class="far fa-trash-alt"></i></a></li>
+					<li style="float:left;"><a class="btn-mini"  wicket:id="refresh-link" alt="Refresh" title="Refresh">	<i class="far fa-sync">		</i></a></li>
+					<li style="float:left;"><a class="btn-mini"  wicket:id="submit-link"  title="Save" alt="Save">			<i class="far fa-save">		</i></a></li>
+					<li wicket:id="actions-container" style="float:left;">
+								<div style="position: relative; right:0; margin:0;">
+									<a id="dmenu" class="btn-mini dmenu" data-toggle="dropdown">
+										<span><wicket:message key="actions" /></span>
+										<span style="margin-left:8px;" class="caret"></span>
+										<!-- i class="far fa-chevron-down" aria-hidden="true"></i-->
+									</a>
+										<ul style="margin-top:50px;" wicket:id="menu" class="dropdown-menu dropdown-menu-right" aria-labelledby="dmenu">
+										</ul>
+								</div>
+					</li>
+
+					
+					
+					
+				</ul>
+			</div>
+
+</wicket:panel>
+

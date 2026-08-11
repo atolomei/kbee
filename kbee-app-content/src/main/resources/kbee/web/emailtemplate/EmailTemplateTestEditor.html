@@ -1,0 +1,84 @@
+<wicket:panel>
+	
+	<div class="row standard-canvas">
+	<h2 class="col-md-9 col-lg-9 col-xs-12"> <wicket:message key="emailtemplate.editor"/></h2> 
+	
+	<div class="buttons-container col-lg-3 col-md-3 col-xs-12" style="text-align: right;" wicket:id="buttons"/>
+
+	<div class="col-lg-10 col-md-10 col-xs-12">
+
+		<div wicket:id="email" />
+			
+		
+		<form wicket:id="form" style="width:100%; clear:left;" class="form-container" role="form">
+			
+			<div style="width:100%; float:left;"><h3>PARAMETERS</h3>
+			</div>
+			
+			<div class="row">
+				<div class="col-lg-12 col-md-12 col-xs-12 form-group" wicket:id="parameters" />
+				 <div class="col-lg-12 col-md-12 col-xs-12 form-group" wicket:id="description"/>
+			</div>
+		</form>
+				
+		<div class="row">
+			<div class="col-lg-12 col-md-12 col-xs-12 form-group" wicket:id="error"/>
+		</div>		
+		
+	</div>
+	</div>
+
+	
+	<div wicket:id="help-modal" class="modal window" z-index=999999 tabindex="-6" role="dialog"/>
+
+</wicket:panel>
+
+<wicket:fragment wicket:id="email-fragment">
+
+			
+			<div class="row">
+				<div class="col-lg-12 col-md-12 col-xs-12">
+					<h3>Email</h3>
+				</div>
+			</div>
+			
+			<div style="border: 1px solid #d8dcdf;    float: left;    width: 100%;    margin: 0 0 24px 0;    padding: 15px 0;    border-radius: 4px;">			
+			
+				<div class="col-lg-12 col-md-12 col-xs-12 form-group">
+					<div style="width:100%; float:left;"><span class="control-label" style="font-weight:bold;   text-transform:uppercase;">From</span></div>
+					<span class="value" wicket:id="from"/>
+				</div>
+				
+				<div class="col-lg-12 col-md-12 col-xs-12 form-group">
+					<div   style="width:100%; float:left;"><span class="control-label" style="font-weight:bold;  text-transform:uppercase;">To</span></div>
+					<span class="value" wicket:id="to"/>
+				</div>
+
+				<div class="col-lg-12 col-md-12 col-xs-12 form-group">
+					<div   style="width:100%; float:left;"><span class="control-label" style="font-weight:bold; text-transform:uppercase;">Subject</span></div>
+					<span class="value" wicket:id="subject"/>
+				</div>
+
+				<div class="col-lg-12 col-md-12 col-xs-12 form-group">
+					<div  style="width:100%; float:left;"><span class="control-label" style="font-weight:bold;  text-transform:uppercase;">Text</span></div>
+					<span class="value" wicket:id="text"/>
+				</div>
+
+
+			</div>
+			
+			
+			<div class="row">
+				<div class="col-lg-12 col-md-12 col-xs-12 form-group">
+						<h3>Values used by EmailBuilder</h3>			
+						<span class="value" wicket:id="param"/>
+				</div>
+			</div>
+				
+			
+	
+</wicket:fragment>
+
+
+
+

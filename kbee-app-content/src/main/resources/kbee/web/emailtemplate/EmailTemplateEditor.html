@@ -1,0 +1,37 @@
+<wicket:panel>
+	
+	<div class="row standard-canvas">
+	<h2 class="col-md-9 col-lg-9 col-xs-12"> <wicket:message key="emailtemplate.editor"/></h2> 
+	<div class="buttons-container col-lg-3 col-md-3 col-xs-12" style="text-align: right;" wicket:id="buttons"/>
+
+	<div class="col-lg-10 col-md-10 col-xs-12">
+	 	    <a wicket:id="bbb" style="float:left; padding: 0px 0px 10px 0; margin-bottom:10px;" href="#" class="btn-link"> 
+			      <span class="title" wicket:id="lang-label"></span>
+			 </a>
+	
+		<form wicket:id="form" style="width:100%; clear:left;" class="form-container" role="form">
+			<div class="row">
+				<div class="col-lg-6 col-md-12 col-xs-12 form-group" wicket:id="title"/>
+				<div class="col-lg-6 col-md-12 col-xs-12 form-group" wicket:id="language"/>
+				<div class="col-lg-12 col-md-12 col-xs-12 form-group" wicket:id="subject"/>
+				
+				<div class="col-lg-12 col-md-12 col-xs-12 form-group">
+					<a wicket:id="default" class="btn btn-link" style="padding-left:0;"><wicket:message key="property.default"/></a>
+				</div>
+				
+				<div class="col-lg-12 col-md-12 col-xs-12 form-group" wicket:id="stringTemplate" />
+			</div>
+			
+			<div class="row">
+				<div class="col-lg-12 col-md-12 col-xs-12 form-group" wicket:id="key"/>
+				<div class="col-lg-12 col-md-12 col-xs-12 form-group" wicket:id="id"/>
+				<div class="col-lg-12 col-md-12 col-xs-12 form-group" wicket:id="description"/>
+			</div>
+			
+		</form>
+	</div>
+	</div>
+	
+	<div wicket:id="help-modal" class="modal window" z-index=999999 tabindex="-6" role="dialog"/>
+
+</wicket:panel>

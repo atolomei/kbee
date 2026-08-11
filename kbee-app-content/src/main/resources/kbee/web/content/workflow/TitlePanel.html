@@ -1,0 +1,64 @@
+<wicket:panel>
+	
+	<div style="width:100%; float:left;">
+			<div style="width:100%; float:left;">
+				<h1 class="title" wicket:id="xcontent-title" style="float:left; padding:0;">
+					<i title="locked" 			wicket:id="lock-icon" 		class="fal fa-lock" 
+					
+					
+	style="color: #e55932;
+    float: left;
+    font-size: 25px;
+    margin-right: 15px;
+    margin-top: 8px;">
+					
+					</i>
+					
+					
+					<i title="checkout version" wicket:id="checkout-icon" 	class="fal fa-diagram-next fa-rotate-270" 
+					
+	style="color: #e55932;
+    float: left;
+    font-size: 25px;
+    margin-right: 15px;
+    margin-top: 8px;"></i>
+					<span style="width:initial;" wicket:id="title-text" ></span>
+				</h1>
+			</div>
+
+			<!-- EDITOR  -->
+				
+			<div wicket:id="title-container" class="col-lg-12 col-md-12 col-xs-12 form-container" style="width:100%; min-width: 300px; padding: 24px; background: #E4E6E7; border: 1px solid #E4E6E7; border-radius:4px; margin-bottom: 12px;"> 
+				<div wicket:id="ztitle-editor"/>
+	
+				<span style="float:left; width:100%; clear:left; margin: 15px 0 0 0px;" wicket:id="not-editable" />
+				<div style="width:100%; display: inline-block; padding-top:15px;">
+					<a wicket:id="cancel-link" class="btn btn-sm btn-default">
+						<span wicket:id="cancel"> </span>
+					</a>
+					<a wicket:id="save-link" class="btn btn-sm btn-primary">
+						<span><wicket:message key="save"/></span>
+					</a>
+					<div style="float:right">
+							<a class="btn-link btn btn-md" wicket:id="rule-link">
+								<span> <wicket:message key="enable-rule" /></span>
+							</a>
+							<a class="btn-link btn btn-md atright" style="float:right;" wicket:id="view-rule-link" target="_blank">
+								<span> <wicket:message key="view-rule" /></span>
+							</a>
+					</div>
+				</div>
+			</div>
+			
+			<div class="subtitle" wicket:id="summary" style="float:left; width:100%; clear:left;"/>
+			<div wicket:id="actions-container">
+				<a wicket:id="edit" style="float:left; margin:0px 0 0 0; text-decoration:underline; clear:left; padding:10px 0 10px 0;" class="btn-link">
+					<span> <wicket:message key="edit-title" /></span>
+				</a>
+			</div>
+			<div wicket:id="labels" style="float:left; clear:left; margin:0;"></div>
+		</div>
+		
+</wicket:panel>
+
+

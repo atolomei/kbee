@@ -1,0 +1,90 @@
+<wicket:panel>
+	<div class="standard-canvas console-top onepad">
+			
+				<div class="row">			
+				<form wicket:id="form" class="form-container  col-lg-9 col-md-9 col-xs-12">
+					
+								<div class="row">
+								
+								<h2 class="col-lg-12 col-xs-12 col-md-12" wicket:id="formtitle"></h2>
+								 <div wicket:id="kbee-warn" class="alert alert-info form-group" style="margin:0 15px 15px 15px; width:calc(100% - 30px);" >
+								 		<wicket:message key ="billboard-info" />
+								</div>
+									<div class="col-lg-12 mb20" wicket:id="was-sent" />
+								</div>
+
+								<div class="row">
+									<div class="form-group col-lg-12 col-md-12 col-xs-12" wicket:id="title" />
+									<div class="col-xs-12 col-lg-12 col-md-12 form-group" wicket:id="isemail"/>
+									<div class="form-group col-lg-6 col-md-6 col-xs-12"   wicket:id="startpub" />
+									<div class="form-group col-lg-6 col-md-6 col-xs-12"   wicket:id="endpub" />
+									<div class="col-xs-12 col-lg-12 col-md-12" wicket:id="frequent"/>
+									<div class="col-xs-12 col-lg-12 col-md-12 form-group" wicket:id="frequency-container" style="width:80%;">
+										<div style="float:left; width:100%;" wicket:id="cronExpression"/>
+									</div>
+									
+									<div class="col-lg-12 col-xs-12 col-md-12 panel">
+										<div class="row">
+										<h2 class="col-lg-12 col-xs-12 col-md-12"><wicket:message key="receivers"/></h2>
+										<div class="col-xs-12 col-lg-12 col-md-12" wicket:id="receivers" style="margin-bottom: 30px;"/>
+										<div class="col-xs-12 col-lg-12 col-md-12" wicket:id="roleReceivers" />
+										</div>
+									</div>
+									
+									<h2 class="col-lg-12 col-xs-12 col-md-12"> <wicket:message key="content" /></h2>
+									<div class="col-xs-12 col-lg-12 col-md-12 form-group" wicket:id="icon"/>
+									<div class="col-xs-12 col-lg-12 col-md-12 form-group" wicket:id="iconcss"/>
+	
+									<div wicket:id="image-container" class="form-group col-lg-12 col-md-12 col-xs-12">
+										<div wicket:id="sideImage" />
+									</div>
+	
+									
+									<div wicket:id="file-container" class="form-group col-lg-12 col-md-12 col-xs-12">
+										<div wicket:id="file" />
+									</div>
+									
+									<div class="form-group col-lg-12 col-md-12 col-xs-12"  wicket:id="text" />
+									<div class="col-xs-12 col-lg-12 col-md-12 form-group">
+										<a wicket:id="preview-link" class="btn-link"> <wicket:message key ="preview" /></a>
+									</div>
+									<div wicket:id="billboard-preview-container" style="margin-bottom: 40px;">
+										<div wicket:id="billboard-preview" />
+									</div>	
+								</div>
+							
+				</form>
+				<div  class="form-group col-lg-3 col-md-3 col-xs-12"   style="text-align: right;" wicket:id="buttons"/>
+				</div>
+		</div>
+</wicket:panel>
+
+
+<wicket:fragment wicket:id="billboard-alert-fragment">
+			
+			<div class="col-lg-12" style="margin-bottom: 120px;">
+				<div class="billboard"		style="	position: relative;    border-radius: 3px;    width: calc(100% - 2px);    float: left;    border-left: 5px solid #0d5072;    background: white;    margin-top: 0px;    padding: 20px;    overflow: auto;    margin-left: 3PX;    margin-right: 1px;    border: 1px solid #d8dcdf;    border-left: 5px solid #0d5072;">
+	    			<div style="width:100%; float:left; width:calc(100% - 40px); display: inline-block; max-width: 1400px;">
+						<div style="padding:0px 0px;">
+							<i wicket:id="icon" style="padding:0; float: left;  margin: 2px 5px 20px 5px; font-size: 46px; color: #0d5072;" class="fal fa-bell"></i>
+						</div>
+						<div style=" font-size: 13px; line-height: 1.45em; padding-left: 75px; ">
+							<h6 wicket:id="xtitle" style="margin:0; line-height: 1.4em; width:100%; font-size:14px; font-weight: bold;"> Title</h6>
+							 <div wicket:id="text" style="width:100%;" />
+							 
+						 <div wicket:id="attachment-container" style="width:100%;">
+						 	<div style="padding:10px 0; float:left;">	
+								<a class="btn-link" wicket:id="openfile"><span wicket:id="file"></span></a>
+							</div>
+						 </div>
+							 
+							 
+							 
+						</div>
+					</div>
+				</div>
+			</div>
+</wicket:fragment>
+
+
+
