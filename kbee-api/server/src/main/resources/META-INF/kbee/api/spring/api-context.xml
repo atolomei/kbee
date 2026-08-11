@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+		http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+		http://www.springframework.org/schema/context
+		http://www.springframework.org/schema/context/spring-context-3.0.xsd 
+		http://www.springframework.org/schema/tx 
+		http://www.springframework.org/schema/tx/spring-tx.xsd">
+		
+	<bean id="ObjectMapperConfigurer" class="com.novamens.kbee.content.webapi.type.ObjectMapperConfigurer"/>
+
+ 	<!-- Api -->
+
+	<bean id="apiDao" class="com.novamens.kbee.content.webapi.controller.KbeeApiDao"/>
+	
+	<bean id="ApiTransactionServiceFactory" class="com.novamens.spring.service.SpringSystemServiceFactory">
+		<property name="bean" value="ApiTransactionService"/>
+	</bean>
+
+	<bean id="ApiTransactionService" class="com.novamens.kbee.content.webapi.transaction.KbeeApiTransactionService" scope="prototype"/>
+	
+	<bean id="apiLogDao" class="com.novamens.kbee.content.webapi.logging.KbeeApiLogDao">
+		<property name="dataSource" ref="dataSource"/>
+		<property name="schema" value="${jdbc.schema}"/>
+	</bean>
+	
+	<bean id="TrafficControlServiceFactory" class="com.novamens.spring.service.SpringSystemServiceFactory">
+		<property name="bean" value="TrafficControlService"/>
+	</bean>
+
+	<bean id="TrafficControlService" class="com.novamens.kbee.content.webapi.traffic.KbeeTrafficControlService">
+		<property name="timeout" value="10000"/>
+	</bean>
+	
+	<bean id="value-update-handler" class="com.novamens.kbee.content.webapi.handler.ValueUpdateHandler" scope="prototype"/>
+	
+	<bean id="value-create-handler" class="com.novamens.kbee.content.webapi.handler.ValueCreateHandler" scope="prototype"/>
+	
+	<bean id="binary-file-update-handler" class="com.novamens.kbee.content.webapi.handler.BinaryFileUpdateHandler" scope="prototype"/>
+	
+	<bean id="file-update-handler" class="com.novamens.kbee.content.webapi.handler.FileUpdateHandler" scope="prototype"/>
+	
+	<bean id="file-delete-handler" class="com.novamens.kbee.content.webapi.handler.FileDeleteHandler" scope="prototype"/>
+	
+	<bean id="process-launch-handler" class="com.novamens.kbee.content.webapi.handler.ProcessLaunchHandler" scope="prototype"/>
+	
+	<bean id="ApiReprocessCommand" class="com.novamens.kbee.content.webapi.command.ReprocessCommand" scope="prototype"/>
+	
+	<bean id="ApiCloseEventsCommand" class="com.novamens.kbee.content.webapi.command.CloseCommand" scope="prototype"/>
+	
+	<bean id="device-add-handler" class="com.novamens.kbee.content.webapi.handler.DeviceUpdateHandler" scope="prototype"/>
+	
+	<bean id="signature-update-handler" class="com.novamens.kbee.content.webapi.handler.SignatureUpdateHandler" scope="prototype"/>
+	
+	<bean id="signature-handler" class="com.novamens.kbee.content.webapi.handler.SignatureHandler" scope="prototype"/>
+	
+	<bean id="workflow-event-handler" class="com.novamens.kbee.content.webapi.handler.WorkflowEventHandler" scope="prototype"/>
+	
+	<bean id="workflow-activity-handler" class="com.novamens.kbee.content.webapi.handler.WorkflowActivityHandler" scope="prototype"/>
+	
+	<bean id="take-task-handler" class="com.novamens.kbee.content.webapi.handler.TakeTaskHandler" scope="prototype"/>
+	
+	<bean id="user-dashborad-handler" class="com.novamens.kbee.content.webapi.handler.UserDashboardHandler" scope="prototype"/>
+	
+	<bean id="eform-update-handler" class="com.novamens.kbee.content.webapi.handler.FileFormUpdateHandler" scope="prototype"/>
+	
+	<bean id="value-eform-update-handler" class="com.novamens.kbee.content.webapi.handler.ValueFormUpdateHandler" scope="prototype"/>
+	
+	<bean id="eform-field-options-handler" class="com.novamens.kbee.content.webapi.handler.FileFormFieldOptionsHandler" scope="prototype"/>
+	
+	<bean id="value-eform-field-options-handler" class="com.novamens.kbee.content.webapi.handler.ValueFormFieldOptionsHandler" scope="prototype"/>
+	
+	<bean id="replica-handler" class="com.novamens.kbee.content.webapi.handler.ReplicaHandler" scope="prototype"/>
+		
+	<bean id="ApiMoveCommand" class="com.novamens.kbee.content.webapi.command.MoveCommand" scope= "prototype">
+		<property name="queue" ref="ApiMoveQueue"/>
+		<property name="dispatcher" ref="ApiMoveDispatcher"/>
+	</bean>
+	
+	<bean id="ApiMoveProcessor" class="com.novamens.kbee.content.webapi.command.MoveExecutor" scope="prototype">
+		<property name="dataSource" ref="dataSource"/>
+	</bean>
+	
+	<bean id="ApiMoveQueue" class="com.novamens.kbee.content.webapi.command.RemoteQueue" scope="prototype">
+		<property name="dataSource" ref="dataSource"/>
+	</bean>
+	
+	<bean id="ApiMoveDispatcher" class="com.novamens.kbee.content.command.mt.RunnableDispatcher">
+		<constructor-arg><value>3</value></constructor-arg>
+	</bean>
+	
+	<bean id="ApiServiceLocalWrapper" class="com.novamens.kbee.content.webapi.controller.LocalApiServiceWrapper" scope="prototype"/>
+	
+	<bean id="ApiSerializer" class="com.novamens.kbee.content.webapi.type.ISerializer"/>
+	
+	
+	<bean id="apiSiteSearchSuggestionServiceFactory" class="com.novamens.spring.service.SpringObjectServiceFactory">
+		<property name="bean" value="apiSiteSearchSuggestionService"/>
+	</bean>
+	
+	<bean id="apiSiteSearchSuggestionService" class="com.novamens.kbee.content.webapi.service.SiteSearchSuggestionService" scope="prototype"/>
+	
+</beans>
