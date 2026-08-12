@@ -90,8 +90,8 @@ public abstract class Field<T> extends KBPanel implements IFormModelUpdateListen
 
 			final Map<String, Object> parameterMap = (vars != null) ? vars : new HashMap<String, Object>();
 
-			if (getLabel() != null)
-				parameterMap.put("label", getLabel().getObject());
+			//if (getLabel() != null)
+			//	parameterMap.put("label", getLabel().getObject());
 			final String s = new StringResourceModel(key, getInput(), null).getString();
 			return new VariableInterpolator(s,
 					org.apache.wicket.Application.get().getResourceSettings().getThrowExceptionOnMissingResource()) {
@@ -443,7 +443,7 @@ public abstract class Field<T> extends KBPanel implements IFormModelUpdateListen
 		if (isRequired() && (input==null || "".equals(input))) {
 			ValidationError message = (new ValidationError()).addKey("requiredvalidator.message");
 			error(message);
-			onError(message.toString());
+			onError(message.getErrorMessage(new MessageSource()));
 			feedback = true;
 			return;
 		}
