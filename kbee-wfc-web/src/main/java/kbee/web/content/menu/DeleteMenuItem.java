@@ -31,15 +31,7 @@ public class DeleteMenuItem<T extends Content> extends AjaxMenuItemPanelV5<T> {
 	}
 	
 	public void onClick(AjaxRequestTarget target) {
-//		if (!getContent().isLocked()) {
-//			try {
-//				getContent().getService(ContentService.class).recycle();
-//				refresh(target);
-//			} 
-//			catch (Exception e) {
-//				setResponsePage( new ApplicationErrorPage<>(e));
-//			}
-//		}
+
 		if (getContent().isLocked()) {
 			return;
 		}

@@ -30,6 +30,7 @@ import com.novamens.content.model.DataSetMember;
 import com.novamens.content.model.EntityMember;
 import com.novamens.content.model.EntitySet;
 import com.novamens.content.security.ContentSecurityDao;
+import com.novamens.content.security.ContentSystemSecurityService;
 import com.novamens.content.security.Role;
 import com.novamens.content.user.UserRole;
 import com.novamens.content.user.UserService;
@@ -39,6 +40,7 @@ import com.novamens.kbee.content.model.KbeeEntityMember;
 import com.novamens.kbee.content.repository.MemberRepository;
 import com.novamens.kbee.content.security.KbeeEntityRole;
 import com.novamens.security.Principal;
+import com.novamens.security.acl.Group;
 import com.novamens.security.acl.KbeeGlobalRole;
 import com.novamens.service.SecurityService;
 import com.novamens.service.ServiceLocator;
@@ -166,7 +168,7 @@ public class PrincipalSelector extends KBPanel {
 		IModel<EntityMember> model;
 		int level;
 		public EntityNode(EntityMember entity, int level) {
-			model = new ObjectModel<EntityMember>(entity);
+			model = new ObjectModel<>(entity);
 			this.level=level;
 		}
 		public String getDisplayName() {
@@ -286,7 +288,18 @@ public class PrincipalSelector extends KBPanel {
 						PrincipalNode node = getModelObject();
 						onSelect(targetOptional.get(), node);
 						if (node.isPrincipal()) {
-							onSelect(targetOptional.get(), node.getPrincipal());
+							if (node.getPrincipal()==null) {
+								if (node instanceof RoleNode) {
+									RoleNode roleNode = (RoleNode)node;
+									Group group = ServiceLocator
+										.getService(ContentSystemSecurityService.class)
+										.getGroup(roleNode.getEntity(), roleNode.getRole());
+									onSelect(targetOptional.get(), group);
+								}	
+							}
+							else {
+								onSelect(targetOptional.get(), node.getPrincipal());
+							}
 						}	
 					}
 					@Override

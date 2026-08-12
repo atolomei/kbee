@@ -353,8 +353,10 @@ public class AdvancedSearchForm extends KBPanel {
 			return filters;
 		this.filters = new HashMap<String, Object>();
 		try {
-			if (getTitle()!=null && !"".equals(getTitle())) 
+			filters.put("sort", "relevance");
+			if (getTitle()!=null && !"".equals(getTitle())) {
 				filters.put("title", new PhoneticFilter("title", getTitle()));
+			}	
 			for (ElementModel model : models) {
 				
 				if (model.getElement() instanceof Attribute) {

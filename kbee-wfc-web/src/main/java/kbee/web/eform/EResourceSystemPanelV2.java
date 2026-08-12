@@ -273,6 +273,7 @@ public class EResourceSystemPanelV2 extends EFieldPanel<KbeeEResourceSystemV2> i
 			add(new WicketEventListener<TreeNodeSelection<ResourceTreeNode>>() {
 				@Override
 				public void onEvent(TreeNodeSelection<ResourceTreeNode> event) {
+					if (event.getModel() instanceof ResourceTreeNode)
 					onSelect(event.getRequestTarget(), event.getModel());
 				}
 			});
@@ -1491,9 +1492,7 @@ public class EResourceSystemPanelV2 extends EFieldPanel<KbeeEResourceSystemV2> i
 	}
 	
 	public void deleteAll() {
-//		String name = getUniqueName(getLabelString("folder.newname"));
-//		ResourceFolder folder = ServiceLocator.getService(ContentFactoryService.class).createFolder(name);
-//		ResourceFolder parent = getFolder()!=null ? (ResourceFolder)getFolder().getResource() : null;
+		this.foldermodel = null;
  		this.resources.clear(); 
 		fireScanAll(new EAjaxFormEvent(null, getField()));
 		setUpdatedField(new ResourcesRemoved(getData().getForm(), getLabel()));
@@ -2127,7 +2126,7 @@ public class EResourceSystemPanelV2 extends EFieldPanel<KbeeEResourceSystemV2> i
 				}	
 				@Override
 				public boolean isEnabled() {
-					return layout==Layout.TREE;
+					return isEditionEnabled() && layout==Layout.TREE;
 				}
 				@Override
 				public boolean isVisible() {
@@ -2161,7 +2160,7 @@ public class EResourceSystemPanelV2 extends EFieldPanel<KbeeEResourceSystemV2> i
 				}	
 				@Override
 				public boolean isEnabled() {
-					return !getResources().isEmpty();
+					return isEditionEnabled() && !getResources().isEmpty();
 				}
 				@Override
 				public String getLabel() {

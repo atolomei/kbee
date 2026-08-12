@@ -1,6 +1,9 @@
 package kbee.web.panel;
 
+import java.io.IOException;
+
 import org.apache.wicket.AttributeModifier;
+import org.apache.wicket.WicketRuntimeException;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.basic.Label;
@@ -62,64 +65,77 @@ public class ListSimpleItemMainPanel<T> extends KBPanel {
 	public void onInitialize() {
 		super.onInitialize();
 		
-		logger.debug("Initializing ListSimpleItemMainPanel with model -> " + 
+		try {
+		
+			logger.debug("Initializing ListSimpleItemMainPanel with model -> " + 
 				getModel().getObject().toString());
-		
-		Link<T> link = getLink();
-		
-		container = new WebMarkupContainer("container");
-		add(container);
-		
-		WebMarkupContainer label_container = new WebMarkupContainer("label-container");
-		label_container.add( new AttributeModifier("class", getLabelContainerCss()));
-		
-		link.add(label_container);
-		
-		//
-		// Label
-		//
-		IModel<String> ml=getItemLabel(getModel());
-		
-		Label il =new Label("item-label", ml.getObject());
-		il.setEscapeModelStrings(false);
-		label_container.add(il);
-		link.add( new AttributeModifier("class",  ( isExpanded() ? "selected" : "")));
-		container.add(link);
-
-		 
-		// meta
-		//
-
-		IModel<String> ms=getItemLabelMeta(getModel());
-		
-		
-		Label lms=new Label("item-label-meta", ms);
-
-		
-		
-		boolean isMeta = (ms!=null && ms.getObject().length()>0);
-		
-		lms.setVisible(isMeta);
-		lms.setEscapeModelStrings(false);
-		container.add(lms);
-		
-
-		// tags 
-		//
-		WebMarkupContainer c=getItemTags(getModel());
-		
-		//boolean isTags  = (c!=null && c.isVisible());
-		container.add(c!=null?c: new InvisiblePanel("labels")); 
-
-		// moreinfo
-		//
-
-		WebMarkupContainer m=getMoreInfoPanel(getModel());
-		boolean isMoreInfo  = (m!=null && m.isVisible());
-		container.add( m!=null?m: new InvisiblePanel("more-info-container"));
-		
-		if (isMeta || isMoreInfo) 		
-			container.add( new AttributeModifier("class", "has-meta"));
+			
+			Link<T> link = getLink();
+			
+			container = new WebMarkupContainer("container");
+			add(container);
+			
+			WebMarkupContainer label_container = new WebMarkupContainer("label-container");
+			label_container.add( new AttributeModifier("class", getLabelContainerCss()));
+			
+			link.add(label_container);
+			
+			//
+			// Label
+			//
+			IModel<String> ml=getItemLabel(getModel());
+			
+			Label il =new Label("item-label", ml.getObject());
+			il.setEscapeModelStrings(false);
+			label_container.add(il);
+			link.add( new AttributeModifier("class",  ( isExpanded() ? "selected" : "")));
+			container.add(link);
+	
+			 
+			// meta
+			//
+	
+			IModel<String> ms=getItemLabelMeta(getModel());
+			
+			
+			Label lms=new Label("item-label-meta", ms);
+				
+			
+			boolean isMeta = (ms!=null && ms.getObject().length()>0);
+			
+			lms.setVisible(isMeta);
+			lms.setEscapeModelStrings(false);
+			container.add(lms);
+			
+	
+			// tags 
+			//
+			WebMarkupContainer c=getItemTags(getModel());
+			
+			//boolean isTags  = (c!=null && c.isVisible());
+			container.add(c!=null?c: new InvisiblePanel("labels")); 
+	
+			// moreinfo
+			//
+	
+			WebMarkupContainer m=getMoreInfoPanel(getModel());
+			boolean isMoreInfo  = (m!=null && m.isVisible());
+			container.add( m!=null?m: new InvisiblePanel("more-info-container"));
+			
+			//if (isMeta || isMoreInfo) 		
+			//	container.add( new AttributeModifier("class", "has-meta"));
+		}
+		catch (Exception e) {
+			container = (WebMarkupContainer)get("container");
+			if (container==null) {
+				container = new WebMarkupContainer("container");
+				add(container);
+			}
+			container.add(new InvisiblePanel("item-link")); 
+			container.add(new Label("item-label-meta", e.getMessage())); 
+			container.add(new InvisiblePanel("labels")); 
+			container.add(new InvisiblePanel("more-info-container")); 
+		}
 	}
 	
 	protected int getIndex() {

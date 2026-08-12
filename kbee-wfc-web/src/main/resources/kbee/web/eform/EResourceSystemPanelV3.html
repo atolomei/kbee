@@ -4,9 +4,6 @@
 		.bggray { background:#fbfbfb;}
 		.kbee .tree-theme-windows span.tree-content .selected span.tree-label { background-color: #d8dcdf; color: black; padding: 2px; border-radius: 4px; font-weight: bold; }
 		
-/* Resources Panel - override Kbee */
-
-
 /* Panel completo */
 .kbee .eform-editor .eform .resources-panel,
 .kbee .resources-panel {
@@ -23,14 +20,8 @@
     border: 1px solid #d8dcdf;
     border-radius: 4px;
     background: #fff;
-    overflow: hidden !important;
+    overflow: visible !important;
     box-sizing: border-box;
-}
-
-/* Subtitle */
-.kbee .resources-panel > span {
-    flex: 0 0 auto;
-    padding: 8px 12px;
 }
 
 /* Toolbar */
@@ -38,9 +29,11 @@
     flex: 0 0 42px;
     height: 42px;
     width: 100%;
-    overflow: hidden;
+    overflow: visible !important;
     border-bottom: 1px solid #d8dcdf;
     background: #fafafa;
+    position: relative;
+    z-index: 10;
 }
 
 /* Browser */
@@ -49,17 +42,44 @@
     min-height: 0;
     width: 100%;
     display: flex;
-    overflow: hidden;
+    overflow: visible !important;
+    position: relative;
+    z-index: 20;
 }
 
-.kbee .resources-panel .tree-panel,
+/* List */
 .kbee .resources-panel .list-panel {
     min-height: 0;
-    overflow: auto;
+    overflow: visible !important;
+    position: relative;
+    z-index: 20;
 }
 
 .kbee .resources-panel .tree-panel {
+    min-height: 0;
+    overflow: auto;
     border-right: 1px solid #d8dcdf;
+}
+
+/* Media list */
+.kbee .resources-panel .media-list,
+.kbee .resources-panel .media,
+.kbee .resources-panel .media-body,
+.kbee .resources-panel .draggable {
+    overflow: visible !important;
+}
+
+/* Dropdowns */
+.kbee .resources-panel .dropdown,
+.kbee .resources-panel .dropdown.open,
+.kbee .resources-panel .dropup {
+    position: relative !important;
+    z-index: 99999 !important;
+}
+
+.kbee .resources-panel .dropdown-menu {
+    position: absolute !important;
+    z-index: 100000 !important;
 }
 
 /* Uppy */
@@ -70,17 +90,28 @@
     overflow: hidden;
     border-top: 1px solid #d8dcdf;
     background: #fafafa;
+    position: relative;
+    z-index: 1;
 }
 
 .kbee .resources-panel #uppy-dashboard {
     width: 100%;
     height: 100%;
     overflow: hidden;
+    position: relative;
+    z-index: 1;
 }
 
+.kbee .resources-panel .uppy-Dashboard,
+.kbee .resources-panel .uppy-Dashboard-inner,
+.kbee .resources-panel .uppy-Dashboard-innerWrap {
+    z-index: 1 !important;
+}
+
+/* Uppy title */
 .kbee .resources-panel .uppy-Dashboard-AddFiles-title {
-	font-size: 14px;
-	color: #0d5072;
+    font-size: 14px;
+    color: #0d5072;
     font-family: Lato, Roboto, Arial, sans-serif !important;
 }
 
@@ -88,8 +119,6 @@
 .kbee .resources-panel #inputId {
     display: none !important;
 }
-
-
 
 
 	</style>
@@ -145,7 +174,7 @@
 			</li>
 			
 			<li class="items-top-right" style="float:left;  margin-right:1px;">
-				<div><a wicket:id="upload-folder-button">upload</a></div>
+				<div><a wicket:id="upload-folder-button"><i class="fal fa-folder-arrow-up" style="font-size:21px;padding: 10px;"></i></a></div>
 			</li>	
 
 			<li class="items-top-right" style="float:left;  margin-right:1px;">
@@ -215,7 +244,7 @@
         <div class="toolbar-container" wicket:id="toolbar"></div>
 
         <!-- Browser -->
-        <div wicket:id="browser" id="browser">
+        <div wicket:id="browser">
 
             <div wicket:id="tree-view"
                  class="tree-panel col-lg-2 col-md-4 col-xs-12">
@@ -228,13 +257,10 @@
         </div>
 
         <!-- Upload -->
-        <div id="uppy-area" wicket:id="pickfiles">
- 			<input wicket:id="input"
- 				id="inputId"
- 				type="hidden"
+        <div wicket:id="uploader">
+ 			<div class="kbee-destination" wicket:id="input"
  				data-destination-id=""/>
-            <div id="uppy-dashboard">
-			</div>
+            <div class="kbee-uppy-dashboard"/>
         </div>
 
     </div>

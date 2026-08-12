@@ -34,6 +34,7 @@ import org.apache.wicket.validation.ValidationError;
 
 import java.util.*;
 
+@SuppressWarnings("serial")
 public abstract class TagManagementFormPanel extends Panel {
 
     private static final long serialVersionUID = 1L;
@@ -65,7 +66,7 @@ public abstract class TagManagementFormPanel extends Panel {
         return ServiceLocator.getService(UserService.class).getSessionUserProfile().getPerson();
     }
 
-    @Override
+	@Override
     protected void onInitialize() {
         super.onInitialize();
 
@@ -166,9 +167,6 @@ public abstract class TagManagementFormPanel extends Panel {
 
         form.add(tagToolActionContainer);
         submitBtn = new   WorkingIndicatorAjaxSubmitLink("submit-button", getLabel("execute").getObject(), form) {
-
-            private static final long serialVersionUID = -8358957179617226851L;
-
             protected void onSubmit(AjaxRequestTarget target) {
 
                 if (TagManagementFormPanel.this.isIQLVisible() && getCondition() == null) {
@@ -177,13 +175,12 @@ public abstract class TagManagementFormPanel extends Panel {
                 }
                 runCommand(target, getCommand());
             }
-
             @Override
             public String getAjaxIndicatorMarkupId() {
                 return super.getId();
             }
-
-            public boolean isEnabled() {
+            @Override
+            public boolean isVisible() {
                 return root || role_admin;
             }
         };

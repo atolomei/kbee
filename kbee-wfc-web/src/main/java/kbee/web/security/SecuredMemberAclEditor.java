@@ -43,16 +43,23 @@ public class SecuredMemberAclEditor extends ObjectEditor<DataSetMember> {
 	private static Logger logger = Logger.getLogger(SecuredMemberAclEditor.class.getName());
 	
 	final boolean role_admin = 
-		ServiceLocator.getService(SecurityService.class)
+		ServiceLocator
+		.getService(SecurityService.class)
 		.isMember(KbeeGlobalRole.DOMAIN_ADMIN.getId());
 	
 	final boolean role_model = role_admin || 
-		ServiceLocator.getService(SecurityService.class)
+		ServiceLocator
+		.getService(SecurityService.class)
 		.isMember(KbeeGlobalRole.INFORMATION_MODEL.getId());
 	
 	final boolean role_dataset_members = role_model || role_admin || 
-		ServiceLocator.getService(SecurityService.class)
+		ServiceLocator
+		.getService(SecurityService.class)
 		.isMember(KbeeGlobalRole.DATASET_VALUES_WRITE.getId());
+	
+	final boolean role_federated_security =
+		ServiceLocator.getService(SecurityService.class)
+		.isMember(KbeeGlobalRole.FEDERATED_SECURITY.getId());
 	
 	private static String ShowWorkflowPermission =
 		PropertiesFactory
@@ -179,21 +186,23 @@ public class SecuredMemberAclEditor extends ObjectEditor<DataSetMember> {
 		add(new EditButtonsV5<DataSetMember>(this) {
 			@Override
 			public boolean isVisible() {
-					if (getModelObject().getDataSet().isReadonly())
-						return isRoot();
-					if (getModelObject().getState()==ObjectState.DELETED)
-						return false;
-					if (isReadOnly())
-						return false;
-					if (isSupportSessionUser() && !isRoot())
-						return false;
-					if (role_dataset_members)
-						return true;
-					if (!isWriteable(getModelObject()))
-						return false;
-					if (!isDeleteable(getModelObject()))
-						return false;
+				if (getModelObject().getDataSet().isReadonly())
+					return isRoot();
+				if (getModelObject().getState()==ObjectState.DELETED)
+					return false;
+				if (isReadOnly())
+					return false;
+				if (isSupportSessionUser() && !isRoot())
+					return false;
+				if (role_dataset_members)
 					return true;
+				if (!role_federated_security)
+					return false;
+				if (!isWriteable(getModelObject()))
+					return false;
+				if (!isDeleteable(getModelObject()))
+					return false;
+				return true;
 			}
 			@Override
 			public boolean isEnabled()  {

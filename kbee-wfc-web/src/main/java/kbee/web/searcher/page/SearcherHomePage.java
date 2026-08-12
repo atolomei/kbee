@@ -134,6 +134,7 @@ public class SearcherHomePage extends AbstractSearcherPage<Site> {
 			public void onEvent(SearcherOnChangeEvent event) {
 				try {
 					SearcherSiteQuery sq = new SearcherSiteQuery(getSiteModel().getObject(), getIndex());
+					sq.setSortField((String)event.getParameters().get("sort"));
 					setFilters(sq, event.getParameters());
 					setUserPreference("explorer-mode", "no");
 					setResponsePage(new SearcherResultsPage(getSiteModel(),sq));
@@ -143,7 +144,7 @@ public class SearcherHomePage extends AbstractSearcherPage<Site> {
 				}		
 			}
 			private void setFilters(Query query, Map<String, Object> filters) {
-				List<String> parameters = new ArrayList<String>();
+				List<String> parameters = new ArrayList<>();
 				parameters.addAll(query.getParameters().keySet());
 				for (String parameter : parameters) {
 					if (query.getParameters().get(parameter) instanceof Filter) {

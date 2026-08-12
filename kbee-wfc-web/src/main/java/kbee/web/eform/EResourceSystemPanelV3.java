@@ -2,6 +2,7 @@ package kbee.web.eform;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -12,6 +13,7 @@ import java.util.Optional;
 
 import org.apache.wicket.AttributeModifier;
 import org.apache.wicket.Component;
+import org.apache.wicket.MarkupContainer;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.attributes.AjaxRequestAttributes;
 import org.apache.wicket.ajax.attributes.AjaxRequestAttributes.EventPropagation;
@@ -36,6 +38,7 @@ import org.apache.wicket.model.IDetachable;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.Model;
 import org.apache.wicket.model.PropertyModel;
+import org.apache.wicket.page.PageAccessSynchronizer;
 
 import com.novamens.content.base.Content;
 import com.novamens.content.base.Resource;
@@ -87,6 +90,7 @@ import com.novamens.wicket.util.AjaxBCElement;
 import com.novamens.wicket.util.MenuBreadCrumbPanel;
 
 import kbee.util.logging.Logger;
+import kbee.web.eform.EResourceSystemPanelV2.ResourceTreeNode;
 import kbee.web.error.ApplicationErrorPage;
 import kbee.web.print.PrintMenuItemPanel;
 import kbee.web.resource.FolderViewPanel;
@@ -100,8 +104,8 @@ import kbee.web.uploader.UploadTusBehavior;
 @SuppressWarnings("serial")
 public class EResourceSystemPanelV3 extends EFieldPanel<KbeeEResourceSystemV3> implements 
 	ResourcesPanel, 
-	IFormModelUpdateListener, 
-	EventListener {
+	IFormModelUpdateListener 
+	{
 	
 	private static final long serialVersionUID = 1L;
 	
@@ -179,7 +183,8 @@ public class EResourceSystemPanelV3 extends EFieldPanel<KbeeEResourceSystemV3> i
 			return model;
 		}
 		public String getDisplayName() {
-			return displayName;
+			return model.getObject().getTitle();
+			//return displayName;
 		}
 		public void detach() {
 			model.detach();
@@ -281,6 +286,7 @@ public class EResourceSystemPanelV3 extends EFieldPanel<KbeeEResourceSystemV3> i
 			add(new WicketEventListener<TreeNodeSelection<ResourceTreeNode>>() {
 				@Override
 				public void onEvent(TreeNodeSelection<ResourceTreeNode> event) {
+					if (event.getModel() instanceof ResourceTreeNode)
 					onSelect(event.getRequestTarget(), event.getModel());
 				}
 			});
@@ -299,7 +305,7 @@ public class EResourceSystemPanelV3 extends EFieldPanel<KbeeEResourceSystemV3> i
 	/**---------------------------------------------------------------
 	 */
 	public class ToolbarFragment extends Fragment {
-		public ToolbarFragment(String id) {
+		public ToolbarFragment(String id, String uploaderId) {
 			super(id, "toolbar-fragment", EResourceSystemPanelV3.this);
 			
 			setOutputMarkupId(true);
@@ -382,28 +388,107 @@ public class EResourceSystemPanelV3 extends EFieldPanel<KbeeEResourceSystemV3> i
 			b_new_folder.add( new AttributeModifier("title", getLabel("menu.newfolder")));
 			add(b_new_folder);
 			
-			Link<Void> b_upload_folder;
-			b_upload_folder  = new Link<Void>("upload-folder-button") {
-				public void onClick() {
-				}
-				@Override
-				public boolean isEnabled() {
-					return true;
-				}
-				@Override
-				public boolean isVisible() {
-					return !isReadOnly();
-				}
+//			Link<Void> b_upload_folder;
+//			b_upload_folder  = new Link<Void>("upload-folder-button") {
+//				public void onClick() {
+//				}
+//				@Override
+//				public boolean isEnabled() {
+//					return true;
+//				}
+//				@Override
+//				public boolean isVisible() {
+//					return !isReadOnly();
+//				}
+//			};
+//			b_upload_folder.add(new AttributeModifier("onclick",
+//				    "var input=document.querySelector('#uppy-dashboard input[webkitdirectory]');" +
+//				    "if(input){input.click();}" +
+//				    "return false;"));
+//			add(b_upload_folder);
+			
+			Link<Void> bUploadFolder = new Link<Void>("upload-folder-button") {
+			    @Override
+			    public void onClick() {
+			    }
+			    @Override
+			    public boolean isEnabled() {
+			        return true;
+			    }
+			    @Override
+			    public boolean isVisible() {
+			        return !isReadOnly();
+			    }
 			};
-			b_upload_folder.add(new AttributeModifier("onclick",
-				    "var input=document.querySelector('#uppy-dashboard input[webkitdirectory]');" +
-				    "if(input){input.click();}" +
-				    "return false;"));
-			add(b_upload_folder);
+
+			
+			//Component uploader = getControl().get("uploader");
+			//String componentId = uploader.getMarkupId();
+			String instanceKey = "uppy_" + uploaderId;
+
+			String escapedComponentId = uploaderId
+			        .replace("\\", "\\\\")
+			        .replace("'", "\\'");
+
+			String escapedInstanceKey = instanceKey
+			        .replace("\\", "\\\\")
+			        .replace("'", "\\'");
+
+			bUploadFolder.add(new AttributeModifier(
+			        "onclick",
+			        String.format(
+			                "return (function() {\n" +
+			                "    var instanceKey = '%s';\n" +
+			                "\n" +
+			                "    var uppy = window.kbeeUppyInstances\n" +
+			                "        ? window.kbeeUppyInstances[instanceKey]\n" +
+			                "        : null;\n" +
+			                "\n" +
+			                "    if (!uppy) {\n" +
+			                "        console.error(\n" +
+			                "            'No se encontró la instancia de Uppy:',\n" +
+			                "            instanceKey\n" +
+			                "        );\n" +
+			                "        return false;\n" +
+			                "    }\n" +
+			                "\n" +
+			                "    var root = document.getElementById('%s');\n" +
+			                "\n" +
+			                "    if (!root) {\n" +
+			                "        console.error(\n" +
+			                "            'No se encontró el componente Uppy:',\n" +
+			                "            '%s'\n" +
+			                "        );\n" +
+			                "        return false;\n" +
+			                "    }\n" +
+			                "\n" +
+			                "    var input = root.querySelector(\n" +
+			                "        '.kbee-uppy-dashboard ' +\n" +
+			                "        'input.uppy-Dashboard-input[webkitdirectory]'\n" +
+			                "    );\n" +
+			                "\n" +
+			                "    if (!input) {\n" +
+			                "        console.error(\n" +
+			                "            'No se encontró el input de carpetas de Uppy'\n" +
+			                "        );\n" +
+			                "        return false;\n" +
+			                "    }\n" +
+			                "\n" +
+			                "    input.click();\n" +
+			                "    return false;\n" +
+			                "})();",
+			                escapedInstanceKey,
+			                escapedComponentId,
+			                escapedComponentId
+			        )
+			));
+
+			add(bUploadFolder);
 
 			
 			b_tree  = new AjaxLink<Void>("tree-view-button") {
 				public void onClick(AjaxRequestTarget target) {
+					getField().getName();
 					if (layout==Layout.TREE)
 						layout=Layout.FLAT;
 					else 
@@ -666,7 +751,7 @@ public class EResourceSystemPanelV3 extends EFieldPanel<KbeeEResourceSystemV3> i
 				menu.addItem(new MenuItemFactory<KbeeEResourceSystemV3>() {
 					@Override
 					public AbstractMenuItemPanelV5<KbeeEResourceSystemV3> getItem(String id) {
-						return new com.novamens.wicket.markup.html.actions.AjaxCheckMenuItemPanelV5<KbeeEResourceSystemV3>(id) {
+						return new AjaxCheckMenuItemPanelV5<KbeeEResourceSystemV3>(id) {
 							@Override
 							public void onCheckClick(AjaxRequestTarget target) {
 								try {
@@ -889,7 +974,6 @@ public class EResourceSystemPanelV3 extends EFieldPanel<KbeeEResourceSystemV3> i
 			s.setVisible(getField().getSublabel()!=null);
 			add(s);
 			
-			add(new ToolbarFragment("toolbar"));
 			
 			WebMarkupContainer browser = new WebMarkupContainer("browser") {
 				public boolean isVisible() {
@@ -911,17 +995,25 @@ public class EResourceSystemPanelV3 extends EFieldPanel<KbeeEResourceSystemV3> i
 			add(browser);
 			
 			WebMarkupContainer input = new WebMarkupContainer("input");
-			input.add(new AttributeModifier("data-destination-id", getContentModel().getObject().getId()));
-			//add(input);
+			input.add(new AttributeModifier("data-destination-id", EResourceSystemPanelV3.this.getPath()));
 	 		
-			WebMarkupContainer pickfiles = new WebMarkupContainer("pickfiles") {
+			WebMarkupContainer uploader = new WebMarkupContainer("uploader") {
 				public boolean isVisible() {
-					return isEditionEnabled() && !isReadOnly() && EResourceSystemPanelV3.this.isEnabled() && !isQuotaLimit() && !isSelectionVisible();
+					return isEditionEnabled() && 
+						!isReadOnly() && 
+						EResourceSystemPanelV3.this.isEnabled() && 
+						!isQuotaLimit() && 
+						!isSelectionVisible();
 				}
 			};
-			pickfiles.add(input);
-			add(pickfiles);
-//				
+			uploader.add(getUploaderBehavior());
+			uploader.add(input);
+			uploader.setOutputMarkupId(true);
+			add(uploader);
+			
+			add(new ToolbarFragment("toolbar", uploader.getMarkupId()));
+
+			
 //			add(new WebMarkupContainer("quotalimit") {
 //				@Override
 //				public boolean isVisible() {
@@ -970,8 +1062,9 @@ public class EResourceSystemPanelV3 extends EFieldPanel<KbeeEResourceSystemV3> i
 					getData().setData(getField(), getResources());
 					updated = true;
 					setUpdatedField(new ResourceUpdated(getData().getForm(), EResourceSystemPanelV3.this.getLabel(), getModelObject()));
-					target.add(ResourceView.this);
+					//target.add(ResourceView.this);
 					EResourceSystemPanelV3.this.onUpdate(target);
+					refresh(target);
 				}
 				@Override
 				public void onClose(AjaxRequestTarget target) {
@@ -1019,10 +1112,6 @@ public class EResourceSystemPanelV3 extends EFieldPanel<KbeeEResourceSystemV3> i
 				@Override
 				public void onUpdate(AjaxRequestTarget target) {
 					setSelected(getValue());
-//					if (!getValue()) {
-//						target.add(getControl());
-//						refresh(target);
-//					}
 		            fireScanAll(new SelectionEvent(target));
 				}
 				public boolean isEnabled() {
@@ -1152,19 +1241,105 @@ public class EResourceSystemPanelV3 extends EFieldPanel<KbeeEResourceSystemV3> i
 					}
 					@Override
 					public String onClickScript() {
-						String contentid = String.valueOf(
-							getContentModel().getObject().getId());
-						String resourceid = String.valueOf(
-							getModelObject().getId());
-						String destination = contentid + "/" + resourceid;
-						String script =
-							    "if(window.kbeeUppy){" +
-							    "   window.kbeeUppy.setMeta({destinationId:'"+destination+"'});" +
-							    "}" +
-							    "var input=document.querySelector('#uppy-dashboard input[type=file]:not([webkitdirectory])');" +
-							    "if(input){input.click();}" +
-							    "return false;";
-						return script;	    
+						    String resourceId =
+						            String.valueOf(getModelObject().getId());
+
+						    String destination =
+						            EResourceSystemPanelV3.this.getPath()
+						            + "/"
+						            + resourceId;
+
+						    Component uploader =getControl().get("uploader");
+						    String componentId =
+						            uploader.getMarkupId();
+
+						    String instanceKey =
+						            "uppy_" + componentId;
+
+						    String escapedDestination =
+						            destination
+						                    .replace("\\", "\\\\")
+						                    .replace("'", "\\'");
+
+						    String escapedComponentId =
+						            componentId
+						                    .replace("\\", "\\\\")
+						                    .replace("'", "\\'");
+
+						    return String.format(
+						            "return (function() {\n" +
+						            "    var instanceKey = '%s';\n" +
+						            "\n" +
+						            "    var uppy = window.kbeeUppyInstances\n" +
+						            "        ? window.kbeeUppyInstances[instanceKey]\n" +
+						            "        : null;\n" +
+						            "\n" +
+						            "    if (!uppy) {\n" +
+						            "        console.error(\n" +
+						            "            'No se encontró la instancia de Uppy:',\n" +
+						            "            instanceKey\n" +
+						            "        );\n" +
+						            "        return false;\n" +
+						            "    }\n" +
+						            "\n" +
+						            "    uppy.setMeta({\n" +
+						            "        destinationId: '%s'\n" +
+						            "    });\n" +
+						            "\n" +
+						            "    var root = document.getElementById('%s');\n" +
+						            "\n" +
+						            "    if (!root) {\n" +
+						            "        console.error(\n" +
+						            "            'No se encontró el componente Uppy:',\n" +
+						            "            '%s'\n" +
+						            "        );\n" +
+						            "        return false;\n" +
+						            "    }\n" +
+						            "\n" +
+						            "    var input = root.querySelector(\n" +
+						            "        '.kbee-uppy-dashboard ' +\n" +
+						            "        'input.uppy-Dashboard-input:not([webkitdirectory])'\n" +
+						            "    );\n" +
+						            "\n" +
+						            "    if (!input) {\n" +
+						            "        console.error(\n" +
+						            "            'No se encontró el input de archivos de Uppy'\n" +
+						            "        );\n" +
+						            "        return false;\n" +
+						            "    }\n" +
+						            "\n" +
+						            "    console.log(\n" +
+						            "        'Abriendo selector Uppy. Destino:',\n" +
+						            "        '%s'\n" +
+						            "    );\n" +
+						            "\n" +
+						            "    input.click();\n" +
+						            "    return false;\n" +
+						            "})();",
+						            instanceKey,
+						            escapedDestination,
+						            escapedComponentId,
+						            escapedComponentId,
+						            escapedDestination
+						    );
+//						}
+						
+						
+						
+//						//String contentid = String.valueOf(
+//						//	getContentModel().getObject().getId());
+//						String resourceid = String.valueOf(
+//							getModelObject().getId());
+//						String destination = EResourceSystemPanelV3.this.getPath() + "/" + resourceid;
+//						//destination = EResourceSystemPanelV3.this.getPath() + "/" + resourceid;;
+//						String script =
+//							    "if(window.kbeeUppy){" +
+//							    "   window.kbeeUppy.setMeta({destinationId:'"+destination+"'});" +
+//							    "}" +
+//							    "var input=document.querySelector('#uppy-dashboard input[type=file]:not([webkitdirectory])');" +
+//							    "if(input){input.click();}" +
+//							    "return false;";
+//						return script;	    
 					}
 					@Override
 					public boolean isVisible() {
@@ -1399,7 +1574,8 @@ public class EResourceSystemPanelV3 extends EFieldPanel<KbeeEResourceSystemV3> i
 		
 		for (IModel<ResourceNode> model : getResources()) {
 			ResourceFolder folder = model.getObject().getFolder();
-			if ((getFolder()==null && folder==null) || (folder!=null && getFolder()!=null && folder.equals(getFolder().getResource()))) {
+			if ((getFolder()==null && folder==null) || (folder!=null && getFolder()!=null && equals(folder,getFolder().getResource()))) {
+			//if ((getFolder()==null && folder==null) || (folder!=null && getFolder()!=null && folder.equals(getFolder().getResource()))) {
 				if (model.getObject().getResource() instanceof KBFile) {
 					files.add(model);
 				}
@@ -1423,6 +1599,9 @@ public class EResourceSystemPanelV3 extends EFieldPanel<KbeeEResourceSystemV3> i
 		return resources;
 	}
 	
+	private boolean equals(Resource resource1, Resource resource2) {
+		return resource1.getId().equals(resource2.getId());
+	}
 	
 	public List<IModel<ResourceNode>> getSelectionFolderResources() {
 		
@@ -1505,6 +1684,7 @@ public class EResourceSystemPanelV3 extends EFieldPanel<KbeeEResourceSystemV3> i
 	}
 	
 	public void deleteAll() {
+		this.foldermodel = null;
  		this.resources.clear(); 
 		fireScanAll(new EAjaxFormEvent(null, getField()));
 		setUpdatedField(new ResourcesRemoved(getData().getForm(), getLabel()));
@@ -1613,49 +1793,6 @@ public class EResourceSystemPanelV3 extends EFieldPanel<KbeeEResourceSystemV3> i
 	public void setSelectionVisible(boolean selectionVisible) {
 		this.selectionVisible = selectionVisible;
 	}
-	
-	@Override
-	public boolean listen(Event event) {
-		if (event instanceof FileUploadedEvent &&
-			getPage()!=null) {
-			String destination = ((FileUploadedEvent)event).getDestination();
-			String contentId = String.valueOf(getContentModel().getObject().getId());
-			if (destination.equals(contentId)) {
-				return true;
-			}
-			else {
-				if (destination.startsWith(contentId+"/")) {
-					return true;
-				}
-				else {
-					return false;
-				}
-			}
-		}
-		else {
-			return false;
-		}
-	}
-	
-	@Override
-	public void onEvent(Event event) {
-		String destination = ((FileUploadedEvent)event).getDestination();
-		if (!destination.contains("/")) {
-			KBFile file = ((FileUploadedEvent)event).getFile();
-			file = (KBFile)getContentDao().reload(file);
-			add(file);
-		}
-		else {
-			Resource resource = null;
-			String resourceId = destination.split("/")[1];
-			for (IModel<ResourceNode> model : this.resources) {
-				if (resourceId.equals(String.valueOf(model.getObject().getId()))) {
-					resource = model.getObject().getResource();
-				}
-			}	
-			addVersion(resource, ((FileUploadedEvent)event).getFile());
-		}
-	}
 
 	/***
 	 * 
@@ -1665,8 +1802,6 @@ public class EResourceSystemPanelV3 extends EFieldPanel<KbeeEResourceSystemV3> i
 	@Override
 	public void onInitialize() {
 		super.onInitialize();
-		
-		ServiceLocator.getService(EventService.class).addListener(this);
 		
 		setResources();
 		
@@ -1703,44 +1838,28 @@ public class EResourceSystemPanelV3 extends EFieldPanel<KbeeEResourceSystemV3> i
 		else {
 			layout.setVisible(false);
 		}
-		add(new UploadTusBehavior() {
-			@Override
-			public boolean isEnabled() {
-				return EResourceSystemPanelV3.this.isEnabled();
-			}
-			public void bind(Component component) {
-				Component editor = getEditor(component);
-				if (editor!=null) {
-					boolean found = false;
-					for (Behavior behavior : editor.getBehaviors()) {
-						if (behavior instanceof RefreshBehavior) {
-							found = true;
-							break;
-						}
-					}
-					if (!found) {
-						editor.add(new RefreshBehavior(editor.getMarkupId()));
-					}
-					else {
-						setBehaviorId(editor.getMarkupId());
-					}
-				}
-			}
-			@Override
-			protected void onUpload(AjaxRequestTarget target, String component) {
-				fireScanAll(new EAjaxRefreshEvent(target, component));
-			}
-		});
+		
 		
 		add(new WicketEventListener<EAjaxRefreshEvent>() {
 			@Override
 			public void onEvent(EAjaxRefreshEvent event) {
 				if (handle(event)) {
 					refresh(event.getRequestTarget());
+					getEditor().getModel().detach();
+					getEditor().update(event.getRequestTarget());
 				}
 			}
 			public boolean handle(EAjaxRefreshEvent event) {
-				return EResourceSystemPanelV3.this.getMarkupId().equals(event.getComponentId());
+				return hasDescendant(getControl(), event.getComponentId());
+				//return EResourceSystemPanelV3.this.getMarkupId().equals(event.getComponentId());
+			}
+			public  boolean hasDescendant(MarkupContainer parent, String id) {
+			    return parent.visitChildren(Component.class, (component, visit) -> {
+			    	System.out.println(component.getId());
+			        if (id.equals(component.getMarkupId())) {
+			            visit.stop(Boolean.TRUE);
+			        }
+			    }) != null;
 			}
 		});
 		
@@ -1773,6 +1892,39 @@ public class EResourceSystemPanelV3 extends EFieldPanel<KbeeEResourceSystemV3> i
 		getContainer().add(new ConfirmationDialog("confirmation-dialog"));
 	}
 	
+
+	protected Behavior getUploaderBehavior() {
+		return new UploadTusBehavior() {
+			@Override
+			public boolean isEnabled() {
+				return EResourceSystemPanelV3.this.isEnabled();
+			}
+			public void bind(Component component) {
+				Component editor = getEditor(EResourceSystemPanelV3.this);
+				if (editor!=null) {
+					String behaviorId = editor.getMarkupId();
+					boolean found = false;
+					for (Behavior behavior : editor.getBehaviors()) {
+						if (behavior instanceof RefreshBehavior) {
+							if (behaviorId.equals(((RefreshBehavior)behavior).getId())) {
+								found = true;
+								break;
+							}
+						}
+					}
+					if (!found) {
+						editor.add(new RefreshBehavior(behaviorId));
+					}
+					setBehaviorId(behaviorId);
+				}
+			}
+			@Override
+			protected void onUpload(AjaxRequestTarget target, String component) {
+				fireScanAll(new EAjaxRefreshEvent(target, component));
+			}
+		};
+	}
+	
 	public boolean isSelectAll() {
 		return selectAll;
 	}
@@ -1789,6 +1941,17 @@ public class EResourceSystemPanelV3 extends EFieldPanel<KbeeEResourceSystemV3> i
 		}
 		if (contentmodel!=null)
 			contentmodel.detach();
+	}
+	
+	private void readObject(ObjectInputStream in)
+	        throws IOException, ClassNotFoundException {
+
+	    in.defaultReadObject();
+
+	    System.out.println(
+	        "Deserializado: " +
+	        System.identityHashCode(this)
+	    );
 	}
 	
 	protected void refresh(AjaxRequestTarget target) {
@@ -1808,7 +1971,6 @@ public class EResourceSystemPanelV3 extends EFieldPanel<KbeeEResourceSystemV3> i
 		Component component =  ((SelectionFragment)getSelectionPanel()).focusComponent();
 		if (component!=null)
 		target.focusComponent(component);
-		//getControl().refresh(target);
 	}
 	
 	protected void hideSelection(AjaxRequestTarget target) {
@@ -2027,16 +2189,6 @@ public class EResourceSystemPanelV3 extends EFieldPanel<KbeeEResourceSystemV3> i
 		return node;
 	}
 	
-//	private String getPath(IModel<ResourceNode> nodemodel) {
-//
-//		ResourceNode node = nodemodel.getObject();
-//		String path = node.getDisplayName();
-//		if (node.getFolder()!=null) {
-//			path = getPath(getNode(node.getFolder())) + "/"+ path;
-//		}
-//		return path;
-//	}
-	
 	private IModel<ResourceNode> getNode(Resource resource) {
 		for (IModel<ResourceNode> model : getResources()) {
 			if (model.getObject().getResource().getId().equals(resource.getId())) {
@@ -2168,7 +2320,7 @@ public class EResourceSystemPanelV3 extends EFieldPanel<KbeeEResourceSystemV3> i
 				}	
 				@Override
 				public boolean isEnabled() {
-					return layout==Layout.TREE;
+					return isEditionEnabled() && layout==Layout.TREE;
 				}
 				@Override
 				public boolean isVisible() {
@@ -2202,7 +2354,7 @@ public class EResourceSystemPanelV3 extends EFieldPanel<KbeeEResourceSystemV3> i
 				}	
 				@Override
 				public boolean isEnabled() {
-					return !getResources().isEmpty();
+					return isEditionEnabled() && !getResources().isEmpty();
 				}
 				@Override
 				public String getLabel() {

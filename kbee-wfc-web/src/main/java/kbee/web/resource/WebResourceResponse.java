@@ -349,8 +349,11 @@ public class WebResourceResponse extends AbstractResourceResponse {
 							}
 						}
 						else {
-							resourcename = content.getService(KBFSResourceService.class).normalize(resourcename);
-							resource = ((ResourceContainer)content).getResource(resourcename);
+							String normalized = content.getService(KBFSResourceService.class).normalize(resourcename);
+							resource = ((ResourceContainer)content).getResource(normalized);
+							if (resource==null) {
+								resource = ((ResourceContainer)content).getResource(resourcename);
+							}
 						}
 					}
 				}

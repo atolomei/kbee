@@ -22,6 +22,8 @@ import com.novamens.content.form.EFormField;
 import com.novamens.content.form.EFormMemberData;
 import com.novamens.content.form.EValidatable;
 import com.novamens.content.form.EValidation;
+import com.novamens.content.model.AccessStrategy;
+import com.novamens.content.model.Classifier;
 import com.novamens.content.model.DataSetMember;
 import com.novamens.content.model.PersonMember;
 import com.novamens.kbee.content.form.EFormAbstractField;
@@ -34,6 +36,7 @@ import com.novamens.kbee.content.form.KbeeEStringPropertyModel;
 import com.novamens.kbee.content.form.KbeeETextField;
 import com.novamens.kbee.content.form.KbeeMemberForm;
 import com.novamens.security.User;
+import com.novamens.security.acl.KbeeGlobalRole;
 import com.novamens.service.SecurityService;
 import com.novamens.service.ServiceLocator;
 
@@ -43,6 +46,11 @@ public class KbeeUserForm  implements EForm, Serializable {
 	private List<EFormComponent> components;
 	private String name;
 	private String cssClass;
+	
+	final boolean role_security =  
+		ServiceLocator
+		.getService(SecurityService.class)
+		.isMember(KbeeGlobalRole.SECURITY.getId());
 	
 	public class KbeeEMailValidation implements EValidation, Serializable {
 		public KbeeEMailValidation() {
@@ -267,8 +275,18 @@ public class KbeeUserForm  implements EForm, Serializable {
 		components.add(rowphoto);
 		
 		KbeeMemberForm memberform = new KbeeMemberForm(member) {
+			@Override
 			protected boolean editableDisplayName(DataSetMember member) {
 				return false;
+			}
+			@Override
+			protected AccessStrategy getAccessStrategy(Classifier classifier) {
+				if (role_security) {
+					return AccessStrategy.All;
+				}
+				else {
+					return super.getAccessStrategy(classifier);
+				}
 			}
 		};
 		

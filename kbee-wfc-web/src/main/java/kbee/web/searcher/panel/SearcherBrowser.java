@@ -8,7 +8,6 @@ import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.Model;
-import org.apache.wicket.model.StringResourceModel;
 import org.jsoup.Jsoup;
 
 import com.novamens.content.base.Content;
@@ -185,6 +184,10 @@ public class SearcherBrowser extends SearcherPanel {
 				public String getCssClass() {
 					return "divider";
 				}
+				@Override
+				public boolean isVisible() {
+					return isWriteable(getModel());
+				}
 			}
 		);
 		
@@ -225,6 +228,11 @@ public class SearcherBrowser extends SearcherPanel {
 				@Override
 				public String getCssClass() {
 					return "divider";
+				}
+				@Override
+				public boolean isVisible() {
+					return !getModelObject().isLocked() && 
+						isDeleteable(getModel());
 				}
 			}
 		);
@@ -381,12 +389,20 @@ public class SearcherBrowser extends SearcherPanel {
 	}
 	
 	protected boolean isWriteable(IModel<Content> model) {
-		return ServiceLocator.getService(ContentSystemSecurityService.class).isWriteable(model.getObject());
+		return ServiceLocator
+			.getService(ContentSystemSecurityService.class)
+			.isWriteable(model.getObject());
+	}
+	
+	protected boolean isDeleteable(IModel<Content> model) {
+		return ServiceLocator
+			.getService(ContentSystemSecurityService.class)
+			.isDeleteable(model.getObject());
 	}
 	
 	protected boolean ishasACheckoutVersion(IModel<Classificable> model) {
 		if (model.getObject() instanceof Content) {
-				return ((Content) model.getObject()).isLocked();
+			return ((Content) model.getObject()).isLocked();
 		}
 		return false;
 	}

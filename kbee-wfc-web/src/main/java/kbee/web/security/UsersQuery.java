@@ -68,7 +68,7 @@ public class UsersQuery extends SolrParametersQuery {
 		getParameters().put("dataset", String.valueOf(dataset.getId()));
 		getParameters().put("state", getStates(deleted_visible));
 		
-		if (!role_security && role_federated_security) {
+		if (!role_security && (role_federated_security || isUserAdmin())) {
 			getParameters().put("solrclause", getUserAdminClause());
 		}
 	}
@@ -128,6 +128,12 @@ public class UsersQuery extends SolrParametersQuery {
 		return "["+String.valueOf(ObjectState.ENABLED.getId())+
 		", "+String.valueOf(ObjectState.ARCHIVED.getId()) + 
 		(deleted_visible ? (", "+String.valueOf(ObjectState.DELETED.getId())):"")+ "]";
+	}
+	
+	protected boolean isUserAdmin() {
+	  	return ServiceLocator
+		.getService(UserService.class)
+		.isUserAdmin();
 	}
 	
 	protected String getUserAdminClause() {

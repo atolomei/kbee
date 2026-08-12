@@ -6,25 +6,21 @@ import com.novamens.content.model.DataSetMember;
 import com.novamens.content.user.UserService;
 import com.novamens.dom.Domain;
 import com.novamens.security.acl.KbeeGlobalRole;
+import com.novamens.service.SecurityService;
 import com.novamens.service.ServiceLocator;
 import com.novamens.wicket.model.ObjectModel;
 import com.novamens.wicket.util.BCElement;
 import com.novamens.wicket.util.MenuBreadCrumbPanel;
 
 import kbee.web.error.ErrorNotAuthorizedPanel;
-import kbee.web.error.ErrorPanel;
-import kbee.web.nav.DataManagementBC;
 import kbee.web.nav.DataManagementDropdownBC;
-import kbee.web.nav.DataManagementPanelBC;
 import kbee.web.nav.HomeBC;
-import kbee.web.page.ApplicationPage;
 import kbee.web.page.ConsoleObjectPage;
 import kbee.web.page.PageContentHeaderPanel;
 
 import java.util.List;
 
 import org.apache.wicket.model.IModel;
-import org.apache.wicket.model.Model;
 import org.apache.wicket.model.ResourceModel;
 import org.apache.wicket.model.StringResourceModel;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
@@ -33,12 +29,12 @@ public class TagManagementPage extends  ConsoleObjectPage<Person> {
     
 	private static final long serialVersionUID = 1L;
 
-    static private kbee.util.logging.Logger logger = new kbee.util.logging.Logger(TagManagementPage.class.getName());
+//    static private kbee.util.logging.Logger logger = new kbee.util.logging.Logger(TagManagementPage.class.getName());
 
     private List<IModel<DataSetMember>> dm_list;
     private final boolean role_domain_admin = ServiceLocator.getService(com.novamens.service.SecurityService.class).isMember(KbeeGlobalRole.DOMAIN_ADMIN.getId());
     private final boolean role_service_admin = ServiceLocator.getService(com.novamens.service.SecurityService.class).isMember(KbeeGlobalRole.SERVICE_ADMIN.getId());
-    private final boolean is_support = ServiceLocator.getService(com.novamens.service.SecurityService.class).isMember(KbeeGlobalRole.SUPPORT.getId());
+    private final boolean is_support = ServiceLocator.getService(SecurityService.class).isMember(KbeeGlobalRole.SUPPORT.getId());
     
     
     public TagManagementPage() {
