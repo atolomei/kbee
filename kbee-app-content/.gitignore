@@ -1,8 +1,6 @@
-<<<<<<< HEAD
 /target/
-=======
 .classpath
+.project
 /.settings
 /target/
 /bin/
->>>>>>> 3091467bf4324f323af70b85b9f5afe053fe41a4

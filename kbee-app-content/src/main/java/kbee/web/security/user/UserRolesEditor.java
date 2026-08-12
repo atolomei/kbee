@@ -690,9 +690,8 @@ public class UserRolesEditor extends DomainObjectEditor<Person>  {
 			}
 		});
 		
-		arc.add(choice);
 		
-		arc.add(new AjaxLink<Void>("addrole-button") {
+		choice.add(new AjaxLink<Void>("addrole-button") {
 			public void onClick(AjaxRequestTarget target) {
 				assignSelectedRole();
 				fire(new AddRoleEvent(target));
@@ -706,6 +705,8 @@ public class UserRolesEditor extends DomainObjectEditor<Person>  {
 				return false;
 			}
 		});
+		
+		arc.add(choice);
 		
 		arc.add(new WebMarkupContainer("selector-button") {
 			public void onInitialize() {

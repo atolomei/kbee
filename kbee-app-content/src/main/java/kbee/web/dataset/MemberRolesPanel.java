@@ -32,6 +32,7 @@ import org.springframework.util.Assert;
 
 import com.novamens.beans.BeansService;
 import com.novamens.content.entity.Person;
+import com.novamens.content.model.AccessStrategy;
 import com.novamens.content.model.Classification;
 import com.novamens.content.model.Classifier;
 import com.novamens.content.model.DataSet;
@@ -42,6 +43,7 @@ import com.novamens.content.model.UserSet;
 import com.novamens.content.security.ContentSecurityDao;
 import com.novamens.content.security.Role;
 import com.novamens.content.security.RolesService;
+import com.novamens.content.service.DataAccessService;
 import com.novamens.content.service.DataSetService;
 import com.novamens.content.service.PersonService;
 import com.novamens.content.user.UserProfile;
@@ -50,6 +52,8 @@ import com.novamens.content.user.UserService;
 import com.novamens.content.web.suggestion.service.UserSuggestionService;
 import com.novamens.indexer.query.Suggestion;
 import com.novamens.kbee.content.dao.Proxy;
+import com.novamens.kbee.content.model.KbeeClassifier;
+import com.novamens.kbee.content.model.KbeeClassifierTemplate;
 import com.novamens.kbee.content.user.KbeeUserRole;
 import com.novamens.kbee.wicket.model.ModelPanel;
 import com.novamens.kbee.wicket.util.InvisiblePanel;
@@ -451,7 +455,15 @@ public class MemberRolesPanel extends ModelPanel<DataSetMember> {
 				}
 				@Override
 				public List<Suggestion> getSuggestions(String pattern) {
-					return ServiceLocator.getService(UserSuggestionService.class).getSuggestions(pattern);
+					KbeeClassifier users = new KbeeClassifier();
+					users.setDataSet(getUserSet());
+					KbeeClassifierTemplate relation = new KbeeClassifierTemplate(users);
+					relation.setAccessibility(AccessStrategy.Managed);
+					return relation.getService(DataAccessService.class).getSuggestions(pattern);
+					
+					
+					
+					//return ServiceLocator.getService(UserSuggestionService.class).getSuggestions(pattern);
 				}
 				@Override
 				public String getHistoryKey() {
