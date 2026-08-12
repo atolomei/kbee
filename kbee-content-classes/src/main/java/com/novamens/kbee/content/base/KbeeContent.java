@@ -173,8 +173,24 @@ public abstract class KbeeContent extends AbstractObject implements Versionable<
 	List<Relation> relations = new ArrayList<Relation>();
 	
 	/** Reverse Relations entries are Deleted with the Content (CascadeType.ALL) */
-	@OneToMany(orphanRemoval=true, fetch = FetchType.LAZY, cascade=CascadeType.ALL, targetEntity = KbeeRelation.class)
-	@JoinColumn(name="target_id", insertable=false, updatable=false, nullable=false)
+	//@OneToMany(orphanRemoval=true, fetch = FetchType.LAZY, cascade=CascadeType.ALL, targetEntity = KbeeRelation.class)
+	//@JoinColumn(name="target_id", insertable=false, updatable=false, nullable=false)
+	
+	
+	@OneToMany(
+		    fetch = FetchType.LAZY,
+		    targetEntity = KbeeRelation.class
+		)
+		@JoinColumn(
+		    name = "target_id",
+		    insertable = false,
+		    updatable = false,
+		    nullable = false
+		)
+		@Cache(
+		    usage = CacheConcurrencyStrategy.READ_WRITE,
+		    region = "content"
+		)
 	List<Relation> reverserelations = new ArrayList<Relation>();
 	
 	/** eForms deleted with content */
@@ -794,6 +810,9 @@ public abstract class KbeeContent extends AbstractObject implements Versionable<
 
 	@Override
 	public void setRelations(List<Relation> relations) {
+	    for (Relation relation : this.relations) {
+	        ((KbeeRelation) relation).setSource(null);
+	    }
 		for (Relation relation : relations) {
 			((KbeeRelation)relation).setSource(this);
 		}

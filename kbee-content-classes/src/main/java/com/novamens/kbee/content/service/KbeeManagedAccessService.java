@@ -8,6 +8,7 @@ import com.novamens.beans.BeansService;
 import com.novamens.content.dao.ContentDao;
 import com.novamens.content.model.Classificable;
 import com.novamens.content.model.Classification;
+import com.novamens.content.model.Classifier;
 import com.novamens.content.model.ClassifierTemplate;
 import com.novamens.content.model.DataSet;
 import com.novamens.content.model.DataSetMember;
@@ -17,9 +18,12 @@ import com.novamens.content.security.EntityRole;
 import com.novamens.content.security.Role;
 import com.novamens.content.user.UserRole;
 import com.novamens.content.user.UserService;
+import com.novamens.indexer.iql.IqlQuery;
+import com.novamens.indexer.iql.IqlService;
 import com.novamens.security.acl.KbeeGlobalRole;
 import com.novamens.service.SecurityService;
 import com.novamens.service.ServiceLocator;
+import com.novamens.solr.indexer.iql.SolrIqlQuery;
 
 public class KbeeManagedAccessService extends KbeeAccessService {
 	
@@ -75,12 +79,24 @@ public class KbeeManagedAccessService extends KbeeAccessService {
 				if (role.getRole().isEntity()) {
 					EntityRole entityRole = (EntityRole)reload(role.getRole());
 					EntityMember entity = role.getEntity();
+					Classifier classifier = entityRole.getClassifier();
 					// role manage area
 					if (entityRole.manage(getDataSets().get(0))) {
 						entitiesstatement +=  "".equals(entitiesstatement) ? "(" : " OR ";
-						String id = (new ObjectId(entity)).toString();
-						if (!entitiesstatement.contains(id))
-							entitiesstatement += "id:"+id;
+						if (classifier.getDataSet().equals(getDataSets().get(0))) {
+							String id = (new ObjectId(entity)).toString();
+							if (!entitiesstatement.contains(id)) {
+								entitiesstatement += "id:"+id;
+							}
+						}
+						else {
+							String iqlclause = classifier.getPredicate() + "(";
+							iqlclause += String.valueOf(entity.getId());
+							iqlclause += ")";
+							IqlQuery query = getIqlService().getNewQuery(iqlclause);
+							String solrclause = ((SolrIqlQuery)query).getSolrStatement();
+							entitiesstatement += solrclause;
+						}
 					}
 					else {
 						if (entityRole.manage(entity.getDataSet())) {
@@ -120,6 +136,10 @@ public class KbeeManagedAccessService extends KbeeAccessService {
 		}
 		return references;
 		
+	}
+	
+	private IqlService getIqlService() {
+		return ServiceLocator.getService(UserService.class).getDomain().getService(IqlService.class);
 	}
 	
 	private Role reload(Role role) {

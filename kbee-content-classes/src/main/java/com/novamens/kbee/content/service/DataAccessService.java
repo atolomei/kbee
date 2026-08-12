@@ -26,11 +26,4 @@ public interface DataAccessService extends SystemService {
 
 	public Domain 			findDomainByName(String name);
 	
-
-	// SOLO PARA DEBUG. ELIMINAR. REVISAR
-	//public Domain getDomain();
-	//public List<DataSet> 		getDataSet(Serializable domainid); 
-	//public List<Classifier> 	getClassifier(Serializable domainid);
-	//public List<? extends Content> getContent(Class<? extends Content> clazz, Serializable domainid);
-	
 }

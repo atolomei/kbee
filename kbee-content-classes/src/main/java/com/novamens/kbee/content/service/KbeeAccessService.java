@@ -152,8 +152,6 @@ public abstract class KbeeAccessService implements DataAccessService {
 		List<Suggestion> suggestions = new ArrayList<Suggestion>();
 		int maxResults = 120;
 
-		//pattern = pattern.replace("-", " ");
-		
 		String statement = getStatement(pattern, object, parameters);
 		
 		TextQuery query = new TextQuery(statement);
