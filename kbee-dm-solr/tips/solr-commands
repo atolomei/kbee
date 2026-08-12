@@ -1,0 +1,19 @@
+
+
+DELETE ALL SOLR DOCUMENTS
+-------------------------
+
+Documents Page:
+http://localhost:8983/solr/#/content/documents
+
+Request-Handler (qt)
+/update
+
+Document Type
+XML
+
+Document(s)
+<delete><query>*:*</query></delete>
+
+
+
