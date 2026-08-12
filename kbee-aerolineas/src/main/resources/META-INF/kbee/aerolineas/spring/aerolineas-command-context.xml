@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+		http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+		http://www.springframework.org/schema/context
+		http://www.springframework.org/schema/context/spring-context-3.0.xsd 
+		http://www.springframework.org/schema/tx 
+		http://www.springframework.org/schema/tx/spring-tx.xsd">
+
+	<bean id="aerolineas-checkvalitity-command" class="com.novamens.aerolineas.content.command.CheckValidityCommand" scope="prototype"/>
+	
+	<bean id="aerolineas-users-import-command" class="kbee.aerolineas.migration.ImportarUsuarios" scope="prototype"/>
+	
+	<bean id="aerolineas-users-export-command" class="kbee.aerolineas.migration.ExportarUsuarios" scope="prototype"/>
+	
+	<bean id="aerolineas-carpetas-export-command" class="kbee.aerolineas.migration.ExportarCarpetas" scope="prototype"/>
+	
+	<bean id="aerolineas-documentos-import-command" class="kbee.aerolineas.migration.ImportarDocumentos" scope="prototype"/>
+	
+	<bean id="aerolineas-carpetas-import-command" class="kbee.aerolineas.migration.ImportarCarpetas" scope="prototype"/>
+	
+</beans>

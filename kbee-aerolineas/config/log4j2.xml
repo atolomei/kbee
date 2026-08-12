@@ -1,0 +1,376 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<!-- status=OFF  			[do not log internal log4 status events]
+    monitorInterval=60 		[reload file every seconds]
+ - -->
+<configuration status="OFF"  monitorInterval="60" packages="com.novamens.logging,com.novamens.kbee.content.notification,com.novamens.kbee.content.webapi.logging">
+	
+	<Properties>
+		<Property name="log-path">logs</Property>
+	</Properties>
+	
+	<appenders>
+		
+		<Console name="Console" target="SYSTEM_OUT">
+			<PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>
+		</Console>
+		
+		
+		<!-- When Console is redirected to a File, this file collects all log events for a whole day class="org.apache.log4j.varia.NullAppender" -->
+		<RollingFile name="Console" fileName="${log-path}/console.log" immediateFlush="false"  filePattern="${log-path}/console-%d{yyyy-MM-dd}.log" >
+			<PatternLayout pattern="%d{MM.dd.yyyy HH:mm:ss.SSS} [%t] %-5level %c{1.} - %msg%n"/>		
+			<Policies>
+				<TimeBasedTriggeringPolicy interval="1" modulate="true"/>
+				<SizeBasedTriggeringPolicy size="1000 MB" />
+			</Policies>
+			<DefaultRolloverStrategy max="10"/>
+		</RollingFile>		
+
+		<!-- idoc log is similar to Console but is is reinitiated every hour, and also when the size exceeds 300 MB -->
+		<RollingFile name="idoc" fileName="${log-path}/idoc.log" immediateFlush="false"  filePattern="${log-path}/idoc-%d{yyyy-MM-dd-hh}.log" >
+			<PatternLayout pattern="%d{MM.dd.yyyy HH:mm:ss.SSS} [%t] %-5level %c{1.} - %msg%n"/>
+			<Policies>
+				<TimeBasedTriggeringPolicy interval="1" modulate="true"/>
+				<SizeBasedTriggeringPolicy size="300 MB" />
+			</Policies>
+			<DefaultRolloverStrategy>
+				<!--
+				* only files in the log folder, no sub folders
+				* only rolled over log files (name match)
+				* only files that are 4 days old or older
+				-->
+				<Delete basePath="${log-path}" maxDepth="1">
+					<IfFileName glob="*.log" />
+					<IfLastModified age="7d" />
+				</Delete>
+				</DefaultRolloverStrategy>
+		</RollingFile>
+
+		<RollingFile name="solr" fileName="${log-path}/solr.log" immediateFlush="false"  filePattern="${log-path}/solr-%d{yyyy-MM-dd}.log" >
+			<PatternLayout pattern="%d{MM.dd.yyyy HH:mm:ss.SSS} [%t] %-5level %c{1.} - %msg%n"/>
+			<Policies>
+				<TimeBasedTriggeringPolicy interval="1" modulate="true"/>
+				<SizeBasedTriggeringPolicy size="100 MB" />
+			</Policies>
+			<DefaultRolloverStrategy max="10"/>
+		</RollingFile>
+		
+
+		<RollingFile name="scheduler" fileName="${log-path}/scheduler.log" immediateFlush="false"  filePattern="${log-path}/scheduler-%d{yyyy-MM-dd}.log" >
+			<PatternLayout>
+					<pattern>%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n</pattern>
+					<SizeBasedTriggeringPolicy size="100 MB" />
+			</PatternLayout>
+			<Policies>
+				<TimeBasedTriggeringPolicy interval="1" modulate="true"/>
+				<SizeBasedTriggeringPolicy size="10 MB" />
+			</Policies>
+			<DefaultRolloverStrategy max="10"/>
+		</RollingFile>
+
+
+
+		<RollingFile name="workflow" fileName="${log-path}/workflow.log" immediateFlush="false"  filePattern="${log-path}/workflow-%d{yyyy-MM-dd}.log" >
+			<PatternLayout pattern="%d{MM.dd.yyyy HH:mm:ss.SSS} [%t] %-5level %c{1.} - %msg%n"/>
+			<Policies>
+				<TimeBasedTriggeringPolicy interval="1" modulate="true"/>
+				<SizeBasedTriggeringPolicy size="100 MB" />
+			</Policies>
+			<DefaultRolloverStrategy max="10"/>
+		</RollingFile>
+		
+							
+
+		<RollingFile name="web" fileName="${log-path}/web.log" immediateFlush="true"  filePattern="${log-path}/web-%d{yyyy-MM-dd}.log" >
+			<PatternLayout pattern="%d{MM.dd.yyyy HH:mm:ss.SSS} [%t] %-5level %c{1.} - %msg%n"/>
+			<Policies>
+				<TimeBasedTriggeringPolicy interval="1" modulate="true"/>
+				<SizeBasedTriggeringPolicy size="100 MB" />
+			</Policies>
+			<DefaultRolloverStrategy max="10"/>
+		</RollingFile>
+								
+
+
+		<RollingFile name="portal" fileName="${log-path}/portal.log" immediateFlush="false"  filePattern="${log-path}/portal-%d{yyyy-MM-dd}.log" >
+				<PatternLayout pattern="%d{MM.dd.yyyy HH:mm:ss.SSS} [%t] %-5level %c{1.} - %msg%n"/>
+			<Policies>
+				<TimeBasedTriggeringPolicy interval="1" modulate="true"/>
+				<SizeBasedTriggeringPolicy size="10 MB" />
+			</Policies>
+			<DefaultRolloverStrategy max="10"/>
+		</RollingFile>
+
+
+
+		<!--Startup.log prints all info and error of the StartUp process   (immediateFlush="false" is not working) -->
+		
+		<RollingFile name="startup" fileName="${log-path}/startup.log" immediateFlush="true" append="false" filePattern="${log-path}/startup-%d{yyyy-MM-dd}.log" >
+			<PatternLayout pattern="%d{MM.dd.yyyy HH:mm:ss.SSS} [%t] %-5level %c{1.} - %msg%n"/>
+			<Policies>
+				<TimeBasedTriggeringPolicy interval="1" modulate="true"/>
+				<SizeBasedTriggeringPolicy size="100 MB" />
+			</Policies>
+			
+			<DefaultRolloverStrategy max="10"/>
+			
+		</RollingFile>
+
+		<Auditor       name="Auditor"/> 			<!-- AuditorAppender          | Plug in de Log4j que graba en la tabla de Auditoría los evento. Requiere Session Hibernate.  (Async)   @Plugin(name = "Auditor",     category = "Core", elementType = "appender")  -->
+		<SyncAuditor   name="SyncAuditor"/> 		<!-- SyncAuditorAppender      | Plug in de Log4j que graba en la tabla de Auditoría los eventos                              (Sync)    @Plugin(name = "SyncAuditor", category = "Core", elementType = "appender")  -->
+		<EventNotifier name="EventNotifier" /> 		<!-- EventNotifier            | Plug in de Log4j que graba en la tabla de Auditoría los eventos (Sync)    @Plugin(name = "EventNotifier", category = "Core", elementType = "appender")  -->
+													<!-- KbeeNotificationService  | El servicio de notificaciones es llamando por el mismo thread que realizó la acción que genera el evento. Lo hace el EventNotifier, que es un appender de Log4j.		-->
+
+		<API name="API"/>
+		<Async name="Async">
+			<AppenderRef ref="Auditor"/>
+			<AppenderRef ref="API"/>
+		</Async>
+		
+		
+	</appenders>
+
+	<loggers>
+
+		<!-- =============================================================================================================== -->
+		<!-- Root Logger -->
+
+		<Asyncroot level="error">
+			<AppenderRef ref="Console"/>
+			<appender-ref ref="Async"/>
+			<appender-ref ref="idoc"/>
+		</Asyncroot>
+
+
+		<!-- =============================================================================================================== -->
+		<!-- Startup. This logger is just used by the services at startup  													 -->
+ 			
+		<Logger name="StartupLogger" level="info" additivity="false">
+			<AppenderRef ref="Console"/>
+			<appender-ref ref="startup"/>
+		</Logger>	
+	
+
+		<!-- =============================================================================================================== 	-->
+		<!-- IMPORTANT: These loggers must be level="info" because they have plug ins that save events in the database					-->
+											
+		<!-- TxLogger and TxApiLogger has an appender plugin. It runs synchronously with the JPA Transaction (managed by Spring) 
+			in order to assure that the log is generated only when the transaction commits. 
+			It must be level="info"	-->
+			
+		<Logger name="TxLogger" level="info" additivity="false"> 
+			<AppenderRef ref="Console"/>
+			<AppenderRef ref="SyncAuditor"/>
+			<AppenderRef ref="EventNotifier"/>
+		</Logger>
+
+		
+		<!-- DBEventLogger logs in the System Log table	-->
+
+		<Asynclogger name="DBEventLogger" level="info" additivity="false">
+			<AppenderRef ref="Console"/>
+			<appender-ref ref="Async"/>
+		</Asynclogger>
+		
+		
+		<Asynclogger name="ApiLogger" level="info" additivity="false">
+			<AppenderRef ref="Console"/>
+			<appender-ref ref="Async"/>
+		</Asynclogger>
+
+		
+		<Logger name="TxApiLogger" level="info" additivity="false">
+			<AppenderRef ref="Console"/>
+			<AppenderRef ref="SyncAPI"/>
+		</Logger>
+			
+		<!-- =============================================================================================================== -->
+			
+		<!--  This logger should not affect DB LogEvents but we still have to test -->
+			
+		<Asynclogger name="com.novamens.kbee.content.security.service" level="info" additivity="false">
+			<appender-ref ref="Async"/>
+			<AppenderRef ref="Console"/>
+
+		</Asynclogger>
+
+			
+		<!-- =============================================================================================================== -->
+		<!--  This logger should not affect DB LogEvents but we still have to test -->
+			
+		<Asynclogger name="com.novamens.kbee.content.service" level="error" additivity="false">
+			<appender-ref ref="Async"/>
+			<AppenderRef ref="Console"/>
+		</Asynclogger>
+
+		<Asynclogger name="com.novamens.kbee.security.KbeeSpringSecurityDao" level="error" additivity="false">
+			<appender-ref ref="Async"/>
+			<AppenderRef ref="Console"/>
+		</Asynclogger>
+			
+		<Asynclogger name="Workflow" level="error" additivity="false">
+			<appender-ref ref="workflow"/>
+			<AppenderRef ref="Console"/>			
+		</Asynclogger>
+		
+
+
+		<!-- Scheduler ======================================================================================================= -->
+		
+		<Asynclogger name="Scheduler" level="info" additivity="false">
+			<appender-ref ref="scheduler"/>
+			<appender-ref ref="Console"/>
+		</Asynclogger>
+		
+		
+
+		
+		<!-- =============================================================================================================== -->
+					
+		<Asynclogger name="SolrIntegrity" level="error" additivity="false">
+			<appender-ref ref="solr"/>
+		</Asynclogger>
+			
+		<Asynclogger name="org.springframework.security" level="error" additivity="false"/>
+		<Asynclogger name="org.apache.pdfbox" level="error" additivity="false"/>
+		
+		<!-- =============================================================================================================== -->
+		<!-- Web -->
+
+		<Asynclogger name=" com.novamens.kbee.content.command.AbstractCommand" level="info" additivity="false">
+			<appender-ref ref="idoc"/>
+			<AppenderRef ref="Console"/>
+		</Asynclogger>
+
+		<Asynclogger name=" com.novamens.kbee.content.command" level="info" additivity="false">
+			<appender-ref ref="idoc"/>
+			<AppenderRef ref="Console"/>
+		</Asynclogger>
+
+		<Asynclogger name=" com.novamens.kbee.content.command.ReindexCommand" level="info" additivity="false">
+			<appender-ref ref="idoc"/>
+			<AppenderRef ref="Console"/>
+		</Asynclogger>
+		
+		<Asynclogger name=" com.novamens.solr" level="error" additivity="false">
+			<appender-ref ref="idoc"/>
+			<AppenderRef ref="Console"/>
+		</Asynclogger>
+		
+		<Asynclogger name="com.novamens.kbee.content" level="info" additivity="false">
+			<appender-ref ref="idoc"/>
+			<AppenderRef ref="Console"/>
+		</Asynclogger>
+
+		<Asynclogger name="com.novamens.content.web" level="error" additivity="false">
+			<appender-ref ref="web"/>
+			<appender-ref ref="idoc"/>
+			<AppenderRef ref="Console"/>
+		</Asynclogger>
+
+		<Asynclogger name="com.novamens.kbee.wicket" level="debug" additivity="false">
+			<appender-ref ref="web"/>
+			<appender-ref ref="idoc"/>
+			<AppenderRef ref="Console"/>
+		</Asynclogger>
+
+		<Asynclogger name="com.novamens.wicket" level="error" additivity="false">
+			<appender-ref ref="web"/>
+			<appender-ref ref="idoc"/>
+			<AppenderRef ref="Console"/>
+		</Asynclogger>
+											
+		<Asynclogger name="com.novamens.drbit" level="error" additivity="false">
+			<appender-ref ref="web"/>
+			<appender-ref ref="idoc"/>
+			<AppenderRef ref="Console"/>
+		</Asynclogger>
+		
+		<!-- =============================================================================================================== -->
+		<!-- Portal -->
+
+		<Asynclogger name="com.novamens.kbee.portal" level="error" additivity="false">
+			<appender-ref ref="portal"/>
+			<appender-ref ref="idoc"/>
+			<AppenderRef ref="Console"/>
+		</Asynclogger>
+
+		<Asynclogger name="com.novamens.portal" level="error" additivity="false">
+			<appender-ref ref="portal"/>
+			<appender-ref ref="idoc"/>
+			<AppenderRef ref="Console"/>
+		</Asynclogger>
+
+		<!-- =============================================================================================================== -->
+
+		<Asynclogger name="org.hibernate.engine.internal.StatefulPersistenceContext" level="error" additivity="false"/>
+
+		<Asynclogger name="org.apache.wicket" level="error">
+			<appender-ref ref="Async"/>
+			<appender-ref ref="web"/>
+			<appender-ref ref="idoc"/>
+			<AppenderRef ref="Console"/>
+		</Asynclogger>
+
+		<Asynclogger name="org.apache.wicket.serialize.java.JavaSerializer" level="error" additivity="false">
+			<appender-ref ref="web"/>
+			<appender-ref ref="idoc"/>
+				<AppenderRef ref="Console"/>
+		</Asynclogger>
+			
+		<Asynclogger name="org.springframework.security" level="error" additivity="false">
+			<appender-ref ref="Async"/>
+			<appender-ref ref="idoc"/>
+			<AppenderRef ref="Console"/>
+		</Asynclogger>
+			
+		<Asynclogger name="org.apache.solr" level="error" additivity="false">
+			<appender-ref ref="Async"/>
+			<appender-ref ref="idoc"/>
+			<AppenderRef ref="Console"/>
+		</Asynclogger>´
+											
+		<Asynclogger name="org.springframework"  level="debug" additivity="false">
+			<appender-ref ref="Async"/>
+			<appender-ref ref="idoc"/>
+			<AppenderRef ref="Console"/>
+		</Asynclogger>´
+
+		<!-- =============================================================================================================== -->
+		<!-- Hibernate -->
+
+		<Asynclogger name="org.hibernate.orm.deprecation"  level="error" additivity="false">
+			<appender-ref ref="idoc"/>
+			<AppenderRef ref="Console"/>
+		</Asynclogger>´	
+
+		<!-- This overcomes the proxy narrow log of hibernate -->
+		<Asynclogger name="org.hibernate.engine.StatefulPersistenceContext.ProxyWarnLog">
+			<level value="error" />
+		</Asynclogger>
+
+		<!-- =============================================================================================================== -->
+		<!-- Debug AT -->
+		
+		<Asynclogger name="com.novamens.content.web.console.query" level="error" additivity="false">
+			<appender-ref ref="idoc"/>
+			<AppenderRef ref="Console"/>
+		</Asynclogger>
+
+		<Asynclogger name="com.novamens.content.web.text.template.markup" level="error" additivity="false">
+			<appender-ref ref="idoc"/>
+			<AppenderRef ref="Console"/>
+		</Asynclogger>
+		
+		<!-- =============================================================================================================== -->
+		<!-- Debug AF -->
+		
+		<Asynclogger name="com.novamens.realpage.content.webapi.handler" level="debug" additivity="false">
+			<appender-ref ref="idoc"/>
+			<AppenderRef ref="Console"/>
+		</Asynclogger>
+		
+	</loggers>		
+	
+</configuration>

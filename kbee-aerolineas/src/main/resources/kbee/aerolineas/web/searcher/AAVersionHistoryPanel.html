@@ -1,0 +1,48 @@
+<wicket:panel>
+
+	<div class="section">
+		<div class="section-header">
+			<h2>
+				<wicket:message key="version-title" />
+			</h2>
+		</div>
+		<table style="border-radius: 0 0 4px 4px; width: 100%; border: 1px solid #d8dcdf;" class="section-body">
+			<tbody>
+				<tr style="line-height: 25px; width: 100%;" class="row" wicket:id="result">
+					<wicket:container wicket:id="command_item" />
+				</tr>
+			</tbody>
+		</table>
+	</div>
+
+	<div class="section" wicket:id="history-container">
+		<div class="section-header">
+			<h2>
+				<wicket:message key="versions" />
+			</h2>
+		</div>
+		<div>	
+			<nav wicket:id="navigation" class="col-lg-12 col-md-12 col-xs-12" />
+			<div wicket:id="table-container" class="table-responsive table-header-bck" style="clear:left; height: inherit; overflow: auto; max-height: 150vh; overflow: auto;">
+				<table style="float: left;" wicket:id="history" class="table table-bordered  table-hover"/>
+			</div>
+		</div>
+	</div>
+	
+</wicket:panel>
+
+<wicket:fragment wicket:id="title-fragment">
+	<div style="float:left; width:100%; line-height:1.7em;">
+		<a wicket:id="title-link" class="btn-link" target="_blank" style="clear:left; float:left;">
+			<span wicket:id="title"/>
+		</a>
+		<div style="float:left; clear:left;" wicket:id="subtitle"/>
+	</div>
+</wicket:fragment>
+
+<wicket:fragment wicket:id="user-fragment">
+	<div style="float:left; width:100%;">
+		<span wicket:id="username" style="line-height: 1.7em;  float:left; clear:left; line-height: 1.7em;"/>
+		<span wicket:id="date" style="line-height: 1.7em;  float:left; clear:left;  line-height: 1.7em;"/>
+	 </div>
+</wicket:fragment>								

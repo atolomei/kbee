@@ -1,0 +1,20 @@
+<wicket:panel>
+	
+	<form wicket:id="form"  class="form-container side-form search" role="form">
+		<div style="max-width: 1680px; width: 92%; margin:auto; float:inherit;">
+			<div style="width: 100%; margin:0; float:left;">
+				<div class="col-xs-12 col-md-6 col-lg-3 form-group" wicket:id="project"/>
+				<div class="col-xs-12 col-md-6 col-lg-3 form-group" wicket:id="location"/>
+				<div class="col-xs-12 col-md-6 col-lg-2 form-group" wicket:id="asset"/>
+				<div class="col-xs-12 col-md-6 col-lg-2 form-group" wicket:id="documentType"/>
+				<div class="col-xs-12 col-md-6 col-lg-3 form-group" wicket:id="text"/>
+				<div class="col-xs-12 col-md-6 col-lg-1 form-group" style="padding-top: 20px;">
+					<a wicket:id="advanced" style="float: left;    color: white;    margin: -23px 0px;    font-size: 13px;    text-decoration: underline;    text-align: center;    width: 100%;"> <span wicket:id="slabel" /></a>
+					<a style="float:left; width:100%; line-height: 30px; border-radius: 6px;  height: 40px;" class="btn btn-primary" wicket:id="submit"> <wicket:message key="search" /></a>
+				</div>
+			</div>
+		</div>	
+		
+	</form>
+</wicket:panel>
+

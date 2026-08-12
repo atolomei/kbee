@@ -1,0 +1,429 @@
+
+
+
+@font-face {font-family: Montserrat;src: url('/fonts/montserrat-and-hind/montserrat/Montserrat-Regular.ttf');font-weight: normal;}
+@font-face {font-family: Montserrat;src: url('/fonts/montserrat-and-hind/montserrat/Montserrat-Bold.ttf');font-weight: bold;}
+
+
+
+html,
+body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+}
+
+
+
+/* ==========================================
+   FONDO
+   ========================================== */
+
+.aa {
+    background-image: url('aa.png');
+    background-size: 120% auto;
+    background-position: right center;
+    background-repeat: no-repeat;
+    overflow: hidden;
+}
+
+.login-background {
+    position: relative;
+    height: 100vh;
+    background: transparent !important;
+}
+
+.login-background:before {
+    content: "";
+    position: absolute;
+    inset: 0;
+
+ background: linear-gradient(
+        90deg,
+        rgba(0,10,35,0.88) 0%,
+        rgba(0,20,55,0.60) 35%,
+        rgba(0,35,90,0.18) 70%,
+        rgba(0,35,90,0.05) 100%
+    );
+
+    z-index: 1;
+}
+
+						
+@media (max-width: 800px)  {	
+	.aa { background-image: none; background-color:#070738;}
+	.form-container {border:none;}
+	.branding-panel {text-align: center;}
+
+
+}
+
+
+
+
+
+    
+/**
+    background: linear-gradient(
+        90deg,
+        rgba(0,10,35,0.88) 0%,
+        rgba(0,20,55,0.60) 35%,
+        rgba(0,35,90,0.18) 70%,
+        rgba(0,35,90,0.05) 100%
+    );
+**/
+
+
+/* ==========================================
+   LAYOUT GENERAL
+   ========================================== */
+
+.login-layout {
+
+    position: absolute;
+
+    top: 50%;
+    left: 70px;
+
+    transform: translateY(-50%);
+
+    z-index: 2;
+}
+
+.login-box-wrapper {
+    width: 420px;
+}
+
+/* ==========================================
+   BRANDING
+   ========================================== */
+
+.branding-panel {
+
+    position: relative;
+
+    padding-left: 18px;
+
+    margin-bottom: 18px;
+
+    text-align: left;
+}
+
+
+.branding-panel::after {
+
+    content: "";
+
+    position: absolute;
+
+    left: -64px;
+    top: 2px;
+
+    width: 64px;
+    height: 64px;
+
+    background-image: url('folder_icon.png');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+}
+
+
+
+/* LINEA VERTICAL */
+
+
+.branding-panel::before {
+
+    content: "";
+
+    position: absolute;
+
+    left: 0;
+    top: 0;
+
+    width: 2px;
+    height: 72px;
+
+    background: #00c8ff;
+}
+
+
+.bcv-title {
+
+    color: #ffffff;
+
+    font-size: 24px;
+    font-weight: 700;
+
+    line-height: 1;
+
+    margin-bottom: 5px;
+}
+
+.bcv-subtitle {
+
+   color: #00c8ff;
+    font-size: 16px;
+    font-weight: normal;
+    line-height: 1;
+    margin-top: 11px;
+    margin-bottom: 0px;
+}
+
+.bcv-company {
+
+ color:white;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 1;
+    margin-top: 10px;
+    margin: 10px 0;
+}
+
+/* ==========================================
+   PANEL LOGIN
+   ========================================== */
+
+.form-container {
+
+    width: 380px;
+
+    padding: 18px;
+
+    border-radius: 10px;
+
+   /** background: rgba(0,20,55,.45);**/
+   
+
+	background:transparent;
+
+
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+
+    border: 1px solid rgba(255,255,255,.15);
+
+    box-shadow:
+        0 8px 32px rgba(0,0,0,.75);
+}
+
+/* ==========================================
+   LABELS
+   ========================================== */
+
+.form-container label,
+.form-container .control-label {
+
+    color: rgba(255,255,255,.95);
+
+    font-size: 14px;
+    font-weight: 500;
+}
+
+/* ==========================================
+   INPUTS
+   ========================================== */
+
+.form-container .form-control {
+
+    height: 44px;
+
+    padding-left: 14px !important;
+    padding-right: 14px !important;
+
+    border-radius: 6px;
+
+    background: rgba(255,255,255,.06);
+
+    border: 1px solid rgba(255,255,255,.15);
+
+    color: #ffffff;
+}
+
+.form-container .form-control:focus {
+
+    background: rgba(255,255,255,.10);
+
+    border-color: #00c8ff;
+
+    color: #ffffff;
+
+    box-shadow:
+        0 0 0 3px rgba(0,200,255,.12);
+}
+
+.form-container .form-control::placeholder {
+
+    color: rgba(255,255,255,.60);
+}
+
+.falsecontainer-panel {
+    padding-right: 6px;
+}
+
+/* ==========================================
+   PASSWORD
+   ========================================== */
+
+
+
+.input-container {
+    padding-right: 6px;
+}
+
+.tools-container {
+    margin-right: 6px;
+}
+
+/* ==========================================
+   BOTON LOGIN
+   ========================================== */
+
+.loginmodal-submit {
+
+    width: 100%;
+
+    height: 44px;
+
+    /**border: none !important;**/
+
+    border-radius: 6px !important;
+
+   /** background: linear-gradient(
+        90deg,
+        #007bff,
+        #00a8ff
+    ) !important;
+
+    color: #ffffff !important;
+**/
+
+    font-size: 15px;
+    font-weight: 600;
+}
+
+.loginmodal-submit:hover {
+
+    box-shadow:
+        0 6px 18px rgba(0,140,255,.35);
+}
+
+/* ==========================================
+   LINKS
+   ========================================== */
+
+.form-container a {
+
+    color: rgba(255,255,255,.85);
+
+    text-decoration: none;
+}
+
+.form-container a:hover {
+
+    color: #00c8ff;
+}
+
+/* ==========================================
+   RESPONSIVE
+   ========================================== */
+
+@media (max-width: 768px) {
+
+    .login-layout {
+        left: 20px;
+    }
+
+    .login-box-wrapper {
+        width: calc(100vw - 40px);
+        max-width: 420px;
+    }
+
+    .form-container {
+        width: 100%;
+    }
+
+    .branding-panel::after {
+
+        left: -65px;
+
+        width: 42px;
+        height: 42px;
+    }
+
+    .bcv-title {
+        font-size: 20px;
+    }
+
+    .bcv-subtitle {
+        font-size: 15px;
+    }
+
+    .bcv-company {
+        font-size: 13px;
+    }
+}
+
+.kbee .aa {font-family:  Montserrat, sans-serif; font-size: 15px;}
+
+
+.kbee .aa .alert-danger { color: #ffc8ee;
+    background-color: rgb(102 46 97);
+    border: 1px solid ac97a6; }
+
+.kbee .aa .alert-info {color: #ffffff;
+    background-color: #0c8dab;
+    border-color: #73acb7;
+}
+   
+
+
+
+.kbee .aa .alert {  font-size: 0.9em; padding: 15px;  border-radius: 4px; }
+
+.kbee .aa h1 {color:white; font-size:1em;}
+
+.kbee .aa .form-container 	{margin-left: auto; margin-right: auto; float: left; min-width: 340px; max-width: 360px; width:100%;}
+.kbee .aa .text-light 		{font-size: 0.9em; opacity: 0.55;}
+
+
+.kbee .aa .text-bg-dark {color: white; background-color:#0074C9;}
+
+.kbee .aa .mt-4 {  margin-top: 2.5rem; }
+.kbee .aa .mt-3 {  margin-top: 1.5rem ; }
+.kbee .aa .mt-2 {  margin-top: 1rem; }
+.kbee .aa .mt-1 {  margin-top: 0.5rem; }
+
+.kbee .aa .mb-1 {  margin-bottom: 0.5rem; }
+.kbee .aa .mb-2 {  margin-bottom: 1rem; }
+.kbee .aa .mb-3 {  margin-bottom: 1.5rem ; }
+.kbee .aa .mb-4 {  margin-bottom: 2.5rem ; }
+
+.kbee .aa .pe-4 {  padding-right: 1.5rem; }
+
+.kbee .aa .pt-1 {  padding-top:  0.5rem; }
+.kbee .aa .pb-1 {  padding-bottom: 0.5rem; }
+
+
+.kbee .aa .form-control  		{text-align: center; background:transparent;   color:white; border-color: rgb( 255, 255, 255, 0.7);}
+.kbee .aa .form-group 			{margin-bottom: 0;}
+
+.kbee .aa  input:-internal-autofill-previewed, 
+.kbee .aa  input:-internal-autofill-selected, 
+.kbee .aa  textarea:-internal-autofill-previewed, 
+.kbee .aa  textarea:-internal-autofill-selected, 
+.kbee .aa  select:-internal-autofill-previewed, 
+.kbee .aa  select:-internal-autofill-selected {color:white; background-color: transparent; border: 1px solid white; opacity: 0.9;}
+
+.kbee .aa label.control-label 	{color: white; font-weight:bold;  }
+.kbee .aa a 					{color:white; text-decoration: none; }
+
+.kbee .aa .btn {padding-top: 8px; padding-bottom: 8px;}
+.kbee .aa .btn-primary 			{color: white; border: 1px solid #0084cf; background: #0084cf; width: 100%; }
+
+
+.kbee .aa .show-password-container {padding-top: 10px; font-size:0.9em; opacity: 0.55;}
+ 
+ .kbee .aa input::placeholder {  color:white;  opacity: 0.4; /* Ensures full opacity in Firefox */}

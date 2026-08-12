@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+		http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+		http://www.springframework.org/schema/context
+		http://www.springframework.org/schema/context/spring-context-3.0.xsd 
+		http://www.springframework.org/schema/tx 
+		http://www.springframework.org/schema/tx/spring-tx.xsd">
+
+	<bean id="AerolineasAcuseReportFactory" class="kbee.web.report.ReportFactory">
+		<constructor-arg><value>acuse-recibo</value></constructor-arg>
+		<constructor-arg><value>AerolineasAcuseReport</value></constructor-arg>
+		<constructor-arg><value>Acuse Recibo</value></constructor-arg>
+		<constructor-arg><value>Acuse Recibo de las Notificaciones enviadas</value></constructor-arg>
+	</bean>
+	
+	<bean id="AerolineasAcuseReport" class="com.novamens.aerolineas.report.markup.AcuseReportConsole" scope="prototype"/>
+
+	
+	<bean id="AABibliotecaTecnica" class="kbee.web.searcher.searchform.KbeeSearcherFormFactory">
+		<property name="id" value="AA Bibblioteca Técnica"/>
+		<property name="name" value="AA Bibblioteca Técnica"/>
+		<property name="className" value="com.novamens.aerolineas.content.web.searcher.markup.AABBTecnicaSearchForm"/>
+		<property name="usage" value="AA Bibblioteca Técnica."/>
+	</bean>
+	
+</beans>
