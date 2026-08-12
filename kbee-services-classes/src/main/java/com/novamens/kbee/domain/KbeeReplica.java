@@ -27,13 +27,13 @@ import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 import org.hibernate.annotations.Type;
 
-import com.novamens.content.webapi.service.ApiService;
 import com.novamens.dom.Domain;
 import com.novamens.dom.ObjectState;
 import com.novamens.event.Event;
 import com.novamens.kbee.security.KbeeUser;
 import com.novamens.security.User;
 
+import kbee.api.service.ApiService;
 import kbee.replica.Replica;
 import kbee.replica.ReplicaType;
 

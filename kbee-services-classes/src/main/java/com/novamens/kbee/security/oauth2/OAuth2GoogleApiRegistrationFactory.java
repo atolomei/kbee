@@ -4,20 +4,32 @@ import org.springframework.beans.factory.FactoryBean;
 import org.springframework.security.config.oauth2.client.CommonOAuth2Provider;
 import org.springframework.security.oauth2.client.registration.ClientRegistration;
 
+import com.novamens.util.PropertiesFactory;
+
 public class OAuth2GoogleApiRegistrationFactory implements FactoryBean<ClientRegistration> {
 	
-	static private final Properties props = PropertiesFactory.getInstance("kbee").getProperties();
-	private static final String CLIENT_ID =  props.getProperty("google.client.id");
-	private static final String CLIENT_SECRET= props.getProperty("google.client.secret");
+	static String Google_Client_id = 
+		PropertiesFactory
+		.getInstance("kbee")
+		.getProperties()
+		.getProperty("oauth2.google.client-id","")
+		.trim();
+
+	static String Google_Client_Secret = 
+		PropertiesFactory
+		.getInstance("kbee")
+		.getProperties()
+		.getProperty("oauth2.google.client-id","")
+		.trim();
 	
 	public ClientRegistration getObject() throws Exception {
 
 		return CommonOAuth2Provider.GOOGLE.getBuilder("googleapi")
-				.clientId(CLIENT_ID)
-				.clientSecret(CLIENT_SECRET)
-				.scope("email",
-						"profile"
-						.build();
+			.clientId(Google_Client_id)
+			.clientSecret(Google_Client_Secret)
+			.scope("email",	"profile")
+			.build();
+		
 	}
 
 	public Class<ClientRegistration>  getObjectType() {

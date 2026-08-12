@@ -96,8 +96,10 @@ public class KbeeSpringSecurityDao extends JdbcDaoSupport implements UserDetails
 
 	private String authoritiesByUsernameQuery;
 	private String groupAuthoritiesByUsernameQuery;
-	private String usersByUsernameQuery;
+	private String usersByUserNameQuery;
+	private String usersByUserEmailQuery;
 	private String usersBySuUsernameQuery;
+	
 	private String rolePrefix = "";
 	private String schema = "";
 	private boolean usernameBasedPrimaryKey = true;
@@ -107,29 +109,7 @@ public class KbeeSpringSecurityDao extends JdbcDaoSupport implements UserDetails
 	public KbeeSpringSecurityDao() {
 	}
 	
-	public String getUsersByUsernameQuery() {
-		if(usersByUsernameQuery==null)
-			usersByUsernameQuery= "select id, username, password, enabled, validityaccessdate from "+getSchema()+ "users where username = ?";
-		return usersByUsernameQuery;
-    }
-	
-	public String getUsersBySuUsernameQuery() {
-		if(usersBySuUsernameQuery==null)
-			usersBySuUsernameQuery="select u2.id, u1.username, u2.password, u1.enabled from "+getSchema()+ "users u1, "+getSchema()+ "users u2 where u1.username = ? and u2.username=?";
-		return usersBySuUsernameQuery;
-	}
-	
-    protected String getAuthoritiesByUsernameQuery() {
-    	if(authoritiesByUsernameQuery==null)
-    		authoritiesByUsernameQuery="select u.username, g.name from "+getSchema()+ "kgroupmember m, "+getSchema()+ "kgroup g, "+getSchema()+ "users u where u.username = ? and m.kgroup=g.id and m.principal = u.id";
-        return authoritiesByUsernameQuery;
-    }
-    
-	public String getGroupAuthoritiesByUsernameQuery() {
-		if(groupAuthoritiesByUsernameQuery==null)
-			groupAuthoritiesByUsernameQuery="select g.id, g.group_name, ga.authority from "+getSchema()+ "groups g, "+getSchema()+ "group_members gm, "+getSchema()+ "group_authorities ga where gm.username = ? and g.id = ga.group_id and g.id = gm.group_id";
-		return groupAuthoritiesByUsernameQuery;
-	}
+
 
     //~ Methods ========================================================================================================
 
@@ -155,6 +135,16 @@ public class KbeeSpringSecurityDao extends JdbcDaoSupport implements UserDetails
 		catch (Exception e) {
 			logger.error(e.getClass().getName() + " | " +  Thread.currentThread().getStackTrace()[1].getMethodName());
 			throw e;
+		}
+		
+		if (users.size() == 0) {
+			try {
+				users = loadUsersByEmail(username);
+			}
+			catch (Exception e) {
+				logger.error(e.getClass().getName() + " | " +  Thread.currentThread().getStackTrace()[1].getMethodName());
+				throw e;
+			}
 		}
 
 		if (users.size() == 0) {
@@ -206,21 +196,34 @@ public class KbeeSpringSecurityDao extends JdbcDaoSupport implements UserDetails
      * There should normally only be one matching user.
      */
 	protected List<UserDetails> loadUsersByUsername(String username) {
-		List<UserDetails> users = getJdbcTemplate().query(getUsersByUsernameQuery(), new String[] {username}, new RowMapper<UserDetails>() {
-			public UserDetails mapRow(ResultSet rs, int rowNum) throws SQLException {
-				String id = rs.getString(1);
-				String username = rs.getString(2);
-				String password = rs.getString(3);
-				if (password==null) password = "{MD5}{1}*";
-				boolean enabled = rs.getBoolean(4);
-				Date validity = rs.getDate(5);
-				if (validity!=null && validity.before(new Date())) {
-					enabled = false;
-				}
-				return new KbeeUserDetail(id, username, password, enabled, AuthorityUtils.NO_AUTHORITIES);
-			}
-		});
-		
+		List<UserDetails> users = getJdbcTemplate().query(
+			    getUsersByUserNameQuery(),
+			    (rs, rowNum) -> {
+			        String id = rs.getString(1);
+			        String loadedUsername = rs.getString(2);
+			        String password = rs.getString(3);
+
+			        if (password == null) {
+			            password = "{MD5}{1}*";
+			        }
+
+			        boolean enabled = rs.getBoolean(4);
+			        Date validity = rs.getDate(5);
+
+			        if (validity != null && validity.before(new Date())) {
+			            enabled = false;
+			        }
+
+			        return new KbeeUserDetail(
+			            id,
+			            loadedUsername,
+			            password,
+			            enabled,
+			            AuthorityUtils.NO_AUTHORITIES
+			        );
+			    },
+			    username
+			);
 		
 		if (users.isEmpty() && username.startsWith("su")) {
 			int i = username.indexOf("@");
@@ -230,50 +233,95 @@ public class KbeeSpringSecurityDao extends JdbcDaoSupport implements UserDetails
 				username = username.substring(2);
 				if (username.startsWith("root@"))
 					rootname = "root@kbee";
-				users = getJdbcTemplate().query(getUsersBySuUsernameQuery(), new String[] {username, rootname}, new RowMapper<UserDetails>() {
-					public UserDetails mapRow(ResultSet rs, int rowNum) throws SQLException {
-						String id = rs.getString(1);
-						String username = rs.getString(2);
-						String password = rs.getString(3);
-						boolean enabled = rs.getBoolean(4);
-						return new KbeeUserDetail(id, username, password, enabled, AuthorityUtils.NO_AUTHORITIES, true);
-					}
-				});
+				users = getJdbcTemplate().query(
+					    getUsersBySuUsernameQuery(),
+					    (rs, rowNum) -> {
+					        String id = rs.getString(1);
+					        String loadedUsername = rs.getString(2);
+					        String password = rs.getString(3);
+					        boolean enabled = rs.getBoolean(4);
+
+					        return new KbeeUserDetail(
+					                id,
+					                loadedUsername,
+					                password,
+					                enabled,
+					                AuthorityUtils.NO_AUTHORITIES,
+					                true
+					        );
+					    },
+					    username,
+					    rootname
+					);
 			}
 		}
 		
 		return users;
 	}
+	
+	protected List<UserDetails> loadUsersByEmail(String username) {
+		List<UserDetails> users = getJdbcTemplate().query(
+			    getUsersByUserEmailQuery(),
+			    (rs, rowNum) -> {
+			        String id = rs.getString(1);
+			        String loadedUsername = rs.getString(2);
+			        String password = rs.getString(3);
+
+			        if (password == null) {
+			            password = "{MD5}{1}*";
+			        }
+
+			        boolean enabled = rs.getBoolean(4);
+			        Date validity = rs.getDate(5);
+
+			        if (validity != null && validity.before(new Date())) {
+			            enabled = false;
+			        }
+
+			        return new KbeeUserDetail(
+			            id,
+			            loadedUsername,
+			            password,
+			            enabled,
+			            AuthorityUtils.NO_AUTHORITIES
+			        );
+			    },
+			    username
+			);
+
+		if (users.size()>1) {
+			return new ArrayList<>();
+		}
+		
+		return users;
+	}
+
 
     /**
      * Loads authorities by executing the SQL from <tt>authoritiesByUsernameQuery</tt>.
      *
      * @return a list of GrantedAuthority objects for the user
      */
-    protected List<GrantedAuthority> loadUserAuthorities(String username) {
-        return getJdbcTemplate().query(getAuthoritiesByUsernameQuery(), new String[] {username}, new RowMapper<GrantedAuthority>() {
-            public GrantedAuthority mapRow(ResultSet rs, int rowNum) throws SQLException {
-                String roleName = rolePrefix + rs.getString(2);
-
-                return new SimpleGrantedAuthority(roleName);
-            }
-        });
-    }
+	protected List<GrantedAuthority> loadUserAuthorities(String username) {
+	    return getJdbcTemplate().query(
+	        getAuthoritiesByUsernameQuery(),
+	        ps -> ps.setString(1, username),
+	        (rs, rowNum) -> new SimpleGrantedAuthority(rolePrefix + rs.getString(2))
+	    );
+	}
 
     /**
      * Loads authorities by executing the SQL from <tt>groupAuthoritiesByUsernameQuery</tt>.
      *
      * @return a list of GrantedAuthority objects for the user
      */
-    protected List<GrantedAuthority> loadGroupAuthorities(String username) {
-        return getJdbcTemplate().query(getGroupAuthoritiesByUsernameQuery(), new String[] {username}, new RowMapper<GrantedAuthority>() {
-            public GrantedAuthority mapRow(ResultSet rs, int rowNum) throws SQLException {
-                 String roleName = getRolePrefix() + rs.getString(3);
-
-                return new SimpleGrantedAuthority(roleName);
-            }
-        });
-    }
+	protected List<GrantedAuthority> loadGroupAuthorities(String username) {
+	    return getJdbcTemplate().query(
+	        getGroupAuthoritiesByUsernameQuery(),
+	        (rs, rowNum) -> new SimpleGrantedAuthority(getRolePrefix() + rs.getString(3)),
+	        username
+	    );
+	}
 
     /**
      * Can be overridden to customize the creation of the final UserDetailsObject which is
@@ -374,8 +422,9 @@ public class KbeeSpringSecurityDao extends JdbcDaoSupport implements UserDetails
      *
      * @param usersByUsernameQueryString The query string to set
      */
-    public void setUsersByUsernameQuery(String usersByUsernameQueryString) {
-        this.usersByUsernameQuery = usersByUsernameQueryString;
+    
+    public void setUsersByUserNameQuery(String usersByUsernameQueryString) {
+        this.usersByUserNameQuery = usersByUsernameQueryString;
     }
 
     protected boolean getEnableAuthorities() {
@@ -393,11 +442,37 @@ public class KbeeSpringSecurityDao extends JdbcDaoSupport implements UserDetails
         return enableGroups;
     }
 
-    /**
-     * Enables support for group authorities. Defaults to false
-     * @param enableGroups
-     */
     public void setEnableGroups(boolean enableGroups) {
         this.enableGroups = enableGroups;
     }
+    
+	public String getUsersByUserNameQuery() {
+		if(usersByUserNameQuery==null)
+			usersByUserNameQuery= "select id, username, password, enabled, validityaccessdate from "+getSchema()+ "users where username = ?";
+		return usersByUserNameQuery;
+    }
+	
+	public String getUsersByUserEmailQuery() {
+		if(usersByUserEmailQuery==null)
+			usersByUserEmailQuery= "select id, username, password, enabled, validityaccessdate from "+getSchema()+ "users where lower(email) = lower(?)";
+		return usersByUserEmailQuery;
+    }
+	
+	public String getUsersBySuUsernameQuery() {
+		if(usersBySuUsernameQuery==null)
+			usersBySuUsernameQuery="select u2.id, u1.username, u2.password, u1.enabled from "+getSchema()+ "users u1, "+getSchema()+ "users u2 where u1.username = ? and u2.username=?";
+		return usersBySuUsernameQuery;
+	}
+	
+    protected String getAuthoritiesByUsernameQuery() {
+    	if(authoritiesByUsernameQuery==null)
+    		authoritiesByUsernameQuery="select u.username, g.name from "+getSchema()+ "kgroupmember m, "+getSchema()+ "kgroup g, "+getSchema()+ "users u where u.username = ? and m.kgroup=g.id and m.principal = u.id";
+        return authoritiesByUsernameQuery;
+    }
+    
+	public String getGroupAuthoritiesByUsernameQuery() {
+		if(groupAuthoritiesByUsernameQuery==null)
+			groupAuthoritiesByUsernameQuery="select g.id, g.group_name, ga.authority from "+getSchema()+ "groups g, "+getSchema()+ "group_members gm, "+getSchema()+ "group_authorities ga where gm.username = ? and g.id = ga.group_id and g.id = gm.group_id";
+		return groupAuthoritiesByUsernameQuery;
+	}
 }
