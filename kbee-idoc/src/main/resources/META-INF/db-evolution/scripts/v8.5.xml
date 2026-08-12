@@ -1,0 +1,1151 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog 
+		xmlns="http://www.liquibase.org/xml/ns/dbchangelog" 
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd
+        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+    <changeSet id="versionTag" author="atolomei">
+        <tagDatabase tag="8.5"/>
+    </changeSet>
+
+
+	<changeSet author="atolomei" id="datasetmenber key 2">
+		<sql><![CDATA[
+				delete from kb_preference;
+		]]>
+		</sql>
+	</changeSet>
+	
+	
+	<changeSet author="aferraria" id="eform visibility 1">
+		<sql><![CDATA[
+			alter table kb_form add column if not exists visibility text;
+		]]>
+		</sql>
+	</changeSet>
+	
+		<changeSet author="aferraria" id="signed file 1">
+		<sql><![CDATA[
+			CREATE TABLE if not exists kb_signed_file (
+				id					bigint primary key,
+				resource_id			bigint,
+				signature_id		bigint,
+				date				timestamp with time zone DEFAULT now()
+			);
+			
+			ALTER TABLE ONLY kb_signed_file DROP CONSTRAINT IF exists signature_signed_file_fk;
+			ALTER TABLE ONLY kb_signed_file DROP CONSTRAINT IF exists file_signed_file_fk;
+			
+			ALTER TABLE kb_signed_file
+				ADD CONSTRAINT signature_signed_file_fk FOREIGN KEY (signature_id) REFERENCES kb_signature (id) 
+				MATCH SIMPLE
+    			ON UPDATE NO ACTION
+    			ON DELETE RESTRICT;
+    			
+    		ALTER TABLE kb_signed_file
+				ADD CONSTRAINT file_signed_file_fk FOREIGN KEY (resource_id) REFERENCES kfile (resource_id) 
+				MATCH SIMPLE
+    			ON UPDATE NO ACTION
+    			ON DELETE CASCADE;
+    			
+		]]>
+		</sql>
+	</changeSet>
+	
+	<changeSet author="aferraria" id="launcher mobile">
+		<sql><![CDATA[
+			alter table wf_launcher add column if not exists mobile boolean default false;
+		]]>
+		</sql>
+	</changeSet>
+	
+	
+    <changeSet author="atolomei" id="send token 2">
+        <sql><![CDATA[
+		
+					delete from kb_email_template where xkey='send-token';
+					
+					insert into kb_email_template
+					
+					(	id,
+					 	creationdate,     
+ 						lastmodifieddate, 
+ 						lastmodifieduser, 
+ 						state,            
+ 						domain_id,        
+ 						lang,             
+ 						xkey,             
+ 						title,            
+ 						fromstr,          
+ 						subject,          
+ 						strtext,          
+ 						available_macros, 
+ 						isdefault,     
+ 						description,   
+ 						isdefaultvalue,
+ 						defaultvalue, 
+ 						model
+ 					)
+					
+					select nextval('domainid_sequence'),
+					now(),
+					now(),
+					(select id from users where username = 'root@kbee'),
+					 1,
+					d.id,
+					'en',
+					'send-token',
+					'send-token',
+					'${from}',
+					null,
+					null,
+					'send token',
+					true,
+					'send token',
+					true,
+					'<p>send token</p>',
+					null
+					
+					from domain d;
+					
+					
+					insert into kb_email_template
+					(	id,
+					 	creationdate,     
+ 						lastmodifieddate, 
+ 						lastmodifieduser, 
+ 						state,            
+ 						domain_id,        
+ 						lang,             
+ 						xkey,             
+ 						title,            
+ 						fromstr,          
+ 						subject,          
+ 						strtext,          
+ 						available_macros, 
+ 						isdefault,     
+ 						description,   
+ 						isdefaultvalue,
+ 						defaultvalue,
+ 						model
+ 						
+ 					)
+					
+					select nextval('domainid_sequence'),
+					now(),
+					now(),
+					(select id from users where username = 'root@kbee'),
+					 1,
+					d.id,
+					'es',
+					'send-token',
+					'send-token',
+					'${from}',
+					null,
+					null,
+					'send token',
+					 true,
+					'send token',
+					 true,
+					'<p>send token</p>',
+					null
+					
+					from domain d;
+					
+ 			 ]]>
+        </sql>
+    </changeSet>
+	
+	
+	
+
+	<!-- changeSet author="atolomei" id="cateory">
+		<sql><![CDATA[
+			alter table KB_Device add column if not exists category character varying(1024);
+		]]>
+		</sql>
+	</changeSet-->
+	
+
+	<changeSet author="atolomei" id="email template nulls">
+		<sql><![CDATA[
+			update kb_email_template set subject=null, strtext=null, fromstr=null, model=null;
+		]]>
+		</sql>
+	</changeSet>
+	
+	
+	
+	
+	<changeSet author="aferraria" id="launcher rule and conditions">
+		<sql><![CDATA[
+			alter table wf_launcher add column if not exists condition text;
+			alter table wf_launcher add column if not exists rules text;
+		]]>
+		</sql>
+	</changeSet>
+	
+	<changeSet author="aferraria" id="signed data device">
+		<sql><![CDATA[
+			alter table kb_signed_data add column if not exists device_id bigint;
+			ALTER TABLE ONLY kb_signed_data DROP CONSTRAINT IF exists signed_device_fk;
+    		ALTER TABLE kb_signed_data
+				ADD CONSTRAINT signed_device_fk FOREIGN KEY (device_id) REFERENCES kb_device (id) 
+				MATCH SIMPLE
+    			ON UPDATE NO ACTION
+    			ON DELETE RESTRICT;
+		]]>
+		</sql>
+	</changeSet>
+	
+
+	<changeSet author="atolomei" id="encrypt all domains by default">
+		<sql><![CDATA[
+			update domain set encrypt_files = true;
+		]]>
+		</sql>
+	</changeSet>
+	
+	<changeSet author="atolomei" id="drop constraint not used">
+		<sql><![CDATA[
+				alter table po_area drop constraint if exists po_area_page_section_id_fkey3;
+		]]>
+		</sql>
+	</changeSet>
+	
+	<changeSet author="aferraria" id="wf_procedure template 1">
+		<sql><![CDATA[
+			alter table wf_procedure add column if not exists contenttemplate_id bigint;
+			ALTER TABLE wf_procedure ADD COLUMN if not exists type integer DEFAULT 1;
+			ALTER TABLE ONLY wf_procedure DROP CONSTRAINT IF exists contenttemplate_fk;
+			]]>
+		</sql>
+	</changeSet>
+		
+	
+	<changeSet author="aferraria" id="wf_procedure template 2">
+		<sql><![CDATA[
+    		ALTER TABLE wf_procedure ADD CONSTRAINT contenttemplate_fk FOREIGN KEY (contenttemplate_id) REFERENCES kb_contenttemplate(id) 
+				MATCH SIMPLE
+    			ON UPDATE NO ACTION
+    			ON DELETE CASCADE;
+		]]>
+		</sql>
+	</changeSet>
+	
+	<!-- changeSet author="aferraria" id="wf_procedure template 3">
+		<preConditions onFail="MARK_RAN">
+			<tableExists tableName="wf_procedure" />
+		</preConditions>
+		<sql><![CDATA[
+			update wf_procedure p set contenttemplate_id = (select contenttemplate_id from wf_launcher l where  l.procedure_id = p.id);
+		]]>
+		</sql>
+	</changeSet-->
+	
+	
+	<changeSet author="aferraria" id="wf_launcher rules">
+		<sql><![CDATA[
+			alter table wf_launcher add column if not exists rules text;
+			alter table wf_launcher add column if not exists router text;
+		]]>
+		</sql>
+	</changeSet>
+	
+    <changeSet author="aferraria" id="workflow_timeout_job">
+        <sql><![CDATA[
+			insert into  kb_cronjob (id, lastmodifieduser, name, description, cronexpression, clazz, parameter) 
+			values ((select nextval('objectid_sequence')), 
+			(select id from users where username='root@kbee'), 
+			'Chequeo de timeout en procesos',  
+			'Chequeo de timeout en procesos',
+			'0 15 0,4,8,12,16,20 ? * *', 'com.novamens.kbee.command.CommandExecutionJob', 
+			'command=WorkflowTimeOutCommand');
+             ]]>
+        </sql>
+    </changeSet>
+
+
+
+	    <changeSet author="atolomei" id="db export 2">
+        <sql><![CDATA[
+		
+					delete from kb_email_template where xkey='db-export';
+					
+					insert into kb_email_template
+					
+					(	id,
+					 	creationdate,     
+ 						lastmodifieddate, 
+ 						lastmodifieduser, 
+ 						state,            
+ 						domain_id,        
+ 						lang,             
+ 						xkey,             
+ 						title,            
+ 						fromstr,          
+ 						subject,          
+ 						strtext,          
+ 						available_macros, 
+ 						isdefault,     
+ 						description,   
+ 						isdefaultvalue,
+ 						defaultvalue, 
+ 						model
+ 					)
+					
+					select nextval('domainid_sequence'),
+					now(),
+					now(),
+					(select id from users where username = 'root@kbee'),
+					 1,
+					d.id,
+					'en',
+					'db-export',
+					'db-export',
+					'${from}',
+					null,
+					null,
+					'db-export',
+					true,
+					'db-export',
+					true,
+					'<p>db-export</p>',
+					null
+					
+					from domain d;
+					
+					
+					insert into kb_email_template
+					(	id,
+					 	creationdate,     
+ 						lastmodifieddate, 
+ 						lastmodifieduser, 
+ 						state,            
+ 						domain_id,        
+ 						lang,             
+ 						xkey,             
+ 						title,            
+ 						fromstr,          
+ 						subject,          
+ 						strtext,          
+ 						available_macros, 
+ 						isdefault,     
+ 						description,   
+ 						isdefaultvalue,
+ 						defaultvalue,
+ 						model
+ 						
+ 					)
+					
+					select nextval('domainid_sequence'),
+					now(),
+					now(),
+					(select id from users where username = 'root@kbee'),
+					 1,
+					d.id,
+					'es',
+					'db-export',
+					'db-export',
+					'${from}',
+					null,
+					null,
+					'db-export',
+					 true,
+					'db-export',
+					 true,
+					'<p>db-export</p>',
+					null
+					
+					from domain d;
+					
+ 			 ]]>
+        </sql>
+    </changeSet>
+
+	<changeSet author="aferraria" id="plain text template">
+		<sql><![CDATA[
+		alter table kb_email_template add column if not exists plaintext text;
+		]]>
+		</sql>
+	</changeSet>
+
+	<changeSet author="aferraria" id="user signature security level">
+		<sql><![CDATA[
+		alter table userprofile add column if not exists signature_security_level int default 0;
+		]]>
+		</sql>
+	</changeSet>
+
+	<changeSet author="aferraria" id="user whatsapp channel">
+		<sql><![CDATA[
+		alter table userprofile add column if not exists whatsapp_enabled boolean default false;
+		]]>
+		</sql>
+	</changeSet>
+	
+	<changeSet author="aferraria" id="domain integration servicel">
+		<sql><![CDATA[
+		alter table domain add column if not exists integration_service boolean default false;
+		]]>
+		</sql>
+	</changeSet>
+	
+	<changeSet author="aferraria" id="relation keep version">
+		<sql><![CDATA[
+		alter table kb_relation_template add column if not exists keep_version boolean default true;
+		]]>
+		</sql>
+	</changeSet>
+
+<!-- ALTER TABLE kb_member_parent ADD PRIMARY KEY (member_id, parent_id); -->
+
+
+	<changeSet author="aferraria" id="member parent 1">
+		<sql><![CDATA[
+			CREATE TABLE if not exists kb_member_parent (
+				member_id		bigint,
+				parent_id		bigint
+			);
+			
+			ALTER TABLE ONLY kb_member_parent DROP CONSTRAINT IF exists member_parent_member_fk;
+
+			ALTER TABLE kb_member_parent
+				ADD CONSTRAINT member_parent_member_fk FOREIGN KEY (member_id) REFERENCES datasetmember (id) 
+				MATCH SIMPLE
+    			ON UPDATE NO ACTION 
+    			ON DELETE CASCADE;
+		]]>
+		</sql>
+	</changeSet> 
+
+	
+	<changeSet author="aferraria" id="classifier hierarchical">
+		<sql><![CDATA[
+		alter table kb_classifier add column if not exists hierarchical boolean default false;
+		]]>
+		</sql>
+	</changeSet>
+	
+	<changeSet author="aferraria" id="member security rule">
+		<sql><![CDATA[
+			CREATE TABLE if not exists kb_member_security_rule (
+				rule_id			bigint primary key,
+				member_id		bigint
+			);
+			
+			ALTER TABLE ONLY kb_member_security_rule DROP CONSTRAINT IF exists member_security_rule_fk;
+			
+			ALTER TABLE kb_member_security_rule
+				ADD CONSTRAINT member_security_rule_fk FOREIGN KEY (member_id) REFERENCES datasetmember (id) 
+				MATCH SIMPLE
+    			ON UPDATE NO ACTION 
+    			ON DELETE CASCADE;
+		]]>
+		</sql>
+	</changeSet>
+	
+	
+	
+	
+	    <changeSet author="atolomei" id="due date notification">
+        <sql><![CDATA[
+		
+					delete from kb_email_template where xkey='due-date-notification-task';
+					
+					insert into kb_email_template
+					
+					(	id,
+					 	creationdate,     
+ 						lastmodifieddate, 
+ 						lastmodifieduser, 
+ 						state,            
+ 						domain_id,        
+ 						lang,             
+ 						xkey,             
+ 						title,            
+ 						fromstr,          
+ 						subject,          
+ 						strtext,          
+ 						available_macros, 
+ 						isdefault,     
+ 						description,   
+ 						isdefaultvalue,
+ 						defaultvalue, 
+ 						model
+ 					)
+					
+					select nextval('domainid_sequence'),
+					now(),
+					now(),
+					(select id from users where username = 'root@kbee'),
+					 1,
+					d.id,
+					'en',
+					'due-date-notification-task',
+					'due-date-notification-task',
+					'${from}',
+					null,
+					null,
+					'due-date-notification-task',
+					true,
+					'due-date-notification-task',
+					true,
+					'<p>due-date-notification-task</p>',
+					null
+					
+					from domain d;
+					
+					
+					insert into kb_email_template
+					(	id,
+					 	creationdate,     
+ 						lastmodifieddate, 
+ 						lastmodifieduser, 
+ 						state,            
+ 						domain_id,        
+ 						lang,             
+ 						xkey,             
+ 						title,            
+ 						fromstr,          
+ 						subject,          
+ 						strtext,          
+ 						available_macros, 
+ 						isdefault,     
+ 						description,   
+ 						isdefaultvalue,
+ 						defaultvalue,
+ 						model
+ 						
+ 					)
+					
+					select nextval('domainid_sequence'),
+					now(),
+					now(),
+					(select id from users where username = 'root@kbee'),
+					 1,
+					d.id,
+					'es',
+					'due-date-notification-task',
+					'due-date-notification-task',
+					'${from}',
+					null,
+					null,
+					'due-date-notification-task',
+					 true,
+					'due-date-notification-task',
+					 true,
+					'<p>due-date-notification-task</p>',
+					null
+					
+					from domain d;
+					
+ 			 ]]>
+        </sql>
+    </changeSet>
+	
+	
+		<changeSet author="aferraria" id="contentresource index">
+		<sql><![CDATA[
+		alter table contentresource add column if not exists isindex boolean default false;
+		]]>
+		</sql>
+	</changeSet>
+	
+	<changeSet author="atolomei" id="kb_usage_stat odilon">
+		<preConditions onFail="MARK_RAN">
+			<tableExists tableName="kb_usage_stat" />
+		</preConditions>
+		<sql><![CDATA[
+			alter table kb_usage_stat add column if not exists odilon_hard_disk_usage bigint default 0;
+		]]>
+		</sql>
+	</changeSet>
+	
+
+	<!-- changeSet author="atolomei" id="bug aggregation">
+		<sql><![CDATA[
+			update dataset set canonical = false where aggregation=true;
+		]]>
+		</sql>
+	</changeSet -->
+
+		<changeSet author="aferraria" id="Kb_Facet_Wrapper suggester">
+		<sql><![CDATA[
+		alter table Kb_Facet_Wrapper add column if not exists suggester boolean default true;
+		]]>
+		</sql>
+	</changeSet>
+
+	<changeSet author="aferraria" id="role principal template">
+		<sql><![CDATA[
+		alter table Kb_role add column if not exists principal_template text;
+		]]>
+		</sql>
+	</changeSet>
+	
+	
+
+
+
+
+    <changeSet author="atolomei" id="forgot username">
+        <sql><![CDATA[
+		
+					delete from kb_email_template where xkey='forgot-username';
+					
+					insert into kb_email_template
+					
+					(	id,
+					 	creationdate,     
+ 						lastmodifieddate, 
+ 						lastmodifieduser, 
+ 						state,            
+ 						domain_id,        
+ 						lang,             
+ 						xkey,             
+ 						title,            
+ 						fromstr,          
+ 						subject,          
+ 						strtext,          
+ 						available_macros, 
+ 						isdefault,     
+ 						description,   
+ 						isdefaultvalue,
+ 						defaultvalue, 
+ 						model
+ 					)
+					
+					select nextval('domainid_sequence'),
+					now(),
+					now(),
+					(select id from users where username = 'root@kbee'),
+					 1,
+					d.id,
+					'en',
+					'forgot-username',
+					'forgot-username',
+					'${from}',
+					null,
+					null,
+					'forgot username',
+					true,
+					'forgot username',
+					true,
+					'<p>forgot username</p>',
+					null
+					
+					from domain d;
+					
+					
+					insert into kb_email_template
+					(	id,
+					 	creationdate,     
+ 						lastmodifieddate, 
+ 						lastmodifieduser, 
+ 						state,            
+ 						domain_id,        
+ 						lang,             
+ 						xkey,             
+ 						title,            
+ 						fromstr,          
+ 						subject,          
+ 						strtext,          
+ 						available_macros, 
+ 						isdefault,     
+ 						description,   
+ 						isdefaultvalue,
+ 						defaultvalue,
+ 						model
+ 						
+ 					)
+					
+					select nextval('domainid_sequence'),
+					now(),
+					now(),
+					(select id from users where username = 'root@kbee'),
+					 1,
+					d.id,
+					'es',
+					'forgot-username',
+					'forgot-username',
+					'${from}',
+					null,
+					null,
+					'forgot username',
+					 true,
+					'forgot username',
+					 true,
+					'<p>forgot username</p>',
+					null
+					
+					from domain d;
+					
+ 			 ]]>
+        </sql>
+    </changeSet>
+
+
+
+	<changeSet author="aferraria" id="group name">
+		<sql><![CDATA[
+		ALTER TABLE kgroup ALTER COLUMN name TYPE varchar(256);
+		]]>
+		</sql>
+	</changeSet>
+
+	<changeSet author="aferraria" id="saved column browser name">
+		<sql><![CDATA[
+			alter table savedquery add column if not exists browser varchar(64);
+		]]>
+		</sql>
+	</changeSet>
+	
+	<changeSet author="aferraria" id="library page bean">
+		<sql><![CDATA[
+			alter table KB_CABINET add column if not exists page varchar(64);
+		]]>
+		</sql>
+	</changeSet>
+	
+	<changeSet author="aferraria" id="userprofile type">
+		<sql><![CDATA[
+			alter table UserProfile add column if not exists type integer;
+		]]>
+		</sql>
+	</changeSet>
+
+	<changeSet author="aferraria" id="classifier mydocument">
+		<sql><![CDATA[
+		alter table kb_classifier add column if not exists mydocument boolean default false;
+		]]>
+		</sql>
+	</changeSet>
+
+
+
+    <changeSet author="aferraria" id="kbdictionary">
+        <sql><![CDATA[
+			create table kb_dictionary(
+				id bigint primary key,
+				locale varchar(50),
+				state integer,
+				domain_id bigint,
+				lastModifiedDate timestamp with time zone,
+				lastModifiedUser bigint,
+				creationDate timestamp with time zone
+			);
+
+			ALTER TABLE kb_dictionary ADD CONSTRAINT fk_dictionary_domain FOREIGN KEY (domain_id) REFERENCES domain(id) on delete cascade;
+			ALTER TABLE kb_dictionary ADD CONSTRAINT fk_dictionary_user FOREIGN KEY (lastModifiedUser) REFERENCES users(id);
+		]]>
+        </sql>
+    </changeSet>
+
+    <changeSet author="aferraria" id="kbdictionary entry">
+        <sql><![CDATA[
+			create table kb_dictionary_entry(
+				id bigint primary key,
+				dictionary_id bigint,
+				key character varying (256),
+				value character varying (256)
+			);
+
+			ALTER TABLE kb_dictionary_entry ADD CONSTRAINT fk_dictionary_entry_dictionary FOREIGN KEY (dictionary_id) REFERENCES kb_dictionary(id) on delete cascade;
+		]]>
+        </sql>
+    </changeSet>
+
+
+  <changeSet author="aferraria" id="kbreplica corrected 1.0">
+        <sql><![CDATA[
+			CREATE TABLE if not exists kb_replica (
+				id bigint NOT NULL primary key,
+				lastmodifieddate timestamp with time zone DEFAULT now(),
+				creationdate timestamp with time zone DEFAULT now(),
+				lastmodifieduser bigint NOT NULL,
+				state integer,
+				domain_id bigint,
+				type integer, 
+				server character varying(128),
+				username character varying(120) NOT NULL,
+				password character varying(128) DEFAULT 'root'::character varying
+			);
+			
+			
+		]]>
+        </sql>
+    </changeSet>
+    
+    
+    <changeSet author="atolomei" id="kbreplica corrected 2.11">
+        <preConditions onFail="MARK_RAN">
+			<not>
+			   <columnExists tableName="kb_replica" columnName="localdomain_id" />
+			</not>
+		</preConditions>
+		
+        <sql><![CDATA[
+			ALTER  TABLE kb_replica add column (
+				localdomain_id   bigint;
+ 			);
+			
+		]]>
+        </sql>
+    </changeSet>
+ 
+	<changeSet author="atolomei" id="kbreplica corrected 2.21">
+        
+        <preConditions onFail="MARK_RAN">
+			<not>
+			   <columnExists tableName="kb_replica" columnName="standbyreplica_id" />
+			</not>
+		</preConditions>
+		
+        <sql><![CDATA[
+			ALTER  TABLE kb_replica add column if not exists (
+			standbyreplica_id character varying(20)
+ 			);
+		]]>
+        </sql>
+    </changeSet>
+    
+    
+  <changeSet author="atolomei" id="kbreplica corrected 1.21">
+        <preConditions onFail="MARK_RAN">
+			<not>
+				<foreignKeyConstraintExists foreignKeyName="fk_replica_domain" />
+			</not>
+		</preConditions>
+		
+        <sql><![CDATA[
+			ALTER TABLE kb_replica ADD CONSTRAINT fk_replica_domain FOREIGN KEY (domain_id) REFERENCES domain(id) on delete cascade;
+		]]>
+        </sql>
+    </changeSet>
+
+ 	
+	<!-- changeSet author="aferraria" id="kbreplica local domain corrected">
+       <sql><![CDATA[
+			ALTER TABLE kb_replica ADD column if not exists localdomain_id bigint;
+			ALTER TABLE kb_replica ADD CONSTRAINT fk_replica_localdomain FOREIGN KEY (localdomain_id) REFERENCES domain(id) on delete cascade;
+			alter table kb_replica alter username drop not null;
+       ]]>
+        </sql>
+	</changeSet -->
+  
+  
+  
+  <changeSet author="aferraria" id="kbreplica local domain corrected 1">
+       
+        <preConditions onFail="MARK_RAN">
+			<not>
+			   <columnExists tableName="kb_replica" columnName="localdomain_id" />
+			</not>
+		</preConditions>
+		
+       <sql><![CDATA[
+			ALTER TABLE kb_replica ADD column if not exists localdomain_id bigint;
+       ]]>
+        </sql>
+	</changeSet>
+  
+
+  
+  <changeSet author="aferraria" id="kbreplica local domain corrected 2">
+       <sql><![CDATA[
+				alter table kb_replica alter username drop not null;
+       ]]>
+        </sql>
+	</changeSet>
+  
+  
+  
+  <changeSet author="aferraria" id="kbreplica local domain corrected 3">
+  
+        <preConditions onFail="MARK_RAN">
+			<not>
+				<foreignKeyConstraintExists foreignKeyName="fk_replica_localdomain" />
+			</not>
+		</preConditions>
+	
+       <sql><![CDATA[
+			ALTER TABLE kb_replica ADD CONSTRAINT fk_replica_localdomain FOREIGN KEY (localdomain_id) REFERENCES domain(id) on delete cascade;
+       ]]>
+        </sql>
+	</changeSet>
+  
+  
+  
+  
+  
+  <changeSet author="aferraria" id="kbreplica object 1">
+        <sql><![CDATA[
+		 	CREATE TABLE if not exists kb_replica_object (
+				replica_id bigint NOT NULL,
+				remote_id bigint NOT NULL,
+				kbclass character varying(128),
+				local_id bigint NOT NULL,
+				replica_time timestamp with time zone DEFAULT now()
+			);
+		]]>
+        </sql>
+  </changeSet>
+    
+
+	<changeSet author="atolomei" id="kbreplica object 2">
+        <preConditions onFail="MARK_RAN">
+			<not>
+				<primaryKeyExists primaryKeyName="kb_replica_object_pkey" />
+			</not>
+		</preConditions>
+        <sql><![CDATA[
+			ALTER TABLE kb_replica_object ADD PRIMARY KEY (replica_id, remote_id, kbclass);
+		]]>
+        </sql>
+  </changeSet>
+
+    
+
+	<changeSet author="atolomei" id="kbreplica object 3">
+        <preConditions onFail="MARK_RAN">
+			<not>
+				<foreignKeyConstraintExists foreignKeyName="fk_replicaobject_replica" />
+			</not>
+		</preConditions>
+        <sql><![CDATA[
+			ALTER TABLE kb_replica_object ADD CONSTRAINT fk_replicaobject_replica FOREIGN KEY (replica_id) REFERENCES kb_replica(id) on delete cascade;
+		]]>
+        </sql>
+  </changeSet>
+
+  
+  <!--  toy aca  -->
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+    <changeSet author="aferraria" id="kbreplica master">
+		<sql><![CDATA[
+		alter table kb_replica add column if not exists standbyreplica_id character varying(20);
+		]]>
+		</sql>
+	</changeSet>
+    
+    
+    
+    <changeSet author="aferraria" id="content link corrected">
+    
+        <preConditions onFail="MARK_RAN">
+			<not>
+				<tableExists tableName="kb_content_link" />
+			</not>
+		</preConditions>
+    
+		<sql><![CDATA[
+			    create table kb_content_link (
+						id bigint primary key,
+						source_id bigint,
+						target_id bigint,
+						anchor	character varying (256),
+						resource_id bigint,
+						lastModifiedDate timestamp with time zone,
+						lastModifiedUser bigint
+					);	
+						ALTER TABLE kb_content_link ADD CONSTRAINT fk_link_source FOREIGN KEY (source_id) REFERENCES content(id) on delete cascade;
+						ALTER TABLE kb_content_link ADD CONSTRAINT fk_link_target FOREIGN KEY (target_id) REFERENCES content(id) on delete cascade;
+						ALTER TABLE kb_content_link ADD CONSTRAINT fk_link_resource FOREIGN KEY (resource_id) REFERENCES kresource(id) on delete cascade;
+						ALTER TABLE kb_content_link ADD CONSTRAINT fk_link_user FOREIGN KEY (lastModifiedUser) REFERENCES users(id);
+		]]>
+		</sql>
+	</changeSet>
+					
+
+
+	<changeSet author="aferraria" id="content link updated">
+		<sql><![CDATA[
+		alter table kb_content_link add column if not exists targetUpdated boolean default false;
+		]]>
+		</sql>
+	</changeSet>
+    
+	 <changeSet author="aferraria" id="content proxy 2">
+		<sql><![CDATA[
+			    create table if not exists kb_content_proxy (
+					id bigint primary key,
+					content_id bigint,
+					workspace bigint,
+					locked boolean
+				);	
+				
+		]]> 
+		</sql>
+	</changeSet>
+				
+	
+	<changeSet author="aferraria" id="content proxy 3">
+		
+		<preConditions onFail="MARK_RAN">
+			<not>
+				<foreignKeyConstraintExists foreignKeyName="fk_proxy_content" />
+			</not>
+		</preConditions>
+		
+		<sql><![CDATA[
+			ALTER TABLE kb_content_proxy ADD CONSTRAINT fk_proxy_content FOREIGN KEY (content_id) REFERENCES content(id) on delete cascade;	
+				
+		]]> 
+		</sql>
+	</changeSet>
+				
+				
+					
+	<changeSet author="aferraria" id="wf activity parent 1">
+		<sql><![CDATA[
+		alter table wf_activity add column if not exists parent_id bigint;
+		alter table wf_activity add column if not exists thread character varying (256);
+	
+		]]>
+		</sql>
+	</changeSet>
+	
+	<changeSet author="aferraria" id="wf activity parent 3">
+	
+	 <preConditions onFail="MARK_RAN">
+			<not>
+				<foreignKeyConstraintExists foreignKeyName="wf_activity_parent" />
+			</not>
+		</preConditions>
+	
+		<sql><![CDATA[
+		ALTER TABLE wf_activity ADD CONSTRAINT wf_activity_parent FOREIGN KEY (parent_id) REFERENCES wf_activity(id) on delete cascade;	
+		]]>
+		</sql>
+	</changeSet>
+	
+		
+		
+	
+	<changeSet author="aferraria" id="workflow subrprocedures">
+		<sql><![CDATA[
+		alter table wf_procedure add column if not exists subprocedures text;
+		]]>
+		</sql>
+	</changeSet>
+	
+	
+	<changeSet author="aferraria" id="workflow launcher template">
+		<sql><![CDATA[
+		alter table wf_launcher add column if not exists usertemplate boolean default false;
+		]]>
+		</sql>
+	</changeSet>
+	
+	<changeSet author="aferraria" id="workflow launcher template (fixed) 1">
+		<sql><![CDATA[
+			alter table wf_launcher dROP COLUMN IF EXISTS usertemplates;
+		alter table wf_launcher add column if not exists usetemplate boolean default false;
+		]]>
+		</sql>
+	</changeSet>
+	
+	
+	
+	
+	<changeSet author="atolomei" id="instance time based notification">
+		<sql><![CDATA[
+			alter table kb_contenttemplate add column if not exists instanceTimeBasedNotification boolean default false;
+		]]>
+		</sql>
+	</changeSet>
+	
+	<changeSet author="atolomei" id="action rule associated to content oid 1">
+		<sql><![CDATA[
+			alter table Kb_Action_Rule drop column if exists contentoid;
+			alter table Kb_Action_Rule add column contentoid bigint;
+			alter table Kb_Action_Rule add column if not exists isContentRule boolean default false;
+		]]>
+		</sql>
+	</changeSet>
+	
+	<changeSet author="atolomei" id="action rule index content oid">
+		<sql><![CDATA[
+			create index if not exists actionRuleContentOId_idx on Kb_Action_Rule(contentoid);
+		]]>
+		</sql>
+	</changeSet>
+		
+
+    <changeSet author="atolomei" id="clean up rules for deleted contents 2">
+
+		<!--  <bean id="CleanUpContentRulesCommand" class="com.novamens.kbee.content.rule.CleanUpContentRulesCommand"/>  -->
+		
+        <sql><![CDATA[
+        	
+        	delete from kb_cronjob where parameter like'%CleanUpContentRulesCommand%';
+        	
+			insert into  kb_cronjob (id, lastmodifieduser, name, description, cronexpression, clazz, parameter) 
+			values ((select nextval('objectid_sequence')), 
+			(select id from users where username='root@kbee'), 
+			'CleanUpContentRulesCommand',  
+			'Clean up ghost Rules (content rules for contents that were deleted)',
+			'40 40 4 * * *', 'com.novamens.kbee.command.CommandExecutionJob', 
+			'command=CleanUpContentRulesCommand');
+             ]]>
+        </sql>
+        
+    </changeSet>
+	
+
+	<changeSet author="atolomei" id="clean usagestat">
+		<sql><![CDATA[
+			delete from kb_usage_stat;
+		]]>
+		</sql>
+	</changeSet>
+	
+	<changeSet author="atolomei" id="system properties db">
+		<sql><![CDATA[
+			delete from kb_system_properties where key = 'com.novamens.content.webapi.realpage.secretkey';
+	
+		]]>
+		</sql>
+	</changeSet>
+
+
+
+	<changeSet author="atolomei" id="user validity access date">
+		<sql><![CDATA[
+			alter table users add column if not exists validityaccessdate timestamp with time zone;
+		]]>
+		</sql>
+	</changeSet>
+
+
+	<changeSet author="atolomei" id="uniquevalues">
+		<sql><![CDATA[
+			alter table dataset add column uniquevalues boolean default true;
+			update dataset set uniquevalues = true where uniquevalues is null;
+		]]>
+		</sql>
+	</changeSet>
+
+
+
+	<changeSet author="aferraria" id="attriutes boost">
+		<sql><![CDATA[
+			alter table kb_attribute add column if not exists boostfactor smallint default 0;
+		]]>
+		</sql>
+	</changeSet>
+
+		
+</databaseChangeLog>

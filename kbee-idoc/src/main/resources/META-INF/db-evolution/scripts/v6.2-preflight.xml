@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd
+        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd" >
+
+	<changeSet id="versionTag" author="aferraria">
+		<tagDatabase tag="5.6.2"/>
+	</changeSet>
+
+	<changeSet author="aferraria" id="attribute validator 1">
+		<preConditions onFail="MARK_RAN">
+			<tableExists tableName="kb_attribute" />
+		</preConditions>
+		<sql><![CDATA[
+			alter table kb_attribute add column if not exists validator text;
+		]]>
+		</sql>
+	</changeSet>
+	
+	<changeSet author="atolomei" id="userprofile isclient">
+		<preConditions onFail="MARK_RAN">
+			<tableExists tableName="userprofile" />
+		</preConditions>
+		<sql><![CDATA[
+				alter table userprofile add column if not exists isclient boolean default true;
+				update userprofile set isclient = false where user_id in (select id from users where username  like 'root@%' or username like 'atolomei@%' or username like 'support1@%' or username like 'support2@' or username like 'jowen%'or username like 'acrawford@%' or username like '%@kbee');
+		]]>
+		</sql>
+	</changeSet>
+	
+	<changeSet author="aferraria" id="relation order">
+		<preConditions onFail="MARK_RAN">
+			<tableExists tableName="kb_relation_template" />
+		</preConditions>
+		<sql><![CDATA[
+			alter table kb_relation_template add column if not exists target_order int default 0;
+			alter table kb_relation_template add column if not exists reverse_order int default 0;
+		]]>
+		</sql>
+	</changeSet>
+						
+	<changeSet author="atolomei" id="launchergroup 3">
+		<sql><![CDATA[
+
+					create table if not exists kb_launcher_group (
+					id                       bigint primary key,
+					lastmodifieddate         timestamp with time zone default now(),
+					creationdate             timestamp with time zone default now(),
+					lastmodifieduser         bigint  references users(id) on delete set null,
+					state                    integer default 1,
+					domain_id                bigint  references domain(id) on delete cascade,
+					
+					alias					 character varying(256) not null,
+					name					 character varying(256) not null,
+					description				 character varying(2048),
+					position 				 integer default 0
+					
+				);
+				
+				alter table wf_launcher add column if not exists launchergroup_id bigint references kb_launcher_group(id) on delete restrict;
+							
+				create index if not exists launcher_group_domain_idx on kb_launcher_group (domain_id, lower(name));
+
+		]]>
+		</sql>
+	</changeSet>
+	
+
+	<changeSet author="atolomei" id="launcher group visible">
+		<preConditions onFail="MARK_RAN">
+			<tableExists tableName="kb_launcher_group" />
+		</preConditions>
+		<sql><![CDATA[
+				alter table kb_launcher_group add column if not exists visible boolean default true;
+		]]>
+		</sql>
+	</changeSet>
+
+
+	<changeSet author="atolomei" id="launcher group items">
+		<preConditions onFail="MARK_RAN">
+			<tableExists tableName="kb_launcher_group" />
+		</preConditions>
+		<sql><![CDATA[
+				insert into  kb_launcher_group (id, lastmodifieduser, domain_id, name, alias, position) select nextval('objectid_sequence'), (select id from users where username= concat('root@', d.name)), d.id, 'Compliance', 'compliance',0             from domain d;	   
+				insert into  kb_launcher_group (id, lastmodifieduser, domain_id, name, alias, position) select nextval('objectid_sequence'), (select id from users where username= concat('root@', d.name)), d.id, 'Corporate', 'corporate',1               from domain d;
+				insert into  kb_launcher_group (id, lastmodifieduser, domain_id, name, alias, position) select nextval('objectid_sequence'), (select id from users where username= concat('root@', d.name)), d.id, 'Asset Management', 'asset-management',2 from domain d;
+		]]>
+		</sql>
+	</changeSet>
+
+
+	<changeSet author="grodriguez" id="classification datasetmember_id idx">
+		<sql><![CDATA[
+			create index if not exists idx_classification_mem on classification(datasetmember_id);
+		]]>
+		</sql>
+	</changeSet>
+
+
+	<changeSet author="atolomei" id="onlyRootEdit">
+		<sql><![CDATA[
+				alter table dataset 					add column if not exists onlyroot boolean default false;
+				alter table kb_classifier 				add column if not exists onlyroot boolean default false;
+				alter table kb_attribute 				add column if not exists onlyroot boolean default false;
+				alter table kb_contenttemplate 			add column if not exists onlyroot boolean default false;
+		]]>
+		</sql>
+	</changeSet>
+
+
+	<changeSet author="atolomei" id="Kb_Model_Section isportal">
+		<sql><![CDATA[
+				alter table Kb_Model_Section add column if not exists isportal boolean default true;
+		]]>
+		</sql>
+	</changeSet>
+	
+	<changeSet author="aferraria" id="attribute parent 1">
+		<sql><![CDATA[
+			alter table KB_AttributeTemplate add column if not exists parent_id bigint;
+			ALTER TABLE ONLY KB_AttributeTemplate DROP CONSTRAINT parent_fk;
+			ALTER TABLE ONLY KB_AttributeTemplate ADD CONSTRAINT parent_fk FOREIGN KEY (parent_id) REFERENCES kb_classifier(id) ON DELETE RESTRICT;
+		]]>
+		</sql>
+	</changeSet>
+	
+
+	<changeSet author="atolomei" id="launcher group items_2">
+		<preConditions onFail="MARK_RAN">
+			<tableExists tableName="kb_launcher_group" />
+		</preConditions>
+		<sql><![CDATA[
+
+				insert into  kb_launcher_group (id, lastmodifieduser, domain_id, name, alias, position) select nextval('objectid_sequence'), (select id from users where username= concat('root@', d.name)), d.id, 'Property Management', 'property management', 3 from domain d;	   
+				insert into  kb_launcher_group (id, lastmodifieduser, domain_id, name, alias, position) select nextval('objectid_sequence'), (select id from users where username= concat('root@', d.name)), d.id, 'Finance', 'finance',4 from domain d;
+				insert into  kb_launcher_group (id, lastmodifieduser, domain_id, name, alias, position) select nextval('objectid_sequence'), (select id from users where username= concat('root@', d.name)), d.id, 'Legal', 'legal',5  from domain d;
+				insert into  kb_launcher_group (id, lastmodifieduser, domain_id, name, alias, position) select nextval('objectid_sequence'), (select id from users where username= concat('root@', d.name)), d.id, 'Operations', 'operations',6  from domain d;
+				insert into  kb_launcher_group (id, lastmodifieduser, domain_id, name, alias, position) select nextval('objectid_sequence'), (select id from users where username= concat('root@', d.name)), d.id, 'Human Resources', 'human-resources',7  from domain d;
+				insert into  kb_launcher_group (id, lastmodifieduser, domain_id, name, alias, position) select nextval('objectid_sequence'), (select id from users where username= concat('root@', d.name)), d.id, 'Marketing', 'marketing', 8  from domain d;
+				insert into  kb_launcher_group (id, lastmodifieduser, domain_id, name, alias, position) select nextval('objectid_sequence'), (select id from users where username= concat('root@', d.name)), d.id, 'Facilities', 'facilities', 9  from domain d;
+				
+		]]>
+		</sql>
+	</changeSet>
+
+
+</databaseChangeLog>

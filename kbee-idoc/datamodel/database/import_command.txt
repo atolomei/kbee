@@ -1,0 +1,2 @@
+createdb -h <database_ip> -p <db_port> -U postgres <dbname>
+psql  -h <database_ip> -p <db_port> -W -U postgres -f fresh_db.sql <dbname>

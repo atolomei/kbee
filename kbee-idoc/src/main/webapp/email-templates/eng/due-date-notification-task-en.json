@@ -1,0 +1,5 @@
+ {"name":"Modelo","type":"COMPOUND","dataSet":null,"description":"Modelo de la plantilla para la generación de la notificación de una alerta de vencimiento","multiplicity":null,"elements":[                                   
+                 {"name":"activity","type":"ACTIVITY","dataSet":null,"description":null,"multiplicity":null,"elements":[]},                                                                                                     
+                 {"name":"content","type":"CONTENT","dataSet":null,"description":null,"multiplicity":null,"elements":[]},                                                                                                       
+                 {"name":"receiver","type":"USER","dataSet":null,"description":null,"multiplicity":null,"elements":[]}]
+ }  

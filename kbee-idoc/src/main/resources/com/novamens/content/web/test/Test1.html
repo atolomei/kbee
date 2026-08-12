@@ -1,0 +1,31 @@
+<wicket:extend>
+	<div class="standard-canvas">
+		<div wicket:id="panel" class="col-md-8 col-lg-8 col-xs-8" style="padding:0;margin-top:50px;">
+			<h2 wicket:id="title" class="col-md-12 col-lg-12 col-xs-12">[TEMPLATE]</h2>
+			<form wicket:id="form"  class="form-container" style="width:100%; float:left;margin-bottom:10px;" role="form">
+				<fieldset>
+					<div class="panel">
+						<div class="col-xs-12 col-lg-12 col-md-12 form-group" wicket:id="template"/>
+					</div>
+				</fieldset>		
+			</form>
+			<div style="padding-left: 15px;">	
+				<a wicket:id="expand-link" class="btn btn-md btn-primary" style="float:right;">generate</a>
+			</div>
+			<div wicket:id="text-panel" class="col-md-12 col-lg-12 col-xs-12" style="padding-left: 15px; margin-top:20px;">
+				<div class="panel" style="border: 1px solid  #d8dcdf;border-radius: 4px;float:left; width: 100%;">
+					<div wicket:id="text" style="padding:10px;float: left; width:100%;">[TEXTO]</div>
+				</div>
+			</div>
+		</div>
+		<div wicket:id="model">
+			<ul>
+				<li wicket:id="model-view"><span wicket:id="line">[]</span></li>
+			</ul>
+		</div>
+		<div wicket:id="error" class="col-md-9 col-lg-10 col-xs-12" style="padding:0;">
+			CONTENT NOT FOUND!
+		</div>
+		
+	</div>		
+</wicket:extend>

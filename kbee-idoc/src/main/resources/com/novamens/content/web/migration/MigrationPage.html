@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="es" lang="es">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>Migration</title>
+	<style type="text/css">
+		h1 {
+			padding: 3px 0px 1px 0px;
+ 			font-size: 25px;
+			font-weight: bold;
+			margin-left: 20px;
+			font-weight: bold;
+			color: darkred;
+		}
+		h3 {
+			padding: 3px 0px 1px 0px;
+ 			font-size: 15px;
+			font-weight: bold;
+			margin-left: 20px;
+			font-weight: bold;
+		}
+		li.feedbackPanelFATAL {
+			padding: 3px 0px 1px 0px;
+ 			font-size: 15px;
+			font-weight: bold;
+			list-style:none;
+			font-weight: bold;
+			color: darkred;
+		}
+		li.feedbackPanelINFO {
+			padding: 3px 0px 1px 0px;
+			list-style:none;
+		}
+		li.feedbackPanelERROR {
+			padding: 3px 0px 1px 0px;
+			color: red;
+			margin-left: 20px;
+		}
+		li.feedbackPanelWARNING {
+			padding: 3px 0px 1px 0px;
+			color: blue;
+			margin-left: 20px;
+		}
+	</style>
+</head>
+
+<body>
+	<div>
+		<h1>Migración de entidades de Kbee-Idoc a Nuevo Idoc</h1> 
+		<form id="form" method="post" action="#" wicket:id="form"  style="	font-family: Segoe UI, sans-serif; font-size: 12px;	padding-top: 0px; height: 20px;">
+			<ul>
+				<li>
+					<label>Url:</label>
+					<input wicket:id="url" style=" margin-top: 5px; margin-left: 232px; border: 1px solid #cccccc;  padding-left: 5px;  
+						color: #333333;	font-family: Segoe UI, sans-serif; font-size: 12px;	padding-top: 0px; height: 20px; width: 150px;">
+				</li>
+				<li>
+					<label>Usuario:</label>
+					<input wicket:id="user" style=" margin-top: 5px; margin-left: 207px; border: 1px solid #cccccc;  padding-left: 5px;  
+						color: #333333;	font-family: Segoe UI, sans-serif; font-size: 12px;	padding-top: 0px; height: 20px; width: 110px;">
+				</li>
+				<li>
+					<label>Password:</label>
+					<input wicket:id="password" style=" margin-top: 5px; margin-left: 196px; border: 1px solid #cccccc;  padding-left: 5px;  
+						color: #333333;	font-family: Segoe UI, sans-serif; font-size: 12px;	padding-top: 0px; height: 20px; width: 110px;">
+				</li>
+				<li>
+					<label>Fecha de modificación (dd/MM/yyyy HH:mm):</label>
+					<input wicket:id="offset" style=" margin-top: 5px; margin-left: 5px; border: 1px solid #cccccc;  padding-left: 5px;  
+						color: #333333;	font-family: Segoe UI, sans-serif; font-size: 12px;	padding-top: 0px; height: 20px; width: 110px;">
+				</li>
+				<li>
+					<label>Tope:</label>
+					<input wicket:id="tope" value="50" style=" margin-top: 5px; margin-left: 218px; border: 1px solid #cccccc;  padding-left: 5px;  
+						color: #333333;	font-family: Segoe UI, sans-serif; font-size: 12px;	padding-top: 0px; height: 20px; width: 35px;"/>
+				</li>
+				<li>
+					<label>Organización:</label>
+					<select id="selectedDomain" wicket:id="domainSelector" title="Selecionar Organización"  
+						style="margin-top: 5px; margin-left: 175px; border: 1px solid #cccccc; padding-left: 1px; color: #333333;	font-family: Segoe UI, sans-serif; font-size: 12px;	padding-top: 0px; height: 20px;"> 	
+					</select>
+				</li>
+				<li>
+					<label>Clase:</label>
+					<select id="selectedClass" wicket:id="classSelector" title="Selecionar Clase"  
+						style="margin-top: 5px; margin-left: 217px; border: 1px solid #cccccc; padding-left: 1px; color: #333333;	font-family: Segoe UI, sans-serif; font-size: 12px;	padding-top: 0px; height: 20px;"> 	
+					</select>
+				</li>
+				<li>
+					<label>Filtro Clasificadores:</label>
+					<input wicket:id="classifier-filter" style=" margin-top: 5px; margin-left:  142px; border: 1px solid #cccccc;  padding-left: 5px;  
+						color: #333333;	font-family: Segoe UI, sans-serif; font-size: 12px;	padding-top: 0px; height: 20px; width: 400px;">
+				</li>
+				<li>
+					<label>Forzar Update:</label>
+					<input wicket:id="checkUpdate" type="checkbox" class="check" style="margin-left: 170px; height: 20px;"/>
+				</li>
+			</ul>
+			<input wicket:id="migration-button" type="button" value="Migrar" style="display: inline-block;  margin-left: 150px; margin-top: 5px;  min-width: 103px; padding-left: 1px; 
+						color: #333333;	font-family: Segoe UI, sans-serif; font-size: 12px;	padding-top: 0px; height: 20px;"></input>
+						
+			<h3>Comando de migración / update integral</h3> 			
+			<input wicket:id="migrationCommand-button" type="button" value="Ejecutar" style="display: inline-block;  margin-left: 150px; margin-top: 5px;  min-width: 103px; padding-left: 1px; 
+						color: #333333;	font-family: Segoe UI, sans-serif; font-size: 12px;	padding-top: 0px; height: 20px;"></input>
+			<br/><br/>
+			
+			<h3>Correción de Archivos PDF</h3> 			
+			<input wicket:id="updatePdfFilesCommand-button" type="button" value="Corregir" style="display: inline-block;  margin-left: 150px; margin-top: 5px;  min-width: 103px; padding-left: 1px; 
+						color: #333333;	font-family: Segoe UI, sans-serif; font-size: 12px;	padding-top: 0px; height: 20px;"></input>			
+			<br/><br/>
+			
+			<h3>Start Workflow</h3> 			
+			<input wicket:id="workflow-button" type="button" value="Migrar" style="display: inline-block;  margin-left: 150px; margin-top: 5px;  min-width: 103px; padding-left: 1px; 
+						color: #333333;	font-family: Segoe UI, sans-serif; font-size: 12px;	padding-top: 0px; height: 20px;"></input>			
+			<br/><br/>
+			
+			<div wicket:id="feedback">[feedback]</div>   
+		</form>
+	</div>
+</body>
+
+</html>

@@ -1,0 +1,743 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd
+        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd" >
+
+    <changeSet id="versionTag" author="atolomei">
+        <tagDatabase tag="6.7" />
+    </changeSet>
+
+
+	<changeSet author="atolomei" id="content class selectable">
+		<sql><![CDATA[
+				alter table contentclass add column if not exists selectable boolean default true;
+				update contentclass set selectable=false where not (name='IDoc' or name='OrganizationalText'); 
+		]]>
+		</sql>
+	</changeSet>
+	
+
+<changeSet author="atolomei" id="workflow notification email template_1">
+		<sql><![CDATA[
+				update kb_email_template set strtext='{text} 
+				File info:
+				${file-title}
+				${file-metadata}
+				${file-library-url}', 
+				subject='RPDD - ${file-title}',
+				title='Workflow Alert (task post termination / timeout)' where xkey='workflow-notification'; 
+		]]>
+		</sql>
+	</changeSet>
+	
+	
+
+   <changeSet author="atolomei" id="domain vanity url">
+		<sql><![CDATA[
+				alter table domain add column if not exists vanityurl character varying(1024); 
+		]]>
+		</sql>
+	</changeSet>
+	
+
+	<changeSet author="atolomei" id="brand_1">
+		
+		 <preConditions onFail="MARK_RAN">
+			<sqlCheck  expectedResult="0">SELECT COUNT(1) FROM kb_system_properties WHERE area='system' and key='brand' and value='idoc'</sqlCheck>
+		</preConditions>
+		
+		<sql><![CDATA[
+			insert into kb_system_properties  (area, key, value) values ('system','brand', 'idoc'); 
+		]]>
+		</sql>
+	</changeSet>
+	
+
+   <changeSet author="atolomei" id="domain vanity url initial_3">
+		<sql><![CDATA[
+				update domain set vanityurl= concat( 'https://',lower(name),'-rppd.realpage.com')  where ( (name!='kbee') and  (vanityurl= null) and (select count(*) from kb_system_properties where key='brand' and value='idoc') > 0); 
+		]]>
+		</sql>
+	</changeSet>
+	
+
+   <changeSet author="atolomei" id="scheduler hostname appserverid">
+		<sql><![CDATA[
+				 alter table scheduler add column if not exists hostname character varying (256);
+				 alter table scheduler add column if not exists appserverid character varying (256);
+		]]>
+		</sql>
+	</changeSet>
+	
+
+	<changeSet author="atolomei" id="person default photo">
+		<sql><![CDATA[
+			alter table person add column if not exists isdefaultphoto boolean default true;		]]>
+		</sql>
+	</changeSet>
+
+
+<changeSet author="atolomei" id="kb_email_template DESC">
+		<sql><![CDATA[
+			alter table kb_email_template add column if not exists description text;	]]>
+		</sql>
+	</changeSet>
+
+
+
+
+	<changeSet author="atolomei" id="xkey welcome_compliance">
+		<sql><![CDATA[
+ 			update kb_email_template set xkey='welcome_compliance_monitoring' where xkey='welcome_compliance';]]>
+		</sql>
+	</changeSet>
+	
+	
+	<changeSet author="atolomei" id="parent id dselement">
+		<sql><![CDATA[
+ 			alter table Kb_Ds_Element_Template add column if not exists parent_id bigint references kb_classifier(id) on delete restrict;
+ 			]]>
+		</sql>
+	</changeSet>
+
+
+	<changeSet author="atolomei" id="email template patches">
+		<sql><![CDATA[
+				update kb_email_template set title = 'Task Pending' where title='Pending Task';
+ 			]]>
+		</sql>
+	</changeSet>
+
+
+	<changeSet author="atolomei" id="email template patches_2">
+		<sql><![CDATA[
+				 update kb_email_template set state=4 where xkey ='welcome';
+				 update kb_email_template set state=4 where title like '%former%';
+				 update kb_email_template set state=4 where title like '%equires%';
+ 			]]>
+		</sql>
+	</changeSet>
+
+
+	<changeSet author="atolomei" id="email template patches_4">
+		<sql><![CDATA[
+				  alter table kb_email_template add column if not exists defaultvalue text;
+ 			]]>
+		</sql>
+	</changeSet>
+	
+
+	<changeSet author="atolomei" id="email template patches_5">
+		<sql><![CDATA[
+				update kb_email_template D set defaultvalue = (select strtext from kb_email_template S where S.xkey=D.xkey and D.lang=S.lang and S.domain_id=(select id from domain where name='kbee')  limit 1);
+ 			]]>
+		</sql>
+	</changeSet>
+	
+
+
+	
+	 
+	 
+
+	<changeSet author="atolomei" id="email template patches_6">
+		<sql><![CDATA[
+				update kb_email_template set state=4 where xkey like 'reassign-task-%';
+ 			]]>
+		</sql>
+	</changeSet>
+	
+
+	<changeSet author="atolomei" id="email template patches_9">
+		<sql><![CDATA[
+				update kb_email_template set state=4 where xkey='alert-rule-publish';
+ 			]]>
+		</sql>
+	</changeSet>
+	
+	<changeSet author="atolomei" id="email template patches_14">
+		<sql><![CDATA[
+		
+				update kb_email_template set state=4 where xkey like '%standard';
+				
+				update kb_email_template set title = 'Password Reset - Admin' where title like 'Admin %';
+				update kb_email_template set title = 'Password Reset - User' where title like 'User %';
+		
+				update kb_email_template set strtext= E'${person-displayname}, \n\nThe Admin user has sent you this link to reset your account password.\n\n Please visit the link below and follow theinstructions: \n${password-reset-url}\n\nFor security reasons, this link will expire in 72 hours after your initial request was made.' where xkey like 'admin-sends-%' and lang='en';
+				update kb_email_template set strtext= E'${person-displayname}, \n\nYour database export is ready. \n\nYou can download it as a zip file from this link: \n${database-export-url} \n\nFor security reasons, this link will expire in 10 days after your initial request was made.' where xkey like 'db-exp%' and lang='en';
+				update kb_email_template set strtext= E'${person-displayname}\n\nWe have received your request to send your  <b>${application-name}</b>  username. \n\nWe have the following user account associated to the email address and phone \n\n<b>User Account</b>.  ${person-username}\n<b>Email </b>.  ${person-email-address} \n<b>Phone</b>. ${person-phone-last-four-digits}.' where xkey like 'forgot-user%' and lang='en';
+				update kb_email_template set strtext= E'${person-displayname}, \n\nWe have received your request to reset your account password.\n \n\nPlease visit the link below and follow the instructions to reset your password\n: ${password-reset-url}\n\n For security reasons, this link will expire in 72 hours after your initial request was made.\n If you did not request to reset your password, you can safely ignore this email.' where xkey like 'forgot-password%' and lang='en';
+				update kb_email_template set strtext= E'${from-displayname} has assigned the following task: \n\nTask: ${task-name} \nFile: ${file-title}\n${file-metadata}\n\nComment: ${comment}\n\n---\nPlease go to My Tasks at \n ${my-tasks-url} \n to retrieve additional information about this file.' where xkey like 'assign-task%' and lang='en';
+				update kb_email_template set strtext= E'New file in Pending Tasks: \n${file-title}.\n\nPlease go to Pending Tasks Section at \n ${pending-tasks-url} \nto view or take it. \n\nFrom: ${previous-task-user} \nPrevious Task: ${previous-task}\n Previous Task resolution: ${previous-task-action} \nComment: ${comment}' where xkey like 'pending-task%' and lang='en';
+				update kb_email_template set strtext= E'The following task has timeout:\n\n${task-name}\n${file-title}\nThe file has been taken from your Workspace and moved to the next task defined in the workflow.' where xkey like 'timeout-task%' and lang='en';
+				update kb_email_template set strtext= E'Task execution timeout.\n\nTask: ${task-name} \nFile: ${file-title}\n${file-metadata}' where xkey like 'workflow-notification-timeout%' and lang='en';
+
+				update kb_email_template set strtext= E'${person-displayname} has published: \n\n${file-title} \n${file-attributes} \nTo retrieve additional information view the file published at\n${file-library-url}\nor go to Library at \n${library-url}' where xkey like '%rule-publish-domain%' and lang='en';
+				update kb_email_template set strtext= E'${person-displayname} has published: \n\n${file-title} \n${file-attributes} \nTo retrieve additional information view the file published at\n${file-library-url}\nor go to Library at \n${library-url}' where xkey like '%rule-publish-user%' and lang='en';
+ 			]]>
+		</sql>
+	</changeSet>
+	
+
+	<changeSet author="atolomei" id="email template patches_16">
+		<sql><![CDATA[
+				update kb_email_template set title = 'Rule Action' where xkey like '%action-rule';
+				update kb_email_template set title = 'Task due date timeout' where xkey like 'timeout-task';
+				update kb_email_template set title = 'Workflow Post Termination event Send to' where xkey like '%notification-timeout';
+				update kb_email_template set state=4 where title like '%uevo Dominio';
+ 			]]>
+		</sql>
+	</changeSet>
+	
+
+	<changeSet author="atolomei" id="email template patches_17">
+		<sql><![CDATA[
+				 update kb_email_template set xkey='welcome_compliance' where xkey = 'welcome_compliance_monitoring';
+				 update kb_email_template set title='Workflow Task Post Termination (Send to)' where xkey = 'workflow-notification';
+				  update kb_email_template set title='Workflow Task timeout (running or pending)' where xkey = 'workflow-notification-timeout';
+ 			]]>
+		</sql>
+	</changeSet>
+	
+
+	<changeSet author="atolomei" id="email template patches_18">
+		<sql><![CDATA[
+ 			update kb_email_template set state=4 where xkey like '%action-rule'; 			]]>
+		</sql>
+	</changeSet>
+	
+	
+	<changeSet author="atolomei" id="unified logon column name">
+		<preConditions onFail="MARK_RAN">
+			<sqlCheck  expectedResult="0">SELECT COUNT(1) FROM kb_system_properties WHERE area='system' and key='brand' and value='idoc'</sqlCheck>
+		</preConditions>
+		<sql><![CDATA[
+	 			delete from kb_system_properties where key='rolesconsole.column.isapi';
+	 			insert into kb_system_properties (key, value, area) values ('rolesconsole.column.isapi', 'Visible in Unified Logon', 'system');
+ 			]]>
+		</sql>
+	</changeSet>	
+
+
+	<changeSet author="atolomei" id="portalobject json">
+		<sql><![CDATA[
+				alter table po_portalobject add column if not exists custom_values text;
+ 			]]>
+		</sql>
+	</changeSet>	
+
+
+	<changeSet author="atolomei" id="portalobject subtitle">
+		<sql><![CDATA[
+ 			alter table po_portalobject add column if not exists subtitle  character varying(1024);
+ 			]]>
+		</sql>
+	</changeSet>	
+
+
+	<changeSet author="atolomei" id="portalobject usage_info_key">
+		<sql><![CDATA[
+				alter table po_portalobject add column if not exists usage_info_key character varying(256);
+ 			]]>
+		</sql>
+	</changeSet>	
+
+
+	<changeSet author="atolomei" id="portalobject site values_3">
+		<sql><![CDATA[
+				alter table po_portalobject add column if not exists key character varying(256);
+				
+				alter table po_site add column if not exists owner_id bigint references users(id) on delete restrict;
+				alter table po_site add column if not exists footer_page_section  bigint references po_page_section on delete restrict;
+				alter table po_site add column if not exists topbar_page_section  bigint references po_page_section on delete restrict;
+				alter table po_site add column if not exists site_menu text;
+							
+
+ 			]]>
+		</sql>
+	</changeSet>	
+
+
+	<changeSet author="atolomei" id="portalobject description">
+		<sql><![CDATA[
+ 			alter table po_portalobject add column if not exists description character varying(2048); 			]]>
+		</sql>
+	</changeSet>	
+
+
+	<changeSet author="atolomei" id="po_page pagelyout_2">
+		<sql><![CDATA[
+ 			 alter table po_page add column if not exists pagelayout_type integer;	
+ 			 alter table po_page_section add column if not exists page_section_disposition integer default 1;
+ 			 
+ 			 ]]>
+		</sql>
+	</changeSet>	
+
+
+	<changeSet author="atolomei" id="po_portalobject pkey1">
+		<preConditions onFail="MARK_RAN">
+		    <not>
+		    	<primaryKeyExists primaryKeyName="portalobject_pkey" tableName="po_portalobject" />
+		    </not>
+		</preConditions>
+		<sql><![CDATA[
+ 				alter table po_portalobject add constraint portalobject_pkey primary key (id); 			 
+ 			 ]]>
+		</sql>
+	</changeSet>
+
+
+	<changeSet author="atolomei" id="po_viewbk pkey1">
+		<preConditions onFail="MARK_RAN">
+		    <not>
+		    	<primaryKeyExists primaryKeyName="viewbk_pkey" tableName="po_viewbk" />
+		    </not>
+		</preConditions>
+		<sql><![CDATA[
+ 				alter table po_viewbk add constraint viewbk_pkey primary key (po_id); 			 
+ 			 ]]>
+		</sql>
+	</changeSet>
+
+
+
+
+	<changeSet author="atolomei" id="po_portalobject constraint_01">
+		<preConditions onFail="MARK_RAN">
+			<not>
+		    	<foreignKeyConstraintExists foreignKeyTableName="po_site" foreignKeyName="po_id_fk"  />
+		    </not>
+		</preConditions>
+		<sql><![CDATA[
+					alter table po_site 	add constraint     po_id_fk foreign key(po_id) references po_portalobject(id) on delete cascade;
+ 			 ]]>
+		</sql>
+	</changeSet>	
+
+
+
+	<changeSet author="atolomei" id="po_portalobject constraint_3">
+		<sql><![CDATA[
+			
+			alter table po_page 			drop constraint if exists po_id_fk;
+			alter table po_page_section 	drop constraint if exists po_id_fk;
+			alter table po_area				drop constraint if exists po_id_fk;
+			alter table po_block			drop constraint if exists po_id_fk;
+			
+			
+			
+			alter table po_page 			add constraint     po_id_fk foreign key(po_id) references po_portalobject(id) on delete cascade;
+			alter table po_area 			add constraint     po_id_fk foreign key(po_id) references po_portalobject(id) on delete cascade;
+			alter table po_page_section 	add constraint     po_id_fk foreign key(po_id) references po_portalobject(id) on delete cascade;
+			alter table po_block 			add constraint     po_id_fk foreign key(po_id) references po_portalobject(id) on delete cascade;
+ 			 ]]>
+		</sql>
+	</changeSet>	
+
+
+	
+
+
+
+
+	<changeSet author="atolomei" id="drop old blocks 1">
+			<preConditions onFail="MARK_RAN">
+			</preConditions>
+			<sql><![CDATA[
+						drop table if exists po_block_contact;
+						drop table if exists po_block_banners;
+						drop table if exists po_block_content_list;
+						drop table if exists po_block_cumpleanos;
+						drop table if exists po_block_footer;
+						drop table if exists po_block_search_external;
+						drop table if exists po_block_search_contentbblock;
+						drop table if exists po_block_search_contentblock;
+						drop table if exists po_contentblock;
+						drop table if exists po_block_wall_viewer;
+						drop table if exists po_block_wallviewer;
+						drop table if exists po_block_wall_viewer;
+						drop table if exists po_block_list;
+						drop table if exists po_block_view_recent_list;
+						
+						alter table po_block drop column if exists quantity_visible;
+						alter table po_block drop column if exists title_visible;
+						alter table po_block drop column if exists intro_visible;
+					 	alter table po_block drop column if exists block_menu_enabled;
+					 	alter table po_block drop column if exists description;
+					 	alter table po_block drop column if exists block_body_style;
+						
+		
+	 			 ]]>
+			</sql>
+	</changeSet>	
+	
+	<changeSet author="atolomei" id="drop old 8">
+		<sql><![CDATA[
+					
+					alter table po_portalobject drop column  if exists parent_id;
+					
+					 alter table po_site drop constraint if exists po_site_footer_page_section_fkey1;
+					 alter table po_site drop constraint if exists po_site_footer_page_section_fkey2;
+					 alter table po_site drop constraint if exists po_site_footer_page_section_fkey3;
+					 alter table po_site drop constraint if exists  po_site_owner_id_fkey1;
+					 alter table po_site drop constraint if exists  po_site_owner_id_fkey2;
+					 alter table po_site drop constraint if exists  po_site_owner_id_fkey3;
+					 alter table po_site drop constraint if exists  po_site_owner_id_fkey4;
+					 alter table po_site drop constraint if exists po_site_topbar_area_fkey;
+					 alter table po_site drop constraint if exists po_site_topbar_page_section_fkey1;
+					 alter table po_site drop constraint if exists po_site_topbar_page_section_fkey2;
+					 alter table po_site drop constraint if exists po_site_topbar_page_section_fkey3;
+					 alter table po_site drop constraint if exists site_fk;
+					 
+ 					 alter table po_page drop constraint if exists page_fk;
+ 					 alter table po_page_section drop constraint if exists po_page_section_fk;
+ 					 
+ 					 alter table po_area drop constraint if exists po_area_page_section_fk;
+ 					 alter table po_area add constraint po_area_page_section_fk foreign key(page_section_id) references po_page_section(po_id) on delete cascade;
+ 					 
+ 					 alter table po_block drop constraint if exists area_fk;
+					 alter table po_block drop constraint if exists block_fk;
+ 					 alter table po_block drop constraint if exists po_area_fk;
+				    alter table po_block add constraint po_area_fk  foreign key (area_id) references po_area(po_id) on delete cascade;
+					
+ 
+ 			 ]]>
+		</sql>
+	</changeSet>
+	
+	
+	<changeSet author="atolomei" id="po_page pagelyout_3">
+		<sql><![CDATA[
+ 					alter table po_portalobject add column if not exists clazz character varying(64); 			 
+ 			 ]]>
+		</sql>
+	</changeSet>
+	
+	<changeSet author="atolomei" id="ptab 1">
+		<sql><![CDATA[
+				alter table po_page_section add column if not exists ptab integer default 0;
+				alter table po_area  add column if not exists ptab integer default 0;
+				alter table po_block  add column if not exists ptab integer default 0;
+
+				alter table po_page_section add column if not exists tabs text;
+				alter table po_page add column if not exists tabs text;
+				alter table po_block add column if not exists tabs text;
+ 			 ]]>
+		</sql>
+	</changeSet>
+
+
+	<changeSet author="atolomei" id="headerpanel 1">
+		<sql><![CDATA[
+				alter table po_block add column if not exists headerpanel boolean default false;
+				alter table po_area add column if not exists headerpanel boolean default false;
+				alter table po_page_section add column if not exists headerpanel boolean default false;
+ 			 ]]>
+		</sql>
+	</changeSet>
+
+
+	<changeSet author="atolomei" id="support ticket 7">
+		<sql><![CDATA[
+		
+				drop table if exists kb_support_ticket;
+				
+				CREATE TABLE kb_support_ticket
+					(
+					 id bigint         primary key,
+					 user_id           bigint not null references users(id) REFERENCES users(id) ON DELETE RESTRICT,
+					 subject           character varying(512),
+					 text              text,
+					 creationdate      timestamp with time zone default now(),
+					 lastmodifieddate  timestamp with time zone default now(),
+					 lastmodifieduser  bigint references users(id) ON DELETE SET NULL,
+					 state			   integer default 1,
+					 priority          integer default 1,
+					 domain_id         bigint  not null references domain(id)  ON DELETE CASCADE,
+					 kfile             bigint references kfile(resource_id) ON DELETE RESTRICT,
+					 context text,
+					  error_count integer default 0,
+					 
+					 deliverystatus integer default 0,
+					 deliverymsg  character varying(512)
+				 );
+				 
+				 create index kb_support_creation_date on  kb_support_ticket(domain_id, creationdate  desc); 
+ 			 ]]>
+		</sql>
+	</changeSet>
+	
+	
+
+
+	<changeSet author="atolomei" id="command support minute daily 11">
+		<sql><![CDATA[
+		
+			delete from kb_cronjob where parameter like '%SupportTicket%';;
+			 
+			insert into  kb_cronjob (id, lastmodifieduser, name, description, cronexpression, clazz, parameter) 
+			values ((select nextval('objectid_sequence')), 
+			(select id from users where username='root@kbee'), 
+			'Support ticket submit executes once a minute (tickets PEMDING with error_count <= 3)',  
+			'SupportTicketsSubmitterCommand',
+			'25 * * * * *', 
+			'com.novamens.kbee.command.CommandExecutionJob', 
+			'command=SupportTicketsSubmitterCommand');
+
+
+			insert into  kb_cronjob (id, lastmodifieduser, name, description, cronexpression, clazz, parameter) 
+			values ((select nextval('objectid_sequence')), 
+			(select id from users where username='root@kbee'), 
+			'Support ticket submit executes once a day (tickets PEMDING with error_count <= 6)',  
+			'SupportTicketsSubmitterCommand',
+			'45 45 6 * * *', 
+			'com.novamens.kbee.command.CommandExecutionJob', 
+			'command=SupportTicketsSubmitterDailyCommand');
+
+
+ 			 ]]>
+		</sql>
+	</changeSet>
+
+
+
+	<changeSet author="aferraria" id="resource_tag">
+		<validCheckSum>8:93e494a4c1ccf397bb894b9af25e8c8d</validCheckSum>
+		<sql><![CDATA[
+			CREATE TABLE kb_resource_tag (
+				id bigint NOT NULL,
+				name character varying(256),
+				creationdate timestamp with time zone DEFAULT now(),
+				lastmodifieddate timestamp with time zone DEFAULT now(),
+				lastmodifieduser bigint,
+				domain_id bigint,
+				alias character varying(256),
+				multiple boolean default true,
+				state integer DEFAULT 1,
+				createuser bigint,
+				type integer DEFAULT 1 NOT NULL
+			);
+			CREATE TABLE kb_template_resource_tag (
+				template_id bigint NOT NULL,
+				tag_id bigint NOT NULL,
+				"position" integer
+			);
+			ALTER TABLE ONLY kb_resource_tag
+				ADD CONSTRAINT resourcetag_pkey PRIMARY KEY (id);
+			ALTER TABLE ONLY kb_resource_tag
+				ADD CONSTRAINT resourcetag_createuser_fkey FOREIGN KEY (createuser) REFERENCES users(id) ON DELETE RESTRICT;
+			ALTER TABLE ONLY kb_resource_tag
+				ADD CONSTRAINT resourcetag_domain_id_fkey FOREIGN KEY (domain_id) REFERENCES domain(id) ON DELETE CASCADE;
+			ALTER TABLE ONLY kb_template_resource_tag
+				ADD CONSTRAINT template_resourcetag_pkey PRIMARY KEY (template_id, tag_id);
+			ALTER TABLE ONLY kb_template_resource_tag
+				ADD CONSTRAINT resourcetag_fk FOREIGN KEY (tag_id) REFERENCES kb_resource_tag(id) ON DELETE RESTRICT;
+			ALTER TABLE ONLY kb_resource_tag
+				ADD CONSTRAINT resourcetag_lastmodifieduser_fkey FOREIGN KEY (lastmodifieduser) REFERENCES users(id) ON DELETE RESTRICT;			]]>
+		</sql>
+	</changeSet>
+	
+	<changeSet author="aferraria" id="contentresource_tag">
+		<validCheckSum>8:c0c17d8c491411e660bc8b64d096c187</validCheckSum>
+		<sql><![CDATA[
+			alter table contentresource add tag_id bigint;
+			ALTER TABLE ONLY contentresource
+			ADD CONSTRAINT contentresource_tag_id_fkey FOREIGN KEY (tag_id) REFERENCES kb_resource_tag(id) ON DELETE RESTRICT;	]]>	
+		</sql>
+	</changeSet>
+
+
+
+	<changeSet author="atolomei" id="kb_email_isdefaultvalue 1">
+		<sql><![CDATA[
+			alter table kb_email_template add column if not exists isdefaultvalue boolean default true;	]]>
+		</sql>
+	</changeSet>
+
+
+ 
+	<changeSet author="atolomei" id="support ticket pending out 12">
+		<sql><![CDATA[
+
+					delete from kb_email_template where xkey='pending-out';
+					
+					insert into kb_email_template
+					
+					
+					(	id,
+					 	creationdate,     
+ 						lastmodifieddate, 
+ 						lastmodifieduser, 
+ 						state,            
+ 						domain_id,        
+ 						lang,             
+ 						xkey,             
+ 						title,            
+ 						fromstr,          
+ 						subject,          
+ 						strtext,          
+ 						available_macros, 
+ 						isdefault,     
+ 						description,   
+ 						isdefaultvalue,
+ 						defaultvalue
+ 					)
+					
+					select nextval('domainid_sequence'),
+					now(),
+					now(),
+					(select id from users where username = 'root@kbee'),
+					 1,
+					 d.id,
+					'en',
+					'pending-out',
+					'Task Pending (out)',
+					'${from}',
+					'${file-title} - Taken from Pending - ${application-name}',
+					'File taken from Pending Tasks:\n\r${file-title}.<br/>From: ${previous-task-user}<br/>Previous Task: ${previous-task}<br/>Previous Task resolution: ${previous-task-action}<br/>Comment: ${comment}',
+					'macros pending out',
+					 true,
+					'File in Pending taken',
+					true,
+					'File taken from Pending Tasks:\n\r${file-title}.<br/>From: ${previous-task-user}<br/>Previous Task: ${previous-task}<br/>Previous Task resolution: ${previous-task-action}<br/>Comment: ${comment}'
+					from domain d;
+					
+ 			 ]]>
+		</sql>
+	</changeSet>
+
+
+	
+	<changeSet author="atolomei" id="support ticket submitter 12">
+		<sql><![CDATA[
+		
+					delete from kb_email_template where xkey like 'support-ticket-submit%';
+
+		
+					insert into kb_email_template
+					
+					(	id,
+					 	creationdate,     
+ 						lastmodifieddate, 
+ 						lastmodifieduser, 
+ 						state,            
+ 						domain_id,        
+ 						lang,             
+ 						xkey,             
+ 						title,            
+ 						fromstr,          
+ 						subject,          
+ 						strtext,          
+ 						available_macros, 
+ 						isdefault,     
+ 						description,   
+ 						isdefaultvalue,
+ 						defaultvalue
+ 					)
+					
+					select nextval('domainid_sequence'),
+					now(),
+					now(),
+					(select id from users where username = 'root@kbee'),
+					1,
+					d.id,
+					'en',
+					'support-ticket-submitter',
+					'Support Ticket Submitter',
+					'${from}',
+					'${application-name} Support - ${support-ticket-subject}',
+					'${person-displayname}<br/>Thanks for contacting ${application-fullname} Support.<br/>We just wanted to reach out to let you know that we haven’t forgotten you and we are working hard to get a response to you as soon as possible.<br/>Please help us get to your query sooner by not replying to this email.<br/>Thank you<br/>Your message :<br/>${support-ticket-text}',
+					'macros',
+					true,
+					'Support ticket Submitter',
+					true,
+					'${person-displayname}<br/>Thanks for contacting ${application-fullname} Support.<br/>We just wanted to reach out to let you know that we haven’t forgotten you and we are working hard to get a response to you as soon as possible.\n\rPlease help us get to your query sooner by not replying to this email.<br/>Thank you<br/>Your message :<br/>${support-ticket-text}'
+					
+					from domain d;
+ 			 ]]>
+		</sql>
+	</changeSet>
+
+	<changeSet author="atolomei" id="support ticket receiver 12">
+		<sql><![CDATA[
+		
+					delete from kb_email_template where xkey='support-ticket';
+					delete from kb_email_template where xkey='support-ticket-receiver';
+					
+					insert into kb_email_template
+					
+					(	id,
+					 	creationdate,     
+ 						lastmodifieddate, 
+ 						lastmodifieduser, 
+ 						state,            
+ 						domain_id,        
+ 						lang,             
+ 						xkey,             
+ 						title,            
+ 						fromstr,          
+ 						subject,          
+ 						strtext,          
+ 						available_macros, 
+ 						isdefault,     
+ 						description,   
+ 						isdefaultvalue,
+ 						defaultvalue
+ 					)
+					
+					select nextval('domainid_sequence'),
+					now(),
+					now(),
+					(select id from users where username = 'root@kbee'),
+					 1,
+					d.id,
+					'en',
+					'support-ticket-receiver',
+					'Support Ticket Receiver',
+					'${from}',
+					'${application-name} Support - ${support-ticket-subject}',
+					'<p>Support Ticket:<br/>${support-ticket-text}</p><p>CONTEXT<br/>${support-ticket-context}</p>',
+					'macros support-ticket-receiver',
+					true,
+					'support-ticket-receiver',
+					true,
+					'<p>Support Ticket:<br/>${support-ticket-text}</p><p>CONTEXT<br/>${support-ticket-context}</p>'
+					
+					from domain d;
+ 			 ]]>
+		</sql>
+	</changeSet>
+
+
+	<changeSet author="atolomei" id="po_area_page_section fk not used">
+		<sql><![CDATA[
+				alter table po_area drop constraint if exists po_area_page_section_id_fkey1; 			 
+		]]>
+		</sql>
+	</changeSet>
+
+
+
+	<changeSet author="grodriguez" id="CronJob Delete idle trx 9">
+		<sql><![CDATA[
+			delete from kb_cronjob where name='Cancel Idle Transaction';
+			insert into  kb_cronjob (id, lastmodifieduser, name, description, cronexpression, clazz, parameter)
+			values
+			(
+			(select nextval('objectid_sequence')),
+			(select id from users where username='root@kbee'),
+			'Cancel Idle Transaction',
+		    'Cancel TRX that have been idle for more than 2.5h',
+			'30 0/15 * ? * *',
+			'com.novamens.kbee.content.service.datamanagement.SQLCronJobRequest',
+			'SELECT pg_terminate_backend(pid) from (select pid from pg_stat_activity where pid <> pg_backend_pid() and  state  like ''idle in transaction%''   and now()- xact_start > ''15 minute''\:\:interval) AS ACT');
+
+		]]>
+		</sql>
+	</changeSet>
+
+</databaseChangeLog>

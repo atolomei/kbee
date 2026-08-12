@@ -1,0 +1,477 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd
+        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+
+    <changeSet author="grodriguez" id="liquibase_path_normalization">
+        <sql><![CDATA[
+             delete from databasechangelog log
+                where exists(select 1 from databasechangelog log2
+                where log.id = log2.id and log2.dateexecuted < log.dateexecuted
+                );
+            ]]>
+        </sql>
+
+        <sql><![CDATA[
+                update databasechangelog
+                set filename=REGEXP_REPLACE(filename,'.*db-evolution/(.*)','\1')
+                where filename like '%db-evolution/%';
+            ]]>
+        </sql>
+    </changeSet>
+
+
+    <changeSet id="versionTag" author="grodriguez">
+        <tagDatabase tag="5.4.3"/>
+    </changeSet>
+
+    <changeSet author="grodriguez" id="user_password_to_len128">
+        <modifyDataType columnName="password"
+                        newDataType="varchar(128)"
+                        tableName="users"/>
+    </changeSet>
+
+
+    <changeSet author="grodriguez" id="password_migration_spring_sec_5">
+        <sql> <![CDATA[
+            UPDATE users SET PASSWORD = '{MD5}' ||  '{' || id || '}' || PASSWORD WHERE substr(password,1,1) <> '{';
+           ]]>
+        </sql>
+    </changeSet>
+
+
+    <changeSet author="aferraria" id="wf_procedure_version_1">
+        
+        <preConditions onFail="MARK_RAN">
+            <tableExists tableName="wf_procedure"/>
+            <not>							
+                <columnExists tableName="wf_procedure" columnName="version"/>
+            </not>
+        </preConditions>
+        
+        <addColumn tableName="wf_procedure">
+            <column name="version" type="integer" defaultValue="1"></column>
+        </addColumn>
+    </changeSet>
+
+
+
+    <changeSet author="atolomei" id="add_column_isdefault_template 1">
+        <preConditions onFail="MARK_RAN">
+            <tableExists tableName="kb_email_template"/>
+            <not>							
+                <columnExists tableName="kb_email_template" columnName="isdefault"/>
+            </not>
+        </preConditions>
+        <addColumn tableName="kb_email_template">
+            <column name="isdefault" type="boolean" defaultValue="false"></column>
+        </addColumn>
+    </changeSet>
+
+
+
+    <changeSet author="grodriguez" id="pivot_content_template_alias">
+        <preConditions onFail="MARK_RAN">
+            <tableExists tableName="rs_windsor_activity_pivot"/>
+            <not>
+                <columnExists tableName="rs_windsor_activity_pivot" columnName="content_template_alias"/>
+            </not>
+        </preConditions>
+        <addColumn tableName="rs_windsor_activity_pivot">
+            <column name="content_template_alias" type="varchar(24)"></column>
+        </addColumn>
+        <sql><![CDATA[
+            update rs_windsor_activity_pivot pv
+            set content_template_alias =
+                        (select kc.contentclasscode
+                            from content con
+                                inner join kb_contenttemplate kc on con.contenttemplate = kc.id where con.id = pv.content_id
+                        )
+             ]]>
+        </sql>
+    </changeSet>
+
+
+    <changeSet author="grodriguez" id="pivot_windsor_submissiontime 1">
+        <preConditions onFail="MARK_RAN">
+            <tableExists tableName="rs_windsor_activity_pivot"/>
+        	<not>
+                <columnExists tableName="rs_windsor_activity_pivot" columnName="submissiontime"/>
+            </not>
+        </preConditions>
+        
+        <addColumn tableName="rs_windsor_activity_pivot">
+            <column name="submissiontime" type="timestamp with time zone"/>
+        </addColumn>
+
+        <sql><![CDATA[
+                update rs_windsor_activity_pivot pvt
+                  set submissiontime = (select min(endtime) from
+                                            rs_windsor_activity_pivot pvt2
+                                            where pvt2.process = pvt.process and task = 'Submission')
+            ]]>
+        </sql>
+    </changeSet>
+
+    <changeSet author="grodriguez" id="pivot_windsor_update_type">
+        <preConditions onFail="MARK_RAN">
+            <tableExists tableName="rs_windsor_activity_pivot"/>
+        </preConditions>
+        <sql><![CDATA[
+                    update rs_windsor_activity_pivot pvt
+                        set type = (select min(ct.datasetmember_id) from
+                                         classification CT, kb_classifier CL
+                                           where CL.domain_id = (select id from domain
+                                                                        where name = 'windsor') and CL.id=CT.classifier_id
+                                                                                and (CL.alias = 'documenttype' or CL.alias = 'type')
+                                                                                 and ct.content_id=pvt.content_id
+                                                                )
+                    where pvt.type is null;
+            ]]>
+        </sql>
+    </changeSet>
+
+    <changeSet author="aferraria" id="dataset_aggregation 1">
+        <preConditions onFail="MARK_RAN">
+            <tableExists tableName="dataset"/>
+        	<not>
+                <columnExists tableName="dataset" columnName="aggregation"/>
+            </not>
+        </preConditions>
+        
+        <addColumn tableName="dataset">
+            <column name="aggregation" type="boolean" defaultValue="false"></column>
+        </addColumn>
+    </changeSet>
+
+
+
+    <changeSet author="atolomei" id="userprofile_email_pending 1">
+    
+        <preConditions onFail="MARK_RAN">
+            <tableExists tableName="userprofile"/>
+        	<not>
+                <columnExists tableName="userprofile" columnName="email_notifications_pending"/>
+            </not>
+        </preConditions>
+        
+        <addColumn tableName="userprofile">
+            <column name="email_notifications_pending" type="boolean" defaultValue="true"></column>
+        </addColumn>
+    </changeSet>
+
+
+
+
+    <changeSet author="atolomei" id="database_usage 1">
+        <preConditions onFail="MARK_RAN">
+            <tableExists tableName="kb_usage_stat"/>
+        	<not>
+                <columnExists tableName="kb_usage_stat" columnName="database_usage"/>
+            </not>
+        </preConditions>
+        
+        
+        <addColumn tableName="kb_usage_stat">
+            <column name="database_usage" type="bigint" defaultValue="0"></column>
+        </addColumn>
+    </changeSet>
+
+
+    <changeSet author="atolomei" id="email_template_title">
+        <sql><![CDATA[
+                    update kb_email_template set strtext = replace(strtext, '${title}', '${file-title}');
+            ]]>
+        </sql>
+    </changeSet>
+
+
+    <changeSet author="atolomei" id="email_template_task_name">
+        <sql><![CDATA[
+			update kb_email_template set strtext = replace(strtext, '${task}', '${task-name}');
+            ]]>
+        </sql>
+    </changeSet>
+
+
+    <changeSet author="atolomei" id="po_site_favorites_list_0">
+        <sql><![CDATA[
+ 			 alter table po_site_favorites_list drop constraint if exists site_favorites_site_fk;
+            ]]>
+        </sql>
+    </changeSet>
+
+
+    <changeSet author="atolomei" id="po_site_favorites_list">
+        <validCheckSum>8:fcd277402067401f660719a8fdb550c9</validCheckSum>
+        <preConditions onFail="MARK_RAN">
+            <tableExists tableName="po_site_favorites_list"/>
+        </preConditions>
+        <sql><![CDATA[
+ 			 alter table po_site_favorites_list add  constraint site_favorites_site_fk FOREIGN KEY (site_oid) REFERENCES po_site(po_id) ON DELETE CASCADE;
+            ]]>
+        </sql>
+    </changeSet>
+
+    <changeSet author="aferraria" id="site_indexable_3">
+        <sql><![CDATA[
+    		delete from contentclass where id='KbeeSite';
+    		insert into contentclass(id, enabled, name, javaclass, indexable, selectable) values('KbeeSite', true, 'Site', 'com.novamens.kbee.portal.model.KbeeSite', true, true);
+            ]]>
+        </sql>
+    </changeSet>
+
+
+    <changeSet author="grodriguez" id="dataset_elements_template_drop">
+        <preConditions onFail="MARK_RAN">
+            <tableExists tableName="kb_ds_element_template"/>
+        </preConditions>
+        <sql><![CDATA[
+                drop table kb_ds_element_template;
+        	]]>
+        </sql>
+    </changeSet>
+
+    <changeSet author="aferraria" id="dataset_elements_template_create">
+        <sql><![CDATA[
+		create table if not exists kb_ds_element_template (
+			id bigint not null,
+			dataset_id bigint not null,
+			position integer,
+			classifier_id bigint,
+			attribute_id bigint,
+			multiplicity integer,
+			readonly boolean,
+			aggregation boolean,
+			CONSTRAINT dse_template_pk PRIMARY KEY (id),
+			CONSTRAINT dse_dataset_fk FOREIGN KEY (dataset_id) REFERENCES dataset(id),
+			CONSTRAINT dse_classifier_fk FOREIGN KEY (classifier_id) REFERENCES kb_classifier(id),
+			CONSTRAINT dse_attribute_fk FOREIGN KEY (attribute_id) REFERENCES kb_attribute(id)
+		);
+
+		delete from kb_ds_element_template;
+		
+		insert into kb_ds_element_template (id, dataset_id, position, classifier_id, multiplicity, readonly, aggregation)
+		select 
+		nextval('domainid_sequence'),dataset_id, currval('domainid_sequence'), classifier_id,  1, false, false 
+		from 
+		datasetclassifier;
+	
+		insert into kb_ds_element_template (id, dataset_id, position, attribute_id, multiplicity, readonly, aggregation)
+		select 
+		nextval('domainid_sequence'), a.dataset_id, currval('domainid_sequence'), t.attribute_id,  1, false, false
+		from 
+		kb_datasetattribute a, kb_attributetemplate t
+		where
+		a.attributetemplate_id = t.id;
+		]]>
+        </sql>
+    </changeSet>
+
+
+    <changeSet author="atolomei" id="po_viewbk_iconcss">
+        <preConditions onFail="MARK_RAN">
+            <tableExists tableName="po_viewbk"/>
+            <not>
+                <columnExists tableName="po_viewbk" columnName="iconcss"/>
+            </not>
+        </preConditions>
+
+        <addColumn tableName="po_viewbk">
+            <column name=" iconcss" type="character varying(64)"></column>
+        </addColumn>
+    </changeSet>
+
+
+    <changeSet author="aferraria" id="classifier_accessibility">
+        <preConditions onFail="MARK_RAN">
+            <tableExists tableName="kb_classifiertemplate"/>
+            <not>
+                <columnExists tableName="kb_classifiertemplate" columnName="accessibility" />
+            </not>
+        </preConditions>
+        <addColumn tableName="kb_classifiertemplate">
+            <column name="accessibility" type="integer" defaultValue="1"></column>
+        </addColumn>
+    </changeSet>
+
+    <changeSet author="aferraria" id="po_viewbk_iconcss">
+        <preConditions onFail="MARK_RAN">
+            <tableExists tableName="kb_attributetemplate"/>
+            <not>
+                <columnExists tableName="kb_attributetemplate" columnName="isvisible" />
+            </not>
+        </preConditions>
+
+        <addColumn tableName="kb_attributetemplate">
+            <column name="isvisible" type="boolean" defaultValue="true"></column>
+        </addColumn>
+    </changeSet>
+
+
+    <changeSet author="atolomei" id="kb_work_note_isbillboard">
+        <preConditions onFail="MARK_RAN">
+            <tableExists tableName="kb_work_note"/>
+            <not>
+                <columnExists tableName="kb_work_note" columnName="isbillboard"/>
+            </not>
+        </preConditions>
+
+        <addColumn tableName="kb_work_note">
+            <column name="isbillboard" type="boolean" defaultValue="false"></column>
+        </addColumn>
+    </changeSet>
+
+    <changeSet author="atolomei" id="kb_work_note_glyphicon">
+        <preConditions onFail="MARK_RAN">
+            <tableExists tableName="kb_work_note"/>
+            <not>
+                <columnExists tableName="kb_work_note" columnName="glyphicon" />
+            </not>
+        </preConditions>
+        <addColumn tableName="kb_work_note">
+            <column name="glyphicon" type="character varying(64)"></column>
+        </addColumn>
+    </changeSet>
+
+
+    <changeSet author="atolomei" id="kb_notification_isalert">
+        <preConditions onFail="MARK_RAN">
+            <tableExists tableName="kb_notification"/>
+            <not>
+                <columnExists tableName="kb_notification" columnName="isalert" />
+            </not>
+        </preConditions>
+        <addColumn tableName="kb_notification">
+            <column name="isalert" type="boolean" defaultValue="true"></column>
+        </addColumn>
+    </changeSet>
+
+
+    <changeSet author="atolomei" id="kb_isbillboard_isalert">
+        <preConditions onFail="MARK_RAN">
+            <tableExists tableName="kb_notification"/>
+            <not>
+                <columnExists tableName="kb_notification" columnName="isbillboard" />
+            </not>
+        </preConditions>
+        <addColumn tableName="kb_notification">
+            <column name="isbillboard" type="boolean" defaultValue="true"></column>
+        </addColumn>
+    </changeSet>
+
+
+    <changeSet author="atolomei" id="notification_indexes_2">
+        <sql><![CDATA[
+    		drop index if exists  kb_notification_receiver_alert_idx;
+    		create index if not exists kb_notification_receiver_alert_idx  on kb_notification (receiver_id, isalert, state, creationdate);
+    		create index if not exists kb_notification_receiver_billboard_idx  on kb_notification (receiver_id, isbillboard, state, creationdate);
+            ]]>
+        </sql>
+    </changeSet>
+
+    <changeSet author="aferraria" id="ds_elements_template_multiplicity_2">
+        <sql><![CDATA[
+		update kb_ds_element_template t set multiplicity = (select multiplicity from kb_classifier c where c.id = t.classifier_id) where attribute_id is null;
+		update kb_ds_element_template t set multiplicity = (select multiplicity from kb_attribute a where a.id = t.attribute_id) where classifier_id is null;
+          ]]>
+        </sql>
+    </changeSet>
+
+
+    <changeSet author="atolomei" id="logevent_indexes">
+        <validCheckSum>8:1cb83c174229398f8f615d73119c37d9</validCheckSum>
+        <sql><![CDATA[	
+			CREATE INDEX if not exists logevent_content_id_time_idx ON logevent USING btree (event_content_id, event_time DESC);
+			CREATE INDEX if not exists logevent_evnet_user_time_idx ON logevent USING btree (event_user, event_time DESC);
+			CREATE INDEX if not exists logevent_object_id_time_idx ON logevent USING btree (event_object_id, event_time DESC);
+			CREATE INDEX if not exists logevent_object_idx ON logevent USING btree (event_object_id);
+			CREATE INDEX if not exists logevent_time_desc_idx ON logevent USING btree (event_time DESC);
+			CREATE INDEX if not exists logevent_time_idx ON logevent USING btree (event_time);
+			CREATE INDEX if not exists logevent_activity_idx ON logevent USING btree (event_activity_id, event_time);
+			CREATE INDEX if not exists logevent_addresources_idx ON logevent USING btree (event_content_id, event_type, event_time);
+			CREATE INDEX if not exists logevent_domain_event_time_idx ON logevent USING btree (event_domain_id, event_time);		
+          ]]>
+        </sql>
+    </changeSet>
+
+
+    <changeSet author="atolomei" id="notifaction_datestart">
+        <preConditions onFail="MARK_RAN">
+            <tableExists tableName="kb_notification"/>
+            <not>
+                <columnExists tableName="kb_notification" columnName="startpub" />
+            </not>
+        </preConditions>
+        <addColumn tableName="kb_notification">
+            <column name="startpub" type="timestamp with time zone" defaultValue="now()"/>
+        </addColumn>
+    </changeSet>
+
+    <changeSet author="atolomei" id="notifaction_dateend">
+        <preConditions onFail="MARK_RAN">
+            <tableExists tableName="kb_notification"/>
+            <not>
+                <columnExists tableName="kb_notification" columnName="endpub" />
+            </not>
+        </preConditions>
+        <addColumn tableName="kb_notification">
+            <column name="endpub" type="timestamp with time zone"/>
+        </addColumn>
+    </changeSet>
+
+
+    <changeSet author="aferraria" id="classifier_template_criteria">
+        <preConditions onFail="MARK_RAN">
+            <tableExists tableName="kb_classifiertemplate"/>
+            <not>
+                <columnExists tableName="kb_classifiertemplate" columnName="criteria" />
+            </not>
+        </preConditions>
+        <addColumn tableName="kb_classifiertemplate">
+            <column name="criteria" type="character varying(256)"></column>
+        </addColumn>
+    </changeSet>
+
+
+    <!--changeSet author="grodriguez" id="departments_table">
+        <createTable tableName="departments"
+                     remarks="The departments of this company. Does not include geographical divisions.">
+            <column name="id" type="bigint">
+                <constraints nullable="false" primaryKey="true"
+                             primaryKeyName="DPT_PK"/>
+            </column>
+            <column name="dname" type="varchar2(14)"
+                    remarks="The official department name as registered on the internal website."/>
+        </createTable>
+        <addUniqueConstraint constraintName="departments_uk1"
+                             columnNames="dname" tableName="departments"/>
+        <createSequence sequenceName="departments_seq"/>
+    </changeSet-->
+
+    <!--changeSet id="reportes_subscribles" author="grodriguez">
+        <sql>
+            create table testTable
+            (
+                state integer default 1,
+                creationdate timestamp with time zone default now(),
+                lastmodifieddate timestamp with time zone default now(),
+                lastmodifieduser bigint constraint user_fk references users on delete restrict,
+                domain_id bigint constraint domain_fk references domain on delete restrict,
+                id bigint not null constraint kb_searcher_homeblock_pkey primary key,
+                lang character varying(256),
+                title character varying(256),
+                name character varying(256),
+                iql text,
+                sortstr character varying(32),
+                formatstr character varying(32),
+                custom_values json
+            );
+        </sql>
+    </changeSet-->
+
+</databaseChangeLog>

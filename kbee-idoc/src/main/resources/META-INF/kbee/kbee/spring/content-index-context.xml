@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" 
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+		http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+		http://www.springframework.org/schema/context
+		http://www.springframework.org/schema/context/spring-context-3.0.xsd 
+		http://www.springframework.org/schema/tx 
+		http://www.springframework.org/schema/tx/spring-tx.xsd">
+		
+	<bean id="solr-core" class="com.novamens.solr.indexer.service.SolrCoreClient">
+		<property name="url" value="${solr.url}"/>
+		<property name="name" value="${solr.content-core}"/>
+	</bean>
+
+	<!-- 	
+	<bean id="solr-audit-core" class="com.novamens.solr.indexer.service.SolrCoreClient">
+		<property name="url" value="${solr.url}"/>
+		<property name="name" value="${solr.audit-core}"/>
+	</bean>
+	-->
+	
+	<bean id="solr-file-core" class="com.novamens.solr.indexer.service.SolrCoreClient">
+		<property name="url" value="${solr.url}"/>
+		<property name="name" value="${solr.file-core}"/>
+	</bean>
+		
+	<bean id="logevent-schema" class="com.novamens.indexer.java.DocumentSchema">
+		<property name="name" value="LogEvent"/>
+		<property name="javaClass" value="com.novamens.event.LogEvent"/>
+		<property name="fieldsSchemas">
+			<list>
+				<bean class="com.novamens.indexer.java.AttributeFieldSchema">
+					<property name="fieldName" value="id"/>
+					<property name="path" value="id"/>
+					<property name="asId" value="true"/>
+				</bean>
+				<bean class="com.novamens.indexer.java.AttributeFieldSchema">
+					<property name="fieldName" value="title"/>
+					<property name="path" value="title"/>
+				</bean>
+				<bean class="com.novamens.indexer.java.AttributeFieldSchema">
+					<property name="fieldName" value="contentid"/>
+					<property name="path" value="contentId"/>
+				</bean>
+				<bean class="com.novamens.indexer.java.AttributeFieldSchema">
+					<property name="fieldName" value="objectid"/>
+					<property name="path" value="objectId"/>
+				</bean>
+					<bean class="com.novamens.indexer.java.AttributeFieldSchema">
+					<property name="fieldName" value="date"/>
+					<property name="path" value="time"/>
+				</bean>
+				<bean class="com.novamens.indexer.java.AttributeFieldSchema">
+					<property name="fieldName" value="executed"/>
+					<property name="path" value="time"/>
+				</bean>
+				<bean class="com.novamens.indexer.java.CustomFieldSchema">
+					<property name="fieldName" value="executedmember"/>
+					<property name="extractor">
+						<bean class="com.novamens.kbee.content.multidimensional.DateExtractor">
+							<property name="path" value="time"/>
+						</bean>
+					</property>
+				</bean>
+				<bean class="com.novamens.indexer.java.AttributeFieldSchema">
+					<property name="fieldName" value="domain"/>
+					<property name="path" value="domainId"/>
+				</bean>
+				<bean class="com.novamens.indexer.java.AttributeFieldSchema">
+					<property name="fieldName" value="usermember"/>
+					<property name="path" value="user/id"/>
+				</bean>
+				<bean class="com.novamens.indexer.java.ConstantFieldSchema">
+					<property name="fieldName" value="type"/>
+					<property name="value" value="logevent"/>
+				</bean>
+			</list>	
+		</property>
+	</bean>
+				
+</beans>

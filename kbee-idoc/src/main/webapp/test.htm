@@ -1,0 +1,31 @@
+<html>
+  <head>
+    <!-- ... -->
+    <script type="module" src="https://cs-cdn.realpage.com/RAUL/omnibar/v1/omnibar/omnibar.esm.js"></script>
+    <script nomodule src="https://cs-cdn.realpage.com/RAUL/omnibar/v1/omnibar/omnibar.js"></script>
+    <link rel="stylesheet" href="https://cs-cdn.realpage.com/RAUL/omnibar/v1/omnibar/omnibar.css" />
+  </head>
+  <body>
+<omnibar-shell  logout-url="/logout">
+  <omnibar-unified-menu >
+
+    <!-- Custom User Item -->
+    <a  href="#/foo"   slot="user">
+      <omnibar-user-menu-item menu-name="CustomUserLink">
+        Custom User Link
+      </omnibar-user-menu-item>
+    </a>
+    <!-- Custom User Item -->
+    <a  href="#" slot="user">
+      <omnibar-user-menu-item menu-name="AnotherCustomUserLink">
+        Another Custom User Link
+      </omnibar-user-menu-item>
+    </a>
+  </omnibar-unified-menu>
+
+  <main slot="page">
+    HOLA
+  </main>
+</omnibar-shell>
+  </body>
+</html>

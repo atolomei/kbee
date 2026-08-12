@@ -1,0 +1,43 @@
+sudo /sbin/iptables -A INPUT -p tcp --destination-port {PORT-1022} -j DROP
+  501  sudo /sbin/iptables -A INPUT -p tcp --destination-port 1022 -j DROP
+  502  sudo /sbin/iptables -A INPUT -p tcp --destination-port 8099 -j DROP
+  503  sudo /sbin/iptables -A INPUT -p tcp --destination-port 34572 -j DROP
+  504  sudo /sbin/iptables -A INPUT -p tcp --destination-port 8090 -j DROP
+  505  sudo /sbin/iptables -A INPUT -p tcp --destination-port 34571 -j DROP
+  506  sudo /sbin/iptables -A INPUT -p tcp --destination-port 34573 -j DROP
+  507  /sbin/iptables -L -n -v
+  508  sudo /sbin/iptables -L -n -v
+  509  sudo /sbin/iptables -S
+  510  sudo /sbin/iptables -L INPUT
+  511  sudo iptables -L INPUT -v
+  512  sudo iptables -L --line-numbers
+  513  sudo iptables -D INPUT 1
+  514  sudo iptables -D INPUT 2
+  515  sudo iptables -D INPUT 3
+  516  sudo iptables -D INPUT 4
+  517  sudo iptables -D INPUT 5
+  518  sudo iptables -D INPUT 6
+  519  sudo iptables -L --line-numbers
+  520  sudo iptables -D INPUT 1
+  521  sudo iptables -D INPUT 2
+  522  sudo iptables -D INPUT 3
+  523  sudo iptables -L --line-numbers
+  524  sudo iptables -D INPUT 1
+  525  sudo iptables -L --line-numbers
+  527  sudo iptables -L --line-numbers
+  538  sudo /sbin/iptables -A INPUT -p tcp -i eth1 -s ! 127.0.0.1 --dport 8095  -j DROP
+  539  sudo /sbin/iptables -A INPUT -p tcp -i eth1 -s ! '127.0.0.1' --dport 8095  -j DROP
+  540  iptables -h
+  541  iptables -A INPUT -p tcp -s localhost --dport 8095 -j ACCEPT
+  542  sudo iptables -A INPUT -p tcp -s localhost --dport 8095 -j ACCEPT
+  543  sudo iptables -A INPUT -p tcp -s localhost --dport 8090 -j ACCEPT
+  544  iptables -A INPUT -p tcp --dport 8090 -j DROP
+  545  sudo iptables -A INPUT -p tcp --dport 8090 -j DROP
+  546  sudo iptables -A INPUT -p tcp --dport 8095 -j DROP
+  548  sudo iptables -L --line-numbers
+  549  sudo iptables -A INPUT -p tcp -s 127.0.0.0  --dport 8090 -j ACCEPT
+  550  sudo iptables -A INPUT -p tcp -s 127.0.0.0  --dport 8095 -j ACCEPT
+  551  sudo iptables -L --line-numbers
+  552  sudo iptables -A INPUT -p tcp -s 127.0.0.1  --dport 8095 -j ACCEPT
+  553  sudo iptables -A INPUT -p tcp -s 127.0.0.1  --dport 8090 -j ACCEPT
+  554  sudo iptables -L --line-numbers

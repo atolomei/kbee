@@ -1,0 +1,117 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+	<!-- arent> <artifactId>novamens</artifactId> <groupId>com.novamens</groupId> 
+		<version>1.2.6</version> </parent -->
+
+
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>com.novamens</groupId>
+	<artifactId>kbee</artifactId>
+	<name>${project.artifactId}</name>
+	<packaging>pom</packaging>
+	<version>6.4</version>
+
+	<!-- La lista de module debe coincidir cada uno con el nombre del directorio, en el File System -->
+	<modules>
+
+		<!-- Util -->
+		<module>kbee-util</module>
+
+		<!-- Web Foundation Classes -->
+		<module>kbee-wfc-wicket</module>
+		<module>kbee-wfc-tinymce</module>
+		<module>kbee-wfc-consoles</module>
+
+		<!-- Web Framework -->
+		<module>kbee-web</module>
+		<module>kbee-web-portal</module>
+
+
+		<!-- KBEE Object Model -->
+		<module>kbee-model-dom</module>
+		<module>kbee-model-security</module>
+
+		<!-- Infrastructure Services -->
+		<module>kbee-services-logging</module>
+		<module>kbee-services-model</module>
+		<module>kbee-services-classes</module>
+		<module>kbee-services-workflow</module>
+		<module>kbee-services-spring</module>
+		<module>kbee-services-cluster</module>
+
+
+		<!-- Data Management -->
+		<module>kbee-dm-hibernate</module>
+		<module>kbee-dm-solr</module>
+		<module>kbee-dm-indexer</module>
+
+		<!-- Content Management -->
+		<module>kbee-content-model</module>
+		<module>kbee-content-classes</module>
+		<module>kbee-content-portal-model</module>
+
+		<!-- api -->
+		<module>kbee-api</module>
+
+
+		<!-- idoc -->
+		<module>kbee-idoc-lib</module>
+		<module>kbee-idoc-resources</module>
+		<!-- idoc-config -->
+
+		<!-- Applications: idoc, rio, aa, indra, kbee -->
+
+	</modules>
+
+<build>
+		<defaultGoal>install</defaultGoal>
+		<sourceDirectory>src/main/java</sourceDirectory>
+		
+		<resources>
+			<resource>
+				<directory>src/main/resources</directory>
+				<includes>
+					<include>**</include>
+				</includes>
+			</resource>
+			<resource>
+				<directory>src/main/java</directory>
+				<includes>
+					<include>**/*.properties</include>
+					<include>**/*.xml</include>
+				</includes>
+			</resource>
+		</resources>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-source-plugin</artifactId>
+				<version>3.0.1</version>
+				<executions>
+					<execution>
+						<phase>package</phase>
+						<goals>
+							<goal>jar</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jar-plugin</artifactId>
+				<version>3.0.2</version>
+				<!--
+				<configuration>
+					<useDefaultManifestFile>
+						true
+					</useDefaultManifestFile>
+				</configuration>
+				-->
+			</plugin>
+		</plugins>
+	</build>
+	
+</project>

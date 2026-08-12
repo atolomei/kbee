@@ -1,0 +1,512 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Solr managed schema - automatically generated - DO NOT EDIT -->
+<schema name="example core zero" version="1.1">
+  <uniqueKey>id</uniqueKey>
+  <fieldType name="date" class="solr.TrieDateField" omitNorms="true" positionIncrementGap="0" precisionStep="0"/>
+  <fieldType name="long" class="solr.TrieLongField" positionIncrementGap="0" precisionStep="0"/>
+  <fieldType name="phonetic" class="solr.TextField" omitNorms="true" sortMissingLast="true">
+    <analyzer type="index">
+      <tokenizer class="solr.StandardTokenizerFactory"/>
+      <filter class="solr.LowerCaseFilterFactory"/>
+      <filter class="solr.EnglishMinimalStemFilterFactory"/>
+      <filter class="solr.BeiderMorseFilterFactory" nameType="GENERIC" languageSet="auto" ruleType="APPROX" concat="true"/>
+    </analyzer>
+    <analyzer type="query">
+      <tokenizer class="solr.StandardTokenizerFactory"/>
+      <filter class="solr.LowerCaseFilterFactory"/>
+      <filter class="solr.EnglishMinimalStemFilterFactory"/>
+      <filter class="solr.BeiderMorseFilterFactory" nameType="GENERIC" languageSet="auto" ruleType="APPROX" concat="true"/>
+    </analyzer>
+  </fieldType>
+  <fieldType name="plaintext" class="solr.TextField" omitNorms="true" positionIncrementGap="100">
+    <analyzer type="index">
+      <charFilter class="solr.HTMLStripCharFilterFactory"/>
+      <tokenizer class="solr.StandardTokenizerFactory"/>
+    </analyzer>
+    <analyzer type="query">
+      <tokenizer class="solr.StandardTokenizerFactory"/>
+    </analyzer>
+  </fieldType>
+  <fieldType name="searchable" class="solr.TextField" omitNorms="true" sortMissingLast="true">
+    <analyzer type="index">
+      <tokenizer class="solr.StandardTokenizerFactory"/>
+      <filter class="solr.LowerCaseFilterFactory"/>
+    </analyzer>
+    <analyzer type="query">
+      <tokenizer class="solr.StandardTokenizerFactory"/>
+      <filter class="solr.LowerCaseFilterFactory"/>
+    </analyzer>
+  </fieldType>
+  <fieldType name="sortable" class="solr.TextField" omitNorms="true" sortMissingLast="true">
+    <analyzer type="index">
+      <tokenizer class="solr.KeywordTokenizerFactory"/>
+      <filter class="solr.LowerCaseFilterFactory"/>
+    </analyzer>
+    <analyzer type="query">
+      <tokenizer class="solr.KeywordTokenizerFactory"/>
+      <filter class="solr.LowerCaseFilterFactory"/>
+    </analyzer>
+  </fieldType>
+  <fieldType name="string" class="solr.StrField" omitNorms="true" sortMissingLast="true"/>
+  <fieldType name="text" class="solr.TextField" positionIncrementGap="100">
+    <analyzer type="index">
+      <tokenizer class="solr.WhitespaceTokenizerFactory"/>
+      <filter class="solr.StopFilterFactory" format="snowball" words="stopwords_es.txt" ignoreCase="true"/>
+      <filter class="solr.WordDelimiterFilterFactory" catenateNumbers="1" generateNumberParts="1" splitOnCaseChange="1" generateWordParts="1" catenateAll="0" catenateWords="1"/>
+      <filter class="solr.ASCIIFoldingFilterFactory" preserveOriginal="false"/>
+      <filter class="solr.LowerCaseFilterFactory"/>
+      <filter class="solr.SnowballPorterFilterFactory" language="English" protected="protwords.txt"/>
+    </analyzer>
+    <analyzer type="query">
+      <tokenizer class="solr.WhitespaceTokenizerFactory"/>
+      <filter class="solr.StopFilterFactory" format="snowball" words="stopwords_es.txt" ignoreCase="true"/>
+      <filter class="solr.WordDelimiterFilterFactory" catenateNumbers="0" generateNumberParts="1" splitOnCaseChange="1" generateWordParts="1" catenateAll="0" catenateWords="0"/>
+      <filter class="solr.ASCIIFoldingFilterFactory" preserveOriginal="false"/>
+      <filter class="solr.LowerCaseFilterFactory"/>
+      <filter class="solr.SnowballPorterFilterFactory" language="English" protected="protwords.txt"/>
+    </analyzer>
+  </fieldType>
+  <field name="_version_" type="long" indexed="true" stored="true"/>
+  <field name="analystmember" type="string" multiValued="true" indexed="true" stored="true"/>
+  <field name="analystname" type="string" multiValued="false" indexed="true" stored="true"/>
+  <field name="analystname_sort" type="sortable" indexed="true" stored="false"/>
+  <field name="answer" type="string" multiValued="true" indexed="true" stored="true"/>
+  <field name="api" type="string" multiValued="false" indexed="true" stored="true"/>
+  <field name="areamember" type="string" multiValued="true" indexed="true" stored="true"/>
+  <field name="areaname" type="string" multiValued="false" indexed="true" stored="true"/>
+  <field name="areaname_sort" type="sortable" indexed="true" stored="false"/>
+  <field name="assigned" type="date" multiValued="false" indexed="true" stored="true"/>
+  <field name="assignedby" type="string" multiValued="false" indexed="true" stored="true"/>
+  <field name="attr01member" type="string" multiValued="true" indexed="true" stored="true"/>
+  <field name="attr01name" type="searchable" multiValued="false" indexed="true" stored="true"/>
+  <field name="attr01name_sort" type="sortable" indexed="true" stored="false"/>
+  <field name="attr02member" type="string" multiValued="true" indexed="true" stored="true"/>
+  <field name="attr02name" type="searchable" multiValued="false" indexed="true" stored="true"/>
+  <field name="attr02name_sort" type="sortable" indexed="true" stored="false"/>
+  <field name="attr03member" type="string" multiValued="true" indexed="true" stored="true"/>
+  <field name="attr03name" type="searchable" multiValued="false" indexed="true" stored="true"/>
+  <field name="attr03name_sort" type="sortable" indexed="true" stored="false"/>
+  <field name="attr04member" type="string" multiValued="true" indexed="true" stored="true"/>
+  <field name="attr04name" type="searchable" multiValued="false" indexed="true" stored="true"/>
+  <field name="attr04name_sort" type="sortable" indexed="true" stored="false"/>
+  <field name="attr05member" type="string" multiValued="true" indexed="true" stored="true"/>
+  <field name="attr05name" type="searchable" multiValued="false" indexed="true" stored="true"/>
+  <field name="attr05name_sort" type="sortable" indexed="true" stored="false"/>
+  <field name="attr06member" type="string" multiValued="true" indexed="true" stored="true"/>
+  <field name="attr06name" type="searchable" multiValued="false" indexed="true" stored="true"/>
+  <field name="attr06name_sort" type="sortable" indexed="true" stored="false"/>
+  <field name="attr07member" type="string" multiValued="true" indexed="true" stored="true"/>
+  <field name="attr07name" type="searchable" multiValued="false" indexed="true" stored="true"/>
+  <field name="attr07name_sort" type="sortable" indexed="true" stored="false"/>
+  <field name="attr08member" type="string" multiValued="true" indexed="true" stored="true"/>
+  <field name="attr08name" type="searchable" multiValued="false" indexed="true" stored="true"/>
+  <field name="attr08name_sort" type="sortable" indexed="true" stored="false"/>
+  <field name="attr09member" type="string" multiValued="true" indexed="true" stored="true"/>
+  <field name="attr09name" type="searchable" multiValued="false" indexed="true" stored="true"/>
+  <field name="attr09name_sort" type="sortable" indexed="true" stored="false"/>
+  <field name="attr10member" type="string" multiValued="true" indexed="true" stored="true"/>
+  <field name="attr10name" type="searchable" multiValued="false" indexed="true" stored="true"/>
+  <field name="attr10name_sort" type="sortable" indexed="true" stored="false"/>
+  <field name="attr11member" type="string" multiValued="true" indexed="true" stored="true"/>
+  <field name="attr11name" type="searchable" multiValued="false" indexed="true" stored="true"/>
+  <field name="attr11name_sort" type="sortable" indexed="true" stored="false"/>
+  <field name="attr12member" type="string" multiValued="true" indexed="true" stored="true"/>
+  <field name="attr12name" type="searchable" multiValued="false" indexed="true" stored="true"/>
+  <field name="attr12name_sort" type="sortable" indexed="true" stored="false"/>
+  <field name="attr13member" type="string" multiValued="true" indexed="true" stored="true"/>
+  <field name="attr13name" type="searchable" multiValued="false" indexed="true" stored="true"/>
+  <field name="attr13name_sort" type="sortable" indexed="true" stored="false"/>
+  <field name="attr14member" type="string" multiValued="true" indexed="true" stored="true"/>
+  <field name="attr14name" type="searchable" multiValued="false" indexed="true" stored="true"/>
+  <field name="attr14name_sort" type="sortable" indexed="true" stored="false"/>
+  <field name="attr15member" type="string" multiValued="true" indexed="true" stored="true"/>
+  <field name="attr15name" type="searchable" multiValued="false" indexed="true" stored="true"/>
+  <field name="attr15name_sort" type="sortable" indexed="true" stored="false"/>
+  <field name="attr16member" type="string" multiValued="true" indexed="true" stored="true"/>
+  <field name="attr16name" type="searchable" multiValued="false" indexed="true" stored="true"/>
+  <field name="attr16name_sort" type="sortable" indexed="true" stored="false"/>
+  <field name="attr17member" type="string" multiValued="true" indexed="true" stored="true"/>
+  <field name="attr17name" type="searchable" multiValued="false" indexed="true" stored="true"/>
+  <field name="attr17name_sort" type="sortable" indexed="true" stored="false"/>
+  <field name="attr18member" type="string" multiValued="true" indexed="true" stored="true"/>
+  <field name="attr18name" type="searchable" multiValued="false" indexed="true" stored="true"/>
+  <field name="attr18name_sort" type="sortable" indexed="true" stored="false"/>
+  <field name="attr19member" type="string" multiValued="true" indexed="true" stored="true"/>
+  <field name="attr19name" type="searchable" multiValued="false" indexed="true" stored="true"/>
+  <field name="attr19name_sort" type="sortable" indexed="true" stored="false"/>
+  <field name="attr20member" type="string" multiValued="true" indexed="true" stored="true"/>
+  <field name="attr20name" type="searchable" multiValued="false" indexed="true" stored="true"/>
+  <field name="attr20name_sort" type="sortable" indexed="true" stored="false"/>
+  <field name="attr21member" type="string" multiValued="true" indexed="true" stored="true"/>
+  <field name="attr21name" type="searchable" multiValued="false" indexed="true" stored="true"/>
+  <field name="attr21name_sort" type="sortable" indexed="true" stored="false"/>
+  <field name="attr22member" type="string" multiValued="true" indexed="true" stored="true"/>
+  <field name="attr22name" type="searchable" multiValued="false" indexed="true" stored="true"/>
+  <field name="attr22name_sort" type="sortable" indexed="true" stored="false"/>
+  <field name="attr23member" type="string" multiValued="true" indexed="true" stored="true"/>
+  <field name="attr23name" type="searchable" multiValued="false" indexed="true" stored="true"/>
+  <field name="attr23name_sort" type="sortable" indexed="true" stored="false"/>
+  <field name="attr24member" type="string" multiValued="true" indexed="true" stored="true"/>
+  <field name="attr24name" type="searchable" multiValued="false" indexed="true" stored="true"/>
+  <field name="attr24name_sort" type="sortable" indexed="true" stored="false"/>
+  <field name="attr25member" type="string" multiValued="true" indexed="true" stored="true"/>
+  <field name="attr25name" type="searchable" multiValued="false" indexed="true" stored="true"/>
+  <field name="attr25name_sort" type="sortable" indexed="true" stored="false"/>
+  <field name="attr26member" type="string" multiValued="true" indexed="true" stored="true"/>
+  <field name="attr26name" type="searchable" multiValued="false" indexed="true" stored="true"/>
+  <field name="attr26name_sort" type="sortable" indexed="true" stored="false"/>
+  <field name="attr27member" type="string" multiValued="true" indexed="true" stored="true"/>
+  <field name="attr27name" type="searchable" multiValued="false" indexed="true" stored="true"/>
+  <field name="attr27name_sort" type="sortable" indexed="true" stored="false"/>
+  <field name="attr28member" type="string" multiValued="true" indexed="true" stored="true"/>
+  <field name="attr28name" type="searchable" multiValued="false" indexed="true" stored="true"/>
+  <field name="attr28name_sort" type="sortable" indexed="true" stored="false"/>
+  <field name="attr29member" type="string" multiValued="true" indexed="true" stored="true"/>
+  <field name="attr29name" type="searchable" multiValued="false" indexed="true" stored="true"/>
+  <field name="attr29name_sort" type="sortable" indexed="true" stored="false"/>
+  <field name="attr30member" type="string" multiValued="true" indexed="true" stored="true"/>
+  <field name="attr30name" type="searchable" multiValued="false" indexed="true" stored="true"/>
+  <field name="attr30name_sort" type="sortable" indexed="true" stored="false"/>
+  <field name="attr31member" type="string" multiValued="true" indexed="true" stored="true"/>
+  <field name="attr31name" type="searchable" multiValued="false" indexed="true" stored="true"/>
+  <field name="attr31name_sort" type="sortable" indexed="true" stored="false"/>
+  <field name="attr32member" type="string" multiValued="true" indexed="true" stored="true"/>
+  <field name="attr32name" type="searchable" multiValued="false" indexed="true" stored="true"/>
+  <field name="attr32name_sort" type="sortable" indexed="true" stored="false"/>
+  <field name="attr33member" type="string" multiValued="true" indexed="true" stored="true"/>
+  <field name="attr33name" type="string" multiValued="false" indexed="true" stored="true"/>
+  <field name="attr33name_sort" type="sortable" indexed="true" stored="false"/>
+  <field name="attr34member" type="string" multiValued="true" indexed="true" stored="true"/>
+  <field name="attr34name" type="string" multiValued="false" indexed="true" stored="true"/>
+  <field name="attr34name_sort" type="sortable" indexed="true" stored="false"/>
+  <field name="attr35member" type="string" multiValued="true" indexed="true" stored="true"/>
+  <field name="attr35name" type="string" multiValued="false" indexed="true" stored="true"/>
+  <field name="attr35name_sort" type="sortable" indexed="true" stored="false"/>
+  <field name="attr36member" type="string" multiValued="true" indexed="true" stored="true"/>
+  <field name="attr36name" type="string" multiValued="false" indexed="true" stored="true"/>
+  <field name="attr36name_sort" type="sortable" indexed="true" stored="false"/>
+  <field name="attr37member" type="string" multiValued="true" indexed="true" stored="true"/>
+  <field name="attr37name" type="string" multiValued="false" indexed="true" stored="true"/>
+  <field name="attr37name_sort" type="sortable" indexed="true" stored="false"/>
+  <field name="attr38member" type="string" multiValued="true" indexed="true" stored="true"/>
+  <field name="attr38name" type="string" multiValued="false" indexed="true" stored="true"/>
+  <field name="attr38name_sort" type="sortable" indexed="true" stored="false"/>
+  <field name="attr39member" type="string" multiValued="true" indexed="true" stored="true"/>
+  <field name="attr39name" type="string" multiValued="false" indexed="true" stored="true"/>
+  <field name="attr39name_sort" type="sortable" indexed="true" stored="false"/>
+  <field name="attr40member" type="string" multiValued="true" indexed="true" stored="true"/>
+  <field name="attr40name" type="string" multiValued="false" indexed="true" stored="true"/>
+  <field name="attr40name_sort" type="sortable" indexed="true" stored="false"/>
+  <field name="author" type="string" multiValued="false" indexed="true" stored="true"/>
+  <field name="authormember" type="string" multiValued="true" indexed="true" stored="true"/>
+  <field name="authorname" type="string" multiValued="false" indexed="true" stored="true"/>
+  <field name="authorname_sort" type="sortable" indexed="true" stored="false"/>
+  <field name="canonical" type="string" multiValued="false" indexed="true" stored="true"/>
+  <field name="clientmember" type="string" multiValued="true" indexed="true" stored="true"/>
+  <field name="clientname" type="string" multiValued="false" indexed="true" stored="true"/>
+  <field name="clientname_sort" type="sortable" indexed="true" stored="false"/>
+  <field name="clsf01member" type="string" multiValued="true" indexed="true" stored="true"/>
+  <field name="clsf01name" type="string" multiValued="false" indexed="true" stored="true"/>
+  <field name="clsf01name_sort" type="sortable" indexed="true" stored="false"/>
+  <field name="clsf02member" type="string" multiValued="true" indexed="true" stored="true"/>
+  <field name="clsf02name" type="string" multiValued="false" indexed="true" stored="true"/>
+  <field name="clsf02name_sort" type="sortable" indexed="true" stored="false"/>
+  <field name="clsf03member" type="string" multiValued="true" indexed="true" stored="true"/>
+  <field name="clsf03name" type="string" multiValued="false" indexed="true" stored="true"/>
+  <field name="clsf03name_sort" type="sortable" indexed="true" stored="false"/>
+  <field name="clsf04member" type="string" multiValued="true" indexed="true" stored="true"/>
+  <field name="clsf04name" type="string" multiValued="false" indexed="true" stored="true"/>
+  <field name="clsf04name_sort" type="sortable" indexed="true" stored="false"/>
+  <field name="clsf05member" type="string" multiValued="true" indexed="true" stored="true"/>
+  <field name="clsf05name" type="string" multiValued="false" indexed="true" stored="true"/>
+  <field name="clsf05name_sort" type="sortable" indexed="true" stored="false"/>
+  <field name="clsf06member" type="string" multiValued="true" indexed="true" stored="true"/>
+  <field name="clsf06name" type="string" multiValued="false" indexed="true" stored="true"/>
+  <field name="clsf06name_sort" type="sortable" indexed="true" stored="false"/>
+  <field name="clsf07member" type="string" multiValued="true" indexed="true" stored="true"/>
+  <field name="clsf07name" type="string" multiValued="false" indexed="true" stored="true"/>
+  <field name="clsf07name_sort" type="sortable" indexed="true" stored="false"/>
+  <field name="clsf08member" type="string" multiValued="true" indexed="true" stored="true"/>
+  <field name="clsf08name" type="string" multiValued="false" indexed="true" stored="true"/>
+  <field name="clsf08name_sort" type="sortable" indexed="true" stored="false"/>
+  <field name="clsf09member" type="string" multiValued="true" indexed="true" stored="true"/>
+  <field name="clsf09name" type="string" multiValued="false" indexed="true" stored="true"/>
+  <field name="clsf09name_sort" type="sortable" indexed="true" stored="false"/>
+  <field name="clsf10member" type="string" multiValued="true" indexed="true" stored="true"/>
+  <field name="clsf10name" type="string" multiValued="false" indexed="true" stored="true"/>
+  <field name="clsf10name_sort" type="sortable" indexed="true" stored="false"/>
+  <field name="clsf11member" type="string" multiValued="true" indexed="true" stored="true"/>
+  <field name="clsf11name" type="string" multiValued="false" indexed="true" stored="true"/>
+  <field name="clsf11name_sort" type="sortable" indexed="true" stored="false"/>
+  <field name="clsf12member" type="string" multiValued="true" indexed="true" stored="true"/>
+  <field name="clsf12name" type="string" multiValued="false" indexed="true" stored="true"/>
+  <field name="clsf12name_sort" type="sortable" indexed="true" stored="false"/>
+  <field name="clsf13member" type="string" multiValued="true" indexed="true" stored="true"/>
+  <field name="clsf13name" type="string" multiValued="false" indexed="true" stored="true"/>
+  <field name="clsf13name_sort" type="sortable" indexed="true" stored="false"/>
+  <field name="clsf14member" type="string" multiValued="true" indexed="true" stored="true"/>
+  <field name="clsf14name" type="string" multiValued="false" indexed="true" stored="true"/>
+  <field name="clsf14name_sort" type="sortable" indexed="true" stored="false"/>
+  <field name="clsf15member" type="string" multiValued="true" indexed="true" stored="true"/>
+  <field name="clsf15name" type="string" multiValued="false" indexed="true" stored="true"/>
+  <field name="clsf15name_sort" type="sortable" indexed="true" stored="false"/>
+  <field name="clsf16member" type="string" multiValued="true" indexed="true" stored="true"/>
+  <field name="clsf16name" type="string" multiValued="false" indexed="true" stored="true"/>
+  <field name="clsf16name_sort" type="sortable" indexed="true" stored="false"/>
+  <field name="clsf17member" type="string" multiValued="true" indexed="true" stored="true"/>
+  <field name="clsf17name" type="string" multiValued="false" indexed="true" stored="true"/>
+  <field name="clsf17name_sort" type="sortable" indexed="true" stored="false"/>
+  <field name="clsf18member" type="string" multiValued="true" indexed="true" stored="true"/>
+  <field name="clsf18name" type="string" multiValued="false" indexed="true" stored="true"/>
+  <field name="clsf18name_sort" type="sortable" indexed="true" stored="false"/>
+  <field name="clsf19member" type="string" multiValued="true" indexed="true" stored="true"/>
+  <field name="clsf19name" type="string" multiValued="false" indexed="true" stored="true"/>
+  <field name="clsf19name_sort" type="sortable" indexed="true" stored="false"/>
+  <field name="clsf20member" type="string" multiValued="true" indexed="true" stored="true"/>
+  <field name="clsf20name" type="string" multiValued="false" indexed="true" stored="true"/>
+  <field name="clsf20name_sort" type="sortable" indexed="true" stored="false"/>
+  <field name="clsitename" type="string" multiValued="false" indexed="true" stored="true"/>
+  <field name="clsitename_sort" type="sortable" indexed="true" stored="false"/>
+  <field name="clsitenamemember" type="string" multiValued="false" indexed="true" stored="true"/>
+  <field name="clsitereponame" type="string" multiValued="false" indexed="true" stored="true"/>
+  <field name="clsitereponame_sort" type="sortable" indexed="true" stored="false"/>
+  <field name="clsitereponamemember" type="string" multiValued="false" indexed="true" stored="true"/>
+  <field name="comment" type="text" multiValued="true" indexed="true" stored="false"/>
+  <field name="contentid" type="string" multiValued="false" indexed="true" stored="true"/>
+  <field name="created" type="date" multiValued="false" indexed="true" stored="true"/>
+  <field name="createdmember" type="string" multiValued="true" indexed="true" stored="true"/>
+  <field name="customattributes" type="string" multiValued="false" indexed="true" stored="true"/>
+  <field name="dataset" type="string" multiValued="false" indexed="true" stored="true"/>
+  <field name="date" type="date" multiValued="false" indexed="true" stored="true"/>
+  <field name="datemember" type="string" multiValued="true" indexed="true" stored="true"/>
+  <field name="datename" type="string" indexed="true" stored="false"/>
+  <field name="datename_sort" type="sortable" indexed="true" stored="false"/>
+  <field name="departmentmember" type="string" multiValued="true" indexed="true" stored="true"/>
+  <field name="departmentname" type="string" multiValued="false" indexed="true" stored="true"/>
+  <field name="departmentname_sort" type="sortable" indexed="true" stored="false"/>
+  <field name="domain" type="string" multiValued="false" indexed="true" stored="true"/>
+  <field name="domaintype" type="long" multiValued="false" indexed="true" stored="true"/>
+  <field name="duedate" type="string" multiValued="false" indexed="true" stored="true"/>
+  <field name="email" type="sortable" multiValued="false" indexed="true" stored="true"/>
+  <field name="executed" type="date" multiValued="false" indexed="true" stored="true"/>
+  <field name="executedmember" type="string" multiValued="true" indexed="true" stored="true"/>
+  <field name="externalid" type="string" multiValued="false" indexed="true" stored="true"/>
+  <field name="filetext" type="text" multiValued="true" indexed="true" stored="false"/>
+  <field name="firstname" type="searchable" multiValued="false" indexed="true" stored="true"/>
+  <field name="groupmember" type="string" multiValued="true" indexed="true" stored="true"/>
+  <field name="head" type="string" multiValued="false" indexed="true" stored="true"/>
+  <field name="id" type="string" multiValued="false" indexed="true" required="true" stored="true"/>
+  <field name="inworkspace" type="string" multiValued="false" indexed="true" stored="true"/>
+  <field name="isexternal" type="string" multiValued="false" indexed="true" stored="true"/>
+  <field name="isknowledgebase" type="string" multiValued="false" indexed="true" stored="true"/>
+  <field name="istemplate" type="string" multiValued="false" indexed="true" stored="true"/>
+  <field name="kbfs" type="long" multiValued="false" indexed="true" stored="true"/>
+  <field name="kbfs_sort" type="sortable" indexed="true" stored="false"/>
+  <field name="labelmember" type="string" multiValued="true" indexed="true" stored="true"/>
+  <field name="lastmodifiedtime" type="long" multiValued="false" indexed="true" stored="true"/>
+  <field name="lastmodifieduser" type="string" multiValued="false" indexed="true" stored="true"/>
+  <field name="lastname" type="searchable" multiValued="false" indexed="true" stored="true"/>
+  <field name="lastname_sort" type="sortable" multiValued="false" indexed="true" stored="true"/>
+  <field name="lastnamephonetic" type="phonetic" multiValued="false" indexed="true" stored="true"/>
+  <field name="level" type="long" multiValued="false" indexed="true" stored="true"/>
+  <field name="managermember" type="string" multiValued="true" indexed="true" stored="true"/>
+  <field name="managername" type="string" multiValued="false" indexed="true" stored="true"/>
+  <field name="managername_sort" type="sortable" indexed="true" stored="false"/>
+  <field name="modified" type="date" multiValued="false" indexed="true" stored="true"/>
+  <field name="modifiedmember" type="string" multiValued="true" indexed="true" stored="true"/>
+  <field name="name" type="string" multiValued="false" indexed="true" stored="true"/>
+  <field name="notes" type="text" multiValued="true" indexed="true" stored="false"/>
+  <field name="objectid" type="string" multiValued="false" indexed="true" stored="true"/>
+  <field name="organization" type="sortable" indexed="true" stored="false"/>
+  <field name="organization_sort" type="sortable" indexed="true" stored="false"/>
+  <field name="owneragentmember" type="string" multiValued="true" indexed="true" stored="true"/>
+  <field name="owneragentname" type="string" multiValued="false" indexed="true" stored="true"/>
+  <field name="owneragentname_sort" type="sortable" indexed="true" stored="false"/>
+  <field name="ownermember" type="string" multiValued="true" indexed="true" stored="true"/>
+  <field name="ownername" type="string" multiValued="false" indexed="true" stored="true"/>
+  <field name="ownername_sort" type="sortable" indexed="true" stored="false"/>
+  <field name="parent" type="string" multiValued="false" indexed="true" stored="true"/>
+  <field name="pmcmember" type="string" multiValued="true" indexed="true" stored="true"/>
+  <field name="pmcname" type="string" multiValued="false" indexed="true" stored="true"/>
+  <field name="pmcname_sort" type="sortable" indexed="true" stored="false"/>
+  <field name="priority" type="string" multiValued="false" indexed="true" stored="true"/>
+  <field name="priority_sort" type="string" indexed="true" stored="false"/>
+  <field name="programmember" type="string" multiValued="true" indexed="true" stored="true"/>
+  <field name="programname" type="string" multiValued="false" indexed="true" stored="true"/>
+  <field name="programname_sort" type="sortable" indexed="true" stored="false"/>
+  <field name="propertymember" type="string" multiValued="true" indexed="true" stored="true"/>
+  <field name="propertyname" type="string" multiValued="false" indexed="true" stored="true"/>
+  <field name="propertyname_sort" type="sortable" indexed="true" stored="false"/>
+  <field name="publishingstatus" type="string" multiValued="false" indexed="true" stored="true"/>
+  <field name="reader" type="long" multiValued="true" indexed="true" stored="true"/>
+  <field name="rolemember" type="string" multiValued="true" indexed="true" stored="true"/>
+  <field name="secureaccessmember" type="string" multiValued="true" indexed="true" stored="true"/>
+  <field name="secureaccessname" type="string" multiValued="false" indexed="true" stored="true"/>
+  <field name="secureaccessname_sort" type="sortable" indexed="true" stored="false"/>
+  <field name="source" type="string" multiValued="false" indexed="true" stored="true"/>
+  <field name="specialistmember" type="string" multiValued="true" indexed="true" stored="true"/>
+  <field name="specialistname" type="string" multiValued="false" indexed="true" stored="true"/>
+  <field name="specialistname_sort" type="sortable" indexed="true" stored="false"/>
+  <field name="state" type="long" multiValued="false" indexed="true" stored="true"/>
+  <field name="statemember" type="string" multiValued="true" indexed="true" stored="true"/>
+  <field name="statename" type="string" multiValued="false" indexed="true" stored="true"/>
+  <field name="statename_sort" type="sortable" indexed="true" stored="false"/>
+  <field name="statusmember" type="string" multiValued="true" indexed="true" stored="true"/>
+  <field name="statusname" type="string" multiValued="false" indexed="true" stored="true"/>
+  <field name="statusname_sort" type="sortable" indexed="true" stored="false"/>
+  <field name="surname" type="string" multiValued="false" indexed="true" stored="true"/>
+  <field name="tagmember" type="string" multiValued="true" indexed="true" stored="true"/>
+  <field name="tagname" type="string" multiValued="false" indexed="true" stored="true"/>
+  <field name="tagname_sort" type="sortable" indexed="true" stored="false"/>
+  <field name="taker" type="long" multiValued="true" indexed="true" stored="true"/>
+  <field name="task_sort" type="sortable" indexed="true" stored="false"/>
+  <field name="taskmember" type="string" multiValued="true" indexed="true" stored="true"/>
+  <field name="taskplanmember" type="string" multiValued="true" indexed="true" stored="true"/>
+  <field name="template" type="string" multiValued="false" indexed="true" stored="true"/>
+  <field name="text" type="text" multiValued="true" indexed="true" stored="true"/>
+  <field name="title" type="string" multiValued="false" indexed="true" stored="true"/>
+  <field name="title_sort" type="sortable" indexed="true" stored="false"/>
+  <field name="titlephonetic" type="phonetic" multiValued="false" indexed="true" stored="true"/>
+  <field name="type" type="string" multiValued="false" indexed="true" stored="true"/>
+  <field name="typemember" type="string" multiValued="true" indexed="true" stored="true"/>
+  <field name="typename" type="string" multiValued="false" indexed="true" stored="true"/>
+  <field name="typename_sort" type="sortable" indexed="true" stored="false"/>
+  <field name="userid" type="string" multiValued="false" indexed="true" stored="true"/>
+  <field name="usermember" type="string" multiValued="true" indexed="true" stored="true"/>
+  <field name="username" type="sortable" multiValued="false" indexed="true" stored="true"/>
+  <field name="workspace" type="string" multiValued="false" indexed="true" stored="true"/>
+  <field name="workspace_sort" type="sortable" indexed="true" stored="false"/>
+  <field name="workspacename" type="string" multiValued="false" indexed="true" stored="true"/>
+  <field name="writer" type="long" multiValued="true" indexed="true" stored="true"/>
+  <copyField source="analystname" dest="analystname_sort"/>
+  <copyField source="analystname" dest="text"/>
+  <copyField source="answer" dest="text"/>
+  <copyField source="attr01name" dest="attr01name_sort"/>
+  <copyField source="attr01name" dest="text"/>
+  <copyField source="attr02name" dest="attr02name_sort"/>
+  <copyField source="attr02name" dest="text"/>
+  <copyField source="attr03name" dest="attr03name_sort"/>
+  <copyField source="attr03name" dest="text"/>
+  <copyField source="attr04name" dest="attr04name_sort"/>
+  <copyField source="attr04name" dest="text"/>
+  <copyField source="attr05name" dest="attr05name_sort"/>
+  <copyField source="attr05name" dest="text"/>
+  <copyField source="attr06name" dest="attr06name_sort"/>
+  <copyField source="attr06name" dest="text"/>
+  <copyField source="attr07name" dest="attr07name_sort"/>
+  <copyField source="attr07name" dest="text"/>
+  <copyField source="attr08name" dest="attr08name_sort"/>
+  <copyField source="attr08name" dest="text"/>
+  <copyField source="attr09name" dest="attr09name_sort"/>
+  <copyField source="attr09name" dest="text"/>
+  <copyField source="attr10name" dest="attr10name_sort"/>
+  <copyField source="attr10name" dest="text"/>
+  <copyField source="attr11name" dest="attr11name_sort"/>
+  <copyField source="attr11name" dest="text"/>
+  <copyField source="attr12name" dest="attr12name_sort"/>
+  <copyField source="attr12name" dest="text"/>
+  <copyField source="attr13name" dest="attr13name_sort"/>
+  <copyField source="attr13name" dest="text"/>
+  <copyField source="attr14name" dest="attr14name_sort"/>
+  <copyField source="attr14name" dest="text"/>
+  <copyField source="attr15name" dest="attr15name_sort"/>
+  <copyField source="attr15name" dest="text"/>
+  <copyField source="attr16name" dest="attr16name_sort"/>
+  <copyField source="attr16name" dest="text"/>
+  <copyField source="attr17name" dest="attr17name_sort"/>
+  <copyField source="attr17name" dest="text"/>
+  <copyField source="attr18name" dest="attr18name_sort"/>
+  <copyField source="attr18name" dest="text"/>
+  <copyField source="attr19name" dest="attr19name_sort"/>
+  <copyField source="attr19name" dest="text"/>
+  <copyField source="attr20name" dest="attr20name_sort"/>
+  <copyField source="attr20name" dest="text"/>
+  <copyField source="authorname" dest="authorname_sort"/>
+  <copyField source="clientname" dest="clientname_sort"/>
+  <copyField source="clientname" dest="text"/>
+  <copyField source="clsf01name" dest="clsf01name_sort"/>
+  <copyField source="clsf01name" dest="text"/>
+  <copyField source="clsf02name" dest="clsf02name_sort"/>
+  <copyField source="clsf02name" dest="text"/>
+  <copyField source="clsf03name" dest="clsf03name_sort"/>
+  <copyField source="clsf03name" dest="text"/>
+  <copyField source="clsf04name" dest="clsf04name_sort"/>
+  <copyField source="clsf04name" dest="text"/>
+  <copyField source="clsf05name" dest="clsf05name_sort"/>
+  <copyField source="clsf05name" dest="text"/>
+  <copyField source="clsf06name" dest="clsf06name_sort"/>
+  <copyField source="clsf06name" dest="text"/>
+  <copyField source="clsf07name" dest="clsf07name_sort"/>
+  <copyField source="clsf07name" dest="text"/>
+  <copyField source="clsf08name" dest="clsf08name_sort"/>
+  <copyField source="clsf08name" dest="text"/>
+  <copyField source="clsf09name" dest="clsf09name_sort"/>
+  <copyField source="clsf09name" dest="text"/>
+  <copyField source="clsf10name" dest="clsf10name_sort"/>
+  <copyField source="clsf10name" dest="text"/>
+  <copyField source="clsf11name" dest="clsf11name_sort"/>
+  <copyField source="clsf11name" dest="text"/>
+  <copyField source="clsf12name" dest="clsf12name_sort"/>
+  <copyField source="clsf12name" dest="text"/>
+  <copyField source="clsf13name" dest="clsf13name_sort"/>
+  <copyField source="clsf13name" dest="text"/>
+  <copyField source="clsf14name" dest="clsf14name_sort"/>
+  <copyField source="clsf14name" dest="text"/>
+  <copyField source="clsf15name" dest="clsf15name_sort"/>
+  <copyField source="clsf15name" dest="text"/>
+  <copyField source="clsf16name" dest="clsf16name_sort"/>
+  <copyField source="clsf16name" dest="text"/>
+  <copyField source="clsf17name" dest="clsf17name_sort"/>
+  <copyField source="clsf17name" dest="text"/>
+  <copyField source="clsf18name" dest="clsf18name_sort"/>
+  <copyField source="clsf18name" dest="text"/>
+  <copyField source="clsf19name" dest="clsf19name_sort"/>
+  <copyField source="clsf19name" dest="text"/>
+  <copyField source="clsf20name" dest="clsf20name_sort"/>
+  <copyField source="clsf20name" dest="text"/>
+  <copyField source="comment" dest="text"/>
+  <copyField source="customattributes" dest="text"/>
+  <copyField source="datename" dest="datename_sort"/>
+  <copyField source="datename" dest="text"/>
+  <copyField source="departmentname" dest="departmentname_sort"/>
+  <copyField source="departmentname" dest="text"/>
+  <copyField source="email" dest="text"/>
+  <copyField source="externalid" dest="text"/>
+  <copyField source="filetext" dest="text"/>
+  <copyField source="kbfs" dest="kbfs_sort"/>
+  <copyField source="lastname" dest="lastname_sort"/>
+  <copyField source="lastname" dest="lastnamephonetic"/>
+  <copyField source="lastname" dest="text"/>
+  <copyField source="managername" dest="managername_sort"/>
+  <copyField source="managername" dest="text"/>
+  <copyField source="objectid" dest="text"/>
+  <copyField source="organization" dest="organization_sort"/>
+  <copyField source="owneragentname" dest="owneragentname_sort"/>
+  <copyField source="owneragentname" dest="text"/>
+  <copyField source="ownername" dest="ownername_sort"/>
+  <copyField source="ownername" dest="text"/>
+  <copyField source="pmcname" dest="pmcname_sort"/>
+  <copyField source="pmcname" dest="text"/>
+  <copyField source="priority" dest="priority_sort"/>
+  <copyField source="programname" dest="programname_sort"/>
+  <copyField source="programname" dest="text"/>
+  <copyField source="propertyname" dest="propertyname_sort"/>
+  <copyField source="propertyname" dest="text"/>
+  <copyField source="secureaccessname" dest="secureaccessname_sort"/>
+  <copyField source="secureaccessname" dest="text"/>
+  <copyField source="specialistname" dest="specialistname_sort"/>
+  <copyField source="specialistname" dest="text"/>
+  <copyField source="statename" dest="statename_sort"/>
+  <copyField source="statename" dest="text"/>
+  <copyField source="statusname" dest="statusname_sort"/>
+  <copyField source="tagname" dest="tagname_sort"/>
+  <copyField source="tagname" dest="text"/>
+  <copyField source="taskmember" dest="task_sort"/>
+  <copyField source="title" dest="text"/>
+  <copyField source="title" dest="title_sort"/>
+  <copyField source="title" dest="titlephonetic"/>
+  <copyField source="typename" dest="typename_sort"/>
+  <copyField source="userid" dest="text"/>
+  <copyField source="username" dest="text"/>
+  <copyField source="workspacename" dest="workspace_sort"/>
+</schema>

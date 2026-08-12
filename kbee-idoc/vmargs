@@ -1,0 +1,12 @@
+-XX:HotswapAgent=core
+-Xbootclasspath/a:C:\Users\atolo\eclipse-workspace\idoc-config\src\main\resources
+-Dlog4j.configurationFile=C:\Users\atolo\eclipse-workspace\idoc-config\src\main\resources\log4j2.xml 
+-Dcom.novamens.kbee.jettyProfilesDir=C:\Users\atolo\eclipse-workspace\idoc-config\src\main\resources\jprofiles\ 
+-Dcom.novamens.kbee.jettyProfiles=jetty-threadpool.xml;jetty.xml;jetty-http.xml
+-Dhttps.protocols=TLSv1,TLSv1.1,TLSv1.2
+-Djetty.port=8080
+-Xms12G 
+-Xmx22G 
+-DLog4jContextSelector=org.apache.logging.log4j.core.async.AsyncLoggerContextSelector
+-DNOupdateSolrSchemas
+-DNOupdateDBSchema

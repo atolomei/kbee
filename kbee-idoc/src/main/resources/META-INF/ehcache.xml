@@ -1,0 +1,79 @@
+<ehcache xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../config/ehcache.xsd" updateCheck="false">
+
+	<defaultCache
+		maxEntriesLocalHeap="884000"
+		eternal="true"
+		memoryStoreEvictionPolicy="LRU">
+		<persistence strategy="none"/>
+	</defaultCache>
+
+
+	<cache 
+		name="metrics"
+		maxElementsInMemory="2000"   
+		eternal="false"
+		timeToLiveSeconds="172800" 
+		overflowToDisk="false">		
+	 </cache>
+
+
+	<cache    
+		name="content"
+		maxElementsInMemory="400000"   
+		eternal="false"
+		timeToLiveSeconds="172800" 
+		overflowToDisk="false">	
+	</cache>
+	
+	<cache
+		name="entity"
+		maxElementsInMemory="120000"   
+		eternal="false"
+		timeToLiveSeconds="345600" 
+		overflowToDisk="false">
+	 </cache>
+	 
+	 <cache
+		name="query"
+		maxElementsInMemory="64000"   
+		eternal="false"
+		timeToLiveSeconds="86400" 
+		overflowToDisk="false">
+	 </cache>
+	 
+	
+	<cache
+		name="resource"
+		maxElementsInMemory="200000"   
+		eternal="false"
+		timeToLiveSeconds="345600" 
+		overflowToDisk="false">
+	 </cache>
+	
+	<cache
+		name="notification"
+		maxElementsInMemory="32000"   
+		eternal="true"
+		overflowToDisk="false">
+	 </cache>
+	
+	<cache    
+		name="log"
+		maxElementsInMemory="64000"   
+		eternal="true"
+	   	overflowToDisk="false">
+	 </cache>
+	 
+	 <cache    
+		name="workflow"
+		maxElementsInMemory="2000"   
+		eternal="false"
+		timeToLiveSeconds="86400" 
+	   	overflowToDisk="false">
+	 </cache>
+	 
+
+ 	<diskStore path="java.io.tmpdir"/>
+	 
+</ehcache>
+

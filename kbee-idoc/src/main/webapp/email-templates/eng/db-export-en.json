@@ -1,0 +1,6 @@
+ {"name":"Modelo","type":"COMPOUND","dataSet":null,"description":"Modelo de la plantilla para el envío de contenido por mail","multiplicity":null,"elements":
+ 	[                                   
+		{"name":"database-export-url","type":"STRING","dataSet":null,"description":null,"multiplicity":null,"elements":[]}
+	]
+ }
+ 

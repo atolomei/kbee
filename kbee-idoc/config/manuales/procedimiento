@@ -1,0 +1,124 @@
+
+<h2 style="margin-top:0;">1. PROCEDIMIENTO</h2>
+
+<h3>1.1 RESPONSABILIDADES</h3>
+
+<h4>1.1.1 GERENCIA DE COMPRAS</h4>
+
+<ul style="margin-bottom:1.5em; float:left; width:100%;">
+<li>&#x2022 Aprobar el presente procedimiento.</li>
+</ul>
+
+<h4>1.1.2 COMPRAS DE COMBUSTIBLES</h4>
+
+<ul style="margin-bottom:1.5em; float:left; width:100%;">
+<li>&#x2022 Mantener actualizado y presentar ante la autoridad competente el Plan de Seguimiento de las Emisiones Anuales (EU ETS).</li>
+<li>&#x2022 Elaborar el Reporte Anual de Emisiones para Operadores Aéreos a presentar ante la autoridad competente (EU ETS).</li>
+<li>&#x2022 Mantener actualizado y presentar ante la autoridad competente el Plan de Monitoreo de Emisiones (CORSIA).</li>
+<li>&#x2022 Elaborar el Reporte de Emisiones Verificadas a presentar ante la autoridad competente (CORSIA).</li>
+<li>&#x2022 Gestionar la realización de la auditoría de proceso de toma de emisiones de CO2 y control de datos.</li>
+<li>&#x2022 En caso de haber desviaciones surgidas por las actividades de control, tratarlas con las áreas participantes de este proceso.</li>
+<li>&#x2022 Confección, revisión y emisión del presente documento.</li>
+</ul>
+
+<h4>1.1.3 GERENCIA DE CONTROL OPERACIONAL (CCO)</h4>
+<ul style="margin-bottom:1.5em; float:left; width:100%;">
+<li>&#x2022 Corroborar que todos los vuelos de posicionamiento sean incorporados al sistema Airops – Movement Manager.</li>
+</ul>
+
+<h4>1.1.4 GERENCIA CORPORATIVA DE CALIDAD Y MEJORA DE PROCESOS CORPORATIVOS</h4>
+<ul style="margin-bottom:1.5em; float:left; width:100%;">
+<li>&#x2022 Cumplimentar el Programa de Auditorías correspondiente al proceso de registro de datos y cálculo de emisiones.</li>
+</ul>
+
+<h4>1.1.5 DIRECCIÓN DE SISTEMAS</h4>
+<ul style="margin-bottom:1.5em; float:left; width:100%;">
+<li>&#x2022 Controlar el correcto funcionamiento de los sistemas SAP, Airops, Microstrategy y salvaguarda de documentos en backup.</li>
+</ul>
+
+<h3>1.2 DISPONIBILIDAD DE LA INFORMACIÓN</h3>
+<p>La actualización de lista de fuentes de emisión (aeronaves) es responsabilidad de la Gerencia de Operaciones. 
+En caso de producirse una modificación de las aeronaves utilizadas, deberán ser incorporadas/modificadas/eliminadas en el Anexo I, 
+Especificaciones Operativas, del Certificado de Explotador de Servicios Aéreos (AOC) emitido por la ANAC para reflejar el cambio.
+</p>
+
+<span class="alert alert-info">
+Aplica a todas las áreas del Grupo Aerolíneas que están involucradas en el proceso de captación y validación de los datos utilizados para el cálculo de 
+emisiones de CO2 en aeronaves.
+</span>
+<p>Toda modificación en cuanto a la incorporación de flota, indicada en el AOC, deberá ser incorporada, por la Dirección de Sistemas, 
+a los sistemas informáticos correspondientes para la generación de registros de consumo de combustible.
+</p>
+<p>Asimismo, la Gerencia de Operaciones deberá asegurar la obtención de los remitos de combustible de todos los vuelos de posicionamiento o 
+de traslado y su posterior entrega al sector Gestión y Control de Combustible.
+</p>
+
+
+<h3>1.3 ACTIVIDADES DE FLUJO DE DATOS PARA CORSIA (2021 – 2035)</h3>
+<h4>1.3.1 MÉTODO DE ADQUISICIÓN DE DATOS</h4>
+<p>Para el período 2021 – 2035, conforme al punto 
+<a href="#">2.2.1.3.1 del Anexo XVI, Vol. IV del Convenio sobre Aviación Civil Internacional</a> para vuelos internacionales que no estén sujetos a requisitos de compensación, como es el caso de Aerolíneas Argentinas, el explotador aéreo utilizará la herramienta de estimación y notificación de CO2 (CERT) de CORSIA de la OACI para generar el registro “Plan de Vigilancia de las Emisiones”.
+La CERT presta apoyo a los explotadores aéreos en el cumplimiento de sus requisitos de vigilancia y notificación, ya que permite completar las plantillas normalizadas del Plan de Vigilancia de Emisiones y el Informe de Emisiones.
+</p>
+
+<p>Los contratos de funciones operativas deberán contener las cláusulas específicas para servicios operativos 
+detalladas en el procedimiento <a href="#">“Concertación de Contratos de Funciones Operativas y Monitoreo”</a>.
+</p>
+
+<div class="alert alert-cita">
+Se entiende por “Contrato”, sin que la siguiente enumeración resulte taxativa, a todo convenio (contrato, acuerdo, convenio, carta oferta, orden de compra etc.) mediante el cual se asuman u otorguen obligaciones o derechos de cualquier tipo a cargo o beneficio de una o más de las empresas del Grupo Aerolíneas y de uno o más terceros...
+<span class="cita-src">
+<a href="#">Concertación de Contratos de Funciones Operativas y Monitoreo. ver 12.2 - 10/6/2023. Sección 2.3.1</a>
+</span>
+</div>
+
+
+<p>
+Los explotadores aéreos que cuentan con aprobación para utilizar el método de entrada de distancia ortodrómica recabarán los siguientes datos, que ingresarán en la herramienta de estimación y notificación de CO2 (CERT) del CORSIA de la OACI para calcular sus emisiones de CO2 durante el año de cumplimiento.
+<b>Ante una falta del dato primario de FOB o REM, se utilizará el método secundario de adquisición de datos</b>, especificado en el punto 2.3.2
+</p>
+
+<table style="border-collapse: collapse; width: 99.9629%; height: 165.483px;" border="1"><colgroup><col style="width: 36.6336%;"><col style="width: 25.1647%;"><col style="width: 38.1924%;"></colgroup>
+<thead>
+<tr style="height: 22.4px; text-align: center;">
+<td style="height: 22.4px;">Objetivo especifico</td>
+<td style="height: 22.4px;">Periodo de medici&oacute;n</td>
+<td style="height: 22.4px;">Forma de medici&oacute;n</td>
+</tr>
+</thead>
+<tbody>
+<tr style="height: 22.4px;">
+<td style="height: 67.2px;" rowspan="3">Identificar desviaciones del marco regulatorio y los procedimientos internos para minimizar el riesgo operativo</td>
+<td style="height: 67.2px;" rowspan="3">&nbsp;</td>
+<td style="height: 22.4px; text-align: center;">IND 1</td>
+</tr>
+<tr style="height: 22.4px;">
+<td style="height: 22.4px; text-align: center;">IND 2</td>
+</tr>
+<tr style="height: 22.4px;">
+<td style="height: 22.4px; text-align: center;">IND 3</td>
+</tr>
+<tr style="height: 26.7333px; text-align: center;">
+<td style="height: 53.4833px; text-align: left;" rowspan="2">Evaluar el cumplimiento de los requisitos regulatorios para mantener las certificaciones 121, 145 e IOSA</td>
+<td style="height: 26.7333px;">Bienal</td>
+<td style="height: 26.7333px;">&nbsp;</td>
+</tr>
+<tr style="height: 26.75px; text-align: center;">
+<td style="height: 26.75px;">Anual</td>
+<td style="height: 26.75px;">&nbsp;</td>
+</tr>
+<tr style="height: 22.4px;">
+<td style="height: 22.4px;">&nbsp;</td>
+<td style="height: 22.4px;">&nbsp;</td>
+<td style="height: 22.4px;">&nbsp;</td>
+</tr>
+</tbody>
+</table>
+
+
+
+<p>De esta forma las áreas operativas se asegurarán que los mismos cuenten con requisitos específicos documentados que permitan el 
+monitoreo al proveedor externo a fin de asegurar que se cumplan todos los requerimientos que afectan la SQS de las operaciones.
+</p>
+
+

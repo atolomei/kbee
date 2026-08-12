@@ -1,0 +1,338 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd
+        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+    <changeSet id="versionTag" author="aferraria">
+        <tagDatabase tag="5.6.2"/>
+    </changeSet>
+
+
+    <changeSet author="atolomei" id="resourcegroup fallo en deploy anterior">
+        <preConditions onFail="MARK_RAN">
+            <tableExists tableName="kb_resource_group"/>
+        </preConditions>
+        <sql><![CDATA[
+			alter table kb_resource_group add column if not exists type integer not null default 1;
+		]]>
+        </sql>
+    </changeSet>
+
+
+    <changeSet author="atolomei" id="default pwd1">
+        <preConditions onFail="MARK_RAN">
+            <tableExists tableName="domain"/>
+        </preConditions>
+        <sql><![CDATA[
+			alter table domain add column if not exists defaultpassword character varying(256);
+		]]>
+        </sql>
+    </changeSet>
+
+    <changeSet author="atolomei" id="userproperty">
+        <preConditions onFail="MARK_RAN">
+            <tableExists tableName="kb_user_property"/>
+        </preConditions>
+        <sql><![CDATA[
+ 			create index if not exists userproperty_set_lastmodifieddate_desc_idx on kb_user_property(user_id, uset, lastmodifieddate desc);
+		]]>
+        </sql>
+    </changeSet>
+
+
+    <changeSet author="atolomei" id="com.novamens.content.contentclass.parentsenabled 1">
+        <preConditions onFail="MARK_RAN">
+            <tableExists tableName="kb_system_properties"/>
+        </preConditions>
+        <sql><![CDATA[
+
+				delete from kb_system_properties where key='com.novamens.content.contentclass.parentsenabled';
+ 				insert into kb_system_properties (key, value, area) values ('com.novamens.content.contentclass.parentsenabled', 'true', 'system');
+		]]>
+        </sql>
+    </changeSet>
+
+
+    <changeSet author="grodriguez" id="kbee_stats_bill 2">
+        <sql><![CDATA[
+				alter table KB_USAGE_STAT add column if not exists billable_users bigint;
+				alter table KB_USAGE_STAT add column if not exists billable_sites bigint;
+				alter table KB_USAGE_STAT add column if not exists units bigint;
+		]]>
+        </sql>
+    </changeSet>
+
+    <changeSet author="grodriguez" id="user_bill 1">
+        <sql><![CDATA[
+				alter table users add column if not exists is_billable boolean default true;
+				update users set is_billable = false where username like 'root@%';
+		]]>
+        </sql>
+    </changeSet>
+
+    <changeSet author="grodriguez" id="kbee_stats_bill_default2">
+        <sql><![CDATA[
+				update KB_USAGE_STAT set billable_users = 0 where billable_users is null;
+				alter table KB_USAGE_STAT alter column billable_users set not null;
+				alter table KB_USAGE_STAT alter column billable_users set default 0;
+
+				update KB_USAGE_STAT set billable_sites = 0 where billable_sites is null;
+				alter table KB_USAGE_STAT alter column billable_sites set not null;
+				alter table KB_USAGE_STAT alter column billable_sites set default 0;
+
+				update KB_USAGE_STAT set units = 0 where units is null;
+				alter table KB_USAGE_STAT alter column units set not null;
+				alter table KB_USAGE_STAT alter column units set default 0;
+		]]>
+        </sql>
+    </changeSet>
+
+
+    <changeSet author="atolomei" id="kbee_stats_3">
+        <sql><![CDATA[
+				alter table KB_USAGE_STAT alter column  hard_disk_usage set default 0;
+				alter table KB_USAGE_STAT alter column  users set default 0;
+				alter table KB_USAGE_STAT alter column  contents set default 0;
+				alter table KB_USAGE_STAT alter column  resources set default 0;
+				
+				update KB_USAGE_STAT set hard_disk_usage = 0 where hard_disk_usage is null;
+				update KB_USAGE_STAT set users = 0 where users is null;
+				update KB_USAGE_STAT set contents = 0 where contents is null;
+				update KB_USAGE_STAT set resources = 0 where  resources is null;
+		]]>
+        </sql>
+    </changeSet>
+
+    <changeSet author="grodriguez" id="rs_windsor_activity_pivot team">
+        <preConditions onFail="MARK_RAN">
+            <tableExists tableName="rs_windsor_activity_pivot"/>
+        </preConditions>
+        <sql><![CDATA[
+			alter table rs_windsor_activity_pivot add column if not exists team bigint;
+		]]>
+        </sql>
+    </changeSet>
+
+    <changeSet author="grodriguez" id="rs_windsor_activity_pivot team update3">
+        <preConditions onFail="MARK_RAN">
+            <tableExists tableName="rs_windsor_activity_pivot"/>
+        </preConditions>
+
+        <sql><![CDATA[
+            with userTeam as (
+                select userMember.userId userId, min(clf.targetmember_id) team
+                from memberclassification clf,
+                     (select  usrp.user_id userId,dsmem.id dsMemId
+                      from datasetmember dsmem
+                               inner join profile on dsmem.entity_id = profile.entity
+                               inner join userprofile usrp on usrp.id = profile.id) userMember
+                where sourcemember_id = userMember.dsMemId
+                  and classifier_id in (select id from kb_classifier where alias = 'Team')
+                group by userId
+            ) update rs_windsor_activity_pivot pvt
+            set team = (select userTeam.team from userTeam where userTeam.userId= pvt.user_id)
+            where pvt.user_id in (select userTeam.userId from userTeam);
+		]]>
+        </sql>
+    </changeSet>
+
+    <changeSet author="grodriguez" id="restore compliance file alias">
+        <sql><![CDATA[
+		    UPDATE kb_contenttemplate SET ALIAS = 'COMPLI' WHERE ALIAS='compliancefile';
+	    ]]>
+        </sql>
+    </changeSet>
+
+    <changeSet author="grodriguez" id="rs_windsor_activity_pivot restore compliance file alias">
+        <preConditions onFail="MARK_RAN">
+			<not>
+	            <tableExists tableName="rs_windsor_activity_pivot"/>
+            </not>
+        </preConditions>
+        <sql><![CDATA[
+		    UPDATE rs_windsor_activity_pivot SET content_template_alias = 'COMPLI' WHERE content_template_alias = 'compliancefile';
+	    ]]>
+        </sql>
+    </changeSet>
+
+    <changeSet author="grodriguez" id="rs_content_pivot 3">
+        <preConditions onFail="MARK_RAN">
+        		<not>
+	            	<tableExists tableName="rs_content_pivot"/>
+            	</not>
+        </preConditions>
+        <sql><![CDATA[
+            create table if not exists rs_content_pivot
+            (
+                content_id bigint primary key,
+                content_oid bigint,
+                pivot_last_update timestamp with time zone,
+                data jsonb
+            );
+	    ]]>
+        </sql>
+    </changeSet>
+
+    <changeSet author="grodriguez" id="rs_user_pivot 3">
+        <preConditions onFail="MARK_RAN">
+            <not>
+            	<tableExists tableName="rs_user_pivot"/>
+            </not>
+        </preConditions>
+        <sql><![CDATA[
+            create table rs_user_pivot
+            (
+                user_id bigint primary key,
+                pivot_last_update timestamp with time zone,
+                data jsonb
+            );
+            CREATE INDEX idx_rs_user_pivot_clf ON rs_user_pivot USING GIN((data->'personMember'->'classifiers') );
+	    ]]>
+        </sql>
+    </changeSet>
+
+
+    <changeSet author="grodriguez" id="rs_windsor_user_stat cronjob12">
+        <preConditions onFail="MARK_RAN">
+            <tableExists tableName="rs_windsor_activity_pivot"/>
+        </preConditions>
+        <sql><![CDATA[
+            delete from kb_cronjob where description='Fill table rs_windsor_user_stat';
+            INSERT INTO kb_cronjob (id, lastmodifieddate, lastmodifieduser, name, description, cronexpression, clazz, isenabled, lastexecution, execoldtriggers, parameter)
+                VALUES (nextval('objectid_sequence'), now(), 1, 'rs_windsor_user_stat_fill', 'Fill table rs_windsor_user_stat', '0 15 2 * * *', 'com.novamens.kbee.content.service.datamanagement.SQLCronJobRequest', true, null, false
+                    ,'DO $BODY$DECLARE
+                            temprow RECORD;
+                            currDay date;
+                            currDayEnd date;
+                            tomorrowEnd date;
+                        BEGIN
+                            FOR temprow IN
+                                (SELECT date_trunc(''day'', dd)\:\:date reportDate
+                                 FROM generate_series(
+                                              date_trunc(''day'', (select COALESCE(max(day)+interval ''1 day'', now()-interval ''60 day'') from rs_windsor_user_stat)),
+                                              date_trunc(''day'', now()-interval ''1 day'')\:\:timestamp,
+                                              ''1 day''\:\:interval
+                                          ) dd)
+                                LOOP
+                                    currDay\:=temprow.reportDate;
+                                    currDayEnd\:=currDay+interval ''1 day'';
+                                    tomorrowEnd\:=currDay+interval ''2 day'';
+                                    with fileTypeIds as(
+                                        select dsMemType.id id, dsMemReportGroup.strvalue reportGroup
+                                        from datasetmember dsMemType
+                                                 inner join memberclassification dsMemClf on dsMemClf.sourcemember_id=dsMemType.id
+                                                 inner join datasetmember dsMemReportGroup on dsMemReportGroup.id = dsMemClf.targetmember_id
+                                        where dsMemType.dataset_id = (select id from dataset where domain_id=250 and alias=''Type'')
+                                          and dsMemReportGroup.dataset_id=(select id from dataset where domain_id=250 and alias=''ReportGroup'')
+                                    )
+                                    insert into rs_windsor_user_stat(user_id ,day ,due_today ,due_tomorrow ,past_due ,total_files ,new_file_review_ar_count, new_file_review_mi_count,new_file_review_ut_count,new_file_review_other_count,exec_file_review_ar_count ,exec_file_review_mi_count, exec_file_review_ut_count,file_review_ar_hrs, file_review_mi_hrs,file_review_ut_hrs, file_review_ar_bs_hrs, file_review_mi_bs_hrs, file_review_ut_bs_hrs, exec_file_review_other_count, file_review_other_hrs,file_review_other_bs_hrs, exec_peer_review_count,peer_review_hrs,peer_review_bs_hrs, exec_resumbmission_count, resumbmission_hrs, resumbmission_bs_hrs )
+                                    select user_id,
+                                           currDay,
+                                           count( distinct case when (endtime > currDayEnd or endtime is null) and duedate<currDayEnd and duedate>currDay then content_id end) dueToday,
+                                           count( distinct case when (endtime > currDayEnd or endtime is null) and duedate<tomorrowEnd and duedate>currDayEnd then content_id end) dueTomorrow,
+                                           count( distinct case when (endtime > currDayEnd or endtime is null) and duedate<endtime then content_id end) pastDue,
+                                           count( distinct case when (endtime > currDayEnd or endtime is null) then content_id end) totalFiles,
+                                           sum (case when starttime > currDay and starttime < currDayEnd and task=''File Review'' and fc.reportGroup = ''recert'' then 1 else 0 end) "newFileReviewARCount",
+                                           sum (case when starttime > currDay and starttime < currDayEnd and task=''File Review'' and fc.reportGroup = ''move in'' then 1 else 0 end) "newFileReviewMICount",
+                                           sum (case when starttime > currDay and starttime < currDayEnd and task=''File Review'' and fc.reportGroup = ''transfer'' then 1 else 0 end) "newFileReviewUTCount",
+                                           sum (case when starttime > currDay and starttime < currDayEnd and task=''File Review'' and fc.reportGroup is null then 1 else 0 end) "newFileReviewOtherCount",
+                                           sum (case when endtime > currDay and endtime < currDayEnd and task=''File Review'' and fc.reportGroup = ''recert'' then 1 else 0 end) "fileReviewARCount",
+                                           sum (case when endtime > currDay and endtime < currDayEnd and task=''File Review'' and fc.reportGroup = ''move in'' then 1 else 0 end) "fileReviewMICount",
+                                           sum (case when endtime > currDay and endtime < currDayEnd and task=''File Review'' and fc.reportGroup = ''transfer'' then 1 else 0 end) "fileReviewUTCount",
+                                           sum (case when endtime > currDay and endtime < currDayEnd and task=''File Review'' and fc.reportGroup = ''recert'' then  EXTRACT(EPOCH from ((endtime - starttime) / 3600)) else 0 end) "fileReviewARHrs",
+                                           sum (case when endtime > currDay and endtime < currDayEnd and task=''File Review'' and fc.reportGroup = ''move in'' then  EXTRACT(EPOCH from ((endtime - starttime) / 3600)) else 0 end) "fileReviewMIHrs",
+                                           sum (case when endtime > currDay and endtime < currDayEnd and task=''File Review'' and fc.reportGroup = ''transfer'' then  EXTRACT(EPOCH from ((endtime - starttime) / 3600)) else 0 end) "fileReviewUTHrs",
+                                           sum (case when endtime > currDay and endtime < currDayEnd and task=''File Review'' and fc.reportGroup = ''recert'' then  business_hours else 0 end) "fileReviewARBsHrs",
+                                           sum (case when endtime > currDay and endtime < currDayEnd and task=''File Review'' and fc.reportGroup = ''move in'' then  business_hours else 0 end) "fileReviewMIBsHrs",
+                                           sum (case when endtime > currDay and endtime < currDayEnd and task=''File Review'' and fc.reportGroup = ''transfer'' then  business_hours else 0 end) "fileReviewUTBsHrs",
+                                           sum (case when endtime > currDay and endtime < currDayEnd and task=''File Review'' and fc.reportGroup is null then 1 else 0 end) "fileReviewOtherCount",
+                                           sum (case when endtime > currDay and endtime < currDayEnd and task=''File Review'' and fc.reportGroup is null then  EXTRACT(EPOCH from ((endtime - starttime) / 3600)) else 0 end) "fileReviewOtherHrs",
+                                           sum (case when endtime > currDay and endtime < currDayEnd and task=''File Review'' and fc.reportGroup is null then  business_hours else 0 end) "fileReviewOtherBsHrs",
+                                           sum (case when endtime > currDay and endtime < currDayEnd and task=''Collaboration'' then 1 else 0 end) "peerReviewsCount",
+                                           sum (case when endtime > currDay and endtime < currDayEnd and task=''Collaboration'' then EXTRACT(EPOCH from ((endtime - starttime) / 3600)) else 0 end) "peerReviewsHrs",
+                                           sum (case when endtime > currDay and endtime < currDayEnd and task=''Collaboration'' then business_hours else 0 end) "peerReviewsBSHrs",
+                                           sum (case when endtime > currDay and endtime < currDayEnd and task=''Resubmission'' then 1 else 0 end) "ResubmissionCount",
+                                           sum (case when endtime > currDay and endtime < currDayEnd and task=''Resubmission'' then EXTRACT(EPOCH from ((endtime - starttime) / 3600)) else 0 end) "ResubmissionHrs",
+                                           sum (case when endtime > currDay and endtime < currDayEnd and task=''Resubmission'' then business_hours else 0 end) "ResubmissionBSHrs"
+                                    from rs_windsor_activity_pivot pv left outer join fileTypeIds fc on fc.id=pv.type
+                                    where starttime < currDayEnd and starttime > currDay-interval ''1 year''
+                                    group by user_id, currDay;
+                                END LOOP;
+                        END$BODY$;');
+	    ]]>
+        </sql>
+    </changeSet>
+
+    <changeSet author="grodriguez" id="rs_windsor_activity_pivot business_hours 1">
+        <preConditions onFail="MARK_RAN">
+            <tableExists tableName="rs_windsor_activity_pivot"/>
+        </preConditions>
+        <sql><![CDATA[
+            alter table rs_windsor_activity_pivot add column if not exists business_hours decimal;
+        ]]>
+        </sql>
+    </changeSet>
+
+    <changeSet author="grodriguez" id="rs_windsor_user_stat drop11">
+    <preConditions onFail="MARK_RAN">
+        <tableExists tableName="rs_windsor_user_stat"/>
+    </preConditions>
+        <sql><![CDATA[
+            drop table rs_windsor_user_stat;
+        ]]>
+        </sql>
+    </changeSet>
+
+    <changeSet author="grodriguez" id="rs_windsor_user_stat11">
+        <preConditions onFail="MARK_RAN">
+            <tableExists tableName="rs_windsor_activity_pivot"/>
+        </preConditions>
+        <sql><![CDATA[
+                create table rs_windsor_user_stat
+                (
+                    user_id                      bigint,
+                    day                          date,
+                    due_today                    bigint,
+                    due_tomorrow                 bigint,
+                    past_due                     bigint,
+                    total_files                  bigint,
+                    new_file_review_ar_count     bigint,
+                    new_file_review_mi_count     bigint,
+                    new_file_review_ut_count     bigint,
+                    new_file_review_other_count  bigint,
+                    exec_file_review_ar_count    bigint,
+                    exec_file_review_mi_count    bigint,
+                    exec_file_review_ut_count    bigint,
+                    exec_file_review_other_count bigint,
+                    file_review_ar_hrs           decimal,
+                    file_review_mi_hrs           decimal,
+                    file_review_ut_hrs           decimal,
+                    file_review_other_hrs        decimal,
+                    file_review_ar_bs_hrs        decimal,
+                    file_review_mi_bs_hrs        decimal,
+                    file_review_ut_bs_hrs        decimal,
+                    file_review_other_bs_hrs     decimal,
+                    exec_peer_review_count       bigint,
+                    peer_review_hrs              bigint,
+                    peer_review_bs_hrs           bigint,
+                    exec_resumbmission_count     bigint,
+                    resumbmission_hrs            bigint,
+                    resumbmission_bs_hrs         bigint,
+                    constraint rs_windsor_user_stat_pk primary key (user_id,day)
+                );
+	    ]]>
+        </sql>
+    </changeSet>
+
+    <changeSet author="grodriguez" id="Update traffictokens parameter name ">
+        <sql><![CDATA[
+			update kb_system_properties set key='com.novamens.content.webapi.traffictokens' where key='com.novamens.content.webapi.realpage.traffictokens';
+		]]>
+        </sql>
+    </changeSet>
+
+
+</databaseChangeLog>

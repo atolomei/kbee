@@ -1,0 +1,98 @@
+
+body.kbee											{margin:0; padding:0; font-family: Lato, Roboto, Segoe UI,  Arial, sans serif; font-size: 14px; color:#111111; line-height: 1.4em;}
+
+.kbee ul			 								{margin: 0; padding: 0; float: left;}
+.kbee ul li 										{list-style: none outside none;}
+
+
+
+.kbee .header {width:100%; height: 60px; background: #111111; color: white; float:left;}
+
+
+.kbee .nav 			{width:100%; margin: 0; border-bottom: 5px solid #d8dcdf; float:left;}
+.kbee .nav-element {min-width:180px; text-align:center; padding: 0; float:left;}
+.kbee .nav-element a {padding:12px 0; float:left; text-align: center; width:100%; font-weight:500; border-radius: 5px 5px 0 0; color: #195573;    text-decoration: none;}
+
+.kbee .nav-element a.selected {border-bottom: 5px solid #195573;   margin-bottom: -5px;     color: #195573;    text-decoration: none;}
+	
+		
+.kbee .tab-internal {margin: 0 15px; padding: 0 15px; float:left; width:100%; margin-top: 44px;}
+.kbee .loginfo {margin: 42px 0 64px 0; font-size: 0.92em; color: #777777; font-style: italic;}
+
+.kbee .container-fluid {    margin: 0 auto;    padding: 0 6%;    display: block;    float: left;    width: 100%;}
+.kbee .footer {margin-top: 52px; width:100%;}
+
+.kbee .label {font-weight: bold;}
+
+.kbee .title-panel {padding: 52px 0;}
+
+.kbee h1 {font-size: 35px; color: #195573; padding-bottom: 8px; font-weight: 500; margin:0; line-height: 1.2em;}
+.kbee h2 {font-size: 20px; color: #195573; text-transform: uppercase; font-weight:bold; margin-bottom: 8px; margin-top: 44px; float: left;    width: 100%;}
+
+.kbee .row {margin: 0 -15px; width:100%; float:left;}
+.kbee .title-col {font-weight: bold;}
+.kbee  .tab-internal .header {line-height: 2em; border-bottom: 1px solid #d8dcdf; height: auto; background: none; color: #111111; padding: 8px 0;	}
+
+
+.kbee  .form-group {margin-bottom: 24px;}
+.kbee .first {margin-top:0;}
+
+.kbee * {box-sizing: border-box;}
+.kbee .breadcrumb {margin: 12px 0;}
+.kbee .breadcrumb  a {color: #195573; text-decoration: none; font-weight: 500;}
+.kbee .breadcrumb .separator {margin: 0 8px; color: #999999; }
+
+
+.kbee .col-lg-1 {width: 8.3333%; padding: 0 15px; float:left;}
+.kbee .col-lg-2 {width: 16.6666%; padding: 0 15px; float:left;}
+.kbee .col-lg-3 {width: 25%;  padding: 0 15px; float:left;}
+.kbee .col-lg-4 {width: 33.3333%;  padding: 0 15px; float:left;}
+.kbee .col-lg-5 {width: 41.6666%;  padding: 0 15px; float:left;}
+.kbee .col-lg-6 {width: 50%;  padding: 0 15px; float:left;}
+.kbee .col-lg-7 {width: 58.3333%;  padding: 0 15px; float:left;}
+.kbee .col-lg-8 {width: 66.6666%;  padding: 0 15px; float:left;}
+.kbee .col-lg-9 {width: 75%;  padding: 0 15px; float:left;}
+.kbee .col-lg-10 {width: 83.3333%;  padding: 0 15px; float:left;}
+.kbee .col-lg-11 {width: 891.6666%;  padding: 0 15px; float:left;}
+.kbee .col-lg-12 {width: 100%;  padding: 0 15px; float:left;}
+
+.kbee .panel {width:100%; float:left; margin-left: -15px;}
+.kbee .panel-default {border: 1px solid #d8dcdf; }
+
+.kbee .key 	 {font-weight: bold;}
+
+.kbee .header  {font-weight: bold;}
+
+.kbee .media  {width:100%;}
+
+.kbee .media-element  {padding: 6px 0; width:100%; margin-bottom: 12px; line-height: 1.4em; float:left;}
+
+.kbee .media-element  a.btn-link  { font-weight:bold; text-decoration: underline; line-height: 1.75em;}
+.kbee a.btn-link  	{color: #195573; text-decoration: none;}
+
+.kbee .table-body .row {padding: 10px 0;}
+
+.kbee   ul.table-body li.row {border-bottom: 1px solid #d8dcdf;}
+.kbee   ul.table-body li.row:nth-of-type(2n+1) {background: #f9f9f9;}
+
+
+.kbee .table-body .row:hover {background: #f6f6f6;}
+
+.kbee ul li.media-element {margin-left:-15px;}
+
+.kbee .media-element .meta-data {color: #111111; line-height: 1.4em;}
+.kbee .media-element .meta-data  .label {font-weight: normal;}
+
+.kbee  a:hover {background: #f2f2f2; coursor: pointer;}
+
+.kbee  ul.list-group {margin-bottom: 24px; width:100%; float:left;}
+.kbee  ul.list-group li.list-group-item-heading {padding: 6px 0;}
+.kbee  ul.list-group li.list-group-item-heading a { font-weight:normal; text-decoration: underline;}
+
+
+
+
+
+
+
+

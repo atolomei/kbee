@@ -1,0 +1,6 @@
+ {"name":"Modelo","type":"COMPOUND","dataSet":null,"description":"Modelo de la plantilla para el envío de contenido por mail","multiplicity":null,"elements":[                                   
+ 	{"name":"content","type":"CONTENT","dataSet":null,"description":null,"multiplicity":null,"elements":[]},                                                                                                       
+	{"name":"comment","type":"STRING","dataSet":null,"description":null,"multiplicity":null,"elements":[]},                                                                                             
+	{"name":"sender","type":"USER","dataSet":null,"description":null,"multiplicity":null,"elements":[]}]
+ }
+ 

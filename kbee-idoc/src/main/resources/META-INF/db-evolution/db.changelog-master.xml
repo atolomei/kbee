@@ -1,0 +1,31 @@
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd" >
+
+
+    <include file="scripts/check_user_migration.xml" relativeToChangelogFile="true"/>
+    <include file="scripts/v5.4.3.xml" relativeToChangelogFile="true"/>
+    <include file="scripts/v5.4.5.xml" relativeToChangelogFile="true"/>
+
+    <include file="scripts/v6.1-preflight.xml" relativeToChangelogFile="true"/>
+    <include file="scripts/v6.1.xml" relativeToChangelogFile="true"/>
+    
+    <include file="scripts/v6.2-preflight.xml" relativeToChangelogFile="true"/>
+    <include file="scripts/v6.2.xml" relativeToChangelogFile="true"/>
+    
+    <include file="scripts/v6.3.xml" relativeToChangelogFile="true"/>
+    <include file="scripts/v6.4.xml" relativeToChangelogFile="true"/>
+    
+    
+    <include file="scripts/v6.7.xml" relativeToChangelogFile="true"/>
+    <include file="scripts/v6.8.xml" relativeToChangelogFile="true"/>
+    
+    <include file="scripts/dictionary.xml" relativeToChangelogFile="true"/>
+
+    <include file="scripts/v8.0.xml" relativeToChangelogFile="true"/>
+    <include file="scripts/v8.5.xml" relativeToChangelogFile="true"/>
+
+    <include file="scripts/v9.0.xml" relativeToChangelogFile="true"/>
+    
+</databaseChangeLog>

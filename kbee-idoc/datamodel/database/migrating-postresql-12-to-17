@@ -1,0 +1,18 @@
+
+
+
+pgdump databases p12
+
+
+---
+
+install postgres 17
+createdb database p17
+psql -f xxxx zzzz
+
+psql -U postgres -W -f.\db_user_migration.sql zzzz
+
+psql zzzz
+alter user kbeetest_app with password 'novamens';
+alter user kbeetest_admin with password 'novamens';
+

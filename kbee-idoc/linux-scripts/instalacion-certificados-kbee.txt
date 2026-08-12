@@ -1,0 +1,45 @@
+Keys generation:
+	1) Generate private key file
+		openssl genrsa -out cd ../.key 2048
+	2) Generate public key file
+		openssl rsa -in server.key -pubout -out kbee_ucc.pub
+	3) Generate certificate service request config file
+			Create file req.conf with the following content:
+
+			[req]
+			distinguished_name = req_distinguished_name
+			req_extensions = v3_req
+			prompt = no
+			[req_distinguished_name]
+			C = AR
+			L = Buenos Aires
+			O = NOVAMENS S.R.L.
+			CN = kbee.io
+			[v3_req]
+			keyUsage = keyEncipherment, dataEncipherment
+			extendedKeyUsage = serverAuth
+			subjectAltName = @alt_names
+			[alt_names]
+			DNS.1 = aa.kbee.io
+			DNS.2 = test.kbee.io
+			DNS.3 = dev.novamens.com
+			DNS.4 = bugs.novamens.com
+
+	4)Generate certificate service request file
+		openssl req -new -out ucc.csr -key server.key -config ./req.conf
+	
+GoDaddy SSL Certificate
+	1) CSR: copy&paste server.csr content
+	2) Site to protect, complete subdomain url to certificate
+	3) Algorithm: GoDaddy SHA-2
+
+Apache 2 certificate installation
+	1) Copy server.key to "/etc/apache2/ssl/private"
+	2) Copy GoDaddy *.crt file to  "/etc/apache2/ssl"
+	3) Add SSL entries to the VirtualHost on /etc/apache2/sites-enabled/*.conf file:
+	    SSLCertificateFile /etc/apache2/ssl/kbee_ucc.crt
+        SSLCertificateKeyFile /etc/apache2/ssl/private/kbee_ucc.key
+        SSLCertificateChainFile /etc/apache2/ssl/kbee_ucc-bundle.crt
+
+
+

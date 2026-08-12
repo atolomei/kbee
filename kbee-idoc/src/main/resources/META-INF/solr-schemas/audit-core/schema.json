@@ -1,0 +1,412 @@
+{
+  "schema": {
+    "name": "example core zero",
+    "version": 1.1,
+    "uniqueKey": "id",
+    "fieldTypes": [
+      {
+        "name": "date",
+        "class": "solr.TrieDateField",
+        "omitNorms": true,
+        "positionIncrementGap": "0",
+        "precisionStep": "0"
+      },
+      {
+        "name": "long",
+        "class": "solr.TrieLongField",
+        "positionIncrementGap": "0",
+        "precisionStep": "0"
+      },
+      {
+        "name": "phonetic",
+        "class": "solr.TextField",
+        "omitNorms": true,
+        "sortMissingLast": true,
+        "indexAnalyzer": {
+          "tokenizer": {
+            "class": "solr.StandardTokenizerFactory"
+          },
+          "filters": [
+            {
+              "class": "solr.LowerCaseFilterFactory"
+            },
+            {
+              "class": "solr.EnglishMinimalStemFilterFactory"
+            },
+            {
+              "class": "solr.BeiderMorseFilterFactory",
+              "nameType": "GENERIC",
+              "languageSet": "auto",
+              "ruleType": "APPROX",
+              "concat": "true"
+            }
+          ]
+        },
+        "queryAnalyzer": {
+          "tokenizer": {
+            "class": "solr.StandardTokenizerFactory"
+          },
+          "filters": [
+            {
+              "class": "solr.LowerCaseFilterFactory"
+            },
+            {
+              "class": "solr.EnglishMinimalStemFilterFactory"
+            },
+            {
+              "class": "solr.BeiderMorseFilterFactory",
+              "nameType": "GENERIC",
+              "languageSet": "auto",
+              "ruleType": "APPROX",
+              "concat": "true"
+            }
+          ]
+        }
+      },
+      {
+        "name": "string",
+        "class": "solr.StrField",
+        "omitNorms": true,
+        "sortMissingLast": true
+      },
+      {
+        "name": "text",
+        "class": "solr.TextField",
+        "positionIncrementGap": "100",
+        "indexAnalyzer": {
+          "tokenizer": {
+            "class": "solr.WhitespaceTokenizerFactory"
+          },
+          "filters": [
+            {
+              "class": "solr.StopFilterFactory",
+              "format": "snowball",
+              "words": "stopwords_es.txt",
+              "ignoreCase": "true"
+            },
+            {
+              "class": "solr.WordDelimiterGraphFilterFactory",
+              "catenateNumbers": "0",
+              "generateNumberParts": "1",
+              "stemEnglishPossessive": "1",
+              "splitOnCaseChange": "1",
+              "generateWordParts": "1",
+              "splitOnNumerics": "1",
+              "preserveOriginal": "0",
+              "catenateAll": "0",
+              "catenateWords": "0"
+            },
+            {
+              "class": "solr.ASCIIFoldingFilterFactory",
+              "preserveOriginal": "false"
+            },
+            {
+              "class": "solr.LowerCaseFilterFactory"
+            },
+            {
+              "class": "solr.SnowballPorterFilterFactory",
+              "language": "English",
+              "protected": "protwords.txt"
+            }
+          ]
+        },
+        "queryAnalyzer": {
+          "tokenizer": {
+            "class": "solr.WhitespaceTokenizerFactory"
+          },
+          "filters": [
+            {
+              "class": "solr.StopFilterFactory",
+              "format": "snowball",
+              "words": "stopwords_es.txt",
+              "ignoreCase": "true"
+            },
+            {
+              "class": "solr.WordDelimiterGraphFilterFactory",
+              "catenateNumbers": "0",
+              "generateNumberParts": "1",
+              "stemEnglishPossessive": "1",
+              "splitOnCaseChange": "1",
+              "generateWordParts": "1",
+              "splitOnNumerics": "1",
+              "preserveOriginal": "0",
+              "catenateAll": "0",
+              "catenateWords": "0"
+            },
+            {
+              "class": "solr.ASCIIFoldingFilterFactory",
+              "preserveOriginal": "false"
+            },
+            {
+              "class": "solr.LowerCaseFilterFactory"
+            },
+            {
+              "class": "solr.SnowballPorterFilterFactory",
+              "language": "English",
+              "protected": "protwords.txt"
+            }
+          ]
+        }
+      }
+    ],
+    "fields": [
+      {
+        "name": "_version_",
+        "type": "long",
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "auditset",
+        "type": "long",
+        "multiValued": false,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "author",
+        "type": "string",
+        "multiValued": false,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "class",
+        "type": "string",
+        "multiValued": false,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "comment",
+        "type": "text",
+        "multiValued": true,
+        "indexed": true,
+        "stored": false
+      },
+      {
+        "name": "contentid",
+        "type": "string",
+        "multiValued": false,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "date",
+        "type": "date",
+        "multiValued": false,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "datemember",
+        "type": "string",
+        "multiValued": true,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "domain",
+        "type": "string",
+        "multiValued": false,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "eventtype",
+        "type": "string",
+        "multiValued": false,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "executed",
+        "type": "date",
+        "multiValued": false,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "executedmember",
+        "type": "string",
+        "multiValued": true,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "filetext",
+        "type": "text",
+        "multiValued": false,
+        "indexed": true,
+        "stored": false
+      },
+      {
+        "name": "from",
+        "type": "string",
+        "multiValued": false,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "head",
+        "type": "string",
+        "multiValued": false,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "id",
+        "type": "string",
+        "multiValued": false,
+        "indexed": true,
+        "required": true,
+        "stored": true
+      },
+      {
+        "name": "lastmodifiedtime",
+        "type": "long",
+        "multiValued": false,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "level",
+        "type": "long",
+        "multiValued": false,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "modified",
+        "type": "date",
+        "multiValued": false,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "modifiedmember",
+        "type": "string",
+        "multiValued": true,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "name",
+        "type": "string",
+        "multiValued": false,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "objectid",
+        "type": "string",
+        "multiValued": false,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "rc",
+        "type": "string",
+        "multiValued": false,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "reader",
+        "type": "long",
+        "multiValued": true,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "state",
+        "type": "long",
+        "multiValued": false,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "surname",
+        "type": "string",
+        "multiValued": false,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "text",
+        "type": "text",
+        "multiValued": true,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "title",
+        "type": "string",
+        "multiValued": false,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "title_sort",
+        "type": "string",
+        "indexed": true,
+        "stored": false
+      },
+      {
+        "name": "titlephonetic",
+        "type": "phonetic",
+        "multiValued": false,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "to",
+        "type": "string",
+        "multiValued": false,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "type",
+        "type": "string",
+        "multiValued": false,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "usermember",
+        "type": "string",
+        "multiValued": true,
+        "indexed": true,
+        "stored": true
+      }
+    ],
+    "dynamicFields": [],
+    "copyFields": [
+      {
+        "source": "contentid",
+        "dest": "text"
+      },
+      {
+        "source": "from",
+        "dest": "text"
+      },
+      {
+        "source": "title",
+        "dest": "text"
+      },
+      {
+        "source": "title",
+        "dest": "title_sort"
+      },
+      {
+        "source": "title",
+        "dest": "titlephonetic"
+      },
+      {
+        "source": "to",
+        "dest": "text"
+      }
+    ]
+  }
+}

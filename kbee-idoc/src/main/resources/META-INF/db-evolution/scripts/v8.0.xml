@@ -1,0 +1,1278 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd
+        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+    <changeSet id="versionTag" author="atolomei">
+        <tagDatabase tag="8.0"/>
+    </changeSet>
+
+
+	<changeSet author="atolomei" id="datasetmenber key 2">
+		<sql><![CDATA[
+			alter table datasetmember add column if not exists key character varying (64);
+			create index if not exists datasetmember_key_idx on datasetmember(key);
+		]]>
+		</sql>
+	</changeSet>
+	
+	<changeSet author="atolomei" id="resources ct 2">
+		<sql><![CDATA[
+			  update kb_contenttemplate set onlyroot = true where alias = 'resources';
+			  update  datasetmember set key='resource' where lower(strvalue)='recurso' or lower(strvalue)='resource';
+			  update  datasetmember set issystem=true where  key='resource';
+			  
+		]]>
+		</sql>
+	</changeSet>
+
+	
+
+	<changeSet author="atolomei" id="kbee properties">
+		<sql><![CDATA[
+			update kb_system_properties set value='KBEE' where key='product';
+			update kb_system_properties set value='KBEE' where key='product.name';
+			update kb_system_properties set value='kbee' where key='brand';
+			update kb_system_properties set value='KBEE external' where key='cabinet.external';
+			update kb_system_properties set value='external' where key='library_external';
+			update kb_system_properties set value='KBEE' where key='product.brand';
+			update kb_system_properties set value='API' where key='roles.api';
+			update kb_system_properties set value='KBEE' where key='subproduct.brand';
+		 	update kb_system_properties set value='support@kbee.io' where key='support1.email';
+			update kb_system_properties set value='support@kbee.io' where key='support2.email';
+			
+			delete from  kb_system_properties where  key like 'su.%';
+			delete from  kb_system_properties where  key like 'remote.%';
+			delete from  kb_system_properties where  key like 'criteria%';
+			delete from  kb_system_properties where  key like 'library%';
+			delete from  kb_system_properties where  key like 'noreply%';
+			delete from  kb_system_properties where  key like 'librar%';
+			
+			delete from  kb_system_properties where  key like 'welcom%';
+			delete from  kb_system_properties where  key like 'dataset%';
+			delete from  kb_system_properties where  key like 'remote%';
+			
+			delete from  kb_system_properties where  key like 'attribute%';
+			delete from  kb_system_properties where  key like 'local_%';			
+			delete from  kb_system_properties where  key like 'labels%';
+		]]>
+		</sql>
+	</changeSet>
+	
+	<changeSet author="aferraria" id="content attributes">
+		<sql><![CDATA[
+			ALTER TABLE content ALTER COLUMN attributes SET DATA TYPE text;			
+		]]>
+		</sql>
+	</changeSet>
+	
+	<!-- changeSet author="atolomei" id="eform title visible">
+		<sql><![CDATA[
+ 				alter table kb_form add column if not exists titlevisible boolean default false;			
+		]]>
+		</sql>
+	</changeSet-->
+	
+	
+	<!-- ATENCION . ESTE CHANGE SET NO PASO EN PROD POR EL OWNER DE LA TABLA . REVISAR !!!!  -->
+	<changeSet author="atolomei" id="side image billboard">
+		<sql><![CDATA[
+			alter table kb_work_note add column if not exists sideimage bigint references kfile(resource_id) on delete restrict;			
+		]]>
+		</sql>
+	</changeSet>
+	
+	<changeSet author="aferraria" id="eform css">
+		<sql><![CDATA[
+			alter table kb_form add column if not exists cssclass character varying(128);			
+		]]>
+		</sql>
+	</changeSet>
+	
+	<changeSet author="aferraria" id="classifier home">
+		<sql><![CDATA[
+			alter table kb_classifier add column if not exists hashome boolean default false;			
+		]]>
+		</sql>
+	</changeSet>
+	
+	<changeSet author="aferraria" id="resorce tag default">
+		<sql><![CDATA[
+			alter table kb_resource_tag add column if not exists defaulttag boolean default false;			
+		]]>
+		</sql>
+	</changeSet>
+
+
+	<changeSet author="atolomei" id="canonical roles 7">
+		<sql><![CDATA[																			
+			  delete from kb_language_string where key in ('lastmodifieduser','modified','usermember','groupmember','rolemember','taskmember','labelmember','state','template','executed','class','eventtype' , 'publishingstatus', 'createdmember');
+
+			  insert into kb_language_string (id, locale, key, value)  values ((select nextval('objectid_sequence')) , 'es',  'createdmember', 'Creado');
+			  insert into kb_language_string (id, locale, key, value)  values ((select nextval('objectid_sequence')) , 'en',  'createdmember', 'Created');
+
+			  insert into kb_language_string (id, locale, key, value)  values ((select nextval('objectid_sequence')) , 'es',  'rolemember', 'Rol');
+			  insert into kb_language_string (id, locale, key, value)  values ((select nextval('objectid_sequence')) , 'en',  'rolemember', 'Role');
+
+
+			  insert into kb_language_string (id, locale, key, value)  values ((select nextval('objectid_sequence')) , 'es',  'publishingstatus', 'Estado publicación');
+			  insert into kb_language_string (id, locale, key, value)  values ((select nextval('objectid_sequence')) , 'en',  'publishingstatus', 'Publishing status');
+
+
+			  insert into kb_language_string (id, locale, key, value)  values ((select nextval('objectid_sequence')) , 'es',  'lastmodifieduser', 'Modificado');
+			  insert into kb_language_string (id, locale, key, value)  values ((select nextval('objectid_sequence')) , 'en',  'lastmodifieduser', 'Modified by');
+
+			  insert into kb_language_string (id, locale, key, value)  values ((select nextval('objectid_sequence')) , 'es',  'modified', 'Fecha de Modificación');
+			  insert into kb_language_string (id, locale, key, value)  values ((select nextval('objectid_sequence')) , 'en',  'modified', 'Modified');
+			  
+			  insert into kb_language_string (id, locale, key, value)  values ((select nextval('objectid_sequence')) , 'es',  'usermember', 'Area de Trabajo');
+			  insert into kb_language_string (id, locale, key, value)  values ((select nextval('objectid_sequence')) , 'en',  'usermember', 'Workspave');
+			  
+			  insert into kb_language_string (id, locale, key, value)  values ((select nextval('objectid_sequence')) , 'es',  'groupmember', 'Grupo');
+			  insert into kb_language_string (id, locale, key, value)  values ((select nextval('objectid_sequence')) , 'en',  'groupmember', 'Group');
+
+			  insert into kb_language_string (id, locale, key, value)  values ((select nextval('objectid_sequence')) , 'es',  'taskmember', 'Tarea');
+			  insert into kb_language_string (id, locale, key, value)  values ((select nextval('objectid_sequence')) , 'en',  'taskmember', 'Task');
+
+			  insert into kb_language_string (id, locale, key, value)  values ((select nextval('objectid_sequence')) , 'es',  'labelmember', 'Etiqueta');
+			  insert into kb_language_string (id, locale, key, value)  values ((select nextval('objectid_sequence')) , 'en',  'labelmember', 'Label');
+
+			  insert into kb_language_string (id, locale, key, value)  values ((select nextval('objectid_sequence')) , 'es',  'state', 'Status');
+			  insert into kb_language_string (id, locale, key, value)  values ((select nextval('objectid_sequence')) , 'en',  'state', 'Status');
+
+			  insert into kb_language_string (id, locale, key, value)  values ((select nextval('objectid_sequence')) , 'es',  'template', 'Plantilla de Contenido');
+			  insert into kb_language_string (id, locale, key, value)  values ((select nextval('objectid_sequence')) , 'en',  'template', 'Content Template');
+
+			  insert into kb_language_string (id, locale, key, value)  values ((select nextval('objectid_sequence')) , 'es',  'executed', 'Ejecutado');
+			  insert into kb_language_string (id, locale, key, value)  values ((select nextval('objectid_sequence')) , 'en',  'executed', 'Executed');
+
+			  insert into kb_language_string (id, locale, key, value)  values ((select nextval('objectid_sequence')) , 'es',  'class', 'Clase');
+			  insert into kb_language_string (id, locale, key, value)  values ((select nextval('objectid_sequence')) , 'en',  'class', 'Class');
+
+			  insert into kb_language_string (id, locale, key, value)  values ((select nextval('objectid_sequence')) , 'es',  'eventtype', 'Tipo de Evento');
+			  insert into kb_language_string (id, locale, key, value)  values ((select nextval('objectid_sequence')) , 'en',  'eventtype', 'Event Type');
+
+
+			  delete from kb_language_string where   key= 'all';
+			  delete from kb_language_string where   key= 'corporate';
+			  delete from kb_language_string where   key= 'clients';
+			  delete from kb_language_string where   key= 'general';
+			  delete from kb_language_string where   key= 'compliance';
+
+			  insert into kb_language_string (id, locale, key, value)  values ((select nextval('objectid_sequence')) , 'es',  'all', 'Todo');
+			  insert into kb_language_string (id, locale, key, value)  values ((select nextval('objectid_sequence')) , 'en',  'all', 'all');
+			  
+			  insert into kb_language_string (id, locale, key, value)  values ((select nextval('objectid_sequence')) , 'es',  'corporate', 'Corporativa');
+			  insert into kb_language_string (id, locale, key, value)  values ((select nextval('objectid_sequence')) , 'en',  'corporate', 'Corporate');
+
+			  insert into kb_language_string (id, locale, key, value)  values ((select nextval('objectid_sequence')) , 'es',  'clients', 'Clientes');
+			  insert into kb_language_string (id, locale, key, value)  values ((select nextval('objectid_sequence')) , 'en',  'clients', 'Clients');
+
+			  insert into kb_language_string (id, locale, key, value)  values ((select nextval('objectid_sequence')) , 'es',  'general', 'General');
+			  insert into kb_language_string (id, locale, key, value)  values ((select nextval('objectid_sequence')) , 'en',  'general', 'General');
+
+			  insert into kb_language_string (id, locale, key, value)  values ((select nextval('objectid_sequence')) , 'es',  'compliance', 'Regulatorio');
+			  insert into kb_language_string (id, locale, key, value)  values ((select nextval('objectid_sequence')) , 'en',  'compliance', 'Compliance');
+			  
+			  
+			  delete from kb_language_string where locale='en' and key= 'pending';
+			  delete from kb_language_string where locale='es' and key= 'pending';
+			  																												
+			  insert into kb_language_string (id, locale, key, value)  values ((select nextval('objectid_sequence')) , 'es',  'pending', 'Tareas Pendientes');
+			  insert into kb_language_string (id, locale, key, value)  values ((select nextval('objectid_sequence')) , 'en',  'pending', 'Pending Tasks');
+			  
+			  
+
+			  delete from kb_language_string where locale='en' and key= 'analyst';
+			  delete from kb_language_string where locale='es' and key= 'analyst';
+			  
+			  
+			  insert into kb_language_string (id, locale, key, value)  values ((select nextval('objectid_sequence')) , 'es',  'analyst', 'Analista');
+			  insert into kb_language_string (id, locale, key, value)  values ((select nextval('objectid_sequence')) , 'en',  'analyst', 'Analyst');
+			  
+			  
+			  
+			  delete from kb_language_string where locale='en' and key= 'shared-resources';
+			  delete from kb_language_string where locale='es' and key= 'shared-resources';
+																													  
+			  insert into kb_language_string (id, locale, key, value)  values ((select nextval('objectid_sequence')) , 'es',  'shared-resources', 'Recursos públicos');
+			  insert into kb_language_string (id, locale, key, value)  values ((select nextval('objectid_sequence')) , 'en',  'shared-resources', 'Public Resources');
+			  
+			  delete from kb_language_string where locale='es' and key= 'domain-admin';
+			  delete from kb_language_string where locale='es' and key= 'support';
+			  delete from kb_language_string where locale='es' and key= 'super-user';
+			  delete from kb_language_string where locale='es' and key= 'general-user';
+			  delete from kb_language_string where locale='es' and key= 'workflow';
+			  delete from kb_language_string where locale='es' and key= 'security';
+			  delete from kb_language_string where locale='es' and key= 'external-user';
+			  delete from kb_language_string where locale='es' and key= 'information-model';
+			  delete from kb_language_string where locale='es' and key= 'monitor';
+			  delete from kb_language_string where locale='es' and key= 'dashboard';
+			  delete from kb_language_string where locale='es' and key= 'archive';
+			  delete from kb_language_string where locale='es' and key= 'pending-tasks';
+			  delete from kb_language_string where locale='es' and key= 'mytasks';
+			  
+			  delete from kb_language_string where locale='es' and key= 'dataset-values';
+			  delete from kb_language_string where locale='es' and key= 'dataset-values-read';
+			  delete from kb_language_string where locale='es' and key= 'settings';
+			  
+			  delete from kb_language_string where locale='es' and key= 'mytasks-bulk-actions';
+			  delete from kb_language_string where locale='es' and key= 'mybox';
+			  
+			  delete from kb_language_string where locale='es' and key= 'corporate-admin';
+			  delete from kb_language_string where locale='es' and key= 'work-notes';
+			  delete from kb_language_string where locale='es' and key= 'auditor';
+			  
+			  delete from kb_language_string where locale='es' and key= 'domain-factory-manager';
+			  insert into kb_language_string (id, locale, key, value)  values ((select nextval('objectid_sequence')) , 'es',  'domain-factory-manager', 'Administrador de Fábrica');
+			  
+			  delete from kb_language_string where locale='es' and key= 'api-developer';
+			  insert into kb_language_string (id, locale, key, value)  values ((select nextval('objectid_sequence')) , 'es', 'api-developer', 'Desarrollador de API');
+			  
+			  delete from kb_language_string where locale='es' and key= 'kbee-admin';
+			  insert into kb_language_string (id, locale, key, value)  values ((select nextval('objectid_sequence')) , 'es', 'kbee-admin', 'Administrador kbee');
+			  
+			  delete from kb_language_string where locale='es' and key= 'service-management';
+			  insert into kb_language_string (id, locale, key, value)  values ((select nextval('objectid_sequence')) , 'es', 'service-management', 'Administrador de Servicio kbee');
+			  			  
+			  delete from kb_language_string where locale='es' and key= 'operations-engineer';
+			  insert into kb_language_string (id, locale, key, value)  values ((select nextval('objectid_sequence')) , 'es', 'operations-engineer', 'Ingeniero de Operaciones');
+			  
+			  delete from kb_language_string where locale='es' and key= 'recycle-bin';
+			  insert into kb_language_string (id, locale, key, value)  values ((select nextval('objectid_sequence')) , 'es', 'recycle-bin', 'Papelera de Reciclaje');
+
+			  insert into kb_language_string (id, locale, key, value)   values ((select nextval('objectid_sequence')) , 'es',  'domain-admin', 'Administrador');
+			  insert into kb_language_string (id, locale, key, value)  	values ((select nextval('objectid_sequence')), 'es', 'support', 'Soporte');
+			  insert into kb_language_string (id, locale, key, value)   values ((select nextval('objectid_sequence')), 'es', 'super-user', 'Super Usuario');
+			  insert into kb_language_string (id, locale, key, value)   values ((select nextval('objectid_sequence')), 'es', 'general-user', 'Usuario general');
+			  insert into kb_language_string (id, locale, key, value)   values ((select nextval('objectid_sequence')), 'es', 'security', 'Seguridad');
+			  insert into kb_language_string (id, locale, key, value)   values ((select nextval('objectid_sequence')), 'es', 'external-user', 'Usuario externo');
+			  insert into kb_language_string (id, locale, key, value)   values ((select nextval('objectid_sequence')), 'es', 'information-model', 'Modelo de |Información');
+			  insert into kb_language_string (id, locale, key, value)   values ((select nextval('objectid_sequence')), 'es', 'monitor', 'Monitor de Procesos');
+			  insert into kb_language_string (id, locale, key, value)   values ((select nextval('objectid_sequence')), 'es', 'dashboard', 'Tablero de Control');
+			  insert into kb_language_string (id, locale, key, value)   values ((select nextval('objectid_sequence')), 'es', 'archive', 'Archivo');
+			  insert into kb_language_string (id, locale, key, value)   values ((select nextval('objectid_sequence')), 'es', 'pending-tasks', 'Tareas Pendientes');
+			  insert into kb_language_string (id, locale, key, value)   values ((select nextval('objectid_sequence')), 'es', 'mytasks', 'Mis Tareas');
+			  insert into kb_language_string (id, locale, key, value)  	values ((select nextval('objectid_sequence')), 'es', 'dataset-values-read', 'Elementos de DataSet (lectura)');
+			  insert into kb_language_string (id, locale, key, value)  	values ((select nextval('objectid_sequence')), 'es', 'dataset-values', 'Elementos de DataSet');
+			  insert into kb_language_string (id, locale, key, value)   values ((select nextval('objectid_sequence')) , 'es',  'settings', 'Configuración');
+			  insert into kb_language_string (id, locale, key, value)  values ((select nextval('objectid_sequence')) , 'es',  'mytasks-bulk-actions', 'Mis Tareas - Acciones en lote');
+			  insert into kb_language_string (id, locale, key, value)  values ((select nextval('objectid_sequence')) , 'es',  'mybox', 'Mis Recursos');
+			  insert into kb_language_string (id, locale, key, value)  values ((select nextval('objectid_sequence')) , 'es',  'corporate-admin', 'Administrador corporativo');
+			  insert into kb_language_string (id, locale, key, value)  values ((select nextval('objectid_sequence')) , 'es',  'work-notes', 'Carteleras');
+			  insert into kb_language_string (id, locale, key, value)  values ((select nextval('objectid_sequence')) , 'es',  'auditor', 'Auditor');
+			  insert into kb_language_string (id, locale, key, value)  values ((select nextval('objectid_sequence')), 'es', 'workflow', 'Procesos');
+		]]>
+		</sql>
+	</changeSet>
+
+
+	<changeSet author="atolomei" id="lang 8">
+		<sql><![CDATA[																			
+	
+			  	delete from kb_language_string where key in ('admin','finance','compliance', 'reports');
+				insert into kb_language_string (id, locale, key, value)  values ((select nextval('objectid_sequence')) , 'es',  'reports', 'Reportes');
+				insert into kb_language_string (id, locale, key, value)  values ((select nextval('objectid_sequence')) , 'en',  'reports', 'Reports');
+				insert into kb_language_string (id, locale, key, value)  values ((select nextval('objectid_sequence')) , 'es',  'admin', 'Administración');
+				insert into kb_language_string (id, locale, key, value)  values ((select nextval('objectid_sequence')) , 'en',  'admin', 'Admin');
+				insert into kb_language_string (id, locale, key, value)  values ((select nextval('objectid_sequence')) , 'es',  'finance', 'Financiero');
+				insert into kb_language_string (id, locale, key, value)  values ((select nextval('objectid_sequence')) , 'en',  'finance', 'Finance');
+				insert into kb_language_string (id, locale, key, value)  values ((select nextval('objectid_sequence')) , 'es',  'compliance', 'Regulatorio');
+				insert into kb_language_string (id, locale, key, value)  values ((select nextval('objectid_sequence')) , 'en',  'compliance', 'Compliance');
+				
+				
+				delete from kb_language_string where key in ('notes','internal-use', 'custom-attributes', 'private-notes');
+				
+				insert into kb_language_string (id, locale, key, value)  values ((select nextval('objectid_sequence')) , 'es',  'notes', 'Notas');
+				insert into kb_language_string (id, locale, key, value)  values ((select nextval('objectid_sequence')) , 'en',  'notes', 'Notes');
+				
+				
+				insert into kb_language_string (id, locale, key, value)  values ((select nextval('objectid_sequence')) , 'es',  'custom-attributes', 'Tags internos');
+				insert into kb_language_string (id, locale, key, value)  values ((select nextval('objectid_sequence')) , 'en',  'custom-attributes', 'Custom Attributes');
+				
+				insert into kb_language_string (id, locale, key, value)  values ((select nextval('objectid_sequence')) , 'es',  'private-notes', 'Notas internas');
+				insert into kb_language_string (id, locale, key, value)  values ((select nextval('objectid_sequence')) , 'en',  'private-notes', 'Private Notes');
+				
+				
+				
+				
+		]]>
+		</sql>
+	</changeSet>
+ 	
+
+	<changeSet author="atolomei" id="console display name">
+		<sql><![CDATA[																			
+	
+			  	alter table dataset add column console_displayname_rule text;
+		]]>
+		</sql>
+	</changeSet>
+	
+	<changeSet author="aferraria" id="resoure folder">
+		<sql><![CDATA[																			
+			create table kb_resource_folder (
+				resource_id		bigint primary key,
+	 			description		character varying(1024)
+			);
+			ALTER TABLE kb_resource_folder
+				ADD CONSTRAINT resourcefolder_fk FOREIGN KEY (resource_id)
+    			REFERENCES kresource (id) MATCH SIMPLE
+    			ON UPDATE NO ACTION
+    			ON DELETE RESTRICT;
+		]]>
+		</sql>
+	</changeSet>
+	
+	<changeSet author="aferraria" id="content resoure folder">
+		<sql><![CDATA[
+			alter table contentresource add column if not exists folder_id bigint;			
+																					
+			ALTER TABLE contentresource
+				ADD CONSTRAINT folder_fk FOREIGN KEY (folder_id)
+    			REFERENCES kb_resource_folder (resource_id) MATCH SIMPLE
+    			ON UPDATE NO ACTION
+    			ON DELETE RESTRICT;
+		]]>
+		</sql>
+	</changeSet>
+	
+	<changeSet author="aferraria" id="user device">
+		<sql><![CDATA[
+			create table kb_device (
+				id					bigint primary key,
+				device_id			character varying(1024),
+				description			character varying(2048),
+				registration_time	timestamp with time zone DEFAULT now(),
+				state				integer,
+	 			userprofile_id		bigint
+			);
+			ALTER TABLE kb_device
+				ADD CONSTRAINT device_userprofile_fk FOREIGN KEY (userprofile_id) REFERENCES userprofile (id) 
+				MATCH SIMPLE
+    			ON UPDATE NO ACTION
+    			ON DELETE CASCADE;
+		]]>
+		</sql>
+	</changeSet>
+
+
+
+
+    <changeSet author="atolomei" id="email register device 2">
+        <sql><![CDATA[
+		
+					delete from kb_email_template where xkey='register-device';
+					
+					insert into kb_email_template
+					
+					(	id,
+					 	creationdate,     
+ 						lastmodifieddate, 
+ 						lastmodifieduser, 
+ 						state,            
+ 						domain_id,        
+ 						lang,             
+ 						xkey,             
+ 						title,            
+ 						fromstr,          
+ 						subject,          
+ 						strtext,          
+ 						available_macros, 
+ 						isdefault,     
+ 						description,   
+ 						isdefaultvalue,
+ 						defaultvalue
+ 					)
+					
+					select nextval('domainid_sequence'),
+					now(),
+					now(),
+					(select id from users where username = 'root@kbee'),
+					 1,
+					d.id,
+					'en',
+					'register-device',
+					'register-device',
+					'${from}',
+					'${application-name} Register Device',
+					'<p>register device</p>',
+					'register device',
+					true,
+					'register device',
+					true,
+					'<p>register device</p>'
+					
+					from domain d;
+					
+					
+					insert into kb_email_template
+					(	id,
+					 	creationdate,     
+ 						lastmodifieddate, 
+ 						lastmodifieduser, 
+ 						state,            
+ 						domain_id,        
+ 						lang,             
+ 						xkey,             
+ 						title,            
+ 						fromstr,          
+ 						subject,          
+ 						strtext,          
+ 						available_macros, 
+ 						isdefault,     
+ 						description,   
+ 						isdefaultvalue,
+ 						defaultvalue
+ 					)
+					
+					select nextval('domainid_sequence'),
+					now(),
+					now(),
+					(select id from users where username = 'root@kbee'),
+					 1,
+					d.id,
+					'es',
+					'register-device',
+					'register-device',
+					'${from}',
+					'${application-name} - Registro de dispositivo',
+					'<p>register-device</p>',
+					'register-device',
+					 true,
+					'register-device',
+					 true,
+					'<p>register-device</p>'
+					
+					from domain d;
+					
+ 			 ]]>
+        </sql>
+    </changeSet>
+
+
+
+	<changeSet author="atolomei" id="check and build email templates 8">
+		<sql><![CDATA[
+
+				delete from kb_email_template;
+				
+
+				insert into scheduler 
+				( ID, 
+				  REQUEST, 
+				  TIME, 
+				  PRIORITY, 
+				  ERROR_COUNT, 
+				  ERROR_MESSAGE, 
+				  DESCRIPTION, 
+				  TITLE, 
+				  OBJECTID, 
+				  EXECUTE_AFTER, 
+				  COMMAND_CLASS_NAME, 
+				  COMMAND_PARAMETERS, 
+				  HOSTNAME, 
+				  APPSERVERID) 
+				
+				VALUES
+				 
+				(
+				(select nextval('domainid_sequence')), 
+				null, 
+				now(), 
+				1, 
+				0,
+				null, 
+				'check and add email templates', 
+				'check and add email templates', 
+				null, 
+				null, 
+				'com.novamens.kbee.email.CreateEmailTemplatesCommand', 
+				'', 
+				null, 
+				'universal');
+				
+		]]>
+		</sql>
+	</changeSet>
+	
+	<changeSet author="aferraria" id="user signature">
+		<sql><![CDATA[
+			create table kb_signature (
+				id					bigint primary key,
+				type				integer,
+				state				integer,
+				domain_id			bigint,			
+				creationdate		timestamp with time zone DEFAULT now(),
+				lastmodifiedDate	timestamp with time zone DEFAULT now(),
+				lastModifiedUser	bigint,
+				handwrite_image		bigint,
+				device_id			bigint,
+	 			userprofile_id		bigint
+			);
+			ALTER TABLE kb_signature
+				ADD CONSTRAINT signature_domain_fk FOREIGN KEY (domain_id) REFERENCES domain (id) 
+				MATCH SIMPLE
+    			ON UPDATE NO ACTION
+    			ON DELETE CASCADE;
+			ALTER TABLE kb_signature
+				ADD CONSTRAINT signature_modfieduser_fk FOREIGN KEY (lastModifiedUser) REFERENCES users (id) 
+				MATCH SIMPLE
+    			ON UPDATE NO ACTION
+    			ON DELETE CASCADE;
+			ALTER TABLE kb_signature
+				ADD CONSTRAINT signature_handwrite_fk FOREIGN KEY (handwrite_image) REFERENCES kresource (id) 
+				MATCH SIMPLE
+    			ON UPDATE NO ACTION
+    			ON DELETE RESTRICT;
+			ALTER TABLE kb_signature
+				ADD CONSTRAINT signature_device_fk FOREIGN KEY (device_id) REFERENCES kb_device (id) 
+				MATCH SIMPLE
+    			ON UPDATE NO ACTION
+    			ON DELETE RESTRICT;
+			ALTER TABLE kb_signature
+				ADD CONSTRAINT signature_userprofile_fk FOREIGN KEY (userprofile_id) REFERENCES userprofile (id) 
+				MATCH SIMPLE
+    			ON UPDATE NO ACTION
+    			ON DELETE CASCADE;
+		]]>
+		</sql>
+	</changeSet>
+	
+
+
+	<changeSet author="atolomei" id="resource tags add to new templates">
+		<sql><![CDATA[
+			alter table kb_resource_tag add column if not exists newcontenttempplate boolean default true;			
+		]]>
+		</sql>
+	</changeSet>
+
+	<changeSet author="atolomei" id="email template assign 1">
+		<sql><![CDATA[
+			 delete from kb_email_template where xkey like 'assign-task-es%';			
+		]]>
+		</sql>
+	</changeSet>
+
+
+	<changeSet author="aferraria" id="signed data 1">
+		<sql><![CDATA[
+			CREATE TABLE kb_signed_data (
+				id					bigint primary key,
+				signature_id		bigint,
+				digest				text,
+				date				timestamp with time zone DEFAULT now()
+			);
+			
+			ALTER TABLE kb_signed_data
+				ADD CONSTRAINT signature_signed_fk FOREIGN KEY (signature_id) REFERENCES kb_signature (id) 
+				MATCH SIMPLE
+    			ON UPDATE NO ACTION
+    			ON DELETE RESTRICT;
+		]]>
+		</sql>
+	</changeSet>
+
+	<changeSet author="aferraria" id="form data signature 1">
+		<sql><![CDATA[
+			ALTER TABLE kb_form_data add column if not exists signed_id bigint;			
+		]]>
+		</sql>
+	</changeSet>
+
+	<changeSet author="aferraria" id="form data signature 2">
+		<sql><![CDATA[
+				
+				alter table  kb_form_data drop constraint if exists signature_data_fk;
+				
+				ALTER TABLE kb_form_data
+				ADD CONSTRAINT signature_data_fk FOREIGN KEY (signed_id) REFERENCES kb_signed_data (id) 
+				MATCH SIMPLE
+    			ON UPDATE NO ACTION
+    			ON DELETE CASCADE;
+
+						
+		]]>
+		</sql>
+	</changeSet>
+
+
+
+	
+	<changeSet author="aferraria" id="user device object 1">
+		<sql><![CDATA[
+			ALTER TABLE kb_device add column if not exists domain_id bigint;			
+			ALTER TABLE kb_device add column if not exists creationDate timestamp with time zone DEFAULT now();			
+			ALTER TABLE kb_device add column if not exists lastModifiedUser bigint;
+			ALTER TABLE kb_device add column if not exists lastModifiedDate timestamp with time zone DEFAULT now();			
+			ALTER TABLE kb_device
+				ADD CONSTRAINT device_domain_fk FOREIGN KEY (domain_id) REFERENCES domain (id) 
+				MATCH SIMPLE
+    			ON UPDATE NO ACTION
+    			ON DELETE CASCADE;
+			ALTER TABLE kb_device
+				ADD CONSTRAINT device_modfieduser_fk FOREIGN KEY (lastModifiedUser) REFERENCES users (id) 
+				MATCH SIMPLE
+    			ON UPDATE NO ACTION
+    			ON DELETE CASCADE;
+		]]>
+		</sql>
+	</changeSet>
+	
+	<changeSet author="atolomei" id="WF_ACTIVITY signed id 3">
+		<sql><![CDATA[
+			
+			ALTER TABLE  wf_form_data add column if not exists signed_id bigint;			
+			
+			alter table   wf_form_data drop constraint if exists signature_data_fk;
+			
+			ALTER TABLE  wf_form_data
+				ADD CONSTRAINT signature_data_fk FOREIGN KEY (signed_id) REFERENCES kb_signed_data (id)
+				MATCH SIMPLE
+    			ON UPDATE NO ACTION
+    			ON DELETE CASCADE;
+		]]>
+		</sql>
+	</changeSet>
+	
+	
+	<changeSet author="aferraria" id="signed form data update4">
+		<sql><![CDATA[
+			ALTER TABLE kb_form_data drop if exists signed_id;	
+	
+			CREATE TABLE if not exists kb_signedform_data (
+				data_id			bigint,
+				signed_id		bigint
+			);
+			
+			ALTER TABLE kb_signedform_data drop constraint if exists signedform_data_fk;
+			
+			ALTER TABLE kb_signedform_data drop constraint if exists signedform_signed_fk;
+	
+				
+				
+			ALTER TABLE kb_signedform_data
+				ADD CONSTRAINT signedform_data_fk FOREIGN KEY (data_id) REFERENCES kb_form_data (id) 
+				MATCH SIMPLE
+    			ON UPDATE NO ACTION
+    			ON DELETE CASCADE;
+			ALTER TABLE kb_signedform_data
+				ADD CONSTRAINT signedform_signed_fk FOREIGN KEY (signed_id) REFERENCES kb_signed_data (id) 
+				MATCH SIMPLE
+    			ON UPDATE NO ACTION
+    			ON DELETE CASCADE;
+		]]>
+		</sql>
+	</changeSet>
+		 
+	
+	<changeSet author="aferraria" id="signed activity form data update3">
+		<sql><![CDATA[
+			ALTER TABLE wf_form_data drop if exists signed_id;	
+			
+			CREATE TABLE if not exists wf_signedform_data (
+				data_id			bigint,
+				signed_id		bigint
+			);
+			
+			ALTER TABLE wf_signedform_data drop constraint if exists signedform_data_fk;
+			 ALTER TABLE wf_signedform_data drop constraint if exists signedform_signed_fk;
+			 
+			
+			ALTER TABLE wf_signedform_data
+				ADD CONSTRAINT signedform_data_fk FOREIGN KEY (data_id) REFERENCES wf_form_data (id) 
+				MATCH SIMPLE
+    			ON UPDATE NO ACTION
+    			ON DELETE CASCADE;
+			ALTER TABLE wf_signedform_data
+				ADD CONSTRAINT signedform_signed_fk FOREIGN KEY (signed_id) REFERENCES kb_signed_data (id) 
+				MATCH SIMPLE
+    			ON UPDATE NO ACTION
+    			ON DELETE CASCADE;
+		]]>
+		</sql>
+	</changeSet>
+	
+	<changeSet author="aferraria" id="activity progress note 1">
+		<sql><![CDATA[
+			create table if not exists wf_progress_note (
+				id					bigint primary key,
+				domain_id			bigint,			
+				text				text,
+				activity_id			bigint,			
+				creationdate		timestamp with time zone DEFAULT now(),
+				lastmodifiedDate	timestamp with time zone DEFAULT now(),
+				lastModifiedUser	bigint,
+				state				integer
+			);
+			ALTER TABLE wf_progress_note drop constraint if exists wf_note_domain_fk;
+			ALTER TABLE wf_progress_note drop constraint if exists wf_note_modfieduser_fk;
+			ALTER TABLE wf_progress_note drop constraint if exists wf_note_activity_fk;
+			
+			ALTER TABLE wf_progress_note
+				ADD CONSTRAINT wf_note_domain_fk FOREIGN KEY (domain_id) REFERENCES domain (id) 
+				MATCH SIMPLE
+    			ON UPDATE NO ACTION
+    			ON DELETE CASCADE;
+			ALTER TABLE wf_progress_note
+				ADD CONSTRAINT wf_note_activity_fk FOREIGN KEY (activity_id) REFERENCES wf_activity(id) 
+				MATCH SIMPLE
+    			ON UPDATE NO ACTION
+    			ON DELETE CASCADE;
+			ALTER TABLE wf_progress_note
+				ADD CONSTRAINT wf_note_modfieduser_fk FOREIGN KEY (lastModifiedUser) REFERENCES users (id) 
+				MATCH SIMPLE
+    			ON UPDATE NO ACTION
+    			ON DELETE RESTRICT;
+		]]>
+		</sql>
+	</changeSet>
+	
+	
+	<changeSet author="atolomei" id="distribution kb_classifier1">
+		<sql><![CDATA[
+			ALTER TABLE  kb_classifier add column  if not exists distribution boolean default false;
+			UPDATE kb_CLASSIFIER SET distribution=TRUE where alias = 'distribution'; 			
+		]]>
+		</sql>
+	</changeSet>
+	
+	<changeSet author="aferraria" id="content subscription">
+		<sql><![CDATA[
+			create table if not exists kb_content_subscription (
+				id					bigint primary key,
+				content_id			bigint,			
+				person_id			bigint,			
+				domain_id			bigint,			
+				creationdate		timestamp with time zone DEFAULT now(),
+				lastmodifiedDate	timestamp with time zone DEFAULT now(),
+				lastModifiedUser	bigint,
+				state				integer
+			);
+			ALTER TABLE kb_content_subscription drop constraint if exists kb_subscription_content_fk;
+			ALTER TABLE kb_content_subscription drop constraint if exists kb_subscription_person_fk;
+			ALTER TABLE kb_content_subscription drop constraint if exists kb_subscription_domain_fk;
+			ALTER TABLE kb_content_subscription drop constraint if exists kb_subscription_modfieduser_fk;
+			
+			ALTER TABLE kb_content_subscription
+				ADD CONSTRAINT kb_subscription_content_fk FOREIGN KEY (content_id) REFERENCES content(id) 
+				MATCH SIMPLE
+    			ON UPDATE NO ACTION
+    			ON DELETE CASCADE;
+			ALTER TABLE kb_content_subscription
+				ADD CONSTRAINT kb_subscription_person_fk FOREIGN KEY (person_id) REFERENCES person(entity_id) 
+				MATCH SIMPLE
+    			ON UPDATE NO ACTION
+    			ON DELETE CASCADE;
+			ALTER TABLE kb_content_subscription
+				ADD CONSTRAINT kb_subscription_domain_fk FOREIGN KEY (domain_id) REFERENCES domain (id) 
+				MATCH SIMPLE
+    			ON UPDATE NO ACTION
+    			ON DELETE CASCADE;
+			ALTER TABLE kb_content_subscription
+				ADD CONSTRAINT kb_subscription_modfieduser_fk FOREIGN KEY (lastModifiedUser) REFERENCES users (id) 
+				MATCH SIMPLE
+    			ON UPDATE NO ACTION
+    			ON DELETE CASCADE;
+		]]>
+		</sql>
+	</changeSet>
+
+	
+
+	<changeSet author="atolomei" id="wf_progress_note_idx para el home">
+		<sql><![CDATA[
+				create index if not exists wf_progress_note_idx on wf_progress_note(state, domain_id, lastmodifieddate desc); 			
+		]]>
+		</sql>
+	</changeSet>
+	
+
+
+	<changeSet author="aferraria" id="enotirule event types">
+		<sql><![CDATA[
+			ALTER TABLE KB_ENOTIRULE add column if not exists event_types text;			
+		]]>
+		</sql>
+	</changeSet>
+
+
+
+
+    <changeSet author="atolomei" id="email progress notes2">
+        <sql><![CDATA[
+		
+					delete from kb_email_template where xkey='task-progress-note';
+					
+					insert into kb_email_template
+					
+					(	id,
+					 	creationdate,     
+ 						lastmodifieddate, 
+ 						lastmodifieduser, 
+ 						state,            
+ 						domain_id,        
+ 						lang,             
+ 						xkey,             
+ 						title,            
+ 						fromstr,          
+ 						subject,          
+ 						strtext,          
+ 						available_macros, 
+ 						isdefault,     
+ 						description,   
+ 						isdefaultvalue,
+ 						defaultvalue
+ 					)
+					
+					select nextval('domainid_sequence'),
+					now(),
+					now(),
+					(select id from users where username = 'root@kbee'),
+					 1,
+					d.id,
+					'en',
+					'task-progress-note',
+					'task-progress-note',
+					'${from}',
+					null,
+					null,
+					'progress note',
+					true,
+					'progress note',
+					true,
+					'<p>progress note</p>'
+					
+					from domain d;
+					
+					
+					insert into kb_email_template
+					(	id,
+					 	creationdate,     
+ 						lastmodifieddate, 
+ 						lastmodifieduser, 
+ 						state,            
+ 						domain_id,        
+ 						lang,             
+ 						xkey,             
+ 						title,            
+ 						fromstr,          
+ 						subject,          
+ 						strtext,          
+ 						available_macros, 
+ 						isdefault,     
+ 						description,   
+ 						isdefaultvalue,
+ 						defaultvalue
+ 					)
+					
+					select nextval('domainid_sequence'),
+					now(),
+					now(),
+					(select id from users where username = 'root@kbee'),
+					 1,
+					d.id,
+					'es',
+					'task-progress-note',
+					'task-progress-note',
+					'${from}',
+					null,
+					null,
+					'task-progress-note',
+					 true,
+					'task-progress-note',
+					 true,
+					'<p>task-progress-note</p>'
+					
+					from domain d;
+					
+ 			 ]]>
+        </sql>
+    </changeSet>
+
+
+	<!-- changeSet author="atolomei" id="file fdw extension">
+
+		<preConditions onFail="MARK_RAN">
+            <sqlCheck  expectedResult="t">select version() similar to '%linux%';</sqlCheck>
+        </preConditions>
+		
+		<sql><![CDATA[
+				
+				CREATE EXTENSION if not exists file_fdw;
+				CREATE SERVER if not exists fileserver FOREIGN DATA WRAPPER file_fdw;
+				
+				CREATE FOREIGN TABLE if not exists loadavg 
+				(one text, five text, fifteen text, scheduled text, pid text) 
+				SERVER fileserver 
+				OPTIONS (filename '/proc/loadavg', format 'text', delimiter ' ');
+				
+				CREATE FOREIGN TABLE if not exists meminfo 
+				(stat text, value text) 
+				SERVER fileserver 
+				OPTIONS (filename '/proc/meminfo', format 'csv', delimiter ':');
+		]]>
+		</sql>
+	</changeSet-->
+	
+
+	<changeSet author="atolomei" id="content subscription person and content">
+		<sql><![CDATA[
+			create index if not exists content_subscription_content_idx on kb_content_subscription(content_id, state, creationdate desc);
+			create index if not exists content_subscription_person_idx on kb_content_subscription(person_id, state, creationdate);
+			create index if not exists content_subscription_content_person_idx on kb_content_subscription(content_id, person_id);
+			
+		]]>
+		</sql>
+	</changeSet>
+
+
+	<changeSet author="atolomei" id="kbemail template">
+		<sql><![CDATA[
+			 update kb_email_template set strtext = null;
+			 update kb_email_template set subject = null;
+		]]>
+		</sql>
+	</changeSet>
+
+
+	<changeSet author="atolomei" id="kbemail template 2">
+		<sql><![CDATA[
+			 delete from kb_email_template;
+		]]>
+		</sql>
+	</changeSet>
+
+
+	<changeSet author="aferraria" id="email template model">
+		<sql><![CDATA[
+			ALTER TABLE kb_email_template add column if not exists model text;			
+		]]>
+		</sql>
+	</changeSet>
+	
+	<changeSet author="atolomei" id="content sub FK correccion">
+		<sql><![CDATA[
+			alter table kb_content_subscription drop constraint kb_subscription_modfieduser_fk;
+			alter table kb_content_subscription add constraint kb_subscription_modfieduser_fk foreign key(lastmodifieduser) references users(id) on delete restrict;
+		]]>
+		</sql>
+	</changeSet>
+	
+	<changeSet author="atolomei" id="isadministrator parece faltar">
+		<sql><![CDATA[
+				alter table kb_role add column if not exists isadministrator boolean default false;
+		]]>
+		</sql>
+	</changeSet>
+	
+	<changeSet author="atolomei" id="position parece faltar">
+		<sql><![CDATA[
+				 alter table  kb_form_template add column if not exists position integer;
+		]]>
+		</sql>
+	</changeSet>
+
+	<changeSet author="atolomei" id="rs_windsor_user_stat_fill remove">
+		<sql><![CDATA[
+				 delete from kb_cronjob where name = 'rs_windsor_user_stat_fill';
+				 delete from scheduler where error_count > 2 and (NOW() - time  > '1 day'::interval);
+		]]>
+		</sql>
+	</changeSet>
+
+
+	<changeSet author="atolomei" id="encrypt files">
+		<sql><![CDATA[
+				 update domain set encrypt_files = true;
+		]]>
+		</sql>
+	</changeSet>
+
+ 	
+	<changeSet author="aferraria" id="wf launcher api">
+		<sql><![CDATA[
+				alter table Wf_Launcher add column if not exists apienabled boolean default false;
+		]]>
+		</sql>
+	</changeSet>
+				
+	<changeSet author="aferraria" id="action rule entity">
+		<sql><![CDATA[
+			alter table kb_action_rule add column if not exists entity_id bigint;
+			
+			ALTER TABLE kb_action_rule drop constraint if exists kb_entity_rule_fk;
+			
+			ALTER TABLE kb_action_rule
+				ADD CONSTRAINT kb_entity_rule_fk FOREIGN KEY (entity_id) REFERENCES datasetmember(id) 
+				MATCH SIMPLE
+    			ON UPDATE NO ACTION
+    			ON DELETE CASCADE;
+		]]>
+		</sql>
+	</changeSet>
+				
+	<changeSet author="aferraria" id="action rule type">
+		<sql><![CDATA[
+			alter table kb_action_rule add column if not exists rule_type character varying(65);
+		]]>
+		</sql>
+	</changeSet>
+				
+				
+	<changeSet author="aferraria" id="deleted domain 1">
+		<sql><![CDATA[
+			
+			drop table if exists kb_deleted_domain;
+			
+			create table if not exists kb_deleted_domain (
+				id				bigint primary key not null,			
+				name			character varying(256) not null,			
+				delete_time		timestamp with time zone DEFAULT now()
+			);
+		]]>
+		</sql>
+	</changeSet>
+
+	
+	<changeSet author="aferraria" id="progress note resources">
+		<sql><![CDATA[
+		create table if not exists wf_note_resource (
+				resource_id			bigint,
+				note_id				bigint,
+				position			integer
+			);
+			
+			ALTER TABLE wf_note_resource drop constraint if exists note_resource_pkey;
+			ALTER TABLE wf_note_resource drop constraint if exists note_resource_resource_fk;
+			ALTER TABLE wf_note_resource drop constraint if exists note_resource_note_fk;
+ 
+ 			ALTER TABLE wf_note_resource
+				ADD CONSTRAINT note_resource_pkey PRIMARY KEY (note_id, resource_id);
+
+			ALTER TABLE wf_note_resource
+				ADD CONSTRAINT note_resource_resource_fk FOREIGN KEY (resource_id) REFERENCES kresource(id) 
+				MATCH SIMPLE
+    			ON UPDATE NO ACTION
+    			ON DELETE CASCADE;
+	
+			ALTER TABLE wf_note_resource
+				ADD CONSTRAINT note_resource_note_fk FOREIGN KEY (note_id) REFERENCES wf_progress_note(id) 
+				MATCH SIMPLE
+    			ON UPDATE NO ACTION
+    			ON DELETE CASCADE;
+			]]>
+		</sql>
+	</changeSet>
+	
+	
+	<changeSet author="aferraria" id="user profile notifications">
+		<sql><![CDATA[
+			alter table userprofile add column if not exists alert_rule_notification boolean default true;
+			alter table userprofile add column if not exists email_progress_notification boolean default true;
+			alter table userprofile add column if not exists alert_progress_notification boolean default true;
+		]]>
+		</sql>
+	</changeSet>
+	
+	<changeSet author="aferraria" id="work note roles">
+		<sql><![CDATA[
+			
+			create table if not exists kb_work_note_role (
+				note_id				bigint,
+				role_id				bigint
+			);
+			
+			ALTER TABLE kb_work_note_role drop constraint if exists worknote_role_pkey;
+			ALTER TABLE kb_work_note_role drop constraint if exists worknote_role_role_fk;
+			ALTER TABLE kb_work_note_role drop constraint if exists worknote_role_note_fk;
+ 
+ 			ALTER TABLE kb_work_note_role
+				ADD CONSTRAINT worknote_role_pkey PRIMARY KEY (note_id, role_id);
+
+			ALTER TABLE kb_work_note_role
+				ADD CONSTRAINT worknote_role_role_fk FOREIGN KEY (role_id) REFERENCES kb_role(id) 
+				MATCH SIMPLE
+    			ON UPDATE NO ACTION
+    			ON DELETE CASCADE;
+	
+			ALTER TABLE kb_work_note_role
+				ADD CONSTRAINT worknote_role_note_fk FOREIGN KEY (note_id) REFERENCES kb_work_note(id) 
+				MATCH SIMPLE
+    			ON UPDATE NO ACTION
+    			ON DELETE CASCADE;
+			]]>
+		</sql>
+	</changeSet>
+
+	<changeSet author="atolomei" id="bulk group disabled">
+		<sql><![CDATA[
+			update kgroup set enabled=false where lower(name) like '%bulk-actions%';
+		]]>
+		</sql>
+	</changeSet>
+
+
+	<changeSet author="atolomei" id="mybox disabled">
+		<sql><![CDATA[
+			update kgroup set enabled=false where lower(name) like '%mybox%';
+		]]>
+		</sql>
+	</changeSet>
+	
+	<changeSet author="aferraria" id="eform viewer">
+		<sql><![CDATA[
+			alter table kb_form add column if not exists viewer text;
+		]]>
+		</sql>
+	</changeSet>
+	
+	<changeSet author="aferraria" id="userdevice number">
+		<sql><![CDATA[
+			alter table kb_device add column if not exists number character varying(25);
+		]]>
+		</sql>
+	</changeSet>
+	
+	<changeSet author="atolomei" id="calendar actionrule">
+		<sql><![CDATA[
+			alter table Kb_Action_Rule add column if not exists calendar boolean default true;
+		]]>
+		</sql>
+	</changeSet>
+	
+	<changeSet author="aferraria" id="workflow activity constraint">
+		<sql><![CDATA[
+			ALTER TABLE ONLY wf_activity DROP CONSTRAINT IF exists user_fk;
+			ALTER TABLE ONLY wf_activity ADD CONSTRAINT user_fk FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE RESTRICT;
+		]]>
+		</sql>
+	</changeSet>
+	
+	<changeSet author="aferraria" id="usersignature certificate">
+		<sql><![CDATA[
+			alter table kb_signature add column if not exists certificate text;
+		]]>
+		</sql>
+	</changeSet>
+	
+	<changeSet author="aferraria" id="signeddata data">
+		<sql><![CDATA[
+			alter table kb_signed_data add column if not exists data text;
+			alter table kb_signed_data add column if not exists resources text;
+		]]>
+		</sql>
+	</changeSet>
+	
+	<changeSet author="aferraria" id="usersignature private key">
+		<sql><![CDATA[
+			alter table kb_signature add column if not exists private_key text;
+		]]>
+		</sql>
+	</changeSet>
+	
+	<changeSet author="aferraria" id="signeddata signeddata">
+		<sql><![CDATA[
+			alter table kb_signed_data drop column if exists data;
+			alter table kb_signed_data drop column if exists digest;
+			alter table kb_signed_data add column if not exists snapshot text;
+			alter table kb_signed_data add column if not exists signed_data text;
+		]]>
+		</sql>
+	</changeSet>
+	
+	<changeSet author="aferraria" id="domain certificate">
+		<sql><![CDATA[
+			alter table domain add column if not exists certificate text;
+			alter table domain add column if not exists private_key text;
+		]]>
+		</sql>
+	</changeSet>
+	
+	<changeSet author="aferraria" id="classifier organization">
+		<sql><![CDATA[
+			alter table kb_classifier add column if not exists organization boolean default false;
+			alter table kb_classifier add column if not exists identitydocumenttype boolean default false;
+		]]>
+		</sql>
+	</changeSet>
+	
+	<changeSet author="aferraria" id="attribute identity number">
+		<sql><![CDATA[
+			alter table kb_attribute add column if not exists identitydocument boolean default false;
+		]]>
+		</sql>
+	</changeSet>
+						
+	<changeSet author="atolomei" id="varchar to text">
+		<sql><![CDATA[
+			alter table kb_notification alter column text type text;
+		]]>
+		</sql>
+	</changeSet>
+
+	<changeSet author="atolomei" id="notification title 2048 v1">
+		<sql><![CDATA[
+			alter table kb_notification alter column title type character varying(2048);
+		]]>
+		</sql>
+	</changeSet>
+
+	<changeSet author="aferraria" id="kbfile signed">
+		<sql><![CDATA[
+			alter table kfile add column if not exists signed boolean default false;
+		]]>
+		</sql>
+	</changeSet>
+	
+	<changeSet author="atolomei" id="working column">
+		<preConditions onFail="MARK_RAN">
+		</preConditions>
+		<sql><![CDATA[		
+			alter table content add column if not exists temp_data text;
+		]]>
+		</sql>
+	</changeSet>
+	
+	
+	<changeSet author="atolomei" id="kb language string table">
+		<preConditions onFail="MARK_RAN">
+			 <not>
+				<tableExists tableName="kb_work_note"/>
+			</not>
+		</preConditions>
+		<sql><![CDATA[		
+			create table if not exists kb_language_string (
+				id       bigint                not null primary key,
+ 				key      character varying(256) not null,
+ 				locale   character varying(128)not null,
+ 				value    text );
+ 				
+ 				alter table kb_language_string ADD CONSTRAINT localekey UNIQUE (locale, key);
+		]]>
+		</sql>
+	</changeSet>
+
+	<changeSet author="aferraria" id="eform usage">
+		<sql><![CDATA[
+			alter table kb_form add column if not exists use_inline boolean default false;
+			alter table kb_form add column if not exists file_container boolean default false;
+		]]>
+		</sql>
+	</changeSet>
+	
+	<changeSet author="aferraria" id="resource prev version 2">
+		<sql><![CDATA[
+		alter table kresource drop constraint if exists kresource_prev_version_key;
+		]]>
+		</sql>
+	</changeSet>
+	
+	
+	
+	
+</databaseChangeLog>

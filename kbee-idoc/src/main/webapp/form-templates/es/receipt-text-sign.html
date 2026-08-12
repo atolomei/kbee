@@ -1,0 +1,102 @@
+<html>
+
+<head>
+<style>
+</style>
+</head>
+
+
+<div class="kbee-eform-viewer">
+		
+		<div class="e-main-panel">
+		
+			<!--HEADER  -------------------------------------------------------- -->
+			
+			<section class="e-header">
+				<div class="e-header-main-panel">
+					<div class="logo-container">
+						<#if content.domain.logo??>
+						      <img style="height: 2.6em;" src="${content.domain.logo.publicurl}">
+						</#if>
+				    </div>
+			    </div>
+			</section>
+		
+		    <!-- END - HEADER --------------------------------------------------------  -->
+
+		
+		
+			<!-- START - BODY  -------------------------------------------------------- -->
+			
+			<section class="e-body">
+					<div class="e-body-main-panel">
+						<div style="float: right; margin-bottom: 4em;">
+							<b>${content.fechareferencia} </b>
+						</div>
+						<div style="float: left; width: 100%;">
+					           ${content.notas}
+						 </div>
+						
+						<!-- START - SIGNATURE ------------------------------------    -->
+				           <div class="signature-block">
+								<#if signeddata??>
+							             
+							             <!-- A -->
+							             
+							             <div class="signed-data-container">                     
+							
+							                   <div class="signed-data">
+									             <#if signeddata.signature.image??>
+									                      <div >
+											     	    		<img src="${signeddata.signature.image.publicurl}" style="max-height: 12em; max-width:12em; display:block; margin:auto;"/>
+									              		  </div>
+										          </#if>
+									                <div class="signed-data-user">
+														   <!--div class="signature-icon-contaniner">
+																	<i class="fa-duotone fa-signature-lock"></i>
+															</div-->
+															
+							                                 <div class="signed-data-user-text"  style="text-align:center;">
+							                                        		<b>Firmado por</b>. ${signeddata.signature.user.lastfirstname} <br/>
+							                                        		<b>Fecha</b>. ${signeddata.date}
+							                                        		<#if signeddata.signature.person.tipodocumentoidentidad??>
+							                                        		     <br/><b>${signeddata.signature.person.tipodocumentoidentidad}</b>.${signeddata.signature.person.numerodocumento}
+							                                        		</#if>
+							                                </div>
+									               </div>
+							                   </div>
+							               </div> 
+							               
+							               <!-- A -->
+							               
+							               
+					    		<#else>
+					    		
+								           <!-- div class="no-signature">
+								                    <div class="no-signature-stamp">	
+								                    	<span class="info">FIRMA DIGITAL</span>
+								                    </div>
+									    	</div -->
+					
+					  			</#if>
+				          </div>
+				          <!-- END - SIGNATURE ------------------------------------    -->
+					</div>
+			</section>
+			<!-- END - BODY -------------------------------------------------------    -->
+		
+		
+		
+			<!-- START - FOOTER ------------------------------------------------------ -->
+			<section class="e-footer">
+				<div class="e-footer-main-panel">
+					<div class="footer-content">
+						<span>${domain-name}</span>
+					</div>
+				</div>
+			</section>
+			<!-- END - FOOTER -------------------------------------------------------- -->
+		
+		</div>
+</div>
+</html>

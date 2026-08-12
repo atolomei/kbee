@@ -1,0 +1,442 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd
+        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd" >
+
+    <changeSet id="versionTag" author="atolomei">
+        <tagDatabase tag="6.4" />
+    </changeSet>
+
+
+
+	<changeSet author="atolomei" id="po_page pkey">
+
+		<preConditions onFail="MARK_RAN">
+			<tableExists tableName="po_page" />
+			<not>
+    			<primaryKeyExists tableName="po_page" />
+  			</not>
+		</preConditions>
+		<sql><![CDATA[
+			alter table po_page add primary key (po_id);
+		]]>
+		</sql>
+	</changeSet>
+
+
+	<changeSet author="atolomei" id="po_area pkey">
+
+		<preConditions onFail="MARK_RAN">
+			<tableExists tableName="po_area" />
+			<not>
+    			<primaryKeyExists tableName="po_area" />
+  			</not>
+		</preConditions>
+		<sql><![CDATA[
+			alter table po_area add primary key (po_id);
+		]]>
+		</sql>
+	</changeSet>
+
+	
+	<changeSet author="atolomei" id="worknote cron expression">
+		<preConditions onFail="MARK_RAN">
+			<tableExists tableName="kb_work_note" />
+		</preConditions>
+		<sql><![CDATA[
+			alter table kb_work_note add column if not exists cronexpression character varying(256);
+		]]>
+		</sql>
+	</changeSet>
+	
+	<changeSet author="atolomei" id="kb_cronjob">
+		<sql><![CDATA[
+			alter table kb_cronjob add column if not exists domain bigint default 1;
+			update kb_cronjob set domain=(select id from domain where name = 'kbee');
+			create index if not exists kb_cronjob_domain_idx on kb_cronjob(domain, lower(name));
+		]]>
+		</sql>
+	</changeSet>
+	
+	<changeSet author="atolomei" id="kb_cronjob timezone">
+		<sql><![CDATA[
+				alter table kb_cronjob add column if not exists timezone character varying(256) default 'US/Central';
+		]]>
+		</sql>
+	</changeSet>
+	
+
+	<changeSet author="atolomei" id="Kb_Model_Section isportal">
+		<sql><![CDATA[
+				update Kb_Model_Section set isportal=true;
+				alter table Kb_Model_Section alter column isportal set default true; 
+		]]>
+		</sql>
+	</changeSet>
+	
+	
+	<changeSet author="atolomei" id="worknote timezone-cron expression">
+		<sql><![CDATA[
+			alter table kb_work_note add column if not exists timezone character varying(256) default 'US/Central';
+			update kb_work_note set timezone = 'US/Central';
+		]]>
+		</sql>
+	</changeSet>
+	
+
+	<changeSet author="atolomei" id="BatchMonitorIndexClean'">
+		<sql><![CDATA[
+			
+			delete from kb_cronjob where clazz='BatchMonitorIndexClean';
+			
+			insert into  kb_cronjob (id, lastmodifieduser, name, description, cronexpression, clazz, parameter) 
+			values ((select nextval('objectid_sequence')), 
+			(select id from users where username='root@kbee'), 
+			'Clean Monitor Indexes once a day',  
+			'BatchMonitorIndexClean',
+			'15 15 4 * * *', 
+			'com.novamens.kbee.command.CommandExecutionJob', 
+			'command=BatchMonitorIndexClean');
+
+		]]>
+		</sql>
+	</changeSet>
+
+
+	<changeSet author="atolomei" id="index on content">
+		<sql><![CDATA[
+			create index if not exists content_contenttemplate_idx on content(contenttemplate);
+		]]>
+		</sql>
+	</changeSet>
+
+	<changeSet author="atolomei" id="redo sites delete all">
+		<sql><![CDATA[
+			delete from po_viewbk;
+			delete from po_viewbkblock;
+			delete from po_block;
+			delete from po_area;
+			delete from po_page;
+			delete from po_site;
+			delete from po_site_favorites;
+			delete from po_site_favorites_list;
+			delete from po_siteuserrights;
+			delete from po_siteuser;
+			delete from po_site_securityrule;
+			delete from po_portalobject;
+		]]>
+		</sql>
+	</changeSet>
+
+
+	<changeSet author="atolomei" id="redo sites_4">
+		<!-- validCheckSum>8:e0e9b9edfdd5d18e547d6038bcb90aec</validCheckSum-->
+		<sql><![CDATA[
+		CREATE TABLE if not exists po_page_section
+			(
+			    po_id bigint NOT NULL,
+			    page_id bigint,
+			    page_section_type integer,
+			    orden integer,
+			    full_width_canvas boolean,
+			    page_section_class character varying(128) COLLATE pg_catalog."default",
+			    custom_values text COLLATE pg_catalog."default",
+			    CONSTRAINT po_page_section_pkey PRIMARY KEY (po_id),
+			    CONSTRAINT po_page_section_page_fk FOREIGN KEY (page_id) REFERENCES po_page(po_id) ON DELETE CASCADE
+			);
+			
+			alter table po_area drop column if exists parent_area_id;
+			ALTER TABLE po_area drop column if exists page_id;
+			ALTER TABLE po_area add column if not exists page_section_id bigint references po_page_section REFERENCES po_page (po_id) MATCH SIMPLE ON UPDATE NO ACTION ON DELETE CASCADE;
+		]]>
+		</sql>
+	</changeSet>
+	
+	
+	<changeSet author="atolomei" id="page_section_default">
+		<sql><![CDATA[
+			alter table po_page_section alter column page_section_type set  default 0;	
+		]]>
+		</sql>
+	</changeSet>
+	
+
+	<changeSet author="atolomei" id="sha32_2">
+		<sql><![CDATA[
+			alter table kfile add column if not exists sha256 character(44);	
+		]]>
+		</sql>
+	</changeSet>
+	
+
+	<changeSet author="atolomei" id="dm issystem">
+		<sql><![CDATA[
+			alter table datasetmember add  column if not exists issystem boolean default false;	
+		]]>
+		</sql>
+	</changeSet>
+	
+	
+	<changeSet author="aferraria" id="canonical classifier">
+		<sql><![CDATA[
+			 alter table kb_classifiertemplate add column if not exists canonical boolean default false;
+		]]>
+		</sql>
+	</changeSet>
+
+	<changeSet author="aferraria" id="canonical dataset classifier">
+		<sql><![CDATA[
+			 alter table Kb_Ds_Element_Template add column if not exists canonical boolean default false;
+		]]>
+		</sql>
+	</changeSet>
+
+	<changeSet author="aferraria" id="calculation classifier">
+		<sql><![CDATA[
+			 alter table kb_classifiertemplate add column if not exists calculation text;
+		]]>
+		</sql>
+	</changeSet>
+
+	<changeSet author="atolomei" id="mybox only root">
+		<sql><![CDATA[
+			update kb_contenttemplate set onlyroot=true where alias ='mybox';
+		]]>
+		</sql>
+	</changeSet>
+
+
+	<changeSet author="atolomei" id="index memeberclassification">
+		<sql><![CDATA[
+				create index if not exists memberclassification_built_in on memberclassification (classifier_id, targetmember_id);
+		]]>
+		</sql>
+	</changeSet>
+
+
+	<changeSet author="atolomei" id="index dataset value dataset modified">
+		<sql><![CDATA[
+				create index if not exists datasetmember_dataset_id_modified on datasetmember (dataset_id, lastmodifieddate desc);
+		]]>
+		</sql>
+	</changeSet>
+
+	<changeSet author="grodriguez" id="restore content_template_alias contentclasscode">
+		<sql><![CDATA[
+			 update kb_contenttemplate set contentclasscode='COMPLI' where contentclasscode='compliancefile'
+
+		]]>
+		</sql>
+	</changeSet>
+
+	<changeSet author="grodriguez" id="rs_windsor_activity_pivot content_template_alias">
+		<preConditions onFail="MARK_RAN">
+			<tableExists tableName="rs_windsor_activity_pivot"/>
+		</preConditions>
+		<sql><![CDATA[
+			 update rs_windsor_activity_pivot set content_template_alias='COMPLI' where content_template_alias='compliancefile'
+		]]>
+		</sql>
+	</changeSet>
+
+
+
+
+
+	
+	<changeSet author="grodriguez" id="emailmybox 1">
+		<sql><![CDATA[
+			create table if not exists EmailFileImport( message_id varchar(256) primary key, content_id bigint);
+		]]>
+		</sql>
+	</changeSet>
+	
+
+	<changeSet author="atolomei" id="laberl box to resouce">
+		<sql><![CDATA[
+			update datasetmember set strvalue = 'Resource' where strvalue = 'Box';
+		]]>
+		</sql>
+	</changeSet>
+
+	
+	<changeSet author="aferraria" id="calculation attribute">
+		<sql><![CDATA[
+			 alter table kb_attributetemplate add column if not exists calculation text;
+		]]>
+		</sql>
+	</changeSet>
+	
+	<changeSet author="aferraria" id="source attribute">
+		<sql><![CDATA[
+			 alter table kb_attributetemplate add column if not exists source integer;
+		]]>
+		</sql>
+	</changeSet>
+
+	<changeSet author="grodriguez" id="rs_windsor_activity_pivot unit">
+		<preConditions onFail="MARK_RAN">
+			<tableExists tableName="rs_windsor_activity_pivot"/>
+		</preConditions>
+		<sql><![CDATA[
+			alter table rs_windsor_activity_pivot add column if not exists unit bigint;
+		]]>
+		</sql>
+	</changeSet>
+	<changeSet author="aferraria" id="role managed entities">
+		<sql><![CDATA[
+		CREATE TABLE if not exists kb_managed_entity
+			(
+				role_id bigint NOT NULL,
+				dataset_id bigint NOT NULL,
+				CONSTRAINT me_role_fk FOREIGN KEY (role_id) REFERENCES kb_role (id) ON DELETE CASCADE,
+				CONSTRAINT me_dataset_fk FOREIGN KEY (dataset_id) REFERENCES dataset (id) ON DELETE RESTRICT
+			);
+		]]>
+		</sql>
+	</changeSet>
+
+	<changeSet author="atoliomei" id="billboard files">
+		<sql><![CDATA[
+			 alter table kb_work_note add column if not exists kfile bigint references kfile(resource_id) on delete restrict;
+		]]>
+		</sql>
+	</changeSet>
+
+	<changeSet author="aferraria" id="text title rule">
+		<sql><![CDATA[
+			alter table kb_contenttemplate alter column title_rule type text;
+		]]>
+		</sql>
+	</changeSet>
+
+	
+<changeSet author="atolomei" id="classifiertemplates with section_id null">
+		<sql><![CDATA[
+			insert into kb_model_section (id, name, contenttemplate_id, position)  select nextval('domainid_sequence'), 'Attributes', KT.id,  0 from kb_contenttemplate KT where KT.id not in (select contenttemplate_id from kb_model_section group by  contenttemplate_id);
+			update kb_classifiertemplate K set section_id = (select id from kb_model_section where contenttemplate_id = K.contenttemplate_id limit 1) where K.section_id is null;
+			update kb_attributetemplate K set section_id = (select id from kb_model_section where contenttemplate_id = (select contenttemplate_id from kb_attribute B where B.id=K.attribute_id) limit 1) where K.section_id is null;
+		]]>
+		</sql>
+</changeSet>
+
+
+<changeSet author="atolomei" id="profile domain_id index">
+		<sql><![CDATA[
+				create index if not exists profile_domain_idx on profile (domain_id);
+		]]>
+		</sql>
+</changeSet>
+
+
+<changeSet author="atolomei" id="multiplicity template">
+		<sql><![CDATA[
+
+				update Kb_ClassifierTemplate   set multiplicity=1 where multiplicity is null;
+				update Kb_ClassifierTemplate set  accessibility=2 where  accessibility is null;
+				update KB_AttributeTemplate    set multiplicity=1 where multiplicity is null;
+				update Kb_Ds_Element_Template  set multiplicity=1 where multiplicity is null;
+
+
+		]]>
+		</sql>
+</changeSet>
+
+
+<changeSet author="atolomei" id="source atttemplate">
+		<sql><![CDATA[
+				update kb_attributetemplate set source=1 where source is null;
+				alter table kb_attributetemplate alter column source set default 1;
+		]]>
+		</sql>
+</changeSet>
+
+
+<changeSet author="atolomei" id="contentclasscode and alias">
+		<sql><![CDATA[
+				update kb_contenttemplate set alias=lower(contentclasscode) where alias is null;
+		]]>
+		</sql>
+</changeSet>
+
+
+<changeSet author="atolomei" id="classifier and alias">
+		<sql><![CDATA[
+		        update dataset set alias = lower(replace(name,' ', '')) where alias is null;
+				update kb_classifier set alias = lower(replace(name,' ', '')) where alias is null;
+				update kb_attribute set alias = lower(replace(name,' ', '')) where alias is null;
+		]]>
+		</sql>
+</changeSet>
+
+
+<changeSet author="atolomei" id="procedure name of alias">
+		<sql><![CDATA[
+		        update wf_procedure P set name = (select label from wf_launcher where procedure_id=P.id limit 1);
+		]]>
+		</sql>
+</changeSet>
+
+
+<changeSet author="atolomei" id="datasetmember logical delete 1">
+		<sql><![CDATA[
+				create index if not exists datasetmember_state_idx on datasetmember (state, lastmodifieddate desc);
+		]]>
+		</sql>
+</changeSet>
+
+
+
+	<changeSet author="grodriguez" id="books url migration">
+		<sql>
+			update kb_system_properties set value=REGEXP_REPLACE(value,'^(.*?(://).+?)(/.*)$','\1') where key ='realPage.unifiedLogin.serviceUrl'
+		</sql>
+	</changeSet>
+
+	<changeSet author="grodriguez" id="rs_windsor_activity_pivot property_rank">
+		<preConditions onFail="MARK_RAN">
+			<tableExists tableName="rs_windsor_activity_pivot"/>
+		</preConditions>
+		<sql><![CDATA[
+			alter table rs_windsor_activity_pivot add column if not exists property_rank varchar(256);
+		]]>
+		</sql>
+	</changeSet>
+
+	<changeSet author="atolomei" id="exists_in_object_storage">
+		<sql><![CDATA[
+				alter table kfile add column if not exists exists_in_object_storage boolean default true;
+		]]>
+		</sql>
+	</changeSet>
+
+
+	<changeSet author="atolomei" id="billboard emailtemplate to timeouts">
+		<sql><![CDATA[
+				update kb_email_template set title='Workflow Notification Timeout', xkey='workflow-notification-timeout'  where xkey='user-defined-alert';
+		]]>
+		</sql>
+	</changeSet>
+
+
+	<changeSet author="atolomei" id="domain oauth">
+		<sql><![CDATA[
+				alter table domain add column if not exists oauth boolean default false;
+		]]>
+		</sql>
+	</changeSet>
+
+
+
+
+
+
+
+
+ 
+ 
+
+</databaseChangeLog>

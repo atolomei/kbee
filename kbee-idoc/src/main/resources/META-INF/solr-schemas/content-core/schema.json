@@ -1,0 +1,4551 @@
+{
+  "schema": {
+    "name": "Content core",
+    "version": 1.1,
+    "uniqueKey": "id",
+    "fieldTypes": [
+      {
+        "name": "date",
+        "class": "solr.TrieDateField",
+        "omitNorms": true,
+        "positionIncrementGap": "0",
+        "precisionStep": "0"
+      },
+      {
+        "name": "long",
+        "class": "solr.TrieLongField",
+        "positionIncrementGap": "0",
+        "precisionStep": "0"
+      },
+      {
+        "name": "phonetic",
+        "class": "solr.TextField",
+        "omitNorms": true,
+        "sortMissingLast": true,
+        "indexAnalyzer": {
+          "tokenizer": {
+            "class": "solr.StandardTokenizerFactory"
+          },
+          "filters": [
+            {
+              "class": "solr.LowerCaseFilterFactory"
+            },
+            {
+              "class": "solr.EnglishMinimalStemFilterFactory"
+            },
+            {
+              "class": "solr.BeiderMorseFilterFactory",
+              "nameType": "GENERIC",
+              "languageSet": "auto",
+              "ruleType": "APPROX",
+              "concat": "true"
+            }
+          ]
+        },
+        "queryAnalyzer": {
+          "tokenizer": {
+            "class": "solr.StandardTokenizerFactory"
+          },
+          "filters": [
+            {
+              "class": "solr.LowerCaseFilterFactory"
+            },
+            {
+              "class": "solr.EnglishMinimalStemFilterFactory"
+            },
+            {
+              "class": "solr.BeiderMorseFilterFactory",
+              "nameType": "GENERIC",
+              "languageSet": "auto",
+              "ruleType": "APPROX",
+              "concat": "true"
+            }
+          ]
+        }
+      },
+      {
+        "name": "plaintext",
+        "class": "solr.TextField",
+        "omitNorms": true,
+        "positionIncrementGap": "100",
+        "indexAnalyzer": {
+          "charFilters": [
+            {
+              "class": "solr.HTMLStripCharFilterFactory"
+            }
+          ],
+          "tokenizer": {
+            "class": "solr.StandardTokenizerFactory"
+          }
+        },
+        "queryAnalyzer": {
+          "tokenizer": {
+            "class": "solr.StandardTokenizerFactory"
+          }
+        }
+      },
+      {
+        "name": "searchable",
+        "class": "solr.TextField",
+        "omitNorms": true,
+        "sortMissingLast": true,
+        "indexAnalyzer": {
+          "tokenizer": {
+            "class": "solr.StandardTokenizerFactory"
+          },
+          "filters": [
+            {
+              "class": "solr.LowerCaseFilterFactory"
+            }
+          ]
+        },
+        "queryAnalyzer": {
+          "tokenizer": {
+            "class": "solr.StandardTokenizerFactory"
+          },
+          "filters": [
+            {
+              "class": "solr.LowerCaseFilterFactory"
+            }
+          ]
+        }
+      },
+      {
+        "name": "sortable",
+        "class": "solr.TextField",
+        "omitNorms": true,
+        "sortMissingLast": true,
+        "indexAnalyzer": {
+          "tokenizer": {
+            "class": "solr.KeywordTokenizerFactory"
+          },
+          "filters": [
+            {
+              "class": "solr.LowerCaseFilterFactory"
+            }
+          ]
+        },
+        "queryAnalyzer": {
+          "tokenizer": {
+            "class": "solr.KeywordTokenizerFactory"
+          },
+          "filters": [
+            {
+              "class": "solr.LowerCaseFilterFactory"
+            }
+          ]
+        }
+      },
+      {
+        "name": "string",
+        "class": "solr.StrField",
+        "omitNorms": true,
+        "sortMissingLast": true
+      },
+      {
+        "name": "text",
+        "class": "solr.TextField",
+        "positionIncrementGap": "100",
+        "indexAnalyzer": {
+          "tokenizer": {
+            "class": "solr.WhitespaceTokenizerFactory"
+          },
+          "filters": [
+            {
+              "class": "solr.StopFilterFactory",
+              "format": "snowball",
+              "words": "stopwords_es.txt",
+              "ignoreCase": "true"
+            },
+            {
+              "class": "solr.WordDelimiterFilterFactory",
+              "catenateNumbers": "1",
+              "generateNumberParts": "1",
+              "splitOnCaseChange": "1",
+              "generateWordParts": "1",
+              "catenateAll": "0",
+              "catenateWords": "1"
+            },
+            {
+              "class": "solr.ASCIIFoldingFilterFactory",
+              "preserveOriginal": "false"
+            },
+            {
+              "class": "solr.LowerCaseFilterFactory"
+            },
+            {
+              "class": "solr.SnowballPorterFilterFactory",
+              "language": "English",
+              "protected": "protwords.txt"
+            }
+          ]
+        },
+        "queryAnalyzer": {
+          "tokenizer": {
+            "class": "solr.WhitespaceTokenizerFactory"
+          },
+          "filters": [
+            {
+              "class": "solr.StopFilterFactory",
+              "format": "snowball",
+              "words": "stopwords_es.txt",
+              "ignoreCase": "true"
+            },
+            {
+              "class": "solr.WordDelimiterFilterFactory",
+              "catenateNumbers": "0",
+              "generateNumberParts": "1",
+              "splitOnCaseChange": "1",
+              "generateWordParts": "1",
+              "catenateAll": "0",
+              "catenateWords": "0"
+            },
+            {
+              "class": "solr.ASCIIFoldingFilterFactory",
+              "preserveOriginal": "false"
+            },
+            {
+              "class": "solr.LowerCaseFilterFactory"
+            },
+            {
+              "class": "solr.SnowballPorterFilterFactory",
+              "language": "English",
+              "protected": "protwords.txt"
+            }
+          ]
+        }
+      }
+    ],
+    "fields": [
+      {
+        "name": "_version_",
+        "type": "long",
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "abstract",
+        "type": "text",
+        "multiValued": false,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "description",
+        "type": "text",
+        "multiValued": false,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "analystmember",
+        "type": "string",
+        "multiValued": true,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "analystname",
+        "type": "string",
+        "multiValued": false,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "analystname_sort",
+        "type": "sortable",
+        "indexed": true,
+        "stored": false
+      },
+      {
+        "name": "answer",
+        "type": "string",
+        "multiValued": true,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "api",
+        "type": "string",
+        "multiValued": false,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "areamember",
+        "type": "string",
+        "multiValued": true,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "areaname",
+        "type": "string",
+        "multiValued": false,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "areaname_sort",
+        "type": "sortable",
+        "indexed": true,
+        "stored": false
+      },
+      {
+        "name": "assigned",
+        "type": "date",
+        "multiValued": false,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "assignedby",
+        "type": "string",
+        "multiValued": false,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "attr01member",
+        "type": "string",
+        "multiValued": true,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "attr01name",
+        "type": "string",
+        "multiValued": true,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "attr01name_sort",
+        "type": "sortable",
+        "multiValued": false,
+        "indexed": true,
+        "stored": false
+      },
+      {
+        "name": "attr02member",
+        "type": "string",
+        "multiValued": true,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "attr02name",
+        "type": "string",
+        "multiValued": true,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "attr02name_sort",
+        "type": "sortable",
+        "multiValued": false,
+        "indexed": true,
+        "stored": false
+      },
+      {
+        "name": "attr03member",
+        "type": "string",
+        "multiValued": true,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "attr03name",
+        "type": "string",
+        "multiValued": true,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "attr03name_sort",
+        "type": "sortable",
+        "multiValued": false,
+        "indexed": true,
+        "stored": false
+      },
+      {
+        "name": "attr04member",
+        "type": "string",
+        "multiValued": true,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "attr04name",
+        "type": "string",
+        "multiValued": true,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "attr04name_sort",
+        "type": "sortable",
+        "multiValued": false,
+        "indexed": true,
+        "stored": false
+      },
+      {
+        "name": "attr05member",
+        "type": "string",
+        "multiValued": true,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "attr05name",
+        "type": "string",
+        "multiValued": true,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "attr05name_sort",
+        "type": "sortable",
+        "multiValued": false,
+        "indexed": true,
+        "stored": false
+      },
+      {
+        "name": "attr06member",
+        "type": "string",
+        "multiValued": false,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "attr06name",
+        "type": "string",
+        "multiValued": true,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "attr06name_sort",
+        "type": "sortable",
+        "multiValued": false,
+        "indexed": true,
+        "stored": false
+      },
+      {
+        "name": "attr07member",
+        "type": "string",
+        "multiValued": true,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "attr07name",
+        "type": "string",
+        "multiValued": true,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "attr07name_sort",
+        "type": "sortable",
+        "multiValued": false,
+        "indexed": true,
+        "stored": false
+      },
+      {
+        "name": "attr08member",
+        "type": "string",
+        "multiValued": true,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "attr08name",
+        "type": "string",
+        "multiValued": true,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "attr08name_sort",
+        "type": "sortable",
+        "multiValued": false,
+        "indexed": true,
+        "stored": false
+      },
+      {
+        "name": "attr09member",
+        "type": "string",
+        "multiValued": true,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "attr09name",
+        "type": "string",
+        "multiValued": true,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "attr09name_sort",
+        "type": "sortable",
+        "multiValued": false,
+        "indexed": true,
+        "stored": false
+      },
+      {
+        "name": "attr10member",
+        "type": "string",
+        "multiValued": true,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "attr10name",
+        "type": "searchable",
+        "multiValued": true,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "attr10name_sort",
+        "type": "sortable",
+        "multiValued": false,
+        "indexed": true,
+        "stored": false
+      },
+      {
+        "name": "attr11member",
+        "type": "string",
+        "multiValued": true,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "attr11name",
+        "type": "string",
+        "multiValued": true,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "attr11name_sort",
+        "type": "sortable",
+        "multiValued": false,
+        "indexed": true,
+        "stored": false
+      },
+      {
+        "name": "attr12member",
+        "type": "string",
+        "multiValued": true,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "attr12name",
+        "type": "searchable",
+        "multiValued": true,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "attr12name_sort",
+        "type": "sortable",
+        "multiValued": false,
+        "indexed": true,
+        "stored": false
+      },
+      {
+        "name": "attr13member",
+        "type": "string",
+        "multiValued": true,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "attr13name",
+        "type": "searchable",
+        "multiValued": true,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "attr13name_sort",
+        "type": "sortable",
+        "multiValued": false,
+        "indexed": true,
+        "stored": false
+      },
+      {
+        "name": "attr14member",
+        "type": "string",
+        "multiValued": true,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "attr14name",
+        "type": "string",
+        "multiValued": true,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "attr14name_sort",
+        "type": "sortable",
+        "multiValued": false,
+        "indexed": true,
+        "stored": false
+      },
+      {
+        "name": "attr15member",
+        "type": "string",
+        "multiValued": true,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "attr15name",
+        "type": "string",
+        "multiValued": true,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "attr15name_sort",
+        "type": "sortable",
+        "multiValued": false,
+        "indexed": true,
+        "stored": false
+      },
+      {
+        "name": "attr16member",
+        "type": "string",
+        "multiValued": true,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "attr16name",
+        "type": "string",
+        "multiValued": true,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "attr16name_sort",
+        "type": "sortable",
+        "multiValued": false,
+        "indexed": true,
+        "stored": false
+      },
+      {
+        "name": "attr17member",
+        "type": "string",
+        "multiValued": true,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "attr17name",
+        "type": "string",
+        "multiValued": true,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "attr17name_sort",
+        "type": "sortable",
+        "multiValued": false,
+        "indexed": true,
+        "stored": false
+      },
+      {
+        "name": "attr18member",
+        "type": "string",
+        "multiValued": true,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "attr18name",
+        "type": "searchable",
+        "multiValued": true,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "attr18name_sort",
+        "type": "sortable",
+        "multiValued": false,
+        "indexed": true,
+        "stored": false
+      },
+      {
+        "name": "attr19member",
+        "type": "string",
+        "multiValued": true,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "attr19name",
+        "type": "searchable",
+        "multiValued": true,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "attr19name_sort",
+        "type": "sortable",
+        "multiValued": false,
+        "indexed": true,
+        "stored": false
+      },
+      {
+        "name": "attr20member",
+        "type": "string",
+        "multiValued": true,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "attr20name",
+        "type": "searchable",
+        "multiValued": true,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "attr20name_sort",
+        "type": "sortable",
+        "multiValued": false,
+        "indexed": true,
+        "stored": false
+      },
+      {
+        "name": "attr21member",
+        "type": "string",
+        "multiValued": true,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "attr21name",
+        "type": "searchable",
+        "multiValued": true,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "attr21name_sort",
+        "type": "sortable",
+        "multiValued": false,
+        "indexed": true,
+        "stored": false
+      },
+      {
+        "name": "attr22member",
+        "type": "string",
+        "multiValued": true,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "attr22name",
+        "type": "searchable",
+        "multiValued": true,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "attr22name_sort",
+        "type": "sortable",
+        "indexed": true,
+        "stored": false
+      },
+      {
+        "name": "attr23member",
+        "type": "string",
+        "multiValued": true,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "attr23name",
+        "type": "searchable",
+        "multiValued": true,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "attr23name_sort",
+        "type": "sortable",
+        "indexed": true,
+        "stored": false
+      },
+      {
+        "name": "attr24member",
+        "type": "string",
+        "multiValued": true,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "attr24name",
+        "type": "searchable",
+        "multiValued": true,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "attr24name_sort",
+        "type": "sortable",
+        "indexed": true,
+        "stored": false
+      },
+      {
+        "name": "attr25member",
+        "type": "string",
+        "multiValued": true,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "attr25name",
+        "type": "searchable",
+        "multiValued": true,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "attr25name_sort",
+        "type": "sortable",
+        "indexed": true,
+        "stored": false
+      },
+      {
+        "name": "attr26member",
+        "type": "string",
+        "multiValued": true,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "attr26name",
+        "type": "searchable",
+        "multiValued": true,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "attr26name_sort",
+        "type": "sortable",
+        "indexed": true,
+        "stored": false
+      },
+      {
+        "name": "attr27member",
+        "type": "string",
+        "multiValued": true,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "attr27name",
+        "type": "searchable",
+        "multiValued": true,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "attr27name_sort",
+        "type": "sortable",
+        "indexed": true,
+        "stored": false
+      },
+      {
+        "name": "attr28member",
+        "type": "string",
+        "multiValued": true,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "attr28name",
+        "type": "searchable",
+        "multiValued": true,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "attr28name_sort",
+        "type": "sortable",
+        "indexed": true,
+        "stored": false
+      },
+      {
+        "name": "attr29member",
+        "type": "string",
+        "multiValued": true,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "attr29name",
+        "type": "searchable",
+        "multiValued": true,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "attr29name_sort",
+        "type": "sortable",
+        "indexed": true,
+        "stored": false
+      },
+      {
+        "name": "attr30member",
+        "type": "string",
+        "multiValued": true,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "attr30name",
+        "type": "searchable",
+        "multiValued": true,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "attr30name_sort",
+        "type": "sortable",
+        "indexed": true,
+        "stored": false
+      },
+      {
+        "name": "attr31member",
+        "type": "string",
+        "multiValued": true,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "attr31name",
+        "type": "searchable",
+        "multiValued": true,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "attr31name_sort",
+        "type": "sortable",
+        "indexed": true,
+        "stored": false
+      },
+      {
+        "name": "attr32member",
+        "type": "string",
+        "multiValued": true,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "attr32name",
+        "type": "searchable",
+        "multiValued": true,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "attr32name_sort",
+        "type": "sortable",
+        "indexed": true,
+        "stored": false
+      },
+      {
+        "name": "attr33member",
+        "type": "string",
+        "multiValued": true,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "attr33name",
+        "type": "string",
+        "multiValued": true,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "attr33name_sort",
+        "type": "sortable",
+        "indexed": true,
+        "stored": false
+      },
+      {
+        "name": "attr34member",
+        "type": "string",
+        "multiValued": true,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "attr34name",
+        "type": "string",
+        "multiValued": true,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "attr34name_sort",
+        "type": "sortable",
+        "indexed": true,
+        "stored": false
+      },
+      {
+        "name": "attr35member",
+        "type": "string",
+        "multiValued": true,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "attr35name",
+        "type": "string",
+        "multiValued": true,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "attr35name_sort",
+        "type": "sortable",
+        "indexed": true,
+        "stored": false
+      },
+      {
+        "name": "attr36member",
+        "type": "string",
+        "multiValued": true,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "attr36name",
+        "type": "string",
+        "multiValued": true,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "attr36name_sort",
+        "type": "sortable",
+        "indexed": true,
+        "stored": false
+      },
+      {
+        "name": "attr37member",
+        "type": "string",
+        "multiValued": true,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "attr37name",
+        "type": "string",
+        "multiValued": true,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "attr37name_sort",
+        "type": "sortable",
+        "indexed": true,
+        "stored": false
+      },
+      {
+        "name": "attr38member",
+        "type": "string",
+        "multiValued": true,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "attr38name",
+        "type": "string",
+        "multiValued": true,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "attr38name_sort",
+        "type": "sortable",
+        "indexed": true,
+        "stored": false
+      },
+      {
+        "name": "attr39member",
+        "type": "string",
+        "multiValued": true,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "attr39name",
+        "type": "string",
+        "multiValued": true,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "attr39name_sort",
+        "type": "sortable",
+        "indexed": true,
+        "stored": false
+      },
+      {
+        "name": "attr40member",
+        "type": "string",
+        "multiValued": true,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "attr40name",
+        "type": "string",
+        "multiValued": true,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "attr40name_sort",
+        "type": "sortable",
+        "indexed": true,
+        "stored": false
+      },
+      
+      
+      {
+        "name": "attr41member",
+        "type": "string",
+        "multiValued": true,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "attr41name",
+        "type": "string",
+        "multiValued": true,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "attr41name_sort",
+        "type": "sortable",
+        "indexed": true,
+        "stored": false
+      },
+      
+
+ 	  {
+        "name": "attr42member",
+        "type": "string",
+        "multiValued": true,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "attr42name",
+        "type": "string",
+        "multiValued": true,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "attr42name_sort",
+        "type": "sortable",
+        "indexed": true,
+        "stored": false
+      },
+      
+      {
+        "name": "attr43member",
+        "type": "string",
+        "multiValued": true,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "attr43name",
+        "type": "string",
+        "multiValued": true,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "attr43name_sort",
+        "type": "sortable",
+        "indexed": true,
+        "stored": false
+      },
+      
+      
+      {
+        "name": "attr44member",
+        "type": "string",
+        "multiValued": true,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "attr44name",
+        "type": "string",
+        "multiValued": true,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "attr44name_sort",
+        "type": "sortable",
+        "indexed": true,
+        "stored": false
+      },
+      
+	  {
+        "name": "attr45member",
+        "type": "string",
+        "multiValued": true,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "attr45name",
+        "type": "string",
+        "multiValued": true,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "attr45name_sort",
+        "type": "sortable",
+        "indexed": true,
+        "stored": false
+      },
+
+
+	  {
+        "name": "attr46member",
+        "type": "string",
+        "multiValued": true,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "attr46name",
+        "type": "string",
+        "multiValued": true,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "attr46name_sort",
+        "type": "sortable",
+        "indexed": true,
+        "stored": false
+      },
+
+
+	  {
+        "name": "attr47member",
+        "type": "string",
+        "multiValued": true,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "attr47name",
+        "type": "string",
+        "multiValued": true,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "attr47name_sort",
+        "type": "sortable",
+        "indexed": true,
+        "stored": false
+      },
+
+
+
+	 {
+        "name": "attr48member",
+        "type": "string",
+        "multiValued": true,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "attr48name",
+        "type": "string",
+        "multiValued": true,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "attr48name_sort",
+        "type": "sortable",
+        "indexed": true,
+        "stored": false
+      },
+
+	 {
+        "name": "attr49member",
+        "type": "string",
+        "multiValued": true,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "attr49name",
+        "type": "string",
+        "multiValued": true,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "attr49name_sort",
+        "type": "sortable",
+        "indexed": true,
+        "stored": false
+      },
+
+	 {
+        "name": "attr50member",
+        "type": "string",
+        "multiValued": true,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "attr50name",
+        "type": "string",
+        "multiValued": true,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "attr50name_sort",
+        "type": "sortable",
+        "indexed": true,
+        "stored": false
+      },
+
+      
+      {
+        "name": "attr51member",
+        "type": "string",
+        "multiValued": true,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "attr51name",
+        "type": "string",
+        "multiValued": true,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "attr51name_sort",
+        "type": "sortable",
+        "indexed": true,
+        "stored": false
+      },
+
+
+      {
+        "name": "attr52member",
+        "type": "string",
+        "multiValued": true,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "attr52name",
+        "type": "string",
+        "multiValued": true,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "attr52name_sort",
+        "type": "sortable",
+        "indexed": true,
+        "stored": false
+      },
+
+
+      {
+        "name": "attr53member",
+        "type": "string",
+        "multiValued": true,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "attr53name",
+        "type": "string",
+        "multiValued": true,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "attr53name_sort",
+        "type": "sortable",
+        "indexed": true,
+        "stored": false
+      },
+
+	  {
+        "name": "attr54member",
+        "type": "string",
+        "multiValued": true,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "attr54name",
+        "type": "string",
+        "multiValued": true,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "attr54name_sort",
+        "type": "sortable",
+        "indexed": true,
+        "stored": false
+      },
+
+		{
+        "name": "attr55member",
+        "type": "string",
+        "multiValued": true,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "attr55name",
+        "type": "string",
+        "multiValued": true,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "attr55name_sort",
+        "type": "sortable",
+        "indexed": true,
+        "stored": false
+      },
+
+	 {
+        "name": "attr56member",
+        "type": "string",
+        "multiValued": true,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "attr56name",
+        "type": "string",
+        "multiValued": true,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "attr56name_sort",
+        "type": "sortable",
+        "indexed": true,
+        "stored": false
+      },
+
+		{
+        "name": "attr57member",
+        "type": "string",
+        "multiValued": true,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "attr57name",
+        "type": "string",
+        "multiValued": true,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "attr57name_sort",
+        "type": "sortable",
+        "indexed": true,
+        "stored": false
+      },
+
+
+		{
+        "name": "attr58member",
+        "type": "string",
+        "multiValued": true,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "attr58name",
+        "type": "string",
+        "multiValued": true,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "attr58name_sort",
+        "type": "sortable",
+        "indexed": true,
+        "stored": false
+      },
+
+
+	{
+        "name": "attr59member",
+        "type": "string",
+        "multiValued": true,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "attr59name",
+        "type": "string",
+        "multiValued": true,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "attr59name_sort",
+        "type": "sortable",
+        "indexed": true,
+        "stored": false
+      },
+
+
+	 {
+        "name": "attr60member",
+        "type": "string",
+        "multiValued": true,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "attr60name",
+        "type": "string",
+        "multiValued": true,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "attr60name_sort",
+        "type": "sortable",
+        "indexed": true,
+        "stored": false
+      },
+
+	  {
+        "name": "attr61member",
+        "type": "string",
+        "multiValued": true,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "attr61name",
+        "type": "string",
+        "multiValued": true,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "attr61name_sort",
+        "type": "sortable",
+        "indexed": true,
+        "stored": false
+      },
+
+	  {
+        "name": "attr62member",
+        "type": "string",
+        "multiValued": true,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "attr62name",
+        "type": "string",
+        "multiValued": true,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "attr62name_sort",
+        "type": "sortable",
+        "indexed": true,
+        "stored": false
+      },
+      
+      {
+        "name": "attr63member",
+        "type": "string",
+        "multiValued": true,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "attr63name",
+        "type": "string",
+        "multiValued": true,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "attr63name_sort",
+        "type": "sortable",
+        "indexed": true,
+        "stored": false
+      },
+      
+	  {
+        "name": "attr64member",
+        "type": "string",
+        "multiValued": true,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "attr64name",
+        "type": "string",
+        "multiValued": true,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "attr64name_sort",
+        "type": "sortable",
+        "indexed": true,
+        "stored": false
+      },
+      {
+        "name": "author",
+        "type": "string",
+        "multiValued": false,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "authormember",
+        "type": "string",
+        "multiValued": true,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "authorname",
+        "type": "string",
+        "multiValued": false,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "authorname_sort",
+        "type": "sortable",
+        "indexed": true,
+        "stored": false
+      },
+      {
+        "name": "canonical",
+        "type": "string",
+        "multiValued": false,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "clientmember",
+        "type": "string",
+        "multiValued": true,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "clientname",
+        "type": "string",
+        "multiValued": false,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "clientname_sort",
+        "type": "sortable",
+        "indexed": true,
+        "stored": false
+      },
+      {
+        "name": "clsf01member",
+        "type": "string",
+        "multiValued": true,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "clsf01name",
+        "type": "string",
+        "multiValued": false,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "clsf01name_sort",
+        "type": "sortable",
+        "indexed": true,
+        "stored": false
+      },
+      {
+        "name": "clsf01role",
+        "type": "string",
+        "multiValued": true,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "clsf02member",
+        "type": "string",
+        "multiValued": true,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "clsf02name",
+        "type": "string",
+        "multiValued": false,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "clsf02name_sort",
+        "type": "sortable",
+        "indexed": true,
+        "stored": false
+      },
+      {
+        "name": "clsf02role",
+        "type": "string",
+        "multiValued": true,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "clsf03member",
+        "type": "string",
+        "multiValued": true,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "clsf03name",
+        "type": "string",
+        "multiValued": false,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "clsf03name_sort",
+        "type": "sortable",
+        "indexed": true,
+        "stored": false
+      },
+      {
+        "name": "clsf03role",
+        "type": "string",
+        "multiValued": true,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "clsf04member",
+        "type": "string",
+        "multiValued": true,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "clsf04name",
+        "type": "string",
+        "multiValued": false,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "clsf04name_sort",
+        "type": "sortable",
+        "indexed": true,
+        "stored": false
+      },
+      {
+        "name": "clsf04role",
+        "type": "string",
+        "multiValued": true,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "clsf05member",
+        "type": "string",
+        "multiValued": true,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "clsf05name",
+        "type": "string",
+        "multiValued": false,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "clsf05name_sort",
+        "type": "sortable",
+        "indexed": true,
+        "stored": false
+      },
+      {
+        "name": "clsf05role",
+        "type": "string",
+        "multiValued": false,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "clsf06member",
+        "type": "string",
+        "multiValued": true,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "clsf06name",
+        "type": "string",
+        "multiValued": false,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "clsf06name_sort",
+        "type": "sortable",
+        "indexed": true,
+        "stored": false
+      },
+      {
+        "name": "clsf07member",
+        "type": "string",
+        "multiValued": true,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "clsf07name",
+        "type": "string",
+        "multiValued": false,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "clsf07name_sort",
+        "type": "sortable",
+        "indexed": true,
+        "stored": false
+      },
+      {
+        "name": "clsf08member",
+        "type": "string",
+        "multiValued": true,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "clsf08name",
+        "type": "string",
+        "multiValued": false,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "clsf08name_sort",
+        "type": "sortable",
+        "indexed": true,
+        "stored": false
+      },
+      {
+        "name": "clsf09member",
+        "type": "string",
+        "multiValued": true,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "clsf09name",
+        "type": "string",
+        "multiValued": false,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "clsf09name_sort",
+        "type": "sortable",
+        "indexed": true,
+        "stored": false
+      },
+      {
+        "name": "clsf10member",
+        "type": "string",
+        "multiValued": true,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "clsf10name",
+        "type": "string",
+        "multiValued": false,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "clsf10name_sort",
+        "type": "sortable",
+        "indexed": true,
+        "stored": false
+      },
+      {
+        "name": "clsf11member",
+        "type": "string",
+        "multiValued": true,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "clsf11role",
+        "type": "string",
+        "multiValued": true,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "clsf11name",
+        "type": "string",
+        "multiValued": false,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "clsf11name_sort",
+        "type": "sortable",
+        "indexed": true,
+        "stored": false
+      },
+      {
+        "name": "clsf12member",
+        "type": "string",
+        "multiValued": true,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "clsf12name",
+        "type": "string",
+        "multiValued": false,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "clsf12name_sort",
+        "type": "sortable",
+        "indexed": true,
+        "stored": false
+      },
+      {
+        "name": "clsf13member",
+        "type": "string",
+        "multiValued": true,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "clsf13name",
+        "type": "string",
+        "multiValued": false,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "clsf13name_sort",
+        "type": "sortable",
+        "indexed": true,
+        "stored": false
+      },
+      {
+        "name": "clsf14member",
+        "type": "string",
+        "multiValued": true,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "clsf14name",
+        "type": "string",
+        "multiValued": false,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "clsf14name_sort",
+        "type": "sortable",
+        "indexed": true,
+        "stored": false
+      },
+      {
+        "name": "clsf15member",
+        "type": "string",
+        "multiValued": true,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "clsf15name",
+        "type": "string",
+        "multiValued": false,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "clsf15name_sort",
+        "type": "sortable",
+        "indexed": true,
+        "stored": false
+      },
+      {
+        "name": "clsf16member",
+        "type": "string",
+        "multiValued": true,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "clsf16name",
+        "type": "string",
+        "multiValued": false,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "clsf16name_sort",
+        "type": "sortable",
+        "indexed": true,
+        "stored": false
+      },
+      {
+        "name": "clsf17member",
+        "type": "string",
+        "multiValued": true,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "clsf17name",
+        "type": "string",
+        "multiValued": false,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "clsf17name_sort",
+        "type": "sortable",
+        "indexed": true,
+        "stored": false
+      },
+      {
+        "name": "clsf18member",
+        "type": "string",
+        "multiValued": true,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "clsf18name",
+        "type": "string",
+        "multiValued": false,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "clsf18name_sort",
+        "type": "sortable",
+        "indexed": true,
+        "stored": false
+      },
+      {
+        "name": "clsf19member",
+        "type": "string",
+        "multiValued": true,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "clsf19name",
+        "type": "string",
+        "multiValued": false,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "clsf19name_sort",
+        "type": "sortable",
+        "indexed": true,
+        "stored": false
+      },
+      {
+        "name": "clsf20member",
+        "type": "string",
+        "multiValued": true,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "clsf20name",
+        "type": "string",
+        "multiValued": false,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "clsf20name_sort",
+        "type": "sortable",
+        "indexed": true,
+        "stored": false
+      },
+      {
+        "name": "clsf21member",
+        "type": "string",
+        "multiValued": true,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "clsf21name",
+        "type": "string",
+        "multiValued": false,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "clsf21name_sort",
+        "type": "sortable",
+        "indexed": true,
+        "stored": false
+      },
+      {
+        "name": "clsf22member",
+        "type": "string",
+        "multiValued": true,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "clsf22name",
+        "type": "string",
+        "multiValued": false,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "clsf22name_sort",
+        "type": "sortable",
+        "indexed": true,
+        "stored": false
+      },
+      {
+        "name": "clsf23member",
+        "type": "string",
+        "multiValued": true,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "clsf23name",
+        "type": "string",
+        "multiValued": false,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "clsf23name_sort",
+        "type": "sortable",
+        "indexed": true,
+        "stored": false
+      },
+      {
+        "name": "clsf24member",
+        "type": "string",
+        "multiValued": true,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "clsf24name",
+        "type": "string",
+        "multiValued": false,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "clsf24name_sort",
+        "type": "sortable",
+        "indexed": true,
+        "stored": false
+      },
+      {
+        "name": "clsf25member",
+        "type": "string",
+        "multiValued": true,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "clsf25name",
+        "type": "string",
+        "multiValued": false,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "clsf25name_sort",
+        "type": "sortable",
+        "indexed": true,
+        "stored": false
+      },
+      {
+        "name": "clsf26member",
+        "type": "string",
+        "multiValued": true,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "clsf26name",
+        "type": "string",
+        "multiValued": false,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "clsf26name_sort",
+        "type": "sortable",
+        "indexed": true,
+        "stored": false
+      },
+      {
+        "name": "clsf27member",
+        "type": "string",
+        "multiValued": true,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "clsf27name",
+        "type": "string",
+        "multiValued": false,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "clsf27name_sort",
+        "type": "sortable",
+        "indexed": true,
+        "stored": false
+      },
+      {
+        "name": "clsf28member",
+        "type": "string",
+        "multiValued": true,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "clsf28name",
+        "type": "string",
+        "multiValued": false,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "clsf28name_sort",
+        "type": "sortable",
+        "indexed": true,
+        "stored": false
+      },
+      {
+        "name": "clsf29member",
+        "type": "string",
+        "multiValued": true,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "clsf29name",
+        "type": "string",
+        "multiValued": false,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "clsf29name_sort",
+        "type": "sortable",
+        "indexed": true,
+        "stored": false
+      },
+      {
+        "name": "clsf30member",
+        "type": "string",
+        "multiValued": true,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "clsf30name",
+        "type": "string",
+        "multiValued": false,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "clsf30name_sort",
+        "type": "sortable",
+        "indexed": true,
+        "stored": false
+      },
+      {
+        "name": "clsf31member",
+        "type": "string",
+        "multiValued": true,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "clsf31name",
+        "type": "string",
+        "multiValued": false,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "clsf31name_sort",
+        "type": "sortable",
+        "indexed": true,
+        "stored": false
+      },
+      {
+        "name": "clsf32member",
+        "type": "string",
+        "multiValued": true,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "clsf32name",
+        "type": "string",
+        "multiValued": false,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "clsf32name_sort",
+        "type": "sortable",
+        "indexed": true,
+        "stored": false
+      },
+      {
+        "name": "clsf33member",
+        "type": "string",
+        "multiValued": true,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "clsf33name",
+        "type": "string",
+        "multiValued": false,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "clsf33name_sort",
+        "type": "sortable",
+        "indexed": true,
+        "stored": false
+      },
+      {
+        "name": "clsf34member",
+        "type": "string",
+        "multiValued": true,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "clsf34name",
+        "type": "string",
+        "multiValued": false,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "clsf34name_sort",
+        "type": "sortable",
+        "indexed": true,
+        "stored": false
+      },
+      {
+        "name": "clsf35member",
+        "type": "string",
+        "multiValued": true,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "clsf35name",
+        "type": "string",
+        "multiValued": false,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "clsf35name_sort",
+        "type": "sortable",
+        "indexed": true,
+        "stored": false
+      },
+      {
+        "name": "clsf36member",
+        "type": "string",
+        "multiValued": true,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "clsf36name",
+        "type": "string",
+        "multiValued": false,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "clsf36name_sort",
+        "type": "sortable",
+        "indexed": true,
+        "stored": false
+      },
+      {
+        "name": "clsf37member",
+        "type": "string",
+        "multiValued": true,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "clsf37name",
+        "type": "string",
+        "multiValued": false,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "clsf37name_sort",
+        "type": "sortable",
+        "indexed": true,
+        "stored": false
+      },
+      {
+        "name": "clsf38member",
+        "type": "string",
+        "multiValued": true,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "clsf38name",
+        "type": "string",
+        "multiValued": false,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "clsf38name_sort",
+        "type": "sortable",
+        "indexed": true,
+        "stored": false
+      },
+      {
+        "name": "clsf39member",
+        "type": "string",
+        "multiValued": true,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "clsf39name",
+        "type": "string",
+        "multiValued": false,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "clsf39name_sort",
+        "type": "sortable",
+        "indexed": true,
+        "stored": false
+      },
+      {
+        "name": "clsf40member",
+        "type": "string",
+        "multiValued": true,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "clsf40name",
+        "type": "string",
+        "multiValued": false,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "clsf40name_sort",
+        "type": "sortable",
+        "indexed": true,
+        "stored": false
+      },
+      
+      
+
+ {
+        "name": "clsf41member",
+        "type": "string",
+        "multiValued": true,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "clsf41name",
+        "type": "string",
+        "multiValued": false,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "clsf41name_sort",
+        "type": "sortable",
+        "indexed": true,
+        "stored": false
+      },
+      
+      
+       {
+        "name": "clsf42member",
+        "type": "string",
+        "multiValued": true,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "clsf42name",
+        "type": "string",
+        "multiValued": false,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "clsf42name_sort",
+        "type": "sortable",
+        "indexed": true,
+        "stored": false
+      },
+      
+
+ {
+        "name": "clsf43member",
+        "type": "string",
+        "multiValued": true,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "clsf43name",
+        "type": "string",
+        "multiValued": false,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "clsf43name_sort",
+        "type": "sortable",
+        "indexed": true,
+        "stored": false
+      },
+      
+       {
+        "name": "clsf44member",
+        "type": "string",
+        "multiValued": true,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "clsf44name",
+        "type": "string",
+        "multiValued": false,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "clsf44name_sort",
+        "type": "sortable",
+        "indexed": true,
+        "stored": false
+      },
+      
+       {
+        "name": "clsf45member",
+        "type": "string",
+        "multiValued": true,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "clsf45name",
+        "type": "string",
+        "multiValued": false,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "clsf45name_sort",
+        "type": "sortable",
+        "indexed": true,
+        "stored": false
+      },
+      
+       {
+        "name": "clsf46member",
+        "type": "string",
+        "multiValued": true,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "clsf46name",
+        "type": "string",
+        "multiValued": false,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "clsf46name_sort",
+        "type": "sortable",
+        "indexed": true,
+        "stored": false
+      },
+
+
+       {
+        "name": "clsf47member",
+        "type": "string",
+        "multiValued": true,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "clsf47name",
+        "type": "string",
+        "multiValued": false,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "clsf47name_sort",
+        "type": "sortable",
+        "indexed": true,
+        "stored": false
+      },
+      
+       {
+        "name": "clsf48member",
+        "type": "string",
+        "multiValued": true,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "clsf48name",
+        "type": "string",
+        "multiValued": false,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "clsf48name_sort",
+        "type": "sortable",
+        "indexed": true,
+        "stored": false
+      },
+      
+       {
+        "name": "clsf49member",
+        "type": "string",
+        "multiValued": true,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "clsf49name",
+        "type": "string",
+        "multiValued": false,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "clsf49name_sort",
+        "type": "sortable",
+        "indexed": true,
+        "stored": false
+      },
+
+      
+       {
+        "name": "clsf50member",
+        "type": "string",
+        "multiValued": true,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "clsf50name",
+        "type": "string",
+        "multiValued": false,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "clsf50name_sort",
+        "type": "sortable",
+        "indexed": true,
+        "stored": false
+      },
+
+{
+        "name": "clsf51member",
+        "type": "string",
+        "multiValued": true,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "clsf51name",
+        "type": "string",
+        "multiValued": false,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "clsf51name_sort",
+        "type": "sortable",
+        "indexed": true,
+        "stored": false
+      },
+
+      {
+        "name": "clsf52member",
+        "type": "string",
+        "multiValued": true,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "clsf52name",
+        "type": "string",
+        "multiValued": false,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "clsf52name_sort",
+        "type": "sortable",
+        "indexed": true,
+        "stored": false
+      },
+      
+{
+        "name": "clsf53member",
+        "type": "string",
+        "multiValued": true,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "clsf53name",
+        "type": "string",
+        "multiValued": false,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "clsf53name_sort",
+        "type": "sortable",
+        "indexed": true,
+        "stored": false
+      },
+
+{
+        "name": "clsf54member",
+        "type": "string",
+        "multiValued": true,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "clsf54name",
+        "type": "string",
+        "multiValued": false,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "clsf54name_sort",
+        "type": "sortable",
+        "indexed": true,
+        "stored": false
+      },
+      
+      {
+        "name": "clsf55member",
+        "type": "string",
+        "multiValued": true,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "clsf55name",
+        "type": "string",
+        "multiValued": false,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "clsf55name_sort",
+        "type": "sortable",
+        "indexed": true,
+        "stored": false
+      },
+
+      
+      {
+        "name": "clsf56member",
+        "type": "string",
+        "multiValued": true,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "clsf56name",
+        "type": "string",
+        "multiValued": false,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "clsf56name_sort",
+        "type": "sortable",
+        "indexed": true,
+        "stored": false
+      },
+      
+      {
+        "name": "clsf57member",
+        "type": "string",
+        "multiValued": true,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "clsf57name",
+        "type": "string",
+        "multiValued": false,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "clsf57name_sort",
+        "type": "sortable",
+        "indexed": true,
+        "stored": false
+      },
+      
+      
+
+	  {
+        "name": "clsf58member",
+        "type": "string",
+        "multiValued": true,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "clsf58name",
+        "type": "string",
+        "multiValued": false,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "clsf58name_sort",
+        "type": "sortable",
+        "indexed": true,
+        "stored": false
+      },
+
+      {
+        "name": "clsf59member",
+        "type": "string",
+        "multiValued": true,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "clsf59name",
+        "type": "string",
+        "multiValued": false,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "clsf59name_sort",
+        "type": "sortable",
+        "indexed": true,
+        "stored": false
+      },
+      
+      {
+        "name": "clsf60member",
+        "type": "string",
+        "multiValued": true,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "clsf60name",
+        "type": "string",
+        "multiValued": false,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "clsf60name_sort",
+        "type": "sortable",
+        "indexed": true,
+        "stored": false
+      },
+
+	  {
+        "name": "clsf61member",
+        "type": "string",
+        "multiValued": true,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "clsf61name",
+        "type": "string",
+        "multiValued": false,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "clsf61name_sort",
+        "type": "sortable",
+        "indexed": true,
+        "stored": false
+      },
+
+
+      {
+        "name": "clsf62member",
+        "type": "string",
+        "multiValued": true,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "clsf62name",
+        "type": "string",
+        "multiValued": false,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "clsf62name_sort",
+        "type": "sortable",
+        "indexed": true,
+        "stored": false
+      },
+
+
+
+      {
+        "name": "clsf63member",
+        "type": "string",
+        "multiValued": true,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "clsf63name",
+        "type": "string",
+        "multiValued": false,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "clsf63name_sort",
+        "type": "sortable",
+        "indexed": true,
+        "stored": false
+      },
+
+
+
+      {
+        "name": "clsf64member",
+        "type": "string",
+        "multiValued": true,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "clsf64name",
+        "type": "string",
+        "multiValued": false,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "clsf64name_sort",
+        "type": "sortable",
+        "indexed": true,
+        "stored": false
+      },
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      {
+        "name": "clsitename",
+        "type": "string",
+        "multiValued": false,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "clsitename_sort",
+        "type": "sortable",
+        "indexed": true,
+        "stored": false
+      },
+      {
+        "name": "clsitenamemember",
+        "type": "string",
+        "multiValued": false,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "clsitereponame",
+        "type": "string",
+        "multiValued": false,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "clsitereponame_sort",
+        "type": "sortable",
+        "indexed": true,
+        "stored": false
+      },
+      {
+        "name": "clsitereponamemember",
+        "type": "string",
+        "multiValued": false,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "comment",
+        "type": "text",
+        "multiValued": true,
+        "indexed": true,
+        "stored": false
+      },
+      {
+        "name": "contentid",
+        "type": "string",
+        "multiValued": false,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "created",
+        "type": "date",
+        "multiValued": false,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "createdmember",
+        "type": "string",
+        "multiValued": true,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "customattributes",
+        "type": "string",
+        "multiValued": false,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "dataset",
+        "type": "string",
+        "multiValued": false,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "date",
+        "type": "date",
+        "multiValued": false,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "datemember",
+        "type": "string",
+        "multiValued": true,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "datename",
+        "type": "string",
+        "indexed": true,
+        "stored": false
+      },
+      {
+        "name": "datename_sort",
+        "type": "sortable",
+        "indexed": true,
+        "stored": false
+      },
+      {
+        "name": "departmentmember",
+        "type": "string",
+        "multiValued": true,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "departmentname",
+        "type": "string",
+        "multiValued": false,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "departmentname_sort",
+        "type": "sortable",
+        "indexed": true,
+        "stored": false
+      },
+      {
+        "name": "domain",
+        "type": "string",
+        "multiValued": false,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "domaintype",
+        "type": "long",
+        "multiValued": false,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "duedate",
+        "type": "string",
+        "multiValued": false,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "email",
+        "type": "sortable",
+        "multiValued": false,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "executed",
+        "type": "date",
+        "multiValued": false,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "executedmember",
+        "type": "string",
+        "multiValued": true,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "externalid",
+        "type": "string",
+        "multiValued": false,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "filetext",
+        "type": "text",
+        "multiValued": true,
+        "indexed": true,
+        "stored": false
+      },
+      {
+        "name": "firstname",
+        "type": "searchable",
+        "multiValued": false,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "groupmember",
+        "type": "string",
+        "multiValued": true,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "head",
+        "type": "string",
+        "multiValued": false,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "id",
+        "type": "string",
+        "multiValued": false,
+        "indexed": true,
+        "required": true,
+        "stored": true
+      },
+      {
+        "name": "inworkspace",
+        "type": "string",
+        "multiValued": false,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "isexternal",
+        "type": "string",
+        "multiValued": false,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "isknowledgebase",
+        "type": "string",
+        "multiValued": false,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "istemplate",
+        "type": "string",
+        "multiValued": false,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "kbfs",
+        "type": "long",
+        "multiValued": false,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "kbfs_sort",
+        "type": "sortable",
+        "indexed": true,
+        "stored": false
+      },
+      {
+        "name": "labelmember",
+        "type": "string",
+        "multiValued": true,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "lastmodifiedtime",
+        "type": "long",
+        "multiValued": false,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "lastmodifieduser",
+        "type": "string",
+        "multiValued": false,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "lastname",
+        "type": "searchable",
+        "multiValued": false,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "active",
+        "type": "string",
+        "multiValued": false,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "lastname_sort",
+        "type": "sortable",
+        "multiValued": false,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "lastnamephonetic",
+        "type": "phonetic",
+        "multiValued": false,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "level",
+        "type": "long",
+        "multiValued": false,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "managermember",
+        "type": "string",
+        "multiValued": true,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "managername",
+        "type": "string",
+        "multiValued": false,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "managername_sort",
+        "type": "sortable",
+        "indexed": true,
+        "stored": false
+      },
+      {
+        "name": "metainfo",
+        "type": "text",
+        "multiValued": true,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "modified",
+        "type": "date",
+        "multiValued": false,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "published",
+        "type": "date",
+        "multiValued": false,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "modifiedmember",
+        "type": "string",
+        "multiValued": true,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "name",
+        "type": "string",
+        "multiValued": false,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "notes",
+        "type": "text",
+        "multiValued": true,
+        "indexed": true,
+        "stored": false
+      },
+      {
+        "name": "userlist",
+        "type": "string",
+        "multiValued": false,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "objectid",
+        "type": "string",
+        "multiValued": false,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "contentid",
+        "type": "string",
+        "multiValued": false,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "organization",
+        "type": "sortable",
+        "indexed": true,
+        "stored": false
+      },
+      {
+        "name": "organization_sort",
+        "type": "sortable",
+        "indexed": true,
+        "stored": false
+      },
+      {
+        "name": "owneragentmember",
+        "type": "string",
+        "multiValued": true,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "owneragentname",
+        "type": "string",
+        "multiValued": false,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "owneragentname_sort",
+        "type": "sortable",
+        "indexed": true,
+        "stored": false
+      },
+      {
+        "name": "ownermember",
+        "type": "string",
+        "multiValued": true,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "ownername",
+        "type": "string",
+        "multiValued": false,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "ownername_sort",
+        "type": "sortable",
+        "indexed": true,
+        "stored": false
+      },
+      {
+        "name": "parent",
+        "type": "string",
+        "multiValued": true,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "priority",
+        "type": "string",
+        "multiValued": false,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "priority_sort",
+        "type": "string",
+        "indexed": true,
+        "stored": false
+      },
+      {
+        "name": "programmember",
+        "type": "string",
+        "multiValued": true,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "programname",
+        "type": "string",
+        "multiValued": false,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "programname_sort",
+        "type": "sortable",
+        "indexed": true,
+        "stored": false
+      },
+      {
+        "name": "propertymember",
+        "type": "string",
+        "multiValued": true,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "propertyname",
+        "type": "string",
+        "multiValued": false,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "propertyname_sort",
+        "type": "sortable",
+        "indexed": true,
+        "stored": false
+      },
+      {
+        "name": "unitmember",
+        "type": "string",
+        "multiValued": true,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "unitname",
+        "type": "string",
+        "multiValued": false,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "unitname_sort",
+        "type": "sortable",
+        "indexed": true,
+        "stored": false
+      },
+      {
+        "name": "publishingstatus",
+        "type": "string",
+        "multiValued": false,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "reader",
+        "type": "long",
+        "multiValued": true,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "rolemember",
+        "type": "string",
+        "multiValued": true,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "secureaccessmember",
+        "type": "string",
+        "multiValued": true,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "secureaccessname",
+        "type": "string",
+        "multiValued": false,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "secureaccessname_sort",
+        "type": "sortable",
+        "indexed": true,
+        "stored": false
+      },
+      {
+        "name": "source",
+        "type": "string",
+        "multiValued": false,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "specialistmember",
+        "type": "string",
+        "multiValued": true,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "specialistname",
+        "type": "string",
+        "multiValued": false,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "specialistname_sort",
+        "type": "sortable",
+        "indexed": true,
+        "stored": false
+      },
+      {
+        "name": "state",
+        "type": "long",
+        "multiValued": false,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "statemember",
+        "type": "string",
+        "multiValued": true,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "statename",
+        "type": "string",
+        "multiValued": false,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "statename_sort",
+        "type": "sortable",
+        "indexed": true,
+        "stored": false
+      },
+      {
+        "name": "statusmember",
+        "type": "string",
+        "multiValued": true,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "statusname",
+        "type": "string",
+        "multiValued": false,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "statusname_sort",
+        "type": "sortable",
+        "indexed": true,
+        "stored": false
+      },
+      {
+        "name": "subtype",
+        "type": "string",
+        "multiValued": false,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "surname",
+        "type": "string",
+        "multiValued": false,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "tagmember",
+        "type": "string",
+        "multiValued": true,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "tagname",
+        "type": "string",
+        "multiValued": false,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "tagname_sort",
+        "type": "sortable",
+        "indexed": true,
+        "stored": false
+      },
+      {
+        "name": "taker",
+        "type": "long",
+        "multiValued": true,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "task_sort",
+        "type": "sortable",
+        "indexed": true,
+        "stored": false
+      },
+      {
+        "name": "taskmember",
+        "type": "string",
+        "multiValued": true,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "taskplanmember",
+        "type": "string",
+        "multiValued": true,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "template",
+        "type": "string",
+        "multiValued": false,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "text",
+        "type": "text",
+        "multiValued": true,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "portaltext",
+        "type": "text",
+        "multiValued": true,
+        "indexed": true,
+        "termVectors": true,
+        "stored": true
+      },
+      {
+        "name": "title",
+        "type": "text",
+        "multiValued": false,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "title_sort",
+        "type": "sortable",
+        "indexed": true,
+        "stored": false
+      },
+      {
+        "name": "titlephonetic",
+        "type": "phonetic",
+        "multiValued": false,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "type",
+        "type": "string",
+        "multiValued": false,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "typemember",
+        "type": "string",
+        "multiValued": true,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "typename",
+        "type": "string",
+        "multiValued": false,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "typename_sort",
+        "type": "sortable",
+        "indexed": true,
+        "stored": false
+      },
+      {
+        "name": "userid",
+        "type": "string",
+        "multiValued": false,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "usermember",
+        "type": "string",
+        "multiValued": true,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "username",
+        "type": "sortable",
+        "multiValued": false,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "workspace",
+        "type": "string",
+        "multiValued": false,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "workspace_sort",
+        "type": "sortable",
+        "indexed": true,
+        "stored": false
+      },
+      {
+        "name": "workspacename",
+        "type": "string",
+        "multiValued": false,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "writer",
+        "type": "long",
+        "multiValued": true,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "childwriter",
+        "type": "long",
+        "multiValued": true,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "resources",
+        "type": "string",
+        "multiValued": true,
+        "indexed": true,
+        "stored": true
+      },
+      {
+        "name": "tags",
+        "type": "string",
+        "multiValued": true,
+        "indexed": true,
+        "stored": true
+      }
+    ],
+    "dynamicFields": [],
+    "copyFields": [
+      {
+        "source": "domain",
+        "dest": "metainfo"
+      },
+      {
+        "source": "name",
+        "dest": "metainfo"
+      },
+      {
+        "source": "abstract",
+        "dest": "metainfo"
+      },
+      {
+        "source": "analystname",
+        "dest": "analystname_sort"
+      },
+      {
+        "source": "analystname",
+        "dest": "metainfo"
+      },
+      {
+        "source": "answer",
+        "dest": "metainfo"
+      },
+      {
+        "source": "attr01name",
+        "dest": "metainfo"
+      },
+      {
+        "source": "attr02name",
+        "dest": "metainfo"
+      },
+      {
+        "source": "attr03name",
+        "dest": "metainfo"
+      },
+      {
+        "source": "attr04name",
+        "dest": "metainfo"
+      },
+      {
+        "source": "attr05name",
+        "dest": "metainfo"
+      },
+      {
+        "source": "attr06name",
+        "dest": "metainfo"
+      },
+      {
+        "source": "attr07name",
+        "dest": "metainfo"
+      },
+      {
+        "source": "attr08name",
+        "dest": "metainfo"
+      },
+      {
+        "source": "attr09name",
+        "dest": "metainfo"
+      },
+      {
+        "source": "attr10name",
+        "dest": "metainfo"
+      },
+      {
+        "source": "attr11name",
+        "dest": "metainfo"
+      },
+      {
+        "source": "attr12name",
+        "dest": "metainfo"
+      },
+      {
+        "source": "attr13name",
+        "dest": "metainfo"
+      },
+      {
+        "source": "attr14name",
+        "dest": "metainfo"
+      },
+      {
+        "source": "attr15name",
+        "dest": "metainfo"
+      },
+      {
+        "source": "attr16name",
+        "dest": "metainfo"
+      },
+      {
+        "source": "attr17name",
+        "dest": "metainfo"
+      },
+      {
+        "source": "attr18name",
+        "dest": "metainfo"
+      },
+      {
+        "source": "attr19name",
+        "dest": "metainfo"
+      },
+      {
+        "source": "attr20name",
+        "dest": "metainfo"
+      },
+      {
+        "source": "authorname",
+        "dest": "authorname_sort"
+      },
+      {
+        "source": "clientname",
+        "dest": "clientname_sort"
+      },
+      {
+        "source": "clientname",
+        "dest": "metainfo"
+      },
+      {
+        "source": "clsf01name",
+        "dest": "clsf01name_sort"
+      },
+      {
+        "source": "clsf01name",
+        "dest": "metainfo"
+      },
+      {
+        "source": "clsf02name",
+        "dest": "clsf02name_sort"
+      },
+      {
+        "source": "clsf02name",
+        "dest": "metainfo"
+      },
+      {
+        "source": "clsf03name",
+        "dest": "clsf03name_sort"
+      },
+      {
+        "source": "clsf03name",
+        "dest": "metainfo"
+      },
+      {
+        "source": "clsf04name",
+        "dest": "clsf04name_sort"
+      },
+      {
+        "source": "clsf04name",
+        "dest": "metainfo"
+      },
+      {
+        "source": "clsf05name",
+        "dest": "clsf05name_sort"
+      },
+      {
+        "source": "clsf05name",
+        "dest": "metainfo"
+      },
+      {
+        "source": "clsf06name",
+        "dest": "clsf06name_sort"
+      },
+      {
+        "source": "clsf06name",
+        "dest": "metainfo"
+      },
+      {
+        "source": "clsf07name",
+        "dest": "clsf07name_sort"
+      },
+      {
+        "source": "clsf07name",
+        "dest": "metainfo"
+      },
+      {
+        "source": "clsf08name",
+        "dest": "clsf08name_sort"
+      },
+      {
+        "source": "clsf08name",
+        "dest": "metainfo"
+      },
+      {
+        "source": "clsf09name",
+        "dest": "clsf09name_sort"
+      },
+      {
+        "source": "clsf09name",
+        "dest": "metainfo"
+      },
+      {
+        "source": "clsf10name",
+        "dest": "clsf10name_sort"
+      },
+      {
+        "source": "clsf10name",
+        "dest": "metainfo"
+      },
+      {
+        "source": "clsf11name",
+        "dest": "clsf11name_sort"
+      },
+      {
+        "source": "clsf11name",
+        "dest": "metainfo"
+      },
+      {
+        "source": "clsf12name",
+        "dest": "clsf12name_sort"
+      },
+      {
+        "source": "clsf12name",
+        "dest": "metainfo"
+      },
+      {
+        "source": "clsf13name",
+        "dest": "clsf13name_sort"
+      },
+      {
+        "source": "clsf13name",
+        "dest": "metainfo"
+      },
+      {
+        "source": "clsf14name",
+        "dest": "clsf14name_sort"
+      },
+      {
+        "source": "clsf14name",
+        "dest": "metainfo"
+      },
+      {
+        "source": "clsf15name",
+        "dest": "clsf15name_sort"
+      },
+      {
+        "source": "clsf15name",
+        "dest": "metainfo"
+      },
+      {
+        "source": "clsf16name",
+        "dest": "clsf16name_sort"
+      },
+      {
+        "source": "clsf16name",
+        "dest": "metainfo"
+      },
+      {
+        "source": "clsf17name",
+        "dest": "clsf17name_sort"
+      },
+      {
+        "source": "clsf17name",
+        "dest": "metainfo"
+      },
+      {
+        "source": "clsf18name",
+        "dest": "clsf18name_sort"
+      },
+      {
+        "source": "clsf18name",
+        "dest": "metainfo"
+      },
+      {
+        "source": "clsf19name",
+        "dest": "clsf19name_sort"
+      },
+      {
+        "source": "clsf19name",
+        "dest": "metainfo"
+      },
+      {
+        "source": "clsf20name",
+        "dest": "clsf20name_sort"
+      },
+      {
+        "source": "clsf20name",
+        "dest": "metainfo"
+      },
+      {
+        "source": "clsf21name",
+        "dest": "clsf21name_sort"
+      },
+      {
+        "source": "clsf21name",
+        "dest": "metainfo"
+      },
+      {
+        "source": "clsf22name",
+        "dest": "clsf22name_sort"
+      },
+      {
+        "source": "clsf22name",
+        "dest": "metainfo"
+      },
+      {
+        "source": "clsf23name",
+        "dest": "clsf23name_sort"
+      },
+      {
+        "source": "clsf23name",
+        "dest": "metainfo"
+      },
+      {
+        "source": "clsf24name",
+        "dest": "clsf24name_sort"
+      },
+      {
+        "source": "clsf24name",
+        "dest": "metainfo"
+      },
+      {
+        "source": "clsf25name",
+        "dest": "clsf25name_sort"
+      },
+      {
+        "source": "clsf25name",
+        "dest": "metainfo"
+      },
+      {
+        "source": "clsf26name",
+        "dest": "clsf26name_sort"
+      },
+      {
+        "source": "clsf26name",
+        "dest": "metainfo"
+      },
+      {
+        "source": "clsf27name",
+        "dest": "clsf27name_sort"
+      },
+      {
+        "source": "clsf27name",
+        "dest": "metainfo"
+      },
+      {
+        "source": "clsf28name",
+        "dest": "clsf28name_sort"
+      },
+      {
+        "source": "clsf28name",
+        "dest": "metainfo"
+      },
+      {
+        "source": "clsf29name",
+        "dest": "clsf29name_sort"
+      },
+      {
+        "source": "clsf29name",
+        "dest": "metainfo"
+      },
+      {
+        "source": "clsf30name",
+        "dest": "clsf30name_sort"
+      },
+      {
+        "source": "clsf30name",
+        "dest": "metainfo"
+      },
+      {
+        "source": "clsf31name",
+        "dest": "clsf31name_sort"
+      },
+      {
+        "source": "clsf31name",
+        "dest": "metainfo"
+      },
+      {
+        "source": "clsf32name",
+        "dest": "clsf32name_sort"
+      },
+      {
+        "source": "clsf32name",
+        "dest": "metainfo"
+      },
+      {
+        "source": "clsf33name",
+        "dest": "clsf33name_sort"
+      },
+      {
+        "source": "clsf33name",
+        "dest": "metainfo"
+      },
+      {
+        "source": "clsf34name",
+        "dest": "clsf34name_sort"
+      },
+      {
+        "source": "clsf34name",
+        "dest": "metainfo"
+      },
+      {
+        "source": "clsf35name",
+        "dest": "clsf35name_sort"
+      },
+      {
+        "source": "clsf35name",
+        "dest": "metainfo"
+      },
+      {
+        "source": "clsf36name",
+        "dest": "clsf36name_sort"
+      },
+      {
+        "source": "clsf36name",
+        "dest": "metainfo"
+      },
+      {
+        "source": "clsf37name",
+        "dest": "clsf37name_sort"
+      },
+      {
+        "source": "clsf37name",
+        "dest": "metainfo"
+      },
+      {
+        "source": "clsf38name",
+        "dest": "clsf38name_sort"
+      },
+      {
+        "source": "clsf38name",
+        "dest": "metainfo"
+      },
+      {
+        "source": "clsf39name",
+        "dest": "clsf39name_sort"
+      },
+      {
+        "source": "clsf39name",
+        "dest": "metainfo"
+      },
+      {
+        "source": "clsf40name",
+        "dest": "clsf40name_sort"
+      },
+      {
+        "source": "clsf40name",
+        "dest": "metainfo"
+      },
+      {
+        "source": "comment",
+        "dest": "metainfo"
+      },
+      {
+        "source": "customattributes",
+        "dest": "text"
+      },
+      {
+        "source": "datename",
+        "dest": "datename_sort"
+      },
+      {
+        "source": "datename",
+        "dest": "metainfo"
+      },
+      {
+        "source": "departmentname",
+        "dest": "departmentname_sort"
+      },
+      {
+        "source": "departmentname",
+        "dest": "metainfo"
+      },
+      {
+        "source": "email",
+        "dest": "metainfo"
+      },
+      {
+        "source": "externalid",
+        "dest": "metainfo"
+      },
+      {
+        "source": "filetext",
+        "dest": "text"
+      },
+      {
+        "source": "kbfs",
+        "dest": "kbfs_sort"
+      },
+      {
+        "source": "lastname",
+        "dest": "lastname_sort"
+      },
+      {
+        "source": "lastname",
+        "dest": "lastnamephonetic"
+      },
+      {
+        "source": "lastname",
+        "dest": "metainfo"
+      },
+      {
+        "source": "managername",
+        "dest": "managername_sort"
+      },
+      {
+        "source": "managername",
+        "dest": "metainfo"
+      },
+      {
+        "source": "objectid",
+        "dest": "metainfo"
+      },
+      {
+        "source": "organization",
+        "dest": "organization_sort"
+      },
+      {
+        "source": "owneragentname",
+        "dest": "metainfo"
+      },
+      {
+        "source": "owneragentname",
+        "dest": "owneragentname_sort"
+      },
+      {
+        "source": "ownername",
+        "dest": "metainfo"
+      },
+      {
+        "source": "ownername",
+        "dest": "ownername_sort"
+      },
+      {
+        "source": "priority",
+        "dest": "priority_sort"
+      },
+      {
+        "source": "programname",
+        "dest": "metainfo"
+      },
+      {
+        "source": "programname",
+        "dest": "programname_sort"
+      },
+      {
+        "source": "propertyname",
+        "dest": "metainfo"
+      },
+      {
+        "source": "propertyname",
+        "dest": "propertyname_sort"
+      },
+      {
+        "source": "secureaccessname",
+        "dest": "metainfo"
+      },
+      {
+        "source": "secureaccessname",
+        "dest": "secureaccessname_sort"
+      },
+      {
+        "source": "specialistname",
+        "dest": "metainfo"
+      },
+      {
+        "source": "specialistname",
+        "dest": "specialistname_sort"
+      },
+      {
+        "source": "statename",
+        "dest": "metainfo"
+      },
+      {
+        "source": "statename",
+        "dest": "statename_sort"
+      },
+      {
+        "source": "statusname",
+        "dest": "statusname_sort"
+      },
+      {
+        "source": "tagname",
+        "dest": "metainfo"
+      },
+      {
+        "source": "tagname",
+        "dest": "tagname_sort"
+      },
+      {
+        "source": "taskmember",
+        "dest": "task_sort"
+      },
+      {
+        "source": "title",
+        "dest": "metainfo"
+      },
+      {
+        "source": "title",
+        "dest": "title_sort"
+      },
+      {
+        "source": "title",
+        "dest": "titlephonetic"
+      },
+      {
+        "source": "typename",
+        "dest": "typename_sort"
+      },
+      {
+        "source": "userid",
+        "dest": "metainfo"
+      },
+      {
+        "source": "username",
+        "dest": "metainfo"
+      },
+      {
+        "source": "tags",
+        "dest": "metainfo"
+      },
+      {
+        "source": "workspacename",
+        "dest": "workspace_sort"
+      }
+    ]
+  }
+}

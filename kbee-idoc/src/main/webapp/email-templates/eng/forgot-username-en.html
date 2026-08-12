@@ -1,0 +1,45 @@
+<html>
+<div style="float:left; display:block; width:100%; text-align:center; font-family: Arial, Sans Serif; font-size:17px; line-height: 1.25em; min-width:420px;">
+<div style="margin:auto; width: 100%;  max-width: 1200px; float: none; background: white; border-radius: 10px;">
+	<div style="float:left; width:100%; border: 1px solid #d8dcdf;">
+	<div style="background: #f8f9fa; float: left; width: 100%; border-radius: 10px; margin-bottom: 30px; padding: 30px 0;  border-radius: 10px 10px 0 0; border-bottom: 1px solid  #d8dcdf;">	
+		<div style="float: left;  width: 100%;">
+			<a style="float: none; margin: auto;   display: block; margin-left: 0;" href="https://kbee.io" target="_blank"> 
+				<#if content.domain.logo??>
+					<img style="max-width:220px" src="${content.domain.logo.publicurl}">
+				<#else>
+					<img src="http://kbee.io/images/kbee-vert.png">
+				</#if>
+
+			</a>
+		</div>
+		<div style="float: left; margin: auto; width: 100%; padding: 15px 0 0 0;">
+			<a	style="float: left; padding: 15px 0; text-align: center; width: 100%;" title="KBEE"> 				
+				<div style="width:100%; float: left; margin-bottom:5px;">			
+					<span  style="font-weight: bold;">KBEE</span>
+				</div>
+			 	<div style="width:100%; float: left; margin-bottom:0px;">
+			 		<span>${domain-name}</span>
+			 	</div>
+			</a>
+		</div>
+	</div>
+	<div style="float: none; margin: auto; width: 100%; max-width:980px; padding-left:30px; padding-right:30px; box-sizing: border-box;">
+					<span style="margin-bottom:20px; width:100%; float:left;">
+						<p>${person-displayname},</p>
+						<p>We received the request to send your ${application-name} username.<br/> 
+						We have the following username associated to your email and phone:<br/>
+						<b>Email</b>: ${person-email-address}<br/>
+						<b>Phone</b>: ${person-phone-last-four-digits}<br/>
+						<b>Username</b>: ${user-username}</p>
+						<p>For security reasons, this link will expire 72 hours after you made the request.<br/>
+If you did not make a request to reset your password, you can safely ignore this email.</p>
+					</span>
+	</div>
+</div>
+</div>
+</div>
+</html>
+
+
+

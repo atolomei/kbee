@@ -1,0 +1,432 @@
+ <beans
+		xmlns="http://www.springframework.org/schema/beans"
+		xmlns:sec="http://www.springframework.org/schema/security"
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+		xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd">
+
+
+	<context:component-scan base-package="com.novamens" />
+
+	<bean id="wicketApplication" class="com.novamens.content.web.WebApplication"/>
+	<bean id="dataSource" class="kbee.web.util.DataSourceFactory"/>
+	<bean id="authenticationEventListener" class="com.novamens.kbee.content.security.AuthenticationEventListener"/>
+
+	<bean id="sessionRegistry" class="org.springframework.security.core.session.SessionRegistryImpl"/>
+
+
+	
+	
+	<!--
+    <sec:http  pattern="/oauth2/**" entry-point-ref="AuthenticationEntryPoint">
+    -->
+
+	<sec:http auto-config="true">
+
+
+		<sec:session-management>
+			<sec:concurrency-control max-sessions="100" session-registry-ref="sessionRegistry"/>
+		</sec:session-management>
+
+		<sec:headers>
+			<sec:frame-options policy="SAMEORIGIN"/>
+			<sec:header name="X-Content-Security-Policy" value="upgrade-insecure-requests"/>
+            <sec:header name="X-WebKit-CSP" value="upgrade-insecure-requests"/>
+           	<sec:header name="Access-Control-Allow-Origin" value="*"/>
+            <sec:header name="Access-Control-Allow-Methods" value="*"/>
+            <sec:header name="Access-Control-Allow-Headers" value="*"/>
+            <sec:header name="Access-Control-Allow-Credentials" value="true"/>
+		</sec:headers>
+		
+		<sec:form-login login-page="/login"
+						username-parameter="j_username"
+						password-parameter="j_password"
+						login-processing-url="/j_spring_security_check"
+						authentication-details-source-ref="authDetailSource"
+						authentication-failure-url="/login?login_error=1"
+		/>
+
+		<!--        <sec:openid-login />-->
+
+		<sec:logout invalidate-session="true" success-handler-ref="redirectorToLogoutSuccessHandlerBean"/>
+
+		<sec:csrf disabled="true"/>
+
+		<sec:intercept-url pattern="/" access="permitAll"/>
+		<sec:intercept-url pattern="/login" access="permitAll"/>
+		<sec:intercept-url pattern="/loginDomainSelection" access="permitAll"/>
+		
+		<sec:intercept-url pattern="/api/**" method="OPTIONS" access="permitAll"/>
+		<sec:intercept-url pattern="/api/auth/login" access="permitAll"/>
+		<sec:intercept-url pattern="/api/upload/**" access="permitAll"/>
+
+		<sec:intercept-url pattern="/wicket/resource/**" access="permitAll"/>
+		<sec:intercept-url pattern="/css/**" access="permitAll"/>
+		<sec:intercept-url pattern="/errorpages/**" access="permitAll"/>
+		<sec:intercept-url pattern="/fonts/**" access="permitAll"/>
+		<sec:intercept-url pattern="/js/**" access="permitAll"/>
+		<sec:intercept-url pattern="/images/**" access="permitAll"/>
+		<sec:intercept-url pattern="/forgotpassword/**" access="permitAll"/>
+		<sec:intercept-url pattern="/forgotusername/**" access="permitAll"/>
+		
+		<sec:intercept-url pattern="/maintenance" access="permitAll"/>
+		<sec:intercept-url pattern="/passwordrecovery/**" access="permitAll"/>
+		
+		<sec:intercept-url pattern="/v2/api-docs" access="permitAll"/>
+		<sec:intercept-url pattern="/configuration/ui" access="permitAll"/>
+		<sec:intercept-url pattern="/swagger-resources/**" access="permitAll"/>
+		<sec:intercept-url pattern="/configuration/security" access="permitAll"/>
+		<sec:intercept-url pattern="/swagger-ui.html" access="permitAll"/>
+		<sec:intercept-url pattern="/webjars/**" access="permitAll"/>
+		<sec:intercept-url pattern="/pdfserver/**" access="permitAll"/>
+		<sec:intercept-url pattern="/test3/**" access="permitAll"/>
+		
+		<sec:intercept-url pattern="/froala/**" access="permitAll"/>
+		
+		
+		<sec:intercept-url pattern="/shared/**" access="permitAll"/>
+		<sec:intercept-url pattern="/sharedform/**" access="permitAll"/>
+		<sec:intercept-url pattern="/sharedsignature/**" access="permitAll"/>
+		<sec:intercept-url pattern="/sharedtask/**" access="permitAll"/>
+		<sec:intercept-url pattern="/resource/shared/**" access="permitAll"/>
+		<sec:intercept-url pattern="/resource/shared-thumbnail/**" access="permitAll"/>
+		<sec:intercept-url pattern="/registration/**" access="permitAll"/>
+		<sec:intercept-url pattern="/registrationinit" access="permitAll"/>
+		<sec:intercept-url pattern="/registrationinit/**" access="permitAll"/>
+		<sec:intercept-url pattern="/registrationdevice/**" access="permitAll"/>
+
+		<sec:intercept-url pattern="/ping" access="hasAuthority('user') or hasRole('ROLE_ANONYMOUS')"/>
+
+		<sec:intercept-url pattern="/api/file/**" access="hasAuthority('user')"/>
+		<sec:intercept-url pattern="/api/user/domains" access="hasAuthority('email_user') or hasAuthority('user')" />
+		<sec:intercept-url pattern="/api/startproc/**" access="hasAuthority('user')"/>
+		<sec:intercept-url pattern="/api/resource/**" access="hasAuthority('user')"/>
+		<sec:intercept-url pattern="/api/binfile/**" access="hasAuthority('user')"/>
+		<sec:intercept-url pattern="/api/*/users*" access="hasAuthority('user')"/>
+ 		<sec:intercept-url pattern="/api/resourceref/**" access="permitAll"/>
+
+		<sec:intercept-url pattern="/import/**" access="hasAuthority('domain-admin')"/>
+		<sec:intercept-url pattern="/ping" access="permitAll"/>
+
+		<sec:intercept-url pattern="/home/**" access="hasAuthority('user')"/>
+		<sec:intercept-url pattern="/mynotifications/**" access="hasAuthority('user')"/>
+		<sec:intercept-url pattern="/mytasks**" access="hasAuthority('user')"/>
+		<sec:intercept-url pattern="/mybox**" access="hasAuthority('user')"/>
+		<sec:intercept-url pattern="/pendingtasks**" access="hasAuthority('user')"/>
+		<sec:intercept-url pattern="/monitor**" access="hasAuthority('user')"/>
+
+		<sec:intercept-url pattern="/fileserver" access="hasAuthority('user')"/>
+		<sec:intercept-url pattern="/fileserver/upload" access="hasAuthority('user')"/>
+
+
+		<sec:intercept-url pattern="/eform/print" access="hasAuthority('user')"/>
+	
+
+		<sec:intercept-url pattern="/task/**" access="hasAuthority('user')"/>
+		<sec:intercept-url pattern="/idoc/**" access="hasAuthority('user')"/>
+		<sec:intercept-url pattern="/id/**" access="hasAuthority('user')"/>
+		<sec:intercept-url pattern="/text/**" access="permitAll"/>
+		<sec:intercept-url pattern="/tx/**" access="hasAuthority('user')"/>
+		<sec:intercept-url pattern="/treeidoc/**" access="hasAuthority('user')"/>
+		<sec:intercept-url pattern="/tr/**" access="hasAuthority('user')"/>
+
+		<sec:intercept-url pattern="/libraries" access="hasAuthority('domain-admin') or hasAuthority('support')"/>
+		<sec:intercept-url pattern="/libraries/**" access="hasAuthority('domain-admin') or hasAuthority('support')"/>
+		<sec:intercept-url pattern="/emailtemplates" access="hasAuthority('domain-admin') or hasAuthority('support')  or hasAuthority('settings')"/>
+		<sec:intercept-url pattern="/emailtemplates/**" access="hasAuthority('domain-admin') or hasAuthority('support') or hasAuthority('settings')"/>
+
+		<sec:intercept-url pattern="/forms" access="hasAuthority('domain-admin') or hasAuthority('support')"/>
+		<sec:intercept-url pattern="/forms/**" access="hasAuthority('domain-admin') or hasAuthority('support')"/>
+
+		<sec:intercept-url pattern="/alerts**" access="hasAuthority('domain-admin') or hasAuthority('support')"/>
+		<sec:intercept-url pattern="/alerts/" access="hasAuthority('domain-admin') or hasAuthority('support')"/>
+		<sec:intercept-url pattern="/alerts/*" access="hasAuthority('domain-admin') or hasAuthority('support')"/>
+		<sec:intercept-url pattern="/alert/*" access="hasAuthority('domain-admin') or hasAuthority('support')"/>
+
+		<sec:intercept-url pattern="/billboards**" access="hasAuthority('domain-admin') or hasAuthority('support')"/>
+		<sec:intercept-url pattern="/billboards/" access="hasAuthority('domain-admin') or hasAuthority('support')"/>
+		<sec:intercept-url pattern="/billboards/*" access="hasAuthority('domain-admin') or hasAuthority('support')"/>
+		<sec:intercept-url pattern="/billboards/*" access="hasAuthority('domain-admin') or hasAuthority('support')"/>
+
+
+		<sec:intercept-url pattern="/reports/**" access="hasAuthority('reports') or hasAuthority('domain-admin')  or hasAuthority('support')"/>
+		<sec:intercept-url pattern="/report/**" access="hasAuthority('user')"/>
+
+		<sec:intercept-url pattern="/content**" access="hasAuthority('user')"/>
+		<sec:intercept-url pattern="/content/**" access="hasAuthority('user')"/>
+		<sec:intercept-url pattern="/recyclebin**" access="hasAuthority('user')"/>
+		<sec:intercept-url pattern="/templates**" access="hasAuthority('user')"/>
+		<sec:intercept-url pattern="/browser2**" access="hasAuthority('user')"/>
+
+		<sec:intercept-url pattern="/resource**" access="hasAuthority('user')"/>
+		<sec:intercept-url pattern="/resource/**" access="hasAuthority('user')"/>
+
+
+		<sec:intercept-url pattern="/users**" access="hasAuthority('user')"/>
+		<sec:intercept-url pattern="/dataset/**" access="hasAuthority('user')"/>
+		<sec:intercept-url pattern="/admin**" access="hasAuthority('domain-admin') or hasAuthority('support')"/>
+		<sec:intercept-url pattern="/domain/**" access="hasAuthority('domain-admin') or hasAuthority('support') or hasAuthority('settings')"/>
+		<sec:intercept-url pattern="/dbexport**" access="hasAuthority('user')"/>
+
+		<sec:intercept-url pattern="/logs/**" access="hasAuthority('domain-admin') or hasAuthority('support') or hasAuthority('auditor')"/>
+
+		<sec:intercept-url pattern="/migration**" access="hasAuthority('user')"/>
+		<sec:intercept-url pattern="/queries**" access="hasAuthority('user')"/>
+		<sec:intercept-url pattern="/acl/**" access="hasAuthority('user')"/>
+
+		<sec:intercept-url pattern="/security/users**" access="hasAuthority('user')"/>
+		<sec:intercept-url pattern="/security/roles**" access="hasAuthority('user')"/>
+		<sec:intercept-url pattern="/systemlog/**" access="hasAuthority('domain-admin') or hasAuthority('system-log') or hasAuthority('support')"/>
+
+		<sec:intercept-url pattern="/myactivity/**" access="hasAuthority('user')"/>
+		<sec:intercept-url pattern="/myaccount/**" access="hasAuthority('user')"/>
+
+		<sec:intercept-url pattern="/model/datasets/**" access="hasAuthority('domain-admin') or hasAuthority('information-model') or hasAuthority('support') or hasAuthority('model-read')"/>
+		<sec:intercept-url pattern="/model/classifiers/**" access="hasAuthority('domain-admin') or hasAuthority('information-model') or hasAuthority('support') or hasAuthority('model-read')"/>
+		<sec:intercept-url pattern="/model/attributes/**" access="hasAuthority('domain-admin') or hasAuthority('information-model') or hasAuthority('support') or hasAuthority('model-read')"/>
+		<sec:intercept-url pattern="/model/template/**" access="hasAuthority('domain-admin') or hasAuthority('information-model') or hasAuthority('support') or hasAuthority('model-read')"/>
+		<sec:intercept-url pattern="/model/resourcetags/**" access="hasAuthority('domain-admin') or hasAuthority('information-model') or hasAuthority('support') or hasAuthority('model-read')"/>
+		<sec:intercept-url pattern="/model/contentclasses/**" access="hasAuthority('domain-admin') or hasAuthority('information-model') or hasAuthority('support') or hasAuthority('model-read')"/>
+		<sec:intercept-url pattern="/model/contentclass/**" access="hasAuthority('domain-admin') or hasAuthority('information-model') or hasAuthority('support') or hasAuthority('model-read')"/>
+
+		<sec:intercept-url pattern="/procedure**" access="hasAuthority('domain-admin') or hasAuthority('information model') or hasAuthority('support')"/>
+
+		<sec:intercept-url pattern="/model/domain/**" access="hasRole('root')"/>
+
+		<sec:intercept-url pattern="/portal**" access="hasAuthority('user')"/>
+		<sec:intercept-url pattern="/portal/**" access="hasAuthority('user')"/>
+
+		<sec:intercept-url pattern="/gallery/**" access="hasAuthority('user')"/>
+
+		<sec:intercept-url pattern="/datamanagement/**" access="hasAuthority('domain-admin') or hasAuthority('service-management') or hasAuthority('support')"/>
+		<sec:intercept-url pattern="/datamanagement**" access="hasAuthority('domain-admin') or hasAuthority('service-management') or hasAuthority('support')"/>
+		<sec:intercept-url pattern="/systeminfo**"
+						   access="hasAuthority('domain-admin') or hasAuthority('service-management') or hasAuthority('domain-factory-manager') or hasAuthority('api-developer') or hasAuthority('operations-engineer')"/>
+		<sec:intercept-url pattern="/factory/**"
+						   access="hasAuthority('domain-admin') or hasAuthority('service-management') or hasAuthority('domain-factory-manager') or hasAuthority('api-developer') or hasAuthority('operations-engineer')"/>
+
+		<sec:intercept-url pattern="/commands/" access="hasAuthority('domain-admin') or hasAuthority('service-management') or hasAuthority('domain-factory-manager')"/>
+		<sec:intercept-url pattern="/commands/**" access="hasAuthority('domain-admin') or hasAuthority('service-management') or hasAuthority('domain-factory-manager')"/>
+		<sec:intercept-url pattern="/**" access="hasAuthority('user')"/>
+		
+		<sec:custom-filter before="CHANNEL_FILTER" ref="corsFilter"/>
+		<sec:custom-filter ref="OAuth2RedirectFilter" position="CHANNEL_FILTER"/>
+		<sec:custom-filter ref="kbeeOauth2Filter" position="PRE_AUTH_FILTER"/>
+		<sec:access-denied-handler ref="KbeeAccessDeniedHandler"/>
+	</sec:http>
+
+
+
+
+	
+	
+	<bean id="kbeeLogFilter" class="com.novamens.kbee.security.KbeeLogFilter"/>
+
+	<bean id="KbeeAccessDeniedHandler" class="com.novamens.kbee.security.KbeeAccessDeniedHandler"/>
+
+	<bean id="redirectorToLogoutSuccessHandlerBean" class="com.novamens.kbee.security.SuccessHandlerRedirector"/>
+
+	<bean id="roleVoter" class="org.springframework.security.access.vote.RoleVoter">
+		<property name="rolePrefix" value=""/>
+	</bean>
+
+	<bean id="authDetailSource" class="com.novamens.kbee.security.KbeeWebAuthenticationDetailsSource"/>
+
+	<bean id="httpSessionEventPublisher" class="org.springframework.security.web.session.HttpSessionEventPublisher"/>
+
+	<bean id="CustomAuthorizationRequestResolver" class="com.novamens.kbee.security.oauth2.CustomAuthorizationRequestResolver">
+		<constructor-arg index="0" ref="OAuth2ClientRegistrationRepository"/>
+		<constructor-arg index="1" value="/oauth2/authorization"/>
+	</bean>
+
+	<bean id="OAuth2RedirectFilter" class="org.springframework.security.oauth2.client.web.OAuth2AuthorizationRequestRedirectFilter">
+		<constructor-arg index="0" ref="CustomAuthorizationRequestResolver"/>
+	</bean>
+
+	<bean id="kbeeOauth2Filter" class="com.novamens.kbee.security.oauth2.KbeeOauth2Filter" >
+		<property name="oauth2LinkAccountFilter" ref="kbeeOauth2LinkAccountFilter" />
+		<property name="oauth2LoginAuthenticationFilter" ref="OAuth2LoginFilter" />
+		<property name="oauth2TokenAuthenticationFilter" ref="Oauth2TokenAuthenticationFilter" />
+	</bean>
+	
+	<bean id="Oauth2TokenAuthenticationFilter" class="org.springframework.security.oauth2.server.resource.web.BearerTokenAuthenticationFilter">
+		<constructor-arg index="0" ref="authenticationManager"/>
+		<property name="authenticationDetailsSource">
+			<bean class="com.novamens.kbee.security.oauth2.WebAuthenticationDetailsSource"/>
+		</property>
+	</bean>
+
+	<bean id="kbeeOauth2LinkAccountFilter" class="com.novamens.kbee.security.oauth2.KbeeOauth2LinkAccountFilter">
+		<constructor-arg index="0" ref="OAuth2ClientRegistrationRepository"/>
+		<constructor-arg index="1" ref="OAuth2AuthorizedClientRepository"/>
+		<constructor-arg index="2" ref="authenticationManager"/>
+	</bean>
+
+	<bean id="OAuth2AuthorizationCodeAuthenticationProvider" class="org.springframework.security.oauth2.client.authentication.OAuth2AuthorizationCodeAuthenticationProvider" >
+		<constructor-arg index="0">
+			<bean class="org.springframework.security.oauth2.client.endpoint.DefaultAuthorizationCodeTokenResponseClient" />
+		</constructor-arg>
+	</bean>
+
+	<bean id="OAuth2LoginFilter" class="org.springframework.security.oauth2.client.web.OAuth2LoginAuthenticationFilter">
+		<constructor-arg index="0" ref="OAuth2ClientRegistrationRepository"/>
+		<constructor-arg index="1" ref="OAuth2AuthorizedClientRepository"/>
+		<constructor-arg index="2" value="/login/oauth2/code/*" />
+		<property name="authenticationManager" ref="authenticationManager"/>
+		<property name="authenticationFailureHandler">
+			<bean class="org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler">
+				<property name="defaultFailureUrl" value="/login?login_error=1"/>
+			</bean>
+		</property>
+
+	</bean>
+
+	<bean id="OAuth2AuthorizedClientRepository" class="org.springframework.security.oauth2.client.web.AuthenticatedPrincipalOAuth2AuthorizedClientRepository">
+		<constructor-arg>
+			<bean class="org.springframework.security.oauth2.client.InMemoryOAuth2AuthorizedClientService">
+				<constructor-arg index="0" ref="OAuth2ClientRegistrationRepository"/>
+			</bean>
+		</constructor-arg>
+	</bean>
+
+	<bean id="OAuth2AutheticationProvider" class="org.springframework.security.oauth2.client.authentication.OAuth2LoginAuthenticationProvider">
+		<constructor-arg index="0">
+			<bean class="org.springframework.security.oauth2.client.endpoint.DefaultAuthorizationCodeTokenResponseClient"/>
+		</constructor-arg>
+		<constructor-arg index="1">
+			<bean class="com.novamens.kbee.security.oauth2.KbeeOAuth2UserService"/>
+		</constructor-arg>
+	</bean>
+
+	<bean id="OAuth2ClientRegistrationRepository" class="org.springframework.security.oauth2.client.registration.InMemoryClientRegistrationRepository">
+		<constructor-arg>
+			<list>
+				<bean class="com.novamens.kbee.security.oauth2.OAuth2GoogleClientRegistrationFactory"/>
+				<bean class="com.novamens.kbee.security.oauth2.OAuth2FacebookClientRegistrationFactory"/>
+				<bean class="com.novamens.kbee.security.oauth2.OAuth2GoogleApiRegistrationFactory"/>
+			</list>
+		</constructor-arg>
+
+	</bean>
+
+	<bean id="com.novamens.security.service.AuthenticationProvider" class="org.springframework.security.authentication.dao.DaoAuthenticationProvider">
+		<property name="userDetailsService" ref="userDetailsService"/>
+		<property name="passwordEncoder" ref="passwordEncoder"/>
+	</bean>
+
+	<bean id="userDetailsService" class="com.novamens.kbee.security.KbeeSpringSecurityDao">
+		<property name="dataSource" ref="dataSource"/>
+	</bean>
+
+	<bean id="passwordEncoder" class="com.novamens.kbee.security.KbeeDelegatingPasswordEncoder"/>
+
+    <bean id="OAuth2JwtAuthenticationProvider" 
+    	class="com.novamens.kbee.security.oauth2.KbeeJwtAuthenticationProvider">
+		<constructor-arg ref="googleJwtDecoder"/>
+		<property name="jwtAuthenticationConverter">
+			<bean class="com.novamens.kbee.security.oauth2.KbeeJwtAuthenticationConverter"/>
+		</property>
+    </bean>
+    
+  	<bean id="googleJwtDecoder" class="org.springframework.security.oauth2.jwt.NimbusJwtDecoder">
+				<constructor-arg index="0">
+					<bean class="com.nimbusds.jwt.proc.DefaultJWTProcessor">
+						<property name="jWSKeySelector">
+							<bean class="com.nimbusds.jose.proc.JWSVerificationKeySelector">
+								<constructor-arg index="0">
+	                				<bean class="com.nimbusds.jose.JWSAlgorithm">
+							        	<constructor-arg index="0" value="RS256"></constructor-arg>
+							        	<constructor-arg index="1" value="RECOMMENDED"></constructor-arg>
+	                				</bean>
+	                			</constructor-arg>
+							   	<constructor-arg index="1">
+	                					<bean class="com.nimbusds.jose.jwk.source.RemoteJWKSet">
+							        		<constructor-arg index="0" >
+	                							<bean class="java.net.URL">
+									        		<constructor-arg index="0" value="https://www.googleapis.com/oauth2/v3/certs"></constructor-arg>
+	                							</bean>
+							        		</constructor-arg>
+	                					</bean>
+					                </constructor-arg>
+	                			</bean>
+	                		</property>
+					</bean>
+				</constructor-arg>
+	</bean>
+	    
+	<bean id="internalPublicKeyFactory"
+		class="com.novamens.kbee.security.jwt.InternalPublicKeyFactory">
+	</bean>
+	
+	<bean id="internalPrivateKeyFactory"
+		class="com.novamens.kbee.security.jwt.InternalPrivateKeyFactory">
+	</bean>
+	
+	<bean id="internalPublicKey"
+		factory-bean="internalPublicKeyFactory"
+		factory-method="createPublicKey"/>
+	
+	<bean id="internalJwtDecoderFactory"
+	      class="com.novamens.kbee.security.jwt.InternalJwtDecoderFactory"/>
+	
+	<bean id="internalJwtDecoder"
+	      factory-bean="internalJwtDecoderFactory"
+	      factory-method="createDecoder">
+	    <constructor-arg ref="internalPublicKey"/>
+	</bean>
+	
+	<bean id="InternalJwtAuthenticationProvider"
+	      class="com.novamens.kbee.security.oauth2.KbeeJwtAuthenticationProvider">
+	
+	    <constructor-arg ref="internalJwtDecoder"/>
+	
+	    <property name="jwtAuthenticationConverter">
+	        <bean class="com.novamens.kbee.security.oauth2.KbeeJwtAuthenticationConverter"/>
+	    </property>
+	</bean>
+
+	<sec:authentication-manager alias="authenticationManager">
+		<sec:authentication-provider user-service-ref="userDetailsService"/>
+		<sec:authentication-provider ref="OAuth2AutheticationProvider"/>
+		<sec:authentication-provider ref="OAuth2JwtAuthenticationProvider"/>
+		<sec:authentication-provider ref="InternalJwtAuthenticationProvider"/>
+	</sec:authentication-manager>
+	
+	<bean id="corsFilter" class="org.springframework.web.filter.CorsFilter">
+  		<constructor-arg>
+        	<bean class="org.springframework.web.cors.UrlBasedCorsConfigurationSource">
+	            <property name="corsConfigurations">
+	                <map>
+	                    <entry key="/api/**">
+	                        <bean class="org.springframework.web.cors.CorsConfiguration">
+	                            <property name="allowedOrigins">
+	                                <list>
+	                                    <value>http://localhost:5173</value>
+	                                </list>
+	                            </property>
+	                            <property name="allowedMethods">
+	                                <list>
+	                                    <value>GET</value>
+	                                    <value>POST</value>
+	                                    <value>PUT</value>
+	                                    <value>DELETE</value>
+	                                    <value>OPTIONS</value>
+	                                </list>
+	                            </property>
+	                            <property name="allowedHeaders">
+	                                <list>
+	                                    <value>Authorization</value>
+	                                    <value>Content-Type</value>
+	                                    <value>Accept</value>
+	                                </list>
+	                            </property>
+	                            <property name="allowCredentials" value="true"/>
+	                        </bean>
+	                    </entry>
+	                </map>
+	            </property>
+        	</bean>
+    	</constructor-arg>
+	</bean>   
+
+</beans>

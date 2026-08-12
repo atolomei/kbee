@@ -1,0 +1,901 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd
+        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd" >
+
+    <changeSet id="versionTag" author="grodriguez">
+        <tagDatabase tag="5.4.5"/>
+    </changeSet>
+
+    <changeSet author="atolomei" id="worknote_datestart">
+        <preConditions onFail="MARK_RAN">
+            <tableExists tableName="kb_work_note" />
+        	<not>
+    			<columnExists tableName="kb_work_note" columnName="startpub" />
+  			</not>
+  		</preConditions>
+        <addColumn tableName="kb_work_note">
+        	<column name="startpub" type="timestamp with time zone" defaultValue="now()"/>
+        </addColumn>
+    </changeSet>
+
+    <changeSet author="atolomei" id="worknote_dateend">
+        <preConditions onFail="MARK_RAN">
+            <tableExists tableName="kb_work_note" />
+        	<not>
+    			<columnExists tableName="kb_work_note" columnName="endpub" />
+  			</not>
+  		</preConditions>
+        <addColumn tableName="kb_work_note">
+        	<column name="endpub" type="timestamp with time zone"/>
+        </addColumn>
+    </changeSet>
+
+
+	<changeSet author="atolomei" id="notifaction_dateend_fix">
+        <preConditions onFail="MARK_RAN">
+            <tableExists tableName="kb_notification" />
+  		</preConditions>
+         <sql><![CDATA[	
+			alter table kb_notification alter column endpub  set default null;		
+          ]]>
+        </sql>
+    </changeSet>
+
+
+	<changeSet author="atolomei" id="notifaction_index_fix">
+        <preConditions onFail="MARK_RAN">
+            <tableExists tableName="kb_notification" />
+  		</preConditions>
+         <sql><![CDATA[
+         	drop index if exists kb_notification_receiver_billboard_idx;	
+			create index kb_notification_receiver_billboard_idx on kb_notification using btree (receiver_id, isbillboard, state, startpub, endpub, creationdate);		
+          ]]>
+        </sql>
+    </changeSet>
+
+												    
+
+	<changeSet author="atolomei" id="email_templates_alerts">
+        <preConditions onFail="MARK_RAN">
+            <tableExists tableName="kb_email_template" />
+  		</preConditions>
+         <sql><![CDATA[
+         	 update kb_email_template set xkey='user-defined-alert' where xkey='work-note';
+         	 update kb_email_template set subject = replace(subject, 'work-note', 'alert');
+ 			 update kb_email_template set strtext = replace(strtext, 'work-note', 'alert');		
+ 			 update kb_email_template set available_macros  = replace(available_macros, 'Work Note', 'Alert');
+          ]]>
+        </sql>
+    </changeSet>
+        
+        
+	<changeSet author="atolomei" id="email_templates_alerts_2">
+        <preConditions onFail="MARK_RAN">
+            <tableExists tableName="kb_email_template" />
+  		</preConditions>
+         <sql><![CDATA[
+         	 update kb_email_template set title = replace(title, 'Work Note', 'Alert');
+          ]]>
+        </sql>
+    </changeSet>
+
+
+    <changeSet author="grodriguez" id="pivot_reason_update">
+        <preConditions onFail="MARK_RAN">
+            <tableExists tableName="rs_windsor_activity_pivot" />
+        </preConditions>
+        <sql><![CDATA[
+            update rs_windsor_activity_pivot pvtUp
+            set reason = (select pvt2.reason from  rs_windsor_activity_pivot pvt2 where pvt2.id = (select min(id) from rs_windsor_activity_pivot pvt3 where pvtUp.process=pvt3.process and pvtUp.id<pvt3.id) )
+            where event = 'collaboration_request' and reason is null;
+             ]]>
+        </sql>
+    </changeSet>
+
+
+    <changeSet author="grodriguez" id="cron_job_delete_api_log_event_2_days">
+        <preConditions onFail="MARK_RAN">
+            <tableExists tableName="kb_cronjob" />
+        </preConditions>
+        <sql><![CDATA[
+			delete from kb_cronjob where parameter like 'DELETE FROM api_logevent WHERE event_id IN%'; 
+			insert into  kb_cronjob (id, lastmodifieduser, name, description, cronexpression, clazz, parameter) values ((select nextval('objectid_sequence')), (select id from users where username='root@kbee'), 'SQLCronJobRequest clean API LogEvent',  'delete from API LogEvent oldest 2 days provided we keep 1 year', '0 15 7 * * *', 			        'com.novamens.kbee.content.service.datamanagement.SQLCronJobRequest', 'DELETE FROM api_logevent WHERE event_id IN (SELECT event_id FROM api_logevent where (event_time < NOW() - INTERVAL 1 year) and event_time < (select min (event_time)+ INTERVAL 2 day) from api_logevent limit 80000)');
+             ]]>
+        </sql>
+    </changeSet>
+    
+    <changeSet author="atolomei" id="dataset_alias">
+        <preConditions onFail="MARK_RAN">
+            <tableExists tableName="dataset" />
+        </preConditions>	
+        <sql><![CDATA[
+				 update dataset set alias =  replace(initcap(name), ' ', '');
+				 update kb_classifier set alias =  replace(initcap(name), ' ', '');
+				 update kb_classifier set predicate  = replace(initcap(name), ' ', '');
+				 
+				 alter table kb_contenttemplate add column if not exists alias character varying(64);
+				 update kb_contenttemplate set alias = replace(initcap(name), ' ', '');
+             ]]>
+        </sql>
+    </changeSet>
+
+
+    <changeSet author="atolomei" id="cron_job_delete_api_log_event_2_days_v2">
+        <preConditions onFail="MARK_RAN">
+            <tableExists tableName="kb_cronjob" />
+        </preConditions>
+        <sql><![CDATA[
+			delete from kb_cronjob where parameter like 'DELETE FROM api_logevent WHERE event_id IN%'; 
+			insert into  kb_cronjob (id, lastmodifieduser, name, description, cronexpression, clazz, parameter) values ((select nextval('objectid_sequence')), (select id from users where username='root@kbee'), 'SQLCronJobRequest clean API LogEvent',  'delete from API LogEvent oldest 2 days provided we keep 1 year', '0 15 7 * * *', 			        'com.novamens.kbee.content.service.datamanagement.SQLCronJobRequest', 'DELETE FROM api_logevent WHERE event_id IN (SELECT event_id FROM api_logevent where (event_time < NOW() - INTERVAL ''1 year'') and event_time < (select min (event_time)+ INTERVAL ''2 day'') from api_logevent limit 80000)');
+             ]]>
+        </sql>
+    </changeSet>
+    
+
+<changeSet author="atolomei" id="classifier_pmc">
+        <preConditions onFail="MARK_RAN">
+            <tableExists tableName="kb_classifier" />
+        </preConditions>
+        <sql><![CDATA[
+				update kb_classifier set predicate ='pmc' where predicate like 'PropertyManag%';
+             ]]>
+        </sql>
+    </changeSet>
+    
+
+<changeSet author="atolomei" id="logevent_1">
+        <preConditions onFail="MARK_RAN">
+            <tableExists tableName="logevent" />
+        </preConditions>
+        <sql><![CDATA[
+				alter table logevent add column if not exists event_content_xid bigint;
+				update logevent set event_content_xid = cast( split_part( event_object_id, '#', 2) as integer ) where 
+				event_content_xid is null and 
+				event_content_id is not null and 
+				event_object_id is not null and 
+				split_part( event_object_id, '#', 2) is not null;
+				
+				alter table logevent add column if not exists event_type_int integer;
+             ]]>
+        </sql>
+    </changeSet>
+    
+    
+
+
+	<changeSet author="atolomei" id="predicate_type">
+        <preConditions onFail="MARK_RAN">
+            <tableExists tableName="kb_classifier" />
+        </preConditions>
+        <sql><![CDATA[
+				update kb_classifier set predicate = 'Type' where predicate='FileType';
+             ]]>
+        </sql>
+    </changeSet>
+    
+    
+	<changeSet author="atolomei" id="predicate_compliance_manager">
+        <preConditions onFail="MARK_RAN">
+            <tableExists tableName="kb_classifier" />
+        </preConditions>
+        <sql><![CDATA[
+				update kb_classifier set predicate = 'Manager' where predicate='ComplianceManager';
+             ]]>
+        </sql>
+    </changeSet>
+    
+    <!-- changeSet author="atolomei" id="kb_subscription_if_not_exists">
+        <preConditions onFail="MARK_RAN">
+            <not><tableExists tableName="kb_classifier" /> </not>
+        </preConditions>
+        <sql><![CDATA[
+				CREATE TABLE if not exists kb_subscription
+				(
+				    user_id bigint NOT NULL,
+				    content_oid bigint NOT NULL,
+				    event_id integer NOT NULL,
+				    subscription_date timestamp with time zone DEFAULT now(),
+				    type_id integer,
+				    CONSTRAINT subscription_pkey PRIMARY KEY (user_id, content_oid, event_id),
+				    CONSTRAINT subs_user_fk FOREIGN KEY (user_id)  REFERENCES users (id) MATCH SIMPLE   ON UPDATE NO ACTION  ON DELETE CASCADE
+				)
+				WITH (
+				    OIDS = FALSE
+				);
+				CREATE INDEX if not exists kb_subscription_content_oid_event_id_idx  ON kb_subscription USING btree (content_oid, event_id);
+	         ]]>
+        </sql>
+    </changeSet -->
+
+
+    <changeSet author="atolomei" id="kb_subscription_if_not_exists_v2">
+        <validCheckSum>8:72998d35ff9a8d282a85f28f38498a28</validCheckSum>
+        <sql><![CDATA[
+				CREATE TABLE if not exists kb_subscription
+				(
+				    user_id bigint NOT NULL,
+				    content_oid bigint NOT NULL,
+				    event_id integer NOT NULL,
+				    subscription_date timestamp with time zone DEFAULT now(),
+				    type_id integer,
+				    CONSTRAINT subscription_pkey PRIMARY KEY (user_id, content_oid, event_id),
+				    CONSTRAINT subs_user_fk FOREIGN KEY (user_id)  REFERENCES users (id) MATCH SIMPLE   ON UPDATE NO ACTION  ON DELETE CASCADE
+				)
+				WITH (
+				    OIDS = FALSE
+				);
+				CREATE INDEX if not exists kb_subscription_content_oid_event_id_idx  ON kb_subscription USING btree (content_oid, event_id);
+	         ]]>
+        </sql>
+    </changeSet>
+
+    
+
+    <!-- changeSet author="atolomei" id="kb_language_string_es_1">
+        <preConditions onFail="MARK_RAN">
+            <not><tableExists tableName="kb_classifier" /> </not>
+        </preConditions>
+        <sql><![CDATA[
+				delete from kb_language_string where locale='es' and key in ('audit', 'system-audit', 'reports', 'access', 'application-start','email', 'hard-disk-usage', 'user-activity', 'compliance', 'compliance-submission', 'report-subscription');
+				insert into kb_language_string (id, key, locale, value) values ((select nextval('objectid_sequence')), 'audit', 					'es',	'Auditoría');
+				insert into kb_language_string (id, key, locale, value) values ((select nextval('objectid_sequence')), 'system-audit', 			'es',   'Sistema');
+				insert into kb_language_string (id, key, locale, value) values ((select nextval('objectid_sequence')), 'reports', 				'es',   'Reportes');
+				insert into kb_language_string (id, key, locale, value) values ((select nextval('objectid_sequence')), 'access',					'es',	'Acceso');
+				insert into kb_language_string (id, key, locale, value) values ((select nextval('objectid_sequence')), 'application-start', 		'es',	'Inicion de Aplicación');
+				insert into kb_language_string (id, key, locale, value) values ((select nextval('objectid_sequence')), 'email',					'es',	'Correo electrónico');
+				insert into kb_language_string (id, key, locale, value) values ((select nextval('objectid_sequence')), 'hard-disk-usage',			'es',	'Uso de Disco');
+				insert into kb_language_string (id, key, locale, value) values ((select nextval('objectid_sequence')), 'user-activity',			'es', 	'Actividad de Usuario');
+				insert into kb_language_string (id, key, locale, value) values ((select nextval('objectid_sequence')), 'compliance',				'es',	'Indicadores de Gestión Regulatoria');
+				insert into kb_language_string (id, key, locale, value) values ((select nextval('objectid_sequence')), 'compliance-submission', 	'es',	'Proceso Regulatorios');
+				insert into kb_language_string (id, key, locale, value) values ((select nextval('objectid_sequence')), 'report-subscription',		'es',   'Suscripción a Reportes');
+	         ]]>
+        </sql>
+    </changeSet -->
+    
+    <changeSet author="atolomei" id="kb_language_string_es_2">
+        <preConditions onFail="MARK_RAN">
+           <tableExists tableName="kb_language_string" />
+        </preConditions>
+        <sql><![CDATA[
+				delete from kb_language_string where locale='es' and key in ('audit', 'system-audit', 'reports', 'access', 'application-start','email', 'hard-disk-usage', 'user-activity', 'compliance', 'compliance-submission', 'report-subscription');
+				insert into kb_language_string (id, key, locale, value) values ((select nextval('objectid_sequence')), 'audit', 					'es',	'Auditoría');
+				insert into kb_language_string (id, key, locale, value) values ((select nextval('objectid_sequence')), 'system-audit', 			'es',   'Sistema');
+				insert into kb_language_string (id, key, locale, value) values ((select nextval('objectid_sequence')), 'reports', 				'es',   'Reportes');
+				insert into kb_language_string (id, key, locale, value) values ((select nextval('objectid_sequence')), 'access',					'es',	'Acceso');
+				insert into kb_language_string (id, key, locale, value) values ((select nextval('objectid_sequence')), 'application-start', 		'es',	'Inicion de Aplicación');
+				insert into kb_language_string (id, key, locale, value) values ((select nextval('objectid_sequence')), 'email',					'es',	'Correo electrónico');
+				insert into kb_language_string (id, key, locale, value) values ((select nextval('objectid_sequence')), 'hard-disk-usage',			'es',	'Uso de Disco');
+				insert into kb_language_string (id, key, locale, value) values ((select nextval('objectid_sequence')), 'user-activity',			'es', 	'Actividad de Usuario');
+				insert into kb_language_string (id, key, locale, value) values ((select nextval('objectid_sequence')), 'compliance',				'es',	'Indicadores de Gestión Regulatoria');
+				insert into kb_language_string (id, key, locale, value) values ((select nextval('objectid_sequence')), 'compliance-submission', 	'es',	'Proceso Regulatorios');
+				insert into kb_language_string (id, key, locale, value) values ((select nextval('objectid_sequence')), 'report-subscription',		'es',   'Suscripción a Reportes');
+	         ]]>
+        </sql>
+    </changeSet>
+
+    
+  
+    <changeSet author="atolomei" id="kb_ logevent_audit_resource">
+        <preConditions onFail="MARK_RAN">
+        </preConditions>
+        <sql><![CDATA[
+				alter table logevent add column if not exists event_audit_resource_id bigint;
+	         ]]>
+        </sql>
+    </changeSet>    
+    
+    
+    <changeSet author="atolomei" id="cron_job_delete_api_log_event_2_days_v3">
+        <preConditions onFail="MARK_RAN">
+            <tableExists tableName="kb_cronjob" />
+            <tableExists tableName="api_logevent" />
+        </preConditions>
+        <sql><![CDATA[
+			delete from kb_cronjob where parameter like 'DELETE FROM api_logevent WHERE event_id IN%'; 
+			insert into  kb_cronjob (id, lastmodifieduser, name, description, cronexpression, clazz, parameter) values ((select nextval('objectid_sequence')), (select id from users where username='root@kbee'), 'SQLCronJobRequest clean API LogEvent',  'delete from API LogEvent oldest 2 days provided we keep 1 year', '0 15 7 * * *', 			        'com.novamens.kbee.content.service.datamanagement.SQLCronJobRequest', 'DELETE FROM api_logevent WHERE event_id IN (SELECT event_id FROM api_logevent where event_time < NOW() - INTERVAL ''1 year'' and event_time < (select min(event_time) from api_logevent) + INTERVAL ''2 day'')');
+             ]]>
+        </sql>
+    </changeSet>
+         
+
+    <changeSet author="atolomei" id="send_email_event_1">
+        <preConditions onFail="MARK_RAN">
+            <tableExists tableName="kb_sendemailevent" />
+        </preConditions>
+        <sql><![CDATA[
+			alter table kb_sendemailevent add column if not exists event_audit_resource_id bigint;
+             ]]>
+        </sql>
+    </changeSet>
+    
+    <changeSet author="atolomei" id="default_preferences_domain_1">
+        <preConditions onFail="MARK_RAN">
+            <tableExists tableName="kb_preference_domain" />
+        </preConditions>
+        <sql><![CDATA[
+        	delete from kb_preference_domain;
+			insert into kb_preference_domain (id, domain_id, name, properties) (select nextval('objectid_sequence'), (select domain_id from profile PX, userprofile UX  where UX.user_id=P.user_id and PX.id=UX.id),    P.name,   P.properties from kb_preference P where P.user_id in (select id from users where username like 'root@%') order by domain_id);
+             ]]>
+        </sql>
+    </changeSet>
+    
+    <changeSet author="atolomei" id="action_rules_job_delete">
+        <sql><![CDATA[
+			delete from	 kb_cronjob where name like 'Evaluacion de Reglas%';
+             ]]>
+        </sql>
+    </changeSet>
+    
+    
+    <changeSet author="atolonmei" id="action_rules_job_0">
+        <sql><![CDATA[
+			delete from  kb_cronjob where clazz  = 'com.novamens.kbee.command.CommandExecutionJob';
+			insert into  kb_cronjob (id, lastmodifieduser, name, description, cronexpression, clazz, parameter) 
+			values ((select nextval('objectid_sequence')), 
+			(select id from users where username='root@kbee'), 
+			'Evaluacion de Reglas',  
+			'Evaluacion de Reglas',
+			'11 30 0 ? * *', 'com.novamens.kbee.command.CommandExecutionJob', 
+			'command=RulesCommand');
+             ]]>
+        </sql>
+    </changeSet>
+    
+    
+    <!-- changeSet author="aferraria" id="action_rules_job">
+        <sql><![CDATA[
+			insert into  kb_cronjob (id, lastmodifieduser, name, description, cronexpression, clazz, parameter) 
+			values ((select nextval('objectid_sequence')), 
+			(select id from users where username='root@kbee'), 
+			'Evaluacion de Reglas',  
+			'Evaluacion de Reglas',
+			'0 15 0 ? * *', 'com.novamens.kbee.command.CommandExecutionJob', 
+			'command=RulesCommand\r');	
+             ]]>
+        </sql>
+    </changeSet
+    	esto lo comente porque daba error de checksum, lo pase al de arriba
+    -->
+    
+    <changeSet author="atolomei" id="object_property_domain_1">
+        <sql><![CDATA[
+				alter table kb_object_property add column if not exists domain_id bigint references domain(id) on delete cascade;
+				alter table principal drop constraint if exists domain_fk;
+				alter table principal add constraint "domain_fk" FOREIGN KEY (domain_id) REFERENCES domain(id) ON DELETE CASCADE;
+				alter table entity drop constraint if exists domain_fk;
+				alter table entity  add constraint "domain_fk" FOREIGN KEY (domain_id) REFERENCES domain(id) ON DELETE CASCADE;
+             ]]>
+        </sql>
+    </changeSet>
+
+    <changeSet author="atolomei" id="ping_1">
+        <sql><![CDATA[
+					delete from kb_cronjob where name like 'Ping%';
+					insert into  kb_cronjob (id, lastmodifieduser, name, description, cronexpression, clazz) values ((select nextval('objectid_sequence')), (select id from users where username='root@kbee'), 'PingServiceRequest', 'Ping. System Parameters: ping.enabled = yes/no|  ping.notify = yes/no | ping.email = email to send Ping error.', '15 * * * * *', 'com.novamens.kbee.content.command.PingServiceRequest');
+             ]]>
+        </sql>
+    </changeSet>
+    
+    <changeSet author="aferraria" id="reverseof 1">
+        <sql><![CDATA[
+    		alter table kb_classifiertemplate add column if not exists reverseof_id bigint;
+    		
+    		ALTER TABLE ONLY kb_classifiertemplate drop constraint reverseof_fk;
+    		ALTER TABLE ONLY kb_classifiertemplate ADD CONSTRAINT reverseof_fk FOREIGN KEY (reverseof_id) REFERENCES kb_classifiertemplate(id) ON DELETE RESTRICT;
+             ]]>
+        </sql>
+    </changeSet>
+
+
+    <changeSet author="grodriguez" id="certification_report_index 1">
+        <preConditions onFail="MARK_RAN">
+            <tableExists tableName="rs_windsor_activity_pivot" />
+        </preConditions>
+        <sql><![CDATA[
+    		    create index if not exists idx_rs_windsor_activity_pivot_property_oid_date on rs_windsor_activity_pivot (content_oid,date desc)
+             ]]>
+        </sql>
+    </changeSet>
+
+
+    <changeSet author="grodriguez" id="reports_kb_language_string_en">
+        <preConditions onFail="MARK_RAN">
+            <tableExists tableName="kb_language_string" />
+        </preConditions>
+        <sql><![CDATA[
+				delete from kb_language_string where locale='en' and key in ('audit', 'system-audit', 'reports', 'access', 'application-start','email', 'hard-disk-usage', 'user-activity', 'compliance', 'compliance-submission', 'report-subscription');
+                insert into kb_language_string(id, locale, key, value) values ( (select nextval('objectid_sequence'))  , 'en', 'audit', 'Audit');
+                insert into kb_language_string(id, locale, key, value) values ( (select nextval('objectid_sequence'))  , 'en', 'system-audit', 'System');
+                insert into kb_language_string(id, locale, key, value) values ( (select nextval('objectid_sequence'))  , 'en', 'reports', 'Reports');
+                insert into kb_language_string(id, locale, key, value) values ( (select nextval('objectid_sequence'))  , 'en', 'access', 'Access');
+                insert into kb_language_string(id, locale, key, value) values ( (select nextval('objectid_sequence'))  , 'en', 'application-start', 'Application Start');
+                insert into kb_language_string(id, locale, key, value) values ( (select nextval('objectid_sequence'))  , 'en', 'email', 'Email');
+                insert into kb_language_string(id, locale, key, value) values ( (select nextval('objectid_sequence'))  , 'en', 'hard-disk-usage', 'Hard Disk Usage');
+                insert into kb_language_string(id, locale, key, value) values ( (select nextval('objectid_sequence'))  , 'en', 'user-activity', 'User Activity');
+                insert into kb_language_string(id, locale, key, value) values ( (select nextval('objectid_sequence'))  , 'en', 'compliance', 'Compliance KPI');
+                insert into kb_language_string(id, locale, key, value) values ( (select nextval('objectid_sequence'))  , 'en', 'compliance-submission', 'Compliance Submission');
+                insert into kb_language_string(id, locale, key, value) values ( (select nextval('objectid_sequence'))  , 'en', 'report-subscription', 'Report Subscription');
+	         ]]>
+        </sql>
+    </changeSet>
+
+    <changeSet author="grodriguez" id="reports_kb_language_string_en_2">
+        <preConditions onFail="MARK_RAN">
+            <tableExists tableName="kb_language_string" />
+        </preConditions>
+        <sql><![CDATA[
+                delete from kb_language_string where locale='en' and key in ('compliance','compliance-submission');
+                insert into kb_language_string(id, locale, key, value) values ( (select nextval('objectid_sequence'))  , 'en', 'compliance', 'Performance Measurement');
+                insert into kb_language_string(id, locale, key, value) values ( (select nextval('objectid_sequence'))  , 'en', 'compliance-submission', 'Compliance Status');
+            ]]>
+        </sql>
+    </changeSet>
+
+    <changeSet author="grodriguez" id="IDX_WF_ACTIVITY_PROCESS_ID">
+        <sql><![CDATA[
+                create index if not exists IDX_WF_ACTIVITY_PROCESS_ID ON WF_ACTIVITY(process_id);
+            ]]>
+        </sql>
+    </changeSet>
+
+    <changeSet author="grodriguez" id="CRON_LAST_EXECUTION_DATE 1a">
+        <preConditions onFail="MARK_RAN">
+            <tableExists tableName="kb_cronjob" />
+        	<not>
+    			<columnExists tableName="kb_cronjob" columnName="lastexecution" />
+  			</not>
+  		</preConditions>
+        <addColumn tableName="kb_cronjob">
+            <column name="lastexecution" type="TIMESTAMP WITH TIME ZONE"/>
+        </addColumn>
+        
+    </changeSet>
+
+    <changeSet author="grodriguez" id="CRON_LAST_EXECUTION_DATE 1b">
+        <preConditions onFail="MARK_RAN">
+            <tableExists tableName="kb_cronjob" />
+        	<not>
+    			<columnExists tableName="kb_cronjob" columnName="execoldtriggers" />
+  			</not>
+  		</preConditions>
+        <addColumn tableName="kb_cronjob">
+                <column name="execoldtriggers" type="boolean" defaultValue="false"/>
+        </addColumn>
+        
+    </changeSet>
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <changeSet author="atolomei" id="reports_string_1_po_sitelogin_1">
+        <preConditions onFail="MARK_RAN">
+            <tableExists tableName="kb_language_string" />
+        </preConditions>
+        <sql><![CDATA[
+                delete from kb_language_string where locale='en' and key in ('content-users-audit');
+                delete from kb_language_string where locale='es' and key in ('content-users-audit');
+                
+                insert into kb_language_string(id, locale, key, value) values ( (select nextval('objectid_sequence'))  , 'en', 'content-users-audit', 'Content - Visits');
+                insert into kb_language_string(id, locale, key, value) values ( (select nextval('objectid_sequence'))  , 'es', 'content-users-audit', 'Contenido - Detalle de Visitas');
+                
+                alter table po_sitelogin add column if not exists content_oid bigint;
+                alter table po_sitelogin add column if not exists version integer;
+                
+            ]]>
+        </sql>
+    </changeSet>
+
+
+  <changeSet author="atolomei" id="reports_string_2">
+        <preConditions onFail="MARK_RAN">
+            <tableExists tableName="kb_language_string" />
+        </preConditions>
+        <sql><![CDATA[
+                delete from kb_language_string where locale='es' and key in ('user-visits-audit');
+                delete from kb_language_string where locale='en' and key in ('user-visits-audit');
+                insert into kb_language_string(id, locale, key, value) values ( (select nextval('objectid_sequence'))  , 'en', 'user-visits-audit', 'Users - Contents Viewed');
+                insert into kb_language_string(id, locale, key, value) values ( (select nextval('objectid_sequence'))  , 'es', 'user-visits-audit', 'Users - Contenidos leídos');
+                
+            ]]>
+        </sql>
+    </changeSet>
+
+
+  <changeSet author="atolomei" id="reports_string_3">
+        <preConditions onFail="MARK_RAN">
+            <tableExists tableName="kb_language_string" />
+        </preConditions>
+        <sql><![CDATA[
+                delete from kb_language_string where locale='es' and key in ('user-visits-audit');
+                insert into kb_language_string(id, locale, key, value) values ( (select nextval('objectid_sequence'))  , 'es', 'user-visits-audit', 'Usuarios - Contenidos leídos');
+                
+            ]]>
+        </sql>
+    </changeSet>
+
+
+	<changeSet author="atolomei" id="reports_content_long_id">
+        <preConditions onFail="MARK_RAN">
+            <tableExists tableName="po_sitelogin" />
+        </preConditions>
+        <sql><![CDATA[
+                alter table po_sitelogin add column if not exists content_long_id bigint;
+            ]]>
+        </sql>
+    </changeSet>
+
+
+
+	<changeSet author="atolomei" id="scheduler_execute_on">
+        <preConditions onFail="MARK_RAN">
+            <tableExists tableName="scheduler" />
+        </preConditions>
+        <sql><![CDATA[
+                 alter table scheduler add column if not exists execute_after timestamp with time zone;
+            ]]>
+        </sql>
+    </changeSet>
+
+	<changeSet author="aferraria" id="attribute_searcheable">
+        <preConditions onFail="MARK_RAN">
+            <tableExists tableName="kb_attribute" />
+        </preConditions>
+        <sql><![CDATA[
+                 alter table kb_attribute add column if not exists searchable boolean default false;
+            ]]>
+        </sql>
+    </changeSet>
+
+	<changeSet author="aferraria" id="classifier_searcheable">
+        <preConditions onFail="MARK_RAN">
+            <tableExists tableName="kb_classifier" />
+        </preConditions>
+        <sql><![CDATA[
+                 alter table kb_classifier add column if not exists searchable boolean default false;
+            ]]>
+        </sql>
+    </changeSet>
+    
+    <changeSet author="aferraria" id="securedset_classifier 1">
+        <preConditions onFail="MARK_RAN">
+            <tableExists tableName="dataset" />
+        </preConditions>
+        <sql><![CDATA[
+        	alter table dataset add column if not exists classifier_id bigint;
+			alter table dataset drop constraint if exists secured_classifier_fk;
+			alter table dataset add constraint secured_classifier_fk FOREIGN KEY (classifier_id) REFERENCES kb_classifier (id) ON DELETE set null; 
+            ]]>
+        </sql>
+    </changeSet>
+    
+
+
+
+  <changeSet author="atolomei" id="reports_string_4">
+        <preConditions onFail="MARK_RAN">
+            <tableExists tableName="kb_language_string" />
+        </preConditions>
+        <sql><![CDATA[
+                delete from kb_language_string where locale='es' and key in ('user-visits-audit');
+                delete from kb_language_string where locale='en' and key in ('user-visits-audit');
+                insert into kb_language_string(id, locale, key, value) values ( (select nextval('objectid_sequence'))  , 'es', 'user-visits-audit', 'Usuario - Contenidos leídos');
+                insert into kb_language_string(id, locale, key, value) values ( (select nextval('objectid_sequence'))  , 'en', 'user-visits-audit', 'User - Files read');
+                
+                delete from kb_language_string where locale='es' and key in ('user-alerts-audit');
+                delete from kb_language_string where locale='en' and key in ('user-alerts-audit');
+                insert into kb_language_string(id, locale, key, value) values ( (select nextval('objectid_sequence'))  , 'es', 'user-alerts-audit', 'Usuario - Alertas recibidas');
+                insert into kb_language_string(id, locale, key, value) values ( (select nextval('objectid_sequence'))  , 'en', 'user-alerts-audit', 'User - Alerts received');
+            ]]>
+        </sql>
+    </changeSet>
+
+    <changeSet author="aferraria" id="windsor_submission">
+        <sql><![CDATA[
+        update wf_procedure set states='com.novamens.windsor.workflow.SubmissionStates' where states = 'com.novamens.kbee.content.workflow.SubmissionStates2';
+            ]]>
+        </sql>
+    </changeSet>
+
+
+    <changeSet author="atolomei" id="attribute_sortable">
+        <preConditions onFail="MARK_RAN">
+            <tableExists tableName="KB_ATTRIBUTE" />
+        </preConditions>
+        <sql><![CDATA[
+	        alter table KB_ATTRIBUTE add column if not exists sortable boolean default true;
+            ]]>
+        </sql>
+    </changeSet>
+    
+	<changeSet author="aferraria" id="workflow_alerts_job">
+		<sql><![CDATA[
+			insert into  kb_cronjob (id, lastmodifieduser, name, description, cronexpression, clazz, parameter) 
+			values ((select nextval('objectid_sequence')), 
+			(select id from users where username='root@kbee'), 
+			'Alertas de Workflow',  
+			'Alertas de Workflow',
+			'00 45 0 ? * *', 'com.novamens.kbee.command.CommandExecutionJob', 
+			'command=WorkflowAlertsCommand');
+			]]>
+		</sql>
+	</changeSet>
+	
+	<changeSet author="aferraria" id="enoti_rule_role 1">
+		<sql><![CDATA[
+			CREATE TABLE if not exists kb_enotirule_role (
+				rule_id bigint NOT NULL,
+				role_id bigint NOT NULL
+			)
+			wITH (
+				OIDS = FALSE
+			);
+			
+			ALTER TABLE ONLY kb_enotirule_role	DROP CONSTRAINT IF EXISTS enotirule_role_pkey;
+			ALTER TABLE ONLY kb_enotirule_role	ADD CONSTRAINT            enotirule_role_pkey PRIMARY KEY (rule_id, role_id);
+			
+			ALTER TABLE ONLY kb_enotirule_role	DROP CONSTRAINT IF EXISTS role_fk;
+			ALTER TABLE ONLY kb_enotirule_role	ADD CONSTRAINT 			  role_fk FOREIGN KEY (role_id) REFERENCES kb_role(id) ON DELETE CASCADE;
+		]]>
+		</sql>
+	</changeSet>
+	
+	<changeSet author="aferraria" id="subsection_template 1">
+		<sql><![CDATA[
+			CREATE TABLE IF NOT EXISTS kb_subsectiontemplate (
+			id bigint,
+			contenttemplate_id bigint,
+			name character varying (128),
+			section_id bigint,
+			korder int,
+			CONSTRAINT substemplate_pkey PRIMARY KEY (id),
+			CONSTRAINT subscontenttemplate_fk FOREIGN KEY (contenttemplate_id) REFERENCES kb_contenttemplate(id) ON DELETE CASCADE,
+			CONSTRAINT subssection_fk FOREIGN KEY (section_id) REFERENCES kb_model_section(id) ON DELETE CASCADE
+		) 
+		wITH (
+			OIDS = FALSE
+		);
+		]]>
+		</sql>
+	</changeSet>
+	
+	<changeSet author="aferraria" id="contentresource 1">
+		<sql>
+		alter table contentresource add COLUMN IF NOT EXISTS ispublic boolean default true;
+		update contentresource cr set ispublic=(select r.ispublic from kresource r where r.id=cr.resource_id); 
+		</sql>
+	</changeSet>
+	
+	<changeSet author="aferraria" id="userprofile 1">
+		<sql>
+		alter table userprofile add COLUMN IF NOT EXISTS change_password boolean default true;
+		</sql>
+	</changeSet>
+	
+	<changeSet author="aferraria" id="userprofile_rename 1">
+	      <preConditions onFail="MARK_RAN">
+            <tableExists tableName="userprofile" />
+        	<not>
+    			<columnExists tableName="userprofile" columnName="changepassword" />
+  			</not>
+  		</preConditions>
+		<sql>
+		alter table userprofile rename change_password to changepassword;
+		</sql>
+	</changeSet>
+	
+							
+	<changeSet author="atolomei" id="notification_rule_id_2">
+		<preConditions onFail="MARK_RAN">
+		<tableExists tableName="kb_notification" />
+		</preConditions>
+		<sql><![CDATA[
+		alter table kb_notification add column if not exists generating_enoti_rule bigint;
+		alter table kb_notification add column if not exists generating_action_rule bigint;
+		]]>
+		</sql>
+	</changeSet>
+	
+	<changeSet author="aferraria" id="form_template 1">
+		<sql>
+			create table IF NOT EXISTS kb_form_template (
+				id bigint NOT NULL,
+				domain_id bigint NOT NULL,
+				lastmodifieddate timestamp with time zone DEFAULT CURRENT_TIMESTAMP,
+				creationdate timestamp with time zone DEFAULT CURRENT_TIMESTAMP,
+				lastmodifieduser bigint NOT NULL,
+				state integer,
+				name character varying(256),
+				display_name character varying(256),
+				components text,
+				CONSTRAINT form_pkey PRIMARY KEY (id),
+				CONSTRAINT domain_fk FOREIGN KEY (domain_id) REFERENCES domain(id) ON DELETE CASCADE
+			);	
+		</sql>
+	</changeSet>
+	
+	
+	<changeSet author="atolomei" id="notification_rule_1">
+		<preConditions onFail="MARK_RAN">
+		<tableExists tableName="kb_notification" />
+		</preConditions>
+		<sql><![CDATA[
+			delete from kb_email_template where xkey like 'notification%';
+		]]>
+		</sql>
+	</changeSet>
+	
+	
+	<changeSet author="atolomei" id="scheduler index execution_after">
+		<preConditions onFail="MARK_RAN">
+			<tableExists tableName="scheduler" />
+		</preConditions>
+		<sql><![CDATA[
+			create index if not exists scheduler_priority_time_errorcount_idx on scheduler (priority, "time", execute_after, error_count);
+		]]>
+		</sql>
+	</changeSet>
+	
+	<changeSet author="atolomei" id="scheduler command_classname_1">
+		<preConditions onFail="MARK_RAN">
+			<tableExists tableName="scheduler" />
+		</preConditions>
+		<sql><![CDATA[
+			 alter table scheduler add column if not exists command_class_name  character varying(1024);
+			 alter table scheduler add column if not exists command_parameters character varying(2048);
+		]]>
+		</sql>
+	</changeSet>
+
+
+	<changeSet author="atolomei" id="createemailtemplates_1">
+		<preConditions onFail="MARK_RAN">
+			<tableExists tableName="scheduler" />
+		</preConditions>
+			<sql><![CDATA[
+					delete from scheduler where error_count > 4;
+			]]>
+		</sql>
+	</changeSet>
+
+	<changeSet author="atolomei" id="event_filesource">
+		<preConditions onFail="MARK_RAN">
+			<tableExists tableName="api_logevent" />
+		</preConditions>
+		<sql><![CDATA[
+			 alter table api_logevent add column if not exists event_filesource character varying(128);
+		]]>
+		</sql>
+	</changeSet>
+	
+	<changeSet author="atolomei" id="contentresource group id 1">
+		<preConditions onFail="MARK_RAN">
+			<tableExists tableName="contentresource" />
+		</preConditions>
+		<sql><![CDATA[
+			 alter table contentresource add column if not exists group_id bigint references kb_resource_group(id) on delete restrict;
+		]]>
+		</sql>
+	</changeSet>
+	
+	 
+	
+	
+	
+	
+	
+	<changeSet author="atolomei" id="resourcegroup1">
+		<preConditions onFail="MARK_RAN">
+			<tableExists tableName="resourcegroup" />
+		</preConditions>
+		<sql><![CDATA[		
+				alter table resourcegroup add column if not exists creationdate    timestamp with time zone default now();
+				alter table resourcegroup add column if not exists lastmodifieddate timestamp with time zone default now();
+				alter table resourcegroup add column if not exists  lastmodifieduser bigint references users(id) on delete restrict;
+				alter table resourcegroup add column if not exists  domain_id bigint references domain(id) on delete cascade;
+				alter table resourcegroup add column if not exists  alias            character varying(256);
+				alter table resourcegroup add column if not exists  state            integer default 1;
+				alter table resourcegroup add column if not exists  createuser       bigint references users(id) on delete restrict;
+		]]>
+		</sql>
+	</changeSet>
+
+
+	<changeSet author="atolomei" id="kb_classifiertemplate position_1">
+		<preConditions onFail="MARK_RAN">
+			<tableExists tableName="kb_classifiertemplate" />
+		</preConditions>
+		<sql><![CDATA[		
+				alter table kb_classifiertemplate alter column position set default 0;							
+		]]>
+		</sql>
+	</changeSet>
+	 
+	 			
+
+	<changeSet author="atolomei" id="kb_ds_element_template position_1">
+		<preConditions onFail="MARK_RAN">
+			<tableExists tableName="kb_ds_element_template" />
+		</preConditions>
+		<sql><![CDATA[		
+				alter table kb_ds_element_template alter column position set default 0;
+		]]>
+		</sql>
+	</changeSet>
+	
+		<changeSet author="atolomei" id="kb_ds_element_template position_2">
+		<preConditions onFail="MARK_RAN">
+			<tableExists tableName="kb_ds_element_template" />
+		</preConditions>
+		<sql><![CDATA[		
+				update kb_classifiertemplate set position=0 where position is null;
+				update kb_ds_element_template set position=0 where position is null;
+				
+				alter table memberclassification alter column position set default 0;
+				update memberclassification set position=0 where position is null;
+				
+				alter table classification alter column position set default 0;
+				update classification set position=0 where position is null;
+		]]>
+		</sql>
+	</changeSet>
+
+
+	<changeSet author="grodriguez" id="kb_classifiertemplate position_1_update">
+	<sql><![CDATA[
+				update kb_classifiertemplate set position = 0 where position is null;
+		]]>
+	</sql>
+	</changeSet>
+
+    <changeSet author="grodriguez" id="fix_pivot_delete_endtime">
+        <sql><![CDATA[
+				    with pvtend as (select pv.id pvid, wp.endtime proc_endtime
+                                    from rs_windsor_activity_pivot pv inner join wf_process wp on pv.process = wp.id and wp.status = 'CANCELED'
+                                    where pv.endtime is null)
+                    update rs_windsor_activity_pivot pv
+                    set endtime = (select pvtend.proc_endtime from pvtend where id=pvid),
+                    running_process=false
+                    where pv.id in (select pvid from pvtend) and endtime is null;
+		]]>
+        </sql>
+    </changeSet>
+
+	<changeSet author="atolomei" id="user pwd last">
+		<preConditions onFail="MARK_RAN">
+			<tableExists tableName="users" />
+		</preConditions>
+		<sql><![CDATA[
+				alter table users add column if not exists passwordLastModifiedDate timestamp with time zone;
+		]]>
+		</sql>
+	</changeSet>
+
+	<changeSet author="atolomei" id="user pwd last update">
+		<preConditions onFail="MARK_RAN">
+			<tableExists tableName="users" />
+		</preConditions>
+		<sql><![CDATA[
+				update users set passwordlastmodifieddate = creationdate where passwordlastmodifieddate is null;
+		]]>
+		</sql>
+	</changeSet>
+
+
+
+
+
+
+</databaseChangeLog>

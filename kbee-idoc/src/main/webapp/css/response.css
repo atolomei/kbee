@@ -1,0 +1,45 @@
+
+/** ----------------------------------------------------------------
+  
+  Resolution Letter Template v 1.0
+  Once it goes in production it can not be modified.
+  We have to move on to v2.0
+
+*/
+
+ .response h2,
+ .response h2.title 				{color: #131414;	font-size: 14px;	line-height: 1.7em;	 margin-bottom: 6px;}
+ .response 							{color: #131414;	font-family:Lato, Roboto, Arial, sans-serif;	float: left;	font-size: 14px;	line-height: 1.7em;	 max-width: 1280px;	 padding: 0;}
+
+ .response .highlight-inline 		{color:#E55932; }
+ .response .quote 				    {color:#666666; font-style:italic;}
+ .response .highlight 			    {font-size: 22px;    	font-weight: 400;    color: #E55932;    line-height: 1.5em;    font-family: Lato, Roboto, Arial, sans serif;    float: left;    width: 94%;    text-align: center;    margin-bottom: 32px;    padding: 0;    margin: 0 6% 32px 0;    font-style: italic;}
+ .response .parameter   			{background: #fff2a9;   padding: 2px;}
+ .response .metavariable 			{background: #f3f3f3;   color: #bb1c9e;    font-size: 14px;    font-weight: normal;    padding: 2px;    border-radius: 2px;}
+ 
+					
+ .response .response-footer,
+ .response .footer,
+ .response .disclaimer 				{color: #666666;    font-style: normal;    font-size: 12px;    line-height: 21px;    font-weight: normal;    margin-top: 24px;    float: left; background: inherit; padding:0;}
+ .response .epigraph 				{color: #666666; font-size:12px; font-style:italic;}
+ 
+
+ .response p > ul 					{margin-top: 0;}
+ .response ul > p 					{margin-top: 0;}
+
+ .response a,
+ .response p  a 					{border-bottom: none; text-decoration: underline; box-shadow: none; color: #195573;}
+ .response p 						{color: #131414;    line-height: 1.7em;    margin: 0 0 0px}
+ .response ul						{margin:0; padding:0 ; float:left; width:100%;	font-size: inherit;    color: #131414;}
+ .response p 						{margin-top: 0; margin-bottom: 0; font-size: 1em; line-height: inherit;}
+					
+ .response ul li 					{margin: 0px;    display: list-item;     float: left;    width: calc(100% - 2em);    list-style: square inside none;    color: inherit;    line-height: 1.7em;        padding: 1px 4px;	}
+ .response .header 					{padding-bottom: 15px;	padding-left:5px;}
+ .response .header img 				{width: 150px;}
+ .response td.label 				{width: 100px;	line-height: 1.7em;	float: left;	color: #131414;	text-align: left;	font-weight: bold;	padding: 0;}
+ .signature		 					{color: #131414; font-weight:normal; line-height: inherit; float:left;}
+ .response .signature p 			{margin: 0 0 10px;}
+ .text-editor .footer,
+ .text-editor .disclaimer 			{margin-top: 32px;    color: #777777;    font-style: normal;    font-size: 12px;    line-height: 21px;    font-weight: normal;}
+
+

@@ -1,0 +1,40 @@
+<html>
+<div style="float:left; display:block; width:100%; text-align:center; font-family: Arial, Sans Serif; font-size:17px; line-height: 1.25em; min-width:420px;">
+<div style="margin:auto; width: 100%;  max-width: 1200px; float: none; background: white; border-radius: 10px;">
+	<div style="float:left; width:100%; border: 1px solid #d8dcdf;">
+	<div style="background: #f8f9fa; float: left; width: 100%; border-radius: 10px; margin-bottom: 30px; padding: 30px 0;  border-radius: 10px 10px 0 0; border-bottom: 1px solid  #d8dcdf;">	
+		<div style="float: left;  width: 100%;">
+			<a style="float: none; margin: auto;   display: block; margin-left: 0;" href="https://kbee.io" target="_blank"> 
+				<#if content.domain.logo??>
+					<img style="max-width:220px" src="${content.domain.logo.publicurl}">
+				<#else>
+					<img src="http://kbee.io/images/kbee-vert.png">
+				</#if>
+</a>
+		</div>
+		<div style="float: left; margin: auto; width: 100%; padding: 15px 0 0 0;">
+			<a	style="float: left; padding: 15px 0; text-align: center; width: 100%;" title="KBEE"> 				
+				<div style="width:100%; float: left; margin-bottom:5px;">			
+					<span  style="font-weight: bold;">KBEE</span>
+				</div>
+			 	<div style="width:100%; float: left; margin-bottom:0px;">
+			 		<span>${domain-name}</span>
+			 	</div>
+			</a>
+		</div>
+	</div>
+	
+	<div style="float: none; margin: auto; width: 100%; max-width:980px; padding-left:30px; padding-right:30px; box-sizing: border-box;">
+					<span style="margin-bottom:20px; width:100%; float:left;"><p>${person-displayname},</p><p>Bienvenido a <b>${application-fullname}</b>.</p>. ${application-name}</span>
+					<span style="margin-bottom:20px; width:100%; float:left;">
+					<p>${application-name} es un servicio web que agiliza y simplifica el trabajo con documentos y formularios digitales, 
+					desde organizar el archivo corporativo con un buscador moderno, a crear portales de proyectos para trabajar sobre documentos, a ejecutar procesos intra e inter-organización de edición, revisión, aprobación y firma de formularios y expedientes en la web y dispositivos móviles.</p>
+					<p>Su usuario es: <b>${username}</b></p><p>Puede ingresar su contraseña en este enlace:</p><p>${domain-url}</p>
+					</span>
+	</div>
+
+
+</div>
+</div>
+</div>
+</html>

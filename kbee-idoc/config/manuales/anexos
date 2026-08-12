@@ -1,0 +1,59 @@
+
+<h2 style="margin-top:0;">2. ANEXOS</h2>
+
+<h3>2.1 ANEXO I – PROCEDIMIENTO CORSIA (2019-2020)</h3>
+<p>Mantener un sistema eficaz de adquisición y control de datos que asegure la realización de manera correcta del informe anual de cálculo de emisiones de CO2, cumpliendo con el Plan de Seguimiento de las emisiones anuales presentado en conformidad con lo expuesto por el Reglamento de la Unión Europea (UE) 601/2012 y del Reporte anual de emisiones para Operadores Aéreos con el Plan de Monitoreo de Emisiones de acuerdo a lo reglamentado por CORSIA.
+</p>
+
+<h4>2.1.1 RESPONSABILIDADES</h4>
+
+<h4>2.1.2 GERENCIA DE COMPRAS</h4>
+
+<ul>
+<li>&#x2022 Aprobar el presente procedimiento.</li>
+</ul>
+
+<h4>2.1.3 COMPRAS DE COMBUSTIBLES</h4>
+
+<ul>
+<li>&#x2022 Mantener actualizado y presentar ante la autoridad competente el Plan de Seguimiento de las Emisiones Anuales (EU ETS).</li>
+<li>&#x2022 Elaborar el Reporte Anual de Emisiones para Operadores Aéreos a presentar ante la autoridad competente (EU ETS).  </li>
+<li>&#x2022 Gestionar la realización de la auditoría de proceso de toma de emisiones de CO2 y control de datos.  </li>
+<li>&#x2022 En caso de haber desviaciones surgidas por las actividades de control, tratarlas con las áreas participantes de este proceso.  </li>
+<li>&#x2022 Confección, revisión y emisión del presente documento. </li>
+</ul>
+
+
+<h3>2.2 DISPONIBILIDAD DE LA INFORMACIÓN</h3>
+<p>La actualización de lista de fuentes de emisión (aeronaves) es responsabilidad de la Gerencia de Operaciones. En caso de producirse una modificación de las aeronaves utilizadas, 
+deberán ser incorporadas/modificadas/eliminadas en el Anexo I, Especificaciones Operativas, del Certificado de Explotador de Servicios Aéreos (AOC) emitido por la ANAC para reflejar el cambio.
+</p>
+<p>Toda modificación en cuanto a la incorporación de flota, indicada en el AOC, deberá ser incorporada, por la Dirección de Sistemas, a los sistemas informáticos correspondientes para la generación de registros de consumo de combustible.
+</p>
+<p>Asimismo, la Gerencia de Operaciones deberá asegurar la obtención de los remitos de combustible de todos los vuelos de posicionamiento o de traslado y su posterior entrega al sector Gestión y Control de Combustible.
+</p>
+
+
+<h3>2.3 ACTIVIDAD DE FLUJO DE DATOS PARA CORSIA (2019 – 2020)</h3>
+<h4>2.3.1 MÉTODO PRIMARIO DE ADQUISICIÓN DE DATOS</h4>
+<p>Para el período 2019 – 2020, se utilizó como método primario de adquisición de datos al sistema autónomo ACARS, el cual en forma automática transmite la cantidad de combustible que contienen los tanques de la aeronave a la salida del vuelo (FOB), ante la liberación del parking brake y la cantidad de combustible que contienen los tanques de la aeronave a la llegada (REM), ante la colocación del parking brake. Estos datos son recolectados por el sistema Aircom Server y se transfieren al sistema Airops (Sabre), el cual luego de 4 días replica la información en forma definitiva en el sistema SAP.
+Si se encontrara un error en el dato, el sector Gestión y Control de Combustible lo modificará en la base de datos SAP.
+</p>
+
+<p>Ante una falta del dato primario de FOB o REM, se utilizará el método secundario de adquisición de datos, especificado en el <a href="#">punto 2.3.2</a></p>
+<p>La Gerencia Técnica interviene en la cadena de circulación y procesamiento del remito de carga de combustible. Durante el abastecimiento desarrolla las tareas descriptas en el manual de la aeronave y en el <a href="#">procedimiento QA-88</a>:
+</p>
+
+<div class="alert alert-cita">
+El combustible total cargado multiplicado por la densidad más el REM en origen antes de carga es igual al FOB. Si el FOB calculado excede los 700kg en A330 o los 300kg en 737/8 o E90
+ el sector Gestión y Control de Combustible interviene modificando el dato con el OFP entendiendo una desviación en el dato transmitido por ACARS.
+<span class="cita-src">
+<a href="#">Procedimiento QA-88 ver 12.2 - 10/6/2023. Sección 2.3.1</a></span>
+</div>
+ 
+ <p>
+Asimismo, realiza los controles y correcciones pertinentes de los equipos de medición de las aeronaves, según lo indicado en el manual de referencia.
+</p>
+
+
+

@@ -1,0 +1,8 @@
+ {"name":"Modelo","type":"COMPOUND","dataSet":null,"description":" TODO SEND TOKEN Modelo de la plantilla para la generación de la notificación de un evento de Inicio de Tarea","multiplicity":null,"elements":[                                   
+                 {"name":"activity","type":"ACTIVITY","dataSet":null,"description":null,"multiplicity":null,"elements":[]},                                                                                                     
+                 {"name":"content","type":"CONTENT","dataSet":null,"description":null,"multiplicity":null,"elements":[]},                                                                                                       
+                 {"name":"previousactivity","type":"ACTIVITY","dataSet":null,"description":null,"multiplicity":null,"elements":[]},                                                                                             
+                 {"name":"receiver","type":"USER","dataSet":null,"description":null,"multiplicity":null,"elements":[]}]
+ }
+                 
+                 

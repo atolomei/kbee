@@ -1,0 +1,141 @@
+
+
+<wicket:head>
+<style type="text/css">
+.kbee p {
+    line-height: 1.65em;
+    margin: 0 0 20px;
+    float:left;
+
+    color: #131414;
+    float: left;
+}
+
+</style>
+
+</wicket:head>
+
+
+<wicket:extend>
+
+	<div class="standard-canvas" style="margin:0; padding:0; font-size: 16px;">
+
+		<div wicket:id="mainpanel" class="col-md-12 col-lg-12 col-xs-12" style="padding:0 2em;margin-top:0px;">
+			<div wicket:id="header">[HEADER]</div>
+			<div wicket:id="tools">[TOOLS]</div>
+		</div>
+	</div>
+	
+	
+	
+	<wicket:fragment wicket:id="header-fragment">
+		<h1 wicket:id="titulo" style="margin-bottom:1em; font-size: 2em; " class="col-md-12 col-lg-12 col-xs-12">[Title]</h1>
+		<div class="row">	
+			<dl class="col-md-12 col-lg-12 col-xs-12">
+				<dt>Tribunal</dt>
+				<dd><span wicket:id="tribunal"></span></dd>
+				<dt>Fecha</dt>
+				<dd><span wicket:id="fecha"></span></dd>
+				<dt>Texto</dt>
+				<dd><a wicket:id="texto">abrir</a></dd>
+			</dl>
+		</div> 
+	</wicket:fragment>
+
+	<wicket:fragment wicket:id="similares-fragment">
+		
+	
+	<div class="row">
+	<div class="col-md-12 col-lg-12 col-xs-12" style="max-width:1800px; min-height: 80vh; margin-bottom: 3em;">
+		
+		<table class="table table-header-bck table-bordered table-hover">
+			<tbody>
+				<tr wicket:id="similar">
+					<td style="padding: 10px; width:90%"><a wicket:id="link"><span wicket:id="title"></span></a></td>
+					<td style="padding: 10px; text-align:center;" wicket:id="score">[]</td>
+				</tr>
+			</tbody>
+		</table>
+		
+		<div wicket:id="paragraphs" style="width: 100%;	display: block;	float: left;	margin-top: 50px;">
+			<table class="table table-header-bck table-bordered table-hover">
+				<thead>
+					<tr>
+						<td style="padding: 20px 40px; width:50%; font-weight:bold;">
+							<span wicket:id="fallo1" style="float:left;">[]</span>
+						</td>
+						<td style="padding:  20px 40px; width:50%; font-weight:bold;">
+							<span wicket:id="fallo2" style="float:left;">[]</span>
+						</td>
+					</tr>	
+				</thead>
+				<tbody>
+					<tr wicket:id="paragraph">
+						<td style="padding:  20px 40px; width:50%">
+							<span wicket:id="text" style="float:left;">>[]</span>
+						</td>
+						<td style="padding:  20px 40px; width:50%">
+							<span wicket:id="snippet" style="float:left;">[]</span>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		
+		</div>
+	</div>
+			
+	</wicket:fragment>
+	
+	<wicket:fragment wicket:id="fulltext-fragment">
+	
+	<div class="row">
+	<div class="col-md-12 col-lg-12 col-xs-12" style="max-width:1600px; margin-bottom: 3em; min-height: 80vh;">
+	
+	
+			<div style="width: 100%;float: left;margin-top: 50px;">
+			<a wicket:id="all">Analizar</a>
+			</div> 	
+			<div wicket:id="allparagraphs" style="width: 100%;	display: block;	float: left;	margin-top: 50px;">
+				<h2>TEXTO</h2>
+				<ul style="width: 100%;">
+					<li wicket:id="paragraph" style="display: block; background-color: white; float: left;">
+						<p wicket:id="text">[]</p>
+						<ul style="width:100%;margin-bottom:20px;color: #23527c; margin-left:10px;">
+							<li wicket:id="content" style="margin-bottom: 10px;width: 100%;display: block;float: left;">
+								
+								<a wicket:id="expander" style="display: block;float: left; padding:10px 15px; border:1px solid #d8dcdf; border-radius:4px;"><span>  <i class="fad fa-plus"></i></span></a>
+								
+								
+								<a wicket:id="link" style="display: block;float: left;width: 95%;padding:10px 15px;">
+										<span style="width: 100%;float: left; padding-bottom:5px;" wicket:id="title"></span>
+										<span wicket:id="metainfo" style="width: 100%;float: left;color: #222222;">[santa fe 20/4/2021]</span>
+								</a>
+								
+								
+								<div wicket:id="text-container" style="display: block;float: left;padding-left: 12px;padding: 15px 30px; margin-top:15px; border:1px solid #eeeeee; background: #f4f5f6; width:100%;">
+								
+									<span wicket:id="text" style="margin-bottom: 15px; float:left;">[]</span>
+									
+									<div style="width:100%; float:left; padding:15px 0 10px 0;">
+										<a wicket:id="compare-link" style="padding:10px 15px;">comparar textos</a>
+										<a style="padding:10px 15px;" wicket:id="text-link">ver texto</a>
+									</div>
+								</div>
+							</li>
+						</ul>
+					</li>
+				</ul>
+			</div>	
+			
+				</div>
+	</div>
+			
+	</wicket:fragment>		
+
+
+			
+			
+</wicket:extend>
+
+		

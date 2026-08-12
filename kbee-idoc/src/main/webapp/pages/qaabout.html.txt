@@ -1,0 +1,47 @@
+
+
+
+-------------------------------------------------------------------
+1. ____Agregar roles canonicos_____ 
+ROLE_CONTENT_BASE, ROLE_ARCHIVE
+
+2. Si un campo es mandatorio y hay solo 1 instancia -> PONERLO
+3. Editar -> no se puede cambiar el username [__VER AT__]
+4. Al borrar un user dio un error
+5. Crear los [____ROLES CANONICOS____] al levantar el sistema si no existen
+
+
+
+
+
+--------
+ESPANIOL
+--------
+
+	<div class="pet">
+		<img src="/images/pets/cat-large.png" class="pet"/> 
+	</div>
+	<h2 class="first">TODOS SOMOS EXPERTOS</h2>
+	<p>Es un portal de preguntas y respuestas de temas relacionados con el trabajo en el  banco.  
+	 Todos pueden hacer preguntas. Todos pueden agregar comentarios en las preguntas y en las respuestas.  
+	 Y todos pueden responder. 
+	Todos somos expertos en algun campo, y el sitio hace posible compartir ese conocimiento de forma simple.</p> 
+	<h2>RANKING SOCIAL</h2> 							
+	<p>Los usuarios votan las preguntas más útiles y las mejores respuestas a cada pregunta. Todos los contenidos está disponibles para ser consultados, y el buscador utiliza esas calificaciones para ofrecer los contenidos más relevantes a cada usuario.</p>
+	<h2>SEGUIR CONSULTAS</h2> 							
+	<p>Los usuarios pueden suscribirse para recibir notificaciones de la actividad sobre una consulta por correo electrónico, incluyendo sus respuestas y comentarios.</p>
+	<div class="pet"><img src="/images/pets/dog-large.png" style="margin-top: 32px; width: 120px;" class="pet"/></div>
+	<h2>MODERACIÓN AUTOMATICA</h2>
+	<p>Para responder, editar, borrar, reportar, etc. se requieren ciertos permisos. Los permisos se asignan dinámicamente (por ejemplo casi todos pueden crear una pregunta, pero no todos pueden reportar un abuso, y pocos pueden borrar una pregunta inadecuada)."+ 
+	Cada usuario tiene un coeficiente  que mide aproximadamente el prestigio social y que determina qué acciones puede hacer. Este coeficiente evoluciona en función de la actividad, por ejemplo sube si responde una pregunta y esa respuesta tiene muchos votos, baja si un comentario es reportado por varios usuarios, etc.</p>" +
+	<p>El sistema tiene un robot moderador que administra la base en función de las acciones de los usuarios (por ejemplo si un varias personas con prestigio alto reportan un contenido el robot lo borra). "+
+	Existen además usuarios con permiso de moderador similar al robot y  usuarios con perfil administrador que puede hacer todo y otorgar permisos explícitamente.</p>
+	<div class="pet"><img src="/images/pets/snake-large.png" style="margin-top: 24px;" class="pet"/></div>
+	<h2>CONTENIDO VALIDADO</h2>
+	<p>Un contenido puede ser congelado o "validado" por usuarios autorizados. En ese caso no se puede agregar ni modificar nada hasta tanto no sea descongelado por un usuario autorizado. 
+	El el objetivo es que se puedan generar preguntas con respuestas validadas por el área correspondiente del banco y queden disponibles para todos.</p>
+	
+
+------	
+INGLES
+------

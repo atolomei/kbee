@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd
+        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+    <changeSet id="versionTag" author="atolomei">
+        <tagDatabase tag="8.0"/>
+    </changeSet>
+
+	<changeSet author="atolomei" id="sequence">
+        <sql><![CDATA[
+			CREATE SEQUENCE if not exists dictionary START 1000;
+		]]>
+        </sql>
+    </changeSet>
+
+
+    <changeSet author="atolomei" id="eng 4">
+
+        <sql><![CDATA[					
+			
+			delete from kb_language_string;
+			
+			insert into kb_language_string(id, locale, key, value) values (nextval('dictionary'), 'en', 'library/corporate', 	'Corporate');
+			insert into kb_language_string(id, locale, key, value) values (nextval('dictionary'), 'en', 'library/clients', 		'Clients');
+			insert into kb_language_string(id, locale, key, value) values (nextval('dictionary'), 'en', 'library/general', 		'General');
+			insert into kb_language_string(id, locale, key, value) values (nextval('dictionary'), 'en', 'library/all', 			'All');
+			
+			
+
+			insert into kb_language_string(id, locale, key, value) values (nextval('dictionary'), 'en', 'attributes', 'Attributes');
+			insert into kb_language_string(id, locale, key, value) values (nextval('dictionary'), 'en', 'shared-resources', 'Shared Resources');
+			insert into kb_language_string(id, locale, key, value) values (nextval('dictionary'), 'en', 'resources', 'Resources');
+			insert into kb_language_string(id, locale, key, value) values (nextval('dictionary'), 'en', 'resource', 'Resource');
+			insert into kb_language_string(id, locale, key, value) values (nextval('dictionary'), 'en', 'resources-items', 'Resources Items');
+			
+			insert into kb_language_string(id, locale, key, value) values (nextval('dictionary'), 'en', 'text', 'Text');
+			
+			insert into kb_language_string(id, locale, key, value) values (nextval('dictionary'), 'en', 'operations-engineer', 'Operations Engineer');
+			insert into kb_language_string(id, locale, key, value) values (nextval('dictionary'), 'en', 'domain-admin', 'Domain Admin');
+			insert into kb_language_string(id, locale, key, value) values (nextval('dictionary'), 'en', 'super-user', 'Super User');
+			insert into kb_language_string(id, locale, key, value) values (nextval('dictionary'), 'en', 'general-user', 'General user');
+			insert into kb_language_string(id, locale, key, value) values (nextval('dictionary'), 'en', 'support', 'Support');
+			insert into kb_language_string(id, locale, key, value) values (nextval('dictionary'), 'en', 'reports', 'Reports');
+			
+			
+			
+			
+			
+			
+			
+			
+		
+		]]>
+        </sql>
+    </changeSet>
+
+
+    	
+	
+</databaseChangeLog>
+
+
+
+
+
+

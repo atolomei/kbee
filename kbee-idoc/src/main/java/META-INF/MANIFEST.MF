@@ -1,0 +1,156 @@
+Manifest-Version: 1.0
+Class-Path: opennlp-tools-1.8.4.jar lucene-spatial3d-7.7.0.jar wicket-
+ kendo-ui-theme-default-8.1.0.jar commons-fileupload-1.3.3.jar lz4-1.3
+ .0.jar elastictranscoder-2.4.8.jar servicecatalog-2.4.8.jar datapipel
+ ine-2.4.8.jar batch-2.4.8.jar ecr-2.4.8.jar opsworks-2.4.8.jar wicket
+ -util-8.3.0.jar swf-2.4.8.jar cloudhsm-2.4.8.jar costandusagereport-2
+ .4.8.jar aws-core-2.4.8.jar apigatewaymanagementapi-2.4.8.jar kotlin-
+ stdlib-1.0.7.jar netty-handler-4.1.32.Final.jar robomaker-2.4.8.jar l
+ icensemanager-2.4.8.jar xray-2.4.8.jar netcdf4-4.5.5.jar p6spy-3.6.0.
+ jar serverlessapplicationrepository-2.4.8.jar devicefarm-2.4.8.jar io
+ t-2.4.8.jar machinelearning-2.4.8.jar xpp3-1.1.4c.jar lucene-backward
+ -codecs-7.7.0.jar netty-buffer-4.1.32.Final.jar jetty-http-9.2.2.v201
+ 40723.jar httpcore-4.4.10.jar commons-collections-3.2.1.jar commons-c
+ odec-1.11.jar fsx-2.4.8.jar netty-reactive-streams-http-2.0.0.jar clo
+ udfront-2.4.8.jar metrics-graphite-3.2.6.jar securityhub-2.4.8.jar si
+ s-netcdf-0.8.jar lucene-join-7.7.0.jar junit-4.12.jar docdb-2.4.8.jar
+  commons-math3-3.6.1.jar elasticache-2.4.8.jar backup-2.4.8.jar ec2-2
+ .4.8.jar eclipse-collections-7.1.2.jar velocity-1.7.jar spring-xml-2.
+ 4.0.RELEASE.jar commons-compress-1.16.1.jar netty-codec-http2-4.1.32.
+ Final.jar curator-framework-2.8.0.jar javax.activation-api-1.2.0.jar 
+ ant-launcher-1.10.3.jar dom4j-1.6.1.jar vorbis-java-core-0.8.jar 14_o
+ s_jpedal-1.0.jar jackson-annotations-2.9.6.jar caffeine-2.4.0.jar ecl
+ ipse-collections-api-7.1.2.jar javax.servlet-api-3.1.0.jar codedeploy
+ -2.4.8.jar hibernate-ehcache-5.3.4.Final.jar mediastore-2.4.8.jar wic
+ ket-extensions-8.3.0.jar budgets-2.4.8.jar activation-1.1.jar auth-2.
+ 4.8.jar spring-ws-core-2.4.0.RELEASE.jar hadoop-common-2.7.4.jar metr
+ ics-ehcache-3.2.6.jar commons-csv-1.0.jar ses-2.4.8.jar solr-solrj-7.
+ 7.0.jar itext-2.1.7.jar rome-1.5.1.jar spring-security-web-4.2.2.RELE
+ ASE.jar marketplacecommerceanalytics-2.4.8.jar httpservices-4.5.5.jar
+  marketplaceentitlement-2.4.8.jar lucene-analyzers-phonetic-7.7.0.jar
+  worklink-2.4.8.jar aspectjweaver-1.8.9.jar iam-2.4.8.jar sentiment-a
+ nalysis-parser-0.1.jar lucene-analyzers-kuromoji-7.7.0.jar workdocs-2
+ .4.8.jar s3-2.4.8.jar jetty-io-9.2.2.v20140723.jar hibernate-entityma
+ nager-5.3.4.Final.jar aws-json-protocol-2.4.8.jar avatica-core-1.10.0
+ .jar wicketstuff-serializer-common-8.1.0.jar http-client-spi-2.4.8.ja
+ r spring-beans-4.3.9.RELEASE.jar minio-6.0.0.jar zookeeper-3.4.13.jar
+  tika-core-1.18.jar cloudtrail-2.4.8.jar pinpoint-2.4.8.jar mssql-jdb
+ c-6.5.0.jre8-preview.jar pdfbox-2.0.13.jar spring-oxm-4.2.7.RELEASE.j
+ ar datasync-2.4.8.jar jackson-core-2.9.6.jar jimfs-1.1.jar uploadbean
+ -1.0.jar classmate-1.3.4.jar nekohtml-1.9.22.jar ant-1.10.3.jar xmlbe
+ ans-2.6.0.jar quick-json-1.0.4.jar log4j-slf4j-impl-2.11.1.jar spring
+ -web-4.3.9.RELEASE.jar cxf-rt-frontend-jaxrs-3.0.16.jar greengrass-2.
+ 4.8.jar databasemigration-2.4.8.jar codebuild-2.4.8.jar utils-2.4.8.j
+ ar shield-2.4.8.jar lucene-highlighter-7.7.0.jar sms-2.4.8.jar appstr
+ eam-2.4.8.jar opsworkscm-2.4.8.jar marketplacemetering-2.4.8.jar sis-
+ referencing-0.8.jar jetty-security-9.2.2.v20140723.jar spring-aspects
+ -4.3.9.RELEASE.jar ecs-2.4.8.jar spring-expression-4.3.9.RELEASE.jar 
+ elasticloadbalancingv2-2.4.8.jar tagsoup-1.2.1.jar metrics-healthchec
+ ks-3.2.6.jar commons-pool2-2.6.0.jar httpclient-4.5.4.jar aws-xml-pro
+ tocol-2.4.8.jar cognitoidentityprovider-2.4.8.jar jempbox-1.8.13.jar 
+ java-util-1.9.0.jar workspaces-2.4.8.jar netty-transport-native-epoll
+ -4.1.32.Final-linux-x86_64.jar jandex-2.0.5.Final.jar asm-tree-7.0.ja
+ r flow-1.7.jar byte-buddy-1.8.15.jar spring-aop-4.3.9.RELEASE.jar net
+ ty-common-4.1.32.Final.jar org.restlet.ext.servlet-2.3.0.jar cloudfor
+ mation-2.4.8.jar hibernate-commons-annotations-5.0.4.Final.jar tika-p
+ arsers-1.18.jar javassist-3.19.0-GA.jar clouddirectory-2.4.8.jar levi
+ go-jbig2-imageio-2.0.jar efs-2.4.8.jar javax.ws.rs-api-2.0.1.jar spri
+ ng-context-4.3.9.RELEASE.jar codecommit-2.4.8.jar sqlite-jdbc-3.23.1.
+ jar athena-2.4.8.jar wicket-ioc-8.3.0.jar gmetric4j-1.0.7.jar spring-
+ webmvc-4.3.9.RELEASE.jar isoparser-1.1.18.jar commons-httpclient-3.1.
+ jar comprehendmedical-2.4.8.jar ehcache-2.10.4.jar config-2.4.8.jar h
+ ppc-0.8.1.jar antlr4-runtime-4.5.1-1.jar lucene-spatial-extras-7.7.0.
+ jar kinesisvideo-2.4.8.jar route53-2.4.8.jar annotations-3.0.1.jar cl
+ oudwatch-2.4.8.jar log4j-1.2-api-2.11.0.jar protobuf-java-3.1.0.jar n
+ etty-reactive-streams-2.0.0.jar lucene-queryparser-7.7.0.jar janino-2
+ .7.6.jar cognitosync-2.4.8.jar woodstox-core-asl-4.4.1.jar jackcess-e
+ ncrypt-2.1.4.jar xmlgraphics-commons-1.4.jar jetty-webapp-9.2.2.v2014
+ 0723.jar hadoop-auth-2.7.4.jar jackson-dataformat-smile-2.9.6.jar jax
+ b-api-2.2.11.jar jackson-dataformat-cbor-2.9.8.jar polly-2.4.8.jar rd
+ s-2.4.8.jar jboss-transaction-api_1.2_spec-1.1.1.Final.jar jcommander
+ -1.35.jar autoscaling-2.4.8.jar elasticsearch-2.4.8.jar appsync-2.4.8
+ .jar c3p0-0.9.1.2.jar xmlsec-1.5.7.jar netty-resolver-4.1.32.Final.ja
+ r hibernate-core-5.3.4.Final.jar xercesImpl-2.11.0.jar concurrent-jun
+ it-1.0.0.jar elasticbeanstalk-2.4.8.jar support-2.4.8.jar organizatio
+ ns-2.4.8.jar udunits-4.5.5.jar commons-collections4-4.1.jar javax.per
+ sistence-api-2.2.jar mapdb-3.0.5.jar grib-4.5.5.jar xmltooling-1.4.4.
+ jar appmesh-2.4.8.jar asm-5.0.4.jar opensaml-2.6.4.jar spring-orm-4.3
+ .9.RELEASE.jar aws-cbor-protocol-2.4.8.jar spatial4j-0.7.jar joda-tim
+ e-2.2.jar xmpcore-5.1.3.jar codestar-2.4.8.jar bzip2-0.9.1.jar javax.
+ inject-1.jar okhttp-3.7.0.jar rrd4j-3.2.jar neptune-2.4.8.jar firehos
+ e-2.4.8.jar cxf-rt-rs-client-3.0.16.jar cdm-4.5.5.jar sqs-2.4.8.jar h
+ ealth-2.4.8.jar lucene-core-7.7.0.jar directory-2.4.8.jar wicket-spri
+ ng-8.3.0.jar vorbis-java-tika-0.8.jar cloudsearch-2.4.8.jar fontbox-2
+ .0.13.jar elsa-3.0.0-M5.jar objenesis-2.4.jar glacier-2.4.8.jar bcpki
+ x-jdk15on-1.54.jar lucene-analyzers-nori-7.7.0.jar commons-compiler-2
+ .7.6.jar xz-1.8.jar commons-resources-0.1-dev.jar tess4j-3.0.2.jar cl
+ oudwatchevents-2.4.8.jar commons-exec-1.3.jar not-yet-commons-ssl-0.3
+ .9.jar regions-2.4.8.jar amplify-2.4.8.jar rdsdata-2.4.8.jar javax.an
+ notation-api-1.2.jar wicket-request-8.3.0.jar ssm-2.4.8.jar poi-ooxml
+ -schemas-3.17.jar directconnect-2.4.8.jar wicket-jquery-ui-8.1.0.jar 
+ jetty-xml-9.2.2.v20140723.jar emr-2.4.8.jar lucene-memory-7.7.0.jar q
+ uartz-2.2.0.jar openjson-1.0.10.jar jhighlight-1.0.2.jar hadoop-annot
+ ations-2.7.4.jar sfn-2.4.8.jar globalaccelerator-2.4.8.jar wicket-jqu
+ ery-ui-core-8.1.0.jar okio-1.12.0.jar lucene-sandbox-7.7.0.jar solr-c
+ ore-7.7.0.jar apache-mime4j-dom-0.8.1.jar lambda-2.4.8.jar quicksight
+ -2.4.8.jar curator-client-2.8.0.jar commons-lang-2.6.jar pdf-renderer
+ -1.0.5.jar applicationautoscaling-2.4.8.jar jai-imageio-core-1.4.0.ja
+ r reactive-streams-1.0.2.jar lucene-grouping-7.7.0.jar jbig2-imageio-
+ 3.0.0.jar noggit-0.8.jar commons-dbcp2-2.5.0.jar cognitoidentity-2.4.
+ 8.jar snowball-2.4.8.jar jetty-util-9.2.2.v20140723.jar geoapi-3.0.1.
+ jar jxl-2.6.12.jar spring-core-4.3.9.RELEASE.jar unit-api-1.0.jar lex
+ modelbuilding-2.4.8.jar sis-feature-0.8.jar jdom2-2.0.6.jar antlr-2.7
+ .7.jar java-libpst-0.8.1.jar org.restlet-2.3.0.jar spring-tx-4.3.9.RE
+ LEASE.jar commons-cli-1.2.jar uuid-2.1.0.jar htrace-core-3.2.0-incuba
+ ting.jar mediaconnect-2.4.8.jar dynamodb-2.4.8.jar jetty-servlet-9.2.
+ 2.v20140723.jar storagegateway-2.4.8.jar metrics-jvm-3.2.6.jar hazelc
+ ast-3.10.2.jar json-simple-1.1.1.jar pdfbox-tools-2.0.9.jar netty-cod
+ ec-http-4.1.32.Final.jar asm-util-7.0.jar spring-context-support-4.3.
+ 9.RELEASE.jar eclipse-collections-forkjoin-7.1.2.jar poi-scratchpad-3
+ .17.jar apache-client-2.4.8.jar jdk-serializable-functional-1.8.3.jar
+  sts-2.4.8.jar guava-18.0.jar sdk-core-2.4.8.jar ghost4j-1.0.1.jar cx
+ f-core-3.0.16.jar google-http-client-1.20.0.jar json-io-2.5.1.jar rek
+ ognition-2.4.8.jar lucene-expressions-7.7.0.jar elasticloadbalancing-
+ 2.4.8.jar spring-jdbc-4.3.9.RELEASE.jar sns-2.4.8.jar jackson-mapper-
+ asl-1.9.13.jar codepipeline-2.4.8.jar lexruntime-2.4.8.jar kafka-2.4.
+ 8.jar hibernate-jcache-5.3.4.Final.jar eigenbase-properties-1.1.5.jar
+  xmlschema-core-2.2.2.jar resourcegroups-2.4.8.jar stax2-api-3.1.4.ja
+ r log4j-api-2.11.1.jar jmatio-1.2.jar metrics-jetty9-3.2.6.jar secret
+ smanager-2.4.8.jar httpmime-4.5.4.jar asm-commons-5.1.jar owasp-java-
+ html-sanitizer-20171016.1.jar openws-1.5.4.jar spring-security-core-4
+ .2.2.RELEASE.jar spring-security-config-4.2.2.RELEASE.jar transcribes
+ treaming-2.4.8.jar lucene-suggest-7.7.0.jar fst-2.48.jar profiles-2.4
+ .8.jar concurrent-1.3.4.jar commons-beanutils-1.9.2.jar esapi-2.0.1.j
+ ar acm-2.4.8.jar poi-ooxml-3.17.jar juniversalchardet-1.0.3.jar javax
+ .mail-1.6.2.jar sis-storage-0.8.jar kinesis-2.4.8.jar lucene-queries-
+ 7.7.0.jar log4j-core-2.11.1.jar junrar-0.7.jar lucene-analyzers-commo
+ n-7.7.0.jar jna-4.1.0.jar kinesisanalytics-2.4.8.jar applicationdisco
+ very-2.4.8.jar postgresql-42.2.4.jar mediastoredata-2.4.8.jar inspect
+ or-2.4.8.jar cloudwatchlogs-2.4.8.jar metrics-ganglia-3.2.6.jar jacks
+ on-databind-2.9.6.jar lucene-misc-7.7.0.jar hadoop-hdfs-2.7.4.jar goo
+ gle-http-client-xml-1.20.0.jar asm-analysis-7.0.jar uimaj-core-2.9.0.
+ jar jetty-server-9.2.2.v20140723.jar redshift-2.4.8.jar cglib-3.2.10.
+ jar netty-transport-native-unix-common-4.1.32.Final.jar lucene-classi
+ fication-7.7.0.jar uimafit-core-2.2.0.jar metrics-core-3.2.6.jar kms-
+ 2.4.8.jar wicket-core-8.3.0.jar dax-2.4.8.jar dec-0.1.2.jar gamelift-
+ 2.4.8.jar apigatewayv2-2.4.8.jar netty-transport-4.1.32.Final.jar apa
+ che-mime4j-core-0.8.1.jar kinesisanalyticsv2-2.4.8.jar kotlin-runtime
+ -1.0.7.jar hessian-4.0.51.jar t-digest-3.1.jar plexus-utils-3.1.0.jar
+  rome-utils-1.5.1.jar netty-codec-4.1.32.Final.jar netty-nio-client-2
+ .4.8.jar wicket-kendo-ui-8.1.0.jar jul-to-slf4j-1.7.24.jar boilerpipe
+ -1.1.0.jar jsoup-1.11.3.jar calcite-linq4j-1.13.0.jar cxf-rt-transpor
+ ts-http-3.0.16.jar poi-3.17.jar mturk-2.4.8.jar protocol-core-2.4.8.j
+ ar xml-apis-1.4.01.jar sis-metadata-0.8.jar disruptor-3.3.7.jar commo
+ ns-lang3-3.4.jar lightsail-2.4.8.jar jaxb-core-2.2.11.jar aws-sdk-jav
+ a-2.4.8.jar aws-query-protocol-2.4.8.jar sis-utility-0.8.jar commons-
+ configuration-1.6.jar annotations-2.4.8.jar apigateway-2.4.8.jar gson
+ -2.8.2.jar bcmail-jdk15on-1.54.jar cache-api-1.1.0.jar jcip-annotatio
+ ns-1.0.jar transfer-2.4.8.jar costexplorer-2.4.8.jar lucene-codecs-7.
+ 7.0.jar jackcess-2.1.10.jar slf4j-api-1.7.25.jar bcprov-jdk15on-1.51.
+ jar commons-logging-1.2.jar curvesapi-1.04.jar hamcrest-core-1.3.jar 
+ jaxb-impl-2.2.11.jar thumbnailator-0.4.8.jar jackson-core-asl-1.9.13.
+ jar curator-recipes-2.8.0.jar iotdataplane-2.4.8.jar calcite-core-1.1
+ 3.0.jar jboss-logging-3.3.2.Final.jar commons-io-2.6.jar metadata-ext
+ ractor-2.10.1.jar
+Main-Class: com.novamens.content.web.Main
+

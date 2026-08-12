@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+		http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+		http://www.springframework.org/schema/context
+		http://www.springframework.org/schema/context/spring-context-3.0.xsd 
+		http://www.springframework.org/schema/tx 
+		http://www.springframework.org/schema/tx/spring-tx.xsd">
+	
+	<!--  MIGRATION -->
+	
+	<!-- 
+	<bean id="entityMatchingDao" class="com.novamens.content.web.migration.dao.EntityMatchingDao" >
+		<property name="sessionFactory" ref="sessionFactory"/>
+	</bean>
+	
+	<bean id="com.novamens.content.web.services.migration.EntityDirector" class="com.novamens.content.web.migration.builder.EntityDirector" scope="prototype" >
+		<property name="name" value="entityService"/>
+		<property name="builder" ref="com.novamens.content.web.services.migration.entityBuilder"/>
+	</bean>
+	
+	<bean id="com.novamens.content.web.services.migration.entityBuilder" class="com.novamens.content.web.migration.builder.EntityBuilderMediator" >
+		<property name="builders">
+			<list>
+				<bean class="com.novamens.content.web.migration.builder.DataSetBuilder">
+					<property name="contentDao" ref="contentDao"/>
+					<property name="entityMatchingDao" ref="entityMatchingDao"/>
+				</bean>
+				<bean class="com.novamens.content.web.migration.builder.ClassifierBuilder">
+					<property name="contentDao" ref="contentDao"/>
+					<property name="entityMatchingDao" ref="entityMatchingDao"/>
+				</bean>
+				<bean class="com.novamens.content.web.migration.builder.DataSetMemberBuilder">
+					<property name="contentDao" ref="contentDao"/>
+					<property name="entityMatchingDao" ref="entityMatchingDao"/>
+				</bean>
+				<bean class="com.novamens.content.web.migration.builder.GroupBuilder">
+					<property name="contentDao" ref="contentDao"/>
+					<property name="entityMatchingDao" ref="entityMatchingDao"/>
+					<property name="securityDao" ref="securityDao"/>
+				</bean>
+				<bean class="com.novamens.content.web.migration.builder.UserBuilder">
+					<property name="contentDao" ref="contentDao"/>
+					<property name="entityMatchingDao" ref="entityMatchingDao"/>
+					<property name="securityDao" ref="securityDao"/>
+				</bean>
+				<bean class="com.novamens.content.web.migration.builder.IdocBuilder">
+					<property name="contentDao" ref="contentDao"/>
+					<property name="entityMatchingDao" ref="entityMatchingDao"/>
+				</bean>
+			</list>
+		</property>
+	</bean>
+	-->	
+
+</beans>

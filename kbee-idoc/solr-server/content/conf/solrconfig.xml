@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+ Licensed to the Apache Software Foundation (ASF) under one or more
+ contributor license agreements.  See the NOTICE file distributed with
+ this work for additional information regarding copyright ownership.
+ The ASF licenses this file to You under the Apache License, Version 2.0
+ (the "License"); you may not use this file except in compliance with
+ the License.  You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+-->
+
+<!--
+ This is a stripped down config file used for a simple example...  
+ It is *not* a good example to work from. 
+-->
+<config>
+	<luceneMatchVersion>6.0</luceneMatchVersion>
+	
+	<directoryFactory name="DirectoryFactory" class="${solr.directoryFactory:solr.StandardDirectoryFactory}"/>
+
+	<!--schemaFactory class="ClassicIndexSchemaFactory"/-->
+
+	<updateHandler class="solr.DirectUpdateHandler2">
+		<updateLog>
+			<str name="dir">${solr.ulog.dir:}</str>
+		</updateLog>
+		<autoCommit>
+			<maxDocs>1000</maxDocs> <!-- maximum uncommited docs before autocommit triggered -->
+			<maxTime>6000</maxTime> <!-- maximum time (in MS) after adding a doc before an autocommit is triggered -->
+			<openSearcher>true</openSearcher> <!-- SOLR 4.0.  Optionally don't open a searcher on hard commit.  This is useful to minimize the size of transaction logs that keep track of uncommitted updates. -->
+		</autoCommit>
+	</updateHandler>
+
+	<requestHandler name="/get" class="solr.RealTimeGetHandler">
+		<lst name="defaults">
+			<str name="omitHeader">true</str>
+		</lst>
+	</requestHandler>  
+
+	<requestHandler name="/replication" class="solr.ReplicationHandler" startup="lazy" /> 
+
+	<requestDispatcher handleSelect="true" >
+		<requestParsers enableRemoteStreaming="false" multipartUploadLimitInKB="2048" formdataUploadLimitInKB="2048" />
+	</requestDispatcher>
+
+	<requestHandler name="standard" class="solr.StandardRequestHandler" default="true" />
+	<requestHandler name="/analysis/field" startup="lazy" class="solr.FieldAnalysisRequestHandler" />
+	<requestHandler name="/update" class="solr.UpdateRequestHandler"  />
+	
+	<!-- 
+	<requestHandler name="/admin/" class="org.apache.solr.handler.admin.AdminHandlers" />
+	-->
+	
+	<requestHandler name="/admin/ping" class="solr.PingRequestHandler">
+	<lst name="invariants">
+		<str name="q">solrpingquery</str>
+	</lst>
+	<lst name="defaults">
+		<str name="echoParams">all</str>
+	</lst>
+	</requestHandler>
+
+	<admin>
+		<defaultQuery>solr</defaultQuery>
+	</admin>
+
+	<requestHandler name="/browse" class="solr.SearchHandler">
+		<lst name="defaults">
+			<str name="echoParams">explicit</str>
+			<!-- Highlighting defaults -->
+			<str name="hl">true</str>
+			<str name="hl.fl">text features name</str>
+			<str name="f.name.hl.fragsize">0</str>
+		<str name="f.name.hl.alternateField">name</str>
+		</lst>
+	</requestHandler>
+
+	<query>
+
+		<maxBooleanClauses>1024</maxBooleanClauses>
+
+		<filterCache class="solr.FastLRUCache"
+			size="512"
+			initialSize="512"
+			autowarmCount="128"
+			maxRamMB="1000"/>
+
+		<queryResultCache class="solr.LRUCache"
+			size="512"
+			initialSize="512"
+			autowarmCount="128"
+			maxRamMB="1000"/>
+
+		<documentCache class="solr.LRUCache"
+			size="512"
+			initialSize="512"
+			autowarmCount="128" />
+
+		<!-- custom cache currently used by block join -->
+		<cache name="perSegFilter"
+			class="solr.search.LRUCache"
+			size="10"
+			initialSize="0"
+			autowarmCount="10"
+			regenerator="solr.NoOpRegenerator" />
+
+		<enableLazyFieldLoading>true</enableLazyFieldLoading>
+
+		<queryResultWindowSize>20</queryResultWindowSize>
+
+		<queryResultMaxDocsCached>200</queryResultMaxDocsCached>
+
+		<listener event="newSearcher" class="solr.QuerySenderListener">
+			<arr name="queries">
+			</arr>
+		</listener>
+
+		<listener event="firstSearcher" class="solr.QuerySenderListener">
+			<arr name="queries">
+			</arr>
+		</listener>
+
+		<useColdSearcher>false</useColdSearcher>
+
+	</query>
+
+</config>
+

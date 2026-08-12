@@ -1,0 +1,137 @@
+
+
+body {
+color: #131414;
+font-family: Lato, Roboto, Arial, sans-serif;
+font-size: 14px;
+scrollbar-3dlight-color: #F0F0EE;
+scrollbar-arrow-color: #676662;
+scrollbar-base-color: #F0F0EE;
+scrollbar-darkshadow-color: #DDD;
+scrollbar-face-color: #E0E0DD;
+scrollbar-highlight-color: #F0F0EE;
+scrollbar-shadow-color: #F0F0EE;
+scrollbar-track-color: #F5F5F5;
+line-height: 1.7em;
+float: left;
+margin: 15px;
+}
+
+.mce-content-body {background:white;}
+
+.mce-panel { border: 0 solid #d8dcdf;}
+.mce-menubar {border-top: none;}
+
+.defaultSkin table.mceLayout {border: 0;border-left: 4px solid red;border-right: 4px solid red;}
+
+.defaultSkin table, .defaultSkin tbody, .defaultSkin a, .defaultSkin img, .defaultSkin tr, .defaultSkin div, .defaultSkin td, .defaultSkin iframe, .defaultSkin span, .defaultSkin *, .defaultSkin .mceText {
+border: 0;margin: 0;
+padding: 0;background: transparent;white-space: nowrap;
+text-decoration: none;font-weight: normal;cursor: default;
+color: red;vertical-align: baseline;width: auto;
+border-collapse: separate;text-align: left;}
+
+					
+#tinymce.mceContentBody {font-family:  Lato, Roboto,  sans-serif;max-width: 720px;background: white;color: #131414;line-height: 1.5em; margin: 0;padding: 8px 0 0 8px;}
+#tinymce p {margin-top: 0; margin-bottom: 0; font-size: 1em; line-height: inherit; width:100%; }
+#tinymce ul 		{margin:0; padding:0 ; float:left; width:100%;	font-size: 15px;    color: #131414;}
+#tinymce ul li 	{margin: 0px;    display: list-item;     float: left;    width: calc(100% - 2em);    list-style: square inside none;    color: inherit;    line-height: 1.7em;        padding: 1px 4px;	}
+
+#tinymce.body {font-family: Lato, Roboto,   Arial, sans serif;   font-size: 1em;}
+#tinymce.mce-content-body .text-image-container {}
+#tinymce.mce-content-body .text-image-right {float: right; margin: 0 0 24px 24px;}
+#tinymce.mceContentBody ul li {display: list-item; list-style-type: square;}
+#tinymce.mceContentBody ol li {display: list-item; list-style-type: decimal;}
+
+.mceContentBody span.hightlight {background: rgb(255, 252, 28);}
+#tinymce.mceContentBody body span.hightlight {background: rgb(255, 252, 28);}
+
+
+/** -------------------------------------------------------------------------------------- 
+	SOBRECARGA DEL TINY
+  --------------------------------------------------------------------------------------*/
+.mce-widget * {
+    cursor: inherit;
+    float: none;
+    font-family: Lato, Roboto,   Arial,sans serif;
+    font-size: 1em;
+    font-weight: normal;
+    height: auto;
+    line-height: normal;
+    margin: 0;
+    outline: 0 none;
+    padding: 0;
+    text-align: left;
+    text-decoration: none;
+    text-shadow: none;
+    vertical-align: top;
+    white-space: nowrap;
+    
+    
+}
+
+#tinymce.body {
+	font-family: Lato, Roboto,  Arial, sans serif;
+    font-size: 1em;
+}
+
+#tinymce.mceContentBody.body {
+	font-family:  Lato, Roboto,   Arial, sans serif;
+    font-size: 1em;
+    line-heigh: 1.7em;
+}
+
+						
+#tinymce.mceContentBody h1     {font-weight: normal; font-size: 27px;}
+#tinymce.mceContentBody h2     {font-weight: bold; font-size: 14px; margin-bottom: 6px;}
+#tinymce.mceContentBody h3     {font-weight: bold; font-size: 13px; margin-bottom: 6px;}
+#tinymce.mceContentBody h4     {font-weight: bold; font-size: 12px; margin-bottom: 6px; color:#666666;}
+#tinymce.mceContentBody h5     {font-weight: bold; font-size: 12px; margin-bottom: 6px; color:#999999;}
+#tinymce.mceContentBody h6     {font-weight: normal; font-weight: 400; color: #999999; }
+
+
+ .highlight-inline 		{color:#E55932; }
+ .quote 				{color: #666666; font-style:italic;}
+ .highlight 			{font-size: 22px;    font-weight: 400;    color: #E55932;    line-height: 1.7em;    font-family: Lato, Roboto, Arial, sans serif;    float: left;    width: 94%;    text-align: center;    margin-bottom: 32px;    padding: 0;    margin: 0 6% 32px 0;    font-style: italic;}
+ .parameter   			{background: #fff2a9;    padding: 2px;}
+  a 					{border-bottom: none;    text-decoration: none;    box-shadow: none;    color: #195573; text-decoration: underline;}
+ .footer,
+ .disclaimer 			 {color: #777777;    font-style: normal;    font-size: 12px;    line-height: 21px;    font-weight: normal; margin-top:56px; float:left; padding: 0;    background: inherit;  }
+ .epigraph			     {color: #666666; font-size:12px; font-style:italic;}
+ .metavariable 			 {background: #f3f3f3;    color: #bb1c9e;    font-size: 14px;    font-weight: normal;    padding: 2px;    border-radius: 2px;}
+
+
+#tinymce.mceContentBody .highlight  {font-size: 22px;font-weight: 300;color: #E77D1A;line-height: 1.4em;font-family: Lato, Roboto,   Arial, sans serif;float: left;width: 94%;text-align: center;margin-bottom: 32px;padding: 0;margin: 0 6% 32px 0;font-style: italic;color: red;}
+									
+.mceContentBody .image-container 	{}
+.mceContentBody .image 				{}
+.mceContentBody div.caption 		{font-size:14px; color: #999999; margin-top: 6px; text-align: center;}
+
+#tinymce.mceContentBody.body,
+#tinymce.mceContentBody body p 		{font-size: 1em;    line-heigh: 1.7em;    font-color: #131414;}
+
+#tinymce.mce-content-body h1 {color: red;	font-size: 27px;	font-weight: normal;	font-family: Georgia,   Arial, sans serif;} 
+#tinymce.mce-content-body h2 {text-transform: uppercase;font-size: 1em;	font-weight: bold;	font-family: Lato, Roboto,  Segoe UI, Arial, sans serif;} 
+#tinymce.mce-content-body h3 {text-transform: uppercase;font-size: 1em;	font-weight: bold;	font-family:  Lato, Roboto, Segoe UI, Arial, sans serif;} 
+
+.mce-content-body h4 			{font-size: 0.9em;	font-weight: bold;	color: #666666;}
+
+#tinymce.mce-content-body  h1 	{font-size: 27px;	font-weight: normal;	font-family: Georgia, Segoe UI, Arial, sans serif;} 
+#tinymce.mce-content-body h2 	{text-transform: uppercase;	font-size: 1em;	font-weight: bold;	margin: 6px 0;	font-family:  Lato, Roboto, Segoe UI, Arial, sans serif;} 
+#tinymce.mce-content-body h3 	{text-transform: uppercase;	font-size: 1em;	font-weight: bold;	font-family:  Lato, Roboto, Segoe UI, Arial, sans serif;} 
+
+.mce-content-body h4 			{font-size: 0.9em;	font-weight: bold;	color: #555555;}
+
+.image-container 				{}
+.image-container .image 		{}
+	
+.image-container .caption span {   display: block;    margin-left: auto;    margin-right: auto;    text-align: center;    width: 80%;}
+
+	
+.text-image-left {
+    box-sizing: border-box;
+    border-radius: 4px;
+    float: left;
+    margin: 0 24px 12px 0px;
+        margin-bottom: 12px;
+}	

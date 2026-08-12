@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd
+        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd" >
+
+    <changeSet id="versionTag" author="atolomei">
+        <tagDatabase tag="5.6.1"/>
+    </changeSet>
+
+	<changeSet author="atolomei" id="user pwd last update_1">
+		<preConditions onFail="MARK_RAN">
+			<tableExists tableName="domain" />
+		</preConditions>
+		<sql><![CDATA[
+				update domain set timezone='US/Central' where  timezone is null;
+		]]>
+		</sql>
+	</changeSet>
+	
+	<changeSet author="atolomei" id="cronjob_health_check_8">
+		<sql><![CDATA[
+			delete from  kb_cronjob where parameter like '%HealthMetricsCommand%';
+	
+			insert into  kb_cronjob (id, lastmodifieduser, name, description, cronexpression, clazz, parameter) 
+			values ((select nextval('objectid_sequence')), 
+			(select id from users where username='root@kbee'), 
+			'HealthMetricsCommand night',  
+			'HealthMetricsCommand at 19:48 PM Server Time',
+			'15 48 19 * * *', 
+			'com.novamens.kbee.command.CommandExecutionJob', 
+			'command=HealthMetricsCommand');
+			
+			
+			insert into  kb_cronjob (id, lastmodifieduser, name, description, cronexpression, clazz, parameter) 
+			values ((select nextval('objectid_sequence')), 
+			(select id from users where username='root@kbee'), 
+			'HealthMetricsCommand noon',  
+			'HealthMetricsCommand at 8:48 PM Server Time',
+			'15 48 8 * * *', 
+			'com.novamens.kbee.command.CommandExecutionJob', 
+			'command=HealthMetricsCommand')
+			
+		]]>
+		</sql>
+	</changeSet>
+	
+	<changeSet author="aferraria" id="rename resourcegroup">
+		<preConditions onFail="MARK_RAN">
+			<tableExists tableName="resourcegroup" />
+		</preConditions>
+		<sql><![CDATA[
+			alter table resourcegroup rename to kb_resource_group;
+		]]>
+		</sql>
+	</changeSet>
+	
+	<!-- changeSet author="aferraria" id="resourcegroup type">
+		<preConditions onFail="MARK_RAN">
+			<tableExists tableName="kb_resource_group" />
+		</preConditions>
+		<sql><![CDATA[
+			alter table kb_resource_group add type integer not null
+		]]>
+		</sql>
+	</changeSet-->
+	
+	
+					
+	
+	<changeSet author="atolomei" id="resourcegroup type_1">
+		<preConditions onFail="MARK_RAN">
+			<tableExists tableName="kb_resource_group" />
+		</preConditions>
+		<sql><![CDATA[
+			delete from kb_resource_group
+		]]>
+		</sql>
+	</changeSet>
+	
+
+<changeSet author="atolomei" id="contenttemplate_alias_1">
+		<preConditions onFail="MARK_RAN">
+			<tableExists tableName="kb_contenttemplate" />
+		</preConditions>
+		<sql><![CDATA[
+			update kb_contenttemplate set contentclasscode=alias where alias is not null;
+			update kb_contenttemplate set alias=contentclasscode where alias is null;
+			
+			update kb_contenttemplate set contentclasscode=lower(contentclasscode);
+			update kb_contenttemplate set alias=lower(alias);
+		]]>
+		</sql>
+	</changeSet>
+	
+
+	<changeSet author="atolomei" id="savedquery index3">
+		<preConditions onFail="MARK_RAN">
+			<tableExists tableName="savedquery" />
+		</preConditions>
+		<sql><![CDATA[
+		delete from savedquery  where console is null;
+		drop index if exists savedquery_console_idx;
+		create index savedquery_console_idx on savedquery(user_id, console);
+		]]>
+		</sql>
+	</changeSet>
+	
+
+	
+	<changeSet author="atolomei" id="savedquery userprofile">
+		<preConditions onFail="MARK_RAN">
+			<tableExists tableName="savedquery" />
+		</preConditions>
+		<sql><![CDATA[
+			alter table savedquery drop column if exists userprofile_id;
+		]]>
+		</sql>
+	</changeSet>
+	
+	<changeSet author="aferraria" id="user list item content class 1">
+		<preConditions onFail="MARK_RAN">
+			<sqlCheck expectedResult="0">select count(*) from contentclass where id='KbeeUserListItem'</sqlCheck>
+		</preConditions>
+		<sql><![CDATA[
+			insert into contentclass (id, enabled, name, javaclass, indexable, selectable) values('KbeeUserListItem', true, 'UserListItem','com.novamens.kbee.content.userlist.KbeeUserListItem', true, true)
+		]]>
+		</sql>
+	</changeSet>
+	
+	<changeSet author="aferraria" id="portal admin area">
+		<sql><![CDATA[
+			update kgroup set areacode='admin' where name='portal-admin';
+		]]>
+		</sql>
+	</changeSet>
+
+
+	<changeSet author="atolomei" id="library criteria">
+		<sql><![CDATA[
+			update  kb_system_properties set value='ishead(true) and isTemplate(false) and isExternal(false) and isKnowledgebase(false)' where key='library_standard.criteria';
+		]]>
+		</sql>
+	</changeSet>
+
+
+
+	
+	<!--  changeSet author="aferraria" id="resourcegroup type">
+		<preConditions onFail="MARK_RAN">
+			<tableExists tableName="kb_resource_group" />
+		</preConditions>
+		<sql><![CDATA[
+			alter table kb_resource_group add type integer not null default 1
+		]]>
+		</sql>
+	</changeSet-->
+	
+	
+
+
+</databaseChangeLog>

@@ -1,0 +1,650 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd
+        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+    <changeSet id="versionTag" author="atolomei">
+        <tagDatabase tag="6.8"/>
+    </changeSet>
+
+
+    <changeSet author="atolomei" id="portal menu table 1">
+
+        <sql><![CDATA[
+				
+			drop table if exists po_menu;
+				
+			create table po_menu (
+			po_id              bigint primary key,
+ 			json_menu		   text
+ 			);
+			 alter table po_menu add FOREIGN KEY (po_id) REFERENCES po_portalobject(id) ON DELETE CASCADE;
+		
+		]]>
+        </sql>
+    </changeSet>
+
+
+    <changeSet author="atolomei" id="page isregular">
+        <sql><![CDATA[
+				
+					alter table po_page add column if not exists iscontent boolean default false;
+					alter table po_page add column if not exists isregular  boolean default true;
+
+		]]>
+        </sql>
+    </changeSet>
+
+    <changeSet author="aferraria" id="eform disposition">
+        <sql><![CDATA[
+			alter table kb_form add column if not exists disposition integer default 1;
+		]]>
+        </sql>
+    </changeSet>
+
+    <changeSet author="aferraria" id="eform behaviors">
+        <sql><![CDATA[
+			alter table kb_form add column if not exists behaviors text;
+		]]>
+        </sql>
+    </changeSet>
+
+    <changeSet author="atolomei" id="menus 1">
+        <sql><![CDATA[
+				alter table po_menu add column if not exists site_id bigint references po_site(po_id) on delete cascade;
+		]]>
+        </sql>
+    </changeSet>
+
+
+    <changeSet author="atolomei" id="order menu">
+        <sql><![CDATA[
+				alter table po_menu add column if not exists position  integer  default 0;
+		]]>
+        </sql>
+    </changeSet>
+
+
+    <changeSet author="atolomei" id="old constraints legacy">
+        <sql><![CDATA[
+				alter table po_menu drop constraint if exists po_area_page_section_id_fkey3;
+				alter table po_area add column if not exists page_section_id bigint references po_page_section(po_id) ON DELETE CASCADE;
+		]]>
+        </sql>
+    </changeSet>
+
+
+    <changeSet author="atolomei" id="old constraints legacy 2">
+        <sql><![CDATA[
+			alter table po_area drop constraint if exists po_area_page_section_id_fkey3;
+		]]>
+        </sql>
+    </changeSet>
+
+
+    <changeSet author="atolomei" id="support is internal use">
+        <sql><![CDATA[
+			update kgroup set onlyinternaluse  = true where lower(name) = 'support';
+		]]>
+        </sql>
+    </changeSet>
+
+
+    <changeSet author="atolomei" id="workflow status">
+        <sql><![CDATA[
+			alter table kb_classifier add column if not exists workflow_status boolean default false;
+			update kb_classifier set workflow_status=true where lower (name) = 'status';
+		]]>
+        </sql>
+    </changeSet>
+
+
+    <changeSet author="atolomei" id="Kb_ContentTemplate istitleeditable">
+        <sql><![CDATA[
+			alter table Kb_ContentTemplate add column if not exists istitleeditable boolean default true;
+			update Kb_ContentTemplate set istitleeditable=true;
+		]]>
+        </sql>
+    </changeSet>
+
+
+    <changeSet author="atolomei" id="Kb_ContentTemplate default view mode">
+        <sql><![CDATA[
+			alter table Kb_ContentTemplate add column if not exists default_view_mode integer default 10;
+			update Kb_ContentTemplate set default_view_mode=10;
+		]]>
+        </sql>
+    </changeSet>
+
+
+    <changeSet author="atolomei" id="email template isdeletable 1">
+        <sql><![CDATA[
+			alter table kb_email_template add column if not exists isdeletable boolean default true;
+			update kb_email_template set isdeletable = false;
+		]]>
+        </sql>
+    </changeSet>
+
+
+    <changeSet author="aferraria" id="dataset display rules">
+        <sql><![CDATA[
+			alter table dataset add column if not exists displayname_rule text;
+			alter table dataset add column if not exists subline_rule text;
+		]]>
+        </sql>
+    </changeSet>
+
+
+    <changeSet author="atolomei" id="username lowercase 1">
+        <sql><![CDATA[
+			 update users set username = concat(id, lower(username)) where id in (select id  from users U where ((select count(*) from users X where lower(X.username)=lower(U.username)) > 1)  and state!=1 and (username!=lower(username)));
+			 update users set username = lower(username) where id not in (select id  from users U where (select count(*) from users X where lower(X.username)=lower(U.username)) > 1);
+		]]>
+        </sql>
+    </changeSet>
+
+    <changeSet author="aferraria" id="dataset editable display">
+        <sql><![CDATA[
+			alter table dataset add column if not exists isdisplaynameeditable boolean default true;
+		]]>
+        </sql>
+    </changeSet>
+
+    <changeSet author="aferraria" id="eform display level">
+        <sql><![CDATA[
+			alter table kb_form add column if not exists display_level integer default 1;
+		]]>
+        </sql>
+    </changeSet>
+
+
+    <changeSet author="atolomei" id="reassign former user 8">
+        <sql><![CDATA[
+		
+					delete from kb_email_template where xkey='reassign-former-owner-task';
+					
+					
+					insert into kb_email_template
+					
+					(	id,
+					 	creationdate,     
+ 						lastmodifieddate, 
+ 						lastmodifieduser, 
+ 						state,            
+ 						domain_id,        
+ 						lang,             
+ 						xkey,             
+ 						title,            
+ 						fromstr,          
+ 						subject,          
+ 						strtext,          
+ 						available_macros, 
+ 						isdefault,     
+ 						description,   
+ 						isdefaultvalue,
+ 						defaultvalue
+ 					)
+					
+					select nextval('domainid_sequence'),
+					now(),
+					now(),
+					(select id from users where username = 'root@kbee'),
+					 1,
+					d.id,
+					'en',
+					'reassign-former-owner-task',
+					'reassign-former-owner-task',
+					'${from}',
+					'${file-title} - ${task-name}- REASSIGNED - ${application-name} ',
+					'<p>Task: ${task-name} <br/> File: ${file-title}<br/> ${file-metadata}</p><p>was reassigned from your Workspace by user ${task-reassigned-by-name} </p>',
+					'reassign-former-owner-task',
+					true,
+					'reassign-former-owner-task',
+					true,
+					'<p>The task<br/> Task: ${task-name} <br/> File: ${file-title}<br/> ${file-metadata}</p><p>was reassigned from your Workspace by user ${task-reassigned-by-name} </p>'
+					
+					from domain d;
+					
+					
+					
+					insert into kb_email_template
+					(	id,
+					 	creationdate,     
+ 						lastmodifieddate, 
+ 						lastmodifieduser, 
+ 						state,            
+ 						domain_id,        
+ 						lang,             
+ 						xkey,             
+ 						title,            
+ 						fromstr,          
+ 						subject,          
+ 						strtext,          
+ 						available_macros, 
+ 						isdefault,     
+ 						description,   
+ 						isdefaultvalue,
+ 						defaultvalue
+ 					)
+					
+					select nextval('domainid_sequence'),
+					now(),
+					now(),
+					(select id from users where username = 'root@kbee'),
+					 1,
+					d.id,
+					'es',
+					'reassign-former-owner-task',
+					'reassign-former-owner-task',
+					'${from}',
+					'${file-title} - ${task-name}- REASIGNADO - ${application-name} ',
+					'<p>Tarea: ${task-name} <br/> Contenido: ${file-title}<br/> ${file-metadata}</p><p>fue reasignado por el usuario ${task-reassigned-by-name} </p>',
+					'reassign-former-owner-task',
+					true,
+					'reassign-former-owner-task',
+					true,
+					'<p>Tarea: ${task-name} <br/> Contenido: ${file-title}<br/> ${file-metadata}</p><p>fue reasignado por el usuario ${task-reassigned-by-name} </p>'
+					
+					from domain d;
+					
+ 			 ]]>
+        </sql>
+    </changeSet>
+
+
+    <changeSet author="aferraria" id="procedure phases">
+        <sql><![CDATA[
+			alter table wf_procedure add column if not exists phases text;
+		]]>
+        </sql>
+    </changeSet>
+
+    <changeSet author="aferraria" id="workflow eform data">
+        <sql><![CDATA[
+		create table if not exists wf_form_data (
+			id					bigint primary key,
+			activity_id			bigint references wf_activity(id) on delete cascade,
+			form_id				bigint references kb_form(id) on delete restrict,
+			data				text
+		);
+	]]>
+        </sql>
+    </changeSet>
+
+
+    <changeSet author="atolomei" id="iscontenttype and isstatus">
+        <sql><![CDATA[
+		 update kb_classifier set workflow_status=true where lower(name)='status';
+		 update kb_classifier set workflow_status=false where lower(name)!='status';
+		 update kb_classifier set is_content_type=false;
+		 update kb_classifier set is_content_type=true where lower(name)='document type' or lower(name)='file type' or lower(name)='type';
+	]]>
+        </sql>
+    </changeSet>
+
+
+    <changeSet author="atolomei" id="activity dudedate">
+        <sql><![CDATA[
+			alter table wf_activity add column if not exists duedate timestamp with time zone;
+		]]>
+        </sql>
+    </changeSet>
+
+    <changeSet author="aferraria" id="logevent eform">
+        <sql><![CDATA[
+			alter table logevent add column if not exists event_form_id bigint;
+		]]>
+        </sql>
+    </changeSet>
+
+    <changeSet author="aferraria" id="workflow eform capture">
+        <sql><![CDATA[
+			alter table wf_form_data add column if not exists capture text;
+		]]>
+        </sql>
+    </changeSet>
+
+
+    <changeSet author="atolomei" id="menu icons">
+        <sql><![CDATA[
+			alter table userprofile add column if not exists iconset character varying(64) default 'fad';
+		]]>
+        </sql>
+    </changeSet>
+
+
+    <changeSet author="grodriguez" id="external login platform drop">
+        <preConditions onFail="MARK_RAN">
+            <tableExists tableName="USER_EXTERNAL_LOGIN_PLATFORM"/>
+        </preConditions>
+        <sql><![CDATA[
+			DROP TABLE USER_EXTERNAL_LOGIN_PLATFORM;
+		]]>
+        </sql>
+    </changeSet>
+
+    <changeSet author="grodriguez" id="external login platform6">
+        <sql><![CDATA[
+			CREATE TABLE USER_EXTERNAL_LOGIN_PLATFORM (
+				ID              		bigint primary key,
+ 				USERPROFILE_ID 			bigint not null,
+ 				PLATFORM_ID				int not null,
+ 				USER_PLATFORM_ID_TYPE   int not null,
+ 				USER_PLATFORM_ID    	text not null,
+				ENABLED    				boolean  not null
+ 			);
+ 			 alter table USER_EXTERNAL_LOGIN_PLATFORM add FOREIGN KEY (USERPROFILE_ID) REFERENCES USERPROFILE(id) ON DELETE CASCADE;
+		]]>
+        </sql>
+    </changeSet>
+
+
+    <changeSet author="atolomei" id="menu icons2">
+        <sql><![CDATA[
+			update userprofile  set iconset='far';
+			alter table userprofile alter column iconset set default  'far';
+		]]>
+        </sql>
+    </changeSet>
+
+
+    <changeSet author="aferraria" id="import data 3">
+        <sql><![CDATA[
+			CREATE TABLE if not exists kb_import_data (
+			    server_url character varying(256) NOT NULL,
+			    remote_domain character varying(64) NOT NULL,
+			    object_class character varying(128) NOT NULL,
+			    remote_id bigint NOT NULL,
+			    local_id bigint NOT NULL,
+			    local_domain character varying(64) NOT NULL,
+			    import_time timestamp with time zone DEFAULT now()
+			);		]]>
+        </sql>
+    </changeSet>
+
+
+    <changeSet author="grodriguez" id="payment data 11">
+        <sql><![CDATA[
+			create table payment(
+				id bigint primary key,
+				payment_key text,
+				redirect_url text,
+				domain_id bigint,
+				payer bigint,
+				payment_platform int,
+				amount decimal,
+				currency_code text,
+				concept_detail text,
+				trx_reference text,
+				status int,
+				approval_date timestamp with time zone,
+				process_date timestamp with time zone,
+				create_date timestamp with time zone,
+				last_check timestamp with time zone,
+				payment_action text
+			);
+
+			CREATE INDEX idx_payment_ref ON payment (trx_reference);
+			CREATE INDEX idx_payment_status ON payment (status, last_check);
+			ALTER TABLE payment ADD CONSTRAINT fk_payment_user FOREIGN KEY (payer) REFERENCES users(id);
+		]]>
+        </sql>
+    </changeSet>
+
+
+    <changeSet author="grodriguez" id="payment data mercadopago 11">
+        <sql><![CDATA[
+			create table payment_mercadopago
+            (
+				id bigint primary key,
+				preference_id text,
+				payment_id text
+			);
+
+			ALTER TABLE payment_mercadopago ADD CONSTRAINT fk_payment_ml_payment FOREIGN KEY (id) REFERENCES payment(id);
+		]]>
+        </sql>
+    </changeSet>
+
+
+	<changeSet author="atolomei" id="resources mybox 2">
+		<sql><![CDATA[
+						update kb_contenttemplate set alias='resources' where alias='mybox';	
+						update datasetmember set strvalue='Resource' where strvalue='Box';
+						
+			  ]]>
+		</sql>
+	</changeSet>
+
+
+	<changeSet author="atolomei" id="buildable 1">
+		<sql><![CDATA[
+ 			alter table po_page add column if not exists isbuildable boolean default true;			  
+ 			alter table po_site add column if not exists isbuildable boolean default true;
+ 			]]>
+		</sql>
+	</changeSet>
+
+
+	<changeSet author="atolomei" id="buildable site">
+		<sql><![CDATA[
+ 				alter table po_site add column if not exists isbuildable boolean default true;
+ 			 	alter table po_page_section  add column if not exists isbuildable boolean default true;
+				alter table po_area  add column if not exists isbuildable boolean default true;
+ 			]]>
+		</sql>
+	</changeSet>
+
+
+	<changeSet author="aferraria" id="model section drop constraint 1">
+		<sql><![CDATA[
+			alter table kb_model_section drop constraint if exists modelsection_template_fk;
+		]]>	</sql>
+	</changeSet>
+
+	<changeSet author="atolomei" id="launcher description 1">
+		<sql><![CDATA[
+ 				alter table wf_launcher add column if not exists  description text;
+ 			 	
+ 			]]>
+		</sql>
+	</changeSet>
+
+
+
+	<changeSet author="atolomei" id="css 2">
+		<sql><![CDATA[
+		
+ 				alter table po_page          add column if not exists css character varying(256);
+ 			 	alter table po_page_section  add column if not exists css character varying(256);
+ 			 	alter table po_area 		 add column if not exists css character varying(256);
+ 			 	alter table po_block	     add column if not exists css character varying(256);
+ 			 	
+ 			]]>
+		</sql>
+	</changeSet>
+
+
+<changeSet author="atolomei" id="view iql">
+		<sql>
+			<![CDATA[
+				CREATE TABLE  if not exists po_viewbkiql  (
+				view_id  bigint not null primary key references po_viewbk(po_id) ON DELETE CASCADE,  
+				iql   character varying(1024)  ); 			
+			]]>
+		</sql>
+	</changeSet>
+
+
+
+	<changeSet author="atolomei" id="drop tables">
+		<sql>
+			<![CDATA[
+				drop table if exists po_block_gallery_viewer;
+				drop table if exists po_block_view_list; 			
+			]]>
+		</sql>
+	</changeSet>
+
+
+
+
+<changeSet author="atolomei" id="po_block_listview 2">
+		<sql><![CDATA[
+		
+			drop table if exists po_block_listview;
+
+			CREATE TABLE if not exists po_block_listview (
+				po_id bigint primary key references po_block(po_id)
+ 			);
+ 			
+		]]>
+		</sql>
+	</changeSet>
+	
+
+<changeSet author="atolomei" id="portal clean up 7">
+		<sql><![CDATA[
+			drop table if exists po_block_site_list;
+			drop table if exists po_block_text;
+			drop table if exists po_block_x;
+			drop table if exists po_block_image_viewer;
+			drop table if exists po_block_select_list;
+			drop table if exists po_block_site_components;
+			drop table if exists po_block_selector;
+			
+			alter table po_viewbk drop constraint if exists viewbk_block_fk;
+			alter table po_viewbk add constraint viewbk_block_fk  foreign key (block_id)  references po_block(po_id) on delete cascade;
+			
+			alter table po_viewbkblock drop constraint if exists viewbkblock_site_fk;
+			
+			alter table po_viewbkblock drop constraint if exists viewbk_block_fk;
+			alter table po_viewbkblock  add constraint viewbk_block_fk  foreign key (block_id)  references po_block(po_id) on delete cascade;
+			
+			drop table if exists  po_diagrammable_block cascade;
+			drop table if exists  po_diagrammable_area;
+			drop table if exists  po_diagrammable_page cascade;
+			drop table if exists  po_diagrammable_site cascade;
+			
+			 alter table po_viewbk drop column if exists position;
+			 alter table po_viewbk drop column if exists list_position;
+			 alter table po_viewbk add column list_position integer default 0;
+			 
+		]]>
+		</sql>
+	</changeSet>
+
+	
+	
+
+<changeSet author="atolomei" id="view 2">
+		<sql><![CDATA[
+
+		alter table po_viewbk drop column if exists  title;
+		alter table po_viewbk drop column if exists subtitle;
+		alter table po_viewbk drop column if exists  description;
+		alter table po_viewbk drop column if exists  tagline;
+		alter table po_viewbk drop column if exists  vtext;
+		alter table po_viewbk drop column if exists  css;
+				
+		alter table po_viewbk drop column if exists  abstract;
+		alter table po_viewbk drop column if exists  metadata;
+
+		alter table po_viewbk add column subtitle character varying(256);
+		alter table po_viewbk add column tagline character varying(256);
+		alter table po_viewbk add column css  character varying(256);
+		
+		alter table po_viewbk add column vtext text;
+		
+		]]>
+		</sql>
+	</changeSet>
+	
+	
+	
+	
+	<changeSet author="atolomei" id="po_block_generic_content_list">
+		<sql><![CDATA[
+		
+			drop table if exists po_block_generic_content_list;
+
+			CREATE TABLE if not exists po_block_generic_content_list (
+				po_id bigint primary key references po_block(po_id) on delete cascade
+ 			);
+ 			
+		]]>
+		</sql>
+	</changeSet>
+
+
+	<changeSet author="atolomei" id="ispayloadeditor 1">
+		<sql><![CDATA[
+		
+		alter table po_block add column if not exists isPayloadEditor boolean default false;
+		alter table po_area  add column if not exists isPayloadEditor boolean default false;
+		alter table po_page  add column if not exists isPayloadEditor boolean default false;
+		alter table po_page_section add column if not exists isPayloadEditor boolean default false;
+		alter table po_site add column if not exists isPayloadEditor boolean default false;
+ 			
+		]]>
+		</sql>
+	</changeSet>
+	
+	<changeSet author="atolomei" id="dp info1">
+		<sql><![CDATA[
+			alter table po_portalobject add column if not exists data_provider_info character varying (2048);
+
+		]]>
+		</sql>
+	</changeSet>
+
+
+	<changeSet author="atolomei" id="sq home">
+		<sql><![CDATA[
+			alter table savedquery add column if not exists is_home boolean default false;
+		]]>
+		</sql>
+	</changeSet>
+
+
+	<changeSet author="atolomei" id="savedquery site foreign key">
+		<sql><![CDATA[
+				alter table savedquery add column if not exists site_id bigint references po_site(po_id) on delete cascade;
+		]]>
+		</sql>
+	</changeSet>
+
+		<changeSet author="atolomei" id="userlist site foreign key">
+		<sql><![CDATA[
+				alter table kb_user_list add column if not exists site_id bigint references po_site(po_id) on delete cascade;;
+				alter table kb_user_list_item  add column if not exists site_id bigint references po_site(po_id) on delete cascade;
+		]]>
+		</sql>
+	</changeSet>
+
+	<changeSet author="atolomei" id="po site library">
+		<sql><![CDATA[
+ 				alter table po_site add column if not exists library_id bigint references kb_cabinet(id) on delete cascade;
+		]]>
+		</sql>
+	</changeSet>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</databaseChangeLog>

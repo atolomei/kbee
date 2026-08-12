@@ -1,0 +1,15 @@
+.classpath
+.settings
+/target/
+src/main/resources/META-INF/db-evolution/liquibase.properties
+/bin/
+/installer
+/tmp
+.settings/*
+/.settings/*
+/bin
+*.log
+/local-repository
+/drive
+/logs
+/.temp-*

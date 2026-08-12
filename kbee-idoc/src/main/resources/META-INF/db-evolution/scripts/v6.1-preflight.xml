@@ -1,0 +1,461 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd
+        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd" >
+
+    <changeSet id="versionTag" author="atolomei">
+        <tagDatabase tag="5.6.1"/>
+    </changeSet>
+
+
+	<changeSet author="atolomei" id="resourcegroup type_2">
+		<preConditions onFail="MARK_RAN">
+			<tableExists tableName="kb_resource_group" />
+		</preConditions>
+		<sql><![CDATA[
+			alter table kb_resource_group add column if not exists type integer not null default 1;
+		]]>
+		</sql>
+	</changeSet>
+	
+	<changeSet author="aferraria" id="facet view mode">
+		<preConditions onFail="MARK_RAN">
+			<tableExists tableName="kb_facet_wrapper" />
+		</preConditions>
+		<sql><![CDATA[
+			alter table kb_facet_wrapper add column if not exists viewmode integer default 0
+		]]>
+		</sql>
+	</changeSet>
+
+	<changeSet author="atolomei" id="kb_usage_stat s3">
+		<preConditions onFail="MARK_RAN">
+			<tableExists tableName="kb_usage_stat" />
+		</preConditions>
+		<sql><![CDATA[
+			alter table kb_usage_stat add column if not exists s3_hard_disk_usage bigint default 0;
+			alter table kb_usage_stat add column if not exists glacier_hard_disk_usage bigint default 0;
+		]]>
+		</sql>
+	</changeSet>
+
+
+
+
+
+
+	<changeSet author="atolomei" id="kb_contenttemplate contentclasscode">
+		<preConditions onFail="MARK_RAN">
+			<tableExists tableName="kb_contenttemplate" />
+		</preConditions>
+		<sql><![CDATA[
+ 			alter table kb_contenttemplate alter column contentclasscode type character varying(64);
+		]]>
+		</sql>
+	</changeSet>
+
+
+
+	<changeSet author="atolomei" id="rs_windsor_activity_pivot">
+		<sql><![CDATA[
+		 create table if not exists rs_windsor_activity_pivot (
+		 id                      bigint                   primary key,
+		 process                 bigint                    not null,
+		 procedure               character varying(128),   
+		 task                    character varying(128),   
+		 user_id                 bigint                  not null,
+		 starttime              timestamp with time zone,
+		 endtime                timestamp with time zone,
+		 event                  character varying(128)  ,
+		 content_id             bigint                  ,
+		 content_oid            bigint                  ,
+		 perfect                boolean                 ,
+		 approved               boolean                 ,
+		 type                   bigint                  ,
+		 pmc                    bigint                  ,
+		 property               bigint                  ,
+		 specialist             bigint                  ,
+		 date                   timestamp with time zone ,
+		 running_process        boolean                  ,
+		 tag                    character varying(64)    ,
+		 reason                 character varying(64)    ,
+		 status                 bigint                   ,
+		 duedate                timestamp with time zone ,
+		 first_review           boolean                 default  false,
+		 label_operations       character varying(128)   ,
+		 region                 bigint                   ,
+		 content_template_alias character varying(24)    ,
+		 submissiontime         timestamp with time zone );
+		]]>
+		</sql>
+	</changeSet>
+
+
+
+	<changeSet author="atolomei" id="kresource oid">
+		<sql><![CDATA[
+	 		alter table kresource add column if not exists oid bigint;
+		]]>
+		</sql>
+	</changeSet>
+
+
+	<changeSet author="grodriguez" id="Kfile_isencrypted 1">
+		<sql><![CDATA[
+ 			alter table kfile add column if not exists isencrypted boolean default false;
+		]]>
+		</sql>
+	</changeSet>
+
+	<changeSet author="grodriguez" id="Kfile_isencrypted_init">
+		<sql><![CDATA[
+			update kfile set isencrypted=false;
+			alter table kfile alter column isencrypted  set not null;
+		]]>
+		</sql>
+	</changeSet>
+
+	<changeSet author="atolomei" id="kb_tree_file_oid">
+		<sql><![CDATA[
+	 		alter table kb_tree_file add column if not exists oid bigint;
+		]]>
+		</sql>
+	</changeSet>
+
+
+
+	<changeSet author="aferraria" id="kb_attribute rule_condition 1">
+		<preConditions onFail="MARK_RAN">
+			<tableExists tableName="kb_attribute" />
+		</preConditions>
+		<sql><![CDATA[
+			alter table kb_attribute add column if not exists is_rule_condition boolean default false;
+		]]>
+		</sql>
+	</changeSet>
+
+
+	<!-- changeSet author="atolomei" id="resourceid_sequence inc 1">
+		<sql><![CDATA[
+				alter sequence if exists resourceid_sequence increment 1;
+		]]>
+		</sql>
+	</changeSet-->
+
+
+	<changeSet author="atolomei" id="kresource update oid2 1">
+		<preConditions onFail="MARK_RAN">
+			<tableExists tableName="kresource" />
+		</preConditions>
+		<sql><![CDATA[
+		 	update kresource set oid=nextval('resourceid_sequence') where oid is null and version=0 and prev_version is null;
+		]]>
+		</sql>
+	</changeSet>
+
+
+	<changeSet author="atolomei" id="kb_tree_file oid2">
+		<preConditions onFail="MARK_RAN">
+			<tableExists tableName="kb_tree_file" />
+		</preConditions>
+		<sql><![CDATA[
+				alter table kb_tree_file add column if not exists ishead boolean default true;
+				alter table kb_tree_file add column if not exists version integer default 0;
+				alter table kb_tree_file add column if not exists previousVersion bigint references kb_tree_file(id);
+
+				update kb_tree_file set oid =nextval('resourceid_sequence') where oid is null
+		]]>
+		</sql>
+	</changeSet>
+
+	<changeSet author="atolomei" id="cl default structure">
+		<preConditions onFail="MARK_RAN">
+			<tableExists tableName="kb_classifier" />
+		</preConditions>
+		<sql><![CDATA[
+				alter table kb_classifier add column if not exists default_structure boolean default false;
+
+		]]>
+		</sql>
+	</changeSet>
+
+
+	<changeSet author="atolomei" id="at default structure">
+		<preConditions onFail="MARK_RAN">
+			<tableExists tableName="kb_attribute" />
+		</preConditions>
+		<sql><![CDATA[
+				alter table kb_attribute add column if not exists default_structure boolean default false;
+
+		]]>
+		</sql>
+	</changeSet>
+
+
+	<changeSet author="atolomei" id="default structure search">
+		<preConditions onFail="MARK_RAN">
+			<tableExists tableName="kb_classifier" />
+		</preConditions>
+		<sql><![CDATA[
+				update kb_classifier set default_structure = true where uniquename='status' or uniquename = 'type' or uniquename='document type' or uniquename='file type';
+				update kb_classifier set searchable = true where uniquename='status' or uniquename = 'type' or uniquename='document type' or uniquename='file type' or uniquename='site name' or uniquename='property';
+
+				update kb_attribute set default_structure = true where lower(name) = 'effective date';
+				update kb_attribute set searchable = true where lower(name)='unit' or lower(name) = 'effective date';
+
+
+		]]>
+		</sql>
+	</changeSet>
+
+	<changeSet author="atolomei" id="kb_classifier access_strategy 4">
+		<preConditions onFail="MARK_RAN">
+			<tableExists tableName="kb_classifier" />
+		</preConditions>
+		<sql><![CDATA[
+			alter table kb_classifier add column if not exists access_strategy integer default 0;
+		]]>
+		</sql>
+	</changeSet>
+
+	<changeSet author="aferraria" id="dataset access_strategy">
+		<preConditions onFail="MARK_RAN">
+			<tableExists tableName="dataset" />
+		</preConditions>
+		<sql><![CDATA[
+			alter table dataset add column if not exists access_strategy integer default 2;
+		]]>
+		</sql>
+	</changeSet>
+
+	<changeSet author="atolomei" id="wf_launcher structure 1">
+		<preConditions onFail="MARK_RAN">
+			<tableExists tableName="wf_launcher" />
+		</preConditions>
+		<sql><![CDATA[
+		 alter table wf_launcher add column if not exists alias character varying(64);
+		 alter table wf_launcher add column if not exists lastmodifieddate  timestamp with time zone  default now();
+		 alter table wf_launcher add column if not exists creationdate      timestamp with time zone  default now();
+		 alter table wf_launcher add column if not exists lastmodifieduser  bigint REFERENCES users(id) ON DELETE RESTRICT;
+		 alter table wf_launcher add column if not exists state             integer default 1;
+
+		 alter table wf_procedure drop constraint if exists lastmodifieduser_fk;
+		 alter table wf_procedure add constraint lastmodifieduser_fk FOREIGN KEY (lastmodifieduser) REFERENCES users(id) ON DELETE RESTRICT;
+		]]>
+		</sql>
+	</changeSet>
+
+	<changeSet author="atolomei" id="kb_aclentry permissions 2048">
+		<preConditions onFail="MARK_RAN">
+			<tableExists tableName="kb_aclentry" />
+		</preConditions>
+		<sql><![CDATA[
+			alter table kb_aclentry alter column permissions type character(2048);		]]>
+		</sql>
+	</changeSet>
+
+
+
+	<changeSet author="atolomei" id="kb_user_list_2">
+		<sql><![CDATA[
+				create table if not exists kb_user_list(
+					id                       bigint primary key,
+					lastmodifieddate         timestamp with time zone default now(),
+					creationdate             timestamp with time zone default now(),
+					lastmodifieduser         bigint  references users(id) on delete set null,
+					state                    integer default 1,
+					domain_id                bigint  references domain(id) on delete cascade,
+					owner_id				 bigint  references users(id) on delete cascade,
+					console					 character varying(256) not null,
+					title                    character varying(2048) not null,
+					description				 character varying(2048)
+				);
+
+
+				create table if not exists kb_user_list_item (
+					id                        bigint primary key,
+					lastmodifieddate          timestamp with time zone default now(),
+					creationdate              timestamp with time zone default now(),
+					lastmodifieduser          bigint  references users(id) on delete set null,
+					state                     integer default 1,
+					domain_id                 bigint  references domain(id) on delete cascade,
+					userlist_id				  bigint  references kb_user_list(id) on delete cascade,
+					content_id				  bigint references content(id) on delete set null,
+					datasetmember_id          bigint references datasetmember(id) on delete set null,
+					user_id					  bigint references users(id) on delete set null
+				);
+
+
+				create table if not exists kb_userlistclassification (
+					id                        	bigint primary key,
+					classifier_id   			bigint  references kb_classifier(id) on delete restrict,
+					datasetmember_id 			bigint references datasetmember(id) on delete restrict,
+					position         			integer default 0,
+					user_list_item_id         	bigint references kb_user_list_item on delete cascade
+				);
+
+		]]>
+		</sql>
+	</changeSet>
+
+
+	<changeSet author="atolomei" id="list item 2">
+		<preConditions onFail="MARK_RAN">
+			<tableExists tableName="kb_user_list_item" />
+		</preConditions>
+		<sql><![CDATA[
+			alter table kb_user_list_item add column if not exists title character varying(1024);
+			alter table kb_user_list_item add column if not exists  type integer default 1;
+			alter table kb_user_list_item add column if not exists version_match integer default 0;
+			alter table kb_user_list add column if not exists total_items integer default 0;
+		]]>
+		</sql>
+	</changeSet>
+
+
+	<!-- update savedquery C set user_id = (select id from users where id = (select user_id from profile where id=C.userprofile_id)); -->
+
+	<changeSet author="atolomei" id="savedq 4">
+		<preConditions onFail="MARK_RAN">
+			<tableExists tableName="savedquery" />
+		</preConditions>
+		<sql><![CDATA[
+			alter table savedquery add column if not exists user_id bigint references users(id) on delete cascade;
+			create index if not exists savedquery_user_console_idx on savedquery(user_id, console, title);
+		]]>
+		</sql>
+	</changeSet>
+
+	<changeSet author="aferraria" id="kb_tree_file version 1">
+		<preConditions onFail="MARK_RAN">
+			<tableExists tableName="kb_tree_file" />
+			<not>
+                <columnExists tableName="kb_tree_file" columnName="prev_version"/>
+            </not>
+		</preConditions>
+		<sql><![CDATA[
+			alter table kb_tree_file rename column previousversion to prev_version;
+		]]>
+		</sql>
+	</changeSet>
+
+
+	<!-- changeSet author="atolomei" id="classification for userlist">
+		<sql><![CDATA[
+				alter table classification add column if not exists user_list_item_id bigint references kb_user_list_item on delete cascade;
+				]]>
+		</sql>
+	</changeSet-->
+
+	<changeSet author="grodriguez" id="domain_encrypt_files 1">
+		<sql><![CDATA[
+ 			alter table domain add column if not exists encrypt_files boolean default false;
+ 			update domain set encrypt_files=false;
+			alter table domain alter column encrypt_files set not null;
+		]]>
+		</sql>
+	</changeSet>
+	
+
+	<changeSet author="atolomei" id="index user list">
+		<sql><![CDATA[
+ 			create index if not exists kb_user_list_owner_console_idx on kb_user_list(owner_id, console, title);
+ 			create index if not exists kb_user_list_item_list_idx on kb_user_list_item(userlist_id, title); 			
+		]]>
+		</sql>
+	</changeSet>
+	
+
+	<changeSet author="atolomei" id="user list version match">
+		<sql><![CDATA[
+ 			alter table kb_user_list add column if not exists version_match integer default 1; 			
+		]]>
+		</sql>
+	</changeSet>
+
+
+	<changeSet author="atolomei" id="user list item console owner 2">
+		<sql><![CDATA[
+				alter table kb_user_list_item add column if not exists console character varying(256);
+				alter table kb_user_list_item add column if not exists owner_id bigint references users(id) on delete cascade;			 			
+		]]>
+		</sql>
+	</changeSet>
+
+
+	<changeSet author="atolomei" id="user list item index for grid">
+		<sql><![CDATA[
+ 				create index if not exists content_owner_console_userlist_userlistitem_idx  on kb_user_list_item(content_id, owner_id, console, userlist_id);			 			
+		]]>
+		</sql>
+	</changeSet>
+
+
+	<changeSet author="atolomei" id="saved query 2">
+		<sql><![CDATA[
+ 				alter table savedquery add column if not exists 	lastmodifieddate          timestamp with time zone default now();
+				alter table savedquery add column if not exists		creationdate              timestamp with time zone default now();
+				alter table savedquery add column if not exists     lastmodifieduser          bigint  references users(id) on delete set null;
+				alter table savedquery add column if not exists	    state                     integer default 1;
+				alter table savedquery add column if not exists	    domain_id                 bigint  references domain(id) on delete cascade;
+				
+		]]>
+		</sql>
+	</changeSet>
+
+<!-- changeSet author="aferraria" id="user list item content class 1"> 
+update savedquery set domain_id=(select domain_id from profile where id=userprofile_id);
+-->
+
+
+ 	<changeSet author="atolomei" id="user list item oid">
+		<sql><![CDATA[
+			 alter table kb_user_list_item add column if not exists oid bigint;
+			 create index if not exists kb_user_list_item_content_oid_idx on kb_user_list_item(oid, content_id); 
+		]]>
+		</sql>
+	</changeSet>
+ 
+	<!-- changeSet author="aferraria" id="user list item content class 1">
+		<preConditions onFail="MARK_RAN">
+			<sqlCheck expectedResult="0">select count(*) from contentclass where id='KbeeUserListItem'</sqlCheck>
+		</preConditions>
+		<sql><![CDATA[
+			insert into contentclass (id, enabled, name, javaclass, indexable, selectable) values('KbeeUserListItem', true, 'UserListItem','com.novamens.kbee.content.userlist.KbeeUserListItem', true, true)
+		]]>
+		</sql>
+	</changeSet -->
+	
+	<changeSet author="atolomei" id="uitheme">
+		<sql><![CDATA[
+			   update users set uitheme='rpdm' where uitheme is null;
+			   update userprofile set uitheme='rpdm' where uitheme is null;
+		]]>
+		</sql>
+	</changeSet>
+	
+	
+	<changeSet author="atolomei" id="locale">
+		<sql><![CDATA[
+			   update users set locale_str='en' where locale_str is null;
+			   update users set  timezone=' US/Central' where timezone is null;
+			   update users set  timezone=' US/Central' where timezone is null;
+			   update users set creationdate=lastmodifieddate where creationdate is null;
+			   update users set passwordlastmodifieddate=creationdate where passwordlastmodifieddate is null;
+			   
+		]]>
+		</sql>
+	</changeSet>
+	
+	<changeSet author="aferraria" id="reverse classifier">
+		<sql><![CDATA[
+			 alter table kb_classifiertemplate add column if not exists reverse boolean default false;
+		]]>
+		</sql>
+	</changeSet>
+	
+
+</databaseChangeLog>
