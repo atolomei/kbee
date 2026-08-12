@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<parent>
+		<artifactId>kbee</artifactId>
+		<groupId>com.novamens</groupId>
+		<version>8.5-SNAPSHOT</version>
+	</parent>
+	
+	<version>8.5-SNAPSHOT</version>
+		 
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.novamens</groupId>
+	<name>${project.artifactId}</name>
+	<artifactId>kbee-dm-indexer</artifactId>
+	<packaging>pom</packaging>
+	
+	<scm>
+		<connection>
+			scm:git:ssh://alejo@git.hq.novamens.com/var/novamens/indexer.git
+		</connection>
+		<developerConnection>
+			scm:git:ssh://alejo@git.hq.novamens.com/var/novamens/indexer.git
+		</developerConnection>
+	</scm>
+	
+	<modules>
+		<module>api</module>
+		<module>java</module>
+  	</modules>
+ </project>
