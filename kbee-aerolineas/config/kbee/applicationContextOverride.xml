@@ -9,7 +9,7 @@
 
 	<context:component-scan base-package="com.novamens" />
 
-	bean id="wicketApplication" class="com.novamens.content.web.WebApplication"/>
+	<bean id="wicketApplication" class="com.novamens.content.web.WebApplication"/>
 	<bean id="dataSource" class="kbee.web.util.DataSourceFactory"/>
 	<bean id="authenticationEventListener" class="com.novamens.kbee.content.security.AuthenticationEventListener"/>
 

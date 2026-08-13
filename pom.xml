@@ -1,0 +1,145 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+	<!-- arent> <artifactId>novamens</artifactId> <groupId>com.novamens</groupId> 
+		<version>1.2.6</version> </parent -->
+
+
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>com.novamens</groupId>
+	<artifactId>kbee-compile</artifactId>
+	<name>${project.artifactId}</name>
+	<packaging>pom</packaging>
+	<version>5.4.0</version>
+	
+		 <properties>
+		 <jetty-version>[9.4,)</jetty-version>
+	 </properties>
+
+	<!-- La lista de module debe coincidir cada uno con el nombre del directorio 
+		en el File System -->
+	<modules>
+
+		<module>kbee-base</module>
+
+		<module>kbee-app-model</module>
+		<module>kbee-app-content</module>
+		<module>kbee-app-factory</module>
+		
+		
+		<!-- Util -->
+		<module>kbee-util</module>
+
+		<!-- Web Foundation Classes -->
+		<module>kbee-wfc-wicket</module>
+		<module>kbee-wfc-tinymce</module>
+		<module>kbee-wfc-consoles</module>
+		<module>kbee-wfc-web</module>
+
+		<!-- Web Framework -->
+		<module>kbee-web</module>
+		<!--
+		<module>kbee-web-drbit</module>
+		<module>kbee-web-portal</module>
+		-->
+
+
+		<!-- KBEE Object Model -->
+		<module>kbee-model-dom</module>
+		<module>kbee-services-workflow</module>
+		<module>kbee-model-security</module>
+
+		<!-- Infrastructure Services -->
+		<module>kbee-services-logging</module>
+		<module>kbee-services-model</module>
+		<module>kbee-services-classes</module>
+		<module>kbee-services-spring</module>
+
+
+		<!-- Data Management -->
+		<module>kbee-dm-hibernate</module>
+		<module>kbee-dm-solr</module>
+		<module>kbee-dm-indexer</module>
+
+		<!-- Content Management -->
+		<module>kbee-content-model</module>
+		<module>kbee-content-classes</module>
+		<module>kbee-content-portal-model</module>
+
+		<!-- api -->
+		<module>kbee-api</module>
+
+
+		<!-- importer -->
+		<!--module>kbee-db-file-importer</module-->
+
+
+		<!-- idoc -->
+		<!--module>idoc-lib</module>
+		<module>idoc-resources</module-->
+		<!-- idoc-config -->
+
+		<!-- Applications: idoc, rio, aa, indra, kbee -->
+
+	</modules>
+	<build>
+		<defaultGoal>install</defaultGoal>
+		<sourceDirectory>src/main/java</sourceDirectory>
+		<resources>
+			<resource>
+				<directory>src/main/resources</directory>
+				<includes>
+					<include>**</include>
+				</includes>
+			</resource>
+			<resource>
+				<directory>src/main/java</directory>
+				<includes>
+					<include>**/*.properties</include>
+					<include>**/*.xml</include>
+				</includes>
+			</resource>
+		</resources>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-source-plugin</artifactId>
+				<version>3.0.1</version>
+				<executions>
+					<execution>
+						<phase>package</phase>
+						<goals>
+							<goal>jar</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.6.2</version>
+				<configuration>
+					<source>1.8</source>
+					<target>1.8</target>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jar-plugin</artifactId>
+				<version>3.0.2</version>
+				<!--
+				<configuration>
+					<useDefaultManifestFile>
+						true
+					</useDefaultManifestFile>
+				</configuration>
+				-->
+			</plugin>
+		</plugins>
+	</build>
+
+
+
+</project>

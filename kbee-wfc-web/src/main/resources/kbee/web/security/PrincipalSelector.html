@@ -20,11 +20,12 @@
 		min-width: 200px;
 		max-width: none;
 		height: 600px;
+		overflow:hidden;
 		margin-top:-25px;">
 		<div style="padding:10px;text-align: right;">
 			<a wicket:id="close" style=""><wicket:message key="close.label"/></a>
 		</div>
-		<div wicket:id="tree" style="height:calc(100% - 20px);">[]</div>
+		<div wicket:id="tree" style="height:calc(100% - 20px); overflow:auto;">[]</div>
 	</div>
 </wicket:panel>
 

@@ -19,7 +19,7 @@ public class OAuth2GoogleClientRegistrationFactory implements FactoryBean<Client
 		PropertiesFactory
 		.getInstance("kbee")
 		.getProperties()
-		.getProperty("oauth2.google.client-id","")
+		.getProperty("oauth2.google.client-secret","")
 		.trim();
 	
 	public ClientRegistration getObject() throws Exception {
