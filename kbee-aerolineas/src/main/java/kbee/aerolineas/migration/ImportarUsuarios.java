@@ -116,8 +116,12 @@ public class ImportarUsuarios extends AsyncCommand {
 					update(user);
 				}
 				else {
-					delete(user);
-					getLogger().info(user.getExternalId() + ", WARN, no migra");
+					if (delete(user)) {
+						getLogger().info(user.getExternalId() + ", WARN, no migra");
+					}
+					else {
+						update(user);
+					}
 				}
 			}
 			
@@ -147,8 +151,6 @@ public class ImportarUsuarios extends AsyncCommand {
 				return false;
 			}
 			if (row.get("empresa").equals("Proveedores / Outsourced Services")) {
-				//String email = row.get("mail");
-				//return email!=null && email.contains("@aerolineas");
 				return true;
 			}
 			if (!row.get("empresa").equals("Aerolíneas Argentinas")) {
@@ -309,7 +311,7 @@ public class ImportarUsuarios extends AsyncCommand {
 	}
 	
 	
-	private void delete(ApiUser user) {
+	private boolean delete(ApiUser user) {
 		Transaction transaction = null;
 		try {
 			transaction = beginTransaction();
@@ -319,6 +321,7 @@ public class ImportarUsuarios extends AsyncCommand {
 				getLogger().info(user.getExternalId() + ", DELETED");
 			}
 			transaction.commit();
+			return true;
 		}
 		catch (Exception e) {
 			//getLogger().error(e);
@@ -330,6 +333,7 @@ public class ImportarUsuarios extends AsyncCommand {
 			catch (Exception e1) {
 				logger.error(e1);
 			}
+			return false;
 		}
 	}
 	
@@ -841,12 +845,13 @@ public class ImportarUsuarios extends AsyncCommand {
 		return person;
 	}
 	
-    public List<DataSetMember> findMembersByExternalId(String id) {
+    @SuppressWarnings("unchecked")
+   public List<DataSetMember> findMembersByExternalId(String id) {
         if (id == null) return null;
         String hql = "FROM KbeeDataSetMember WHERE externalId = '" + id + "'";
         org.hibernate.query.Query<?> query = getSessionFactory().getCurrentSession().createQuery(hql);
         List<?> results = query.list();
-        List<DataSetMember> members = (List<DataSetMember>) results;
+		List<DataSetMember> members = (List<DataSetMember>) results;
         return members;
     }
 
