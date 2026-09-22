@@ -2587,7 +2587,8 @@ public abstract class UsersConsole extends AbstractFacetedConsole<Person> {
 		else
 			realfacet = facet;
 		
-		return !realfacet.getName().equals("state");	
+		//return !realfacet.getName().equals("state");	
+		return true;	
 	}
 	
 	@SuppressWarnings("unchecked")

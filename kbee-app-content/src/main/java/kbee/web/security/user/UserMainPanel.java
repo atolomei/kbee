@@ -108,6 +108,13 @@ public class UserMainPanel extends ObjectEditor<Person> implements PageMainTabs 
 		.getInstance("kbee")
 		.getProperties()
 		.getProperty("kbee.user.signature.enabled", "true");
+	
+	private static String AlertsEnabled =
+			PropertiesFactory
+			.getInstance("kbee")
+			.getProperties()
+			.getProperty("kbee.user.alerts.enabled", "true");
+
 
 	private String initial_tab;
 	
@@ -496,16 +503,18 @@ public class UserMainPanel extends ObjectEditor<Person> implements PageMainTabs 
 				});
 			}			
 			
-			if (!is_external && (role_security || !ismyaccount || isWorkflowUser())) {
-				tabs.add(new AbstractTabKB(getLabel("editor.emailrules"), "alerts") { // era -> "emailalerts"
-					@Override
-					public Panel getPanel(String panelId) {
-						return new UserEMailRulesPanel(panelId, 
-							getProfileModel(), 
-							ismyaccount);
-					}
-				});
-			}	
+			if ("true".equals(AlertsEnabled)) {
+				if (!is_external && (role_security || !ismyaccount || isWorkflowUser())) {
+					tabs.add(new AbstractTabKB(getLabel("editor.emailrules"), "alerts") { // era -> "emailalerts"
+						@Override
+						public Panel getPanel(String panelId) {
+							return new UserEMailRulesPanel(panelId, 
+								getProfileModel(), 
+								ismyaccount);
+						}
+					});
+				}
+			}
 						
 			if (!is_external && !ismyaccount) {
 				tabs.add(new AbstractTabKB(getLabel("editor.workflow"), "workflow") {

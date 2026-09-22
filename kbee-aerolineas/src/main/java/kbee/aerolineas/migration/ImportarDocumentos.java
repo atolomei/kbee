@@ -2894,6 +2894,9 @@ public class ImportarDocumentos extends AsyncCommand {
 	}
 	
 	private String getFileName() {
+		System.out.println(
+		        System.getProperty("user.dir")
+		);
 		return ServiceLocator.getService(SystemParameterService.class).getParameter("aerolineas.users.file", "migration"+File.separator+"docs.csv");
 	}
 	

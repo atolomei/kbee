@@ -21,10 +21,12 @@ import com.novamens.dom.ObjectState;
 import com.novamens.kbee.wicket.util.InvisiblePanel;
 import com.novamens.portal6.model.Site;
 import com.novamens.security.acl.KbeeGlobalRole;
+import com.novamens.service.SecurityService;
 import com.novamens.service.ServiceLocator;
 import com.novamens.wicket.model.ObjectModel;
 import com.novamens.wicket.util.MenuBreadCrumbPanel;
 
+import kbee.util.logging.Logger;
 import kbee.web.console.grid.LabelSetPanel;
 import kbee.web.error.ErrorPanel;
 import kbee.web.nav.ArchiveBC;
@@ -40,17 +42,20 @@ public class SearcherDetailHeaderPanel<T extends Content> extends SearcherDetail
 
 	private static final long serialVersionUID = 1L;
 
-	static kbee.util.logging.Logger logger =  kbee.util.logging.Logger.getLogger(SearcherDetailHeaderPanel.class.getName());
+	static kbee.util.logging.Logger logger =  Logger.getLogger(SearcherDetailHeaderPanel.class.getName());
 
-	final boolean is_root = ServiceLocator.getService(com.novamens.service.SecurityService.class).isRoot(); 
-	final boolean is_domain_admin = ServiceLocator.getService(com.novamens.service.SecurityService.class).isMember(KbeeGlobalRole.DOMAIN_ADMIN.getId());
+	final boolean is_root = ServiceLocator
+			.getService(SecurityService.class)
+			.isRoot(); 
+	final boolean is_domain_admin = ServiceLocator
+			.getService(SecurityService.class)
+			.isMember(KbeeGlobalRole.DOMAIN_ADMIN.getId());
 
 	
 	private WebMarkupContainer main_area;
 	private WebMarkupContainer main_area_container;
 	
 	private Panel navigator;
-	//private Panel tools;
 
 	private PageTaskToolbar<T> toolbar;
 	
@@ -90,7 +95,6 @@ public class SearcherDetailHeaderPanel<T extends Content> extends SearcherDetail
 		try {																								
 			if (!panel.getId().equals("tools"))
 					throw new IllegalArgumentException("id must be = 'tools'");
-			//this.tools=panel;
 			getMainAreaContainer().addOrReplace(panel);
 			
 		} catch (Exception e) {		
@@ -98,26 +102,7 @@ public class SearcherDetailHeaderPanel<T extends Content> extends SearcherDetail
 			getMainAreaContainer().addOrReplace(new ErrorPanel("tools",e ));
 		}
 	}
-	
-	/**
-	public void setNavigationPanel(Panel panel) {
-		try {																								
-			if (!panel.getId().equals("navigator"))
-					throw new IllegalArgumentException("id must be navigation");
-			
-			this.navigator=panel;
-			getMainArea().addOrReplace(panel);
-			
-		} catch (Exception e) {		
-			logger.error(e);
-			getMainArea().addOrReplace(new ErrorPanel("navigator",e ));
-		}
-		
-	}
-	**/
 
-
-	
 	public void addToolbarPanel() {
 		
 		try {																								
@@ -168,11 +153,8 @@ public class SearcherDetailHeaderPanel<T extends Content> extends SearcherDetail
 				return;
 			}
 	
-			//getMainArea().addOrReplace(new DummyBlockPanel("tools"));
 			getMainArea().addOrReplace(new InvisiblePanel("tools"));
 
-			// getMainArea().addOrReplace(new Searche rDetailToolsPanel<T>("tools", getModel(), getSiteModel()));
-			
 			
 		} catch (Exception e) {		
 			logger.error(e);
@@ -248,18 +230,7 @@ public class SearcherDetailHeaderPanel<T extends Content> extends SearcherDetail
 	 */
 	public void addMetadataPanel() {
 		try {
-			
 			getMainArea().add(new InvisiblePanel("metadata"));
-
-			/**
-			if (this.isStandAlonePage()) {
-				getMainArea().add(new InvisiblePanel("metadata"));
-				return;
-			}
-			SearcherDetailMetadataPanel<T> panel = new SearcherDetailMetadataPanel<T>("metadata", getModel(), getSiteModel());
-			panel.setVisible(panel.getSubtitle()!=null);
-			getMainArea().add(panel);
-			**/
 		} 
 		catch (Exception e) {		
 			logger.error(e);
@@ -378,7 +349,7 @@ public class SearcherDetailHeaderPanel<T extends Content> extends SearcherDetail
 	}
 
 
-	public void addPreviousVersionPanel() {
+	protected void addPreviousVersionPanel() {
 			try {
 										
 				WebMarkupContainer previous_version = new WebMarkupContainer("version") {
@@ -415,32 +386,8 @@ public class SearcherDetailHeaderPanel<T extends Content> extends SearcherDetail
 	
 	
 	
-	/**
-	 * 		WebMarkupContainer previous_version = new WebMarkupContainer("previous-version") {
-			private static final long serialVersionUID = 1L;
-			@Override
-			public boolean isVisible() {
-				
-				if (getContent().getWorkspace()!=null)
-					return false;
-
-				if (getContent().getState()==ObjectState.DELETED)
-					return false;
-				
-				return !getContent().isHeadVersion() && 
-					   !getContent().getService(ContentService.class).isValidVersion();
-			}
-		};
-
-	 * @return
-	 */
-	
-	
-	
-	
-	
-	 
-	private WebMarkupContainer getMainArea() {
+ 
+	protected WebMarkupContainer getMainArea() {
 		return main_area;
 	}
 
@@ -460,12 +407,6 @@ public class SearcherDetailHeaderPanel<T extends Content> extends SearcherDetail
 		this.main_area.setOutputMarkupId(true);
 		this.main_area_container.add(this.main_area);
 
-		//if (this.navigator==null)
-		//	this.main_area.add(new InvisiblePanel("navigator"));
-		//else
-		//	this.main_area.add(this.navigator);
-			
-
 		addCriteriaRelationshipPanel();
 		addBreadcrumbPanelPanel();
 		addTitlePanel();
@@ -475,9 +416,6 @@ public class SearcherDetailHeaderPanel<T extends Content> extends SearcherDetail
 		addToolsPanel();
 		addToolbarPanel();
 		addPreviousVersionPanel();
-		
-		
-		
 	}
 
 	
@@ -517,6 +455,3 @@ public class SearcherDetailHeaderPanel<T extends Content> extends SearcherDetail
 	}
 
 }
-
-
-//addBreadcrumbToolsPanel();

@@ -18,7 +18,6 @@ import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.link.Link;
 import org.apache.wicket.markup.html.list.ListItem;
 import org.apache.wicket.markup.html.list.ListView;
-import org.apache.wicket.markup.html.pages.RedirectPage;
 import org.apache.wicket.markup.html.panel.Fragment;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.markup.repeater.Item;
@@ -34,6 +33,7 @@ import com.novamens.datetime.DateTimeService;
 import com.novamens.dom.Versionable;
 import com.novamens.kbee.content.script.KbeeClassificableScriptWrapper;
 import com.novamens.kbee.wicket.model.ModelPanel;
+import com.novamens.kbee.wicket.util.InvisiblePanel;
 import com.novamens.portal6.model.Site;
 import com.novamens.security.acl.KbeeGlobalRole;
 import com.novamens.service.SecurityService;
@@ -43,8 +43,10 @@ import com.novamens.wicket.model.ObjectModel;
 
 import kbee.web.command.panel.CommandAttributePanelV5;
 import kbee.web.nav.ContentNavigationBarV6;
+import kbee.web.nav.NavigatorPanelV6;
 import kbee.web.page.AbstractApplicationPage;
 import kbee.web.searcher.page.SearcherDetailDocumentPage;
+import kbee.web.searcher.panel.SearcherDetailHeaderPanel;
 
 @SuppressWarnings("serial")
 public class AAVersionHistoryPanel<T extends Content> extends ModelPanel<T> {
@@ -75,7 +77,26 @@ public class AAVersionHistoryPanel<T extends Content> extends ModelPanel<T> {
 			
 			Link<?> link = new Link<Void>("title-link") {
 				public void onClick() {
-					setResponsePage(new RedirectPage( model.getObject().getService(UrlService.class).getUrl()));
+					Page page = new SearcherDetailDocumentPage<T>(model, getSiteModel()) {
+						@Override
+						protected Panel getHeaderPanel () {
+							SearcherDetailHeaderPanel<T> pa;
+							pa = new SearcherDetailHeaderPanel<T>("content-top-panel", 
+									getModel(), 
+									getSiteModel(), 
+									null, 
+									isConsole) {
+								@Override
+								protected void addPreviousVersionPanel() {
+									getMainArea().addOrReplace(new InvisiblePanel("version"));
+								}
+							};
+							pa.setHasToolbar(false);
+							pa.setHasBreadcrumb(false);
+							return pa;
+						}
+					};
+					setResponsePage(page);
 				}
 				public boolean isEnabled() {
 					return isOpenEnabled();
@@ -96,8 +117,11 @@ public class AAVersionHistoryPanel<T extends Content> extends ModelPanel<T> {
 			IModel<String> date = new Model<String>() {
 				public String getObject() {
 					try {
-					return ServiceLocator.getService(DateTimeService.class).timeElapsed(model.getObject().getCheckinOffsetDateTime());
-					} catch (Exception e) {
+						return ServiceLocator
+							.getService(DateTimeService.class)
+							.timeElapsed(model.getObject().getCheckinOffsetDateTime());
+					} 
+					catch (Exception e) {
 						return e.getClass().getName();
 					}
 				}

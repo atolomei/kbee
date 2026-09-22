@@ -41,6 +41,7 @@ import com.novamens.security.User;
 import com.novamens.security.acl.KbeeGlobalRole;
 import com.novamens.service.SecurityService;
 import com.novamens.service.ServiceLocator;
+import com.novamens.util.PropertiesFactory;
 import com.novamens.wicket.markup.html.actions.AbstractMenuItemPanelV5;
 import com.novamens.wicket.markup.html.actions.MenuItemFactory;
 import com.novamens.wicket.markup.html.actions.MenuItemWithModelPanel;
@@ -75,6 +76,12 @@ public class MemberMainPanel extends ObjectEditor<DataSetMember> implements Page
 		ServiceLocator
 		.getService(SecurityService.class)
 		.isMember(KbeeGlobalRole.SECURITY.getId());
+	
+	private static Boolean RulesEnabled = "true".equals(
+		PropertiesFactory
+		.getInstance("kbee")
+		.getProperties()
+		.getProperty("kbee.member.rules.enabled", "true"));
 	
 	private IModel<DataSetMember> aggregatormodel;
 	private String initial_tab;
@@ -160,7 +167,7 @@ public class MemberMainPanel extends ObjectEditor<DataSetMember> implements Page
 		});
 
 		
-		if (getModel().getObject() instanceof EntityMember) {
+		if (RulesEnabled && getModel().getObject() instanceof EntityMember) {
 			tabs.add(new AbstractTabKB(getLabel("editor.rules"), "rules") {
 				@Override
 				public Panel getPanel(String panelId) {
@@ -168,9 +175,6 @@ public class MemberMainPanel extends ObjectEditor<DataSetMember> implements Page
 				}
 			});	
 		}
-		
-		
-
 		
 		tabs.add(new AbstractTabKB(getLabel("editor.externalid"), "externalid") {
 			@Override

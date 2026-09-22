@@ -224,15 +224,21 @@ public class SearcherDetailDocumentPage<T extends Content> extends SearcherDetai
 
 	private void addTitlePanel() {
 		try {
-			SearcherDetailHeaderPanel<T> pa;
-			if (getNavigator() != null) {
-				NavigatorPanelV6<T> na = new NavigatorPanelV6<T>("panel", getNavigator());
-				pa = new SearcherDetailHeaderPanel<T>("content-top-panel", getModel(), getSiteModel(), na, isConsole);
-			} else
-				pa = new SearcherDetailHeaderPanel<T>("content-top-panel", getModel(), getSiteModel(), null, isConsole);
-			pa.setHasToolbar(false);
-			pa.setHasBreadcrumb(false);
-			panel.setContentTopPanel(pa);
+//			SearcherDetailHeaderPanel<T> pa;
+//			if (getNavigator() != null) {
+//				NavigatorPanelV6<T> na = new NavigatorPanelV6<T>("panel", getNavigator());
+//				pa = new SearcherDetailHeaderPanel<T>("content-top-panel", getModel(), getSiteModel(), na, isConsole);
+//			} 
+//			else {
+//				pa = new SearcherDetailHeaderPanel<T>("content-top-panel", 
+//						getModel(), 
+//						getSiteModel(), 
+//						null, 
+//						isConsole);
+//			}	
+//			pa.setHasToolbar(false);
+//			pa.setHasBreadcrumb(false);
+			panel.setContentTopPanel(getHeaderPanel());
 
 		} catch (Exception e) {
 			logger.error(e);
@@ -242,8 +248,29 @@ public class SearcherDetailDocumentPage<T extends Content> extends SearcherDetai
 			mc.addOrReplace(panel);
 		}
 	}
-
-
+	
+	
+	protected Panel getHeaderPanel () {
+		SearcherDetailHeaderPanel<T> pa;
+		if (getNavigator() != null) {
+			NavigatorPanelV6<T> na = new NavigatorPanelV6<T>("panel", getNavigator());
+			pa = new SearcherDetailHeaderPanel<T>("content-top-panel", 
+					getModel(), 
+					getSiteModel(), 
+					na, 
+					isConsole);
+		} 
+		else {
+			pa = new SearcherDetailHeaderPanel<T>("content-top-panel", 
+					getModel(), 
+					getSiteModel(), 
+					null, 
+					isConsole);
+		}	
+		pa.setHasToolbar(false);
+		pa.setHasBreadcrumb(false);
+		return pa;
+	}
 
 	protected void addEFormLayout() {
 
@@ -307,27 +334,7 @@ public class SearcherDetailDocumentPage<T extends Content> extends SearcherDetai
 	 * @return
 	 */
 	private List<MenuItemFactory<Panel>> getMenuItems() {
-
 		List<MenuItemFactory<Panel>> list = new ArrayList<MenuItemFactory<Panel>>();
-
-		/**
-		list.add(new MenuItemFactory<Panel>() {
-			@Override
-			public AbstractMenuItemPanelV5<Panel> getItem(String id) {
-				return new AjaxMenuItemPanelV5<Panel>(id) {
-					@Override
-					public void onClick(AjaxRequestTarget target) {
-						fireScanAll(new ClickSendByEmailEvent<T>(target, SearcherDetailDocumentPage.this.getModel()));
-					}
-
-					@Override
-					public String getLabel() {
-						return SearcherDetailDocumentPage.this.getLabel("modal.sendbyemail.title").getObject();
-					}
-				};
-			}
-		});
-**/
 		return list;
 	}
 
@@ -378,7 +385,8 @@ public class SearcherDetailDocumentPage<T extends Content> extends SearcherDetai
 						logger.error("TBA ASSUMES CONTENT IS IDOC");
 						return;
 					}
-					SearcherDetailDocumentPage<T> page = new SearcherDetailDocumentPage<T>(new ObjectModel<T>((T) content), getSiteModel());
+					SearcherDetailDocumentPage<T> page = new SearcherDetailDocumentPage<T>(
+							new ObjectModel<T>((T) content), getSiteModel());
 					Navigator<T> navigator = getNavigator();
 					navigator.getCursor().setIndex(event.getIndex());
 					page.setNavigator(navigator);
