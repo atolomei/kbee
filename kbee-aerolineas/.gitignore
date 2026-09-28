@@ -1,6 +1,6 @@
 /target/
 /bin/
-/config/kbee/kbee.properties
+./config/kbee/kbee.properties
 .settings/
 .classpath
 .project
