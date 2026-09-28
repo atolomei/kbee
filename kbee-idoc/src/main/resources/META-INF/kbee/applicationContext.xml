@@ -297,6 +297,19 @@
 			<bean class="com.novamens.kbee.security.oauth2.KbeeOAuth2UserService"/>
 		</constructor-arg>
 	</bean>
+	
+	<bean id="OidcAuthenticationProvider"
+      class="org.springframework.security.oauth2.client.oidc.authentication.OidcAuthorizationCodeAuthenticationProvider">
+
+    <constructor-arg index="0">
+        <bean class="org.springframework.security.oauth2.client.endpoint.DefaultAuthorizationCodeTokenResponseClient"/>
+    </constructor-arg>
+
+    <constructor-arg index="1">
+    	<bean class="com.novamens.kbee.security.oauth2.KbeeOidcUserService"/>
+    </constructor-arg>
+
+</bean>
 
 	<bean id="OAuth2ClientRegistrationRepository" class="org.springframework.security.oauth2.client.registration.InMemoryClientRegistrationRepository">
 		<constructor-arg>
@@ -304,6 +317,7 @@
 				<bean class="com.novamens.kbee.security.oauth2.OAuth2GoogleClientRegistrationFactory"/>
 				<bean class="com.novamens.kbee.security.oauth2.OAuth2FacebookClientRegistrationFactory"/>
 				<bean class="com.novamens.kbee.security.oauth2.OAuth2GoogleApiRegistrationFactory"/>
+				<bean class="com.novamens.kbee.security.oauth2.OAuth2AzureClientRegistrationFactory"/>
 			</list>
 		</constructor-arg>
 
@@ -388,6 +402,7 @@
 	<sec:authentication-manager alias="authenticationManager">
 		<sec:authentication-provider user-service-ref="userDetailsService"/>
 		<sec:authentication-provider ref="OAuth2AutheticationProvider"/>
+		<sec:authentication-provider ref="OidcAuthenticationProvider"/>
 		<sec:authentication-provider ref="OAuth2JwtAuthenticationProvider"/>
 		<sec:authentication-provider ref="InternalJwtAuthenticationProvider"/>
 	</sec:authentication-manager>

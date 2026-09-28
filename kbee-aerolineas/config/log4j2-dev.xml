@@ -541,6 +541,7 @@
 		
 		
 		
+		<Asynclogger name="org.springframework.security" level="debug" additivity="false"/>
 		
 
 

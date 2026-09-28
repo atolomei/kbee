@@ -1,4 +1,4 @@
- header{
+header {
 package com.novamens.indexer.iql;
 }
 

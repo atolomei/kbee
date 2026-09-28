@@ -1,33 +1,102 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-	<parent>
-		<groupId>com.novamens</groupId>
-		<artifactId>kbee-dm-indexer</artifactId>
-		<version>8.5-SNAPSHOT</version>
-	</parent>
-	
-	<modelVersion>4.0.0</modelVersion>
-	<artifactId>kbee-dm-indexer-api</artifactId>
-	<name>${project.artifactId}</name>
-	<description>
-		 Indexing and Retrieval services (it includes IQL)
-	</description>
-	<properties>
-		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-	</properties>
-	<dependencies>
-		<dependency>
-			<groupId>com.novamens</groupId>
-			<artifactId>kbee-model-dom</artifactId>
-			<version>${kbee-version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.antlr</groupId>
-			<artifactId>antlr4-runtime</artifactId>
-			<version> ${antlr4-runtime-version}</version> 
-		</dependency>
-	</dependencies>
+
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="
+             http://maven.apache.org/POM/4.0.0
+             http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>com.novamens</groupId>
+        <artifactId>kbee-dm-indexer</artifactId>
+        <version>8.5-SNAPSHOT</version>
+    </parent>
+
+    <artifactId>kbee-dm-indexer-api</artifactId>
+
+    <name>${project.artifactId}</name>
+
+    <description>
+        Indexing and Retrieval services (it includes IQL)
+    </description>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <antlr2-version>2.7.7</antlr2-version>
+    </properties>
+
+    <build>
+        <plugins>
+
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>exec-maven-plugin</artifactId>
+                <version>3.5.0</version>
+
+                <executions>
+                    <execution>
+                        <id>generate-iql-parser</id>
+                        <phase>generate-sources</phase>
+
+                        <goals>
+                            <goal>java</goal>
+                        </goals>
+
+                        <configuration>
+                            <mainClass>antlr.Tool</mainClass>
+
+                            <arguments>
+                                <argument>-o</argument>
+                                <argument>${project.build.directory}/generated-sources/antlr/com/novamens/indexer/iql</argument>
+                                <argument>${project.basedir}/src/main/java/com/novamens/indexer/iql/iql.g</argument>
+                            </arguments>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>build-helper-maven-plugin</artifactId>
+                <version>3.6.1</version>
+
+                <executions>
+                    <execution>
+                        <id>add-antlr-generated-sources</id>
+                        <phase>generate-sources</phase>
+
+                        <goals>
+                            <goal>add-source</goal>
+                        </goals>
+
+                        <configuration>
+                            <sources>
+                                <source>${project.build.directory}/generated-sources/antlr</source>
+                            </sources>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
+        </plugins>
+    </build>
+
+    <dependencies>
+
+        <dependency>
+            <groupId>com.novamens</groupId>
+            <artifactId>kbee-model-dom</artifactId>
+            <version>${kbee-version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>antlr</groupId>
+            <artifactId>antlr</artifactId>
+            <version>${antlr2-version}</version>
+        </dependency>
+
+    </dependencies>
+
 </project>
-
-
- 

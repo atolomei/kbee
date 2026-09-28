@@ -2,7 +2,8 @@ package com.novamens.content.user.externalLogin;
 
 public enum ExternalPlatformId {
     GOOGLE(1, "Google"),
-    FACEBOOK(2, "Facebook");
+    FACEBOOK(2, "Facebook"),
+    AZURE(3, "Microsoft Azure");
 
     private int id;
     private String description;
@@ -26,6 +27,8 @@ public enum ExternalPlatformId {
                 return GOOGLE;
             case "facebook":
                 return FACEBOOK;
+            case "microsoft azure":
+                return AZURE;
             default:
                 return null;
         }

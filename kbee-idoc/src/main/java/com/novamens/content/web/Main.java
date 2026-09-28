@@ -45,8 +45,8 @@ public class Main {
     private static final String PARAM_UPDATE_DB_SCHEMA      = "updateDBSchema";
 
     private static final String PARAM_OVERRIDE_WEB_XML = "com.novamens.kbee.overridedWebXml";
-    private static final String PARAM_JETTY_PROFILES_DIR = "com.novamens.kbee.jettyProfilesDir";
-    private static final String PARAM_JETTY_PROFILES_NAMES = "com.novamens.kbee.jettyProfiles";
+    private static final String PARAM_JETTY_PROFILES_DIR = "kbee.jetty.base";
+    private static final String PARAM_JETTY_PROFILES_NAMES = "kbee.jetty.profiles";
     private static final String PARAM_JETTY_SHUTDOWN_PASSWORD_OLD = "com.novamens.kbee.jettyShutdownPassword";
     private static final String PARAM_JETTY_SHUTDOWN_PASSWORD = "server.jettyShutdownPassword";
 
@@ -77,6 +77,12 @@ public class Main {
             connector.setIdleTimeout(30000);
             server.addConnector(connector);
         }
+        
+        
+        
+        
+        
+        
 
         WebAppContext webapp = new WebAppContext();
         webapp.setServer(server);
@@ -155,29 +161,14 @@ public class Main {
         String jettyProfiles = (String) System.getProperties().get(PARAM_JETTY_PROFILES_NAMES);
         if (jettyProfiles == null) {
             jettyProfiles = "jetty.xml;jetty-http.xml";
-            // logger.error("Property \"" + jettyProfilePropName + "\" not set. using
-            // default value: " + jettyProfiles);
         }
 
         configurations = Arrays.asList(jettyProfiles.split(";"));
 
         XmlConfiguration cumulativeConfig = null;
-        // List<Object> configuredObjects = new ArrayList<Object>();
-
+   
         Properties startingProperties = (Properties) System.getProperties().clone();
-        // createDummyKeyStore("dummyStore.jks","dummyStorePassword","jks");
-        // startingProperties.put("jetty.sslContext.keyStorePath","dummyStore.jks");
-        // startingProperties.put("jetty.sslContext.keyStorePassword","dummyStorePassword");
-        /*
-         * startingProperties.put("jetty.sslContext.keyStorePath","cert/keystore");
-         * startingProperties.put("jetty.sslContext.keyStorePassword","novamens");
-         * 
-         * startingProperties.put("jetty.sslContext.trustStorePath","cert/truststore");
-         * startingProperties.put("jetty.sslContext.trustStorePassword","novamens");
-         * 
-         * 
-         * startingProperties.put("jetty.sslContext.keyManagerPassword","novamens");
-         */
+        
         for (String configFile : configurations) {
 
             InputStream configStream = null;

@@ -306,6 +306,7 @@
 				<bean class="com.novamens.kbee.security.oauth2.OAuth2GoogleClientRegistrationFactory"/>
 				<bean class="com.novamens.kbee.security.oauth2.OAuth2FacebookClientRegistrationFactory"/>
 				<bean class="com.novamens.kbee.security.oauth2.OAuth2GoogleApiRegistrationFactory"/>
+				<bean class="com.novamens.kbee.security.oauth2.OAuth2AzureClientRegistrationFactory"/>
 			</list>
 		</constructor-arg>
 
@@ -358,6 +359,7 @@
 
 	<sec:authentication-manager alias="authenticationManager">
 		<sec:authentication-provider user-service-ref="userDetailsService"/>
+		<sec:authentication-provider ref="OAuth2AutheticationProvider"/>
 		<!--        <sec:authentication-provider ref="samlAutheticationProvider"/>-->
 		<!-- <sec:authentication-provider ref="OAuth2AutheticationProvider"/>
 		<sec:authentication-provider ref="OAuth2JwtAuthenticationProvider"/>
