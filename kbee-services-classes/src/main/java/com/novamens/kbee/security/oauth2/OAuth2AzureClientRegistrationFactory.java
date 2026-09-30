@@ -51,9 +51,9 @@ public class OAuth2AzureClientRegistrationFactory
                         "{baseUrl}/login/oauth2/code/{registrationId}"
                 )
                 .scope(
-                        "openid",
-                        "profile",
-                        "email"
+                        "openid"
+//                        "profile",
+//                        "email"
                 )
                 .authorizationUri(
                         base + "/oauth2/v2.0/authorize"
