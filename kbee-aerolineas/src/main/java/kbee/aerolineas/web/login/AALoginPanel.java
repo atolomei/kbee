@@ -13,6 +13,7 @@ import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.form.Button;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.HiddenField;
+import org.apache.wicket.markup.html.image.Image;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.Model;
@@ -27,33 +28,28 @@ import java.util.List;
 
 public class AALoginPanel extends Panel {
 
-	static final String default_learn_more_text = 
-			ServiceLocator.getService(BrandingService.class).getDefaultLoginLearMoreText();
-	static final String default_learn_more_link = 
-			ServiceLocator.getService(BrandingService.class).getDefaultLoginLearMoreLink();
-	
-	static final String default_mesage_text	= 
-			ServiceLocator.getService(BrandingService.class).getDefaultLoginMessage();
-	
-	static final String default_contact_text = 
-			ServiceLocator.getService(BrandingService.class).getDefaultContactText();
-	
-	static final String default_contact_link = 
-			ServiceLocator.getService(BrandingService.class).getDefaultContactLink();
-	
+	static final String default_learn_more_text = ServiceLocator.getService(BrandingService.class)
+			.getDefaultLoginLearMoreText();
+	static final String default_learn_more_link = ServiceLocator.getService(BrandingService.class)
+			.getDefaultLoginLearMoreLink();
+
+	static final String default_mesage_text = ServiceLocator.getService(BrandingService.class).getDefaultLoginMessage();
+
+	static final String default_contact_text = ServiceLocator.getService(BrandingService.class).getDefaultContactText();
+
+	static final String default_contact_link = ServiceLocator.getService(BrandingService.class).getDefaultContactLink();
+
 	private static final long serialVersionUID = 1L;
 	private List<String> domains = new ArrayList<>();
-	private String domain="";
-	private String usernameOrEmail ="";
-	private String password="";
+	private String domain = "";
+	private String usernameOrEmail = "";
+	private String password = "";
 
 	private String errorCode = null;
 
-	
 	WebMarkupContainer box = new WebMarkupContainer("box");
-	private String realUsername="";
-	
-	
+	private String realUsername = "";
+
 	public AALoginPanel(String id) {
 		super(id);
 		addComponents(null);
@@ -63,25 +59,22 @@ public class AALoginPanel extends Panel {
 		super(id);
 		addComponents(parameters);
 	}
-	
+
 	public void onInitialize() {
 		super.onInitialize();
-		
+
 	}
-	
-	
+
 	private void addComponents(PageParameters parameters) {
-		
+
 		add(box);
-		
-		//box.add(new AttributeModifier("class", "loginmodal-container-idoc"));
-		//box.add( new AALoginLogoPanel("logo-panel"));
-		
-		if (parameters!=null)
+
+		if (parameters != null)
 			setErrorCode(parameters.get("login_error").toString());
-		
-		Form<?> form = new Form<Void>("form"){
+
+		Form<?> form = new Form<Void>("form") {
 			private static final long serialVersionUID = 1L;
+
 			@Override
 			protected CharSequence getActionUrl() {
 				return "/j_spring_security_check";
@@ -89,69 +82,68 @@ public class AALoginPanel extends Panel {
 		};
 
 		box.add(form);
+
+		
+		Image logo = new Image("logo", new org.apache.wicket.request.resource.PackageResourceReference(AALoginPanel.class, "Logo_Areolineas_1.jpg"));
+		
+		form.add(logo);
 		
 		
-		Label error_label = new Label("error", getLabel("errorcode-"+getErrorCode())) {
+		Label error_label = new Label("error", getLabel("errorcode-" + getErrorCode())) {
 			private static final long serialVersionUID = 1L;
+
 			@Override
 			public boolean isVisible() {
-				return  getErrorCode()!=null;
+				return getErrorCode() != null;
 			}
 		};
-
 
 		error_label.setEscapeModelStrings(false);
 		error_label.setOutputMarkupId(true);
 		form.add(error_label);
 
-		 
-
-		TextField<String> username = new TextField<String>("username",  new PropertyModel<String>(this, "usernameOrEmail")){
+		TextField<String> username = new TextField<String>("username",
+				new PropertyModel<String>(this, "usernameOrEmail")) {
 			private static final long serialVersionUID = 1L;
 
 			@Override
 			public IModel<String> getPlaceHolder() {
-				return  getLabel("username-or-email");
+				return getLabel("username-or-email");
 			}
-			
-			 
 
 			@Override
 			protected boolean autofocus() {
 				return true;
 			}
 		};
-		
-		//username.setLabel(getLabel("username-or-email"));
-		
+
+		// username.setLabel(getLabel("username-or-email"));
+
 		username.setLabel(Model.of(""));
 
-		
 		username.add(new AttributeModifier("placeholder", new StringResourceModel("username-or-email", this, null)));
 		username.setOutputMarkupId(true);
 
 		form.add(username);
-		
 
-		
-		PasswordField password =  new PasswordField("password",  new PropertyModel<String>(this, "password")) {
+		PasswordField password = new PasswordField("password", new PropertyModel<String>(this, "password")) {
 			private static final long serialVersionUID = 1L;
+
 			@Override
 			public IModel<String> getPlaceHolder() {
 				return getLabel("password");
 			}
-			
 
 			@Override
 			public boolean isCentered() {
 				return true;
 			}
-			
+
 			@Override
 			public boolean isShowPasswordLink() {
 				return true;
 			}
-			
+
 			@Override
 			protected String getInputName() {
 				return "j_password";
@@ -159,17 +151,17 @@ public class AALoginPanel extends Panel {
 		};
 		form.add(password);
 
-		//password.setLabel(getLabel("password"));
+		// password.setLabel(getLabel("password"));
 		password.setLabel(Model.of(""));
-		
 
 		Button submit = new Button("submit");
 		submit.setOutputMarkupId(true);
 		form.add(submit);
 
-	 
-		HiddenField<String> realUsernameField = new HiddenField<String>("realUsername",  new PropertyModel<String>(this, "realUsername")){
+		HiddenField<String> realUsernameField = new HiddenField<String>("realUsername",
+				new PropertyModel<String>(this, "realUsername")) {
 			private static final long serialVersionUID = 1L;
+
 			@Override
 			public String getInputName() {
 				return "j_username";
@@ -177,40 +169,34 @@ public class AALoginPanel extends Panel {
 		};
 		realUsernameField.setOutputMarkupId(true);
 		form.add(realUsernameField);
-		
+
 		AjaxSubmitLink tmpSubmit = new AjaxSubmitLink("tmpSubmit") {
 			private static final long serialVersionUID = 1L;
+
 			@Override
 			protected void onSubmit(AjaxRequestTarget target) {
 				super.onSubmit(target);
 				boolean doSubmit = true;
 				realUsername = AALoginPanel.this.getUsernameOrEmail().toLowerCase();
-				
 
-				realUsernameField.setModelValue(new String[]{realUsername});
+				realUsernameField.setModelValue(new String[] { realUsername });
 				target.add(realUsernameField);
 
-				if(getDomains().size() <= 1 || doSubmit){
-					target.appendJavaScript(
-							String.format("try { Wicket.$('%s').click(); } catch(err) { if (window.console != undefined) { console.log(err); } }"
-									, submit.getMarkupId()));
+				if (getDomains().size() <= 1 || doSubmit) {
+					target.appendJavaScript(String.format(
+							"try { Wicket.$('%s').click(); } catch(err) { if (window.console != undefined) { console.log(err); } }",
+							submit.getMarkupId()));
 				}
 
-			 
 			}
 		};
-		
-		
-		tmpSubmit.add(new AttributeModifier("value",  getLabel("signin").getString()));
-		
+
+		tmpSubmit.add(new AttributeModifier("value", getLabel("signin").getString()));
 
 		form.add(tmpSubmit);
 		form.setDefaultButton(tmpSubmit);
 
-	 
-		 
 	}
-	
 
 //	private boolean validateLogin(String username, String password){
 //		AuthenticationManager authManager = (AuthenticationManager)ServiceLocator.getService(BeansService.class).getBean("com.novamens.security.service.AuthenticationManager");
@@ -242,20 +228,17 @@ public class AALoginPanel extends Panel {
 //		return (ContentDao) ServiceLocator.getService(BeansService.class).getBean("contentDao");
 //	}
 
-
 	private void setErrorCode(String err) {
-		errorCode=err;
+		errorCode = err;
 	}
 
 	private String getErrorCode() {
 		return errorCode;
 	}
-	
+
 	private StringResourceModel getLabel(String key) {
 		return new StringResourceModel(key, this, null);
 	}
-
-
 
 	public List<String> getDomains() {
 		return domains;
@@ -288,18 +271,13 @@ public class AALoginPanel extends Panel {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	
 
 	protected String getServerUrl() {
-		String protocol =((WebRequest)RequestCycle.get().getRequest()).getUrl().getProtocol();
-		String host =((WebRequest)RequestCycle.get().getRequest()).getUrl().getHost();
-		Integer iport =((WebRequest)RequestCycle.get().getRequest()).getUrl().getPort(); 
-		String port = (iport.equals(80) || iport.equals(443) ? "":  ( ":" + iport.toString()) );
-		return protocol +"://" + host + port;
+		String protocol = ((WebRequest) RequestCycle.get().getRequest()).getUrl().getProtocol();
+		String host = ((WebRequest) RequestCycle.get().getRequest()).getUrl().getHost();
+		Integer iport = ((WebRequest) RequestCycle.get().getRequest()).getUrl().getPort();
+		String port = (iport.equals(80) || iport.equals(443) ? "" : (":" + iport.toString()));
+		return protocol + "://" + host + port;
 	}
 
-	
 }
-	
-			
-

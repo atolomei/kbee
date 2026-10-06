@@ -76,7 +76,7 @@ public class PortalSearchForm<T extends PortalObject> extends PortalPanel<T> imp
 		
 	**/
 		
-		main_panel.add(new AttributeModifier("style", "background: #0d5072;"));
+		main_panel.add(new AttributeModifier("style", "background: #0074c9;"));
 		
 		
 		

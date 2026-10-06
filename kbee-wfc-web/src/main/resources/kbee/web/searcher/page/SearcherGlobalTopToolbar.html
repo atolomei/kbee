@@ -20,6 +20,10 @@
 								<li><wicket:container wicket:id="media-info"/></li>
 								<li><wicket:container wicket:id="help"/></li>
 								<li><wicket:container wicket:id="editable"/></li>
+
+								<li><wicket:container wicket:id="workspace"/></li>
+
+
 								<li><a class="dropdown" wicket:id="site-manager" title="Site Manager" href="#" style="margin-left:0;"><i class="fal fa-pencil-ruler"></i></a></li>
 								<!-- li><wicket:container wicket:id="dashboard"/></li -->
 								<li><wicket:container wicket:id="user"/></li>
@@ -76,6 +80,14 @@
 <wicket:fragment wicket:id="editable-fragment">
 	<a class="dropdown" wicket:id="editable-link"  title="Contenidos editables" href="#" style="margin-left:5px;">
 		<i class="fal fa-pen-to-square"></i>  
+	</a>
+</wicket:fragment>
+
+
+
+<wicket:fragment wicket:id="workspace-fragment">
+	<a class="dropdown" wicket:id="workspace-link"  title="Area de trabajo" href="#" style="margin-left:5px;">
+		<i class="fal fa-house  "></i>  
 	</a>
 </wicket:fragment>
 
