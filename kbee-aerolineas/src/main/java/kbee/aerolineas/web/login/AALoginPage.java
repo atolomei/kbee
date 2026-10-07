@@ -20,12 +20,13 @@ import com.novamens.service.ServiceLocator;
 import com.novamens.wicket.markup.html.form.Form;
 
 import kbee.util.PropertiesFactory;
+import kbee.util.logging.Logger;
 import kbee.web.page.ApplicationMenuSection;
 
 public class AALoginPage extends AbstractKbeeWebPage {
 
-	//@SuppressWarnings("unused")
-	//private static Logger logger = Logger.getLogger(AALoginPage.class.getName());
+	@SuppressWarnings("unused")
+	private static Logger logger = Logger.getLogger(AALoginPage.class.getName());
 
 	private static final ResourceReference CSS_AA_LOGIN = 
 			new CssResourceReference(AALoginPage.class, "aa.css");

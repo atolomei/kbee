@@ -37,6 +37,7 @@ import com.novamens.kbee.wicket.markup.html.console.panel.BookmarksPanel;
 import com.novamens.kbee.wicket.markup.html.console.panel.DownloadMenuItemPanel;
 import com.novamens.kbee.wicket.markup.html.event.EditableListEvent;
 import com.novamens.kbee.wicket.markup.html.event.ExplorerOpenEvent;
+import com.novamens.kbee.wicket.markup.html.event.WorkspaceEvent;
 import com.novamens.kbee.wicket.markup.html.page.AbstractKbeeWebPage;
 import com.novamens.kbee.wicket.util.InvisiblePanel;
 import com.novamens.portal6.model.Site;
@@ -166,6 +167,9 @@ public class SearcherGlobalTopToolbar<T> extends KBPanel {
 		
 		navbar.add(new BrandFragment("brand"));
 
+		
+		navbar.add(new WorkspaceFragment("workspace"));
+		
 		if (isSearchForm()) {
 			SearcherForm f = new SearcherForm("search",  getSiteModel(), getSiteModel().getObject().getTitle());
 			f.setAdvancedSearchLinkVisible(false);
@@ -526,7 +530,32 @@ public class SearcherGlobalTopToolbar<T> extends KBPanel {
 			return isWorkflowUser();
 		}
 	}
-		
+	
+	
+	
+	public class WorkspaceFragment extends Fragment {
+		public WorkspaceFragment(String id) {
+			super(id, "workspace-fragment", SearcherGlobalTopToolbar.this);
+			Link<Void> link = new Link<Void>("workspace-link") {
+				@Override
+				public void onClick() {
+					
+					setResponsePage( new RedirectPage("/myhome"));
+					
+					//fire(new WorkspaceEvent<Site>(getSiteModel()));
+				}
+			};
+			add(link);
+
+		}
+	
+	
+	@Override
+		public boolean isVisible() {
+			return isWorkflowUser();
+		}
+	}
+
 
 	public class HelpFragment extends Fragment {
 		public HelpFragment(String id) {

@@ -46,9 +46,18 @@
 
 	<requestHandler name="/replication" class="solr.ReplicationHandler" startup="lazy" /> 
 
-	<requestDispatcher handleSelect="true" >
+	<requestDispatcher>
 		<requestParsers enableRemoteStreaming="false" multipartUploadLimitInKB="2048" formdataUploadLimitInKB="2048" />
 	</requestDispatcher>
+
+	<!-- /select must be declared explicitly: the legacy requestDispatcher handleSelect="true" mapping
+	     (which routed /select to the default handler named "standard") was removed in Solr 9/10 -->
+	<requestHandler name="/select" class="solr.SearchHandler">
+		<lst name="defaults">
+			<str name="echoParams">explicit</str>
+			<int name="rows">10</int>
+		</lst>
+	</requestHandler>
 
 	<requestHandler name="standard" class="solr.StandardRequestHandler" default="true" />
 	<requestHandler name="/analysis/field" startup="lazy" class="solr.FieldAnalysisRequestHandler" />

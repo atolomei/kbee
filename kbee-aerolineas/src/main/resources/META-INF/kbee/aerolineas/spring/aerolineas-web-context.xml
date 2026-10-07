@@ -13,6 +13,10 @@
 	
 	<bean id="login-page" class="kbee.aerolineas.web.login.AALoginPage" scope="prototype"></bean>
 	
+	<bean id="forgotpassword-page" class="kbee.aerolineas.web.login.AAForgotPasswordPage" scope="prototype"></bean>
+	
+	
+	
 	<bean id="searcher-detail-history-panel" class="kbee.aerolineas.web.searcher.AAVersionHistoryPanel" scope="prototype"></bean>
 	
 	<bean id="searcher-summary-panel" class="kbee.aerolineas.web.searcher.AASummaryPanel" scope="prototype"></bean>

@@ -1,8 +1,29 @@
 
+
+body.kbee .kbsearcher {color: #0B1761;}
+
+
 .kbee .no-vigente {color:#E55932; font-size:0.85em; font-weight: bold; text-transform: uppercase;}
 
 
- #e69117
+.kbee .form-container label, .kbee .eform label,
+.kbee .dropdown-menu > li > span > em, .kbee .dropdown-menu > li > div > a, .kbee .dropdown-menu > li > a,
+.panel,
+.kbee .content-wrapper .parameters-panel a.btn-link,
+.kbee .tabs ul.nav-stacked>li>a, .kbee .tabs ul.nav-stacked a,
+.kbee a,
+.kbee .grid .list .grid-compressed .row-container a,
+.kbee h1,
+.kbee p,
+.kbee .dashboard .metadata {color: #0B1761;}
+ 
+ 
+ .kbee .grid .list .grid-compressed .row-container a {font-weight:bold;}
+ .kbee .grid .list .grid-compressed .row-container  .menu-item a {font-weight:normal;}
+ 
+ 
+.kbee .metadata {color: #0B1761;}
+
  
  
 .kbee table a.btn-link {font-weight:bold;}
@@ -14,6 +35,8 @@
 
 
 .kbee .kbsearcher .two-panels-container {margin:0 !important;}
+
+.kbee .dashboard .header {background:white;}
 
 
 .kbee .kbsearcher .kbee-content-main-area-container .grid .fa-folder, 
@@ -40,7 +63,7 @@
 .kbee .kbsearcher .eviewer .list-group-item-heading {font-weight:bold;}
 .kbee .kbsearcher  .segment {padding:5px 0;}
 
-.kbee .kbsearcher  a.selected {   background-color: #fafafa;    color: #131414;}
+.kbee .kbsearcher  a.selected {   background-color: #fafafa;    color: #0B1761;}
 .kbee .kbsearcher .tree-folder-closed {   background-color: none !important; }
 
 
@@ -52,18 +75,18 @@
 .kbee .kbsearcher  .dashboard .dashboard-tabs-container {min-height: initial;}
 .kbee .kbsearcher .eform-audit .payload {float:left; margin:0; font-size:1.15em;}
 
-.kbee .kbsearcher .suggester-container .tt-suggestion {   padding: 5px 18px;    border-radius: 4px;    color: #131414;    float: left;    width: 100%;}
+.kbee .kbsearcher .suggester-container .tt-suggestion {   padding: 5px 18px;    border-radius: 4px;    color: #0B1761;    float: left;    width: 100%;}
 .kbee .kbsearcher .tt-menu .list-group-item-text {    line-height: 1.2em;    padding: 2px 0;    font-size: 0.9em;    margin-bottom: 15px;   float: left;    width: 100%;}
 
 .kbee .kbsearcher .dashboard .cozy .list-group .list-group-item {margin-bottom:20px;}
 .kbee .kbsearcher .dashboard .list-item .metadata				{line-height: 1.2em;}
     
-.kbee .kbsearcher .list-group-item a .title 			{color: #0d5072;}
+.kbee .kbsearcher .list-group-item a .title 			{color: #0074c9;}
 .kbee .kbsearcher .content-wrapper ul li.label 			{background:none;}
 .kbee .kbsearcher .main-searcher .fal 					{color:white;}
 
 .kbee .kbsearcher .main-nav 							{height: 50px; width:100%;  float:left; background:white; border-bottom:1px solid #d8dcdf; background: #f4f5f6; border-top:1px solid #d8dcdf;}
-.kbee .kbsearcher .main-nav a.btn-mini 					{padding:15px; color:#131414;}
+.kbee .kbsearcher .main-nav a.btn-mini 					{padding:15px; color:#0B1761;}
 
 .kbee .kbsearcher .header-container 					{margin-bottom:4em;}
 
@@ -101,14 +124,14 @@
 
 .kbee .kbsearcher .sidebar-main .navigation > li .has-ul > span {font-size:14px;}
 .kbee .kbsearcher table {    font-size: 14px;    line-height: 1.5em;}
-.kbee .kbsearcher .tabs ul.nav-stacked > li.active > a {    background: none;    border: none;    border-radius: 0px;    color: #131414;    font-weight: normal;    background-color: #fafafa;    margin: 0;}
+.kbee .kbsearcher .tabs ul.nav-stacked > li.active > a {    background: none;    border: none;    border-radius: 0px;    color: #0B1761;    font-weight: normal;    background-color: #fafafa;    margin: 0;}
 .kbee .kbsearcher .tabs ul.nav-stacked>li>a,
 .kbee .kbsearcher .tabs ul.nav-stacked > li.active > a,
 .kbee .kbsearcher .nav-pills > li {    font-size: 14px;}
 .kbee .kbsearcher  .sidebar-content {font-size:14px;}
 .kbee .kbsearcher .browser .mylist  {color: #f65115; font-size:13px;} 
 
-.kbee .browser .list-group-item a.dmenu i {color:  #0d5072;}
+.kbee .browser .list-group-item a.dmenu i {color:  #0074c9;}
 .kbee .navbar-default .breadcrumb a {padding:0;}
 
 .kbee .navbar-default a.dmenu i.fal, 
@@ -120,12 +143,12 @@
 .kbee .navbar-default .list-group .list-group-item  i.fal, 
 .kbee .navbar-default .list-group .list-group-item  i.fas, 
 .kbee .navbar-default .list-group .list-group-item  i.fa, 
-.kbee .navbar-default .list-group .list-group-item  i.far  {font-size:16px; color:  #0d5072;}
+.kbee .navbar-default .list-group .list-group-item  i.far  {font-size:16px; color:  #0074c9;}
 
 .kbee .navbar-default .list-group .list-group-item  a {padding:0}
 .kbee .navbar-default .list-group .list-group-item  .menu-item a {padding:8px 20px;}
 
-.kbee .list-group-item  a.dmenu i {color:  #0d5072;}
+.kbee .list-group-item  a.dmenu i {color:  #0074c9;}
 
 .kbee .navbar-default .list-group .list-group-item   a.dmenu { top: calc(50% - 16px);    padding: 6px 10px;    position: absolute;    right: 0;}
 									
@@ -136,7 +159,7 @@
 .kbee  .home .navbar-nav .list-group-item  .fas, 
 .kbee  .home .navbar-nav .list-group-item  .fa, 
 .kbee  .home .navbar-nav .list-group-item  .far, 
-.kbee  .home .navbar-nav .list-group-item  .glyphicon {color: #0d5072; }
+.kbee  .home .navbar-nav .list-group-item  .glyphicon {color: #0074c9; }
 
 .ml-2 {margin-left: 0.5rem;}
 
@@ -152,7 +175,7 @@
     font-size: 14px;
     padding: 0px 15px;
     margin-bottom: 0px;
-    color: #131414;
+    color: #0B1761;
     border-right: none !important;
     border-radius: 32px 0 0 32px;
     font-size: 13px;}
@@ -166,7 +189,7 @@
     width:100%;
     padding: 0px 15px;
     margin-bottom: 0px;
-    color: #131414;
+    color: #0B1761;
     border-right: none !important;
     border-radius: 32px 0 0 32px;
     font-size: 13px;}
@@ -204,7 +227,7 @@
  .kbee .home .navbar-nav .directory-panel .fas, 
  .kbee .home .navbar-nav .directory-panel .fa, 
  .kbee .home .navbar-nav .directory-panel .far,
- .kbee .home .navbar-nav .directory-panel .glyphicon  {color: #0d5072;}
+ .kbee .home .navbar-nav .directory-panel .glyphicon  {color: #0074c9;}
   
 
 .kbee .kbsearcher .browser  .list-group .metadata .far, 
@@ -244,8 +267,8 @@
 .kbee .kbsearcher .detail .tab-pane {padding-top:0;}
  
 
-.kbee .kbsearcher .detail a.title {color: #131414;;}
-.kbee .kbsearcher .main-searcher .side-form {margin: 0;padding: 0;width: 100%;top: calc(50% - 15px);position: absolute;}
+.kbee .kbsearcher .detail a.title {color: #0B1761;;}
+.kbee .kbsearcher .main-searcher .side-form {margin: 92px 0 92px 0;padding: 0;width: 100%;top: initial; position: initial;}
 .kbee .kbsearcher .main-searcher .side-form .suggester-container .tt-menu {    background-color: #fff;    border: 1px solid rgba(0, 0, 0, 0.2);    border-radius: 4px;    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);    margin: 1px 0;    padding: 4px;    font-size: 14px;    width: 112%;}
 .kbee .kbsearcher .main-searcher .side-form .separator {    padding: 0 1px; color: #ffffff;}
 .kbee .kbsearcher .main-searcher .side-form .help-block {  display: block;   margin-top: 1px;   margin-bottom: 0px;   color: white;}
@@ -274,7 +297,7 @@
 .kbee .navbar-default .navbar-nav > li {height:initial; float:left;}
 .kbee .navbar-nav > li + li {margin:0;}
 
-.aa .navbar-default {	background: #37474f;}
+.aa .navbar-default {	background: #0B1761;}
  
  
 /**@font-face {font-family: Lato;   src: url('/fonts/lato/Lato-Regular.ttf');   font-weight:	normal;}**/
@@ -317,6 +340,14 @@
 }
 
 
+/**
+Pantone 3005: #0074c9 celeste link
+Pantone 280: #0B1761 azul oscuro font ?
+Celeste del buscador: C5F4FF
+**/
+
+
+
 .kbee .kbsearcher .abstract {
     font-size: 27px;
     color: #999999;
@@ -327,14 +358,14 @@
     float: left;
 }			
 		
-.kbee .kbsearcher  h1.inst 	 {  font-size:37px; width:100%; color: #131414;}
-.kbee .kbsearcher  h2.inst 	 {  font-size: 1em;  padding-bottom: 10px;  position: relative;  text-transform: none;  font-size: 28px;  font-weight: normal;  color: #131414;  padding: 22px 0 10px 0;}
-.kbee .kbsearcher  h3.inst	 {font-size: 1em;    font-weight: bold;    text-transform: uppercase;   color: #0d5072;  margin-top: 15px;}
+.kbee .kbsearcher  h1.inst 	 {  font-size:37px; width:100%; color: #0B1761;}
+.kbee .kbsearcher  h2.inst 	 {  font-size: 1em;  padding-bottom: 10px;  position: relative;  text-transform: none;  font-size: 28px;  font-weight: normal;  color: #0B1761;  padding: 22px 0 10px 0;}
+.kbee .kbsearcher  h3.inst	 {font-size: 1em;    font-weight: bold;    text-transform: uppercase;   color: #0074c9;  margin-top: 15px;}
 .kbee .kbsearcher  h2.rp-heading {padding-top: 25px;}
 
 .st0{fill-rule:evenodd;clip-rule:evenodd;fill:#F4F5F6;}
 
-body.kbee .kbsearcher      	{font-size: 14px;font-family: Montserrat, Lato, Segoe UI, sans-serif; background: white; color: #111111;line-height: 1.35em; margin: 0; -webkit-font-smoothing: antialiased; }
+body.kbee .kbsearcher      	{font-size: 14px;font-family: Montserrat, Lato, Segoe UI, sans-serif; background: white; color: #0B1761;line-height: 1.35em; margin: 0; -webkit-font-smoothing: antialiased; }
 body.kbee .kbsearcher h1   	{ font-family: Montserrat, Lato, Hind, sans serif; font-size: 32px; line-height: 1.65em;}
 body.kbee .detail 			{float:left; padding: 20px 4% 20px 4%; width:100%; min-height: calc(100vh - 112px);}
 
@@ -347,7 +378,7 @@ body.kbee .detail 			{float:left; padding: 20px 4% 20px 4%; width:100%; min-heig
 
 .kbee .kbsearcher .version-icon {    float: left;    padding: 13px 10px 6px 10px;    color: #E55932;    margin-left: -40px;}
 
-.kbsearcher h2 { font-size: 1.15em; text-transform: uppercase; color: #0d5072; font-weight: bold;  border-bottom: none;  margin-top: 0;  margin-bottom: 0.25em; line-height:1.5em;}
+.kbsearcher h2 { font-size: 1.15em; text-transform: uppercase; color:#0B1761; font-weight: bold;  border-bottom: none;  margin-top: 0;  margin-bottom: 0.25em; line-height:1.5em;}
 
 .kbee .kbsearcher .navbar-form .input-group-btn:last-child > .btn, 
 .kbee .kbsearcher .navbar-form .input-group-btn:last-child > .btn-group {
@@ -374,28 +405,28 @@ body.kbee .detail 			{float:left; padding: 20px 4% 20px 4%; width:100%; min-heig
  
 						
 
-.kbee .browser .navbar .list-group-item a {    color: #0d5072;}
+.kbee .browser .navbar .list-group-item a {    color: #0074c9;}
 
 .kbee .kbsearcher .search input.form-control::placeholder {  color: #666666; font-style: normal; font-size:15px;}
 
 .kbee .kbsearcher .navbar-form input.form-control::placeholder {  color: #666666; font-style: normal; font-size:15px;}
-.kbee .kbsearcher .main-searcher .search .input-group {    background: white; border: none; color: #111111;}
+.kbee .kbsearcher .main-searcher .search .input-group {    background: white; border: none; color: #0B1761;}
 .kbee .kbsearcher .main-searcher .navbar-form .input-group input.form-control:focus {  border:none; box-shadow: none;}
 .kbee .kbsearcher .main-searcher .navbar-form .input-group input.form-control::placeholder {  color: #666666; font-style: normal; font-size:15px;}
-.kbee .kbsearcher .main-searcher .navbar-form .input-group input.form-control:focus {  border:none; box-shadow: none; color: #111111 !important; font-size:15px;}
+.kbee .kbsearcher .main-searcher .navbar-form .input-group input.form-control:focus {  border:none; box-shadow: none; color: #0B1761 !important; font-size:15px;}
 .kbee .kbsearcher .main-searcher .navbar-form .input-group input.form-control::placeholder {font-size: 14px;  color:#666666 !important; font-style: normal !important; }
 									
-.kbee .video .search .input-group {    background:  #111111 !important; border: 1px solid  #666666 !important; color: white !important;}
+.kbee .video .search .input-group {    background:  #0B1761 !important; border: 1px solid  #666666 !important; color: white !important;}
 
 
 /** results and detail */
-.kbee .kbsearcher  .search .input-group {    background: white; border: 1px solid #cccccc; color: #131414;}
-.kbee .kbsearcher  .navbar-form .input-group input.form-control::placeholder {font-size: 13px !important;  color:#303436 !important; }
-.kbee .kbsearcher  .navbar-form .input-group input.form-control:focus {color:#303436 !important;}
+.kbee .kbsearcher  .search .input-group {    background: white; border: 1px solid #cccccc; color: #0B1761;}
+.kbee .kbsearcher  .navbar-form .input-group input.form-control::placeholder {font-size: 13px !important;  color:#0B1761 !important; }
+.kbee .kbsearcher  .navbar-form .input-group input.form-control:focus {color:#0B1761 !important;}
 .kbee .kbsearcher  .navbar-form .input-group .input-group-addon, 
 .kbee .kbsearcher  .navbar-form .input-group .input-group-btn, 
 .kbee .kbsearcher  .navbar-form .input-group .form-control,
-.kbee .kbsearcher  .navbar-form .search .input-group {border: none; height:34px; color:  #303436 ;     width: inherit;}
+.kbee .kbsearcher  .navbar-form .search .input-group {border: none; height:34px; color:  #0B1761 ;     width: inherit;}
 .kbee .kbsearcher  .navbar-form .input-group input.form-control:focus {  border:none; box-shadow: none;}
 
 /**.kbee .kbsearcher  .navbar-form .input-group input.form-control::placeholder {  color: white; font-style: normal; font-size:15px;}**/
@@ -426,7 +457,7 @@ body.kbee .detail 			{float:left; padding: 20px 4% 20px 4%; width:100%; min-heig
 /**.kbee .kbsearcher .main-searcher {height:392px; width:100%; margin:0; padding:0; float:left;    position: absolute;     z-index: 99;     margin-top: -64px;}**/
 /**.kbee .browser .kbpanel .row {margin-left:0; margin-right:0;} */
 
-.kbee .kbsearcher .main-searcher {    aspect-ratio: 4; width:100%; margin:0; padding:0; float:left;     z-index: 99;  }
+.kbee .kbsearcher .main-searcher {    aspect-ratio: initial; width:100%; margin:0; padding:0; float:left;     z-index: 99;  }
 
 
 .kbee .kbsearcher .main-searcher .navbar-form {margin:0; padding:0; width:100%;   text-align:center; top:calc(50% - 20px); position: absolute;}
@@ -451,7 +482,7 @@ body.kbee .detail 			{float:left; padding: 20px 4% 20px 4%; width:100%; min-heig
 
 .kbee .kbsearcher  .main-searcher   .input-group-btn .fal,
 .kbee .kbsearcher  .main-searcher  .input-group-btn .far, 
-.kbee .kbsearcher  .main-searcher  .input-group-btn .fa {   font-size: 22px;   color: #0d5072 !important;   padding-top: 3px;}
+.kbee .kbsearcher  .main-searcher  .input-group-btn .fa {   font-size: 22px;   color: #0074c9 !important;   padding-top: 3px;}
 
 
 
@@ -495,7 +526,7 @@ body.kbee .detail 			{float:left; padding: 20px 4% 20px 4%; width:100%; min-heig
 
 
 .kbee nav.home       {padding:8px 0; background: transparent !important; box-shadow: none !important; border-bottom: none !important; position:absolute;}
-.kbee nav.video 	{background: #111111 !important; box-shadow: none !important; border-bottom: none !important; }
+.kbee nav.video 	{background: #0B1761 !important; box-shadow: none !important; border-bottom: none !important; }
 
 .kbee nav.home .navbar-nav > li > a.userinfo:after,
 .kbee nav.home .userinfo .subtitle,
@@ -551,18 +582,18 @@ body.kbee .detail 			{float:left; padding: 20px 4% 20px 4%; width:100%; min-heig
 /* ------- */				
 .kbee nav.institutional  {height: 64px;    padding: 4px 0;background-color: #f4f5f6; box-shadow: none !important; border-bottom: none !important;}
 
-.kbee .institutional .search .input-group {    background:white; border: 1px solid #999999; color: #303436 !important;}
+.kbee .institutional .search .input-group {    background:white; border: 1px solid #999999; color: #0B1761 !important;}
 .kbee .institutional  .navbar-form .input-group input.form-control::placeholder {font-size: 14px !important; font-weight: 300;   }
-.kbee .institutional  .navbar-form .input-group input.form-control:focus {color: #303436 !important;}
+.kbee .institutional  .navbar-form .input-group input.form-control:focus {color: #0B1761 !important;}
 .kbee .institutional  .navbar-form .input-group .input-group-addon, 
 .kbee .institutional  .navbar-form .input-group .input-group-btn, 
 .kbee .institutional  .navbar-form .input-group .form-control,
 .kbee .institutional  .navbar-form .search .input-group {border: none; height:34px;}
 .kbee .institutional  .navbar-form .input-group input.form-control:focus {  border:none; box-shadow: none;}
-.kbee .institutional  .navbar-form .input-group input.form-control::placeholder {  color: #131414; font-style: normal; font-size:15px;}
+.kbee .institutional  .navbar-form .input-group input.form-control::placeholder {  color: #0B1761; font-style: normal; font-size:15px;}
 
-.kbee .institutional  .navbar-nav > li > a {  color: #303436 !important;}   
-.kbee .institutional  .navbar-nav > li > a {  color: #303436 !important;  border: 1px solid transparent; border-radius:6px; margin-top:10px; padding-top:10px; padding-bottom:10px;}   
+.kbee .institutional  .navbar-nav > li > a {  color: #0B1761 !important;}   
+.kbee .institutional  .navbar-nav > li > a {  color: #0B1761 !important;  border: 1px solid transparent; border-radius:6px; margin-top:10px; padding-top:10px; padding-bottom:10px;}   
 
 
 .kbee .kbsearcher .navbar-nav > li > a.selected {border-radius:6px; border:1px solid  #cccccc; background:#fbfcff;}
@@ -579,18 +610,20 @@ body.kbee .detail 			{float:left; padding: 20px 4% 20px 4%; width:100%; min-heig
 
 
 s
-.kbee .institutional  .navbar-form .far {color: #131414; margin-top:2px;}
-.kbee .institutional .fal, .kbee .institutional  .fas, .kbee .institutional  .fa, .kbee .institutional  .far, .kbee .institutional  .glyphicon {color: #131414;}
+.kbee .institutional  .navbar-form .far {color: #0B1761; margin-top:2px;}
+.kbee .institutional .fal, .kbee .institutional  .fas, .kbee .institutional  .fa, .kbee .institutional  .far, .kbee .institutional  .glyphicon {color: #0B1761;}
 
-.kbee nav.institutional .userinfo .subtitle {color: #303436  !important;}
+
+ 
+.kbee nav.institutional .userinfo .subtitle {color: #0B1761  !important;}
 
 
 .kbee .institutional .navbar-nav > li > a.userinfo:hover{color: inherit; opacity:0.75;}
 
 .kbee nav.institutional    {background: #f4f5f6 !important;  box-shadow: none;}
 
-.kbee nav.institutional .brand-domain .title {color: #303436  !important;}
-.kbee nav.institutional .brand-domain .subtitle {color: #303436  !important; margin-top:5px;}
+.kbee nav.institutional .brand-domain .title {color: #0B1761  !important;}
+.kbee nav.institutional .brand-domain .subtitle {color: #0B1761  !important; margin-top:5px;}
 
 
 .kbee nav.home .brand-domain .title {color: white !important;}
@@ -616,14 +649,14 @@ s
 .kbee .navbar-default .fas, 
 .kbee .navbar-default .fa, 
 .kbee .navbar-default .far, 
-.kbee .navbar-default .glyphicon {  color:  #131414;}
-.kbee .kbsearcher .navbar-form .far {color: #303436 ; margin-top: 2px;}
+.kbee .navbar-default .glyphicon {  color:  #0B1761;}
+.kbee .kbsearcher .navbar-form .far {color: #0B1761 ; margin-top: 2px;}
 
-.kbee nav.kbsearcher .userinfo .subtitle {color:  #303436 ;}
+.kbee nav.kbsearcher .userinfo .subtitle {color:  #0B1761 ;}
 
 /* ------- */				
-.kbee nav.navbar-default .brand-domain .title {color:  #303436 ;}
-.kbee nav.navbar-default .brand-domain .subtitle {color: #303436 ;}
+.kbee nav.navbar-default .brand-domain .title {color:  #0B1761 ;}
+.kbee nav.navbar-default .brand-domain .subtitle {color: #0B1761 ;}
 
 
 .kbee nav.video .brand-domain .title {color:white;}
@@ -665,7 +698,7 @@ s
 .kbee .kbsearcher .grid .expanded .title {font-size:1em;}
     
 .draft-panel {    width: 100%;    float:   left;    background: #f9f9f9;    border: 1px solid #d8dcdf;    padding: 0;    margin: 0;    height: initial;    text-align: center;}
-.draft-panel-id {    color: #111111;    background: transparent;    font-size: 14px;    vertical-align: middle;    position: relative;    top: calc(50% - 0.5em);}
+.draft-panel-id {    color: #0B1761;    background: transparent;    font-size: 14px;    vertical-align: middle;    position: relative;    top: calc(50% - 0.5em);}
 
 
 
@@ -687,12 +720,12 @@ s
  .searcher-browser nav i.far-spin,
  .searcher-browser nav i.fa-spin,
  .searcher-browser nav i.spinning,
- .searcher-browser nav span.spinning  {font-size:14px;  width: initial; color:#0d5072;}
+ .searcher-browser nav span.spinning  {font-size:14px;  width: initial; color:#0074c9;}
 
  .searcher-browser .right-panel .facetpanel .fa-spin,  
- .searcher-browser .right-panel .fa-spin {font-size: 14px; color:#0d5072;}
- .searcher-browser .parameters-panel .navbar .fa-spin {font-size:12px; color: #0d5072;}
- .searcher-browser .parameters-panel .fa-spin {font-size:12px; color: #0d5072; float:none;}
+ .searcher-browser .right-panel .fa-spin {font-size: 14px; color:#0074c9;}
+ .searcher-browser .parameters-panel .navbar .fa-spin {font-size:12px; color: #0074c9;}
+ .searcher-browser .parameters-panel .fa-spin {font-size:12px; color: #0074c9; float:none;}
 
  .searcher-browser nav select {height:34px; padding:5px 8px;}
 
@@ -724,16 +757,16 @@ s
     
 
 .searcher-browser  .parameters-panel .navbar {margin-bottom: 0;}
-.searcher-browser  .parameters-panel a.clear-button {float: left;    text-decoration: none;    color: #0d5072;    font-size: 14px;    padding: 5px 18px;    line-height: 17px !important;    border: 1px solid #ec0e00;    border-radius: 10px; color:  #0d5072;}				
-.searcher-browser  .parameters-panel  a.bicon-link  {color: #0d5072; 					    font-size: 14px;					    line-height: 20px;    					border: 1px solid transparent;    					padding: 0 0 0;    					margin: 0 0 0 0}
+.searcher-browser  .parameters-panel a.clear-button {float: left;    text-decoration: none;    color: #0074c9;    font-size: 14px;    padding: 5px 18px;    line-height: 17px !important;    border: 1px solid #ec0e00;    border-radius: 10px; color:  #0074c9;}				
+.searcher-browser  .parameters-panel  a.bicon-link  {color: #0074c9; 					    font-size: 14px;					    line-height: 20px;    					border: 1px solid transparent;    					padding: 0 0 0;    					margin: 0 0 0 0}
 
 																														
-.kbsearcher .content-wrapper .browser .parameters-panel .clear-button {    float: left;    text-decoration: none;    color: #0d5072;    font-size: 13px;    padding: 5px 18px;    line-height: 15px;    border: 1px solid #0d5072;    border-radius: 10px;}
+.kbsearcher .content-wrapper .browser .parameters-panel .clear-button {    float: left;    text-decoration: none;    color: #0074c9;    font-size: 13px;    padding: 5px 18px;    line-height: 15px;    border: 1px solid #0074c9;    border-radius: 10px;}
 
 
 
 .draft-panel {width:100%; float:left; background: #f6f6f6; border: 1px solid #d8dcdf; padding:0; margin:0; height:initial;}
-.draft-panel-id {color: #111111;background: transparent; font-size:14px;}
+.draft-panel-id {color: #0B1761;background: transparent; font-size:14px;}
 
 
 .searcher-browser  .parameters-panel a.btn-link {	    text-align: left;    width: auto;	line-height: 26px;    float: left;       text-decoration: none;    margin-right: 15px;}
@@ -769,7 +802,7 @@ s
     border-radius: 4px;
     float: left;
     width: 100%;
-    color:  #0d5072;;
+    color:  #0074c9;;
     background-color: #f2f9ff;
     border-color: #d2e5f3;
 }
@@ -784,12 +817,12 @@ s
 
 
 
- .alert-info {    color: #111111;    background-color: #f9f9f9;    border-color: #d8dcdf;}
+ .alert-info {    color: #0B1761;    background-color: #f9f9f9;    border-color: #d8dcdf;}
 
  
  .searcher-browser a.btn-link:hover {	color: inherit;	opacity: 0.7;}
- .searcher-browser .parameters-panel .fa-times-square {    font-size: 16px;    margin-top: 4px;    margin-left: 8px;    color: #0d5072;}
- .searcher-browser a.btn-link {    color: #111111;    text-decoration: none;}
+ .searcher-browser .parameters-panel .fa-times-square {    font-size: 16px;    margin-top: 4px;    margin-left: 8px;    color: #0074c9;}
+ .searcher-browser a.btn-link {    color: #0B1761;    text-decoration: none;}
 
 
 .kbee .facets .list-group-item {    padding: 0 0 5px 0;    margin-bottom: 5px;    margin-top: 0px;}
@@ -799,9 +832,9 @@ s
 														
 .searcher-browser   .parameters-panel  a.clear-button:hover {  opacity: 0.8; } 
 .searcher-browser   .facets-panel  button.btn:hover,
-.searcher-browser   .facets-panel  button.btn-xs:hover {color: #0d5072 !important; opacity: 0.8; background: none; border-color: #0d5072 !important;}
+.searcher-browser   .facets-panel  button.btn-xs:hover {color: #0074c9 !important; opacity: 0.8; background: none; border-color: #0074c9 !important;}
  
- .btn-default {    color: #0d5072;    background-color: #fff;    border: 1px solid #0d5072;}
+ .btn-default {    color: #0074c9;    background-color: #fff;    border: 1px solid #0074c9;}
 
 .btn-xs, 
 .btn-group-xs > .btn {    padding: 6px 0;    font-size: 14px;    line-height: 1em;    border-radius: 3px;    border-radius: 10px;    width: 76px;}
@@ -851,7 +884,9 @@ s
 
 .membercount {    color: #999999;}
 
- .searcher-browser .metadata {    color: #131414;    margin-top: 0px;    margin-bottom: 0px;    font-size: 1emx; }
+ 
+
+ .searcher-browser .metadata {    color: #0B1761;    margin-top: 0px;    margin-bottom: 0px;    font-size: 1emx; }
  .searcher-browser .grid  .list-group-item:first-child {    border-top-left-radius: 0px;    border-top-right-radius: 0px;}
  .searcher-browser .grid  .list-group-item {  border: none; border-top: 1px solid transparent;    position: relative;    display: block;   padding: 20px 15px 20px 0;    margin-bottom: -1px;    background-color: inherit;           width: 100%;    float: left;}
 .searcher-browser .grid   .list-group-item  {border-top: 1px solid #dfdfdf;}
@@ -917,21 +952,21 @@ s
 /**-----*/
 .kbee .video .player-panel {min-width:initial;}
 .kbee .kbsearcher   .my-video-dimensions {width: 100%; 	min-height: 65vh; height: calc(100vh - 56px);}
-.kbee .kbsearcher 	.audio-dimensions {   width: 100%;   height: 45px;   float: left;   font-size: 14px;   background: #111111;   color: white;}	
+.kbee .kbsearcher 	.audio-dimensions {   width: 100%;   height: 45px;   float: left;   font-size: 14px;   background: #0B1761;   color: white;}	
 .kbee .kbsearcher 	.kbee .video .player video {    max-height: 100vh;	}
 .kbee .video-canvas {margin: 0 -15px;    height: calc(100vh - 56px);   background: #f6f6f6; border-top:1px solid #d8dcdf;}
  
 
 
 
-.kbee .kbsearcher .video-panel 						{margin-bottom: 0px;    top: 56px;    position: absolute;    background: #111111;      width: 100%;   height: calc(100vh - 56px);     transform: none; left:0;}
+.kbee .kbsearcher .video-panel 						{margin-bottom: 0px;    top: 56px;    position: absolute;    background: #0B1761;      width: 100%;   height: calc(100vh - 56px);     transform: none; left:0;}
 																				
 
 .kbee .kbsearcher .video-panel .title-container     {padding: 12px 0 0 0;}
-.kbee .kbsearcher .video-panel .title-container h1  {width: 100%;  font-size: 20px; color:#131414;line-height: 1.45em;      margin: 0;}
+.kbee .kbsearcher .video-panel .title-container h1  {width: 100%;  font-size: 20px; color:#0B1761;line-height: 1.45em;      margin: 0;}
 .kbee .kbsearcher .video-panel .abstract-container  {padding: 24px 0 12px 0; width: 100%; }
-.kbee .kbsearcher .video-panel .abstract 			{color: #131414; font-size: 1em; line-height: 1.45em; padding-top: 12px;    float: left;} 
-.kbee .kbsearcher .vjs-big-play-button 					{font-size: 2.75em;    line-height: 1.5em;    height: 1.5em;    width: 3.25em;        position: absolute;    bottom: 4%;    left: 4%;    padding: 0;    cursor: pointer;    opacity: 1;    border: none;    background-color: #2B333F;    background-color: #0d5072;    border-radius: 10px;    transition: all 0.4s;    top: initial;}
+.kbee .kbsearcher .video-panel .abstract 			{color: #0B1761; font-size: 1em; line-height: 1.45em; padding-top: 12px;    float: left;} 
+.kbee .kbsearcher .vjs-big-play-button 					{font-size: 2.75em;    line-height: 1.5em;    height: 1.5em;    width: 3.25em;        position: absolute;    bottom: 4%;    left: 4%;    padding: 0;    cursor: pointer;    opacity: 1;    border: none;    background-color: #2B333F;    background-color: #0074c9;    border-radius: 10px;    transition: all 0.4s;    top: initial;}
 .kbee .kbsearcher .video .player-container 				{width: 100%; height: initial;  height: inherit;  margin: auto;    position: absolute;    top: 50%;    left: 50%;    transform: translate(-50%, -50%);}
 
 .kbee .kbsearcher .video .player-panel 					{width: 100%;    background: #000000;    position: relative;height: calc(100vh - 56px);    width: 100%;}
@@ -1027,8 +1062,8 @@ s
 .kbee .kbsearcher .bootstrap-select:not([class*="col-"]):not([class*="form-control"]):not(.input-group-btn) {width:140px;}
 .kbee .bootstrap-select .btn-default {    padding: 6px 10px;     margin-top: 1px;}
 
-.kbee .kbsearcher .searcher-browser .navbar .list-group-item a {  color: #131414;}
-.kbee .kbsearcher .searcher-browser .bootstrap-select.btn-group .dropdown-menu > .selected > a {   background: #fafafa;    color: #131414;}
+.kbee .kbsearcher .searcher-browser .navbar .list-group-item a {  color: #0B1761;}
+.kbee .kbsearcher .searcher-browser .bootstrap-select.btn-group .dropdown-menu > .selected > a {   background: #fafafa;    color: #0B1761;}
 
 .kbee .kbsearcher .btn-sm, 
 .kbee .kbsearcher .btn-group-sm > .btn {  font-size: 14px;}

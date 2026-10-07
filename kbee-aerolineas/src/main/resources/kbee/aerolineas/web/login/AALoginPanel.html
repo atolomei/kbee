@@ -1,110 +1,138 @@
 <wicket:panel>
-<div wicket:id="box" class="container-fluid">
+	<div wicket:id="box" class="container-fluid">
 
-    <div class="row">
-        <div class="login-background d-block mt-0 col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
-            <div class="login-layout">
-                <div class="login-box-wrapper">
-                    <div class="branding-panel">
-                        <div class="bcv-title">
-                            Biblioteca Corporativa Virtual
-                        </div>
+		<div class="row">
+			<div
+				class="login-background d-block mt-0 col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+				<div class="login-layout">
 
-                        <div class="bcv-subtitle">
-                            Sistema de Gestión Documental
-                        </div>
+					<div class="login-box-wrapper">
 
-     						 <div class="bcv-company">
-    	                        Aerolíneas Argentinas
-        	                </div>
-                    </div>
 
-                    <div class="form-container">
+						<!-- div class="branding-panel">
+							<div class="bcv-title">Biblioteca Corporativa Virtual</div>
 
-                        <form wicket:id="form"
-                              name="f"
-                              action="/j_spring_security_check"
-                              method="post"
-                              class="text-center text-lg-center text-md-center text-sm-center text-xl-center text-xxl-center mt-4">
+							<div class="bcv-subtitle">Sistema de Gestión Documental</div>
 
-                            <fieldset style="float:left; width:100%;">
+							<div class="bcv-company">Aerolíneas Argentinas</div>
+						</div-->
 
-                                <div class="row">
-                                    <div class="text-center col-lg-12 col-md-12 col-xs-12 col-sm-12 mb-3">
-                                        <div wicket:id="username"
-                                             name="j_username"
-                                             placeholder="username or email">
-                                        </div>
-                                    </div>
-                                </div>
 
-                                <div class="row">
-                                    <div class="text-center col-lg-12 col-md-12 col-xs-12 col-sm-12 mb-3">
-                                        <div wicket:id="password"
-                                             name="j_password">
-                                        </div>
-                                    </div>
-                                </div>
+						<div class="form-container">
 
-                                <div class="row">
-                                    <div class="text-center col-lg-12 col-md-12 col-xs-12 col-sm-12 mb-3">
-                                        <input wicket:id="submit"
-                                               style="display:none;"
-                                               type="submit"
-                                               value="" />
+							<form wicket:id="form" name="f" action="/j_spring_security_check"
+								method="post"
+								class="text-center text-lg-center text-md-center text-sm-center text-xl-center text-xxl-center mt-4">
 
-                                        <input wicket:id="realUsername"
-                                               type="hidden" />
-                                    </div>
-                                </div>
+								<fieldset style="float: left; width: 100%;">
+									<div class="bcv-title mb-2">Biblioteca Corporativa
+										Virtual</div>
 
-                                <div class="row">
-                                    <div class="text-center col-lg-12 col-md-12 col-xs-12 col-sm-12 mt-4 mb-0">
-                                        <div class="form-group text-center">
-                                            <input wicket:id="tmpSubmit"
-                                                   class="btn btn-primary fullw login loginmodal-submit"
-                                                   type="submit"
-                                                   name="login"
-                                                   value="Ingresar" />
-                                        </div>
-                                    </div>
-                                </div>
 
-                                <div class="row">
-                                    <div wicket:id="error"
-                                         class="alert alert-danger mt-2 mb-2 text-center col-lg-12 col-md-12 col-xs-12 col-sm-12">
-                                    </div>
-                                </div>
 
-                                <div class="row">
-                                    <div class="text-center mb-2 col-lg-12 col-md-12 col-xs-12 col-sm-12"
-                                         style="margin-top:10px;">
-                                        <a class="text-light"
-                                           href="/forgotpassword">
-                                            <wicket:message key="forgot-password"/>
-                                        </a>
-                                    </div>
-                                </div>
+									<div class="row">
+										<div
+											class="text-center mt-4 mb-4 pt-2 pb-2 col-lg-12 col-md-12 col-xs-12 col-sm-12">
+											<img wicket:id="logo" style="max-height: 92px;" />
+										</div>
+									</div>
 
-								<div class="row">
-								    <div class="text-center mt-4 mb-2 col-12">
-								        <a class="pt-1 pb-1"
-								           style="font-weight:bold;"
-								           href="/oauth2/authorization/azure">
-								            <wicket:message key="signin-microsoft"/>
-								        </a>
-								    </div>
-								</div>
 
-                            </fieldset>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
 
-</div>
+									<div class="row">
+										<div
+											class="text-center col-lg-12 col-md-12 col-xs-12 col-sm-12 mt-4 mb-2">
+											<a class="btn btn-primary  pt-1 pb-1"
+												href="/oauth2/authorization/azure"> <wicket:message
+													key="signin-microsoft" />
+											</a>
+										</div>
+									</div>
+
+
+
+
+
+
+
+
+
+
+
+									<div class="row">
+										<div
+											class="text-center mt-4 mb-4 col-lg-12 col-md-12 col-xs-12 col-sm-12 ">
+											<div style="border-top: 1px solid #C5F4FF; color: #eeeeee; font-weight: normal;">
+												
+												<div class="mt-4 pt-2 w-100">	
+													Proveedor / Usuario externo
+												</div>
+											</div>
+										</div>
+									</div>
+
+
+									<div class="row">
+										<div
+											class="text-center col-lg-12 col-md-12 col-xs-12 col-sm-12 mb-3">
+											<div wicket:id="username" name="j_username"
+												placeholder="username or email"></div>
+										</div>
+									</div>
+
+									<div class="row">
+										<div
+											class="text-center col-lg-12 col-md-12 col-xs-12 col-sm-12 mb-3">
+											<div wicket:id="password" name="j_password"></div>
+										</div>
+									</div>
+
+									<div class="row">
+										<div
+											class="text-center col-lg-12 col-md-12 col-xs-12 col-sm-12 mb-3">
+											<input wicket:id="submit" style="display: none;"
+												type="submit" value="" /> <input wicket:id="realUsername"
+												type="hidden" />
+										</div>
+									</div>
+
+									<div class="row">
+										<div
+											class="text-center col-lg-12 col-md-12 col-xs-12 col-sm-12 mt-2 mb-0">
+											<div class="form-group text-center">
+												<input wicket:id="tmpSubmit" class="btn btn-primary login  "
+													type="submit" name="login" value="Ingresar" />
+											</div>
+										</div>
+									</div>
+
+									<div class="row">
+										<div wicket:id="error"
+											class="alert alert-danger mt-2 mb-2 text-center col-lg-12 col-md-12 col-xs-12 col-sm-12">
+										</div>
+									</div>
+
+									<div class="row">
+										<div
+											class="text-center mb-2 col-lg-12 col-md-12 col-xs-12 col-sm-12"
+											style="margin-top: 10px;">
+											<a class="text-light" href="/forgotpassword"> <wicket:message
+													key="forgot-password" />
+											</a>
+										</div>
+									</div>
+
+
+
+								</fieldset>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+	</div>
 
 </wicket:panel>
 

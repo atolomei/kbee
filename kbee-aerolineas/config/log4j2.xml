@@ -4,7 +4,7 @@
 <!-- status=OFF  			[do not log internal log4 status events]
     monitorInterval=60 		[reload file every seconds]
  - -->
-<configuration status="OFF"  monitorInterval="60" packages="com.novamens.logging,com.novamens.kbee.content.notification,com.novamens.kbee.content.webapi.logging">
+<configuration status="WARN"  monitorInterval="60" packages="com.novamens.logging,com.novamens.kbee.content.notification,com.novamens.kbee.content.webapi.logging">
 	
 	<Properties>
 		<Property name="log-path">logs</Property>
@@ -18,7 +18,7 @@
 		
 		
 		<!-- When Console is redirected to a File, this file collects all log events for a whole day class="org.apache.log4j.varia.NullAppender" -->
-		<RollingFile name="Console" fileName="${log-path}/console.log" immediateFlush="false"  filePattern="${log-path}/console-%d{yyyy-MM-dd}.log" >
+		<RollingFile name="ConsoleFile" fileName="${log-path}/console.log" immediateFlush="false"  filePattern="${log-path}/console-%d{yyyy-MM-dd}.log" >
 			<PatternLayout pattern="%d{MM.dd.yyyy HH:mm:ss.SSS} [%t] %-5level %c{1.} - %msg%n"/>		
 			<Policies>
 				<TimeBasedTriggeringPolicy interval="1" modulate="true"/>

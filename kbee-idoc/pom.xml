@@ -9,7 +9,7 @@
 	</parent>
 
 	<modelVersion>4.0.0</modelVersion>
-	<artifactId>kbee-webapp</artifactId>
+	<artifactId>kbee-idoc</artifactId>
 	<packaging>war</packaging>
 	<description>kbee</description>
 

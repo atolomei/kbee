@@ -113,6 +113,7 @@ public class ObjectUserListMenuItem<T> extends AjaxMenuItemPanelV5<T> {
 	
 	protected boolean isEnabledUserList() {
 		
+	 
 		if (isenabled!=null)
 			return isenabled.booleanValue();
 		try {
@@ -123,6 +124,7 @@ public class ObjectUserListMenuItem<T> extends AjaxMenuItemPanelV5<T> {
 			isenabled=Boolean.valueOf(false);
 		}
 		return isenabled.booleanValue();
+	 
 	}
 
 	public int getVersionMatch() {
@@ -137,8 +139,15 @@ public class ObjectUserListMenuItem<T> extends AjaxMenuItemPanelV5<T> {
 	protected void flipItem() {
 		
 		if (isEnabledUserList()) { 
+
+			UserList list = getUserListModel().getObject();
+			
+			Object item = (Object) getModelObject();
+			
 			getUserListModel().getObject().remove((Object)getModelObject());
+			
 			((KbeeUser) getUserListModel().getObject().getOwner()).getService(UserListService.class).save(getUserListModel().getObject());
+			
 			this.isenabled=Boolean.valueOf(false);
 		}
 		else {

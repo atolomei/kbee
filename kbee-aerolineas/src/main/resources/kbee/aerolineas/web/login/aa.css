@@ -21,7 +21,7 @@ body {
    ========================================== */
 
 .aa {
-    background-image: url('aa.png');
+    background-image: url('bcv.jpg');
     background-size: 120% auto;
     background-position: right center;
     background-repeat: no-repeat;
@@ -52,7 +52,7 @@ body {
 
 						
 @media (max-width: 800px)  {	
-	.aa { background-image: none; background-color:#070738;}
+	.aa { background-image: none; background-color:#0074c9;}
 	.form-container {border:none;}
 	.branding-panel {text-align: center;}
 
@@ -151,15 +151,12 @@ body {
 
 
 .bcv-title {
-
-    color: #ffffff;
-
+    color: #eeeeee;
     font-size: 24px;
-    font-weight: 700;
-
-    line-height: 1;
-
-    margin-bottom: 5px;
+    font-weight: normal;
+    line-height: 1.3em;
+    margin-bottom: 0;
+    text-transform: uppercase;
 }
 
 .bcv-subtitle {
@@ -187,26 +184,17 @@ body {
    ========================================== */
 
 .form-container {
-
-    width: 380px;
-
-    padding: 18px;
-
+    width: 440px;
+    padding: 30px;
     border-radius: 10px;
-
-   /** background: rgba(0,20,55,.45);**/
-   
-
 	background:transparent;
-
-
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
+    border: 1px solid #C5F4FF;
+    
+    /**box-shadow:
+        0 8px 32px rgba(0,0,0,.75);**/
 
-    border: 1px solid rgba(255,255,255,.15);
-
-    box-shadow:
-        0 8px 32px rgba(0,0,0,.75);
 }
 
 /* ==========================================
@@ -385,11 +373,11 @@ body {
 
 .kbee .aa h1 {color:white; font-size:1em;}
 
-.kbee .aa .form-container 	{margin-left: auto; margin-right: auto; float: left; min-width: 340px; max-width: 360px; width:100%;}
+.kbee .aa .form-container 	{margin-left: auto; margin-right: auto; float: left; min-width: 340px; max-width: 420px; width:100%;}
 .kbee .aa .text-light 		{font-size: 0.9em; opacity: 0.55;}
 
 
-.kbee .aa .text-bg-dark {color: white; background-color:#0074C9;}
+.kbee .aa .text-bg-dark {color: white; background-color:#0074c9;}
 
 .kbee .aa .mt-4 {  margin-top: 2.5rem; }
 .kbee .aa .mt-3 {  margin-top: 1.5rem ; }
@@ -421,7 +409,14 @@ body {
 .kbee .aa a 					{color:white; text-decoration: none; }
 
 .kbee .aa .btn {padding-top: 8px; padding-bottom: 8px;}
-.kbee .aa .btn-primary 			{color: white; border: 1px solid #0084cf; background: #0084cf; width: 100%; }
+.kbee .aa .btn-primary 			
+{color: #0B1761;
+    border: 1px solid #C5F4FF;
+    background: #C5F4FF;
+    width: 100%;
+    border-radius: 32px;
+    padding-top: 0.75em;
+    padding-bottom: 0.75em;}
 
 
 .kbee .aa .show-password-container {padding-top: 10px; font-size:0.9em; opacity: 0.55;}
