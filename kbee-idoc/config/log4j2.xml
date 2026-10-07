@@ -301,6 +301,12 @@
                </Asynclogger>´
 
 
+		       <Asynclogger name="com.novamens.kbee.content.userlist"  level="debug" additivity="false">
+                         <AppenderRef ref="Console"/>
+               </Asynclogger>´
+
+
+ 
  
 
 

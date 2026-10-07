@@ -2,6 +2,13 @@
 
 body.kbee .kbsearcher {color: #0B1761;}
 
+.kbee .alert-info {color: #0B1761;
+    background-color: #e6f8fc;
+    border-color: rgb(202, 228, 235);
+    border-left: 12px solid #0B1761;
+}
+
+
 
 .kbee .no-vigente {color:#E55932; font-size:0.85em; font-weight: bold; text-transform: uppercase;}
 
@@ -460,7 +467,8 @@ body.kbee .detail 			{float:left; padding: 20px 4% 20px 4%; width:100%; min-heig
 .kbee .kbsearcher .main-searcher {    aspect-ratio: initial; width:100%; margin:0; padding:0; float:left;     z-index: 99;  }
 
 
-.kbee .kbsearcher .main-searcher .navbar-form {margin:0; padding:0; width:100%;   text-align:center; top:calc(50% - 20px); position: absolute;}
+.kbee .kbsearcher .main-searcher .navbar-form {margin:0; padding:122px 0 92px 0; width:100%;   text-align:center; top: initial; position: relative;}
+	
 .kbee .kbsearcher .main-searcher .input-group {width: 90%;   border:1px solid white; }
 
 .kbee .kbsearcher .main-searcher .form-control-static, 
@@ -476,8 +484,7 @@ body.kbee .detail 			{float:left; padding: 20px 4% 20px 4%; width:100%; min-heig
 .kbee .kbsearcher .main-searcher .navbar-form .input-group input.form-control {width:100%; padding-left: 20px; height: 46px;}
 .kbee .kbsearcher .main-searcher .navbar-form .input-group input.form-control:focus {  border:none; box-shadow: none;}
 
-/**.kbee .kbsearcher .main-searcher .navbar-form .input-group input.form-control::placeholder {  color: white; font-style: italic;}**/
-
+ 
 
 
 .kbee .kbsearcher  .main-searcher   .input-group-btn .fal,
@@ -802,8 +809,8 @@ s
     border-radius: 4px;
     float: left;
     width: 100%;
-    color:  #0074c9;;
-    background-color: #f2f9ff;
+    color:  #0074c9;
+    background-color:#e6f8fc;
     border-color: #d2e5f3;
 }
 

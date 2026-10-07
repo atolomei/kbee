@@ -84,8 +84,8 @@ public class AALoginPanel extends Panel {
 		box.add(form);
 
 		
-		Image logo = new Image("logo", new org.apache.wicket.request.resource.PackageResourceReference(AALoginPanel.class, "Logo_Areolineas_1.jpg"));
-		
+		Image logo = new Image("logo", new org.apache.wicket.request.resource.PackageResourceReference(AALoginPanel.class, "condor-azul.png"));
+		logo.setVisible(false);
 		form.add(logo);
 		
 		
