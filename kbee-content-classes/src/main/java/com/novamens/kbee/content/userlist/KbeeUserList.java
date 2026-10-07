@@ -27,6 +27,8 @@ import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 
+import com.novamens.content.base.Content;
+import com.novamens.content.document.IDoc;
 import com.novamens.content.model.ObjectId;
 import com.novamens.content.userlist.UserList;
 import com.novamens.content.userlist.UserListItem;
@@ -233,18 +235,32 @@ public class KbeeUserList extends AbstractObject implements UserList {
 	@Override
 	public void remove(Object object) {
 		ObjectId oid = new ObjectId(object);
-
 		int index = 0;
-
 		for (UserListItem item : getItems()) {
+			if (item.getUserListItemType()== UserListItem.CONTENT) {
+				logger.debug(item.getObjectId() + " | " + oid.toString() + " | " + object.getDisplayName());
+				if (object instanceof IDoc || object instanceof Content) {
+					Content c = (Content) object;
+					ObjectId cid = new ObjectId(c);
+					if (item.getObjectId().equals(cid.toString())) {
+						logger.debug("remove -> " + oid.toString() + " | " + object.getDisplayName());
+						getItems().remove(index);
+						setTotalItems(getItems().size());
+						break;
+					}
+						
+				}
+				
+			}
 			
-			logger.debug(item.getObjectId() + " | " + oid.toString() + " | " + object.getDisplayName());
-		
-			if (item.getObjectId().equals(oid.toString())) {
-				logger.debug("remove -> " + oid.toString() + " | " + object.getDisplayName());
-				getItems().remove(index);
-				setTotalItems(getItems().size());
-				break;
+			else {
+				logger.debug(item.getObjectId() + " | " + oid.toString() + " | " + object.getDisplayName());
+				if (item.getObjectId().equals(oid.toString())) {
+					logger.debug("remove -> " + oid.toString() + " | " + object.getDisplayName());
+					getItems().remove(index);
+					setTotalItems(getItems().size());
+					break;
+				}
 			}
 			index++;
 		}
