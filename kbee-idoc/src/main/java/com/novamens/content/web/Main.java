@@ -199,7 +199,7 @@ public class Main {
                 cumulativeConfig = configuration;
             }
             } finally {
-                if (configStream!=null)
+                  if (configStream!=null)
                     configStream.close();
             }
         }
