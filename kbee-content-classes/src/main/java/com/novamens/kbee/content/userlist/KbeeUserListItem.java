@@ -296,8 +296,9 @@ public class KbeeUserListItem extends AbstractObject implements UserListItem {
 
 	@Override
 	public boolean holds(com.novamens.dom.Object obj) {
-		if (this.type==UserListItem.CONTENT)
+		if (this.type==UserListItem.CONTENT) {
 			return obj.getId().equals(getContent().getId());
+		}
 		else if (this.type==UserListItem.DATASETMEMBER)
 			return obj.getId().equals(getDataSetMember().getId());
 		else if (this.type==UserListItem.USER)

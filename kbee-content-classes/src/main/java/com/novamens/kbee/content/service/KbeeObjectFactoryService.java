@@ -67,6 +67,7 @@ import com.novamens.content.user.UserService;
 import com.novamens.content.user.externalLogin.ExternalPlatformId;
 import com.novamens.content.user.externalLogin.UserExternalPlatformIdType;
 import com.novamens.content.userlist.UserList;
+import com.novamens.content.userlist.UserListItem;
 import com.novamens.content.userlist.UserListService;
 import com.novamens.content.workflow.ProcessLauncher;
 import com.novamens.dom.Domain;
@@ -593,6 +594,9 @@ public class KbeeObjectFactoryService implements ObjectFactoryService {
 	}
 	
 	
+	/**
+	 * Sites have version match -> Published. They follow published versions of content.
+	 */
 	
 	@Override
 	@Transactional(propagation = Propagation.REQUIRED)
@@ -607,6 +611,8 @@ public class KbeeObjectFactoryService implements ObjectFactoryService {
 			u.setLastModifiedUser(getSessionUser());
 			u.setState(ObjectState.ENABLED);
 			u.setSite(site);
+			((KbeeUserList) u).setVersionMatch(UserListItem.PUBLISHED);
+			
 			u.setDomain(getContentDao().findUserProfileByUser(user).getDomain());
 			getPropertyDao().save(u);
 			
