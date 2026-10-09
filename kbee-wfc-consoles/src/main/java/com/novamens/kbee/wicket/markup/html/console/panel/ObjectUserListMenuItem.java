@@ -151,7 +151,13 @@ public class ObjectUserListMenuItem<T> extends AjaxMenuItemPanelV5<T> {
 			this.isenabled=Boolean.valueOf(false);
 		}
 		else {
+			
+			Object item = (Object) getModelObject();
+			logger.debug("adding item to list: "+item.getClass().getName());
+			
+			
 			getUserListModel().getObject().add((Object)getModelObject(), getVersionMatch());
+			
 			((KbeeUser) getUserListModel().getObject().getOwner()).getService(UserListService.class).save(getUserListModel().getObject());
 			this.isenabled=Boolean.valueOf(true);
 		}
