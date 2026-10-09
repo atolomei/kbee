@@ -70,7 +70,7 @@ public class AALoginLogoPanel extends Panel {
 		WebMarkupContainer logo_link = new WebMarkupContainer("logo-link");
 		logo_link.add(new AttributeModifier("href", getServerUrl()));
 		lcon.add(logo_link);
-		Image logo = new Image("logo", new org.apache.wicket.request.resource.PackageResourceReference(AALoginLogoPanel.class, "aalogo.png"));
+		Image logo = new Image("logo", new org.apache.wicket.request.resource.PackageResourceReference(AALoginLogoPanel.class, "condor-blanco-azul.png"));
 		// logo = new Image("logo",
 		// ServiceLocator.getService(com.novamens.kbee.wicket.services.BrandingWebService.class).getLoginLogo());
 		logo_link.add(logo);

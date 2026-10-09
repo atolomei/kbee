@@ -5,15 +5,8 @@ import java.io.IOException;
 import java.io.Serializable;
 import java.util.List;
 
-import javax.mail.MessagingException;
-import javax.mail.internet.MimeMessage;
-
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
-import org.springframework.mail.MailAuthenticationException;
-import org.springframework.mail.javamail.JavaMailSender;
-import org.springframework.mail.javamail.MimeMessageHelper;
 
 import com.novamens.beans.BeansService;
 import com.novamens.content.base.Content;
@@ -34,6 +27,9 @@ import com.novamens.service.BrandingService;
 import com.novamens.service.ServiceLocator;
 
 import kbee.email.EmailSendServiceRequest;
+import kbee.email.sender.EmailMessage;
+import kbee.email.sender.EmailSender;
+import kbee.email.sender.EmailSenders;
 import kbee.util.PropertiesFactory;
 
 /**
@@ -156,20 +152,9 @@ public class EventSubscriptionNotificationSendRequest extends AbstractServiceReq
 	 */
 	private String sendbyemail (EmailData emaildata) {
 		
-		 BeansService beans = ServiceLocator.getService(BeansService.class);
-		 JavaMailSender mailsender = (JavaMailSender) beans.getBean("mailSender");
-		 
 		try {
-			final MimeMessage msg = mailsender.createMimeMessage();
-			MimeMessageHelper helper = new MimeMessageHelper(msg, true, "UTF-8");
-			helper.setFrom(emaildata.from);
-			helper.setTo(emaildata.to);
-			helper.setSubject(emaildata.subject);
-			StringBuilder strMensaje = new StringBuilder();
-			if (!emaildata.msg.isEmpty()) 
-				strMensaje.append(emaildata.msg.replaceAll("\n", "<br/>") + "<br/>");
-
-			helper.setText(strMensaje.toString(), true); // use the true flag to indicate the text included is HTML
+			if (emaildata.to==null || emaildata.to.isBlank())
+				return "to-email is null";
 			
 			Content content = getContentDao().findContentByOId(this.content_id);
 			
@@ -187,24 +172,27 @@ public class EventSubscriptionNotificationSendRequest extends AbstractServiceReq
 				logger.debug(emaildata.toString());
 				return("ok mode:nosend");
 			}
-			else {
-				mailsender.send(msg);
-				if (content!=null)
-					ServiceLocator.getService(SystemMetricsService.class).mark("email", content.getDomain().getId());
-				else
-					ServiceLocator.getService(SystemMetricsService.class).getMeterEmails().mark();
-				
-				return("ok");
-			}
-
-		} catch (MessagingException e) {
-			logger.error(e.getClass().getName() + " | " +  Thread.currentThread().getStackTrace()[1].getMethodName());
-			return(e.getMessage());
-		}
-		 catch (MailAuthenticationException e) {
-			 logger.error(e.getClass().getName() + " | " +  Thread.currentThread().getStackTrace()[1].getMethodName());
-			return(e.getMessage());
 			
+			EmailMessage message = new EmailMessage();
+			message.setFrom(emaildata.from);
+			message.setTo(emaildata.to.trim());
+			message.setSubject(emaildata.subject);
+			message.setHtml(EmailSenders.textToHtml(emaildata.msg));
+			if (content!=null && content.getDomain()!=null)
+				message.setDomainId(content.getDomain().getId().toString());
+			
+			String result = EmailSenders.get().send(message);
+			
+			if (!EmailSender.OK.equals(result))
+				return result;
+			
+			if (content!=null)
+				ServiceLocator.getService(SystemMetricsService.class).mark("email", content.getDomain().getId());
+			else
+				ServiceLocator.getService(SystemMetricsService.class).getMeterEmails().mark();
+			
+			return("ok");
+
 		} catch (RuntimeException e1) {
 			logger.error(e1.getClass().getName());
 			return(e1.getMessage());

@@ -6,13 +6,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
-import javax.mail.MessagingException;
-import javax.mail.internet.MimeMessage;
-
 import org.apache.logging.log4j.LogManager;
-import org.springframework.mail.MailAuthenticationException;
-import org.springframework.mail.javamail.JavaMailSender;
-import org.springframework.mail.javamail.MimeMessageHelper;
 
 import com.novamens.beans.BeansService;
 import com.novamens.content.service.domain.DomainSettingsService;
@@ -35,6 +29,9 @@ import com.novamens.scheduler.AbstractServiceRequest;
 import com.novamens.scheduler.SchedulerService;
 import com.novamens.service.ServiceLocator;
 
+import kbee.email.sender.EmailMessage;
+import kbee.email.sender.EmailSender;
+import kbee.email.sender.EmailSenders;
 import kbee.util.PropertiesFactory;
 
 /**
@@ -261,41 +258,25 @@ public class SiteSubscriptionPublishRequest extends AbstractServiceRequest {
 			return "to-email is null";
 		}
 
-		BeansService beans = ServiceLocator.getService(BeansService.class);
-		JavaMailSender mailsender = (JavaMailSender) beans.getBean("mailSender");
-
 		try {
-			final MimeMessage msg = mailsender.createMimeMessage();
+			EmailMessage message = new EmailMessage();
+			message.setFrom(params.get("from-email"));
+			message.setTo(params.get("to-email").trim());
+			message.setSubject(params.get("subject"));
+			message.setHtml(EmailSenders.textToHtml(params.get("texto")));
+			message.setDomainId(params.get("domain_id"));
 
-			MimeMessageHelper helper = new MimeMessageHelper(msg, true, "UTF-8");
-			helper.setFrom(params.get("from-email"));
-			helper.setTo(params.get("to-email"));
-			helper.setSubject(params.get("subject"));
+			String result = EmailSenders.get().send(message);
 
-			StringBuilder strMensaje = new StringBuilder();
-
-			if (!params.get("texto").isEmpty())
-				strMensaje.append(params.get("texto").replaceAll("\n", "<br/>") + "<br/>");
-
-			// use the true flag to indicate the text included is HTML
-			//
-			//
-			helper.setText(strMensaje.toString(), true);
-
-			mailsender.send(msg);
+			if (!EmailSender.OK.equals(result))
+				return result;
 
 			if (params.get("domain_id") != null)
 				ServiceLocator.getService(SystemMetricsService.class).mark("email", (String) params.get("domain_id"));
+			else
+				ServiceLocator.getService(SystemMetricsService.class).getMeterEmails().mark();
 
 			return "ok";
-
-		} catch (MessagingException e) {
-			logger.error(e.getClass().getName() + " | " + Thread.currentThread().getStackTrace()[1].getMethodName());
-			return e.getMessage();
-
-		} catch (MailAuthenticationException e) {
-			logger.error(e.getClass().getName() + " | " + Thread.currentThread().getStackTrace()[1].getMethodName());
-			return e.getMessage();
 
 		} catch (RuntimeException e1) {
 			logger.error(e1.getClass().getName() + " | " + Thread.currentThread().getStackTrace()[1].getMethodName());
