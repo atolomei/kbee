@@ -46,6 +46,7 @@ import com.novamens.service.ServiceLocator;
 import com.novamens.wicket.markup.html.repeater.util.Searcher;
 import com.novamens.wicket.model.ObjectModel;
 
+import kbee.util.PropertiesFactory;
 import kbee.web.console.Console;
 import kbee.web.nav.NavBarUserMenu;
 import kbee.web.nav.NavigationPanel;
@@ -80,8 +81,17 @@ public class GlobalNavigationBar<T> extends NavigationPanel<T>  {
 
 	private Integer total_notifications_user;
 	
+
 	private static AtomicBoolean IS_HELP_VISIBLE= null;
 
+	
+	 
+			
+	 static private final String  portalurl = PropertiesFactory.getInstance("kbee").getProperties()
+	            .getProperty("bcv", "/portal/bcv").trim();
+	
+	 
+	 
 	public static boolean isHelpEnabled() {
 		if (IS_HELP_VISIBLE!=null)
 			return 	IS_HELP_VISIBLE.get();
@@ -148,6 +158,28 @@ public class GlobalNavigationBar<T> extends NavigationPanel<T>  {
 	}
 	
 	
+	public class PortalFragment extends Fragment {
+		public PortalFragment(String id) {
+			super(id, "portal-fragment", GlobalNavigationBar.this);
+			
+			Link<Void> link = new Link<Void>("portal-link") {
+				@Override
+				public void onClick() {
+	
+					setResponsePage(  new RedirectPage( portalurl ));
+					
+					
+				}
+			};
+			//link.add(new AttributeModifier("target", "_blank"));
+			link.setVisible(true);
+			add(link);
+		}
+	}
+
+	
+	
+	
 	public class HelpFragment extends Fragment {
 		public HelpFragment(String id) {
 			super(id, "help-fragment", GlobalNavigationBar.this);
@@ -170,6 +202,7 @@ public class GlobalNavigationBar<T> extends NavigationPanel<T>  {
 			add(link);
 		}
 	}
+
 	
 					
 	/**
@@ -473,6 +506,10 @@ public class GlobalNavigationBar<T> extends NavigationPanel<T>  {
 		
 		
 		navbar.add(newPortalPanel()); 
+		
+		
+		
+		
 		navbar.add(newHelpPanel());
 		navbar.add(newUserPanel());
 		navbar.add(new InvisiblePanel("navigator"));
@@ -482,6 +519,12 @@ public class GlobalNavigationBar<T> extends NavigationPanel<T>  {
 		else
 			navbar.add(new InvisiblePanel("search"));
 
+		
+		
+		navbar.add(newPortalDirectPanel());  
+		
+		
+		
 		addListeners();
 		
 	}
@@ -498,6 +541,12 @@ public class GlobalNavigationBar<T> extends NavigationPanel<T>  {
 	protected Component newHelpPanel()  {
 		return  isHelpEnabled() ? new HelpFragment("help")  : new InvisiblePanel("help");
 	}
+	protected Component newPortalDirectPanel()  {
+		return new PortalFragment("portaldirect");
+	}
+	
+	
+	
 	
 	protected Component newReturnPanel(String returnLabel)  {
 		WebMarkupContainer panel = new WebMarkupContainer("return-fragment");
@@ -646,12 +695,10 @@ public class GlobalNavigationBar<T> extends NavigationPanel<T>  {
 	
 	private Component newPortalPanel() {
 	
-		 //if (ServiceLocator.getService(BrandingService.class).getProductKey().equals("RPDD") || ServiceLocator.getService(BrandingService.class).getProductKey().equals("RPCS"))
-		//		 return new InvisiblePanel("portal");
 		 
-		if (getDomain().isPortalLibrary())
-			return new DirectoryMenuPanel("portal", new ObjectModel<Person>(getPerson()));
-		else 
+		//if (getDomain().isPortalLibrary())
+		//	return new DirectoryMenuPanel("portal", new ObjectModel<Person>(getPerson()));
+		//else 
 			return new InvisiblePanel("portal");
 	}
 
