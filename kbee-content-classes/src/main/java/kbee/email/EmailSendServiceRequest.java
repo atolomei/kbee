@@ -31,6 +31,10 @@ import com.novamens.scheduler.AbstractServiceRequest;
 import com.novamens.scheduler.SchedulerService;
 import com.novamens.service.ServiceLocator;
 
+import kbee.email.sender.EmailMessage;
+import kbee.email.sender.EmailSender;
+import kbee.email.sender.EmailSenders;
+
 
 
 /**
@@ -234,117 +238,104 @@ public class EmailSendServiceRequest extends AbstractServiceRequest {
 			 return "to-email is null";
 		 }
 				 
-		 BeansService beans = ServiceLocator.getService(BeansService.class);
-		 JavaMailSender mailsender = (JavaMailSender) beans.getBean("mailSender");
-		 
 		try {
 
-			final MimeMessage msg = mailsender.createMimeMessage();
-
-			MimeMessageHelper helper = new MimeMessageHelper(msg, true, "UTF-8");
-
-			// Sender
-			//
-			String sen = (String)params.get("from-email");
-			String sarr[] = sen.split(";");
-			if (sarr.length==1)
-				helper.setFrom((String) params.get("from-email"));
-			else
-				helper.setFrom(sarr[0]);
+			EmailMessage message = buildMessage(params);
 			
+			String result = EmailSenders.get().send(message);
 			
-			helper.setSubject((String)params.get("subject"));
-			
-			StringBuilder strMensaje = new StringBuilder();
-
-			if (! ((String) params.get("texto")).isEmpty())
-				strMensaje.append( ((String) params.get("texto")).replaceAll("\n", "<br/>") + "<br/>" );
-			
-			helper.setText(strMensaje.toString(), true); // true flag to indicate the text included is HTML
-			
-
-			// File Server's resources
-			//
-			if (params.get("attachments")!=null) {
-				String  resources[] = (String []) params.get("attachments");
-				if (resources!=null) {
-					for (String str: resources) {
-						try {
-							File file = getFile(str);
-							if (file!=null && file.exists() && !file.isDirectory()) {  
-								String name=file.getName();
-								helper.addAttachment(name, file);
-							}
-							else 
-								logger.error("local file not found: " + str);
-							
-						} catch (Exception e) {
-							logger.error(" {} | {} | {}",  e.getClass().getName(), Thread.currentThread().getStackTrace()[1].getMethodName(), e.getMessage());
-						}
-					}
-				}
+			if (EmailSender.OK.equals(result)) {
+				if (params.get("domain_id")!=null)
+					ServiceLocator.getService(SystemMetricsService.class).mark("email", (String) params.get("domain_id"));
+				else
+					ServiceLocator.getService(SystemMetricsService.class).getMeterEmails().mark();
 			}
-			
-			// Local files
-			if (params.get("local_attachments")!=null) {
-				 String path = (String) params.get("local_attachments");
-				 File file = new File(path);
-				 if (file!=null && file.exists() && !file.isDirectory()) {
-					 helper.addAttachment(FilenameUtils.getName(path), file);
-				 }
-				 else {
-					 logger.error("local file not found " + path);
-				 }
-			 }
-			
-			// Receiver/s
-			String rec = (String)params.get("to-email");
-			
-			if (rec==null)
-				rec="";
-			
-			rec=rec.replace(",", ";");
-			
-			String arr[] = rec.split(";");
-			if (arr.length==1) {
-				helper.setTo(rec);
-			}
-			else {
-				helper.setTo(new InternetAddress(arr[0]));
-	            int i = 0;
-	            for (String address : arr) {
-	            	if (i>0) 
-	            		helper.addCc(new InternetAddress(address));
-	                i++;
-	            }
-			}
-
-			mailsender.send(msg);
-			
-			if (params.get("domaid_id")!=null)
-				ServiceLocator.getService(SystemMetricsService.class).mark("email", (String) params.get("domaid_id"));
-			else
-				ServiceLocator.getService(SystemMetricsService.class).getMeterEmails().mark();
-
-			return "OK";
-			
-		} catch (MessagingException e) {
-			logger.error(e.getClass().getName() + " | " +  Thread.currentThread().getStackTrace()[1].getMethodName() + " |  " + e.getMessage());
-			return e.getMessage();
-			
-		}
-		 catch (MailAuthenticationException e) {
-			 logger.error(e.getClass().getName() + " | " +  Thread.currentThread().getStackTrace()[1].getMethodName() + " |  " + e.getMessage());
-			 logger.error(emaildata.toString());
-			 return e.getClass().getSimpleName();
+			return result;
 			
 		} catch (RuntimeException e1) {
-			logger.error(e1.getClass().getName() + " | " +  Thread.currentThread().getStackTrace()[1].getMethodName());
-			logger.debug(e1);
+			logger.error(e1, emaildata!=null ? emaildata.toString() : "");
 			return e1.getMessage();
 		}
 	}
 
+	
+	/**
+	 * <p>Provider independent message (JavaMail, Mailgun)</p>
+	 */
+	private EmailMessage buildMessage(Map<String, Object> params) {
+		
+		EmailMessage message = new EmailMessage();
+		
+		// Sender
+		//
+		String sen = (String)params.get("from-email");
+		if (sen!=null) {
+			String sarr[] = sen.split(";");
+			message.setFrom(sarr[0].trim());
+		}
+		
+		message.setSubject((String)params.get("subject"));
+		
+		StringBuilder strMensaje = new StringBuilder();
+		String texto = (String) params.get("texto");
+		if (texto!=null && !texto.isEmpty())
+			strMensaje.append( texto.replaceAll("\n", "<br/>") + "<br/>" );
+		message.setHtml(strMensaje.toString());
+
+		if (params.get("domain_id")!=null)
+			message.setDomainId((String) params.get("domain_id"));
+		
+		// File Server's resources
+		//
+		if (params.get("attachments")!=null) {
+			String  resources[] = (String []) params.get("attachments");
+			for (String str: resources) {
+				try {
+					File file = getFile(str);
+					if (file!=null && file.exists() && !file.isDirectory())  
+						message.addAttachment(file);
+					else 
+						logger.error("local file not found: " + str);
+				} catch (Exception e) {
+					logger.error(e);
+				}
+			}
+		}
+		
+		// Local files
+		//
+		if (params.get("local_attachments")!=null) {
+			 String path = (String) params.get("local_attachments");
+			 File file = new File(path);
+			 if (file.exists() && !file.isDirectory()) 
+				 message.addAttachment(file);
+			 else 
+				 logger.error("local file not found " + path);
+		 }
+		
+		// Receiver/s -> first is To, the rest Cc
+		//
+		String rec = (String)params.get("to-email");
+		if (rec==null)
+			rec="";
+		
+		rec=rec.replace(",", ";");
+		String arr[] = rec.split(";");
+		
+		int i = 0;
+		for (String address : arr) {
+			if (address==null || address.isBlank())
+				continue;
+			if (i==0) 
+				message.setTo(address.trim());
+			else
+				message.addCc(address);
+			i++;
+		}
+		return message;
+	}
+
+	
 	
 	/**
 	 * 

@@ -20,6 +20,9 @@
 					<ul class="nav navbar-nav navbar-right hidden-xs">
 						<li><div class="navbar-form navbar-left" wicket:id="search"/></li>
 						<li> <wicket:container wicket:id="navigator"/></li>
+						
+						<li class="dropdown hidden-xs"><wicket:container wicket:id="portaldirect"/></li>
+							
 						<li class="dropdown hidden-xs"><wicket:container wicket:id="portal"/></li>
 						<li class="dropdown hidden-xs"><wicket:container wicket:id="settings"/></li>
 						<li class="dropdown hidden-xs"><wicket:container wicket:id="notifications"/></li>
@@ -35,6 +38,13 @@
 			</div>
 	</nav>
 </wicket:panel>
+
+
+
+<wicket:fragment wicket:id="portal-fragment">
+	<a class="visible-md visible-lg" wicket:id="portal-link"  title="Portal" href="#" style="margin-left:0;"><i class="fal fa-sitemap"/></a>
+</wicket:fragment>
+
 
 <wicket:fragment wicket:id="help-fragment">
 	<a class="dropdown visible-md visible-lg" wicket:id="help-link"  title="Help" href="#" style="margin-left:0;"><i class="fal fa-question-circle"/></a>

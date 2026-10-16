@@ -169,6 +169,15 @@ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	</bean>
 	<bean id="emailService" class="kbee.email.KbeeEmailService"/>
 
+	<!-- Email delivery provider, selected by 'email.provider' in kbee.properties (javamail | mailgun). Default: javamail -->
+	<bean id="javaMailEmailSender" class="kbee.email.sender.JavaMailEmailSender"/>
+	<bean id="mailgunEmailSender" class="kbee.email.sender.MailgunEmailSender"/>
+	<bean id="emailSender" class="kbee.email.sender.EmailSenderSelector">
+		<property name="javaMailSender" ref="javaMailEmailSender"/>
+		<property name="mailgunSender" ref="mailgunEmailSender"/>
+	</bean>
+
+
 
 
 	<!-- Thumbmail Service -->

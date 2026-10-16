@@ -32,18 +32,24 @@ import com.novamens.workflow.Process;
 import com.novamens.workflow.Task;
 import com.sun.mail.imap.IMAPFolder;
 import org.apache.commons.io.FilenameUtils;
+import org.apache.commons.text.StringEscapeUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.hibernate.SessionFactory;
-import org.springframework.mail.javamail.JavaMailSender;
+
+import kbee.email.sender.EmailMessage;
+import kbee.email.sender.EmailSender;
+import kbee.email.sender.EmailSenders;
+import kbee.util.PropertiesFactory;
 
 import javax.mail.*;
 import javax.mail.internet.InternetAddress;
-import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
-import javax.mail.internet.MimeMultipart;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
 import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -240,40 +246,56 @@ public class ProcessContentEmailRequest extends AbstractServiceRequest {
         return person;
     }
 
+    /**
+     * <p>Replies to the sender of the processed email using the configured provider
+     * ('email.provider' in kbee.properties). The original email is attached as .eml</p>
+     */
     private void respondMessage(Message message, String body) throws MessagingException {
 
-        String kbeeFrom = "noreplay@kbee.io";
+        String kbeeFrom = PropertiesFactory.getInstance("kbee").getProperties()
+        		.getProperty("com.novamens.kbee.notification.noreplyemailaddress", "noreplay@kbee.io").trim();
 
-        BeansService beans = ServiceLocator.getService(BeansService.class);
-        JavaMailSender mailsender = (JavaMailSender) beans.getBean("mailSender");
+        Address[] from = message.getFrom();
+        if (from == null || from.length == 0) {
+        	logger.error("Can not reply, original message has no sender. Subject: " + message.getSubject());
+        	return;
+        }
 
-        MimeMessage message2 = mailsender.createMimeMessage();
-        message2 = (MimeMessage) message.reply(false);
-        message2.setSubject("RE: " + message.getSubject());
-        message2.setFrom(new InternetAddress(kbeeFrom));
-        message2.setReplyTo(message.getReplyTo());
-        message2.addRecipient(Message.RecipientType.TO, message.getFrom()[0]);
+        EmailMessage reply = new EmailMessage();
+        reply.setFrom(kbeeFrom);
+        reply.setTo(from[0].toString());
+        reply.setSubject("RE: " + message.getSubject());
+        reply.setHtml(EmailSenders.textToHtml(StringEscapeUtils.escapeHtml4(body)));
 
-        // Create your new message part
-        BodyPart messageBodyPart = new MimeBodyPart();
-        messageBodyPart.setText(body);
+        Address[] replyTo = message.getReplyTo();
+        if (replyTo != null && replyTo.length > 0)
+        	reply.setReplyTo(InternetAddress.toString(replyTo));
 
-        // Create a multi-part to combine the parts
-        Multipart multipart = new MimeMultipart();
-        multipart.addBodyPart(messageBodyPart);
+        String[] messageId = message.getHeader("Message-ID");
+        if (messageId != null && messageId.length > 0) {
+        	reply.setInReplyTo(messageId[0]);
+        	reply.setReferences(messageId[0]);
+        }
 
-        // Create and fill part for the forwarded content
-        messageBodyPart = new MimeBodyPart();
-        messageBodyPart.setDataHandler(message.getDataHandler());
+        File original = null;
+        try {
+        	original = File.createTempFile("original-", ".eml");
+        	try (OutputStream out = new FileOutputStream(original)) {
+        		message.writeTo(out);
+        	}
+        	reply.addAttachment(original);
+        } catch (IOException e) {
+        	logger.error(e, "could not attach original email");
+        }
 
-        // Add part to multi part
-        multipart.addBodyPart(messageBodyPart);
-
-        // Associate multi-part with message
-        message2.setContent(multipart);
-
-        mailsender.send(message2);
-
+        try {
+        	String result = EmailSenders.get().send(reply);
+        	if (!EmailSender.OK.equals(result))
+        		logger.error("reply not sent -> " + result + " | " + reply.toString());
+        } finally {
+        	if (original != null && original.exists() && !original.delete())
+        		original.deleteOnExit();
+        }
     }
 
     private String getUrl(Content content) {
