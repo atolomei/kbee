@@ -99,6 +99,7 @@ public class BcvService {
 			file.setTitle(getValue(doc.getElementsByTagNameNS("http://www.novamens.com/kbee", "Title")));
 			file.setClassName(getType(uri));
 			file.setApplication("bcv");
+			file.setAttribute("titulo", file.getTitle());
 			file.setAttribute("descripcion", getDescription(uri));
 			file.setAttribute("tipodocumento", getType(uri));
 			setAttribute(doc, file, "Revision", "Número Revisión");

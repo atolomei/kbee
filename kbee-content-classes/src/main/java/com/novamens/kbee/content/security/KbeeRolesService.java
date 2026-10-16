@@ -37,53 +37,33 @@ public class KbeeRolesService implements RolesService {
 	}
 
 	@Override
-	@Transactional(propagation = Propagation.REQUIRED)
+	@Transactional(propagation=Propagation.REQUIRED)
 	public void update(List<UserRole> roles) {
+		List<UserRole> newroles = roles.stream().
+			filter((role) ->!getProfile().getRoles().contains(role)).
+			collect(Collectors.toList());
+		
+		List<UserRole> deletedroles = getProfile().getRoles().stream().
+				filter((role) ->!roles.contains(role)).
+				collect(Collectors.toList());
 
-	    List<UserRole> currentRoles = getProfile().getRoles();
-
-	    List<UserRole> newroles = roles.stream()
-	            .filter(role -> !currentRoles.contains(role))
-	            .collect(Collectors.toList());
-
-	    List<UserRole> deletedroles = currentRoles.stream()
-	            .filter(role -> !roles.contains(role))
-	            .collect(Collectors.toList());
-
-	    if (logger.isDebugEnabled()) {
-	        roles.forEach(item -> logger.debug(item.toString()));
-	    }
-
-	    // Primero modificar la colección propietaria de USERPROFILE_ID
-	    currentRoles.removeAll(deletedroles);
-	    currentRoles.addAll(newroles);
-
-	    // Después persistir explícitamente los roles nuevos.
-	    // En este punto Hibernate ya puede resolver el backref USERPROFILE_ID.
-	    for (UserRole role : newroles) {
-	        getSessionFactory()
-	                .getCurrentSession()
-	                .save(role);
-	    }
-
-	    if (!newroles.isEmpty() || !deletedroles.isEmpty()) {
-	        ServiceLocator
-	                .getService(SecurityContentMgmtService.class)
-	                .update(person, (String) null);
-	    }
-
-	    for (UserRole role : newroles) {
-	        txlogger.info(new SecurityUpdateEvent(
-	                getProfile().getUser(),
-	                "Add Role " + role.getDisplayName()));
-	    }
-
-	    for (UserRole role : deletedroles) {
-	        txlogger.info(new SecurityUpdateEvent(
-	                getProfile().getUser(),
-	                "Remove Role " + role.getDisplayName()));
-	    }
+		if (logger.isDebugEnabled()) {
+			roles.forEach( item -> logger.debug(item.toString()));
+		}
+		
+		getProfile().setRoles(roles);
+		
+		if (!newroles.isEmpty() || !deletedroles.isEmpty()) {
+			ServiceLocator.getService(SecurityContentMgmtService.class).update(person, (String)null);
+		}
+		for (UserRole role : newroles) {
+			txlogger.info(new SecurityUpdateEvent(getProfile().getUser(), "Add Role "+role.getDisplayName()));
+		}
+		for (UserRole role : deletedroles) {
+			txlogger.info(new SecurityUpdateEvent(getProfile().getUser(), "Remove Role "+role.getDisplayName()));
+		}
 	}
+	
 	@Override
 	@Transactional(propagation=Propagation.REQUIRED)
 	public void add(UserRole role) {
