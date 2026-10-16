@@ -15,7 +15,7 @@
 	
 	<bean id="forgotpassword-page" class="kbee.aerolineas.web.login.AAForgotPasswordPage" scope="prototype"></bean>
 	
-	
+	<!-- bean id="signup-page" class="kbee.aerolineas.web.login.AAsignUpPage" scope="prototype"></bean -->
 	
 	<bean id="searcher-detail-history-panel" class="kbee.aerolineas.web.searcher.AAVersionHistoryPanel" scope="prototype"></bean>
 	
