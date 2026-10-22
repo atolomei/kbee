@@ -218,8 +218,7 @@ public class SearcherForm extends BaseSearcherForm<Site> {
 			text = text.replace("{", "");
 			text = text.replace("]", "");
 			text = text.replace("}", "");
-			//text = text.replace("-", " ");
-			text = text.replace("/", "");
+			//text = text.replace("/", "");
 			if ("".equals(text.trim()))
 				text = null;
 		}

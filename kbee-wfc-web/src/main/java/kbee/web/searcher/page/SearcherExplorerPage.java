@@ -158,13 +158,14 @@ public class SearcherExplorerPage extends AbstractSearcherPage<Void> {
 				IModel<UserList> list = event.getUserList();
 				ValueFilter filter = new ValueFilter("userlist", String.valueOf(list.getObject().getId()), list.getObject().getDisplayName());
 				Map<String, Object> parameters = new HashMap<>();
-				String usereditable = getUserPreference("user-editable", "no");
-				if (usereditable.equals("yes") || usereditable.equals("true")) {
-					parameters.put("writeables", "true");
-				}
-				else {
-					parameters.put("writeables", "false");
-				}
+				parameters.put("writeables", isEditableOn() ? "true" : "false");
+//				String usereditable = getUserPreference("user-editable", "no");
+//				if (usereditable.equals("yes") || usereditable.equals("true")) {
+//					parameters.put("writeables", "true");
+//				}
+//				else {
+//					parameters.put("writeables", "false");
+//				}
 				parameters.put("userlist", filter);
 				SearcherSiteQuery sq = new SearcherSiteQuery(getSiteModel().getObject(), getIndex(), parameters);
 				setResponsePage(new SearcherResultsPage(getSiteModel(), sq));
