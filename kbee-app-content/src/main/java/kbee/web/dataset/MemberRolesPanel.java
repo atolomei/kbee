@@ -39,6 +39,7 @@ import com.novamens.content.model.DataSet;
 import com.novamens.content.model.DataSetMember;
 import com.novamens.content.model.EntityMember;
 import com.novamens.content.model.EntitySet;
+import com.novamens.content.model.PersonMember;
 import com.novamens.content.model.UserSet;
 import com.novamens.content.security.ContentSecurityDao;
 import com.novamens.content.security.Role;
@@ -448,7 +449,7 @@ public class MemberRolesPanel extends ModelPanel<DataSetMember> {
 			 
 			Form<User> form = new Form<User>("form", Disposition.VERTICAL);
 			
-			form.add(new AutoCompleteFieldV5<User>("user", new PropertyModel<User>(this, "user"), false) {
+			form.add(new AutoCompleteFieldV5<PersonMember>("user", new PropertyModel<PersonMember>(this, "user"), false) {
 				@Override
 				public int getMaxHistory() {
 					return 3;
@@ -459,11 +460,8 @@ public class MemberRolesPanel extends ModelPanel<DataSetMember> {
 					users.setDataSet(getUserSet());
 					KbeeClassifierTemplate relation = new KbeeClassifierTemplate(users);
 					relation.setAccessibility(AccessStrategy.Managed);
-					return relation.getService(DataAccessService.class).getSuggestions(pattern);
-					
-					
-					
-					//return ServiceLocator.getService(UserSuggestionService.class).getSuggestions(pattern);
+					List<Suggestion> suggestions = relation.getService(DataAccessService.class).getSuggestions(pattern);
+					return suggestions;
 				}
 				@Override
 				public String getHistoryKey() {
@@ -536,6 +534,13 @@ public class MemberRolesPanel extends ModelPanel<DataSetMember> {
 		
 		public User getUser() {
 			return usermodel!=null ? usermodel.getObject() : null;
+		}
+		
+		public void setUser(PersonMember member) {
+			UserProfile profile = member.getPerson().getProfile(UserProfile.class);
+			usermodel = profile!=null 
+				? new ObjectModel<User>(profile.getUser())
+				: null;		
 		}
 		
 		public void setUser(User user) {

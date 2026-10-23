@@ -125,9 +125,9 @@ public class ImportarUsuarios extends AsyncCommand {
 				}
 			}
 			
-			for (ApiUser user : getUsers()) {
-				checkdelete(user);
-			}
+//			for (ApiUser user : getUsers()) {
+//				checkdelete(user);
+//			}
 			
   			end();
   			rows = null;
@@ -255,6 +255,27 @@ public class ImportarUsuarios extends AsyncCommand {
 			        getSessionFactory().getCurrentSession().save(person);
 				}
 			}
+			
+//			UserProfile userprofile = person.getProfile(UserProfile.class);
+//			for (UserRole r : userprofile.getRoles()) {
+//			    System.out.println(
+//			        "ROLE: " + r +
+//			        " id=" + ((KbeeUserRole)r).getId()
+//			    );
+//			}
+//			System.out.println("=== ROLES ANTES DEL FLUSH ===");
+//
+//			for (UserRole r : userprofile.getRoles()) {
+//			    KbeeUserRole kr = (KbeeUserRole) r;
+//
+//			    System.out.println(
+//			        "id=" + kr.getId()
+//			        + " | managed=" + getSessionFactory().getCurrentSession().contains(kr)
+//			        + " | " + kr
+//			    );
+//			}
+//
+//			System.out.println("============================");
 			getContentDao().flush();
  			transaction.commit();
 		}
@@ -676,8 +697,10 @@ public class ImportarUsuarios extends AsyncCommand {
 						userrole.setRole(role);
 						userrole.setUser(userprofile.getUser());
 						userrole.setEntity(departamento);
+						userrole.setUserProfile(userprofile);
 						role.setRole(person, departamento);
 						userprofile.getRoles().add(userrole);
+				        getSessionFactory().getCurrentSession().save(userrole);
 						userRoles.add(userrole);
 						updates.add("roles");
 					} 
@@ -690,7 +713,7 @@ public class ImportarUsuarios extends AsyncCommand {
 			Role role = getRole("Empleado");
 			boolean found = false;
 			for (UserRole userrole : userprofile.getRoles()) {
-				if (userrole.getRole().equals(role) || userrole.getEntity().equals(empresa)) {
+				if (userrole.getRole().equals(role) && userrole.getEntity().equals(empresa)) {
 					found = true;
 					userRoles.add(userrole);
 					KbeeEntityMember entity = (KbeeEntityMember)userrole.getEntity();
@@ -707,7 +730,9 @@ public class ImportarUsuarios extends AsyncCommand {
 				userrole.setRole(role);
 				userrole.setUser(userprofile.getUser());
 				userrole.setEntity((EntityMember)empresa);
+				userrole.setUserProfile(userprofile);
 				role.setRole(person, (EntityMember)empresa);
+		        getSessionFactory().getCurrentSession().save(userrole);
 				userprofile.getRoles().add(userrole);
 				userRoles.add(userrole);
 				updates.add("roles");
@@ -1001,7 +1026,7 @@ public class ImportarUsuarios extends AsyncCommand {
 							String field = fields[i++];
 							row.put(field, columnValue);
 						}
-						//if (row.get("legajo")!=null && row.get("legajo").trim().equals("32854")) {
+						//if (row.get("legajo")!=null && row.get("legajo").trim().equals("500252")) {
 							rows.add(row);
 						//}
 					}

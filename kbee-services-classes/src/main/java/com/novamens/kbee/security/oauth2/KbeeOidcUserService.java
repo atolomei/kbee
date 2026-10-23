@@ -8,9 +8,6 @@ import org.springframework.security.oauth2.core.oidc.user.OidcUser;
 import com.novamens.beans.BeansService;
 import com.novamens.content.dao.ContentDao;
 import com.novamens.content.user.UserProfile;
-import com.novamens.content.user.externalLogin.ExternalPlatformId;
-import com.novamens.content.user.externalLogin.UserExternalLoginPlatform;
-import com.novamens.content.user.externalLogin.UserExternalPlatformIdType;
 import com.novamens.hibernate.session.Session;
 import com.novamens.security.User;
 import com.novamens.security.acl.Group;
@@ -19,18 +16,11 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserService;
-import org.springframework.security.oauth2.client.userinfo.OAuth2UserRequest;
-import org.springframework.security.oauth2.client.userinfo.OAuth2UserService;
 import org.springframework.security.oauth2.core.OAuth2AuthenticationException;
 import org.springframework.security.oauth2.core.OAuth2Error;
-import org.springframework.security.oauth2.core.OAuth2ErrorCodes;
-import org.springframework.security.oauth2.core.user.OAuth2User;
 
-import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class KbeeOidcUserService
 implements OAuth2UserService<OidcUserRequest, OidcUser> {
@@ -51,39 +41,31 @@ private final OidcUserService oidcUserService =
 		try {
 		    Session.open();
 		
-		    ExternalPlatformId externalPlatformId =
-		            ExternalPlatformId.fromName(
-		                    userRequest
-		                        .getClientRegistration()
-		                        .getClientName()
-		            );
+//		    ExternalPlatformId externalPlatformId =
+//		            ExternalPlatformId.fromName(
+//		                    userRequest
+//		                        .getClientRegistration()
+//		                        .getClientName()
+//		            );
 		
 		    String email = getEmail(oidcUser);
-		
+		    
+		    if (email!=null) {
+		    	email = email.toLowerCase();
+		    }
+		    
+		    logger.debug(
+		            "Azure login email=[{}]",
+		            email
+		    );
 		    
 		    List<UserProfile> profiles = getContentDao()
 		    	.findUserProfileByPersonEmail(email);
-		    
-//		    List<UserExternalLoginPlatform> platforms =
-//		            getContentDao()
-//		                .findUserExternalLoginPlatform(
-//		                    externalPlatformId.getId(),
-//		                    UserExternalPlatformIdType.EMAIL.getId(),
-//		                    email
-//		                );
-//		
-//		    if (platforms == null || platforms.isEmpty()) {
-//		        throw new OAuth2AuthenticationException(
-//		                new OAuth2Error("no_user")
-//		        );
-//		    }
 		
 		    if (profiles.size() == 1) {
 		
 		        User user = profiles.get(0)
 		        	.getUser();
-//		                .getUserProfile()
-//		                .getUser();
 		
 		        return new KbeeOidcUser(
 		                user,
@@ -91,11 +73,19 @@ private final OidcUserService oidcUserService =
 		                getAuthorities(user)
 		        );
 		    }
-		
-		    // Después vemos el caso multi-user.
-		    throw new OAuth2AuthenticationException(
-		            new OAuth2Error("multiple_users")
-		    );
+		    else {
+			    if (profiles.isEmpty()) {
+				    throw new OAuth2AuthenticationException(
+				            new OAuth2Error("no user")
+				    );
+			    }
+			    else {
+				    throw new OAuth2AuthenticationException(
+				            new OAuth2Error("multiple_users")
+				    );
+			    }
+		    	
+		    }
 		
 		} finally {
 		    Session.close();

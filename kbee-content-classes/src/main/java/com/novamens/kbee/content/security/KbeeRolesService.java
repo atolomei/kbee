@@ -6,9 +6,11 @@ import java.util.stream.Collectors;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.hibernate.SessionFactory;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.novamens.beans.BeansService;
 import com.novamens.content.entity.Person;
 import com.novamens.content.model.DataSet;
 import com.novamens.content.model.EntityMember;
@@ -110,5 +112,9 @@ public class KbeeRolesService implements RolesService {
 	
 	protected String getDisplayName(UserRole role) {
 		return "(" + (role.getEntity()!=null ? role.getEntity().getDisplayName():"") + ")";
+	}
+	
+	private SessionFactory getSessionFactory() {
+		return (SessionFactory)ServiceLocator.getService(BeansService.class).getBean("sessionFactory");
 	}
 }

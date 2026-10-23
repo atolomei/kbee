@@ -489,11 +489,12 @@ public class SolrIndex extends KbeeJavaIndex {
 			}
 			
 			if (text) {
-			//if (text &&	!query.getQuery().contains("*")) {
 				query.set("defType", "edismax");
 				query.set("qf", "title^3.0 metainfo^2.0 text^1.0 portaltext^1.0");
 				query.set("mm", "1");	
-				//query.set("mm", "2<75%");	
+			}
+			else {
+				query.set("df", "metainfo");
 			}
 			
 			if (fields!=null)

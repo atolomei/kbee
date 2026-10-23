@@ -1,6 +1,5 @@
 package com.novamens.kbee.security.oauth2;
 
-import java.io.Serializable;
 import java.util.Collection;
 import java.util.Map;
 import java.util.UUID;
