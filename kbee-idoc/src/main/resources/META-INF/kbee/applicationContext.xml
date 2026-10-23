@@ -54,6 +54,8 @@
 
 		<sec:intercept-url pattern="/" access="permitAll"/>
 		<sec:intercept-url pattern="/login" access="permitAll"/>
+		<sec:intercept-url pattern="/signup" access="permitAll"/>
+
 		<sec:intercept-url pattern="/loginDomainSelection" access="permitAll"/>
 		
 		<sec:intercept-url pattern="/api/**" method="OPTIONS" access="permitAll"/>

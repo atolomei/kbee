@@ -70,29 +70,24 @@ public class AASignUpPanel extends Panel {
 	private Locale locale;
 
 	private String email = "";
-	private String username = "";
-
-
+	private String name = "";
+	private String lastname = "";
+	private String legajo = "";
+	private String comments = "";
 	
 	public Locale getLocale() {
 		return locale;
 	}
 
-		public String getEmail() {
+	public String getEmail() {
 		return email;
 	}
 
-	public String getUsername() {
-		return username;
-	}
 
 	public void setEmail(String email) {
 		this.email = email != null ? email.trim() : email;
 	}
 
-	public void setUsername(String username) {
-		this.username = username != null ? username.trim() : username;
-	}
 
 	
 	
@@ -125,18 +120,50 @@ public class AASignUpPanel extends Panel {
 
 		box.add(form);
 		
-		Label fpi = new Label("forgotpassword-instructions", getLabel("instructions"));
+		
+		/**
+		 * 
+
+Apellido y Nombres
+Correo electrónico
+Legajo
+
+Gerencia
+Área (desplegable con las áreas vigentes)
+
+Comentarios 
+
+
+		 */
+		
+		Label fpi = new Label("signup-instructions", getLabel("instructions"));
 		fpi.setEscapeModelStrings(false);
 		form.add(fpi);
 
-		TextField<String> user = new  TextField<String>("username");
-		user.setModel(new PropertyModel<String>(this, "username"));
-		form.add(user);
+		TextField<String> lastname = new  TextField<String>("lastname");
+		lastname.setModel(new PropertyModel<String>(this, "lastname"));
+		form.add(lastname);
+
+
+		TextField<String> name = new  TextField<String>("name");
+		name.setModel(new PropertyModel<String>(this, "name"));
+		form.add(name);
 
 		TextField<String> correo = new TextField<String>("email");
 		correo.setModel(new PropertyModel<String>(this, "email"));
 		correo.add(EmailAddressValidator.getInstance());
 		form.add(correo);
+
+
+		TextField<String> legajo = new TextField<String>("legajo");
+		legajo.setModel(new PropertyModel<String>(this, "legajo"));
+		form.add(legajo);
+
+		
+		TextField<String> comments = new TextField<String>("comments");
+		comments.setModel(new PropertyModel<String>(this, "comments"));
+		form.add(comments);
+
 
 		Button submit = new AjaxButton("submit", form) {
 			private static final long serialVersionUID = 1L;
@@ -150,12 +177,14 @@ public class AASignUpPanel extends Panel {
 					target.add(form);
 				} else {
 
-					StringResourceModel rsm = new StringResourceModel("forgotpassword.successmsg", this);
-					rsm.setParameters(getEmail(), getUsername());
-					setUsername("");
-					setEmail("");
-					AlertPanel<String> alert = new AlertPanel<String>("feedback",AlertPanel.INFO, Model.of("success"), null, rsm);
-					form.addOrReplace(alert);
+
+					//StringResourceModel rsm = new StringResourceModel("forgotpassword.successmsg", this);
+					//rsm.setParameters(getEmail(), getUsername());
+					//setUsername("");
+					//setEmail("");
+					
+					//AlertPanel<String> alert = new AlertPanel<String>("feedback",AlertPanel.INFO, Model.of("success"), null, rsm);
+					//form.addOrReplace(alert);
 					target.add(form);
 				}
 			}
@@ -203,6 +232,7 @@ public class AASignUpPanel extends Panel {
 	 
 		String errcode = null;
 		
+		/**
 		User user =  ServiceLocator.getService(SecurityService.class).findUserByUsername(getUsername().trim());
 
 		if (user!=null) {
@@ -236,6 +266,9 @@ public class AASignUpPanel extends Panel {
 		String s=rsm.getString();
 		
 		return s;
+		*/
+		
+		return null;
 		
 		//}
 	}
