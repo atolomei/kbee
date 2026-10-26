@@ -13,4 +13,5 @@ public class SignUpData {
 	private	String email;
 	private	String employeeId;
 	private	EntityMember area; 
+	private	String commnent;
 }

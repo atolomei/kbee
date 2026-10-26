@@ -62,7 +62,13 @@ public class AerolineasService implements SystemService {
 	}
 	
 	private String getSignUpMessage(SignUpData data) {
-		return "";
+		StringBuffer text = new StringBuffer();
+		text.append("Pedido de ingreso de usuario:\n");
+		text.append(data.getName()+", "+data.getLastName()+"\n");
+		text.append(data.getEmployeeId()+"\n");
+		text.append(data.getEmail()+"\n");
+		text.append(data.getCommnent()+"\n");
+		return text.toString();
 	}
 	
 	private void loadAreas() {

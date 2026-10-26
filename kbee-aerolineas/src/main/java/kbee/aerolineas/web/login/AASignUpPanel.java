@@ -59,7 +59,7 @@ public class AASignUpPanel extends Panel {
 	private String name = "";
 	private String lastname = "";
 	private String legajo = "";
-	private String comments = "";
+	private String comment = "";
 	private IModel<EntityMember> areamodel;
 	
 	public Locale getLocale() {
@@ -130,7 +130,7 @@ public class AASignUpPanel extends Panel {
 		form.add(area);
 		
 		TextAreaField<String> comments = new TextAreaField<String>("comments");
-		comments.setModel(new PropertyModel<String>(this, "comments"));
+		comments.setModel(new PropertyModel<String>(this, "comment"));
 		form.add(comments);
 
 		CaptchaPanel captcha = new CaptchaPanel("captcha");
@@ -193,13 +193,14 @@ public class AASignUpPanel extends Panel {
 			.email(email)
 			.employeeId(legajo)
 			.area(getArea())
+			.commnent(comment)
 			.build();
 		
 		ServiceLocator
 			.getService(AerolineasService.class)
 			.singUp(data);
 		
-		return "SIGN UP ENVIADO";
+		return getLabel("done").getObject();
 	}
 	
 	public EntityMember getArea() {
