@@ -261,7 +261,14 @@ public class AALoginPanel extends Panel {
 	}
 
 	public void setUsernameOrEmail(String usernameOrEmail) {
-		this.usernameOrEmail = usernameOrEmail;
+		if (usernameOrEmail==null) {
+			this.usernameOrEmail =null;
+		}
+		else {
+			this.usernameOrEmail = usernameOrEmail.contains("@")
+				? usernameOrEmail
+				: usernameOrEmail.trim() + "@aerolineas";		
+		}
 	}
 
 	public String getPassword() {

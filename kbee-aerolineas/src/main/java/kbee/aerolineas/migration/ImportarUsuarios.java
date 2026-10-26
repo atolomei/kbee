@@ -977,9 +977,12 @@ public class ImportarUsuarios extends AsyncCommand {
 
 	
 	private String getUserName(Map<String,String> row) {
-		String name, legajo;
+		String name, legajo, email;
 		legajo = row.get("legajo");
-		if (legajo==null) {
+		email = row.get("mail");
+		if (legajo==null || (email!=null && 
+				!"".equals(email.trim()) && 
+				!email.endsWith("@aerolineas.com.ar"))) {
 			name = row.get("usuario");
 		}
 		else {
@@ -1026,9 +1029,9 @@ public class ImportarUsuarios extends AsyncCommand {
 							String field = fields[i++];
 							row.put(field, columnValue);
 						}
-						//if (row.get("legajo")!=null && row.get("legajo").trim().equals("500252")) {
+						if (row.get("legajo")!=null && row.get("legajo").trim().equals("38164")) {
 							rows.add(row);
-						//}
+						}
 					}
 					else {
 						logger.error("cantidad no esperada de columnas en archivo de usuarios");

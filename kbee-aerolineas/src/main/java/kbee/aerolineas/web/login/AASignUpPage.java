@@ -2,7 +2,6 @@ package kbee.aerolineas.web.login;
 
 import java.util.Locale;
 
-import org.apache.wicket.AttributeModifier;
 import org.apache.wicket.markup.head.CssHeaderItem;
 import org.apache.wicket.markup.head.IHeaderResponse;
 import org.apache.wicket.markup.head.JavaScriptHeaderItem;
@@ -25,25 +24,23 @@ import kbee.util.PropertiesFactory;
 import kbee.web.page.ApplicationMenuSection;
 
 public class AASignUpPage extends AbstractKbeeWebPage {
+	private static final long serialVersionUID = 1L;
 
 	
 	@SuppressWarnings("unused")
 	private static Logger logger = Logger.getLogger(AASignUpPage.class.getName());
 
+	private static final ResourceReference CSS_AA_LOGIN = 
+			new CssResourceReference( AASignUpPage.class, "aa.css");
+	private static final ResourceReference CSS_BOOTSTRAP = 
+			new CssResourceReference(Form.class, com.novamens.wicket.markup.html.form.Form.BOOTSTRAP);
+	private static final ResourceReference BOOTSTRAP_JS = 
+			new JavaScriptResourceReference(Form.class, Form.BOOTSTRAP_JS);
+	private static final ResourceReference BOOTSTRAP_CSS = 
+			new CssResourceReference(Form.class, Form.BOOTSTRAP);
 
-
-	private static final ResourceReference CSS_AA_LOGIN = new CssResourceReference( AASignUpPage.class, "aa.css");
-
-	
-	
-	private static final ResourceReference CSS_BOOTSTRAP = new CssResourceReference(Form.class, com.novamens.wicket.markup.html.form.Form.BOOTSTRAP);
-
-	private static final ResourceReference BOOTSTRAP_JS = new JavaScriptResourceReference(Form.class, Form.BOOTSTRAP_JS);
-	private static final ResourceReference BOOTSTRAP_CSS = new CssResourceReference(Form.class, Form.BOOTSTRAP);
-
-	static private final String XUA_Compatible = PropertiesFactory.getInstance("kbee").getProperties().getProperty("com.novamens.kbee.portal.xuacompatible", "IE=Edge");
-
-	private static final long serialVersionUID = 1L;
+	static private final String XUA_Compatible = 
+			PropertiesFactory.getInstance("kbee").getProperties().getProperty("com.novamens.kbee.portal.xuacompatible", "IE=Edge");
 
 	private PageParameters parameters;
 
@@ -76,7 +73,7 @@ public class AASignUpPage extends AbstractKbeeWebPage {
 		setPageTitle(new Model<String>(ServiceLocator.getService(BrandingService.class).getProductTabTitle()));
 		WebMarkupContainer area = new WebMarkupContainer("main-area-container");
 		add(area);
-		area.add(new AAForgotPasswordPanel("mainPanel", this.parameters));
+		area.add(new AASignUpPanel("mainPanel", this.parameters));
 
 	}
 

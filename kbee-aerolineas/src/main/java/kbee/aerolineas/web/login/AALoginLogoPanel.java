@@ -1,43 +1,18 @@
 package kbee.aerolineas.web.login;
 
-import com.novamens.beans.BeansService;
-import com.novamens.content.dao.ContentDao;
-import com.novamens.content.user.UserProfile;
 import com.novamens.service.BrandingService;
 import com.novamens.service.ServiceLocator;
-import com.novamens.wicket.markup.html.form.ChoiceField;
-import com.novamens.wicket.markup.html.form.PasswordField;
-import com.novamens.wicket.markup.html.form.TextField;
 
 import org.apache.wicket.AttributeModifier;
-import org.apache.wicket.ajax.AjaxRequestTarget;
-import org.apache.wicket.ajax.markup.html.form.AjaxSubmitLink;
 
 import org.apache.wicket.markup.html.WebMarkupContainer;
-import org.apache.wicket.markup.html.basic.Label;
-import org.apache.wicket.markup.html.form.Button;
-import org.apache.wicket.markup.html.form.Form;
-import org.apache.wicket.markup.html.form.HiddenField;
 import org.apache.wicket.markup.html.image.Image;
-import org.apache.wicket.markup.html.link.Link;
-import org.apache.wicket.markup.html.pages.RedirectPage;
 import org.apache.wicket.markup.html.panel.Panel;
-import org.apache.wicket.model.IModel;
-import org.apache.wicket.model.Model;
-import org.apache.wicket.model.PropertyModel;
-import org.apache.wicket.model.StringResourceModel;
 import org.apache.wicket.request.cycle.RequestCycle;
 import org.apache.wicket.request.http.WebRequest;
-import org.apache.wicket.request.mapper.parameter.PageParameters;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.BadCredentialsException;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
 
 public class AALoginLogoPanel extends Panel {
 
@@ -54,7 +29,7 @@ public class AALoginLogoPanel extends Panel {
 	private String domain = "";
 	private String usernameOrEmail = "";
 	private String password = "";
-	private String errorCode = null;
+	//private String errorCode = null;
 
 
 	public AALoginLogoPanel(String id) {
@@ -78,9 +53,9 @@ public class AALoginLogoPanel extends Panel {
 
 	}
 
-	private ContentDao getContentDao() {
-		return (ContentDao) ServiceLocator.getService(BeansService.class).getBean("contentDao");
-	}
+//	private ContentDao getContentDao() {
+//		return (ContentDao) ServiceLocator.getService(BeansService.class).getBean("contentDao");
+//	}
 
 	public List<String> getDomains() {
 		return domains;

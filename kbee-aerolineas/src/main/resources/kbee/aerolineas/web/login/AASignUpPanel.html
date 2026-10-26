@@ -1,109 +1,293 @@
 
+<wicket:head>
+<style>
+    /* Select */
+
+    select.form-control {
+        height: auto;
+        min-height: 38px;
+        text-align: left;
+        color: #212529;
+        background-color: #fff;
+    }
+
+    select.form-control option {
+        color: #212529;
+        background-color: #fff;
+    }
+
+    /* Espaciado */
+
+    .kbee .aa .mb-4 {
+        margin-bottom: 1.5rem;
+    }
+
+    /* Captcha */
+
+    .captcha-feedback,
+    .captcha-feedback ul,
+    .captcha-feedback li {
+        color: white;
+        font-size: 85%;
+    }
+
+    .captcha-feedback ul {
+        margin: 4px 0 0;
+        padding: 0;
+        list-style: none;
+    }
+
+    /* Contenedor principal */
+
+    .signup-content {
+        width: 100%;
+        max-width: 500px;
+        margin: 0 auto;
+        box-sizing: border-box;
+    }
+
+
+    /* Recuadro del formulario */
+
+    .signup-content .signup-form {
+        position: static !important;
+        display: block;
+
+        width: 100% !important;
+        max-width: 100% !important;
+
+        margin: 0 auto !important;
+        padding: 30px !important;
+
+        transform: none !important;
+        float: none !important;
+
+        background: transparent !important;
+
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+
+        border: 1px solid #C5F4FF;
+        border-radius: 10px;
+
+        box-sizing: border-box;
+    }
+
+    /* Formulario */
+
+    .signup-content .signup-form form {
+        position: static !important;
+        display: block;
+        width: 100% !important;
+        max-width: 100% !important;
+        margin: 0 auto !important;
+        padding: 0 !important;
+        transform: none !important;
+        float: none !important;
+        box-sizing: border-box;
+    }
+
+    /* Etiquetas */
+
+    .signup-content .signup-form label,
+    .signup-content .signup-form .control-label {
+        color: rgba(255,255,255,.95);
+        font-size: 14px;
+        font-weight: 500;
+    }
+
+    /* Campos */
+
+    .signup-content .signup-form .form-control {
+        display: block;
+        width: 100% !important;
+        max-width: 100%;
+        box-sizing: border-box;
+
+        background: rgba(255,255,255,.06);
+        border: 1px solid rgba(255,255,255,.15);
+        border-radius: 6px;
+        color: #fff;
+    }
+
+    .signup-content .signup-form .form-control:focus {
+        background: rgba(255,255,255,.10);
+        border-color: #00c8ff;
+        color: #fff;
+        box-shadow: 0 0 0 3px rgba(0,200,255,.12);
+    }
+
+    .signup-content .signup-form .form-control::placeholder {
+        color: rgba(255,255,255,.60);
+    }
+
+    /* Select: fondo blanco y texto oscuro */
+
+    .signup-content .signup-form select.form-control {
+        height: auto;
+        min-height: 38px;
+        text-align: left;
+        background: #fff;
+        color: #212529;
+    }
+
+    .signup-content .signup-form select.form-control option {
+        background: #fff;
+        color: #212529;
+    }
+
+    /* Filas Bootstrap */
+
+    .signup-content .signup-form .row {
+        margin-left: 0;
+        margin-right: 0;
+    }
+
+    .signup-content .signup-form .row > .col-12 {
+        padding-left: 0;
+        padding-right: 0;
+    }
+
+    /* Comentarios */
+
+    .signup-comments textarea {
+        height: 90px !important;
+        min-height: 90px;
+        resize: vertical;
+    }
+
+    /* Botón */
+
+    .signup-content .loginmodal-submit {
+        max-width: 100%;
+    }
+
+    /* Responsive */
+
+    @media (max-width: 576px) {
+        .signup-content {
+            max-width: 100%;
+        }
+
+        .signup-content .signup-form {
+            padding: 20px !important;
+        }
+    }
+</style>
+</wicket:head>
+
+
 <wicket:panel>
 
-	<div wicket:id="box" class="container-fluid">
+    <div wicket:id="box" class="container-fluid px-0">
 
-		<div class="row">
-			<div class="text-bg-dark d-block mt-0 col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12"
-				style="position: relative; height: 100vh;">
+        <div class="row g-0">
 
-				<div class="mt-0 w-100 ps-4 pe-4"
-					style="position: absolute; top: 42%; left: 50%; transform: translate(-50%, -50%); display: inline-block; background: inherit;">
+            <div class="text-bg-dark col-12"
+                 style="min-height: 100vh;">
 
-					<div wicket:id="logo-panel" />
+				<div class="signup-content mx-auto px-4 pt-5 pb-4">
 
-					<div class="form-container">
-
-						<form wicket:id="form" name="f" action="/j_spring_security_check" method="post"
-							class="text-center text-lg-center text-md-center text-sm-center text-xl-center textl-xxl-center mt-4">
-
-							<div class="row">
-								<div class="text-center col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12 mb-4">
-									<span wicket:id="signup-instructions" />
-								</div>
-							</div>
-
-							<fieldset>
-
-								<div class="row">
-									<div class="text-center col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12 mb-4">
-										<div wicket:id="lastname" />
-									</div>
-								</div>
-
-								<div class="row">
-									<div class="text-center col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12 mb-4">
-										<div wicket:id="name" />
-									</div>
-								</div>
-								
-								
-	
-								<div class="row">
-									<div class="text-center col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12 mb-4">
-										<div wicket:id="email" />
-									</div>
-								</div>
-
-
-
-								<div class="row">
-									<div class="text-center col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12 mb-4">
-										<div wicket:id="legajo" />
-									</div>
-								</div>
-
-
-
-								<!-- div class="row">
-									<div class="text-center col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12 mb-4">
-										<div wicket:id="gerencia" />
-									</div>
-								</div>
-
-
-								<div class="row">
-									<div class="text-center col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12 mb-4">
-										<div wicket:id="area" />
-									</div>
-								</div--->
-
-
-								<div class="row">
-									<div class="text-center col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12 mb-4">
-										<div wicket:id="comments" />
-									</div>
-								</div>
-
-
-
-								<div wicket:id="feedback" />
-
-								<div class="row">
-									<div class="text-center col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12 mt-3 mb-2">
-										<div class="form-group">
-											<input wicket:id="submit" class="btn btn-primary fullw login loginmodal-submit" type="submit" name="send"
-												value="send" />
-										</div>
-									</div>
-								</div>
-
-							</fieldset>
-						</form>
-
-						<div class="row">
-							<div class="text-center col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12 mt-0 mb-2">
-								<a class="text-light" href="/login"><span> <wicket:message key="login" />
-								</span></a>
-							</div>
-						</div>
+					<div class="signup-logo">
+					    <div wicket:id="logo-panel"></div>
 					</div>
-				</div>
-			</div>
 
-		</div>
-	</div>
+                    <!-- Formulario -->
+                    <div class="signup-form">
+ 
+                        <form wicket:id="form"
+                              name="f"
+                              action="/j_spring_security_check"
+                              method="post"
+                              class="text-center mt-4">
 
+                            <div class="row">
+                                <div class="col-12 text-center mb-4">
+                                    <span wicket:id="signup-instructions"></span>
+                                </div>
+                            </div>
+
+                            <fieldset>
+
+                                <div class="row">
+                                    <div class="col-12 mb-4">
+                                        <div wicket:id="lastname"></div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-12 mb-4">
+                                        <div wicket:id="name"></div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-12 mb-4">
+                                        <div wicket:id="email"></div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-12 mb-4">
+                                        <div wicket:id="legajo"></div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-12 mb-4">
+                                        <div wicket:id="area"></div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+									<div class="col-12 mb-3 signup-comments">
+									    <div wicket:id="comments"></div>
+									</div>
+                                </div>
+
+                                <!-- Captcha -->
+                                <div wicket:id="captcha"></div>
+
+                                <!-- Feedback -->
+                                <div wicket:id="feedback"></div>
+
+                                <!-- Enviar -->
+                                <div class="row">
+                                    <div class="col-12 text-center mt-3 mb-2">
+                                        <div class="form-group">
+                                            <input wicket:id="submit"
+                                                   class="btn btn-primary fullw login loginmodal-submit"
+                                                   type="submit"
+                                                   name="send"
+                                                   value="send" />
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </fieldset>
+
+                        </form>
+
+                        <!-- Volver al login -->
+                        <div class="row">
+                            <div class="col-12 text-center mt-0 mb-2">
+                                <a class="text-light" href="/login">
+                                    <span>
+                                        <wicket:message key="login"/>
+                                    </span>
+                                </a>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
 
 </wicket:panel>
 

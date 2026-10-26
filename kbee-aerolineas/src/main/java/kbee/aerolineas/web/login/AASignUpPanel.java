@@ -2,33 +2,26 @@ package kbee.aerolineas.web.login;
 
 import com.novamens.beans.BeansService;
 import com.novamens.content.dao.ContentDao;
-import com.novamens.content.user.UserProfile;
-import com.novamens.email.EmailService;
-import com.novamens.security.User;
-import com.novamens.service.BrandingService;
-import com.novamens.service.SecurityService;
+import com.novamens.content.model.EntityMember;
+import com.novamens.kbee.wicket.util.InvisiblePanel;
 import com.novamens.service.ServiceLocator;
 import com.novamens.wicket.markup.html.form.ChoiceField;
-import com.novamens.wicket.markup.html.form.PasswordField;
+import com.novamens.wicket.markup.html.form.TextAreaField;
 import com.novamens.wicket.markup.html.form.TextField;
+import com.novamens.wicket.model.ObjectModel;
 
-import kbee.email.EmailBuilderSelfServicePasswordReset;
+import kbee.aerolineas.service.AerolineasService;
+import kbee.aerolineas.service.SignUpData;
 import kbee.web.panel.AlertPanel;
 
 import org.apache.wicket.AttributeModifier;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.markup.html.form.AjaxButton;
-import org.apache.wicket.ajax.markup.html.form.AjaxSubmitLink;
 
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.form.Button;
 import org.apache.wicket.markup.html.form.Form;
-import org.apache.wicket.markup.html.form.HiddenField;
-import org.apache.wicket.markup.html.form.RequiredTextField;
-import org.apache.wicket.markup.html.image.Image;
-import org.apache.wicket.markup.html.link.Link;
-import org.apache.wicket.markup.html.pages.RedirectPage;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.Model;
@@ -38,30 +31,23 @@ import org.apache.wicket.request.cycle.RequestCycle;
 import org.apache.wicket.request.http.WebRequest;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.apache.wicket.validation.validator.EmailAddressValidator;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.BadCredentialsException;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
-import java.util.Optional;
-import java.util.stream.Collectors;
 
 public class AASignUpPanel extends Panel {
-
-	static final String default_learn_more_text = ServiceLocator.getService(BrandingService.class).getDefaultLoginLearMoreText();
-	static final String default_learn_more_link = ServiceLocator.getService(BrandingService.class).getDefaultLoginLearMoreLink();
-
-	static final String default_mesage_text = ServiceLocator.getService(BrandingService.class).getDefaultLoginMessage();
-
-	static final String default_contact_text = ServiceLocator.getService(BrandingService.class).getDefaultContactText();
-	static final String default_contact_link = ServiceLocator.getService(BrandingService.class).getDefaultContactLink();
-
 	private static final long serialVersionUID = 1L;
 
-	private String errorCode = null;
+//	static final String default_learn_more_text = ServiceLocator.getService(BrandingService.class).getDefaultLoginLearMoreText();
+//	static final String default_learn_more_link = ServiceLocator.getService(BrandingService.class).getDefaultLoginLearMoreLink();
+//
+//	static final String default_mesage_text = ServiceLocator.getService(BrandingService.class).getDefaultLoginMessage();
+//
+//	static final String default_contact_text = ServiceLocator.getService(BrandingService.class).getDefaultContactText();
+//	static final String default_contact_link = ServiceLocator.getService(BrandingService.class).getDefaultContactLink();
+
+
+//	private String errorCode = null;
 
 	private Form<Void> form = new Form<Void>("form");
 
@@ -74,6 +60,7 @@ public class AASignUpPanel extends Panel {
 	private String lastname = "";
 	private String legajo = "";
 	private String comments = "";
+	private IModel<EntityMember> areamodel;
 	
 	public Locale getLocale() {
 		return locale;
@@ -113,28 +100,7 @@ public class AASignUpPanel extends Panel {
 		add(box);
 		box.add(new AALoginLogoPanel("logo-panel"));
 
-		// Label fpi =new Label("forgotpassword-instructions",
-		// getContentDao().findSystemParameterValueByKey("forgot-password-instructions",
-		// new StringResourceModel("forgotpassword.instructions", this,
-		// null).getObject()));
-
 		box.add(form);
-		
-		
-		/**
-		 * 
-
-Apellido y Nombres
-Correo electrónico
-Legajo
-
-Gerencia
-Área (desplegable con las áreas vigentes)
-
-Comentarios 
-
-
-		 */
 		
 		Label fpi = new Label("signup-instructions", getLabel("instructions"));
 		fpi.setEscapeModelStrings(false);
@@ -158,16 +124,19 @@ Comentarios
 		TextField<String> legajo = new TextField<String>("legajo");
 		legajo.setModel(new PropertyModel<String>(this, "legajo"));
 		form.add(legajo);
-
 		
-		TextField<String> comments = new TextField<String>("comments");
+		ChoiceField<EntityMember> area = new ChoiceField<EntityMember>("area", () -> getAreas(), true);
+		area.setModel(new PropertyModel<EntityMember>(this, "area"));
+		form.add(area);
+		
+		TextAreaField<String> comments = new TextAreaField<String>("comments");
 		comments.setModel(new PropertyModel<String>(this, "comments"));
 		form.add(comments);
 
+		CaptchaPanel captcha = new CaptchaPanel("captcha");
+		form.add(captcha);
 
 		Button submit = new AjaxButton("submit", form) {
-			private static final long serialVersionUID = 1L;
-
 			@Override
 			protected void onSubmit(AjaxRequestTarget target) {
 				String msg = update();
@@ -177,28 +146,22 @@ Comentarios
 					target.add(form);
 				} else {
 
-
-					//StringResourceModel rsm = new StringResourceModel("forgotpassword.successmsg", this);
-					//rsm.setParameters(getEmail(), getUsername());
-					//setUsername("");
-					//setEmail("");
-					
-					//AlertPanel<String> alert = new AlertPanel<String>("feedback",AlertPanel.INFO, Model.of("success"), null, rsm);
-					//form.addOrReplace(alert);
 					target.add(form);
 				}
 			}
 
 			@Override
 			protected void onError(AjaxRequestTarget target) {
+			    captcha.refresh();
+				target.add(captcha);
 			}
 		};
 
-		submit.add(new AttributeModifier("value", getLabel("send").getObject()));
+		submit.add(new AttributeModifier("value", getLabel("button.send").getObject()));
 
 		form.add(submit);
 		
-		form.add(new com.novamens.kbee.wicket.util.InvisiblePanel("feedback"));
+		form.add(new InvisiblePanel("feedback"));
 		
 
 	}
@@ -224,53 +187,32 @@ Comentarios
 	
 	public String update() {
 		
-		// -----
-		//
-		// get users with the same email address
-		//
-		// -----
-	 
-		String errcode = null;
+		SignUpData data = SignUpData.builder()
+			.name(name)
+			.lastName(lastname)
+			.email(email)
+			.employeeId(legajo)
+			.area(getArea())
+			.build();
 		
-		/**
-		User user =  ServiceLocator.getService(SecurityService.class).findUserByUsername(getUsername().trim());
-
-		if (user!=null) {
-			
-					UserProfile userprofile = getContentDao().findUserProfileByUser(user);
-					
-					if (!user.isEnabled()) {
-						errcode = "6";
-					}
-					else if (userprofile.getEntity().getEmail()!=null && userprofile.getEntity().getEmail().toLowerCase().trim().equals(getEmail().toLowerCase().trim())) {
-							EmailBuilderSelfServicePasswordReset builder = new EmailBuilderSelfServicePasswordReset(userprofile.getPerson());
-							ServiceLocator.getService(EmailService.class).send(builder);
-						return null;
-					}
-						else 
-							errcode = "4";
-			}
-			else
-				errcode = "3";
+		ServiceLocator
+			.getService(AerolineasService.class)
+			.singUp(data);
 		
-		//if (errcode.equals("5")) {
-		//	StringResourceModel rsm = new StringResourceModel("forgotpassword.errorkbeemsg", this);
-		//	rsm.setParameters(errcode);
-		//	return rsm.getString();
-		//}
-		///lse {
-		
-		StringResourceModel rsm = new StringResourceModel("forgotpassword.errormsg", this);
-		rsm.setParameters(errcode);
-
-		String s=rsm.getString();
-		
-		return s;
-		*/
-		
-		return null;
-		
-		//}
+		return "SIGN UP ENVIADO";
 	}
 	
+	public EntityMember getArea() {
+		return areamodel!=null 
+			? areamodel.getObject()
+			: null;		
+	}
+	
+	public void setArea(EntityMember area) {
+		areamodel = new ObjectModel<EntityMember>(area); 
+	}
+	
+	private List<EntityMember> getAreas() {
+		return ServiceLocator.getService(AerolineasService.class).getAreas();
+	}
 }
