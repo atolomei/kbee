@@ -116,6 +116,7 @@ public class AALoginPanel extends Panel {
 				return true;
 			}
 		};
+		
 
 		// username.setLabel(getLabel("username-or-email"));
 
@@ -131,7 +132,7 @@ public class AALoginPanel extends Panel {
 
 			@Override
 			public IModel<String> getPlaceHolder() {
-				return getLabel("password");
+				return Model.of("contraseña");
 			}
 
 			@Override
