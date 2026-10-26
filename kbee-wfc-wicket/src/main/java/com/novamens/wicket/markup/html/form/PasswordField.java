@@ -70,7 +70,7 @@ public class PasswordField extends TextField<String> {
 					// addOrReplace(ni);
 					input.add(AttributeModifier.replace("type", showPassword ? "text" : "password"));
 
-					Label spc_label = new Label("show-password-label", (showPassword ? "hide password" : "show password"));
+					Label spc_label = new Label("show-password-label", (showPassword ? getLabel("hide-password") : getLabel("show-password")));
 					((AjaxLink<Void>) PasswordControlFragment.this.get("show-password-container:show-password-link")).addOrReplace(spc_label);
 
 					target.add(PasswordField.this);
