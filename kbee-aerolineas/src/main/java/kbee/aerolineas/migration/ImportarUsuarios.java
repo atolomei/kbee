@@ -1029,9 +1029,9 @@ public class ImportarUsuarios extends AsyncCommand {
 							String field = fields[i++];
 							row.put(field, columnValue);
 						}
-						if (row.get("legajo")!=null && row.get("legajo").trim().equals("38164")) {
+						//if (row.get("legajo")!=null && row.get("legajo").trim().equals("38164")) {
 							rows.add(row);
-						}
+						//}
 					}
 					else {
 						logger.error("cantidad no esperada de columnas en archivo de usuarios");

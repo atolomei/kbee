@@ -46,6 +46,7 @@ public class Main {
 
     private static final String PARAM_OVERRIDE_WEB_XML = "com.novamens.kbee.overridedWebXml";
     private static final String PARAM_WEBAPP_DIR = "kbee.webapp.dir";
+    private static final String PARAM_WEBAPP_CONTEXT = "kbee.webapp.context";
     private static final String PARAM_JETTY_PROFILES_DIR = "kbee.jetty.base";
     private static final String PARAM_JETTY_PROFILES_NAMES = "kbee.jetty.profiles";
     private static final String PARAM_JETTY_SHUTDOWN_PASSWORD_OLD = "com.novamens.kbee.jettyShutdownPassword";
@@ -87,8 +88,11 @@ public class Main {
 
         WebAppContext webapp = new WebAppContext();
         webapp.setServer(server);
-        webapp.setContextPath("/");
-
+        
+        String context = System.getProperty(PARAM_WEBAPP_CONTEXT);
+        if (context==null) context = "/";
+       	webapp.setContextPath(context);
+  
         String pathToOverridedWebXml = System.getProperty(PARAM_OVERRIDE_WEB_XML);
         if (pathToOverridedWebXml != null && !pathToOverridedWebXml.isEmpty()) {
             webapp.setOverrideDescriptor(pathToOverridedWebXml);

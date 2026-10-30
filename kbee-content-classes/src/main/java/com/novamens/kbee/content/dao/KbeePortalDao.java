@@ -38,6 +38,7 @@ import com.novamens.content.library.Library;
 import com.novamens.content.model.Classifier;
 import com.novamens.content.model.DataSet;
 import com.novamens.content.model.ObjectId;
+import com.novamens.content.security.ContentSystemSecurityService;
 import com.novamens.dom.Domain;
 import com.novamens.dom.ObjectID;
 import com.novamens.dom.ObjectState;
@@ -146,8 +147,11 @@ public class KbeePortalDao implements PortalDao {
     	int limit = max;
     	while (res.hasNext() && total++<limit) {
     		SearchResult r=res.next();
-    		if (r.getObject() instanceof Content)
-    			list_c.add( (Content) r.getObject());
+    		if (r.getObject() instanceof Content) {
+    			if (isReadable((Content) r.getObject())) {
+    				list_c.add( (Content) r.getObject());
+    			}
+    		}	
     	}	
     	if (sort==null || !sort.startsWith("modified")) {
 	    	list_c.sort(new Comparator<Content>() {
@@ -853,6 +857,10 @@ public class KbeePortalDao implements PortalDao {
 	private User getSessionUser() {
 		return ServiceLocator.getService(SecurityService.class).getSessionUser();
 	}
+	
+	private boolean isReadable(Content content) {
+		return ServiceLocator.getService(ContentSystemSecurityService.class).isReadable(content);
+	}	
 
 	private ContentDao getContentDao() {
 		return (ContentDao) ServiceLocator.getService(BeansService.class).getBean("contentDao");

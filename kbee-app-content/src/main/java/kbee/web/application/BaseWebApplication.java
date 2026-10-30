@@ -703,9 +703,9 @@ public abstract class BaseWebApplication extends SpringWebApplication {
         	new PageBeanResolver("login-page",LoginSimplePage.class)));
 
       
-       mount(new MountedBeanMapper(
-           	"/signup", 
-           	new PageBeanResolver("signup-page",LoginSimplePage.class)));
+//       mount(new MountedBeanMapper(
+//           	"/signup", 
+//           	new PageBeanResolver("signup-page",LoginSimplePage.class)));
 
         
         mount(new MountedBeanMapper(

@@ -67,7 +67,10 @@ public class AerolineasService implements SystemService {
 		text.append(data.getName()+", "+data.getLastName()+"\n");
 		text.append(data.getEmployeeId()+"\n");
 		text.append(data.getEmail()+"\n");
-		text.append(data.getCommnent()+"\n");
+		text.append(data.getArea().getDisplayName()+"\n");
+		if (data.getCommnent() != null && !data.getCommnent().isBlank()) {
+		    text.append(data.getCommnent()).append('\n');
+		}
 		return text.toString();
 	}
 	

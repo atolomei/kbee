@@ -2,6 +2,7 @@ package kbee.aerolineas.web.login;
 
 import java.security.SecureRandom;
 
+import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.extensions.markup.html.captcha.CaptchaImageResource;
 import org.apache.wicket.markup.html.image.Image;
 import org.apache.wicket.markup.html.panel.Panel;
@@ -11,6 +12,7 @@ import org.apache.wicket.validation.IValidatable;
 import org.apache.wicket.validation.IValidator;
 import org.apache.wicket.validation.ValidationError;
 
+import com.googlecode.wicket.jquery.ui.markup.html.link.AjaxLink;
 import com.novamens.wicket.markup.html.form.TextField;
 
 import lombok.Getter;
@@ -29,6 +31,8 @@ public class CaptchaPanel extends Panel {
 
     private final CaptchaImageResource captchaResource;
     private final TextField<String> captchaInput;
+    
+    private boolean placeholderLabel = false;
     
     @Getter
     private String input;
@@ -49,14 +53,17 @@ public class CaptchaPanel extends Panel {
         captchaImage = new Image("captchaImage", captchaResource);
         captchaImage.setOutputMarkupId(true);
         add(captchaImage);
+        
+        add(new AjaxLink<Void>("reloadCaptcha") {
+              @Override
+            public void onClick(AjaxRequestTarget target) {
 
-        // Campo de entrada.
-//        captchaInput = new TextField<>("captchaInput", answer);
-//        captchaInput.setRequired(true);
-//        captchaInput.setLabel(Model.of("Código de verificación"));
-//        add(captchaInput);
-//        
-//        captchaInput
+                refresh();
+
+                target.add(captchaImage);
+                target.add(captchaInput);
+            }
+        });
         
         captchaInput = new  TextField<String>("captchaInput");
         captchaInput.setModel(new PropertyModel<String>(this, "input"));
@@ -65,47 +72,13 @@ public class CaptchaPanel extends Panel {
         
         setOutputMarkupId(true);
 
-        // Mensajes de error exclusivos del CAPTCHA.
-//        FeedbackPanel feedback = new FeedbackPanel(
-//                "captchaFeedback",
-//                new ComponentFeedbackMessageFilter(captchaInput)
-//        );
-//
-//        feedback.setOutputMarkupId(true);
-//        add(feedback);
     }
-
-//    public FormComponent<String> getCaptchaInput() {
-//        return captchaInput;
-//    }
-
-//    /**
-//     * Validador para registrar en el formulario.
-//     */
-//    public IFormValidator createValidator() {
-//
-//        return new IFormValidator() {
-//
-//            private static final long serialVersionUID = 1L;
-//
-//            @Override
-//            public FormComponent<?>[] getDependentFormComponents() {
-//                return new FormComponent<?>[] {
-//                        captchaInput
-//                };
-//            }
-//
-//            @Override
-//            public void validate(Form<?> form) {
-//
-//                if (!validateCaptcha()) {
-//                    captchaInput.error(
-//                            "El código de verificación es incorrecto."
-//                    );
-//                }
-//            }
-//        };
-//    }
+    
+    
+	public void setPlaceholderLabel(boolean placeholderLabel) {
+        captchaInput.setPlaceholderLabel(placeholderLabel);
+		this.placeholderLabel = placeholderLabel;
+	}
 
     /**
      * Valida el código ingresado.

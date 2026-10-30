@@ -1,23 +1,49 @@
 <html xmlns:wicket="http://wicket.apache.org">
 <body>
-    <wicket:panel>
 
-        <div class="captcha-container">
+<wicket:head>
+<style>
+      /* Captcha */
 
-            <div class="mb-2">
-                <img wicket:id="captchaImage"
-                     alt="Código de verificación"/>
-            </div>
+    .feedback-block {
+        color: white;
+        font-size: 85%;
+    }
 
+  </style>
+</wicket:head>
+<wicket:panel>
 
-								<div class="row">
-									<div class="text-center col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12 mb-4">
-										<div wicket:id="captchaInput" />
-									</div>
-								</div>
+    <div class="captcha-container">
+
+        <div class="d-flex align-items-center
+                    justify-content-center gap-2 mb-2">
+
+            <img wicket:id="captchaImage"
+                 alt="Código de verificación" />
+
+<a wicket:id="reloadCaptcha"
+   class="btn btn-light btn-sm"
+   style="background-color: #fff;
+          color: #333;
+          border: 1px solid #aaa;
+          font-size: 20px;
+          padding: 2px 10px;"
+   title="Generar nuevo código"
+   aria-label="Generar nuevo código">
+    &#x21bb;
+</a>
 
         </div>
 
-    </wicket:panel>
+        <div class="row">
+            <div class="text-center col-12 mb-4">
+                <div wicket:id="captchaInput"></div>
+            </div>
+        </div>
+
+    </div>
+
+</wicket:panel>
 </body>
 </html>

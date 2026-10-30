@@ -73,8 +73,6 @@ public class AALoginPanel extends Panel {
 			setErrorCode(parameters.get("login_error").toString());
 
 		Form<?> form = new Form<Void>("form") {
-			private static final long serialVersionUID = 1L;
-
 			@Override
 			protected CharSequence getActionUrl() {
 				return "/j_spring_security_check";
@@ -85,13 +83,10 @@ public class AALoginPanel extends Panel {
 
 		
 		Image logo = new Image("logo", new org.apache.wicket.request.resource.PackageResourceReference(AALoginPanel.class, "aa-logo.png"));
-		//logo.setVisible(false);
 		form.add(logo);
 		
 		
 		Label error_label = new Label("error", getLabel("errorcode-" + getErrorCode())) {
-			private static final long serialVersionUID = 1L;
-
 			@Override
 			public boolean isVisible() {
 				return getErrorCode() != null;
