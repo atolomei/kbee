@@ -58,7 +58,9 @@ import com.novamens.service.ServiceLocator;
 import com.novamens.system.parameters.SystemParameterService;
 import com.novamens.transaction.Transaction;
 
+import kbee.api.model.ApiFile;
 import kbee.api.model.ApiProxy;
+import kbee.api.model.ApiValue;
 import kbee.api.model.IValue2;
 import kbee.api.service.ApiError;
 import kbee.api.service.ApiException;
@@ -130,25 +132,22 @@ public class ImportarCarpetas extends AsyncCommand {
 			for (i=0; i<getRows().size(); i++) {
 				
 				Map<String, String> row = getRows().get(i);
-				
-				IValue2 value = buildValue(row, new ArrayList<String>());
-				if (value!=null  && "LV-ZZD".equals(value.getDisplayName())) {
-					System.out.print(value);;
+				if ("b1ce8700-119d-11e8-aa50-0050569415cd".equals(row.get("id"))) {
+					System.out.print("");
 				}
-				if (value!=null) {
+				IValue2 value = buildValue(row, new ArrayList<String>());
+				if (value!=null && enabled(value)) {
 					update(value);
 				}
 			}
 			
 			for (i=0; i<getRows().size(); i++) {
-				
 				Map<String, String> row = getRows().get(i);
-	
-				IValue2 value = buildParents(row, new ArrayList<String>());
-				if (value!=null  && "LV-ZZD".equals(value.getDisplayName())) {
-					System.out.print(value);;
+				if ("138c54f0-11ca-11e8-aa50-0050569415cd".equals(row.get("id"))) {
+					System.out.print("");
 				}
-				if (value!=null) {
+				IValue2 value = buildParents(row, new ArrayList<String>());
+				if (value!=null && enabled(value)) {
 					update(value);
 				}
 			}
@@ -179,6 +178,16 @@ public class ImportarCarpetas extends AsyncCommand {
 		return i;
 	}
 	
+	public boolean enabled(IValue2 value) {
+		if (value.getSubline()!=null &&  value.getSubline().contains("(NO MIGRAR)")) {
+			return false;
+		}
+		if (value.getSubline()!=null && value.getSubline().contains("Logística Embarque COMAT")) {
+			return false;
+		}
+		return true;
+	}
+	
 	private IValue2 buildValue(Map<String,String> row, List<String> ids) {
 		
 		IValue2 value = new IValue2();
@@ -199,6 +208,10 @@ public class ImportarCarpetas extends AsyncCommand {
 		String descripcion = row.get("descripcion");
 		if (descripcion!=null && !"".equals(descripcion)) {
 			descripcion = descripcion.replace("|n", "</br>");
+		}
+		
+		if ("BCV".equals(folders)) {
+			folders = "BCV/";
 		}
 		
 		if (folders==null || !folders.contains("BCV/") ) {
@@ -223,6 +236,9 @@ public class ImportarCarpetas extends AsyncCommand {
 					alias += foldername + "/" + title;
 				}
 			}
+		}
+		if (foldernames.length==0) {
+			alias = "BCV/" + title;
 		}
 		
 		value.setSubline(alias);
@@ -249,10 +265,6 @@ public class ImportarCarpetas extends AsyncCommand {
 		
 		Map<String, String> row2 = getRows2().get(id);
 		
-		/*
-		 * if (row2==null) { getLogger().error(id + ", NO ROW2"); } else {
-		 * System.out.print("hola"); }
-		 */
 		
 		String folders = row.get("carpetas");
 		String title = row.get("documento");
@@ -607,33 +619,6 @@ public class ImportarCarpetas extends AsyncCommand {
 		return perms;
 		
 	}
-	
-//	private List<String> parsePerms2(String permsvalue) {
-//		List<String> perms = new ArrayList<>();
-//		
-//		int i = 0, p=0, b=0;
-//		
-//		while (i>=0) {
-//			i = permsvalue.indexOf(",",b);
-//			if ((i<0 || 
-//					(i>1 && permsvalue.charAt(i-1)=='/') ||
-//					(i>2 && permsvalue.charAt(i-2)=='/') || 
-//					(i>3 && permsvalue.charAt(i-3)=='/') || 
-//					(i>4 && permsvalue.charAt(i-4)=='/') || 
-//					(i>5 && permsvalue.charAt(i-5)=='/'))) {
-//				String perm =  i>0 ? permsvalue.substring(p,i) : permsvalue.substring(p);
-//				perms.add(perm.trim());
-//				p = i+1;
-//				b = p;
-//			}
-//			else {
-//				i = i>0 ? i+1 : i;
-//				b=i;
-//			}
-//		}		
-//		return perms;
-//		
-//	}
  	
 	private DataSetMember getOrganization(String name) {
 		DataSetMember empresa = null;

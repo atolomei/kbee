@@ -61,11 +61,9 @@ import org.cyberneko.html.HTMLConfiguration;
 import org.hibernate.SessionFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.util.Assert;
-import org.w3c.dom.Attr;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
-import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
@@ -392,20 +390,27 @@ public class ImportarDocumentos extends AsyncCommand {
 	
 	public boolean enable(ApiFile file) {
 		try {
+			boolean enabled = true;
 			for (String folder : getFolders(file)) {
-				if (folder.startsWith("BCV/Papelera")) {
-					return false;
+				if (folder.startsWith("BCV/Papelera") ||
+					folder.contains("/Logística Embarque COMAT") ||
+					folder.contains("NO MIGRAR")) {
+					enabled = false;
 				}
-			}
-			if (path==null) return true;
-			for (String folder : getFolders(file)) {
-				if (folder.startsWith("Papelera")) {
-					return false;
-				}
-				if (folder.toLowerCase().contains(path.toLowerCase())) {
+				else {
 					return true;
-				}	
+				}
 			}
+			return enabled;
+//			if (path==null) return true;
+//			for (String folder : getFolders(file)) {
+//				if (folder.startsWith("Papelera")) {
+//					return false;
+//				}
+//				if (folder.toLowerCase().contains(path.toLowerCase())) {
+//					return true;
+//				}	
+//			}
 		}
 		catch (Exception e) {
 			getLogger().info(file.getExternalId() + ", ERROR, "+e.getMessage());

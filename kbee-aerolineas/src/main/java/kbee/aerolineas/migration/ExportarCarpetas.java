@@ -129,7 +129,7 @@ public class ExportarCarpetas extends AsyncCommand {
 			String urlstring = bcvurl+href;
 			URL url = new URL(urlstring);
 			URLConnection connection = url.openConnection();
-			
+			System.out.println(href);
 			String base64Credentials = Base64.toString((bcvuser+":"+bcvpassword).getBytes());
 			connection.setRequestProperty("Authorization", "Basic " + base64Credentials);
 			

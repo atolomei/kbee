@@ -193,11 +193,16 @@ public class AAForgotPasswordPanel extends Panel {
 				}
 				else {
 					if (userprofile.getEntity().getEmail()!=null) {
-						EmailBuilderSelfServicePasswordReset builder = 
-							new EmailBuilderSelfServicePasswordReset(userprofile.getPerson());
-						ServiceLocator
-							.getService(EmailService.class).send(builder);
-						return null;
+						if (userprofile.getEntity().getEmail().contains("@aerolineas")) {
+							errcode = "7";
+						}
+						else {
+							EmailBuilderSelfServicePasswordReset builder = 
+								new EmailBuilderSelfServicePasswordReset(userprofile.getPerson());
+							ServiceLocator
+								.getService(EmailService.class).send(builder);
+							return null;
+						}
 					}
 					else 
 						errcode = "4";
