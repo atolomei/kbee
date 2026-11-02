@@ -1,11 +1,13 @@
 package kbee.aerolineas.web.login;
 
+import com.novamens.kbee.wicket.util.InvisiblePanel;
 import com.novamens.service.BrandingService;
 import com.novamens.service.ServiceLocator;
 import com.novamens.wicket.markup.html.form.PasswordField;
 import com.novamens.wicket.markup.html.form.TextField;
 import org.apache.wicket.AttributeModifier;
 import org.apache.wicket.ajax.AjaxRequestTarget;
+import org.apache.wicket.ajax.markup.html.AjaxLink;
 import org.apache.wicket.ajax.markup.html.form.AjaxSubmitLink;
 
 import org.apache.wicket.markup.html.WebMarkupContainer;
@@ -65,6 +67,11 @@ public class AALoginPanel extends Panel {
 
 	}
 
+	AjaxLink<Void> vigencia;
+	Form<?> form ;
+	boolean showingVigencia = false;
+	
+	
 	private void addComponents(PageParameters parameters) {
 
 		add(box);
@@ -72,7 +79,7 @@ public class AALoginPanel extends Panel {
 		if (parameters != null)
 			setErrorCode(parameters.get("login_error").toString());
 
-		Form<?> form = new Form<Void>("form") {
+		form = new Form<Void>("form") {
 			@Override
 			protected CharSequence getActionUrl() {
 				return "/j_spring_security_check";
@@ -80,7 +87,43 @@ public class AALoginPanel extends Panel {
 		};
 
 		box.add(form);
+		
+		
+		
+		
+		 vigencia = new AjaxLink<Void>("vigencia-link") {
+			@Override
+			public void onClick(AjaxRequestTarget target) {
+				 
+				
+				if (!showingVigencia) {
+					Label a = new Label("vigencia", getLabel("vigencia").getString());
+					a.add(new AttributeModifier("style", "font-weight: normal; font-size: 0.9em; opacity:0.55;"));
+					a.setEscapeModelStrings(false);
+					form.addOrReplace(a);
+					target.add(form);
+					showingVigencia = true;
+				}
+				else {
+					Panel panel = new InvisiblePanel("vigencia");
+					form.addOrReplace(panel);
+					target.add(form);
+					showingVigencia = false;
+				}
+				
+			}
+		};
+		
+		form.add(vigencia);
 
+		vigencia.setOutputMarkupId(true);
+		form.add(vigencia);
+
+		
+		
+		Panel panel = new InvisiblePanel("vigencia");
+		form.add(panel);
+		
 		
 		Image logo = new Image("logo", new org.apache.wicket.request.resource.PackageResourceReference(AALoginPanel.class, "aa-logo.png"));
 		form.add(logo);
