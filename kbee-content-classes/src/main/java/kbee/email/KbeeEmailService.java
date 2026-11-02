@@ -706,6 +706,7 @@ public class KbeeEmailService  implements EmailService {
 		macros.put("domain-name", EmailBuilder.DOMAIN);
 		macros.put("domain-url", EmailBuilder.DOMAIN);
 		macros.put("password-url", EmailBuilder.DOMAIN);
+		macros.put("domain-logo-url", EmailBuilder.DOMAIN);
 
 		
 		//general  --------------------------------------------

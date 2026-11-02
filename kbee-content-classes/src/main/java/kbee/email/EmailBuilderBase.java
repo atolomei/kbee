@@ -15,6 +15,7 @@ import com.novamens.content.email.EmailTemplate;
 import com.novamens.content.enoti.ENotiRule;
 import com.novamens.content.enoti.ENotiRuleDao;
 import com.novamens.content.entity.Person;
+import com.novamens.content.resource.KBFile;
 import com.novamens.content.service.ContentService;
 import com.novamens.content.service.UrlService;
 import com.novamens.content.user.UserProfile;
@@ -47,6 +48,8 @@ public abstract class EmailBuilderBase {
 					
 	private static Logger logger = Logger.getLogger(EmailBuilderBase.class.getName());
 	private static Logger emaillogger = Logger.getLogger("email");
+
+	public static final String DEFAULT_LOGO_URL = "https://kbee.io/images/kbee-vert.png";
 
 	
 	private static String _default_noreply = null;
@@ -342,11 +345,33 @@ public abstract class EmailBuilderBase {
 			map.put("${my-tasks-link}", mytasksurl);
 			map.put("${my-tasks-url}", mytasksurl);
 			map.put("${pending-tasks-url}", pending_url);
+			map.put("${domain-logo-url}", getDomainLogoUrl(domain));
 		} 
 		catch (Exception e) {
 			map.put("${error}", "addGeneralMacros -> e.getClass().getName()" );
 			logger.error(e);
 		}
+	}
+	
+	/**
+	 * <p>Public URL of the domain logo. If the domain has no logo (or it can not be resolved) 
+	 * returns the default KBEE logo.</p>
+	 */
+	protected String getDomainLogoUrl(Domain domain) {
+		try {
+			if (domain!=null && domain.getLogoUrl()!=null && domain.getLogoUrl().trim().length()>0) {
+				KBFile logo = (KBFile) getContentDao().findResourceById(KBFile.class, domain.getLogoUrl());
+				if (logo!=null) {
+					String url = logo.getService(UrlService.class).getPublicUrl();
+					if (url!=null && url.trim().length()>0)
+						return url;
+				}
+			}
+		} 
+		catch (Exception e) {
+			logger.error(e);
+		}
+		return DEFAULT_LOGO_URL;
 	}
 	
 	protected void addWorkflowMacros( WorkflowContext context, Map<String, Object> map) {
