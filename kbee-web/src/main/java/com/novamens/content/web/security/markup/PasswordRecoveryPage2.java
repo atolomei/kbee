@@ -135,13 +135,18 @@ public class PasswordRecoveryPage2 extends AbstractKbeeWebPage {
 		if (parameters!=null) {
 			 if (parameters.get("key")!=null) {
 				 String token = parameters.get("key").toString();
+				
+				 
+				 
 				 if (ServiceLocator.getService(SecurityService.class).isValid(token)) {
 					 String userid=ServiceLocator.getService(SecurityService.class).getUserId(token);
 					 setUser(ServiceLocator.getService(SecurityService.class).findUserById(userid));
 					 valid=true;
 				 }
-				 else
+				 else {
 					 valid = false;
+				 }
+			 
 			 }
 		 }
 		

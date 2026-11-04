@@ -708,12 +708,15 @@ public abstract class BaseWebApplication extends SpringWebApplication {
 //           	new PageBeanResolver("signup-page",LoginSimplePage.class)));
 
         
-        mount(new MountedBeanMapper(
-        	"/forgotpassword", 
-        	new PageBeanResolver("forgotpassword-page", ForgotPasswordPage.class)));
+        mount(new MountedBeanMapper("/forgotpassword",  new PageBeanResolver("forgotpassword-page", ForgotPasswordPage.class)));
 
+        
         this.mountPage("/forgotusername", ForgotUsernamePage.class);
-        this.mountPage("/passwordrecovery", PasswordRecoveryPage2.class);
+        
+        
+        mount(new MountedBeanMapper("/passwordrecovery", new PageBeanResolver("passwordrecovery-page", PasswordRecoveryPage2.class)));
+        
+        
         
         // Content -----
         // ---------------------------------------------------------------------------
