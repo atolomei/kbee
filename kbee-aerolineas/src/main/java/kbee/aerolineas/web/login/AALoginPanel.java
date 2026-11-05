@@ -116,6 +116,7 @@ public class AALoginPanel extends Panel {
 		
 		form.add(vigencia);
 
+		vigencia.setEnabled(false);
 		vigencia.setOutputMarkupId(true);
 		form.add(vigencia);
 

@@ -267,7 +267,7 @@ public class KbeeSecurityService implements SecurityService, EventListener {
         try {
 
         	jwt.sign(new RSASSASigner(privateKey));
-        	KbeeAuthToken token = new KbeeAuthToken(ONE_DAY_MILISECONDS);
+        	KbeeAuthToken token = new KbeeAuthToken(ONE_HOUR_MILISECONDS);
         	token.setTokenValue(jwt.serialize());
         	return token;
         }

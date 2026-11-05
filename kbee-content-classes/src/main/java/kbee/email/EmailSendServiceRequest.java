@@ -270,9 +270,12 @@ public class EmailSendServiceRequest extends AbstractServiceRequest {
 		message.setSubject((String)params.get("subject"));
 		
 		StringBuilder strMensaje = new StringBuilder();
+		
 		String texto = (String) params.get("texto");
+
 		if (texto!=null && !texto.isEmpty())
-			strMensaje.append( texto.replaceAll("\n", "<br/>") + "<br/>" );
+			strMensaje.append( texto );
+		
 		message.setHtml(strMensaje.toString());
 
 		if (params.get("domain_id")!=null)

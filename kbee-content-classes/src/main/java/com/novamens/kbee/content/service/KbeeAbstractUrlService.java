@@ -59,10 +59,16 @@ public abstract class KbeeAbstractUrlService implements UrlService {
 	 * @return
 	 */
 	protected String getServerUrl(Domain domain) {
+		
 		String port=ServiceLocator.getService(ApplicationServerService.class).getJettyPort();
+		
 		String vanity_port = properties.getProperty("vanity-port", port).trim();
+	
 		if (domain.getName().equals("kbee"))
-			return servername + (vanity_port.length()==0 || vanity_port.equals("80") ? "": (":"+vanity_port));
-		return vanity_server.trim().replace("${domain}", domain.getName()) + (vanity_port.length()==0 || vanity_port.equals("80") ? "": (":"+vanity_port));
+			return servername + (vanity_port.length()==0 ||  vanity_port.equals("443") || vanity_port.equals("80") ? "": (":"+vanity_port));
+
+		return vanity_server.trim().replace("${domain}", domain.getName()) + (vanity_port.length()==0 ||  vanity_port.equals("443") || vanity_port.equals("80") ? "": (":"+vanity_port));
+	
+	
 	}
 }

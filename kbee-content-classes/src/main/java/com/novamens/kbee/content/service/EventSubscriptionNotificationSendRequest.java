@@ -177,7 +177,8 @@ public class EventSubscriptionNotificationSendRequest extends AbstractServiceReq
 			message.setFrom(emaildata.from);
 			message.setTo(emaildata.to.trim());
 			message.setSubject(emaildata.subject);
-			message.setHtml(EmailSenders.textToHtml(emaildata.msg));
+	//		message.setHtml(EmailSenders.textToHtml(emaildata.msg));
+			message.setHtml( emaildata.msg);
 			if (content!=null && content.getDomain()!=null)
 				message.setDomainId(content.getDomain().getId().toString());
 			

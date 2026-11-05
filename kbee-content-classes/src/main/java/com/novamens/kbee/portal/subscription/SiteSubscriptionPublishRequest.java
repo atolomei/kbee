@@ -263,7 +263,8 @@ public class SiteSubscriptionPublishRequest extends AbstractServiceRequest {
 			message.setFrom(params.get("from-email"));
 			message.setTo(params.get("to-email").trim());
 			message.setSubject(params.get("subject"));
-			message.setHtml(EmailSenders.textToHtml(params.get("texto")));
+			//message.setHtml(EmailSenders.textToHtml(params.get("texto")));
+			message.setHtml(params.get("texto"));
 			message.setDomainId(params.get("domain_id"));
 
 			String result = EmailSenders.get().send(message);

@@ -198,7 +198,12 @@ public class AAPasswordRecoveryPage extends AbstractKbeeWebPage {
 			super(id);
 			setOutputMarkupId(true);
 
-			add(new Label("username", getUserName()));
+			String username = getUserName();
+			
+			if (username != null && username.contains("@")) {
+				username = username.substring(0, username.indexOf("@"));
+			}
+			add(new Label("username", 	username ));
 
 			feedback = new FeedbackPanel("feedback") {
 				private static final long serialVersionUID = 1L;

@@ -73,7 +73,6 @@ public class EmailBuilderSelfServicePasswordReset extends EmailBuilderBase imple
 		Map<String, Object> map = new HashMap<String, Object>();
 		
 		
-		 
 		
 		addGeneralMacros(this.person.getDomain(), map);
 		addAppContextMacros(this.person,  this.person, key, map);
@@ -85,7 +84,6 @@ public class EmailBuilderSelfServicePasswordReset extends EmailBuilderBase imple
 		
 		logger.debug(url);
 		emaillogger.debug(url);
-
 		
 		map.put("${password-reset-url}", url);
 		map.put("${password-url}", url);

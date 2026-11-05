@@ -265,8 +265,10 @@ public class ProcessContentEmailRequest extends AbstractServiceRequest {
         reply.setFrom(kbeeFrom);
         reply.setTo(from[0].toString());
         reply.setSubject("RE: " + message.getSubject());
-        reply.setHtml(EmailSenders.textToHtml(StringEscapeUtils.escapeHtml4(body)));
+        //reply.setHtml(EmailSenders.textToHtml(StringEscapeUtils.escapeHtml4(body)));
+        reply.setHtml(StringEscapeUtils.escapeHtml4(body));
 
+        
         Address[] replyTo = message.getReplyTo();
         if (replyTo != null && replyTo.length > 0)
         	reply.setReplyTo(InternetAddress.toString(replyTo));
