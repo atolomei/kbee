@@ -3,6 +3,7 @@ package com.novamens.kbee.content.script;
 import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import com.novamens.beans.BeansService;
 import com.novamens.content.base.Content;
@@ -77,6 +78,15 @@ public class KbeeClassificableScriptWrapper {
 				if (member.getDataSet().equals(classifiertemplate.getClassifier().getDataSet())) {
 					classificable.setClassification(classifiertemplate.getClassifier(), member);
 				}
+			}
+			if (value instanceof List<?>) {
+			    List<?> list = (List<?>) value;
+			    if (list.stream().allMatch(DataSetMember.class::isInstance)) {
+			        List<DataSetMember> members = list.stream()
+			        	.map(DataSetMember.class::cast)
+			            .collect(Collectors.toList());
+					classificable.setClassification(classifiertemplate.getClassifier(), members);
+			    }
 			}
 		}
 		else {
@@ -217,7 +227,7 @@ public class KbeeClassificableScriptWrapper {
 		List<Relation> relations = new ArrayList<>();
 		if (classificable instanceof Content) {
 			for (Relation relation : ((Content)classificable).getRelations()) {
-				if (relation.getTemplate().getName().equals(tag)) {
+				if (relation.getTemplate().getName().equalsIgnoreCase(tag)) {
 					relations.add(relation);
 				}
 			}

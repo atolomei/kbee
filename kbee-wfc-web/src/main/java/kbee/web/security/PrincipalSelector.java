@@ -296,6 +296,15 @@ public class PrincipalSelector extends KBPanel {
 										.getGroup(roleNode.getEntity(), roleNode.getRole());
 									onSelect(targetOptional.get(), group);
 								}	
+								else {
+									if (node instanceof EntityNode) {
+										EntityNode entityNode = (EntityNode)node;
+										Group group = ServiceLocator
+												.getService(ContentSystemSecurityService.class)
+												.getGroup(entityNode.getEntity());
+										onSelect(targetOptional.get(), group);
+									}
+								}
 							}
 							else {
 								onSelect(targetOptional.get(), node.getPrincipal());

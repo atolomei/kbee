@@ -42,26 +42,26 @@ public class ReindexHierarchyCommand extends AsyncCommand {
 	
 	@Override
 	public void executeAsync() {
-		setDateStarted(OffsetDateTime.now());
-		ResultSet resultSet = null;
-		try {
-			Session.open();
-			DataSetMember member = (DataSetMember)getParameter("member");
-			su(((DomainObject)member).getDomain());
-			index(member, new HashSet<>());
-			this.getIndex().commit();
-			end();
-		}
-		catch (Exception e) {
-			logger.error(e);
-			stop();
-			throw new RuntimeException(e);
-		}
-		finally {
- 			if (resultSet!=null)
-				resultSet.close();
-			Session.close();
-		}
+//		setDateStarted(OffsetDateTime.now());
+//		ResultSet resultSet = null;
+//		try {
+//			Session.open();
+//			DataSetMember member = (DataSetMember)getParameter("member");
+//			su(((DomainObject)member).getDomain());
+//			index(member, new HashSet<>());
+//			this.getIndex().commit();
+//			end();
+//		}
+//		catch (Exception e) {
+//			logger.error(e);
+//			stop();
+//			throw new RuntimeException(e);
+//		}
+//		finally {
+// 			if (resultSet!=null)
+//				resultSet.close();
+//			Session.close();
+//		}
 	}
 	
 	

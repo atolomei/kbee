@@ -230,23 +230,6 @@
 
 			<id>idoc</id>
 
-			<!-- dependencies>
-				<dependency>
-					<groupId>com.novamens</groupId>
-					<artifactId>idoc-resources</artifactId>
-					<version>${kbee-version}</version>
-					<scope>compile</scope>
-				</dependency>
-				
-				
-				<dependency>
-					<groupId>com.novamens</groupId>
-					<artifactId>idoc-lib</artifactId>
-					<version>${kbee-version}</version>
-					<scope>compile</scope>
-				</dependency>
-			</dependencies-->
-
 		</profile>
 		<profile>
 			<id>aerolineas</id>
@@ -258,6 +241,17 @@
 					</dependency>
 			</dependencies>
 		</profile>
+		<profile>
+			<id>pjsf</id>
+			<dependencies>
+				<dependency>
+					<groupId>com.novamens</groupId>
+					<artifactId>pjsf-lib</artifactId>
+					<version>${kbee-version}</version>
+					</dependency>
+			</dependencies>
+		</profile>
+
 		<profile>
 			<id>IDE</id>
 			<build>

@@ -409,6 +409,17 @@ public class KbeeContentSystemSecurityService implements ContentSystemSecuritySe
 		group = (Group)Proxy.Unproxy(group);
 		return group;
 	}
+	
+	@Override
+	@Transactional
+	public Group getGroup(EntityMember entity) {
+		Group group = ((KbeeEntityMember)entity).getGroup();
+		if (group==null) {
+			group = ((KbeeEntityMember)entity).createGroup(entity);
+		}
+		group = (Group)Proxy.Unproxy(group);
+		return group;
+	}
 
 	public List<Principal> getEnabledPrincipals(Content content, Permission permission) {
 		List<Principal> principals = new ArrayList<Principal>();

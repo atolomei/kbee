@@ -1,145 +1,53 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<!--
- Licensed to the Apache Software Foundation (ASF) under one or more
- contributor license agreements.  See the NOTICE file distributed with
- this work for additional information regarding copyright ownership.
- The ASF licenses this file to You under the Apache License, Version 2.0
- (the "License"); you may not use this file except in compliance with
- the License.  You may obtain a copy of the License at
-
-     http://www.apache.org/licenses/LICENSE-2.0
-
- Unless required by applicable law or agreed to in writing, software
- distributed under the License is distributed on an "AS IS" BASIS,
- WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- See the License for the specific language governing permissions and
- limitations under the License.
--->
-
-<!--
- This is a stripped down config file used for a simple example...  
- It is *not* a good example to work from. 
--->
+<!-- Solr 9 minimal clean configuration, with selected settings from the previous core.
+     This is not a verbatim copy of Solr's bundled _default configset.
+     Back up the existing conf directory before replacing solrconfig.xml. -->
 <config>
-	<luceneMatchVersion>6.0</luceneMatchVersion>
-	
-	<directoryFactory name="DirectoryFactory" class="${solr.directoryFactory:solr.StandardDirectoryFactory}"/>
+  <luceneMatchVersion>${luceneMatchVersion:LATEST}</luceneMatchVersion>
 
-	<!--schemaFactory class="ClassicIndexSchemaFactory"/-->
-	 <schemaFactory class="ManagedIndexSchemaFactory" />
+  <directoryFactory name="DirectoryFactory"
+                    class="${solr.directoryFactory:solr.NRTCachingDirectoryFactory}"/>
 
-	<updateHandler class="solr.DirectUpdateHandler2">
-		<updateLog>
-			<str name="dir">${solr.ulog.dir:}</str>
-		</updateLog>
-		<autoCommit>
-			<maxDocs>1000</maxDocs> <!-- maximum uncommited docs before autocommit triggered -->
-			<maxTime>6000</maxTime> <!-- maximum time (in MS) after adding a doc before an autocommit is triggered -->
-			<openSearcher>true</openSearcher> <!-- SOLR 4.0.  Optionally don't open a searcher on hard commit.  This is useful to minimize the size of transaction logs that keep track of uncommitted updates. -->
-		</autoCommit>
-	</updateHandler>
+  <updateHandler class="solr.DirectUpdateHandler2">
+    <updateLog>
+      <str name="dir">${solr.ulog.dir:}</str>
+    </updateLog>
+    <autoCommit>
+      <maxDocs>1000</maxDocs>
+      <maxTime>6000</maxTime>
+      <openSearcher>true</openSearcher>
+    </autoCommit>
+  </updateHandler>
 
-	<requestHandler name="/get" class="solr.RealTimeGetHandler">
-		<lst name="defaults">
-			<str name="omitHeader">true</str>
-		</lst>
-	</requestHandler>  
+  <requestHandler name="/select" class="solr.SearchHandler"/>
+  <requestHandler name="/query" class="solr.SearchHandler"/>
+  <requestHandler name="/update" class="solr.UpdateRequestHandler"/>
+  <requestHandler name="/get" class="solr.RealTimeGetHandler">
+    <lst name="defaults">
+      <str name="omitHeader">true</str>
+    </lst>
+  </requestHandler>
+  <requestHandler name="/analysis/field" class="solr.FieldAnalysisRequestHandler"/>
+  <requestHandler name="/admin/ping" class="solr.PingRequestHandler">
+    <lst name="defaults"><str name="q">*:*</str></lst>
+  </requestHandler>
+  <requestHandler name="/replication" class="solr.ReplicationHandler"/>
+  <requestHandler name="/browse" class="solr.SearchHandler">
+    <lst name="defaults">
+      <str name="echoParams">explicit</str>
+      <str name="hl">true</str>
+      <str name="hl.fl">text features name</str>
+      <str name="f.name.hl.fragsize">0</str>
+      <str name="f.name.hl.alternateField">name</str>
+    </lst>
+  </requestHandler>
 
-	<requestHandler name="/replication" class="solr.ReplicationHandler" startup="lazy" /> 
-
-	<requestDispatcher>
-		<requestParsers enableRemoteStreaming="false" multipartUploadLimitInKB="2048" formdataUploadLimitInKB="2048" />
-	</requestDispatcher>
-
-	<!-- /select must be declared explicitly: the legacy requestDispatcher handleSelect="true" mapping
-	     (which routed /select to the default handler named "standard") was removed in Solr 9/10 -->
-	<requestHandler name="/select" class="solr.SearchHandler">
-		<lst name="defaults">
-			<str name="echoParams">explicit</str>
-			<int name="rows">10</int>
-		</lst>
-	</requestHandler>
-
-	<requestHandler name="standard" class="solr.StandardRequestHandler" default="true" />
-	<requestHandler name="/analysis/field" startup="lazy" class="solr.FieldAnalysisRequestHandler" />
-	<requestHandler name="/update" class="solr.UpdateRequestHandler"  />
-	
-	<!-- 
-	<requestHandler name="/admin/" class="org.apache.solr.handler.admin.AdminHandlers" />
-	-->
-	
-	<requestHandler name="/admin/ping" class="solr.PingRequestHandler">
-	<lst name="invariants">
-		<str name="q">solrpingquery</str>
-	</lst>
-	<lst name="defaults">
-		<str name="echoParams">all</str>
-	</lst>
-	</requestHandler>
-
-	<admin>
-		<defaultQuery>solr</defaultQuery>
-	</admin>
-
-	<requestHandler name="/browse" class="solr.SearchHandler">
-		<lst name="defaults">
-			<str name="echoParams">explicit</str>
-			<!-- Highlighting defaults -->
-			<str name="hl">true</str>
-			<str name="hl.fl">text features name</str>
-			<str name="f.name.hl.fragsize">0</str>
-		<str name="f.name.hl.alternateField">name</str>
-		</lst>
-	</requestHandler>
-
-	<query>
-
-		<maxBooleanClauses>1024</maxBooleanClauses>
-
-		<filterCache class="solr.FastLRUCache"
-			size="512"
-			initialSize="512"
-			autowarmCount="128"
-			maxRamMB="1000"/>
-
-		<queryResultCache class="solr.LRUCache"
-			size="512"
-			initialSize="512"
-			autowarmCount="128"
-			maxRamMB="1000"/>
-
-		<documentCache class="solr.LRUCache"
-			size="512"
-			initialSize="512"
-			autowarmCount="128" />
-
-		<!-- custom cache currently used by block join -->
-		<cache name="perSegFilter"
-			class="solr.search.LRUCache"
-			size="10"
-			initialSize="0"
-			autowarmCount="10"
-			regenerator="solr.NoOpRegenerator" />
-
-		<enableLazyFieldLoading>true</enableLazyFieldLoading>
-
-		<queryResultWindowSize>20</queryResultWindowSize>
-
-		<queryResultMaxDocsCached>200</queryResultMaxDocsCached>
-
-		<listener event="newSearcher" class="solr.QuerySenderListener">
-			<arr name="queries">
-			</arr>
-		</listener>
-
-		<listener event="firstSearcher" class="solr.QuerySenderListener">
-			<arr name="queries">
-			</arr>
-		</listener>
-
-		<useColdSearcher>false</useColdSearcher>
-
-	</query>
-
+  <query>
+    <maxBooleanClauses>1024</maxBooleanClauses>
+    <filterCache class="solr.CaffeineCache" size="512" initialSize="512" autowarmCount="128"/>
+    <queryResultCache class="solr.CaffeineCache" size="512" initialSize="512" autowarmCount="128"/>
+    <documentCache class="solr.CaffeineCache" size="512" initialSize="512" autowarmCount="0"/>
+    <queryResultWindowSize>20</queryResultWindowSize>
+    <queryResultMaxDocsCached>200</queryResultMaxDocsCached>
+  </query>
 </config>
-

@@ -46,6 +46,7 @@ import com.novamens.kbee.wicket.markup.html.page.AbstractKbeeWebPage;
 import com.novamens.kbee.wicket.util.InvisiblePanel;
 import com.novamens.portal.service.PortalUrlService;
 import com.novamens.portal6.model.Page;
+import com.novamens.portal6.model.PortalConfig;
 import com.novamens.portal6.model.PortalObject;
 import com.novamens.portal6.model.Site;
 import com.novamens.security.User;
@@ -64,26 +65,37 @@ import kbee.web.portal6.sitemanager.SiteAdminCloseEvent;
 import kbee.web.portal6.sitemanager.SiteAdminOpenEvent;
 import kbee.web.service.ApplicationSiteMapService;
 
-@SuppressWarnings("serial")
 public abstract class AbstractSearcherPage<T> extends KbeeWebPage<T>  {
 	private static final long serialVersionUID = 1L;
 										
 	private static final ResourceReference KBEE_SEARCHER_CSS = new CssResourceReference(SearcherResultsPage.class, "searcher.css");
 	
-	final boolean is_user  = ServiceLocator.getService(SecurityService.class).isMember(KbeeGlobalRole.USER.getId());
-	final boolean is_admin = ServiceLocator.getService(SecurityService.class).isMember(KbeeGlobalRole.DOMAIN_ADMIN.getId());
+	PortalConfig siteConfig =
+			null;
+	
+	final boolean is_user  = 
+			ServiceLocator.getService(SecurityService.class).isMember(KbeeGlobalRole.USER.getId());
+	final boolean is_admin = 
+			ServiceLocator.getService(SecurityService.class).isMember(KbeeGlobalRole.DOMAIN_ADMIN.getId());
 
-	private static final ResourceReference ICONS_CSS = new JavaScriptResourceReference(AbstractKbeeWebPage.class, "assets/css/icons/icomoon/styles.css");
-	private static final ResourceReference COMPONENTS_CSS = new JavaScriptResourceReference(AbstractKbeeWebPage.class, "assets/css/components.css");
+	private static final ResourceReference ICONS_CSS = 
+			new JavaScriptResourceReference(AbstractKbeeWebPage.class, "assets/css/icons/icomoon/styles.css");
+	private static final ResourceReference COMPONENTS_CSS = 
+			new JavaScriptResourceReference(AbstractKbeeWebPage.class, "assets/css/components.css");
 
 	
-	private static final ResourceReference CORE_CSS = new JavaScriptResourceReference(AbstractKbeeWebPage.class, "assets/css/core.css");
-	private static final ResourceReference APP_JS = new JavaScriptResourceReference(AbstractKbeeWebPage.class, "assets/js/core/app.js");
+	private static final ResourceReference CORE_CSS = 
+			new JavaScriptResourceReference(AbstractKbeeWebPage.class, "assets/css/core.css");
+	private static final ResourceReference APP_JS = 
+			new JavaScriptResourceReference(AbstractKbeeWebPage.class, "assets/js/core/app.js");
 
-	private static final ResourceReference POPPER_JS = new JavaScriptResourceReference(AbstractKbeeWebPage.class, "assets/js/core/popper.min.js");
-	private static final ResourceReference KBEE_JS = new JavaScriptResourceReference(AbstractKbeeWebPage.class, "assets/js/core/kbee.js");
+	private static final ResourceReference POPPER_JS = 
+			new JavaScriptResourceReference(AbstractKbeeWebPage.class, "assets/js/core/popper.min.js");
+	private static final ResourceReference KBEE_JS = 
+			new JavaScriptResourceReference(AbstractKbeeWebPage.class, "assets/js/core/kbee.js");
 	
-	private static final ResourceReference BOOTSTRAP_JS = new JavaScriptResourceReference(Form.class, com.novamens.wicket.markup.html.form.Form.BOOTSTRAP_JS);
+	private static final ResourceReference BOOTSTRAP_JS = 
+			new JavaScriptResourceReference(Form.class, com.novamens.wicket.markup.html.form.Form.BOOTSTRAP_JS);
 	private static final ResourceReference BOOTSTRAP_CSS = new CssResourceReference(Form.class, Form.BOOTSTRAP);
 	
 	protected static final ResourceReference BL = new CssResourceReference(Form.class, "build.css");
@@ -270,7 +282,8 @@ public abstract class AbstractSearcherPage<T> extends KbeeWebPage<T>  {
 	public void renderHead(IHeaderResponse response) {
 		super.renderHead(response);
 		
-		response.render(JavaScriptHeaderItem.forReference(getApplication().getJavaScriptLibrarySettings().getJQueryReference()));  
+		response.render(JavaScriptHeaderItem.forReference(getApplication().getJavaScriptLibrarySettings().getJQueryReference()));
+		
 		
 		response.render(CssHeaderItem.forReference(ICONS_CSS));
 		response.render(CssHeaderItem.forReference(COMPONENTS_CSS));
@@ -289,6 +302,13 @@ public abstract class AbstractSearcherPage<T> extends KbeeWebPage<T>  {
 		response.render(CssHeaderItem.forReference(CSS_KBEE_BOOTSTRAP_801_1200));
 		response.render(CssHeaderItem.forReference(CSS_KBEE_BOOTSTRAP_1201_1600));
 		response.render(CssHeaderItem.forReference(CSS_KBEE_BOOTSTRAP_1601));
+		
+		ResourceReference cssSiteReference =
+				getCssSiteReference();
+		
+		if (cssSiteReference!=null) {
+			response.render(CssHeaderItem.forReference(cssSiteReference));
+		}
 		
 	}
 	
@@ -467,6 +487,33 @@ public abstract class AbstractSearcherPage<T> extends KbeeWebPage<T>  {
 			this.site_manager_created = true;
 		}
 		return (Panel) get("site-manager-external-ajax-container:site-manager");
+	}
+
+
+	protected ResourceReference getCssSiteReference() {
+			PortalConfig siteConfig = getSiteConfig();
+			if (siteConfig!=null) {
+				ResourceReference cssSiteResources = 
+					new CssResourceReference(
+						siteConfig.getResourceClass(), 
+						"site.css");
+				return cssSiteResources;
+			}
+			return null;
+	}
+	
+	protected PortalConfig getSiteConfig() {
+		if (siteConfig==null) {
+			try {
+				siteConfig = (PortalConfig)ServiceLocator
+					.getService(BeansService.class)
+					.getBean(getSiteModel().getObject().getKey().toLowerCase()+"-config");
+			}
+			catch (Exception e) {
+				logger.debug("no site config");
+			}
+		}
+		return siteConfig;
 	}
 
 	protected String getServerUrl() {
@@ -654,7 +701,10 @@ public abstract class AbstractSearcherPage<T> extends KbeeWebPage<T>  {
 	/** 
 	 *  Reports 
 	 **/										
-	protected String getPageType()     {return "search";} 												// con | det  
+	protected String getPageType()     {
+		return "search";
+	} 												// con | det
+	
 	protected String getContentTitle() {return null;} 													// content title or user title, ...
 										
 	protected String getStatsPageTitle() {return "search";} 											// for console page, it is the name of the console 

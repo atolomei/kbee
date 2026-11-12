@@ -52,6 +52,7 @@ import com.novamens.kbee.content.multidimensional.EntityRolesExtractor;
 import com.novamens.kbee.content.multidimensional.HierarchicalNodeUpdateListener;
 import com.novamens.kbee.content.multidimensional.ParentsDisplayNameExtractor;
 import com.novamens.kbee.content.multidimensional.RuleClassificationExtractor;
+import com.novamens.kbee.content.multidimensional.SolrDateFacet;
 import com.novamens.kbee.content.multidimensional.SortableValueExtractor;
 import com.novamens.service.ServiceLocator;
 import com.novamens.solr.indexer.multidimensional.SolrCube;
@@ -565,6 +566,16 @@ public class JavaContentIndexFactory implements JavaIndexFactory, EventListener,
 		}	
 		
 		for (Attribute attribute : getContentDao().getAttributes(domain)) {
+			if (attribute.isDate()) {
+				SolrDateFacet facet = new SolrDateFacet();
+				facet.setDisplayName(attribute.getName());
+				facet.setName(attribute.getUniqueName()+"member");
+				facet.setOrder(attribute.getOrder());
+				//facet.setAttribute(attribute);
+				facet.setFilterable(true);
+				facets.add(facet);
+			}
+			else
 			if (attribute.isFilterable()) {
 				AttributeFacet facet = new AttributeFacet();
 				facet.setDisplayName(attribute.getName());

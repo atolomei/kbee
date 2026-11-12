@@ -156,6 +156,12 @@ public class KbeeContentTemplateModel extends KbeeClassificableTemplateModel {
 				return true;
 			}
 		}
+		for (Relation reverse : getContent().getReverseRelations()) {
+			if (reverse.getTarget().getContentTemplate().equals(content.getContentTemplate()) &&
+				key.equalsIgnoreCase(reverse.getTemplate().getReverseLabel())) {
+				return true;
+			}
+		}
 		return false;
 	}
 	
@@ -175,6 +181,21 @@ public class KbeeContentTemplateModel extends KbeeClassificableTemplateModel {
 				return model;
 
 			}
+		}
+		List<Object> relateds = new ArrayList<>();
+		for (Relation reverse : getContent().getReverseRelations()) {
+			if (reverse.getTarget().getContentTemplate().equals(content.getContentTemplate()) &&
+				key.equalsIgnoreCase(reverse.getTemplate().getReverseLabel())) {
+				relateds.add(reverse.getSource());
+			}
+		}
+		if (!relateds.isEmpty()) {
+			Set<KbeeMethod> canonicals = new HashSet<KbeeMethod>();
+			canonicals.add(new KbeeMethod("Name", "Name"));
+			canonicals.add(new KbeeMethod("Title", "Title"));
+			canonicals.add(new KbeeMethod("Url", "Url"));
+			TemplateModel model = new KbeeListWrapperTemplateModel(relateds, "Resource", canonicals, this);
+			return model;
 		}
 		return null;
 	}

@@ -284,7 +284,7 @@ public class ImportarDocumentos extends AsyncCommand {
 				}
 
 				
-				if (ok && enable(file)) {	
+				if (ok && (enable(file) || "Reporte".equals(output))) {	
 					id = file.getExternalId();
 					try {
 						ServiceLocator.getService(ValueLockerService.class).lock(id);
@@ -631,7 +631,7 @@ public class ImportarDocumentos extends AsyncCommand {
 		file.setResources(getResources(file));
 		
 		
-		if (file.getAttributeValue("Número Revisión")==null) {
+		if (file.getAttributeValue("Número Revisión")==null && !"URL".equals(row.get("tipo"))) {
 			ApiFile checked = getRemoteFile(file);
 			if (checked!=null) {
 				file = checked;
