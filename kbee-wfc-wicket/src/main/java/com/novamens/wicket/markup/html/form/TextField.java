@@ -22,7 +22,6 @@ import com.novamens.wicket.markup.html.form.Form.Disposition;
 
 @SuppressWarnings("serial")
 public class TextField<T> extends Field<T> {
-			
 	private static final long serialVersionUID = 1L;
 	
 	private static kbee.util.logging.Logger logger = kbee.util.logging.Logger.getLogger(TextField.class.getName());
@@ -427,6 +426,10 @@ public class TextField<T> extends Field<T> {
 		listenEnter = value;
 	}
 	
+	public boolean autocomplete() {
+		return true;
+	}
+	
 	protected void onHelp(AjaxRequestTarget target) {
 	}
 	
@@ -501,6 +504,12 @@ public class TextField<T> extends Field<T> {
 				return super.getInputName();
 			}
 		};
+		
+		if (!autocomplete()) {
+		input.add(
+			    AttributeModifier.replace("autocomplete", "off")
+			);
+		}
 
 		input.setOutputMarkupId(true);
 		

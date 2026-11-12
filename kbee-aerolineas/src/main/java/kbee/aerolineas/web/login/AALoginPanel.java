@@ -1,6 +1,5 @@
 package kbee.aerolineas.web.login;
 
-import com.novamens.kbee.wicket.util.InvisiblePanel;
 import com.novamens.service.BrandingService;
 import com.novamens.service.ServiceLocator;
 import com.novamens.wicket.markup.html.form.PasswordField;
@@ -143,32 +142,29 @@ public class AALoginPanel extends Panel {
 
 		TextField<String> username = new TextField<String>("username",
 				new PropertyModel<String>(this, "usernameOrEmail")) {
-			private static final long serialVersionUID = 1L;
-
 			@Override
 			public IModel<String> getPlaceHolder() {
 				return getLabel("username-or-email");
 			}
-
+			@Override
+			public boolean autocomplete() {
+				return false;
+			}
 			@Override
 			protected boolean autofocus() {
 				return true;
 			}
 		};
-		
-
-		// username.setLabel(getLabel("username-or-email"));
-
 		username.setLabel(Model.of(""));
+		
+		username.add(new AttributeModifier("placeholder", 
+			new StringResourceModel("username-or-email", this, null)));
 
-		username.add(new AttributeModifier("placeholder", new StringResourceModel("username-or-email", this, null)));
 		username.setOutputMarkupId(true);
 
 		form.add(username);
 
 		PasswordField password = new PasswordField("password", new PropertyModel<String>(this, "password")) {
-			private static final long serialVersionUID = 1L;
-
 			@Override
 			public IModel<String> getPlaceHolder() {
 				return Model.of("contraseña");

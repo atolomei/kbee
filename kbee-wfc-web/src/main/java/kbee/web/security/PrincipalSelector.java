@@ -3,6 +3,7 @@ package kbee.web.security;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Iterator;
@@ -178,7 +179,6 @@ public class PrincipalSelector extends KBPanel {
 			List<PrincipalNode> roles = new ArrayList<>();
 			List<PrincipalNode> entities = new ArrayList<>();
 			List<PrincipalNode> childs = new ArrayList<>();
-			//int i = alevel;
 			if (getLevel()<getMaxLevel()-1) {
 				List<DataSetMember> members = isSecurityAdmin() || getLevel()>=alevel
 					? getMemberRepository().findAggregationValues(getEntity(), getDataSet(getLevel()+1))
@@ -218,10 +218,24 @@ public class PrincipalSelector extends KBPanel {
 			if (getEntity().getGroup()!=null) {
 				return getEntity().getGroup();
 			}
-			PrincipalNode node = getChilds().next();
-			Principal principal = node.getPrincipal();
-			return principal;
+			List<RoleNode> roles = new ArrayList<>();
+			for (Role role : PrincipalSelector.this.getRoles(getDataSet(getLevel()))) {
+				roles.add(new RoleNode(role, getEntity()));
+			}
 			
+			if (roles.size()==1) {
+				return roles.get(0).getPrincipal();
+			}
+			
+			Iterator<PrincipalNode> childs = getChilds();
+			List<PrincipalNode> childsList = new ArrayList<>();
+			childs.forEachRemaining(childsList::add);
+			
+			if (childsList.size()==1) {
+				return childsList.get(0).getPrincipal();
+			}
+			
+			return null;
 		}
 		public boolean hasChilds() {
 			if (getLevel()>=getMaxLevel()-1)
