@@ -90,7 +90,7 @@ public class AALoginPanel extends Panel {
 		
 		
 		
-		
+		/**
 		 vigencia = new AjaxLink<Void>("vigencia-link") {
 			@Override
 			public void onClick(AjaxRequestTarget target) {
@@ -124,7 +124,7 @@ public class AALoginPanel extends Panel {
 		
 		Panel panel = new InvisiblePanel("vigencia");
 		form.add(panel);
-		
+		*/
 		
 		Image logo = new Image("logo", new org.apache.wicket.request.resource.PackageResourceReference(AALoginPanel.class, "aa-logo.png"));
 		form.add(logo);

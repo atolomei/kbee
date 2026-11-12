@@ -127,6 +127,8 @@ public class AAForgotPasswordPanel extends Panel {
 				if (msg != null) {
 					AlertPanel<String> alert = new AlertPanel<String>("feedback",AlertPanel.DANGER, Model.of(msg), null, Model.of(msg));
 					form.addOrReplace(alert);
+					
+					captcha.refresh();
 					target.add(form);
 				} else {
 
@@ -134,14 +136,17 @@ public class AAForgotPasswordPanel extends Panel {
 					setUsername("");
 					AlertPanel<String> alert = new AlertPanel<String>("feedback",AlertPanel.INFO, Model.of("success"), null, rsm);
 					form.addOrReplace(alert);
+					captcha.setInput("");
 					target.add(form);
 				}
 			}
 
 			@Override
 			protected void onError(AjaxRequestTarget target) {
-			    captcha.refresh();
+			    
+				captcha.refresh();
 				target.add(captcha);
+				
 			}
 		};
 

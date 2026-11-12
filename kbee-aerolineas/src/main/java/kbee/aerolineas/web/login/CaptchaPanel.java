@@ -103,7 +103,13 @@ public class CaptchaPanel extends Panel {
 
         challenge.setObject(generateCode());
         answer.setObject(null);
-        //captchaInput.clearInput();
+        input = null;
+        // The inner HTML input is bound to the Field's own "value" property, not to "input".
+        captchaInput.setValue(null);
+        // Clear only the inner HTML input; Field.clearInput() would also wipe the error message.
+        if (captchaInput.getInput() instanceof org.apache.wicket.markup.html.form.FormComponent) {
+            ((org.apache.wicket.markup.html.form.FormComponent<?>) captchaInput.getInput()).clearInput();
+        }
 
         captchaResource.invalidate();
     }
