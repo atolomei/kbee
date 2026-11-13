@@ -221,13 +221,13 @@ public class AAPasswordRecoveryPage extends AbstractKbeeWebPage {
 			feedback.setOutputMarkupId(true);
 			add(feedback);
 
-			add(new PasswordField("password", new PropertyModel<String>(this, "password"), true) {
+			add(new PasswordField("password", new PropertyModel<String>(this, "password"), false) {
 				private static final long serialVersionUID = 1L;
 				public boolean isShowPasswordLink() { return true; }
 				public boolean isCentered() 		{ return true; }
 			});
 
-			add(new PasswordField("password-verification", new PropertyModel<String>(this, "passwordcheck"), true) {
+			add(new PasswordField("password-verification", new PropertyModel<String>(this, "passwordcheck"), false) {
 				private static final long serialVersionUID = 1L;
 				public boolean isShowPasswordLink() { return true; }
 				public boolean isCentered() 		{ return true; }
@@ -282,7 +282,10 @@ public class AAPasswordRecoveryPage extends AbstractKbeeWebPage {
 				}
 			};
 
-			submit.add(new AttributeModifier("value", new StringResourceModel("save", this, null).getObject()));
+			//submit.add(new AttributeModifier("value", new StringResourceModel("save", this, null).getObject()));
+		
+			submit.add(new AttributeModifier("value",  Model.of("Actualizar contraseña")));
+			
 			add(submit);
 		}
 
