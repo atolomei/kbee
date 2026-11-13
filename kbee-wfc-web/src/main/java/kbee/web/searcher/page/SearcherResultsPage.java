@@ -25,7 +25,6 @@ import kbee.web.error.ErrorNotAuthorizedPanel;
 import kbee.web.searcher.panel.SearcherResultsBrowser;
 import kbee.web.searcher.searchform.SearcherOnChangeEvent;
 
-@SuppressWarnings("serial")
 public class SearcherResultsPage extends AbstractSearcherPage<Void> {
 	
 	private static final long serialVersionUID = 1L;

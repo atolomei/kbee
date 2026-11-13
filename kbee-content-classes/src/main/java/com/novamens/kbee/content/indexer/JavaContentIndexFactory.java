@@ -291,7 +291,7 @@ public class JavaContentIndexFactory implements JavaIndexFactory, EventListener,
 					schema.addFieldSchema(valuefieldschema);
 					if (attribute.isDate() || attribute.isFilterable()) {
 						CustomFieldSchema memberfieldschema = new CustomFieldSchema();
-						memberfieldschema.setFieldName(attribute.getUniqueName()+"member");
+						memberfieldschema.setFieldName(attribute.getUniqueName()+"datemember");
 						AttributeExtractor memberextractor = new AttributeExtractor(attribute);
 						memberfieldschema.setExtractor(memberextractor);						
 						schema.addFieldSchema(memberfieldschema);
@@ -411,7 +411,7 @@ public class JavaContentIndexFactory implements JavaIndexFactory, EventListener,
 						schema.addFieldSchema(valuefieldschema);
 						if (attribute.isDate() || attribute.isFilterable()) {
 							CustomFieldSchema memberfieldschema = new CustomFieldSchema();
-							memberfieldschema.setFieldName(attribute.getUniqueName()+"member");
+							memberfieldschema.setFieldName(attribute.getUniqueName()+"datemember");
 							AttributeExtractor memberextractor = new AttributeExtractor(attribute);
 							memberfieldschema.setExtractor(memberextractor);						
 							schema.addFieldSchema(memberfieldschema);
@@ -569,7 +569,7 @@ public class JavaContentIndexFactory implements JavaIndexFactory, EventListener,
 			if (attribute.isDate()) {
 				SolrDateFacet facet = new SolrDateFacet();
 				facet.setDisplayName(attribute.getName());
-				facet.setName(attribute.getUniqueName()+"member");
+				facet.setName(attribute.getUniqueName()+"datemember");
 				facet.setOrder(attribute.getOrder());
 				//facet.setAttribute(attribute);
 				facet.setFilterable(true);

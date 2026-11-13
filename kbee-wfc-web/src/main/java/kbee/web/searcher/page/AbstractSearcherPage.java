@@ -46,7 +46,7 @@ import com.novamens.kbee.wicket.markup.html.page.AbstractKbeeWebPage;
 import com.novamens.kbee.wicket.util.InvisiblePanel;
 import com.novamens.portal.service.PortalUrlService;
 import com.novamens.portal6.model.Page;
-import com.novamens.portal6.model.PortalConfig;
+import com.novamens.portal6.model.SiteConfig;
 import com.novamens.portal6.model.PortalObject;
 import com.novamens.portal6.model.Site;
 import com.novamens.security.User;
@@ -70,7 +70,7 @@ public abstract class AbstractSearcherPage<T> extends KbeeWebPage<T>  {
 										
 	private static final ResourceReference KBEE_SEARCHER_CSS = new CssResourceReference(SearcherResultsPage.class, "searcher.css");
 	
-	PortalConfig siteConfig =
+	SiteConfig siteConfig =
 			null;
 	
 	final boolean is_user  = 
@@ -82,7 +82,6 @@ public abstract class AbstractSearcherPage<T> extends KbeeWebPage<T>  {
 			new JavaScriptResourceReference(AbstractKbeeWebPage.class, "assets/css/icons/icomoon/styles.css");
 	private static final ResourceReference COMPONENTS_CSS = 
 			new JavaScriptResourceReference(AbstractKbeeWebPage.class, "assets/css/components.css");
-
 	
 	private static final ResourceReference CORE_CSS = 
 			new JavaScriptResourceReference(AbstractKbeeWebPage.class, "assets/css/core.css");
@@ -96,10 +95,16 @@ public abstract class AbstractSearcherPage<T> extends KbeeWebPage<T>  {
 	
 	private static final ResourceReference BOOTSTRAP_JS = 
 			new JavaScriptResourceReference(Form.class, com.novamens.wicket.markup.html.form.Form.BOOTSTRAP_JS);
-	private static final ResourceReference BOOTSTRAP_CSS = new CssResourceReference(Form.class, Form.BOOTSTRAP);
 	
-	protected static final ResourceReference BL = new CssResourceReference(Form.class, "build.css");
-	protected static final ResourceReference BS = new CssResourceReference(Form.class, "bootstrap-select.css");
+	private static final ResourceReference BOOTSTRAP_CSS = 
+			new CssResourceReference(Form.class, Form.BOOTSTRAP);
+	
+	protected static final ResourceReference BL = 
+			new CssResourceReference(Form.class, "build.css");
+	
+	protected static final ResourceReference BS = 
+			new CssResourceReference(Form.class, "bootstrap-select.css");
+	
 	protected static final ResourceReference BSJS = new JavaScriptResourceReference(Form.class, "bootstrap-select.js");
 
 	private static final ResourceReference KBEE_BOOTSTRAP_CSS = new CssResourceReference(AbstractKbeeWebPage.class, "kbeebootstrap.css");
@@ -491,7 +496,7 @@ public abstract class AbstractSearcherPage<T> extends KbeeWebPage<T>  {
 
 
 	protected ResourceReference getCssSiteReference() {
-			PortalConfig siteConfig = getSiteConfig();
+			SiteConfig siteConfig = getSiteConfig();
 			if (siteConfig!=null) {
 				ResourceReference cssSiteResources = 
 					new CssResourceReference(
@@ -502,10 +507,10 @@ public abstract class AbstractSearcherPage<T> extends KbeeWebPage<T>  {
 			return null;
 	}
 	
-	protected PortalConfig getSiteConfig() {
+	protected SiteConfig getSiteConfig() {
 		if (siteConfig==null) {
 			try {
-				siteConfig = (PortalConfig)ServiceLocator
+				siteConfig = (SiteConfig)ServiceLocator
 					.getService(BeansService.class)
 					.getBean(getSiteModel().getObject().getKey().toLowerCase()+"-config");
 			}

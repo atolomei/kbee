@@ -16,11 +16,9 @@ import com.novamens.content.base.Content;
 import com.novamens.content.base.ContentMgmtException;
 import com.novamens.content.dao.ContentDao;
 import com.novamens.content.dao.PortalDao;
-import com.novamens.content.model.Classifier;
 import com.novamens.content.model.DataSet;
 import com.novamens.content.model.DataSetMember;
 import com.novamens.content.model.ExternalDao;
-import com.novamens.content.service.ContentService;
 import com.novamens.content.service.DOMObjectService;
 import com.novamens.content.user.UserService;
 import com.novamens.dao.SecurityDao;
@@ -30,6 +28,7 @@ import com.novamens.dom.ObjectState;
 import com.novamens.event.AppDeleteEvent;
 import com.novamens.event.EventService;
 import com.novamens.portal6.model.Site;
+import com.novamens.portal6.model.SiteConfig;
 import com.novamens.portal6.model.SiteService;
 import com.novamens.security.User;
 import com.novamens.service.ServiceLocator;
@@ -47,7 +46,7 @@ public class KbeeSiteService implements SiteService {
 
 	private Site site = null;
 	private PortalDao dao = null;
-
+	private SiteConfig siteConfig;
 	private com.novamens.service.SecurityService secu;
 
 	public KbeeSiteService() {
@@ -300,7 +299,19 @@ public class KbeeSiteService implements SiteService {
 	//}
 
 	
-	
+	public SiteConfig getConfig() {
+		if (siteConfig==null) {
+			try {
+				siteConfig = (SiteConfig)ServiceLocator
+					.getService(BeansService.class)
+					.getBean(getSite().getKey().toLowerCase()+"-config");
+			}
+			catch (Exception e) {
+				logger.debug("no site config");
+			}
+		}
+		return siteConfig;
+	}
 
 	 
 

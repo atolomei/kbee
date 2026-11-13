@@ -98,20 +98,3 @@ public interface Site extends PortalObject,  PortalModel {
 	
 	
 }
-
- 
-
-
-/**
- * 
-public SiteTemplate getSiteType();
-public void setDescription(String desc);
-public void setURI(String URI);
-public void setSubtitle(String subtitle);
-public void setEmailContact(String email_contact);
-public void setSiteType(SiteType type);
-public void setPublicAccess(boolean public_access);
-public void setIsExternal(boolean external);
-public void setSiteTemplate(SiteTemplate template);
-
-*/

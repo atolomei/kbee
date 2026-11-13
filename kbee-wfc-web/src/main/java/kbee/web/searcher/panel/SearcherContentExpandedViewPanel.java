@@ -37,7 +37,6 @@ import kbee.web.util.PanelBeanResolver;
 import kbee.web.workflow.TaskInfoPanel;
 import kbee.web.workflow.util.WorkflowContextModel;
 
-@SuppressWarnings("serial")
 public class SearcherContentExpandedViewPanel<T extends Content> extends ContentEditor<T> {
 	private static final long serialVersionUID = 1L;
 	
@@ -178,7 +177,14 @@ public class SearcherContentExpandedViewPanel<T extends Content> extends Content
 
 		
 		
+		Panel summary = new PanelBeanResolver(
+				"searcher-summary-panel", 
+				"",
+				getModel(), 
+				getSiteModel(), 
+				false).getPanel();
 		
+		if (summary!=null) {
 		tabs.add(new AbstractTabKB( getLabel("summary"), "summary") {
 			@Override
 			public Panel getPanel(String panelId) {
@@ -190,6 +196,7 @@ public class SearcherContentExpandedViewPanel<T extends Content> extends Content
 						false).getPanel();
 			}
 		});
+		}
 		
 		
 		if (!has_eforms) {

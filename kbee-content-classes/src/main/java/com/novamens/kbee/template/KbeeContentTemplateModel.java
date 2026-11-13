@@ -152,7 +152,7 @@ public class KbeeContentTemplateModel extends KbeeClassificableTemplateModel {
 	protected boolean isRelation(String key)  {
 		for (RelationTemplate relationtemplate :  getContent().getContentTemplate().getRelations()) {
 			if (relationtemplate.getSourceTemplate().equals(content.getContentTemplate()) &&
-					key.equals(relationtemplate.getName())) {
+					key.equalsIgnoreCase(relationtemplate.getName())) {
 				return true;
 			}
 		}
@@ -168,7 +168,7 @@ public class KbeeContentTemplateModel extends KbeeClassificableTemplateModel {
 	protected TemplateModel getRelation(String key) {
 		for (RelationTemplate relationtemplate :  getContent().getContentTemplate().getRelations()) {
 			if (relationtemplate.getSourceTemplate().equals(content.getContentTemplate()) &&
-					key.equals(relationtemplate.getName())) {
+					key.equalsIgnoreCase(relationtemplate.getName())) {
 				List<Object> relateds = new ArrayList<>();
 				for (Relation relation :  getContent().getRelations(relationtemplate)) {
 					relateds.add(relation.getTarget());

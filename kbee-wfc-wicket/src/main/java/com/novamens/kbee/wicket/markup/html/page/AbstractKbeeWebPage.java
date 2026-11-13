@@ -33,7 +33,6 @@ import kbee.util.PropertiesFactory;
 /**
  * This class doesn't know domain, content or any other domain class.
  */
-@SuppressWarnings("serial")
 public abstract class AbstractKbeeWebPage extends WebPage  {
  					
 	private static final long serialVersionUID = -8491705098363328007L;

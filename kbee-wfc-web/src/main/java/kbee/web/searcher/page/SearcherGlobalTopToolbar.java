@@ -37,10 +37,11 @@ import com.novamens.kbee.wicket.markup.html.console.panel.BookmarksPanel;
 import com.novamens.kbee.wicket.markup.html.console.panel.DownloadMenuItemPanel;
 import com.novamens.kbee.wicket.markup.html.event.EditableListEvent;
 import com.novamens.kbee.wicket.markup.html.event.ExplorerOpenEvent;
-import com.novamens.kbee.wicket.markup.html.event.WorkspaceEvent;
 import com.novamens.kbee.wicket.markup.html.page.AbstractKbeeWebPage;
 import com.novamens.kbee.wicket.util.InvisiblePanel;
 import com.novamens.portal6.model.Site;
+import com.novamens.portal6.model.SiteConfig;
+import com.novamens.portal6.model.SiteService;
 import com.novamens.security.User;
 import com.novamens.security.acl.KbeeGlobalRole;
 import com.novamens.service.BrandingService;
@@ -86,7 +87,6 @@ public class SearcherGlobalTopToolbar<T> extends KBPanel {
 	
 	private Boolean isHome = null;
 	private Boolean isInstitutional = null;
-	private Boolean isExplorer = Boolean.valueOf(true);
 	private Boolean isSeachForm = null;
 	
 	private String specific_css;
@@ -203,6 +203,7 @@ public class SearcherGlobalTopToolbar<T> extends KBPanel {
 		navbar.add(getSiteManagerMenu());
 	
 		addExplorer();
+		
 		addEditable();
 	}
 	
@@ -270,13 +271,11 @@ public class SearcherGlobalTopToolbar<T> extends KBPanel {
 	}
 
 	public boolean isExplorer() {
-		if (isExplorer==null)
-			isExplorer = false;
-		return  isExplorer.booleanValue();
+		return  getSiteConfg()!=null && getSiteConfg().isExplorer();
 	}
-
-	public void setExplorer(boolean b) {
-		isExplorer = Boolean.valueOf(b);
+	
+	public boolean isReadOnly() {
+		return  getSiteConfg()!=null && getSiteConfg().isReadOnly();
 	}
 					
 	public void setInstitutional(boolean b) {
@@ -300,11 +299,15 @@ public class SearcherGlobalTopToolbar<T> extends KBPanel {
 	}
 	 
 	protected void addExplorer() {
-		navbar.addOrReplace( isExplorer() ? new ExplorerFragment("explorer") : new InvisiblePanel("explorer"));
+		navbar.addOrReplace( isExplorer() 
+			? new ExplorerFragment("explorer") 
+			: new InvisiblePanel("explorer"));
 	}
 
 	protected void addEditable() {
-		navbar.addOrReplace( new EditableFragment("editable"));
+		navbar.addOrReplace( !isReadOnly() 
+			? new EditableFragment("editable") 
+			: new InvisiblePanel("editable"));
 	}
 	
 	public Component getSiteManagerMenu() {
@@ -318,10 +321,6 @@ public class SearcherGlobalTopToolbar<T> extends KBPanel {
 		link.setVisible(false);
 		return link;
 	}
-
-//	protected boolean hasWorkspace() {
-//		return true;
-//	}
 	
 	protected boolean isSubmitFile() {
 		return true;
@@ -375,6 +374,10 @@ public class SearcherGlobalTopToolbar<T> extends KBPanel {
 		return explorerOn;
 	}
 	
+	public Site getSite() {
+		return getSiteModel().getObject();
+	}
+	
 	protected KbeeUser getSessionUser() {
 		return (KbeeUser)ServiceLocator.getService(SecurityService.class).getSessionUser();
 	}
@@ -387,6 +390,10 @@ public class SearcherGlobalTopToolbar<T> extends KBPanel {
 	
 	protected Index getIndex() {
 		return getDomain().getService(JavaIndexerService.class).getIndex();
+	}
+	
+	protected SiteConfig getSiteConfg() {
+		return getSite().getService(SiteService.class).getConfig();
 	}
 	
 	public class SearchFragment extends Fragment {
@@ -530,8 +537,6 @@ public class SearcherGlobalTopToolbar<T> extends KBPanel {
 			return isWorkflowUser();
 		}
 	}
-	
-	
 	
 	public class WorkspaceFragment extends Fragment {
 		public WorkspaceFragment(String id) {
