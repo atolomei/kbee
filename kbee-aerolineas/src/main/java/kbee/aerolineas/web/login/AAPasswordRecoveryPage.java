@@ -222,6 +222,12 @@ public class AAPasswordRecoveryPage extends AbstractKbeeWebPage {
 			add(feedback);
 
 			add(new PasswordField("password", new PropertyModel<String>(this, "password"), false) {
+
+				@Override
+				public IModel<String> getLabel() {
+					return null;
+				}
+				
 				private static final long serialVersionUID = 1L;
 				public boolean isShowPasswordLink() { return true; }
 				public boolean isCentered() 		{ return true; }
@@ -231,6 +237,14 @@ public class AAPasswordRecoveryPage extends AbstractKbeeWebPage {
 				private static final long serialVersionUID = 1L;
 				public boolean isShowPasswordLink() { return true; }
 				public boolean isCentered() 		{ return true; }
+				
+
+				@Override
+				public IModel<String> getLabel() {
+					return null;
+				}
+				
+				
 			});
 
 			Button submit = new AjaxButton("submit", this) {
