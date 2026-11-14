@@ -141,13 +141,20 @@ public abstract class KbeeClassificableTemplateModel  extends KbeeObjectTemplate
 		TemplateModel model = null;
 		if (template!=null && getClassificable()!=null) {
 			List<String> values = getClassificable().getAttributeValues(template.getAttribute());
-			String value = values.isEmpty() ? null : values.get(0);
-			if (value!=null)
-			if (template.getAttribute().isDate()) {
-				model = new KbeeDateAttributeTemplateModel(value, template.getAttribute(), this);
+			if (template.getMultiplicity().isMultiple()) {
+				if (!values.isEmpty()) {
+					model = new KbeeAttributeValuesTemplateModel(values, template.getAttribute(), this);
+				}
 			}
 			else {
-				model = new KbeeAttributeTemplateModel(value, template.getAttribute(), this);
+				String value = values.isEmpty() ? null : values.get(0);
+				if (value!=null)
+				if (template.getAttribute().isDate()) {
+					model = new KbeeDateAttributeTemplateModel(value, template.getAttribute(), this);
+				}
+				else {
+					model = new KbeeAttributeTemplateModel(value, template.getAttribute(), this);
+				}
 			}
 		}
 		return model;

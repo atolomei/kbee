@@ -94,7 +94,14 @@ public class KbeeClassificableScriptWrapper {
 			if (attributetemplate!=null) {
 				List<String> values = new ArrayList<>();
 				if (value!=null) {
-					values.add(value.toString());
+					if (value instanceof List<?>) {
+						for (Object item : (List<?>)value) {
+							values.add(item.toString());
+						}
+					}
+					else {
+						values.add(value.toString());
+					}
 				}
 				classificable.setAttributeValues(attributetemplate.getAttribute(), values);
 			}
