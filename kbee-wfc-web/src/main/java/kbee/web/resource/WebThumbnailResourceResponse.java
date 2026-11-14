@@ -1,8 +1,15 @@
 package kbee.web.resource;
 
+import java.awt.Color;
+import java.awt.Graphics2D;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+
+import javax.imageio.ImageIO;
 
 import com.novamens.content.base.Resource;
 import com.novamens.content.service.ResourceService;
@@ -10,11 +17,33 @@ import com.novamens.thumbnail.ThumbnailSize;
 
 public class WebThumbnailResourceResponse extends AbstractResourceResponse {
 
+	private static final byte[] PLACEHOLDER = createPlaceholder();
+
+	private boolean missing = false;
+
 	public WebThumbnailResourceResponse(URI uri) {
 		super(uri);
 	}
 
+	private static byte[] createPlaceholder() {
+		try {
+			BufferedImage img = new BufferedImage(160, 160, BufferedImage.TYPE_INT_RGB);
+			Graphics2D g = img.createGraphics();
+			g.setColor(new Color(0xE0E0E0));
+			g.fillRect(0, 0, 160, 160);
+			g.dispose();
+			ByteArrayOutputStream out = new ByteArrayOutputStream();
+			ImageIO.write(img, "png", out);
+			return out.toByteArray();
+		} catch (IOException e) {
+			return new byte[0];
+		}
+	}
+
 	public long getContentLength() {
+		if (missing) {
+			return PLACEHOLDER.length;
+		}
 		try {
 			if (super.getContentLength()>0) {
 				return super.getContentLength();
@@ -24,15 +53,11 @@ public class WebThumbnailResourceResponse extends AbstractResourceResponse {
 			setContentLength(length);
 			return length;
 		}
-		catch (IOException e) {
-			logger.debug(e);
-			if (logger.isDebugEnabled()) {
-				if (getURI()!=null) {
-					logger.debug(" URI -> " + getURI());
-				}
-			}
-					
-			throw new ResourceException(e);
+		catch (Exception e) {
+			logger.warn("Resource content not available, serving placeholder. URI -> " + getURI() + " | " + e.getMessage());
+			missing = true;
+			setContentLength(PLACEHOLDER.length);
+			return PLACEHOLDER.length;
 		}
 	}
 
@@ -56,11 +81,20 @@ public class WebThumbnailResourceResponse extends AbstractResourceResponse {
 	
 	@Override
 	public InputStream openStream() throws IOException {
-		return getResource().getService(ResourceService.class).getThumbnail(getSize());
+		if (!missing) {
+			try {
+				return getResource().getService(ResourceService.class).getThumbnail(getSize());
+			}
+			catch (Exception e) {
+				logger.warn("Resource content not available, serving placeholder. URI -> " + getURI() + " | " + e.getMessage());
+				missing = true;
+			}
+		}
+		return new ByteArrayInputStream(PLACEHOLDER);
 	}
 	
 	public String getContentType() {
-		return "image/jpg";
+		return missing ? "image/png" : "image/jpg";
 	}
 
 	@Override

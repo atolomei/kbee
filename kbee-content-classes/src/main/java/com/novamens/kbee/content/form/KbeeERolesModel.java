@@ -7,6 +7,7 @@ import java.util.Locale;
 import java.util.Map;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.hibernate.SessionFactory;
 import com.novamens.beans.BeansService;
 import com.novamens.content.entity.Person;
 import com.novamens.content.form.EFieldModel;
@@ -63,6 +64,12 @@ public class KbeeERolesModel implements EFieldModel<Role> {
 		Person person = ((PersonMember)object).getPerson();
 		UserProfile profile = person.getProfile(UserProfile.class);
 		if (profile==null) return;
+		// nothing to do if the role did not change (e.g. only the photo was edited)
+		Role current = get(object);
+		if (current!=null && data instanceof Role && current.getId()!=null && current.getId().equals(((Role)data).getId())) {
+			return;
+		}
+		System.out.println("KbeeERolesModel.set -> new role: " + data + " | current: " + current);
 		List<UserRole> roles = new ArrayList<UserRole>();
 		for (UserRole userRole : profile.getRoles()) {
 			if (userRole.getRole().isEntity() || userRole.getRole().isCanonical()) {
@@ -71,6 +78,16 @@ public class KbeeERolesModel implements EFieldModel<Role> {
 		}
 		roles.add(new KbeeUserRole((Role)data, profile.getUser(), null));
 		profile.setRoles(roles);
+		// cascade the new roles through the profile so they are persisted (with the profile FK) before flush
+		try {
+			getSessionFactory().getCurrentSession().persist(profile);
+		} catch (Exception e) {
+			// profile not attached to the current session. Roles will be cascaded by the owner's save
+		}
+	}
+	
+	private SessionFactory getSessionFactory() {
+		return (SessionFactory)ServiceLocator.getService(BeansService.class).getBean("sessionFactory");
 	}
 	
 	@Override

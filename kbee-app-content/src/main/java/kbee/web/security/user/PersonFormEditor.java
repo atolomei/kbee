@@ -42,99 +42,89 @@ import kbee.web.eform.ObjectFormEditor;
 import kbee.web.form.EditButtonsV5;
 import kbee.web.page.ErrorPageEvent;
 
-@SuppressWarnings("serial")
 public class PersonFormEditor extends ObjectFormEditor<DataSetMember> implements ClassificableEditor<DataSetMember> {
 	private static final long serialVersionUID = 1L;
 
 	private static Logger logger = Logger.getLogger(PersonFormEditor.class.getName());
-	
-	final boolean role_admin =
-		ServiceLocator
-		.getService(SecurityService.class)
-		.isMember(KbeeGlobalRole.DOMAIN_ADMIN.getId());
-	final boolean role_security = role_admin || 
-		ServiceLocator
-		.getService(SecurityService.class)
-		.isMember(KbeeGlobalRole.SECURITY.getId());
+
+	final boolean role_admin = ServiceLocator.getService(SecurityService.class)
+			.isMember(KbeeGlobalRole.DOMAIN_ADMIN.getId());
+	final boolean role_security = role_admin
+			|| ServiceLocator.getService(SecurityService.class).isMember(KbeeGlobalRole.SECURITY.getId());
 
 	private WebMarkupContainer container;
 	private Form<?> form;
-	
+
 	public PersonFormEditor(IModel<DataSetMember> model) {
 		this("editor", model, false);
 	}
-	
+
 	public PersonFormEditor(String id, IModel<DataSetMember> model, boolean isNew) {
 		this(id, model, isNew, false);
 	}
-	
+
 	public PersonFormEditor(String id, IModel<DataSetMember> model, boolean isNew, boolean isReadOnly) {
 		super(id, model, isNew, isReadOnly);
 	}
-	
+
 	@Override
 	public void setModel(IModel<DataSetMember> model) {
 		super.setModel(model);
-		
-		if (model!=null) {
-			
-			IModel<EFormData> m=getFormData(model.getObject());
+
+		if (model != null) {
+
+			IModel<EFormData> m = getFormData(model.getObject());
 			setDataModel(m);
 		}
 	}
-	
-	
+
 	@Override
 	public Form<?> getForm() {
 		return form;
 	}
-	
+
 	@Override
 	public void onInitialize() {
 		super.onInitialize();
-		
-		if (form!=null) 
+
+		if (form != null)
 			return;
-	
+
 		container = new WebMarkupContainer("panel-container");
-		
+
 		container.setOutputMarkupId(true);
 		add(container);
-		
-		
+
 		form = new Form<Void>("form", Disposition.VERTICAL);
-		
+
 		form.add(new MemberDisplayNamePanel<DataSetMember>("displayname") {
 			public boolean isVisible() {
 				return !getDataSet().isDisplayNameEditable();
 			}
 		});
-		
+
 		EFormEditor ed = new EFormEditor("eform", getDataModel());
-		
-		
-		
-		
+
 		form.add(ed);
-		
+
 		container.add(form);
-		
+
 		container.add(new FeedbackPanel());
-		
+
 		container.add(new EditButtonsV5<DataSetMember>(this) {
 			public void onSubmitClick(AjaxRequestTarget target) {
 				if (!hasErrors()) {
 					super.onSubmitClick(target);
-				}
-				else {
+				} else {
 					target.add(PersonFormEditor.this);
 				}
 			}
+
 			@Override
 			public boolean isVisible() {
 				if (getModel().getObject().getDataSet().isReadonly())
 					return isRoot();
-				if (getModel().getObject().getState()==ObjectState.DELETED)
+				if (getModel().getObject().getState() == ObjectState.DELETED)
 					return false;
 				if (isReadOnly())
 					return false;
@@ -146,6 +136,7 @@ public class PersonFormEditor extends ObjectFormEditor<DataSetMember> implements
 			}
 		});
 	}
+
 	@Override
 	public void update(AjaxRequestTarget target) {
 		try {
@@ -159,42 +150,40 @@ public class PersonFormEditor extends ObjectFormEditor<DataSetMember> implements
 					getModelObject().getService(DOMObjectService.class).update(getUpdatedParts());
 					getModelObject().getService(PersonService.class).updateUser();
 					reset();
-					if (target!=null && getModelObject().getService(PersonService.class).getUserMember()!=null) {
-						PersonMember usermember =  getModelObject().getService(PersonService.class).getUserMember();
-						if (usermember!=null) {
-							fireScanAll( new EditEvent<Person>(
-								target, 
-								new ObjectModel<Person>(
+					if (target != null && getModelObject().getService(PersonService.class).getUserMember() != null) {
+						PersonMember usermember = getModelObject().getService(PersonService.class).getUserMember();
+						if (usermember != null) {
+							fireScanAll(new EditEvent<Person>(target, new ObjectModel<Person>(
 									getModelObject().getService(PersonService.class).getUserMember().getPerson())));
 						}
-						target.add(PersonFormEditor.this.getPage());		
-					}	
-					
-					
+						target.add(PersonFormEditor.this.getPage());
+					}
+
 				}
 			}
-		}
-		catch (Exception e) {
+		} catch (Exception e) {
 			logger.error(e);
-			fire (new ErrorPageEvent(target, e));
+			e.printStackTrace(); // full stack trace (logger.error only prints the message)
+			fire(new ErrorPageEvent(target, e));
 		}
 	}
-	
+
 	public void update(DataSetMember member) {
 		for (EFieldPanel<?> fieldpanel : getFieldPanels()) {
 			fieldpanel.update(member);
 		}
 	}
-	
+
 	public void validate() {
 		EFormEditor formpanel = getFormPanel();
 		formpanel.clearMessages();
 		getFeedbackMessages().clear();
 		for (EFormField<?> field : formpanel.getForm().getFields()) {
-			field.validate(new KbeeEValidatable(formpanel.getForm(), field)); 
+			field.validate(new KbeeEValidatable(formpanel.getForm(), field));
 		}
 		if (!validateUniqueness()) {
-			this.error(new EFormMessage(PersonFormEditor.this, getEForm(), "el nombre de la persona ya esta registrado", FeedbackMessage.ERROR));
+			this.error(new EFormMessage(PersonFormEditor.this, getEForm(), "el nombre de la persona ya esta registrado",
+					FeedbackMessage.ERROR));
 		}
 	}
 
@@ -204,10 +193,9 @@ public class PersonFormEditor extends ObjectFormEditor<DataSetMember> implements
 		if (isNew()) {
 			try {
 				getModelObject().getService(DOMObjectService.class).delete();
-			}
-			catch ( ConstraintException | ContentMgmtException | ServiceNotFoundException e) {
+			} catch (ConstraintException | ContentMgmtException | ServiceNotFoundException e) {
 				logger.error(e);
-				fire (new ErrorPageEvent(target, e));
+				fire(new ErrorPageEvent(target, e));
 			}
 			onCancel(target);
 		}
@@ -222,33 +210,31 @@ public class PersonFormEditor extends ObjectFormEditor<DataSetMember> implements
 	public boolean isHierachical() {
 		return getModelObject().getDataSet().isHierachical();
 	}
-	
+
 	public DataSet getDataSet() {
 		return getModelObject().getDataSet();
 	}
-	
+
 	public List<Classification> getClassification() {
 		return getModelObject().getClassification();
 	}
-	
+
 	protected EForm getForm(DataSetMember member) {
-		return new KbeeUserForm((PersonMember)member);
+		return new KbeeUserForm((PersonMember) member);
 	}
 
 	protected Form<?> getWicketForm() {
 		return form;
 	}
-	
+
 	protected boolean isWriteable(DataSetMember member) {
-		return ServiceLocator
-			.getService(UserService.class)
-			.isWriteable(member);
+		return ServiceLocator.getService(UserService.class).isWriteable(member);
 	}
 
 	private boolean validateUniqueness() {
 		String memberValue = getModelObject().getStrValue();
-		DataSetMember member =  getContentDao().findMemberByValue(getModelObject().getDataSet(), memberValue);
-		if (member!=null && member.getState()!=ObjectState.DELETED && !member.equals(getModelObject())) {
+		DataSetMember member = getContentDao().findMemberByValue(getModelObject().getDataSet(), memberValue);
+		if (member != null && member.getState() != ObjectState.DELETED && !member.equals(getModelObject())) {
 			return false;
 		}
 		return true;

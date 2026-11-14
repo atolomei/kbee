@@ -38,11 +38,6 @@ public class WebThumbnailReference extends WebResourceAbstractReference {
 	
 	public WebThumbnailReference(Resource resource, ThumbnailSize size) {
 		super(WebThumbnailResource.class, "thumbnail"+"-"+ size.name().toLowerCase()+"/" + resource.getId()+"/" + resource.getName());
-//		if (resource instanceof ExternalResource) {
-//			if (((ExternalResource)resource).getUrl()!=null) {
-//				key = String.valueOf(((ExternalResource)resource).getUrl().hashCode()); 
-//			}		
-//		}
 	}
 
 	public WebThumbnailReference(URI uri) {

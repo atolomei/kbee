@@ -456,8 +456,10 @@ public class KBFileImpl extends AbstractResource implements KBFile {
 				return this.filecache;
 				
 			} catch (Exception e) {
-				if ((e.getMessage()!=null) && e.getMessage().startsWith("File System. File not in disk"))
-						logger.debug(e);
+				if ((e.getMessage()!=null) && e.getMessage().contains("File not in disk")) {
+					this.exists_in_object_storage = false;
+					logger.debug(e);
+				}
 				else
 					logger.error(e);
 				throw new IOException(e);

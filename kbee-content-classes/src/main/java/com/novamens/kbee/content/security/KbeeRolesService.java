@@ -53,6 +53,14 @@ public class KbeeRolesService implements RolesService {
 		
 		getProfile().setRoles(roles);
 		
+		if (!newroles.isEmpty()) {
+			// cascade the new roles through the profile (sets the userprofile FK) so they are never flushed as transient
+			try {
+				getSessionFactory().getCurrentSession().persist(getProfile());
+			} catch (Exception e) {
+				logger.error(e);
+			}
+		}		
 		if (!newroles.isEmpty() || !deletedroles.isEmpty()) {
 			ServiceLocator.getService(SecurityContentMgmtService.class).update(person, (String)null);
 		}

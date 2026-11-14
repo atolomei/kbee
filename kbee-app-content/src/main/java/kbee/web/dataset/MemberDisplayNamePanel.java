@@ -1,7 +1,5 @@
 package kbee.web.dataset;
 
-
-
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.model.Model;
@@ -13,21 +11,19 @@ import com.novamens.wicket.markup.html.editor.ObjectEditorPanel;
 
 import kbee.web.eform.EAjaxFormEvent;
 
-@SuppressWarnings("serial")
+public class MemberDisplayNamePanel<T extends DataSetMember> extends ObjectEditorPanel<T> {
 
-public class MemberDisplayNamePanel<T extends DataSetMember> extends ObjectEditorPanel<T>  {
-				
 	private static final long serialVersionUID = 1L;
 
-	private static kbee.util.logging.Logger logger = kbee.util.logging.Logger.getLogger(MemberDisplayNamePanel.class.getName());
+	private static kbee.util.logging.Logger logger = kbee.util.logging.Logger
+			.getLogger(MemberDisplayNamePanel.class.getName());
 	private String title;
- 
-	
+
 	public MemberDisplayNamePanel(String id) {
 		super(id);
 		setOutputMarkupId(true);
 	}
-	
+
 	public MemberDisplayNamePanel() {
 		this("title-panel");
 	}
@@ -39,14 +35,14 @@ public class MemberDisplayNamePanel<T extends DataSetMember> extends ObjectEdito
 	public String getTitle() {
 		return title;
 	}
-	
+
 	@Override
 	public void updateModel() {
-		if (title!=null && !title.equals(getModelObject().getStrValue()) && !"".equals(title.trim())) {
+		if (title != null && !title.equals(getModelObject().getStrValue()) && !"".equals(title.trim())) {
 			getModelObject().setStrValue(title);
 		}
 	}
-	
+
 	@Override
 	public void onInitialize() {
 		super.onInitialize();
@@ -56,7 +52,7 @@ public class MemberDisplayNamePanel<T extends DataSetMember> extends ObjectEdito
 	@Override
 	public void onBeforeRender() {
 		super.onBeforeRender();
-		if (get("xcontent-title")==null) {
+		if (get("xcontent-title") == null) {
 			setTitle(getModelObject().getStrValue());
 			addComponents();
 		}
@@ -69,38 +65,38 @@ public class MemberDisplayNamePanel<T extends DataSetMember> extends ObjectEdito
 				return true;
 			}
 		};
-		
-		title.add(new Label("title-text", new Model<String>() { 
-			public String getObject() { 
-				return getTitle(); 
+
+		title.add(new Label("title-text", new Model<String>() {
+			public String getObject() {
+				return getTitle();
 			};
 		}));
-		
+
 		add(title);
 	}
-	
+
 	protected void addListeners() {
-		
+
 		add(new WicketEventListener<EAjaxFormEvent>() {
 			public void onEvent(EAjaxFormEvent event) {
 				T content = getEditor().getModelObject();
 				(getEditor()).update(content);
 				String title = getTitleByRule(content);
-				if (title!=null) setTitle(title);
-				if (event.getRequestTarget()!=null) {
+				if (title != null)
+					setTitle(title);
+				if (event.getRequestTarget() != null) {
 					event.getRequestTarget().add(MemberDisplayNamePanel.this);
 				}
 			}
-		});	
+		});
 	}
 
 	protected String getTitleByRule(T content) {
 		try {
 			ExtractionRule rule = getModelObject().getDataSet().getDisplayNameRule();
-			String title = rule!=null ? (String)rule.extract(content) : null;
+			String title = rule != null ? (String) rule.extract(content) : null;
 			return title;
-		}
-		catch (Exception e) {
+		} catch (Exception e) {
 			logger.error(e);
 			return null;
 		}

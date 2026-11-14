@@ -146,33 +146,40 @@ public class KbeeUserRole implements UserRole,  Identifiable {
 	
 	@Override
 	public boolean equals(Object object) {
+		if (this == object) return true;
 		if (!(object instanceof KbeeUserRole)) return false;
-		KbeeUserRole role = (KbeeUserRole)object;
-		if ((role.getUser()==null && getUser()!=null) ||
-			(role.getUser()!=null && getUser()==null)) {
-			return false;
-		}
-		if (!((role.getUser()==null && getUser()==null) ||
-			(role.getUser().equals(getUser())))) {
-			return false;
-		}
-		if ((role.getRole()==null && getRole()!=null) ||
-			(role.getRole()!=null && getRole()==null)) {
-			return false;
-		}
-		if (!((role.getRole()==null && getRole()==null) ||
-			(role.getRole().equals(getRole())))) {
-			return false;
-		}
-		if ((role.getEntity()==null && getEntity()!=null) ||
-			(role.getEntity()!=null && getEntity()==null)) {
-			return false;
-		}
-		if (!((role.getEntity()==null && getEntity()==null) ||
-			(role.getEntity().equals(getEntity())))) {
-			return false;
-		}
+		KbeeUserRole other = (KbeeUserRole)object;
+		// compare by identifier so Hibernate proxies and real instances are equal
+		if (!sameUser(other.getUser(), getUser())) return false;
+		if (!sameRole(other.getRole(), getRole())) return false;
+		if (!sameEntity(other.getEntity(), getEntity())) return false;
 		return true;
+	}
+
+	@Override
+	public int hashCode() {
+		return 31;
+	}
+
+	private boolean sameUser(User a, User b) {
+		if (a == b) return true;
+		if (a == null || b == null) return false;
+		return a.equals(b) || (a.getId() != null && a.getId().equals(b.getId()));
+	}
+
+	private boolean sameRole(Role a, Role b) {
+		if (a == b) return true;
+		if (a == null || b == null) return false;
+		return a.equals(b) || (a.getId() != null && a.getId().equals(b.getId()));
+	}
+
+	private boolean sameEntity(EntityMember a, EntityMember b) {
+		if (a == b) return true;
+		if (a == null || b == null) return false;
+		if (a.equals(b)) return true;
+		return (a instanceof Identifiable) && (b instanceof Identifiable)
+			&& ((Identifiable)a).getId() != null
+			&& ((Identifiable)a).getId().equals(((Identifiable)b).getId());
 	}
 	
 	public String toString() {

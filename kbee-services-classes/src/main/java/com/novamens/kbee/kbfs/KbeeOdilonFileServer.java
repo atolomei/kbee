@@ -401,6 +401,17 @@ public class KbeeOdilonFileServer implements FileServerOdilon {
 			return stream;
 			
 		} catch (ODClientException e) {
+			// Odilon answers 500 (not 404) when the object is missing. Map it to "not found"
+			boolean missing = false;
+			try {
+				missing = !this.odilonClient.existsObject(bucketName, objectName);
+			} catch (Exception ex) {
+				logger.debug(ex);
+			}
+			if (missing) {
+				logger.warn("Object not found in Odilon -> " + bucketName + "/" + objectName);
+				throw new FileServerException("File System. File not in disk. Object not found -> " + bucketName + "/" + objectName);
+			}
 			logger.error(e);
 			throw new FileServerException(e);
 		}
