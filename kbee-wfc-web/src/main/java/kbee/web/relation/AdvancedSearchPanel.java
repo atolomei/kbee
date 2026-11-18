@@ -37,55 +37,6 @@ public abstract class AdvancedSearchPanel extends Panel  {
 	private Searcher searcher = new Searcher();
 	private Query query = null;
 	
-//	private List<ElementModel> models;
-//	private Map<String, Object> filters;
-//	
-//	
-//	private interface ElementModel extends Serializable {
-//		public ModelElement getElement();
-//	}
-//	
-//	private class StringModel implements IModel<String>, ElementModel {
-//		private IModel<ModelElement> model;
-//		private String value;
-//		public StringModel(ModelElement element) {
-//			model = new ObjectModel<ModelElement>(element);
-//		}
-//		public ModelElement getElement() {
-//			return model.getObject();
-//		}
-//		public String getObject() {
-//			return value;
-//		}
-//		public void setObject(String value) {
-//			this.value = value;
-//		}
-//		public void detach() {
-//			model.detach();
-//		}
-//	}
-//	
-//	private class MemberModel implements IModel<DataSetMember>, ElementModel {
-//		private IModel<ModelElement> model;
-//		private IModel<DataSetMember> valuemodel;
-//		public MemberModel(ModelElement element) {
-//			model = new ObjectModel<ModelElement>(element);
-//		}
-//		public ModelElement getElement() {
-//			return model.getObject();
-//		}
-//		public DataSetMember getObject() {
-//			return valuemodel!=null ? valuemodel.getObject() : null;
-//		}
-//		public void setObject(DataSetMember value) {
-//			this.valuemodel = new ObjectModel<DataSetMember>(value);
-//		}
-//		public void detach() {
-//			model.detach();
-//			if (valuemodel!=null)
-//				valuemodel.detach();
-//		}
-//	}
 
 	public AdvancedSearchPanel(String id) {
 		super(id);
@@ -119,70 +70,7 @@ public abstract class AdvancedSearchPanel extends Panel  {
 				return false;
 			}
 		});	
-//		Form<?> form = new Form<Void>("form");
-//		
-//		form.add(new TextField<String>("title", new PropertyModel<String>(this, "title")));
-//		((TextField<?>)form.get("title")).listenEnter(true);
-//		
-//		setElements();
-//		
-//		form.add(new ListView<ElementModel>("element", getElements()) {
-//			@SuppressWarnings("unchecked")
-//			public void populateItem(final ListItem<ElementModel> item) {
-//				ModelElement element = item.getModelObject().getElement(); 
-//				if (element instanceof Attribute) {
-//					item.add(new TextField<String>("field", (IModel<String>)item.getModelObject()) {
-//						public IModel<String> getLabel() {
-//							return new Model<String>(item.getModelObject().getElement().getDisplayName());
-//						}
-//					});
-//				}	
-//				if (element instanceof Classifier) {
-//					item.add(new AutoCompleteFieldV5<DataSetMember>("field", (IModel<DataSetMember>)item.getModelObject(), false) {
-//						@Override
-//						public void onUpdate(AjaxRequestTarget target) {
-//							target.focusComponent(getInput());
-//						}
-//						public int getMaxHistory() {
-//							return 3;
-//						}
-//						@Override
-//						public List<Suggestion> getSuggestions(String pattern) {
-//							return item.getModelObject().getElement().getService(DataAccessService.class).getSuggestions(pattern);
-//						}
-//						@Override 
-//						public String getHistoryKey() {
-//							return "advanced-search-"+item.getModelObject().getElement().getId();
-//						}
-//						@Override 
-//						public IModel<String> getLabel() {
-//							return new Model<String>(item.getModelObject().getElement().getDisplayName());
-//						}
-//					});					
-//				}
-//			}
-//		});
-//		
-//		form.add(new AjaxButton("submit") {
-//			@Override
-//			protected void onSubmit(AjaxRequestTarget target) {
 
-//			}
-//		});
-//
-//		form.add(new AjaxLink<Void>("close") {
-//			@Override
-//			public void onClick(AjaxRequestTarget target) {
-//				searcher.detach();
-//				target.add(AdvancedSearchPanel.this);
-//				AdvancedSearchPanel.this.onClose(target);
-//			}
-//		});
-//		
-//		form.setDefaultButton((AjaxButton)form.get("submit"));
-//				
-//		add(form);
-		
 		WebMarkupContainer resultcontainer = new WebMarkupContainer("result-container") {
 			public boolean isVisible() {
 				return true;
@@ -252,23 +140,7 @@ public abstract class AdvancedSearchPanel extends Panel  {
 		return query;
 	}
 	
-//	protected List<Classifier> getClassifiers() {
-//		return getContentDao().getClassifiers(getDomain());
-//	}
-//	
-//	protected List<Attribute> getAttributes() {
-//		return getContentDao().getAttributes(getDomain());
-//	}
 
-//	protected Attribute getAttribute(String name) {
-//		for (Attribute attribute : getContentDao().getAttributes(getDomain())) {
-//			if (attribute.getAlias().toLowerCase().equals(name.toLowerCase())) {
-//				return attribute;
-//			}
-//		}
-//		return null;
-//	}
-//	
 	protected Index getQueryIndex() {
 		return getDomain().getService(JavaIndexerService.class).getIndex();
 	}
@@ -277,9 +149,6 @@ public abstract class AdvancedSearchPanel extends Panel  {
 		return ServiceLocator.getService(UserService.class).getDomain();
 	}
 	
-//	protected ContentDao getContentDao() {
-//		return (ContentDao)ServiceLocator.getService(BeansService.class).getBean("contentDao");
-//	}
 	
 	protected Map<String, Object> getBaseFilters() {
 		Map<String, Object> filters = new HashMap<String, Object>();
@@ -289,7 +158,7 @@ public abstract class AdvancedSearchPanel extends Panel  {
 		return filters;
 	}	
 	
-	private Map<String, Object> getFilters() {
-		return ((AdvancedSearchForm)get("form")).getFilters();
-	}
+//	private Map<String, Object> getFilters() {
+//		return ((AdvancedSearchForm)get("form")).getFilters();
+//	}
 }

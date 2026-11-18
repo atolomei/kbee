@@ -73,7 +73,6 @@ public class JavaFileIndexFactory implements JavaIndexFactory, EventListener, Be
 		SolrIndex index = new com.novamens.solr.indexer.service.SolrIndex();
 		index.setServer(getSolrCore());
 		index.setSchemas(getSchemas(index, domain));
-		//index.setCube((SolrCube)getCube(domain));
 		index.setObjectBuilder(new HibernateObjectBuilder());
 		return index;
 	} 
@@ -94,15 +93,6 @@ public class JavaFileIndexFactory implements JavaIndexFactory, EventListener, Be
 	private DocumentSchema createFileSchema(Domain domain) {
 		return getDefaultFileSchema();
 	}
-	
-//	private Cube getCube(Domain domain) {
-//		SolrCube cube = getDefaultCube();
-//		return cube;
-//	}
-//	
-//	private SolrCube getDefaultCube() {
-//		return (SolrCube)ServiceLocator.getService(BeansService.class).getBean("default-log-cube");
-//	}
 	
 	private DocumentSchema getDefaultFileSchema() {
 		return (DocumentSchema)ServiceLocator.getService(BeansService.class).getBean("default-kbfile-schema");

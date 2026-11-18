@@ -5,6 +5,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.wicket.AttributeModifier;
+import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.Model;
 import org.apache.wicket.model.StringResourceModel;
@@ -103,10 +105,12 @@ public class SearcherHomePage extends AbstractSearcherPage<Site> {
 				}
 		}
 		
-		// new SearcherForm("main-searcher", getSiteModel(), getSiteModel().getObject().getTitle())
-		
 		PageSection ps = home.getPageSections().get(0);
-		add( ps.getService(PortalObjectViewerRenderService.class).build("main_ps_payload", PortalViewMode.PRODUCTION));
+		Panel psPanel =  ps
+			.getService(PortalObjectViewerRenderService.class)
+			.build("main_ps_payload", PortalViewMode.PRODUCTION);
+		psPanel.add(new AttributeModifier("class", getSiteConfig().getCssClass()));
+		add( psPanel);
 	}
 	
 	
