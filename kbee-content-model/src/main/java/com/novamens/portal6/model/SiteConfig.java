@@ -14,4 +14,5 @@ public interface SiteConfig extends Serializable {
     default boolean isReadOnly() {
         return false;
     }
+    
 }

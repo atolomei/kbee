@@ -507,7 +507,7 @@ public abstract class AbstractSearcherPage<T> extends KbeeWebPage<T>  {
 			return null;
 	}
 	
-	protected SiteConfig getSiteConfig() {
+	public SiteConfig getSiteConfig() {
 		if (siteConfig==null) {
 			try {
 				siteConfig = (SiteConfig)ServiceLocator
