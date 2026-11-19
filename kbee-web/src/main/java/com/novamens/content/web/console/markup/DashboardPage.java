@@ -22,7 +22,6 @@ import com.novamens.content.model.UserSet;
 import com.novamens.content.model.UserSubset;
 import com.novamens.content.user.UserService;
 import com.novamens.content.web.console.markup.searchselector.AdvancedSearchButton;
-import com.novamens.content.web.nav.markup.GlobalNavigationBar;
 import com.novamens.indexer.query.Query;
 import com.novamens.indexer.query.TextFilter;
 import com.novamens.kbee.content.command.CommandListQuery;
@@ -43,6 +42,7 @@ import com.novamens.wicket.util.MenuBreadCrumbPanel;
 
 import kbee.web.console.Console;
 import kbee.web.console.ConsolePage;
+import kbee.web.nav.GlobalNavigationBar;
 import kbee.web.nav.HomeBC;
 import kbee.web.nav.TasksDropDownMenuBC;
 import kbee.web.page.ApplicationMenuSection;

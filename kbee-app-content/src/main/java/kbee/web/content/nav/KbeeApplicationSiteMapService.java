@@ -40,7 +40,6 @@ import com.novamens.content.web.admin.markup.datamanagement.SystemSchedulerMonit
 import com.novamens.content.web.admin.markup.datamanagement.SystemSchedulerMonitorPanel;
 import com.novamens.content.web.console.markup.DashboardPage;
 import com.novamens.content.web.deployManagement.DeployManagementPanel;
-import com.novamens.content.web.nav.markup.GlobalNavigationBar;
 import com.novamens.content.web.report.markup.ReportPage;
 import com.novamens.content.web.report.markup.ReportSubscriptionPage;
 import com.novamens.content.web.security.markup.GroupsPage;
@@ -88,6 +87,7 @@ import kbee.web.model.DataSetsPage;
 import kbee.web.model.contentclass.ContentTemplatePage;
 import kbee.web.model.procedure.ProcedurePage;
 import kbee.web.multidimensional.FacetsPage;
+import kbee.web.nav.GlobalNavigationBar;
 import kbee.web.notes.UserNotesPage;
 import kbee.web.notification.UserNotificationsPage;
 import kbee.web.notes.BillboardPage;

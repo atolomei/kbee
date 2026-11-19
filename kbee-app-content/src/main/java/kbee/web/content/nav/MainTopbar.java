@@ -28,7 +28,6 @@ import com.novamens.content.dao.ContentDao;
 import com.novamens.content.entity.Person;
 import com.novamens.content.service.HelpService;
 import com.novamens.content.user.UserService;
-import com.novamens.content.web.nav.markup.GlobalNavigationBar;
 import com.novamens.dom.Domain;
 import com.novamens.dom.DomainType;
 import com.novamens.indexer.query.Suggestion;
@@ -45,6 +44,7 @@ import com.novamens.wicket.markup.html.panel.KBPanel;
 import com.novamens.wicket.model.ObjectModel;
 
 import kbee.web.console.Console;
+import kbee.web.nav.GlobalNavigationBar;
 import kbee.web.nav.NavBarUserMenu;
 import kbee.web.notification.NotificationDelete;
 import kbee.web.notification.UserNotificationsPage;

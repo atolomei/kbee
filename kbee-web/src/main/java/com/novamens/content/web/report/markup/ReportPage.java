@@ -7,7 +7,6 @@ import org.apache.wicket.Page;
 import org.apache.wicket.markup.html.panel.Panel;
 
 import com.novamens.content.user.UserService;
-import com.novamens.content.web.nav.markup.GlobalNavigationBar;
 import com.novamens.dom.Domain;
 import com.novamens.indexer.query.Query;
 import com.novamens.security.acl.KbeeGlobalRole;
@@ -16,6 +15,7 @@ import com.novamens.service.ServiceLocator;
 
 import kbee.web.console.Console;
 import kbee.web.console.ConsolePage;
+import kbee.web.nav.GlobalNavigationBar;
 import kbee.web.page.ApplicationMenuSection;
 import kbee.web.report.ReportConsole;
 import kbee.web.report.ReportFactory;

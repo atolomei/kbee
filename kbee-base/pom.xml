@@ -104,7 +104,7 @@
 		<quick-json-version>1.0.4</quick-json-version>
 		<reflections-version>0.10.2</reflections-version> 
 		
-		<solr-version>9.1.0</solr-version> 							
+		<solr-version>10.1.0</solr-version> 							
 		
 		<springfox-swagger-ui-version>2.10.5</springfox-swagger-ui-version>
 		

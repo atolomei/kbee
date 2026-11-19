@@ -25,7 +25,6 @@ import com.novamens.content.entity.Person;
 import com.novamens.content.rule.ActionRule;
 import com.novamens.content.service.ContentFactoryService;
 import com.novamens.content.service.DOMObjectService;
-import com.novamens.content.web.nav.markup.GlobalNavigationBar;
 import com.novamens.datetime.DateTimeService;
 import com.novamens.dom.ObjectState;
 
@@ -57,6 +56,7 @@ import kbee.web.console.ExpandedPanel;
 import kbee.web.console.grid.LinkPredicateKbeeGridColumn;
 import kbee.web.model.object.ObjectAuditModal;
 import kbee.web.nav.DataManagementBC;
+import kbee.web.nav.GlobalNavigationBar;
 import kbee.web.object.ObjectStatusColumn;
 
 

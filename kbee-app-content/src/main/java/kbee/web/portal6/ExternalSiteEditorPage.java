@@ -13,10 +13,8 @@ import com.novamens.portal6.model.Site;
 import com.novamens.service.ServiceLocator;
 import com.novamens.wicket.model.ObjectModel;
 
-
+import kbee.web.nav.GlobalNavigationBar;
 import kbee.web.page.AbstractApplicationPage;
-
-import com.novamens.content.web.nav.markup.GlobalNavigationBar;
 
 public class ExternalSiteEditorPage extends AbstractApplicationPage<Site> {
 

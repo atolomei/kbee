@@ -1,4 +1,4 @@
-package com.novamens.content.web.nav.markup;
+package kbee.web.nav;
 
 
 import java.util.ArrayList;
@@ -31,7 +31,6 @@ import com.novamens.content.entity.Person;
 import com.novamens.content.service.HelpService;
 import com.novamens.content.user.UserService;
 import com.novamens.dom.Domain;
-import com.novamens.dom.DomainType;
 import com.novamens.indexer.query.Suggestion;
 import com.novamens.content.notification.NotificationService;
 
@@ -48,12 +47,8 @@ import com.novamens.wicket.model.ObjectModel;
 
 import kbee.util.PropertiesFactory;
 import kbee.web.console.Console;
-import kbee.web.nav.NavBarUserMenu;
-import kbee.web.nav.NavigationPanel;
-import kbee.web.nav.NavigatorPanel;
 import kbee.web.notification.NotificationDelete;
 import kbee.web.notification.UserNotificationsPage;
-import kbee.web.portal6.directory.DirectoryMenuPanel;
 import kbee.web.search.SearchPanel;
 import kbee.web.search.SuggesterSearchPanel;
 import kbee.web.service.ApplicationSiteMapService;
@@ -87,9 +82,10 @@ public class GlobalNavigationBar<T> extends NavigationPanel<T>  {
 	
 	 
 			
-	 static private final String  portalurl = PropertiesFactory.getInstance("kbee").getProperties()
-	            .getProperty("bcv", "/portal/bcv").trim();
-	
+	 static private final String  portalurl = PropertiesFactory
+		.getInstance("kbee")
+		.getProperties()
+		.getProperty("kbee.site.default");
 	 
 	 
 	public static boolean isHelpEnabled() {

@@ -8,8 +8,6 @@ import com.novamens.beans.BeansService;
 import com.novamens.content.dao.ContentDao;
 import com.novamens.content.entity.Person;
 import com.novamens.content.user.UserProfile;
-//import com.novamens.content.web.entity.markup.UserPage;
-//import com.novamens.content.web.nav.markup.GlobalNavigationBar;
 import com.novamens.security.User;
 import com.novamens.service.ServiceLocator;
 import com.novamens.wicket.model.ObjectModel;

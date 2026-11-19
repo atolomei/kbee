@@ -4,14 +4,16 @@ import java.io.IOException;
 import java.util.List;
 
 import org.apache.solr.client.solrj.SolrClient;
-import org.apache.solr.client.solrj.SolrQuery;
 import org.apache.solr.client.solrj.SolrServerException;
-import org.apache.solr.client.solrj.impl.HttpSolrClient;
+import org.apache.solr.client.solrj.impl.HttpJdkSolrClient;
+import org.apache.solr.client.solrj.request.SolrQuery;
 import org.apache.solr.client.solrj.response.QueryResponse;
 import org.apache.solr.client.solrj.response.UpdateResponse;
 import org.apache.solr.common.SolrInputDocument;
 
 import com.novamens.indexer.service.IndexerException;
+
+import kbee.util.PropertiesFactory;
 
 public class SolrCoreClient implements SolrCore {
 
@@ -19,10 +21,16 @@ public class SolrCoreClient implements SolrCore {
     private boolean initialized = false;
     private String url;
     private String name;
+    
+    private String username = PropertiesFactory
+    	.getInstance("kbee")
+    	.getProperties()
+    	.getProperty("solr.username", null);
 
-    @SuppressWarnings("unused")
-	private static kbee.util.logging.Logger logger = kbee.util.logging.Logger.getLogger(SolrCoreClient.class.getName());
-
+    private String password = PropertiesFactory
+        .getInstance("kbee")
+        .getProperties()
+        .getProperty("solr.password", null);
 
     public void setUrl(String url) {
         this.url = url;
@@ -40,9 +48,30 @@ public class SolrCoreClient implements SolrCore {
         return this.name;
     }
 
+//    public synchronized void initialize2() throws IndexerException {
+//        if (initialized) return;
+//        client = new HttpSolrClient.Builder(getUrl() + "/" + getName()).build();
+//        initialized = true;
+//    }
+    
     public synchronized void initialize() throws IndexerException {
-        if (initialized) return;
-        client = new HttpSolrClient.Builder(getUrl() + "/" + getName()).build();
+
+        if (initialized) {
+            return;
+        }
+        
+        HttpJdkSolrClient.Builder builder =
+                new HttpJdkSolrClient.Builder(getUrl())
+                        .withDefaultCollection(getName())
+                        .useHttp1_1(true);
+        
+        if (username != null && !username.isBlank()
+                && password != null && !password.isBlank()) {
+            builder.withBasicAuthCredentials(username, password);
+        }
+
+        client = builder.build();
+
         initialized = true;
     }
 
@@ -63,7 +92,6 @@ public class SolrCoreClient implements SolrCore {
     public QueryResponse query(SolrQuery query) throws SolrServerException, IOException, IndexerException {
     	return getCore().query(query);
     }
-
     
     public void commit() throws SolrServerException, IOException, IndexerException {
         getCore().commit(true, true, true);

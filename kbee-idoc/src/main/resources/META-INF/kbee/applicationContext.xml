@@ -63,6 +63,7 @@
 		<sec:intercept-url pattern="/api/**" method="OPTIONS" access="permitAll"/>
 		<sec:intercept-url pattern="/api/auth/login" access="permitAll"/>
 		<sec:intercept-url pattern="/api/upload/**" access="permitAll"/>
+		<sec:intercept-url pattern="/api/.well-known/jwks.json" access="permitAll"/>
 
 		<sec:intercept-url pattern="/wicket/resource/**" access="permitAll"/>
 		<sec:intercept-url pattern="/css/**" access="permitAll"/>

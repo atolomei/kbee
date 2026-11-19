@@ -6,11 +6,10 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.StringTokenizer;
 import org.apache.lucene.search.BooleanQuery;
-
-import org.apache.solr.client.solrj.SolrQuery;
-import org.apache.solr.client.solrj.SolrQuery.ORDER;
+import org.apache.solr.client.solrj.RemoteSolrException;
 import org.apache.solr.client.solrj.SolrServerException;
-import org.apache.solr.client.solrj.impl.BaseHttpSolrClient.RemoteSolrException;
+import org.apache.solr.client.solrj.request.SolrQuery;
+import org.apache.solr.client.solrj.request.SolrQuery.ORDER;
 import org.apache.solr.client.solrj.response.QueryResponse;
 import org.apache.solr.common.SolrDocument;
 import org.apache.solr.common.SolrDocumentList;
@@ -542,7 +541,7 @@ public class SolrIndex extends KbeeJavaIndex {
 			
 			return response;
 		}
-		catch (RemoteSolrException e) {
+		catch (org.apache.solr.client.solrj.RemoteSolrException e) {
 			logger.error(e);
 			throw new IndexerException(e);
 		}

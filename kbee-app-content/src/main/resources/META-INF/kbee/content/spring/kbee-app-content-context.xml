@@ -14,7 +14,7 @@
 	
 	<bean id="app-lateral-menu" class="kbee.web.content.nav.LateralMenuFactory"/>
 	
-	<bean id="app-top-bar" class="com.novamens.content.web.nav.markup.GlobalNavigationBar" scope="prototype"/>
+	<bean id="app-top-bar" class="kbee.web.nav.GlobalNavigationBar" scope="prototype"/>
 	
 	<bean id="home-page" class="kbee.web.page.HomeSimplePage" scope="prototype"/>
 	

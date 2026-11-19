@@ -15,11 +15,10 @@ import com.novamens.content.security.ContentSecurityDao;
 import com.novamens.content.security.IQLRule;
 import com.novamens.security.acl.KbeeGlobalRole;
 import com.novamens.service.ServiceLocator;
-import com.novamens.content.web.nav.markup.GlobalNavigationBar;
 import com.novamens.wicket.model.ObjectModel;
 
 import kbee.web.error.ErrorPanel;
-
+import kbee.web.nav.GlobalNavigationBar;
 import kbee.web.page.AbstractApplicationPage;
 import kbee.web.page.ApplicationMenuSection;
 import kbee.web.page.ApplicationPage;

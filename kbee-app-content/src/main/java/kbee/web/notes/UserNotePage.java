@@ -4,10 +4,10 @@ import org.apache.wicket.model.StringResourceModel;
 
 import com.novamens.content.entity.Person;
 import com.novamens.content.notes.UserNote;
-import com.novamens.content.web.nav.markup.GlobalNavigationBar;
 import com.novamens.security.acl.KbeeGlobalRole;
 import com.novamens.service.ServiceLocator;
 
+import kbee.web.nav.GlobalNavigationBar;
 import kbee.web.page.AbstractApplicationPage;
 import kbee.web.page.ApplicationMenuSection;
 import kbee.web.page.ApplicationPage;

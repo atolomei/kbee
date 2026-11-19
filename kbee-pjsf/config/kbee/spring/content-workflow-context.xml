@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+		http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+		http://www.springframework.org/schema/context
+		http://www.springframework.org/schema/context/spring-context-3.0.xsd 
+		http://www.springframework.org/schema/tx 
+		http://www.springframework.org/schema/tx/spring-tx.xsd">
+	
+	<bean id="portalStatService" class="com.novamens.site.logging.KbeePortalStatService">
+		<property name="tableNameIn" value="po_sitelogin"/>
+		<property name="tableNameOut" value="po_sitelogout"/>
+		<property name="schema" value="${portal.bcv.jdbc.schema}"/>
+		<property name="dataSource" ref="portalStat-DataSource"/>
+		<property name="sessionFactory" ref="sessionFactory"/>
+	</bean>
+	
+	<bean id="portalStat-DataSource" class="org.apache.commons.dbcp2.BasicDataSource"
+      	destroy-method="close">
+    	<property name="driverClassName" value="${portal.bcv.jdbc.driver}"/>
+    	<property name="url" value="${portal.bcv.jdbc.url}"/>
+    	<property name="username" value="${portal.bcv.jdbc.username}"/>
+    	<property name="password" value="${portal.bcv.jdbc.password}"/>
+    	<property name="initialSize" value="2"/>
+    	<property name="maxTotal" value="10"/>
+	</bean>
+</beans>

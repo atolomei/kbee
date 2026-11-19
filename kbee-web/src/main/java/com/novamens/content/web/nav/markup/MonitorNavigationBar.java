@@ -29,7 +29,6 @@ import com.novamens.content.security.ContentSystemSecurityService;
 import com.novamens.content.service.HelpService;
 import com.novamens.content.service.domain.DomainSettingsService;
 import com.novamens.content.user.UserService;
-import com.novamens.content.web.nav.markup.GlobalNavigationBar.HelpFragment;
 import com.novamens.content.web.workflow.markup.TaskPanel;
 import com.novamens.kbee.content.workflow.KbeeContext;
 import com.novamens.kbee.wicket.editor.Editor;
@@ -52,6 +51,7 @@ import kbee.web.nav.DonePage;
 import kbee.web.nav.NavigationPanel;
 import kbee.web.nav.NavigatorPanel;
 import kbee.web.nav.RefreshParentBehavior;
+import kbee.web.nav.GlobalNavigationBar.HelpFragment;
 
 /**
  * Bootstrap based. Navigation Bar

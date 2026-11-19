@@ -15,7 +15,6 @@ import com.novamens.content.entity.Person;
 import com.novamens.content.model.ObjectId;
 import com.novamens.content.model.UserSet;
 import com.novamens.content.user.UserProfile;
-import com.novamens.content.web.nav.markup.GlobalNavigationBar;
 import com.novamens.dom.DomainType;
 import com.novamens.indexer.java.JavaIndexerService;
 import com.novamens.indexer.query.Cursor;
@@ -33,6 +32,7 @@ import com.novamens.wicket.util.BCElement;
 import com.novamens.wicket.util.MenuBreadCrumbPanel;
 
 import kbee.web.error.ErrorPanel;
+import kbee.web.nav.GlobalNavigationBar;
 import kbee.web.nav.SecurityDropDownMenuBC;
 import kbee.web.nav.UsersBC;
 import kbee.web.notification.AccountDropDownBC;

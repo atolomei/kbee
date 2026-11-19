@@ -41,7 +41,7 @@ import kbee.api.model.IResultSet;
 import kbee.api.model.IRole;
 import kbee.api.model.ISettings;
 import kbee.api.model.ITemplate;
-import kbee.api.model.IToken;
+import kbee.api.model.ApiToken;
 import kbee.api.model.ITransaction;
 import kbee.api.model.ApiUser;
 import kbee.api.service.ApiError;
@@ -163,7 +163,7 @@ public class LocalApiServiceWrapper implements ApiService {
 		return getController().getPerson(getDomain().getName(), id).getBody();
 	}
 	
-	public IToken getToken() {
+	public ApiToken getToken() {
 		return null;
 	}
 	

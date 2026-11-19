@@ -2,15 +2,16 @@ package com.novamens.solr.sync;
 
 import org.apache.solr.client.solrj.SolrClient;
 import org.apache.solr.client.solrj.SolrServerException;
-import org.apache.solr.client.solrj.impl.HttpSolrClient;
 import org.apache.solr.client.solrj.request.schema.SchemaRequest;
 import org.apache.solr.client.solrj.response.schema.SchemaResponse;
+import org.apache.solr.common.SolrException;
 import org.apache.solr.common.util.NamedList;
 
 import java.io.IOException;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 public class SolrApiMgr {
 
@@ -20,36 +21,35 @@ public class SolrApiMgr {
         this.solrClient = solrClient;
     }
 
-    public SchemaResponse.UpdateResponse processRequests(Operation operation, Map<String, Object> entry) throws IOException, SolrServerException {
-        NamedList namedListEntry = SolrConfigDifHelper.toNamedList(entry);
-        SchemaResponse.UpdateResponse result;
+    public SchemaResponse.UpdateResponse processRequests(
+            Operation operation,
+            Map<String, Object> entry)
+            throws IOException, SolrServerException {
+
         try {
+            SchemaResponse.UpdateResponse result =
+                    new NamedListSchemaRequest(operation, entry)
+                            .process(solrClient);
 
-            result = new NamedListSchemaRequest(operation, entry).process(solrClient);
             if (result.getStatus() != 0) {
-                throw new RuntimeException(result.getException());
+                throw new RuntimeException(
+                        "Schema operation " + operation.getRestMethod()
+                        + " failed: " + result.getException()
+                );
             }
-        } catch (HttpSolrClient.RemoteExecutionException e) {
-            String msg = "Exception occurred while processing msg:";
-            NamedList metaData = e.getMetaData();
 
-            if (metaData != null) {
-                try {
-                    List errorDetails = (List) metaData.findRecursive("error", "details");
-                    if (errorDetails.size() > 0) {
-                        Object errorMessages = ((Map) errorDetails.get(0)).get("errorMessages");
-                        msg += "\n*******************";
-                        msg += "\n" + errorMessages;
-                        msg += "\n*******************";
-                    }
-                } catch (Exception e1) {
-                }
+            return result;
 
-                msg += "\n" + metaData.toString();
-            }
+        } catch (SolrException e) {
+
+            String msg =
+                    "Error executing Solr schema operation: "
+                    + operation.getRestMethod()
+                    + "\nHTTP status: " + e.code()
+                    + "\nMessage: " + e.getMessage();
+
             throw new RuntimeException(msg, e);
         }
-        return result;
     }
 
     public List<Map<String, Object>> getFields() throws IOException, SolrServerException {
@@ -57,14 +57,33 @@ public class SolrApiMgr {
         return response.getFields();
     }
 
-    public List<Map<String, Object>> getFieldTypes() throws IOException, SolrServerException {
-        SchemaResponse.FieldTypesResponse response = new SchemaRequest.FieldTypes().process(solrClient);
-        return (List<Map<String, Object>>) response.getResponse().toMap(new LinkedHashMap<>()).get("fieldTypes");
+    public List<Map<String, Object>> getFieldTypes()
+            throws IOException, SolrServerException {
+
+        SchemaResponse.FieldTypesResponse response =
+                new SchemaRequest.FieldTypes().process(solrClient);
+
+        return response.getFieldTypes().stream()
+                .map(fieldType -> {
+                    Map<String, Object> map = new LinkedHashMap<>();
+                    map.put("name", fieldType.getAttributes().get("name"));
+                    map.putAll(fieldType.getAttributes());
+                    map.put("analyzer", fieldType.getAnalyzer());
+                    map.put("indexAnalyzer", fieldType.getIndexAnalyzer());
+                    map.put("queryAnalyzer", fieldType.getQueryAnalyzer());
+                    map.put("similarity", fieldType.getSimilarity());
+                    return map;
+                })
+                .collect(Collectors.toList());
     }
 
-    public List<Map<String, Object>> getCopyField() throws IOException, SolrServerException {
-        SchemaResponse.CopyFieldsResponse response = new SchemaRequest.CopyFields().process(solrClient);
-        return (List<Map<String, Object>>) response.getResponse().toMap(new LinkedHashMap<>()).get("copyFields");
+    public List<Map<String, Object>> getCopyField()
+            throws IOException, SolrServerException {
+
+        SchemaResponse.CopyFieldsResponse response =
+                new SchemaRequest.CopyFields().process(solrClient);
+
+        return response.getCopyFields();
     }
 
 

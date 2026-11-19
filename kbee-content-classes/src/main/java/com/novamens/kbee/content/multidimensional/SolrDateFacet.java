@@ -19,8 +19,8 @@ import org.apache.solr.client.solrj.response.QueryResponse;
 import org.apache.solr.client.solrj.response.RangeFacet;
 import org.apache.solr.client.solrj.response.FacetField.Count;
 import org.apache.lucene.search.BooleanQuery;
-import org.apache.solr.client.solrj.SolrQuery;
 import org.apache.solr.client.solrj.SolrServerException;
+import org.apache.solr.client.solrj.request.SolrQuery;
 import org.apache.solr.client.solrj.response.IntervalFacet;
 import org.springframework.util.Assert;
 
@@ -35,6 +35,7 @@ import com.novamens.solr.indexer.multidimensional.SolrMember;
 import com.novamens.solr.indexer.query.SolrResultSet;
 
 @SuppressWarnings("serial")
+@Deprecated
 public class SolrDateFacet extends SolrFacet implements Serializable {
 			
 	private static final long serialVersionUID = 1L;
@@ -226,18 +227,7 @@ public class SolrDateFacet extends SolrFacet implements Serializable {
 	}
 	
 	@Override
-	public void setParameters(org.apache.solr.client.solrj.SolrQuery query) {
-//		super.setParameters(query);
-//		query.add("facet.range", getName());
-//		query.add("f."+getName()+".facet.range.start","NOW/MONTH-240MONTH");
-//		query.add("f."+getName()+".facet.range.end","NOW/MONTH");
-//		query.add("f."+getName()+".facet.range.gap","+1MONTH");
-//		String intervals[] = { DateRange.MINUTES.criteria(), 
-//				DateRange.HOUR.criteria(), 
-//				DateRange.TODATE.criteria(), 
-//				DateRange.WEEK.criteria(), 
-//				DateRange.MONTH.criteria() };
-//		query.addIntervalFacets(getName(), intervals);	
+	public void setParameters(org.apache.solr.client.solrj.request.SolrQuery query) {
 	}
 	
 	public int compare(Member m1, Member m2) {
