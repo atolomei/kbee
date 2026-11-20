@@ -6,7 +6,6 @@ import org.apache.logging.log4j.Logger;
 import org.apache.wicket.model.ResourceModel;
 
 import com.novamens.content.entity.Person;
-import com.novamens.content.web.nav.markup.GlobalNavigationBar;
 import com.novamens.content.web.sql.markup.SQLFiltersPanel;
 import com.novamens.security.acl.KbeeGlobalRole;
 import com.novamens.service.ServiceLocator;

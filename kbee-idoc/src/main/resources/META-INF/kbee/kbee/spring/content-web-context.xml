@@ -486,8 +486,14 @@
 	<bean id="ConvertMyBoxCommand" class="kbee.web.command.ConvertMyBoxCommand" />
 	
 	
-	<!-- bean id="console-footer" class="com.novamens.wicket.util.DummyBlockPanel"  scope="prototype"/-->
-	
+<bean id="hibernateCollectionListenerRegistrar"
+      class="com.novamens.kbee.interceptor.HibernateListenersFactory"
+      init-method="init">
+      
+
+    <property name="sessionFactory" ref="sessionFactory"/>
+
+</bean>	
 	
 
 </beans>

@@ -4,7 +4,6 @@ import org.apache.wicket.model.ResourceModel;
 
 
 import com.novamens.content.entity.Person;
-import com.novamens.content.web.nav.markup.GlobalNavigationBar;
 
 import com.novamens.kbee.wicket.util.InvisiblePanel;
 import com.novamens.wicket.model.ObjectModel;

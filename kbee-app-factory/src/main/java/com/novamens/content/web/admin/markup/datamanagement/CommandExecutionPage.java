@@ -2,7 +2,6 @@ package com.novamens.content.web.admin.markup.datamanagement;
 
 import com.novamens.content.command.Command;
 
-import com.novamens.content.web.nav.markup.GlobalNavigationBar;
 import com.novamens.dom.Domain;
 
 import kbee.web.page.AbstractApplicationPage;

@@ -60,7 +60,7 @@ public class IDocAdapter implements Adapter<KbeeIDoc, ApiFile> {
 	/** ------------------------------------------------------------------------------------------------------------------------
 	 */
 	public IDocAdapter(boolean includecrc) {
-		this("0", ApiViewMode.All, includecrc, false, false);
+		this("0", ApiViewMode.Grid, includecrc, false, false);
 	}
 	
 	/** ------------------------------------------------------------------------------------------------------------------------
@@ -124,6 +124,12 @@ public class IDocAdapter implements Adapter<KbeeIDoc, ApiFile> {
 				ApiProxy relationproxy = new ApiProxy(
 					relation.getTarget().getTitle(), 
 					UriHelper.getUri(relation.getTarget()), relation.getTemplate().getName());
+				idoc.addRelation(relationproxy);
+			}
+			for (Relation relation : kbeeidoc.getReverseRelations()) {
+				ApiProxy relationproxy = new ApiProxy(
+					relation.getSource().getTitle(), 
+					UriHelper.getUri(relation.getSource()), relation.getTemplate().getReverseLabel());
 				idoc.addRelation(relationproxy);
 			}
 			values.addAll(getAttributes(kbeeidoc));
@@ -209,12 +215,18 @@ public class IDocAdapter implements Adapter<KbeeIDoc, ApiFile> {
 	private List<IAttributeValues> getAttributes(KbeeIDoc kbeeidoc) {
 		List<IAttributeValues> values = new ArrayList<>();
 		for (AttributeTemplate template : kbeeidoc.getContentTemplate().getAttributes()) {
+			ApiAttributeProxy iattribute = new ApiAttributeProxy();
+			iattribute.setId(String.valueOf(template.getAttribute().getId()));		
+			iattribute.setHRef(UriHelper.getUri(template.getAttribute()));		
+			iattribute.setRel("attribute");
+			iattribute.setName(template.getAttribute().getName());
+			IAttributeValues attributevalues = new IAttributeValues(iattribute);
 			for (String value : kbeeidoc.getAttributeValues(template.getAttribute())) {
-				ApiAttributeProxy iattribute = new ApiAttributeProxy();
-				iattribute.setId(String.valueOf(template.getAttribute().getId()));		
-				iattribute.setHRef(UriHelper.getUri(template.getAttribute()));		
-				iattribute.setRel("attribute");
-				iattribute.setName(template.getAttribute().getName());
+//				ApiAttributeProxy iattribute = new ApiAttributeProxy();
+//				iattribute.setId(String.valueOf(template.getAttribute().getId()));		
+//				iattribute.setHRef(UriHelper.getUri(template.getAttribute()));		
+//				iattribute.setRel("attribute");
+//				iattribute.setName(template.getAttribute().getName());
 				
 				if (template.getAttribute().isDate()) {
 					int t = value.indexOf("T");
@@ -225,9 +237,9 @@ public class IDocAdapter implements Adapter<KbeeIDoc, ApiFile> {
 				
 				ApiValue ivalue = new ApiValue();
 				ivalue.setValue(value);
-				
-				values.add(new IAttributeValues(iattribute, ivalue));
+				attributevalues.addValue(ivalue);
 			}
+			values.add(attributevalues);
 		}	
 		return values;
 	}

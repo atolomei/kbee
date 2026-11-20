@@ -9,11 +9,12 @@ import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.markup.html.AjaxLink;
 
 import com.novamens.content.entity.Person;
-import com.novamens.content.web.nav.markup.GlobalNavigationBar;
 import com.novamens.event.Event;
 import com.novamens.kbee.wicket.editor.Editor;
 import com.novamens.kbee.wicket.markup.html.event.WicketEventListener;
 import com.novamens.wicket.markup.html.repeater.util.Searcher;
+
+import kbee.web.nav.GlobalNavigationBar;
 
 @Deprecated
 public class SQLNavigationBar extends GlobalNavigationBar<Person> {

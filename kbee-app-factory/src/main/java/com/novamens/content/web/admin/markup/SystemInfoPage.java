@@ -5,7 +5,6 @@ import org.apache.wicket.model.Model;
 import org.apache.wicket.model.ResourceModel;
 
 import com.novamens.content.entity.Person;
-import com.novamens.content.web.nav.markup.GlobalNavigationBar;
 import com.novamens.dom.Domain;
 import com.novamens.service.ServiceLocator;
 import com.novamens.wicket.model.ObjectModel;
@@ -13,6 +12,7 @@ import com.novamens.wicket.util.BCElement;
 import com.novamens.wicket.util.MenuBreadCrumbPanel;
 
 import kbee.web.error.ErrorPanel;
+import kbee.web.nav.GlobalNavigationBar;
 import kbee.web.nav.HomeBC;
 import kbee.web.page.ApplicationMenuSection;
 import kbee.web.page.ApplicationPage;

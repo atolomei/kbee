@@ -18,6 +18,7 @@ import com.novamens.content.model.DataSetMember;
 import com.novamens.content.model.DataSetType;
 import com.novamens.event.Event;
 import com.novamens.event.EventListener;
+import com.novamens.hibernate.event.HibernateHierarchyEvent;
 import com.novamens.hibernate.event.HibernateUpdateEvent;
 import com.novamens.indexer.java.Extractor;
 import com.novamens.indexer.service.Index;
@@ -202,6 +203,27 @@ public class ParentsDisplayNameExtractor implements Extractor, EventListener {
 					}
 				}
 			}	
+			if (event instanceof HibernateHierarchyEvent) {
+								DataSetMember member = (DataSetMember)event.getObject();
+								if (getClassifier()!=null && getClassifier().getDataSet()!=null && !member.getDataSet().getId().equals(getClassifier().getDataSet().getId())) 
+									return;
+								SolrParametersQuery query = new SolrParametersQuery(getIndex());
+								query.getParameters().put(getIdFieldName(), "["+
+									String.valueOf(member.getId())+","+
+									String.valueOf("*/"+member.getId())+"*]");
+								if (getType()!=null) {
+									query.getParameters().put("type", getType());
+								}
+								
+								ReindexByCriteriaCommand command = new ReindexByCriteriaCommand(query, index, getIdFieldName());
+								command.setName("Reindex Value \""+ member.getDisplayName() + "\"");
+								command.setParameter("condition", member.getDisplayName());
+								
+								
+								
+								command.setDescription("Reindex Value \""+ member.getDisplayName() + "\"");
+								ServiceLocator.getService(CommandService.class).add(command);
+			}
 		}
 		catch (Exception e) {
 			logger.error(e);

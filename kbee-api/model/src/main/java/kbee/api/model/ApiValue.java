@@ -1,5 +1,6 @@
 package kbee.api.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
@@ -40,6 +41,7 @@ public class ApiValue extends ApiClassificable {
 		this.name = value;
 	}
 	
+	@JsonIgnore
 	public String getName() {
 		return name;
 	}
@@ -99,6 +101,7 @@ public class ApiValue extends ApiClassificable {
 		this.email = email;
 	}
 	
+	@JsonIgnore
 	@Override
 	public String getDisplayName() {
 		String name = getValue();

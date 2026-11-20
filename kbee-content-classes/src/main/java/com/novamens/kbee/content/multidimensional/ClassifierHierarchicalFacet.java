@@ -507,10 +507,28 @@ public class ClassifierHierarchicalFacet extends SolrFacet implements Serializab
 	}
 	
 	private String getPath(DataSetMember member) {
+		return getPath(member, new HashSet<Serializable>());
+	}
+	
+	private String getPath(DataSetMember member, Set<Serializable> parentsids) {
+		if (member.getParents()!=null && !member.getParents().isEmpty()) {
+			DataSetMember parent = member.getParents().get(0);
+			if (!parentsids.contains(parent.getId())) {
+				parentsids.add(parent.getId());
+				return getPath(parent, parentsids) + 
+					"/" + 
+					member.getId();
+			}
+		}
+		else {
+			return String.valueOf(member.getId());
+		}
+				
 		return member.getParents()!=null && !member.getParents().isEmpty() ? 
 			getPath(member.getParents().get(0)) + "/" + member.getId() : 
 			String.valueOf(member.getId());
 	}
+
 	
 	private int sum(Map<String, Integer> counts) {
 		int sum = 0;

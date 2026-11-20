@@ -2,7 +2,6 @@ package com.novamens.content.web.solr.markup;
 
 import org.apache.wicket.markup.html.panel.Panel;
 
-import com.novamens.content.web.nav.markup.GlobalNavigationBar;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -20,6 +19,7 @@ import com.novamens.service.ServiceLocator;
 
 import kbee.web.console.Console;
 import kbee.web.console.ConsolePage;
+import kbee.web.nav.GlobalNavigationBar;
 import kbee.web.page.ApplicationMenuSection;
 
 @SuppressWarnings("serial")
