@@ -1,0 +1,72 @@
+
+<wicket:panel xmlns:wicket="http://wicket.apache.org">
+
+    <div class="card shadow-sm">
+
+        <div class="card-body">
+            <form wicket:id="form">
+
+                <div class="row g-3">
+
+                <div class="col-12">
+                    <div wicket:id="texto"></div>
+                </div>
+
+                <div class="col-12">
+                    <div wicket:id="titulo"></div>
+                </div>
+
+                    <!-- Voces jurídicas -->
+                    <div class="col-12">
+                        <label for="voces" class="form-label">
+                            Voces jurídicas
+                        </label>
+                        <input id="voces"
+                               name="voces"
+                               type="text"
+                               class="form-control"
+                               placeholder="Voces del tesauro jurídico..." />
+                    </div>
+
+                <div class="col-12 col-md-6">
+                    <div wicket:id="desdeFecha"></div>
+                </div>
+
+                <div class="col-12 col-md-6">
+                    <div wicket:id="hastaFecha"></div>
+                </div>
+                
+                <!-- Cita Jurisprudencia -->
+                <div class="col-12 col-md-6">
+                    <div wicket:id="citaJurisprudencia"></div>
+                </div>
+                
+                <div class="col-12 col-md-6">
+                    <div wicket:id="referenciaNormativa"></div>
+                </div>
+                </div>
+
+                <!-- Acciones -->
+            <div class="d-flex justify-content-end mt-4">
+                <div class="advanced-search-submit">
+                    <button wicket:id="submit" type="submit"
+                            class="btn btn-primary">
+                        Buscar
+                    </button>
+
+                    <a wicket:id="simple"
+                       class="simple-search-link">
+                        búsqueda simple
+                    </a>
+                </div>
+            </div>
+
+			</form>
+
+        </div>
+
+    </div>
+
+</wicket:panel>
+
+

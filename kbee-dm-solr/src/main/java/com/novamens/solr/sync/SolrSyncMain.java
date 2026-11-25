@@ -21,8 +21,6 @@ public class SolrSyncMain {
             System.exit(1);
         }
 
-        //String path = "C:\\novamens\\soft\\solr-8.0.0\\server\\solr\\test_core\\conf\\schema.json";
-        //String baseSolrUrl = "http://localhost:8983/solr/test_core2";
         try {
             File jsonFile = ResourceUtils.getFile(appParams.getJsonConfigPath());
             try (InputStream jsonStream = new FileInputStream(jsonFile)) {

@@ -27,7 +27,7 @@ import kbee.api.model.IResultSet;
 import kbee.api.model.IRole;
 import kbee.api.model.ISettings;
 import kbee.api.model.ITemplate;
-import kbee.api.model.IToken;
+import kbee.api.model.ApiToken;
 import kbee.api.model.ITransaction;
 import kbee.api.model.ApiUser;
 
@@ -60,7 +60,7 @@ public interface ApiService {
 	
 	public List<IFacet> getFacets();
 	
-	public IToken getToken();
+	public ApiToken getToken();
 	
 	public List<ITemplate> getTemplates();
 	public ITemplate getTemplate(String id);

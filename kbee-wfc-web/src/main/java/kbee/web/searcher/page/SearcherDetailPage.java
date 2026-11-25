@@ -29,7 +29,6 @@ import kbee.web.searcher.searchform.SearcherOnChangeEvent;
 /**
  * @param <T>
  */
-@SuppressWarnings("serial")
 public class SearcherDetailPage<T extends Content> extends AbstractSearcherPage<T> {
 	private static final long serialVersionUID = 1L;
 

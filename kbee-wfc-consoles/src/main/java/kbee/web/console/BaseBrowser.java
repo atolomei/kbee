@@ -100,6 +100,10 @@ public abstract class BaseBrowser<T>  extends KBPanel implements Browser<T> {
 		return false;
 	}
 	
+	public boolean isReadOnly() {
+		return false;
+	}
+	
 	protected Layout getLayout() {
 		return layout;
 	}

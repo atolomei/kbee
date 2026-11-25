@@ -447,8 +447,11 @@ public class KbeeSpringSecurityDao extends JdbcDaoSupport implements UserDetails
     }
     
 	public String getUsersByUserNameQuery() {
-		if(usersByUserNameQuery==null)
-			usersByUserNameQuery= "select id, username, password, enabled, validityaccessdate from "+getSchema()+ "users where username = ?";
+		if(usersByUserNameQuery==null) {
+			usersByUserNameQuery =  "select id, username, password, enabled, validityaccessdate " +
+		    	    "from " + getSchema() + "users " +
+		    	    "where LOWER(username) = LOWER(?)";
+		}	
 		return usersByUserNameQuery;
     }
 	

@@ -194,6 +194,10 @@ public abstract class DataViewPanel<T> extends KBPanel {
 		getDataView().setCurrentPage(page);
 	}
 	
+	public boolean isReadOnly() {
+		return false;
+	}
+	
 	public boolean isFirstPage() {
 		return getCurrentPage()==0;
 	}

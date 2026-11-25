@@ -47,14 +47,10 @@ import kbee.web.search.service.SiteSearchSuggestionService;
 import kbee.web.searcher.searchform.AdvancedSearchClickEvent;
 import kbee.web.searcher.searchform.BaseSearcherForm;
 
-@SuppressWarnings("serial")
 public class SearcherForm extends BaseSearcherForm<Site> {
 	private static final long serialVersionUID = 1L;
 
 	HashMap<String, Object> parameters = new HashMap<String, Object>();
-
-	//@SuppressWarnings("unused")
-	//private static kbee.util.logging.Logger logger = kbee.util.logging.Logger.getLogger(SearcherForm.class.getName());
 	
 	private String text;
 	boolean is_initialized = false;
@@ -161,13 +157,10 @@ public class SearcherForm extends BaseSearcherForm<Site> {
 		Link<Void> av=new Link<Void>("explorer") {
 			@Override
 			public void onClick() {
-				// fire(new AdvancedSearchClickEvent(target));
 				fire(new ExplorerOpenEvent<Site>(SearcherForm.this.getModel()));
-			
 			}
-			
 			public boolean isVisible() {
-				return isAdvancedSearchLinkVisible();
+				return isExplorerLinkVisible();
 			}
 			
 		};

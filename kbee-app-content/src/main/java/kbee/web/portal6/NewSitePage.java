@@ -9,10 +9,9 @@ import org.apache.wicket.model.StringResourceModel;
 import com.novamens.content.entity.Person;
 import com.novamens.portal6.model.Site;
 
+import kbee.web.nav.GlobalNavigationBar;
 import kbee.web.page.AbstractApplicationPage;
 import kbee.web.page.ApplicationMenuSection;
-
-import com.novamens.content.web.nav.markup.GlobalNavigationBar;
 
 public class NewSitePage extends AbstractApplicationPage<NewSiteData> {
 

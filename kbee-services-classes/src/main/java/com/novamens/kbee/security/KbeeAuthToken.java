@@ -11,6 +11,7 @@ public class KbeeAuthToken implements AuthToken {
 	private static Random Random = new Random();
 	
 	private String tokenValue;
+	private String refreshToken;
 	private OffsetDateTime time;
 	private int duration;
 	
@@ -28,6 +29,14 @@ public class KbeeAuthToken implements AuthToken {
 	
 	public String getTokenValue() {
 		return tokenValue;
+	}
+	
+	public void setRefreshToken(String tokenValue) {
+		this.refreshToken = tokenValue;
+	}
+	
+	public String getRefreshToken() {
+		return refreshToken;
 	}
 	
 	public boolean isValid() {

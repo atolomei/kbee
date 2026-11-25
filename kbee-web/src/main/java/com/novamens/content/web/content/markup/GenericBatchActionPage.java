@@ -17,13 +17,13 @@ import org.apache.wicket.model.StringResourceModel;
 
 import com.novamens.content.base.Content;
 import com.novamens.content.entity.Person;
-import com.novamens.content.web.nav.markup.GlobalNavigationBar;
 import com.novamens.content.workflow.WorkflowService;
 import com.novamens.dom.DomainType;
 import com.novamens.kbee.wicket.util.InvisiblePanel;
 import com.novamens.wicket.util.BCElement;
 import com.novamens.wicket.util.MenuBreadCrumbPanel;
 
+import kbee.web.nav.GlobalNavigationBar;
 import kbee.web.nav.TasksDropDownMenuBC;
 import kbee.web.nav.WorkspaceBC;
 import kbee.web.page.AbstractApplicationPage;

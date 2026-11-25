@@ -23,6 +23,8 @@ import com.novamens.security.User;
 import com.novamens.solr.indexer.multidimensional.SolrCube;
 import com.novamens.wicket.markup.html.panel.KBPanel;
 
+import kbee.web.searcher.page.AbstractSearcherPage;
+
 public class BaseSearcherForm<T> extends KBPanel implements SearcherFormPanel<T> {
 	private static final long serialVersionUID = 1L;
 
@@ -35,6 +37,8 @@ public class BaseSearcherForm<T> extends KBPanel implements SearcherFormPanel<T>
 	private String domainName;
 
 	private boolean advancedSearchLinkVisible = false;
+	
+	private Boolean explorerLinkVisible = null;
 
 	private IModel<String> label;
 
@@ -73,6 +77,15 @@ public class BaseSearcherForm<T> extends KBPanel implements SearcherFormPanel<T>
 
 	public boolean isAdvancedSearchLinkVisible() {
 		return advancedSearchLinkVisible;
+	}
+	
+	public boolean isExplorerLinkVisible() {
+		if (explorerLinkVisible==null) {
+			explorerLinkVisible  = getPage() instanceof AbstractSearcherPage<?>
+				? ((AbstractSearcherPage<?>)getPage()).getSiteConfig().isExplorer()
+				: false;		
+		}
+		return explorerLinkVisible;
 	}
 
 	@Override
@@ -190,14 +203,6 @@ public class BaseSearcherForm<T> extends KBPanel implements SearcherFormPanel<T>
 	protected Index getQueryIndex() {
 		return getDomain().getService(JavaIndexerService.class).getIndex();
 	}
-
-//	protected User getSessionUser() {
-//		return ServiceLocator.getService(SecurityService.class).getSessionUser();
-//	}
-//	
-//	protected Domain getDomain() {
-//		return ServiceLocator.getService(UserService.class).getDomain();
-//	}
 
 	protected void onChange(AjaxRequestTarget target, Map<String, Object> parameters) {
 		fire(new SearcherOnChangeEvent(target, parameters));

@@ -19,7 +19,6 @@ import com.novamens.service.ServiceLocator;
 
 import kbee.web.command.panel.CommandAttributePanelV5;
 
-@SuppressWarnings("serial")
 public class AASummaryPanel<T extends Content> extends ModelPanel<T> {
 	private static final long serialVersionUID = 1L;
 	

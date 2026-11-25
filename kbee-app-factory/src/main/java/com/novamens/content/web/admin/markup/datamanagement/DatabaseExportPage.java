@@ -14,7 +14,6 @@ import org.apache.wicket.request.mapper.parameter.PageParameters;
 import com.novamens.content.entity.Person;
 import com.novamens.datetime.DateTimeService;
 import com.novamens.dom.Domain;
-import com.novamens.content.web.nav.markup.GlobalNavigationBar;
 import com.novamens.security.User;
 import com.novamens.service.SecurityService;
 import com.novamens.service.ServiceLocator;

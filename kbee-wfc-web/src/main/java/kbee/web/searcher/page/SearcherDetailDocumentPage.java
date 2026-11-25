@@ -65,7 +65,6 @@ import kbee.web.searcher.panel.SearcherDetailMainPanel;
 import kbee.web.searcher.panel.SearcherDetailToolsPanel;
 import kbee.web.util.PanelBeanResolver;
 
-@SuppressWarnings("serial")
 public class SearcherDetailDocumentPage<T extends Content> extends SearcherDetailPage<T> implements EventHandler, NavigablePage<T> {
 	private static final long serialVersionUID = 1L;
 
@@ -146,6 +145,17 @@ public class SearcherDetailDocumentPage<T extends Content> extends SearcherDetai
 		this.panel.setTitle(getLabel("sections"));
 		this.panel.setMenuItemFactory(getMenuItems());
 		this.mc.add(this.panel);
+		
+		if (getSiteConfig()!=null) {
+			this.mc.add(new AttributeModifier(
+				"class",
+				new Model<String>() {
+					public String getObject() {
+						return getSiteConfig().getCssClass();
+					}
+				}
+			));
+		}
 
 		addBreadcrumbPanelPanel();
 		addToolsPanel();

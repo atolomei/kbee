@@ -8,12 +8,12 @@ import com.novamens.content.communication.OrganizationalText;
 import com.novamens.content.document.IDoc;
 import com.novamens.content.security.ContentSystemSecurityService;
 import com.novamens.content.web.console.markup.ErrorPanel;
-import com.novamens.content.web.nav.markup.GlobalNavigationBar;
 import com.novamens.kbee.content.workflow.KbeeContext;
 import com.novamens.service.ServiceLocator;
 import com.novamens.workflow.WorkflowContext;
 
 import kbee.web.content.workflow.TaskToolBarPanel;
+import kbee.web.nav.GlobalNavigationBar;
 import kbee.web.page.ApplicationMenuSection;
 import kbee.web.workflow.task.TaskPage;
 import kbee.web.workflow.util.WorkflowContextModel;

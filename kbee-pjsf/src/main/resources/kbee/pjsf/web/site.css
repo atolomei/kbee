@@ -1,0 +1,722 @@
+/* =========================================================
+   PORTAL JURÍDICO — ESTILOS ORGANIZADOS
+   Bootstrap 5 / Wicket / FreeMarker
+   ========================================================= */
+
+/* =========================================================
+   01. HOME — BÚSQUEDA AVANZADA
+   ========================================================= */
+
+/* 01.1. Contenedor y tarjetas */
+.kbee .pjsf .advanced-search {
+    display: block;
+    width: 100%;
+    max-width: none;
+    margin: 0;
+    padding: 100px 26px 30px;
+    box-sizing: border-box;
+    background: transparent;
+}
+
+.kbee .pjsf .advanced-search .card {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    background: transparent;
+    border: 0;
+    border-radius: 0;
+    box-shadow: none !important;
+}
+
+.kbee .pjsf .advanced-search .card-header {
+    display: none;
+}
+
+.kbee .pjsf .advanced-search .card-body {
+    padding: 0;
+    background: transparent;
+}
+
+.kbee .pjsf .advanced-search .card,
+.kbee .pjsf .advanced-search .card-body,
+.kbee .pjsf .advanced-search form {
+    position: relative;
+    top: auto;
+    margin-top: 0;
+}
+
+/* 01.2. Distribución de campos */
+.kbee .pjsf .advanced-search .row.g-3 {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 0 -15px;
+    row-gap: 20px;
+}
+
+.kbee .pjsf .advanced-search .row.g-3 > div {
+    float: none;
+    position: relative;
+    min-width: 0;
+    padding: 0 15px;
+    box-sizing: border-box;
+}
+
+.kbee .pjsf .advanced-search .col-12 {
+    width: 100%;
+}
+
+@media (min-width: 768px) {
+    .kbee .pjsf .advanced-search .col-md-6 {
+        width: 50%;
+    }
+}
+
+@media (min-width: 1200px) {
+    .kbee .pjsf .advanced-search .col-lg-4 {
+        width: 33.333333%;
+    }
+}
+
+/* 01.3. Etiquetas y controles */
+.kbee .pjsf .advanced-search .form-label,
+.kbee .pjsf .advanced-search .field .control-label label {
+    display: block;
+    margin: 0 0 7px;
+    color: #fff;
+    font-size: 13px;
+    font-weight: 700;
+    line-height: 1.3;
+    text-transform: uppercase;
+}
+
+.kbee .pjsf .advanced-search .form-control,
+.kbee .pjsf .advanced-search .form-select,
+.kbee .pjsf .advanced-search .field input.form-control {
+    display: block;
+    width: 100%;
+    height: 38px;
+    padding: 7px 12px;
+    box-sizing: border-box;
+    background: #fff;
+    color: #333;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-shadow: none;
+    font-size: 14px;
+}
+
+.kbee .pjsf .advanced-search .form-control:focus,
+.kbee .pjsf .advanced-search .form-select:focus {
+    border-color: #80bdff;
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(255,255,255,.2);
+}
+
+/* 01.4. Campos generados por Wicket */
+.kbee .pjsf .advanced-search .field,
+.kbee .pjsf .advanced-search .field .falsecontainer-panel {
+    display: block;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+.kbee .pjsf .advanced-search .field .control-label {
+    display: block;
+    width: 100%;
+    margin: 0 0 7px;
+    padding: 0;
+}
+
+.kbee .pjsf .advanced-search .field .control-label label {
+    margin-bottom: 0;
+}
+
+/* 01.5. Pestañas: TabbedPanel estándar de Wicket */
+.kbee .pjsf .advanced-search .tab-row {
+    display: flex;
+    align-items: flex-end;
+    gap: 6px;
+    width: 100%;
+    margin: 0 0 24px;
+    padding: 0;
+    border-bottom: 1px solid rgba(255,255,255,.45);
+}
+
+.kbee .pjsf .advanced-search .tab-row ul {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    gap: 6px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.kbee .pjsf .advanced-search .tab-row li {
+    float: none;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    background: transparent;
+    border: 0;
+}
+
+.kbee .pjsf .advanced-search .tab-row li a {
+    display: block;
+    padding: 12px 24px;
+    color: rgba(255,255,255,.85);
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 1.4;
+    text-decoration: none;
+    background: transparent;
+    border: 0;
+    border-bottom: 3px solid transparent;
+    border-radius: 6px 6px 0 0;
+    transition: background .15s, color .15s;
+}
+
+.kbee .pjsf .advanced-search .tab-row li a:hover {
+    color: #fff;
+    background: rgba(255,255,255,.12);
+    text-decoration: none;
+}
+
+.kbee .pjsf .advanced-search .tab-row li.selected {
+    background: #fff;
+    border-radius: 6px 6px 0 0;
+}
+
+.kbee .pjsf .advanced-search .tab-row li.selected a,
+.kbee .pjsf .advanced-search .tab-row li.selected a:hover {
+    color: #173b78;
+    font-weight: 700;
+    background: #fff;
+    border-bottom-color: #fff;
+    opacity: 1;
+}
+
+/* 01.6. Compatibilidad con pestañas personalizadas */
+.kbee .pjsf .advanced-search .search-tabs {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    gap: 6px;
+    width: 100%;
+    margin: 0 0 24px;
+    padding: 0;
+    border-bottom: 1px solid rgba(255,255,255,.45);
+}
+
+.kbee .pjsf .advanced-search .search-tab {
+    display: inline-block;
+    padding: 12px 24px;
+    color: rgba(255,255,255,.85);
+    font-size: 14px;
+    font-weight: 600;
+    text-decoration: none;
+    background: transparent;
+    border-bottom: 3px solid transparent;
+    border-radius: 6px 6px 0 0;
+}
+
+.kbee .pjsf .advanced-search .search-tab:hover {
+    color: #fff;
+    background: rgba(255,255,255,.12);
+    text-decoration: none;
+}
+
+.kbee .pjsf .advanced-search .search-tab.active {
+    color: #173b78;
+    font-weight: 700;
+    background: #fff;
+    border-bottom-color: #fff;
+}
+
+.kbee .pjsf .advanced-search .tab-panel,
+.kbee .pjsf .advanced-search .search-tab-content {
+    width: 100%;
+    min-width: 0;
+}
+
+/* 01.7. Botones y acciones */
+.kbee .pjsf .advanced-search .d-flex.justify-content-end {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 12px;
+    margin-top: 28px;
+}
+
+.kbee .pjsf .advanced-search .btn {
+    min-width: 130px;
+    height: 38px;
+    padding: 8px 20px;
+    border-radius: 4px;
+    font-size: 13px;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+.kbee .pjsf .advanced-search .btn-primary {
+    background: transparent;
+    color: #fff;
+    border: 1px solid #fff;
+}
+
+.kbee .pjsf .advanced-search .btn-primary:hover {
+    background: rgba(255,255,255,.15);
+    color: #fff;
+}
+
+.kbee .pjsf .advanced-search .btn-outline-secondary {
+    background: transparent;
+    color: #fff;
+    border: 1px solid rgba(255,255,255,.5);
+}
+
+.kbee .pjsf .advanced-search .btn-outline-secondary:hover {
+    background: rgba(255,255,255,.12);
+    color: #fff;
+}
+
+.kbee .pjsf .advanced-search .advanced-search-submit {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+}
+
+.kbee .pjsf .advanced-search .simple-search-link {
+    color: #fff;
+    font-size: 13px;
+    font-weight: 400;
+    text-decoration: none;
+    white-space: nowrap;
+}
+
+.kbee .pjsf .advanced-search .simple-search-link:hover {
+    color: #fff;
+    text-decoration: underline;
+}
+
+/* 01.8. Responsive del buscador */
+@media (max-width: 767px) {
+    .kbee .pjsf .advanced-search {
+        padding-left: 16px;
+        padding-right: 16px;
+    }
+
+    .kbee .pjsf .advanced-search .tab-row li a,
+    .kbee .pjsf .advanced-search .search-tab {
+        padding: 10px 14px;
+        font-size: 13px;
+    }
+
+    .kbee .pjsf .advanced-search .row.g-3 > div {
+        width: 100%;
+    }
+}
+
+/* 02. TEXTO JURÍDICO — CONTENEDORES COMPARTIDOS */
+.kbee .pjsf .fallo-container,
+.kbee .pjsf .fallo-sumarios {
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 17px;
+    font-weight: 400;
+    line-height: 1.75;
+    color: #30343b;
+    max-width: 900px;
+    margin: 24px auto;
+    padding: 0 20px;
+    box-sizing: border-box;
+    overflow-wrap: break-word;
+}
+
+/* 03. TEXTO DEL FALLO */
+.kbee .pjsf .fallo-container p {
+    font-size: inherit;
+    line-height: inherit;
+    margin: 0 0 1.4em;
+    text-align: left;
+}
+.kbee .kbsearcher .pjsf h1 {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 1.4;
+    max-width: 900px;
+    color: #243b53;
+    text-align: left;
+    margin: 0 0 14px;
+}
+.kbee .pjsf .fallo-container h1,
+.kbee .pjsf .fallo-container h2,
+.kbee .pjsf .fallo-container h3 {
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: 600;
+    color: #243b53;
+    line-height: 1.4;
+    margin: 1.8em 0 .8em;
+}
+.kbee .pjsf .fallo-container h1 { font-size: 16px; }
+.kbee .pjsf .fallo-container h2 { font-size: 1.25rem; }
+.kbee .pjsf .fallo-container h3 { font-size: 1.1rem; }
+
+/* 04. ELEMENTOS HTML COMPARTIDOS: FALLOS Y SUMARIOS */
+.kbee .pjsf .fallo-container blockquote,
+.kbee .pjsf .sumario-texto blockquote {
+    margin: 24px 0;
+    padding: 12px 24px;
+    border-left: 3px solid #8ca6c0;
+    background: #f7f9fc;
+    color: #46515d;
+}
+.kbee .pjsf .fallo-container strong,
+.kbee .pjsf .fallo-container b,
+.kbee .pjsf .sumario-texto strong,
+.kbee .pjsf .sumario-texto b { font-weight: 700; }
+.kbee .pjsf .sumario-texto em,
+.kbee .pjsf .sumario-texto i { font-style: italic; }
+.kbee .pjsf .fallo-container ul,
+.kbee .pjsf .fallo-container ol,
+.kbee .pjsf .sumario-texto ul,
+.kbee .pjsf .sumario-texto ol {
+    padding-left: 30px;
+    margin: 12px 0 20px;
+}
+.kbee .pjsf .fallo-container li,
+.kbee .pjsf .sumario-texto li { margin-bottom: 8px; }
+.kbee .pjsf .fallo-container a,
+.kbee .pjsf .sumario-texto a {
+    color: #245b91;
+    text-decoration: none;
+}
+.kbee .pjsf .fallo-container a:hover,
+.kbee .pjsf .sumario-texto a:hover { text-decoration: underline; }
+.kbee .pjsf .fallo-container table,
+.kbee .pjsf .sumario-texto table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    font-size: 15px;
+}
+.kbee .pjsf .fallo-container th,
+.kbee .pjsf .fallo-container td,
+.kbee .pjsf .sumario-texto th,
+.kbee .pjsf .sumario-texto td {
+    padding: 10px 12px;
+    border: 1px solid #dce2e8;
+    text-align: left;
+    vertical-align: top;
+}
+.kbee .pjsf .fallo-container th,
+.kbee .pjsf .sumario-texto th {
+    background: #f4f6f8;
+    font-weight: 600;
+}
+
+/* 05. SUMARIOS DENTRO DEL FALLO */
+.kbee .pjsf .fallo-sumarios {
+    margin-top: 32px;
+    margin-bottom: 40px;
+}
+.kbee .pjsf .fallo-sumarios .sumarios-heading {
+    display: block;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 22px;
+    font-weight: 600;
+    line-height: 1.4;
+    color: #253b55;
+    margin: 0 0 24px;
+    padding: 0;
+}
+.kbee .pjsf .fallo-sumarios .sumario-item {
+    padding: 24px 0;
+    border-bottom: 1px solid #e0e4e8;
+}
+.kbee .pjsf .fallo-sumarios .sumario-item:first-of-type { padding-top: 0; }
+.kbee .pjsf .fallo-sumarios .sumario-item:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+}
+.kbee .pjsf .fallo-sumarios .sumario-title {
+    display: block;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 17px;
+    font-weight: 600;
+    line-height: 1.5;
+    color: #253b55;
+    margin: 0 0 14px;
+    padding: 0;
+}
+.kbee .pjsf .fallo-sumarios .sumario-texto {
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 17px;
+    font-weight: 400;
+    line-height: 1.85;
+    color: #30343b;
+    text-align: justify;
+    overflow-wrap: break-word;
+}
+
+/* 06. CONTENIDO INTERNO DE LOS SUMARIOS */
+.kbee .pjsf .sumario-texto p {
+    font-size: inherit;
+    line-height: inherit;
+    margin: 0 0 1.6em;
+    text-align: justify;
+}
+.kbee .pjsf .sumario-texto p:last-child { margin-bottom: 0; }
+.kbee .pjsf .sumario-texto h4,
+.kbee .pjsf .sumario-texto h5 {
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: 600;
+    line-height: 1.4;
+    color: #34495e;
+    margin: 18px 0 10px;
+}
+.kbee .pjsf .sumario-texto h4 { font-size: 17px; }
+.kbee .pjsf .sumario-texto h5 { font-size: 16px; }
+
+/* 07. SUMARIO — VISTA INDIVIDUAL */
+.kbee .pjsf .fallo-sumario-detalle {
+    max-width: 900px;
+    margin: 24px auto;
+    padding: 0 20px;
+    box-sizing: border-box;
+}
+.kbee .pjsf .fallo-sumario-detalle .sumario-title {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 19px;
+    font-weight: 600;
+    line-height: 1.5;
+    color: #253b55;
+    margin: 0 0 22px;
+}
+.kbee .pjsf .fallo-sumario-detalle .sumario-texto {
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 17px;
+    font-weight: 400;
+    line-height: 1.85;
+    color: #30343b;
+    text-align: left;
+    overflow-wrap: break-word;
+}
+.kbee .pjsf .fallo-sumario-detalle .sumario-texto p {
+    margin: 0 0 1.4em;
+    text-align: left;
+}
+.kbee .pjsf .fallo-sumario-detalle .sumario-texto p:last-child { margin-bottom: 0; }
+
+/* 08. FALLO RELACIONADO CON EL SUMARIO */
+.kbee .pjsf .sumario-fallo {
+    margin-top: 36px;
+    padding: 18px 22px;
+    background: #f7f9fc;
+    border: 1px solid #e1e7ef;
+    border-radius: 6px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+.kbee .pjsf .sumario-fallo-label {
+    color: #738096;
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: .5px;
+    margin-bottom: 10px;
+}
+.kbee .pjsf .sumario-fallo-caratula {
+    color: #253b55;
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 1.5;
+    margin-bottom: 8px;
+}
+.kbee .pjsf .sumario-fallo-metadata {
+    color: #738096;
+    font-size: 12px;
+    margin-bottom: 12px;
+}
+.kbee .pjsf .sumario-fallo-link {
+    display: inline-block;
+    color: #245b91;
+    font-size: 13px;
+    font-weight: 600;
+    text-decoration: none;
+}
+.kbee .pjsf .sumario-fallo-link:hover { text-decoration: underline; }
+
+/* 09. REFERENCIAS JURISPRUDENCIALES */
+.kbee .pjsf .sumario-referencias {
+    display: flow-root;
+    margin: 28px 0 0;
+    padding: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    clear: both;
+}
+.kbee .pjsf .sumario-referencias h3 {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    line-height: 1.4;
+    color: #173b78;
+    margin: 0 0 10px;
+    padding: 0;
+    text-transform: none;
+}
+.kbee .pjsf .sumario-referencias ul {
+    display: block;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+.kbee .pjsf .sumario-referencias li {
+    display: list-item;
+    position: relative;
+    font-size: 13px;
+    font-weight: 400;
+    line-height: 1.6;
+    color: #46515d;
+    margin: 0 0 10px;
+    padding: 0 0 0 14px;
+    overflow-wrap: anywhere;
+}
+.kbee .pjsf .sumario-referencias li::before {
+    content: "•";
+    position: absolute;
+    left: 0;
+    top: 0;
+    color: #8ca6c0;
+}
+.kbee .pjsf .sumario-referencias li:last-child { margin-bottom: 0; }
+.kbee .pjsf .referencia-cita {
+    font-size: 15px;
+    font-weight: 600;
+    color: #243d63;
+}
+.kbee .pjsf .referencia-evidencia {
+    margin-top: 3px;
+    padding-left: 10px;
+    border-left: 2px solid #d5dce6;
+    color: #667085;
+    font-size: 14px;
+    line-height: 1.5;
+    font-style: italic;
+}
+
+/* 10. FICHA DEL FALLO — ESTILOS GENERALES */
+.kbee .pjsf .fallo-ficha {
+    width: 100%;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 16px 20px;
+    background: transparent;
+    border: none;
+    border-radius: 0;
+    color: #25324a;
+    font-size: 13px;
+    font-weight: 400;
+}
+.kbee .pjsf .fallo-ficha-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 16px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #dfe4eb;
+    color: #173b78;
+    font-size: 12px;
+    font-weight: 600;
+    line-height: 1.4;
+}
+.kbee .pjsf .fallo-ficha-id {
+    color: #8792a3;
+    font-size: 11px;
+    font-weight: 400;
+    white-space: nowrap;
+}
+.kbee .pjsf .fallo-ficha-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    column-gap: 24px;
+    row-gap: 16px;
+}
+.kbee .pjsf .fallo-ficha-campo {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    min-width: 0;
+}
+.kbee .pjsf .fallo-ficha-campo label {
+    display: block;
+    margin: 0;
+    padding: 0;
+    color: #738096;
+    font-size: 11px;
+    font-weight: 600;
+    line-height: 1.35;
+}
+.kbee .pjsf .fallo-ficha-campo span {
+    display: block;
+    color: #25324a;
+    font-size: 13px;
+    font-weight: 400;
+    line-height: 1.5;
+    overflow-wrap: anywhere;
+}
+.kbee .pjsf .fallo-ficha-full { grid-column: 1 / -1; }
+.kbee .pjsf .fallo-ficha-campo:empty { display: none; }
+.kbee .pjsf .fallo-ficha .fallo-ficha-jueces {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    column-gap: 24px;
+    row-gap: 6px;
+    list-style: none;
+    margin: 6px 0 0;
+    padding: 0;
+}
+.kbee .pjsf .fallo-ficha .fallo-ficha-jueces li {
+    font-size: 13px;
+    line-height: 1.5;
+    color: #25324a;
+}
+
+/* 11. FICHA — VARIANTES DE CONTEXTO */
+.kbee .pjsf .fallo-ficha.fallo-ficha-busqueda { padding: 16px 20px; }
+.kbee .pjsf .fallo-ficha-busqueda .fallo-ficha-grid { gap: 16px 24px; }
+.kbee .pjsf .fallo-ficha-busqueda .fallo-ficha-campo label {
+    color: #738096;
+    font-size: 11px;
+}
+.kbee .pjsf .fallo-ficha.fallo-ficha-documento { padding: 20px 0; }
+.kbee .pjsf .fallo-ficha-documento .fallo-ficha-grid { gap: 22px 28px; }
+.kbee .pjsf .fallo-ficha-documento .fallo-ficha-campo label {
+    color: #173b78;
+    font-size: 13px;
+}
+.kbee .pjsf .fallo-ficha-documento .fallo-ficha-campo span {
+    font-size: 13px;
+    line-height: 1.55;
+}
+
+/* 12. RESPONSIVE */
+@media (max-width: 768px) {
+    .kbee .pjsf .fallo-container,
+    .kbee .pjsf .fallo-sumarios {
+        font-size: 16px;
+        line-height: 1.75;
+        padding: 0 16px;
+    }
+    .kbee .pjsf .fallo-sumarios .sumario-texto {
+        font-size: 16px;
+        line-height: 1.75;
+    }
+    .kbee .pjsf .fallo-sumarios .sumarios-heading { font-size: 20px; }
+    .kbee .pjsf .fallo-sumarios .sumario-title { font-size: 16px; }
+    .kbee .pjsf .fallo-sumarios .sumario-item { padding: 20px 0; }
+    .kbee .pjsf .fallo-container p,
+    .kbee .pjsf .sumario-texto p { margin-bottom: 1.3em; }
+}

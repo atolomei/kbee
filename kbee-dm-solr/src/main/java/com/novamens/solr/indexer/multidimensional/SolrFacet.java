@@ -7,7 +7,7 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Locale;
 
-import org.apache.solr.client.solrj.SolrQuery;
+import org.apache.solr.client.solrj.request.SolrQuery;
 import org.apache.solr.client.solrj.response.FacetField;
 import org.apache.solr.client.solrj.response.FacetField.Count;
 import org.springframework.util.Assert;

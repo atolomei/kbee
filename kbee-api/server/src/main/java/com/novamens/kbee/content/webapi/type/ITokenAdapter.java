@@ -3,17 +3,17 @@ package com.novamens.kbee.content.webapi.type;
 
 import com.novamens.security.AuthToken;
 
-import kbee.api.model.IToken;
+import kbee.api.model.ApiToken;
 
-public class ITokenAdapter implements Adapter<AuthToken, IToken> {
+public class ITokenAdapter implements Adapter<AuthToken, ApiToken> {
 	
 	
 	public ITokenAdapter() {
 	}
 	
-	public IToken adapt(AuthToken token) {
+	public ApiToken adapt(AuthToken token) {
 		
-		IToken itoken = new IToken();
+		ApiToken itoken = new ApiToken();
 		
 		itoken.setValue(token.getTokenValue());
 		itoken.setLifeTime(token.getLifeTime());

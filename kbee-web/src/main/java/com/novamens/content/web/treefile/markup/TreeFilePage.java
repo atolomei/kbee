@@ -5,10 +5,10 @@ import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.apache.wicket.util.string.StringValue;
 
 import com.novamens.content.document.TreeFile;
-import com.novamens.content.web.nav.markup.GlobalNavigationBar;
 import com.novamens.wicket.model.ObjectModel;
 
 import kbee.web.error.ErrorPanel;
+import kbee.web.nav.GlobalNavigationBar;
 import kbee.web.page.AbstractApplicationPage;
 
 public class TreeFilePage  extends AbstractApplicationPage<TreeFile> {

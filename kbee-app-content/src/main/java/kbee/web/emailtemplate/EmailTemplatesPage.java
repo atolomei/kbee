@@ -13,7 +13,6 @@ import org.apache.wicket.request.mapper.parameter.PageParameters;
 
 import com.novamens.content.base.Content;
 import com.novamens.content.email.EmailTemplate;
-import com.novamens.content.web.nav.markup.GlobalNavigationBar;
 import com.novamens.dom.DomainType;
 import com.novamens.indexer.query.Query;
 import com.novamens.kbee.content.support.Tip;
@@ -26,6 +25,7 @@ import com.novamens.wicket.util.MenuBreadCrumbPanel;
 
 import kbee.web.console.Console;
 import kbee.web.console.ConsolePage;
+import kbee.web.nav.GlobalNavigationBar;
 import kbee.web.nav.HomeBC;
 import kbee.web.nav.SettingsDropDownBC;
 import kbee.web.page.ApplicationMenuSection;

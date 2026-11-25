@@ -32,7 +32,6 @@ import com.novamens.content.web.console.markup.DashboardPage;
 import com.novamens.content.web.console.markup.ErrorPanel;
 import com.novamens.content.web.console.markup.searchselector.AdvancedSearchButton;
 import com.novamens.dom.DomainType;
-import com.novamens.content.web.nav.markup.GlobalNavigationBar;
 import com.novamens.indexer.query.Query;
 import com.novamens.indexer.query.TextFilter;
 import com.novamens.kbee.content.domain.provisioning.DomainModelBuilderService;
@@ -51,6 +50,7 @@ import com.novamens.wicket.util.BCElement;
 import com.novamens.wicket.util.MenuBreadCrumbPanel;
 
 import kbee.web.error.ErrorNotAuthorizedPanel;
+import kbee.web.nav.GlobalNavigationBar;
 import kbee.web.nav.HomeBC;
 import kbee.web.nav.TasksDropDownMenuBC;
 import kbee.web.page.AbstractApplicationPage;

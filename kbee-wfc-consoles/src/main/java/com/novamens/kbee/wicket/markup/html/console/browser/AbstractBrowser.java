@@ -109,10 +109,10 @@ public abstract class AbstractBrowser<T> extends BaseBrowser<T> {
 			return true;
 		return false;
 	}
-
+	
 	
 	protected boolean isDefaultTopPanelVisible() {
-			return false;
+		return false;
 	}
 	
 	@Override

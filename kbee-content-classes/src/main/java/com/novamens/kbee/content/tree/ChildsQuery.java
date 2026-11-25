@@ -46,47 +46,9 @@ public class ChildsQuery extends SolrQuery {
 	protected String getReadersStatement() {
 		
 		String statement = QueryHelpher.buildSecurityTerm(KbeePermission.READ);
-
-		
-//		SecurityService service = ServiceLocator.getService(SecurityService.class);
-//		
-//		User user = service.getSessionUser();
-//		
-//		boolean admin = service.isMember(KbeeGlobalRole.DOMAIN_ADMIN.getId()); 
-//		boolean support = service.isMember(KbeeGlobalRole.SUPPORT.getId());
-//		
-//		if (!service.isRoot() && !admin && !support) {
-//			List<String> readers = new ArrayList<>();
-//			readers.add(String.valueOf(user.getId()));
-//			for (Group group : user.getGroups()) {
-//				readers = getReaders(group, readers);
-//			}
-//			for (String principal : readers) {
-//				if ("".equals(statement))
-//					statement += "reader:(";
-//				else
-//					statement += " OR ";
-//				statement += principal;
-//			}
-//			statement +=")";
-//		}	
 		
 		return statement;
 	}
 
-//	protected List<String> getReaders(Group group, List<String> readers) {
-//	
-//		String id = ((KbeeGroup)group).getId().toString();
-//	
-//		if (readers.contains(id)) 
-//			return readers;
-//		
-//		readers.add(id);
-//	
-//		for (Group parent : ((KbeeGroup)group).getGroups()) {
-//			readers = getReaders(parent, readers);
-//		}
-//		
-//		return readers;
-//	}
+
 }

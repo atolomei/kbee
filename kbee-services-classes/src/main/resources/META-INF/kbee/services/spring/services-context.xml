@@ -18,25 +18,46 @@ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 		<constructor-arg value="/login"/>
 	</bean>
 	
-	<bean id="com.novamens.security.service.SecurityServiceFactory" 
-		class="com.novamens.spring.service.SpringSystemServiceFactory">
-		<property name="bean" value="com.novamens.security.service.SecurityService"/>
-	</bean>
-	
-	<bean id="com.novamens.security.service.SecurityService" 
-		class="com.novamens.kbee.security.WebSecurityService">
-		<property name="securityDao" ref="securityDao"/>
-		<property name="privateKey" ref="internalPrivateKey"/>
-	</bean>	
-	
-	<bean id="internalPrivateKeyFactory"
-		class="com.novamens.kbee.security.jwt.InternalPrivateKeyFactory">
-	</bean>
-	
-	<bean id="internalPrivateKey"
-		factory-bean="internalPrivateKeyFactory"
-		factory-method="createPrivateKey"/>
-	
+	<!-- Security Service -->
+
+		<bean id="com.novamens.security.service.SecurityServiceFactory"
+		      class="com.novamens.spring.service.SpringSystemServiceFactory">
+		
+		    <property name="bean"
+		              value="com.novamens.security.service.SecurityService"/>
+		</bean>
+		
+		<bean id="com.novamens.security.service.SecurityService"
+		      class="com.novamens.kbee.security.WebSecurityService">
+		
+		    <property name="securityDao" ref="securityDao"/>
+		
+		    <property name="privateKey" ref="internalPrivateKey"/>
+		
+		    <property name="publicKey" ref="internalPublicKey"/>
+		
+		</bean>
+		
+		
+		<!-- Private Key -->
+		
+		<bean id="internalPrivateKeyFactory"
+		      class="com.novamens.kbee.security.jwt.InternalPrivateKeyFactory"/>
+		
+		<bean id="internalPrivateKey"
+		      factory-bean="internalPrivateKeyFactory"
+		      factory-method="createPrivateKey"/>
+		
+		
+		<!-- Public Key -->
+		
+		<bean id="internalPublicKeyFactory"
+		      class="com.novamens.kbee.security.jwt.InternalPublicKeyFactory"/>
+		
+		<bean id="internalPublicKey"
+		      factory-bean="internalPublicKeyFactory"
+		      factory-method="createPublicKey"/>
+			
 	<bean id="securityDao" class="com.novamens.kbee.security.KbeeSecurityDao" >
 		<constructor-arg index="0" ref="sessionFactory"/>
 	</bean>

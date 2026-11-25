@@ -1057,23 +1057,6 @@ public class KbeeContentTemplate extends KbeeModelObject implements ContentTempl
 		this.iscompliance=b;
 	}
 
-	//@Transient
-	//private List<ModelSection> portal_sections  =null;
-	
-//	@Override
-//	public List<ModelSection> getPortalSections() {
-//		if (portal_sections!=null)
-//			return portal_sections;
-//		portal_sections = new ArrayList<ModelSection>();
-//		for (ModelSection m: getSections()) {
-//			if (m.isPortal())
-//				portal_sections.add(m);
-//		}
-//		return portal_sections;
-//	}
-
-	
-
 	@Override
 	public boolean isInstanceTimeBasedNotification() {
 		return instanceTimeBasedNotification;
@@ -1103,5 +1086,21 @@ public class KbeeContentTemplate extends KbeeModelObject implements ContentTempl
 	public void setDefaultViewMode(int b) {
 		default_view_mode=b;
 		
+	}
+	
+	@Override
+	public boolean equals(Object obj) {
+	    if (this == obj) return true;
+	    if (!(obj instanceof ContentTemplate)) return false;
+
+	    ContentTemplate other = (ContentTemplate) obj;
+
+	    return getId() != null
+	            && getId().equals(other.getId());
+	}
+
+	@Override
+	public int hashCode() {
+	    return ContentTemplate.class.hashCode();
 	}
 }

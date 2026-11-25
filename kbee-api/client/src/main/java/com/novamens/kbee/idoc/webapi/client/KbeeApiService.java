@@ -61,7 +61,7 @@ import kbee.api.model.IResultSet;
 import kbee.api.model.IRole;
 import kbee.api.model.ISettings;
 import kbee.api.model.ITemplate;
-import kbee.api.model.IToken;
+import kbee.api.model.ApiToken;
 import kbee.api.model.ITransaction;
 import kbee.api.model.ApiUser;
 import kbee.api.service.ApiBinaryService;
@@ -304,8 +304,8 @@ public class KbeeApiService implements ApiService {
 		return exchange(getUrl()+"/"+getDomain()+"/roles/" + id, HttpMethod.GET, new HttpEntity<String>(getHeaders()), IRole.class);
 	}
 	
-	public IToken getToken() {
-		return exchange(getUrl()+"/"+getDomain()+"/security/token", HttpMethod.POST, new HttpEntity<String>(getHeaders()), IToken.class);
+	public ApiToken getToken() {
+		return exchange(getUrl()+"/"+getDomain()+"/security/token", HttpMethod.POST, new HttpEntity<String>(getHeaders()), ApiToken.class);
 	}
 	
 	public ITransaction create(ApiUser user) {

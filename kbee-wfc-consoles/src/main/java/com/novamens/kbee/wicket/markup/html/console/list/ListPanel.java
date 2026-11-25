@@ -19,12 +19,13 @@ import com.novamens.kbee.wicket.markup.html.console.data.DataViewPanel;
 import com.novamens.kbee.wicket.util.InvisiblePanel;
 import com.novamens.wicket.markup.html.repeater.util.Searcher;
 
+import kbee.util.logging.Logger;
+
 @SuppressWarnings("serial")
 public abstract class ListPanel<T> extends DataViewPanel<T> {
-
 	private static final long serialVersionUID = 1L;
 	
-	private static kbee.util.logging.Logger logger = kbee.util.logging.Logger.getLogger(ListPanel.class.getName());
+	private static Logger logger = kbee.util.logging.Logger.getLogger(ListPanel.class.getName());
 	
 	private ListDisplayMode	display_mode = ListDisplayMode.COMFORTABLE_LIST_NOBORDER_NOBCK;
 
@@ -68,7 +69,9 @@ public abstract class ListPanel<T> extends DataViewPanel<T> {
 			setModel(model);
 			addMenu();
 			addExpander();
-			addIcon();
+			if (!isReadOnly()) {
+				addIcon();
+			}	
 			addItem();
 			
 			try {
@@ -87,8 +90,6 @@ public abstract class ListPanel<T> extends DataViewPanel<T> {
 		private void addItem() {
 			try {
 				Panel pa=getItemListPanel(getModel(), ItemPanel.this.index);
-				
-				
 				if (hasIcon()) {
 					pa.add( new AttributeModifier("style", "width:calc(100% - 125px); float:left;"));	
 				}
@@ -339,8 +340,9 @@ public abstract class ListPanel<T> extends DataViewPanel<T> {
 				@Override
 				protected void populateItem(Item<SearchResult> item) {
 					try {
-					item.add(new ItemPanel(item.getModel(), item.getIndex()));
-					} catch (Exception e) {
+						item.add(new ItemPanel(item.getModel(), item.getIndex()));
+					} 
+					catch (Exception e) {
 						logger.error(e);
 						item.add(new kbee.web.error.ErrorPanel("row-container", e));
 					}

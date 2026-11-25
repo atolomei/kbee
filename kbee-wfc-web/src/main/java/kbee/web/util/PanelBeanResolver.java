@@ -9,7 +9,6 @@ public class PanelBeanResolver  {
 
 	private String bean;
 	private Object[] args;
-//	private Class<? extends IRequestablePage> pageClass;
 	
 	public PanelBeanResolver(String bean, Object... args) {
 		this.bean = bean;
@@ -22,7 +21,7 @@ public class PanelBeanResolver  {
 			return panel;
 		}
 		catch (Exception e) {
-			throw new RuntimeException(e);
+			return null;
 		}
 	}
 }

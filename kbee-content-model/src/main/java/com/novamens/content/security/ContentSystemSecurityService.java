@@ -46,5 +46,7 @@ public interface ContentSystemSecurityService extends SystemService {
 	public boolean isTakeable(Content content, User user);
 	public boolean isPrivateEnabled(Content content, User user);
 	
-	public Group getGroup(EntityMember entity, Role role); 
+	public Group getGroup(EntityMember entity, Role role);
+	public Group getGroup(EntityMember entity); 
+
 }

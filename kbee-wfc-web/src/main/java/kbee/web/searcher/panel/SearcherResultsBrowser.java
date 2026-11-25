@@ -36,6 +36,7 @@ import com.novamens.kbee.wicket.markup.html.event.WicketEventListener;
 import com.novamens.kbee.wicket.util.FeedbackHelper;
 import com.novamens.kbee.wicket.util.InvisiblePanel;
 import com.novamens.portal6.model.Site;
+import com.novamens.portal6.model.SiteService;
 import com.novamens.wicket.markup.html.modal.Modal;
 import com.novamens.wicket.markup.html.repeater.util.NavigationOrder;
 import com.novamens.wicket.markup.html.repeater.util.Searcher;
@@ -44,9 +45,10 @@ import com.novamens.wicket.model.ObjectModel;
 import kbee.web.console.BaseBrowser;
 import kbee.web.panel.ListContentItemMainPanel;
 
-@SuppressWarnings("serial")
 public class SearcherResultsBrowser extends SearcherBrowser {
 	private static final long serialVersionUID = 1L;
+	
+	public boolean hasIcon = false;
 	
 	public SearcherResultsBrowser(String id, IModel<Site> siteModel) {
 		super(id, siteModel);
@@ -65,6 +67,10 @@ public class SearcherResultsBrowser extends SearcherBrowser {
 	@Override
 	public void onInitialize() {
 		super.onInitialize();
+		hasIcon = !getSite()
+			.getService(SiteService.class)
+			.getConfig()
+			.isReadOnly();
 		add(newListBrowser());
 		add(new InvisiblePanel("audittrail-modal"));
 		add(new InvisiblePanel("confirmation-modal"));
@@ -80,6 +86,10 @@ public class SearcherResultsBrowser extends SearcherBrowser {
 			@Override 
 			public boolean isGridBrowserSwitch() {
 				return SearcherResultsBrowser.this.isGridBrowserSwitch();
+			}
+			@Override
+			public boolean isReadOnly() {
+				return false;
 			}
 			@Override
 			protected Modal newSaveQueryModal() {
@@ -159,8 +169,8 @@ public class SearcherResultsBrowser extends SearcherBrowser {
 			}
 			@Override
 			protected boolean isMenuEnabled() {
-				return true;
-			}
+				return SearcherResultsBrowser.this.isMenuEnabled();
+			}	
 			@Override
 			protected boolean isVisible(Facet facet) {
 				return SearcherResultsBrowser.this.isVisible(facet);
@@ -192,6 +202,8 @@ public class SearcherResultsBrowser extends SearcherBrowser {
 			protected boolean hasIcon(IModel<Content> model) {
 				return SearcherResultsBrowser.this. hasIcon(model);
 			}
+			
+
 		};
 	}
 
@@ -464,7 +476,7 @@ public class SearcherResultsBrowser extends SearcherBrowser {
 	}
 	
 	protected boolean hasIcon(IModel<Content> model) {
-		return true;
+		return hasIcon;
 	}
 
 	protected String getIcon(IModel<Content> model) {
@@ -536,7 +548,7 @@ public class SearcherResultsBrowser extends SearcherBrowser {
 	}
 
 	protected boolean isMenuEnabled() {
-		return true;
+		return false;
 	}
 
 	protected boolean isSelectionEnabled() {

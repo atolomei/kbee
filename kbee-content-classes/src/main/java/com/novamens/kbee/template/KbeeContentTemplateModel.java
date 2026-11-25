@@ -152,7 +152,13 @@ public class KbeeContentTemplateModel extends KbeeClassificableTemplateModel {
 	protected boolean isRelation(String key)  {
 		for (RelationTemplate relationtemplate :  getContent().getContentTemplate().getRelations()) {
 			if (relationtemplate.getSourceTemplate().equals(content.getContentTemplate()) &&
-					key.equals(relationtemplate.getName())) {
+					key.equalsIgnoreCase(relationtemplate.getName())) {
+				return true;
+			}
+		}
+		for (Relation reverse : getContent().getReverseRelations()) {
+			if (reverse.getTarget().getContentTemplate().equals(content.getContentTemplate()) &&
+				key.equalsIgnoreCase(reverse.getTemplate().getReverseLabel())) {
 				return true;
 			}
 		}
@@ -162,7 +168,7 @@ public class KbeeContentTemplateModel extends KbeeClassificableTemplateModel {
 	protected TemplateModel getRelation(String key) {
 		for (RelationTemplate relationtemplate :  getContent().getContentTemplate().getRelations()) {
 			if (relationtemplate.getSourceTemplate().equals(content.getContentTemplate()) &&
-					key.equals(relationtemplate.getName())) {
+					key.equalsIgnoreCase(relationtemplate.getName())) {
 				List<Object> relateds = new ArrayList<>();
 				for (Relation relation :  getContent().getRelations(relationtemplate)) {
 					relateds.add(relation.getTarget());
@@ -175,6 +181,21 @@ public class KbeeContentTemplateModel extends KbeeClassificableTemplateModel {
 				return model;
 
 			}
+		}
+		List<Object> relateds = new ArrayList<>();
+		for (Relation reverse : getContent().getReverseRelations()) {
+			if (reverse.getTarget().getContentTemplate().equals(content.getContentTemplate()) &&
+				key.equalsIgnoreCase(reverse.getTemplate().getReverseLabel())) {
+				relateds.add(reverse.getSource());
+			}
+		}
+		if (!relateds.isEmpty()) {
+			Set<KbeeMethod> canonicals = new HashSet<KbeeMethod>();
+			canonicals.add(new KbeeMethod("Name", "Name"));
+			canonicals.add(new KbeeMethod("Title", "Title"));
+			canonicals.add(new KbeeMethod("Url", "Url"));
+			TemplateModel model = new KbeeListWrapperTemplateModel(relateds, "Resource", canonicals, this);
+			return model;
 		}
 		return null;
 	}

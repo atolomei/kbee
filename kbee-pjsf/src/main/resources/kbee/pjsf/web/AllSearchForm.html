@@ -1,0 +1,98 @@
+
+<wicket:panel xmlns:wicket="http://wicket.apache.org">
+
+    <div class="card shadow-sm">
+
+        <div class="card-body">
+
+
+                <div class="row g-3">
+
+                    <!-- Texto libre -->
+                    <div class="col-12">
+                        <label for="textoLibre" class="form-label">
+                            Texto libre
+                        </label>
+                        <input id="textoLibre"
+                               name="textoLibre"
+                               type="text"
+                               class="form-control"
+                               placeholder="Palabras, frases o términos jurídicos..." />
+                    </div>
+
+                    <!-- Tribunal -->
+                    <div class="col-12 col-md-6">
+                        <label for="tribunal" class="form-label">
+                            Tribunal
+                        </label>
+                        <input id="tribunal"
+                               name="tribunal"
+                               type="text"
+                               class="form-control"
+                               placeholder="Nombre del tribunal" />
+                    </div>
+
+                    <!-- Fecha desde -->
+                    <div class="col-12 col-md-6">
+                        <label for="fechaDesde" class="form-label">
+                            Fecha desde
+                        </label>
+                        <input id="fechaDesde"
+                               name="fechaDesde"
+                               type="date"
+                               class="form-control" />
+                    </div>
+
+                    <!-- Fecha hasta -->
+                    <div class="col-12 col-md-6">
+                        <label for="fechaHasta" class="form-label">
+                            Fecha hasta
+                        </label>
+                        <input id="fechaHasta"
+                               name="fechaHasta"
+                               type="date"
+                               class="form-control" />
+                    </div>
+
+                    <!-- Cita jurisprudencial -->
+                    <div class="col-12 col-md-6">
+                        <label for="cita" class="form-label">
+                            Cita jurisprudencial
+                        </label>
+                        <input id="cita"
+                               name="cita"
+                               type="text"
+                               class="form-control"
+                               placeholder="Referencia jurisprudencial" />
+                    </div>
+
+                </div>
+
+                <!-- Acciones -->
+                <div class="d-flex justify-content-end gap-2 mt-4">
+
+                    <div class="advanced-search-submit">
+
+                        <button type="submit"
+                                class="btn btn-primary">
+                            Buscar
+                        </button>
+
+                        <a href="#"
+                           class="simple-search-link">
+                            búsqueda simple
+                        </a>
+
+                    </div>
+
+                </div>
+
+
+        </div>
+
+    </div>
+
+</wicket:panel>
+
+
+

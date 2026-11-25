@@ -8,7 +8,6 @@ import java.time.temporal.ChronoUnit;
 import org.apache.wicket.model.ResourceModel;
 
 import com.novamens.content.entity.Person;
-import com.novamens.content.web.nav.markup.GlobalNavigationBar;
 import com.novamens.content.web.sql.markup.SQLFiltersPanel;
 import com.novamens.kbee.wicket.util.InvisiblePanel;
 import com.novamens.security.acl.KbeeGlobalRole;

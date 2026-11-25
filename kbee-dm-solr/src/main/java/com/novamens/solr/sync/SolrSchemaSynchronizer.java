@@ -1,10 +1,12 @@
 package com.novamens.solr.sync;
 
+import org.apache.solr.client.solrj.RemoteSolrException;
+import org.apache.solr.client.solrj.SolrClient;
 import org.apache.solr.client.solrj.SolrServerException;
-import org.apache.solr.client.solrj.impl.Http2SolrClient;
-import org.apache.solr.client.solrj.impl.HttpSolrClient;
+import org.apache.solr.client.solrj.impl.HttpJdkSolrClient;
 import org.apache.solr.client.solrj.response.schema.SchemaResponse;
-import org.apache.solr.common.util.NamedList;
+
+import kbee.util.PropertiesFactory;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -25,10 +27,10 @@ public class SolrSchemaSynchronizer {
     }
 
     public SchemaDiffOperations calculateOperations() throws IOException, SolrServerException {
-        HttpSolrClient client = null;
+        SolrClient client = null;
         SchemaDiffOperations diffOperations = new SchemaDiffOperations();
         try {
-            client = new HttpSolrClient.Builder(SolrCoreUrl).build();
+            client = getSolrClient();
             SolrApiMgr solrApiMgr = new SolrApiMgr(client);
             SolrConfigReader solrConfigReader = new SolrConfigReader(jsonConfigStream);
 
@@ -59,7 +61,44 @@ public class SolrSchemaSynchronizer {
             }
         }
     }
+    
+    
+    public SolrClient getSolrClient()  {
+    	
+        String username = PropertiesFactory
+            .getInstance("kbee")
+            .getProperties()
+            .getProperty("solr.username", null);
 
+        String password = PropertiesFactory
+        	.getInstance("kbee")
+        	.getProperties()
+        	.getProperty("solr.password", null);
+        
+        String baseUrl = SolrCoreUrl.substring(
+                0, SolrCoreUrl.lastIndexOf("/")
+        );
+        
+        String coreName = SolrCoreUrl
+        	.substring(SolrCoreUrl
+        	.lastIndexOf("/")+1);
+
+        HttpJdkSolrClient.Builder builder =
+        	new HttpJdkSolrClient.Builder(baseUrl)
+        		.withDefaultCollection(coreName)
+        		.useHttp1_1(true);
+        
+        if (username != null && !username.isBlank()
+                && password != null && !password.isBlank()) {
+
+            builder.withBasicAuthCredentials(username, password);
+        }
+        
+        SolrClient client = builder.build();
+        
+        return client;
+    }
+  
     public void printOperations(SchemaDiffOperations operations, String schemaname) {
 
         logger.info("********************************************");
@@ -88,10 +127,10 @@ public class SolrSchemaSynchronizer {
 
     public void synchSchema(SchemaDiffOperations operations) throws IOException, SolrServerException {
 
-        Http2SolrClient client = null;
+        SolrClient client = null;
 
         try {
-            client = new Http2SolrClient.Builder(SolrCoreUrl).build();
+            client = getSolrClient();
             SolrApiMgr solrApiMgr = new SolrApiMgr(client);
             //***********        ADD        *********************
             //add fieldTypes -> fields -> copyFields
@@ -117,34 +156,31 @@ public class SolrSchemaSynchronizer {
     }
 
 
-    private static void processRequests(SolrApiMgr.Operation operation, List<Map<String, Object>> entries, SolrApiMgr solrApiMgr) throws IOException, SolrServerException {
+    private static void processRequests(
+            SolrApiMgr.Operation operation,
+            List<Map<String, Object>> entries,
+            SolrApiMgr solrApiMgr)
+            throws IOException, SolrServerException {
 
         for (Map<String, Object> entry : entries) {
-            try {
-                printEntries(entries, "About to perform operation: " + operation.getRestMethod());
 
-                SchemaResponse.UpdateResponse result = solrApiMgr.processRequests(operation, entry);
+            try {
+                printEntries(entries,
+                    "About to perform operation: " + operation.getRestMethod());
+
+                SchemaResponse.UpdateResponse result =
+                    solrApiMgr.processRequests(operation, entry);
+
                 if (result.getStatus() != 0) {
                     throw new RuntimeException(result.getException());
                 }
-            } catch (HttpSolrClient.RemoteExecutionException e) {
-                String msg = "Exception occurred while processing msg:";
-                NamedList metaData = e.getMetaData();
 
-                if (metaData != null) {
-                    try {
-                        List errorDetails = (List) metaData.findRecursive("error", "details");
-                        if (errorDetails.size() > 0) {
-                            Object errorMessages = ((Map) errorDetails.get(0)).get("errorMessages");
-                            msg += "\n*******************";
-                            msg += "\n" + errorMessages;
-                            msg += "\n*******************";
-                        }
-                    } catch (Exception e1) {
-                    }
+            } catch (RemoteSolrException e) {
 
-                    msg += "\n" + metaData.toString();
-                }
+                String msg = "Exception occurred while processing request:"
+                        + "\nHTTP status: " + e.code()
+                        + "\n" + e.getMessage();
+
                 throw new RuntimeException(msg, e);
             }
         }
@@ -258,75 +294,5 @@ public class SolrSchemaSynchronizer {
                     deletedCopyFields.size() > 0;
         }
     }
-
-
-
-/*
-    public static void synchSchema(InputStream jsonConfigStream, String SolrCoreUrl) throws IOException, SolrServerException {
-        Http2SolrClient client = null;
-
-        try {
-            client = new Http2SolrClient.Builder(SolrCoreUrl).build();
-            com.novamens.solr.SolrApiMgr solrApiMgr = new com.novamens.solr.SolrApiMgr(client);
-            com.novamens.solr.SolrConfigReader solrConfigReader = new com.novamens.solr.SolrConfigReader(jsonConfigStream);
-
-            //fieldTypes
-            List<Map<String, Object>> fieldTypesCfg = solrConfigReader.getFieldTypes();
-            List<Map<String, Object>> fieldTypesApi = solrApiMgr.getFieldTypes();
-            List<Map<String, Object>> addedFieldTypes = com.novamens.solr.SolrConfigDifHelper.getAddedEntriesMatchingKey("name", fieldTypesCfg, fieldTypesApi);
-            List<Map<String, Object>> deletedFieldTypes = com.novamens.solr.SolrConfigDifHelper.getAddedEntriesMatchingKey("name", fieldTypesApi, fieldTypesCfg);
-            List<Map<String, Object>> replacedFieldTypes = com.novamens.solr.SolrConfigDifHelper.getModifiedOrgEntries("name", fieldTypesCfg, fieldTypesApi);
-
-            //fields
-            List<Map<String, Object>> fieldsCfg = solrConfigReader.getFields();
-            List<Map<String, Object>> fieldsApi = solrApiMgr.getFields();
-            List<Map<String, Object>> addedFields = com.novamens.solr.SolrConfigDifHelper.getAddedEntriesMatchingKey("name", fieldsCfg, fieldsApi);
-            List<Map<String, Object>> deletedFields = com.novamens.solr.SolrConfigDifHelper.getAddedEntriesMatchingKey("name", fieldsApi, fieldsCfg);
-            List<Map<String, Object>> repleacedFields = com.novamens.solr.SolrConfigDifHelper.getModifiedOrgEntries("name", fieldsCfg, fieldsApi);
-
-            //copyFields
-            List<Map<String, Object>> copyFieldsCfg = solrConfigReader.getCopyFields();
-            List<Map<String, Object>> copyFieldsApi = solrApiMgr.getCopyField();
-            List<Map<String, Object>> addedCopyFields = com.novamens.solr.SolrConfigDifHelper.getAddedEntriesMatchingFull(copyFieldsCfg, copyFieldsApi);
-            List<Map<String, Object>> deletedCopyFields = com.novamens.solr.SolrConfigDifHelper.getAddedEntriesMatchingFull(copyFieldsApi, copyFieldsCfg);
-
-            logger.error("********************************************");
-            logger.error("************  OPERATIONS TO DO  ************");
-            logger.error("********************************************");
-            //***********        ADD        *********************
-            printEntries(addedFieldTypes, "FieldTypes to add: ");
-            printEntries(addedFields, "Field to add: ");
-            printEntries(addedCopyFields, "CopyFields to add: ");
-            //***********        MODIFY        *********************
-            printEntries(replacedFieldTypes, "FieldTypes to modify: ");
-            printEntries(repleacedFields, "Field to modify: ");
-            //***********        REMOVE        *********************
-            printEntries(deletedCopyFields, "CopyFields to delete: ");
-            printEntries(deletedFields, "Field to remove: ");
-            printEntries(deletedFieldTypes, "FieldTypes to delete: ");
-
-            //***********        ADD        *********************
-            //add fieldTypes -> fields -> copyFields
-            processRequests(com.novamens.solr.SolrApiMgr.Operation.AddFieldType, addedFieldTypes, solrApiMgr);
-            processRequests(com.novamens.solr.SolrApiMgr.Operation.AddField, addedFields, solrApiMgr);
-            processRequests(com.novamens.solr.SolrApiMgr.Operation.AddCopyField, addedCopyFields, solrApiMgr);
-
-            //***********        MODIFY        *********************
-            //modify fieldTypes -> fields -> copyFields
-            processRequests(com.novamens.solr.SolrApiMgr.Operation.ReplaceFieldType, replacedFieldTypes, solrApiMgr);
-            processRequests(com.novamens.solr.SolrApiMgr.Operation.ReplaceField, repleacedFields, solrApiMgr);
-
-            //***********        REMOVE        *********************
-            //delete copyFields -> fields -> fieldTypes
-            processRequests(com.novamens.solr.SolrApiMgr.Operation.DeleteCopyField, deletedCopyFields, solrApiMgr);
-            processRequests(com.novamens.solr.SolrApiMgr.Operation.DeleteField, deletedFields, solrApiMgr);
-            processRequests(com.novamens.solr.SolrApiMgr.Operation.DeleteFieldType, deletedFieldTypes, solrApiMgr);
-
-        } finally {
-            if (client != null) {
-                client.close();
-            }
-        }
-    }*/
 
 }

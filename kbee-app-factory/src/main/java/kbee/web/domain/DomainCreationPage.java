@@ -4,7 +4,6 @@ import org.apache.wicket.model.Model;
 import org.apache.wicket.model.StringResourceModel;
 
 import com.novamens.dom.Domain;
-import com.novamens.content.web.nav.markup.GlobalNavigationBar;
 import com.novamens.kbee.wicket.util.InvisiblePanel;
 import com.novamens.security.acl.KbeeGlobalRole;
 import com.novamens.service.ServiceLocator;
@@ -13,6 +12,7 @@ import com.novamens.wicket.util.MenuBreadCrumbPanel;
 
 import kbee.web.error.ErrorNotAuthorizedPanel;
 import kbee.web.nav.DropDownDomainsBC;
+import kbee.web.nav.GlobalNavigationBar;
 import kbee.web.page.ApplicationMenuSection;
 import kbee.web.page.ApplicationPage;
 import kbee.web.page.PageContentHeaderPanel;

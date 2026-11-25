@@ -5,7 +5,6 @@ import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -44,7 +43,7 @@ import kbee.api.model.ILauncher;
 import kbee.api.model.ILauncherGroup;
 import kbee.api.model.ILibrary;
 import kbee.api.model.ILogEvent;
-import kbee.api.model.ILoginResponse;
+import kbee.api.model.ApiLoginResponse;
 import kbee.api.model.IModelAttribute;
 import kbee.api.model.INode;
 import kbee.api.model.INote;
@@ -62,7 +61,7 @@ import kbee.api.model.ISignature;
 import kbee.api.model.ISignedData;
 import kbee.api.model.ISuggestion;
 import kbee.api.model.ITemplate;
-import kbee.api.model.IToken;
+import kbee.api.model.ApiToken;
 import kbee.api.model.ITransaction;
 import kbee.api.model.ApiUser;
 import kbee.api.model.IUserDashboard;
@@ -74,11 +73,8 @@ import kbee.api.service.TimeoutException;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.apache.wicket.extensions.markup.html.repeater.tree.Node;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -88,13 +84,9 @@ import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.nimbusds.jose.JWSAlgorithm;
-import com.nimbusds.jose.JWSHeader;
-import com.nimbusds.jose.crypto.MACSigner;
-import com.nimbusds.jwt.JWTClaimsSet;
-import com.nimbusds.jwt.SignedJWT;
 import com.novamens.beans.BeansService;
 import com.novamens.content.base.Content;
 import com.novamens.content.base.Resource;
@@ -222,11 +214,10 @@ import com.novamens.security.acl.KbeeGlobalRole;
 import com.novamens.service.SecurityService;
 import com.novamens.service.ServiceLocator;
 import com.novamens.solr.indexer.query.SolrResultSet;
-import com.novamens.workflow.Activity;
 import com.novamens.workflow.ActivityProgressNote;
 import com.novamens.workflow.Procedure;
 
-@org.springframework.web.bind.annotation.RestController
+@RestController
 @RequestMapping("/*")
 @Api(authorizations = {@Authorization(value = "basicAuth")})
 @CrossOrigin(origins="http://localhost:3001")
@@ -976,43 +967,7 @@ public class ApiController {
         return new ResponseEntity<IPerson>(value, HttpStatus.OK);
     }
 
-    /**
-     * ------------------------------------------------------------------------------------------------------------------------
-     * SECURITY USERS
-     */
-    
-    /**
-     * ------------------------------------------------------------------------------------------------------------------------
-     */
-    @ApiOperation(value = "Login")
-    @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "Ok"),
-            @ApiResponse(code = 403, message = "1010 - Access denied")})
-    @RequestMapping(value = "/auth/login", method = RequestMethod.POST)
-    public ResponseEntity<ILoginResponse> login(
-            @RequestParam("username") String username,
-            @RequestParam("password") String password) {
-    	
-    	try {
-	    	AuthToken token = ServiceLocator.getService(SecurityService.class).createToken(username, password);
-	        
-	        IToken itoken = new IToken();
-	        itoken.setValue(token.getTokenValue());
-	        
-	        UserProfile userProfile = ServiceLocator.getService(UserService.class).getSessionUserProfile();
-	        Person person = userProfile.getPerson();
-	        ApiUser iuser = (new IUserAdapter()).adapt(person);
-	        
-	        ILoginResponse response = new ILoginResponse();
-	        response.setUser(iuser);
-	        response.setToken(itoken);
-	        
-	        return new ResponseEntity<ILoginResponse>(response, HttpStatus.OK);
-    	}
-    	catch (Exception e) {
-            throw new ApiException(HttpStatus.NOT_FOUND, ApiError.VALUE_NOT_FOUND);
-    	}
-    }
+
 
     /**
      * ------------------------------------------------------------------------------------------------------------------------
@@ -2402,7 +2357,7 @@ public class ApiController {
             @ApiResponse(code = 403, message = "1010 - Access denied\n2600 - Device not registered")
     })
     @RequestMapping(value = "/{domain}/security/token", method = RequestMethod.GET)
-    public ResponseEntity<IToken> getToken(
+    public ResponseEntity<ApiToken> getToken(
             @ApiParam(value = "Domain Name", required = true) @PathVariable("domain") String domain,
             @RequestHeader(value="Device", required=false) String deviceId) {
 
@@ -2422,8 +2377,8 @@ public class ApiController {
   
         try {
             AuthToken token = ServiceLocator.getService(UserService.class).getAuthToken();
-            IToken itoken = (new ITokenAdapter()).adapt(token);
-            return new ResponseEntity<IToken>(itoken, HttpStatus.OK);
+            ApiToken itoken = (new ITokenAdapter()).adapt(token);
+            return new ResponseEntity<ApiToken>(itoken, HttpStatus.OK);
         } 
         catch (ApiException e) {
             throw e;

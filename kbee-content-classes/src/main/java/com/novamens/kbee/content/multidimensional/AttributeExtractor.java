@@ -4,6 +4,7 @@ import java.time.OffsetDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.TemporalAccessor;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.apache.logging.log4j.LogManager;
@@ -39,9 +40,8 @@ public class AttributeExtractor implements Extractor {
 				return extract(((UserListItem)object).getContent());
 			}
 		}
-		List<String> values;
+		List<Object> values = new ArrayList<>();
 		if (getAttribute().getType().equals(AttributeType.DATE)) {
-			values = new ArrayList<String>();
 			List<String> t_v = getValues(object);
 			if (t_v!=null) {
 					for (String value :	t_v) {
@@ -50,8 +50,9 @@ public class AttributeExtractor implements Extractor {
 								value = value.substring(0, value.length()-3);
 							}
 							OffsetDateTime time = ServiceLocator.getService(DateTimeService.class).parseStrDate(value);
-							String member = DateTimeFormatter.ofPattern("yyyy/MM/dd").format(time);
-							values.add(member);
+							Date date = Date.from(time.toInstant()); 
+							//String member = DateTimeFormatter.ofPattern("yyyy/MM/dd").format(time);
+							values.add(date);
 						}
 						catch (Exception e) {
 							if (logger.isDebugEnabled()) {
@@ -62,7 +63,6 @@ public class AttributeExtractor implements Extractor {
 			}
 		}
 		else if (getAttribute().getType().equals(AttributeType.VALIDITY_TO) || getAttribute().getType().equals(AttributeType.VALIDITY_FROM)) {
-			values = new ArrayList<String>();
 			if (object instanceof Classificable) {
 				values.add(getValidity((Classificable)object));
 				if (logger.isDebugEnabled()) {
@@ -71,7 +71,7 @@ public class AttributeExtractor implements Extractor {
 			}
 		}
 		else {
-			values = getValues(object);
+			values.addAll(getValues(object));
 		}
 		
 		return values;

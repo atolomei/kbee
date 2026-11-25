@@ -4,8 +4,10 @@ import java.io.Serializable;
 import java.math.BigInteger;
 import java.security.SecureRandom;
 import java.security.interfaces.RSAPrivateKey;
+import java.security.interfaces.RSAPublicKey;
 import java.time.Instant;
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
@@ -17,6 +19,9 @@ import java.util.Map.Entry;
 import java.util.Set;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.UUID;
+import java.util.concurrent.TimeUnit;
+import java.util.stream.Collectors;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -24,16 +29,43 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 
+import java.text.ParseException;
+import java.util.Date;
+import java.util.UUID;
+import java.util.concurrent.TimeUnit;
+import java.util.stream.Collectors;
+
+import com.nimbusds.jose.JOSEException;
+import com.nimbusds.jose.JWSAlgorithm;
+import com.nimbusds.jose.JWSHeader;
+import com.nimbusds.jose.JOSEObjectType;
+import com.nimbusds.jose.crypto.RSASSASigner;
+import com.nimbusds.jose.crypto.RSASSAVerifier;
+import com.nimbusds.jwt.JWTClaimsSet;
+import com.nimbusds.jwt.SignedJWT;
+
+import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
+
+import com.nimbusds.jose.JOSEException;
+import com.nimbusds.jose.JOSEObjectType;
 import com.nimbusds.jose.JWSAlgorithm;
 import com.nimbusds.jose.JWSHeader;
 import com.nimbusds.jose.crypto.RSASSASigner;
+import com.nimbusds.jose.crypto.RSASSAVerifier;
 import com.nimbusds.jwt.JWTClaimsSet;
 import com.nimbusds.jwt.SignedJWT;
 import com.novamens.beans.BeansService;
@@ -51,6 +83,8 @@ import com.novamens.security.acl.KbeeGlobalRole;
 import com.novamens.service.SecurityService;
 import com.novamens.service.ServiceLocator;
 import com.novamens.util.KbeeRuntimeException;
+
+import kbee.api.model.ApiRefreshResponse;
 
 /** 
  * <p>Servicio de Seguridad de bajo nivel. No conoce {@link Content} ni {@link Domain}</p>
@@ -73,6 +107,8 @@ public class KbeeSecurityService implements SecurityService, EventListener {
 	}
 	
     private RSAPrivateKey privateKey;
+    private RSAPublicKey publicKey;
+
 	
 	private KbeeSecurityDao userDao;
 	private SecureRandom random = new SecureRandom();
@@ -101,6 +137,7 @@ public class KbeeSecurityService implements SecurityService, EventListener {
 
 	static private Set<String> reservednames = new HashSet<String>();
 	
+	
 	static {
 		
 		reservednames.add("root");
@@ -118,6 +155,16 @@ public class KbeeSecurityService implements SecurityService, EventListener {
 		reservednames.add("susupport1");
 		reservednames.add("susupport1");
 	}
+	
+	
+	private static final String ISSUER = "kbee";
+	private static final String KEY_ID = "kbee-internal-key-1";
+
+	private static final String ACCESS_AUDIENCE = "kbee-rag";
+	private static final String REFRESH_AUDIENCE = "kbee-auth";
+
+	private static final long REFRESH_TOKEN_LIFETIME =
+	        TimeUnit.DAYS.toMillis(30);
 	
 	@Override
 	public String getUserId(String token) {
@@ -232,49 +279,192 @@ public class KbeeSecurityService implements SecurityService, EventListener {
 	}
 	
 	public AuthToken createToken(String user, String password) {
-		
-		UsernamePasswordAuthenticationToken authRequest = new UsernamePasswordAuthenticationToken(user, password);
-		Authentication authentication = authenticationManager.authenticate(authRequest);
-		SecurityContext securityContext = SecurityContextHolder.getContext();
-		securityContext.setAuthentication(authentication);
 
-        Date now = new Date();
+	    UsernamePasswordAuthenticationToken authRequest =
+	        new UsernamePasswordAuthenticationToken(user, password);
 
-        Date expiration = new Date(
-        		System.currentTimeMillis() + 1000L * 60 * 60 * 24 * 365 * 10
-        );
+	    Authentication authentication =
+	        authenticationManager.authenticate(authRequest);
 
-        JWTClaimsSet claims = new JWTClaimsSet.Builder()
-        	.subject(authentication.getName())
-            .issuer("kbee")
-            .issueTime(now)
-            .expirationTime(expiration)
-            .claim("principal", user)
-//            .claim("authorities",
-//            	authentication.getAuthorities()
-//                   	.stream()
-//                       .map(a -> a.getAuthority())
-//                       .collect(Collectors.toList()))
-            .build();
+	    SecurityContextHolder.getContext()
+	        .setAuthentication(authentication);
 
-        SignedJWT jwt = new SignedJWT(
-                new JWSHeader.Builder(JWSAlgorithm.RS256)
-                        .keyID("kbee-internal")
-                        .build(),
-                claims
-        );
-        
-        try {
-
-        	jwt.sign(new RSASSASigner(privateKey));
-        	KbeeAuthToken token = new KbeeAuthToken(ONE_HOUR_MILISECONDS);
-        	token.setTokenValue(jwt.serialize());
-        	return token;
-        }
-        catch (Exception e) {
-        	throw new RuntimeException(e);
-        }
+	    return createTokens(authentication);
 	}
+
+
+	private AuthToken createTokens(Authentication authentication) {
+
+	    KbeeAuthToken token = createAccessToken(authentication);
+
+	    token.setRefreshToken(
+	        createRefreshToken(authentication.getName())
+	    );
+
+	    return token;
+	}
+
+
+	private KbeeAuthToken createAccessToken(Authentication authentication) {
+
+	    Date now = new Date();
+
+	    Date expiration = new Date(
+	        now.getTime() + ONE_HOUR_MILISECONDS
+	    );
+
+	    JWTClaimsSet claims = new JWTClaimsSet.Builder()
+	        .subject(authentication.getName())
+	        .issuer(ISSUER)
+	        .audience(ACCESS_AUDIENCE)
+	        .issueTime(now)
+	        .expirationTime(expiration)
+	        .claim("token_type", "access")
+	        .claim("principal", authentication.getName())
+	        .claim(
+	            "authorities",
+	            authentication.getAuthorities()
+	                .stream()
+	                .map(GrantedAuthority::getAuthority)
+	                .collect(Collectors.toList())
+	        )
+	        .build();
+
+	    String jwt = signToken(claims);
+
+	    KbeeAuthToken token =
+	        new KbeeAuthToken(ONE_HOUR_MILISECONDS);
+
+	    token.setTokenValue(jwt);
+
+	    return token;
+	}
+
+
+	private String createRefreshToken(String username) {
+
+	    Date now = new Date();
+
+	    Date expiration = new Date(
+	        now.getTime() + REFRESH_TOKEN_LIFETIME
+	    );
+
+	    JWTClaimsSet claims = new JWTClaimsSet.Builder()
+	        .subject(username)
+	        .issuer(ISSUER)
+	        .audience(REFRESH_AUDIENCE)
+	        .issueTime(now)
+	        .expirationTime(expiration)
+	        .jwtID(UUID.randomUUID().toString())
+	        .claim("token_type", "refresh")
+	        .build();
+
+	    return signToken(claims);
+	}
+
+
+	private String signToken(JWTClaimsSet claims) {
+
+	    SignedJWT jwt = new SignedJWT(
+	        new JWSHeader.Builder(JWSAlgorithm.RS256)
+	            .keyID(KEY_ID)
+	            .type(JOSEObjectType.JWT)
+	            .build(),
+	        claims
+	    );
+
+	    try {
+
+	        jwt.sign(new RSASSASigner(privateKey));
+
+	        return jwt.serialize();
+
+	    } catch (JOSEException e) {
+
+	        throw new IllegalStateException(
+	            "Error al firmar el JWT", e
+	        );
+	    }
+	}
+
+
+	public AuthToken refreshToken(String refreshToken) {
+
+	    JWTClaimsSet claims = validateRefreshToken(refreshToken);
+
+	    String username = claims.getSubject();
+
+	    User user = findUserByUsername(username);
+	    if (user==null || !user.isActive() || !user.isEnabled()) {
+
+	        throw new BadCredentialsException(
+	            "Usuario deshabilitado o bloqueado"
+	        );
+	    }
+
+	    Authentication authentication =
+	    	    SecurityContextHolder.getContext().getAuthentication();
+
+		    SecurityContextHolder.getContext()
+		        .setAuthentication(authentication);
+		    
+	    return createTokens(authentication);
+	}
+
+
+	private JWTClaimsSet validateRefreshToken(String refreshToken) {
+
+	    try {
+
+	        SignedJWT jwt = SignedJWT.parse(refreshToken);
+
+	        JWSHeader header = jwt.getHeader();
+
+	        if (!JWSAlgorithm.RS256.equals(header.getAlgorithm())
+	                || !KEY_ID.equals(header.getKeyID())
+	                || !jwt.verify(new RSASSAVerifier(publicKey))) {
+
+	            throw new BadCredentialsException(
+	                "Firma del refresh token inválida"
+	            );
+	        }
+
+	        JWTClaimsSet claims = jwt.getJWTClaimsSet();
+
+	        Date now = new Date();
+
+	        Date issuedAt = claims.getIssueTime();
+	        Date expiresAt = claims.getExpirationTime();
+
+	        if (!ISSUER.equals(claims.getIssuer())
+	                || !claims.getAudience().contains(REFRESH_AUDIENCE)
+	                || !"refresh".equals(
+	                    claims.getStringClaim("token_type"))
+	                || issuedAt == null
+	                || expiresAt == null
+	                || issuedAt.after(now)
+	                || !expiresAt.after(now)
+	                || !expiresAt.after(issuedAt)
+	                || expiresAt.getTime() - issuedAt.getTime()
+	                    > REFRESH_TOKEN_LIFETIME
+	                || claims.getSubject() == null
+	                || claims.getSubject().isBlank()) {
+
+	            throw new BadCredentialsException(
+	                "Refresh token inválido o expirado"
+	            );
+	        }
+
+	        return claims;
+
+	    } catch (ParseException | JOSEException | IllegalArgumentException e) {
+
+	        throw new BadCredentialsException(
+	            "Refresh token inválido", e
+	        );
+	    }
+	}
+	
 	
 	public void authenticate(String user, String password) {
 		BeansService beans = ServiceLocator.getService(BeansService.class);
@@ -414,6 +604,10 @@ public class KbeeSecurityService implements SecurityService, EventListener {
 	
     public void setPrivateKey(RSAPrivateKey privateKey) {
         this.privateKey = privateKey;
+    }
+    
+    public void setPublicKey(RSAPublicKey publicKey) {
+        this.publicKey = publicKey;
     }
 	
 	public void setAuthenticationManager(AuthenticationManager authenticationManager) {

@@ -32,10 +32,12 @@
 			<sec:frame-options policy="SAMEORIGIN"/>
 			<sec:header name="X-Content-Security-Policy" value="upgrade-insecure-requests"/>
             <sec:header name="X-WebKit-CSP" value="upgrade-insecure-requests"/>
+            <!-- 
            	<sec:header name="Access-Control-Allow-Origin" value="*"/>
             <sec:header name="Access-Control-Allow-Methods" value="*"/>
             <sec:header name="Access-Control-Allow-Headers" value="*"/>
             <sec:header name="Access-Control-Allow-Credentials" value="true"/>
+            -->
 		</sec:headers>
 		
 		<sec:form-login login-page="/login"
@@ -61,6 +63,7 @@
 		<sec:intercept-url pattern="/api/**" method="OPTIONS" access="permitAll"/>
 		<sec:intercept-url pattern="/api/auth/login" access="permitAll"/>
 		<sec:intercept-url pattern="/api/upload/**" access="permitAll"/>
+		<sec:intercept-url pattern="/api/.well-known/jwks.json" access="permitAll"/>
 
 		<sec:intercept-url pattern="/wicket/resource/**" access="permitAll"/>
 		<sec:intercept-url pattern="/css/**" access="permitAll"/>
@@ -409,41 +412,60 @@
 		<sec:authentication-provider ref="InternalJwtAuthenticationProvider"/>
 	</sec:authentication-manager>
 	
-	<bean id="corsFilter" class="org.springframework.web.filter.CorsFilter">
-  		<constructor-arg>
-        	<bean class="org.springframework.web.cors.UrlBasedCorsConfigurationSource">
-	            <property name="corsConfigurations">
-	                <map>
-	                    <entry key="/api/**">
-	                        <bean class="org.springframework.web.cors.CorsConfiguration">
-	                            <property name="allowedOrigins">
-	                                <list>
-	                                    <value>http://localhost:5173</value>
-	                                </list>
-	                            </property>
-	                            <property name="allowedMethods">
-	                                <list>
-	                                    <value>GET</value>
-	                                    <value>POST</value>
-	                                    <value>PUT</value>
-	                                    <value>DELETE</value>
-	                                    <value>OPTIONS</value>
-	                                </list>
-	                            </property>
-	                            <property name="allowedHeaders">
-	                                <list>
-	                                    <value>Authorization</value>
-	                                    <value>Content-Type</value>
-	                                    <value>Accept</value>
-	                                </list>
-	                            </property>
-	                            <property name="allowCredentials" value="true"/>
-	                        </bean>
-	                    </entry>
-	                </map>
-	            </property>
-        	</bean>
-    	</constructor-arg>
-	</bean>   
+<bean id="corsFilter" class="org.springframework.web.filter.CorsFilter">
+    <constructor-arg>
+        <bean class="org.springframework.web.cors.UrlBasedCorsConfigurationSource">
+            <property name="corsConfigurations">
+                <map>
+                    <entry key="/api/**">
+                        <bean class="org.springframework.web.cors.CorsConfiguration">
+
+                            <property name="allowedOrigins">
+                                <list>
+                                    <value>http://localhost:5173</value>
+                                    <value>https://pvlkbe-p-ap01-s.aerolineas.com.ar</value>
+                                </list>
+                            </property>
+
+                            <property name="allowedMethods">
+                                <list>
+                                    <value>GET</value>
+                                    <value>POST</value>
+                                    <value>PUT</value>
+                                    <value>PATCH</value>
+                                    <value>HEAD</value>
+                                    <value>DELETE</value>
+                                    <value>OPTIONS</value>
+                                </list>
+                            </property>
+
+                            <property name="allowedHeaders">
+                                <list>
+                                    <value>*</value>
+                                </list>
+                            </property>
+
+                            <property name="exposedHeaders">
+                                <list>
+                                    <value>Location</value>
+                                    <value>Tus-Resumable</value>
+                                    <value>Upload-Offset</value>
+                                    <value>Upload-Length</value>
+                                    <value>Upload-Metadata</value>
+                                    <value>Tus-Version</value>
+                                    <value>Tus-Extension</value>
+                                    <value>Tus-Max-Size</value>
+                                </list>
+                            </property>
+
+                            <property name="allowCredentials" value="true"/>
+
+                        </bean>
+                    </entry>
+                </map>
+            </property>
+        </bean>
+    </constructor-arg>
+</bean> 
 
 </beans>

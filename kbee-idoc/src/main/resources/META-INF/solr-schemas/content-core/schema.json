@@ -312,6 +312,13 @@
         "indexed": true,
         "stored": true
       },
+	  {
+	    "name": "attr01datemember",
+	    "type": "date",
+	    "multiValued": true,
+	    "indexed": true,
+	    "stored": true
+	  },
       {
         "name": "attr01name",
         "type": "string",
@@ -1852,6 +1859,13 @@
         "indexed": true,
         "stored": false
       },
+	  {
+	    "name": "clsf06role",
+	    "type": "string",
+	    "multiValued": false,
+	    "indexed": true,
+	    "stored": true
+	  },
       {
         "name": "clsf07member",
         "type": "string",
@@ -3057,41 +3071,6 @@
         "indexed": true,
         "stored": false
       },
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
       {
         "name": "clsitename",
         "type": "string",

@@ -308,7 +308,6 @@ public class AdvancedSearchForm extends KBPanel {
 			@Override
 			public void onClick(AjaxRequestTarget target) {
 				AdvancedSearchForm.this.onClose(target);
-				//fire(new AdvancedSearchClickEvent(target));
 			}
 			public boolean isVisible() {
 				return true;

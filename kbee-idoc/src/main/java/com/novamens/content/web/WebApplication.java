@@ -97,8 +97,6 @@ public class WebApplication extends  BaseWebApplication {
 		super.init();
 		
 		this.mountPage("/test/${id}", Test1.class);
-		//this.mountPage("/test2", Test2.class);
-		//this.mountPage("/test3", Test3.class);
 
 		logger.debug("Starting init -> "+ this.getClass().getName());
 		

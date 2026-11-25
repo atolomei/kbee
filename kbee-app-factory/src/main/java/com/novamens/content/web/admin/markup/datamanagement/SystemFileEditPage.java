@@ -3,7 +3,6 @@ package com.novamens.content.web.admin.markup.datamanagement;
 import org.apache.wicket.model.ResourceModel;
 
 import com.novamens.content.entity.Person;
-import com.novamens.content.web.nav.markup.GlobalNavigationBar;
 import com.novamens.security.acl.KbeeGlobalRole;
 import com.novamens.service.ServiceLocator;
 import com.novamens.wicket.model.ObjectModel;

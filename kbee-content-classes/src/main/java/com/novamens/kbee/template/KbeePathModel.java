@@ -1,12 +1,15 @@
 package com.novamens.kbee.template;
 
 import java.io.IOException;
+import java.io.Serializable;
 import java.io.Writer;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import com.novamens.content.model.DataSetMember;
 
@@ -74,6 +77,14 @@ public class KbeePathModel implements TemplateDirectiveModel  {
 	    if (member == null) {
 	        return Collections.emptyList();
 	    }
+	    List<String> paths = getPaths(member, new HashSet<Serializable>());
+	    return paths;
+	}
+	
+	private List<String> getPaths(DataSetMember member, Set<Serializable> parentsids) {
+	    if (member == null) {
+	        return Collections.emptyList();
+	    }
 
 	    String name = truncate(member.getDisplayName());
 	    List<DataSetMember> parents = member.getParents();
@@ -86,11 +97,14 @@ public class KbeePathModel implements TemplateDirectiveModel  {
 	    List<String> paths = new ArrayList<>();
 
 	    for (DataSetMember parent : parents) {
-	        List<String> parentPaths = getPaths(parent);
-
-	        for (String parentPath : parentPaths) {
-	            paths.add(parentPath + " -> " + name);
-	        }
+	    	if (!parentsids.contains(parent.getId())) {
+	    		parentsids.add(parent.getId());
+		        List<String> parentPaths = getPaths(parent, parentsids);
+	
+		        for (String parentPath : parentPaths) {
+		            paths.add(parentPath + " -> " + name);
+		        }
+	    	}
 	    }
 
 	    return paths;
