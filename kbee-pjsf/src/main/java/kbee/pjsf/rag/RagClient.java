@@ -207,6 +207,50 @@ public class RagClient {
         return summary;
     }
     
+    
+    public  DissentsResponse dissents(String text)
+            throws IOException, InterruptedException {
+    	
+
+        String url = baseUrl + "/api/judicial/dissents";
+
+        String json = objectMapper.writeValueAsString(
+                new DissentsRequest(text, "ollama")
+        );
+        
+
+        HttpRequest request = HttpRequest.newBuilder()
+                .uri(URI.create(url))
+                .timeout(Duration.ofSeconds(120))
+                .header("Accept", "application/json")
+                .header("Content-Type", "application/json")
+                .header("Authorization", authorization)
+                .POST(HttpRequest.BodyPublishers.ofString(
+                        json, StandardCharsets.UTF_8
+                ))
+                .build();
+
+        HttpResponse<String> response = httpClient.send(
+                request,
+                HttpResponse.BodyHandlers.ofString(
+                        StandardCharsets.UTF_8
+                )
+        );
+
+        if (response.statusCode() != 200) {
+            throw new IOException(
+                    "Error consultando equivalencia de voces. HTTP "
+                    + response.statusCode()
+                    + ": " + response.body()
+            );
+        }
+        
+        return objectMapper.readValue(
+                response.body(),
+                DissentsResponse.class
+        );
+    }
+    
     public DocumentReferencesResponse getReferences(String documentText)
             throws IOException, InterruptedException {
 

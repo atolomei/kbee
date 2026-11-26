@@ -42,6 +42,8 @@ import com.novamens.transaction.Transaction;
 
 import kbee.api.service.ApiError;
 import kbee.api.service.ApiException;
+import kbee.pjsf.rag.DissentSummary;
+import kbee.pjsf.rag.DissentsResponse;
 import kbee.pjsf.rag.DocumentReferencesResponse;
 import kbee.pjsf.rag.DocumentVoicesResponse;
 import kbee.pjsf.rag.LegalReference;
@@ -62,7 +64,8 @@ public class ImportarFallos extends AsyncCommand {
     private FileParser parser = new FileParser();
     private RagClient ragService;
 	private String logsPath;
-
+	private String references = null;
+	private String dissidence = null;
 
     public ImportarFallos() {
 		setName("Importar Fallos PJSF");
@@ -74,6 +77,9 @@ public class ImportarFallos extends AsyncCommand {
     	try {
     		
 
+			references = (String)getParameter("references");
+			dissidence =  (String)getParameter("dissidence");
+			
     		logsPath = PropertiesFactory
 	 				.getInstance("kbee")
 	 				.getProperties()
@@ -154,8 +160,11 @@ public class ImportarFallos extends AsyncCommand {
     		KbeeContent kbfallo = processFallo(fallo);
 
     		if (kbfallo!=null) {
-	            for (TextFile summario : sumarios) {
+ 	            for (TextFile summario : sumarios) {
 	            	processSumario(kbfallo, summario);
+	            }
+	            if ("true".equals(dissidence)) {
+	            	processDisidencias(kbfallo, fallo);
 	            }
     		}
 
@@ -208,6 +217,9 @@ public class ImportarFallos extends AsyncCommand {
 		}
     	
     }
+    
+
+
 
     
     protected KbeeContent processFallo(TextFile file) {
@@ -247,6 +259,66 @@ public class ImportarFallos extends AsyncCommand {
     		return null;
     	}
     }
+    
+    protected void processDisidencias(KbeeContent fallo, TextFile file) {
+ 		Transaction transaction = null;
+     	try {
+     		long start = System.currentTimeMillis();
+     		if (getList(fallo, "disidencia").isEmpty()) {
+     			return;
+     		}
+     		transaction = beginTransaction();
+ 			com.novamens.hibernate.session.Session.setApi(true);
+ 			
+ 			List<DissentSummary> disidencias = getDisidencias(file.text());
+ 			
+
+ 			List<KbeeContent> actuales = getDisidencias(fallo);
+ 			
+ 			List<String> updates = new ArrayList<>();
+ 			int d = 0;
+ 			for (DissentSummary disidencia : disidencias) {
+ 				KbeeContent kbsumario;
+ 				if (d<actuales.size()-1) {
+ 					kbsumario = (KbeeContent)createContent("sumario");
+ 				}
+ 				else {
+ 					kbsumario = actuales.get(d);
+ 				}
+ 				updates.addAll(
+ 					updateDisdencia(
+ 						fallo, 
+ 						kbsumario, 
+ 						disidencia)
+ 				);
+ 				getContentDao().save(kbsumario);
+ 				d++;
+ 			}
+ 			
+ 			while (d<actuales.size()) {
+				KbeeContent kbsumario = actuales.get(d);
+ 				getContentDao().delete(kbsumario);
+ 				d++;
+ 			}
+ 			
+ 	   		if (!updates.isEmpty()) {
+ 				transaction.commit();
+ 		    	long end = System.currentTimeMillis();
+ 		    	double seconds = (end - start) / 1000.0;
+ 		    	System.out.printf("%s, (ok disidencia) en %.3f segundos%n", file.id(), seconds);
+ 				getLogger().info(file.id() + ", (ok disidencia)");
+     		}
+     		else {
+ 	    	   	transaction.rollback();
+     		}
+ 		}
+ 		catch (Exception e) {
+ 			e.printStackTrace();
+ 			getLogger().error(e);
+ 			transaction.rollback();
+ 		}
+     	
+     }
     
 	@SuppressWarnings("unchecked")
     protected List<String> updateFallo(KbeeContent fallo, TextFile file) throws Exception {
@@ -303,13 +375,11 @@ public class ImportarFallos extends AsyncCommand {
 		
     	List<String> citasJurispudencia = new ArrayList<>();
     	List<String> referenciasNormativas = new ArrayList<>();
-		if (getList(fallo, "citajurisprudencia").isEmpty() &&
-				getList(fallo, "referencia").isEmpty()) {
+		if ("true".equals(references)) {
 			DocumentReferencesResponse references = getRefereces(file.text());
 	    	for (LegalReference reference : references.getJurisprudence()) {
 	    		String citation = reference.getCitation();
 	    	    citation = citation.trim();
-
 	    	    if (citation.length() >= 2
 	    	            && citation.startsWith("\"")
 	    	            && citation.endsWith("\"")) {
@@ -319,7 +389,15 @@ public class ImportarFallos extends AsyncCommand {
 	    		citasJurispudencia.add(citation);
 	    	}
 	    	for (LegalReference reference : references.getRegulations()) {
-	    		referenciasNormativas.add(reference.getCitation());
+	    		String citation = reference.getCitation();
+	    	    citation = citation.trim();
+	    	    if (citation.length() >= 2
+	    	            && citation.startsWith("\"")
+	    	            && citation.endsWith("\"")) {
+	    	        citation = citation.substring(1, citation.length() - 1);
+	    	    }
+	    		citation += "|" + reference.getEvidence(); 
+	    		referenciasNormativas.add(citation);
 	    	}
 		}
 		else {
@@ -507,6 +585,68 @@ public class ImportarFallos extends AsyncCommand {
 		return updates;
     }
     
+	protected List<String> updateDisdencia(KbeeContent fallo, KbeeContent kbsumario, DissentSummary sumario) throws Exception {
+    	List<String> updates = new ArrayList<>();
+    	
+    	String text = sumario.getText();
+    	
+    	String html = textToHtml(text);
+    	
+		OffsetDateTime date = getDate(fallo, "fecha");
+    	
+		DataSetMember tipo = getMember(
+				"tipo", 
+				"Sumario");
+		
+		DataSetMember tipoSumario = getMember(
+				"tiposumario", 
+				"Disidencia");
+		
+		List<EntityMember> jueces = getJueces(
+	        	sumario);
+    	
+		if (!equals(get(kbsumario, "texto"), html)) {
+			set(kbsumario, "texto", html);
+			updates.add("text");
+		}
+		
+		if (!equals(getRelation(kbsumario, "fallo"), fallo)) {
+			set(kbsumario, "fallo", fallo);
+			updates.add("fallo");
+		}
+		
+		if (sumario.getTitle()==null ||
+			"_".equals(kbsumario.getTitle()) ||
+			"".equals(kbsumario.getTitle())) {
+			String titulo = sumario.getTitle();
+			set(kbsumario, "titulo", titulo);
+			updates.add("titulo");
+		}
+		
+		if (!equals(getDate(kbsumario, "fecha"), date)) {
+			set(kbsumario, "fecha", date);
+			updates.add("fecha");
+		}
+		
+		if (!equals(getList(fallo, "juez"), jueces)) {
+			set(fallo, "juez", jueces);
+			updates.add("jueces");
+		}
+		
+		if (!equals(get(kbsumario, "tipodocumento"), tipo)) {
+			set(kbsumario, "tipodocumento", tipo);
+			updates.add("tipo");
+		}
+		
+		if (!equals(get(kbsumario, "tiposumario"), tipoSumario)) {
+			set(kbsumario, "tiposumario", tipoSumario);
+			updates.add("tipo sumario");
+		}
+    	
+		return updates;	
+	}
+
+    
     
     private List<DataSetMember> getVoces(List<String> terms) throws IOException, InterruptedException {
     	List<DataSetMember> voces = new ArrayList<>();
@@ -527,6 +667,27 @@ public class ImportarFallos extends AsyncCommand {
 		String resumen = ragService.writeSummary(text);
 		return resumen;
     }
+    
+    private List<DissentSummary> getDisidencias(String text) throws IOException, InterruptedException {
+		DissentsResponse response = ragService.dissents(text);
+		return response.getSummaries();
+    }
+    
+    private List<KbeeContent> getDisidencias(KbeeContent fallo) throws IOException, InterruptedException {
+    	List<KbeeContent> disidencias = new ArrayList<>();
+		DataSetMember tipo = getMember(
+				"tiposumario", 
+				"Disidencia");
+		fallo = (KbeeContent)getContentDao().reload(fallo);
+    	for (Relation relation : fallo.getReverseRelations()) {
+    		KbeeContent sumario = (KbeeContent)relation.getSource();
+    		if (equals(get(sumario, "tiposumario"), tipo)) {
+    			disidencias.add(sumario);
+    		}
+    	}
+    	return disidencias;
+    }
+
     
     private DocumentReferencesResponse getRefereces(String text) throws IOException, InterruptedException {
     	DocumentReferencesResponse resumen = ragService.getReferences(text);
@@ -600,6 +761,7 @@ public class ImportarFallos extends AsyncCommand {
 		return vozmember;
 	}
     
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	private List<DataSetMember> findVozByAlternativeDisplay(String term) {
 		try {
 	        String hql = "FROM KbeeDataSetMember D WHERE D.alternative_display like '%" 
@@ -694,6 +856,19 @@ public class ImportarFallos extends AsyncCommand {
         
         return new FullName(firstName, lastName);
     }
+    
+	private List<EntityMember> getJueces(DissentSummary summary) {
+		List<EntityMember> jueces = new ArrayList<>();
+		DataSet dataset =  getDataSet("Juez");
+		List<String> nombres = summary.getJudges();
+		for (DataSetMember member :  getContentDao().getMembers(dataset, "strvalue")) {
+			String apellido = (String)get(member, "apellido");
+			if (nombres.contains(apellido)) {
+				jueces.add((EntityMember)member);
+			}
+		}
+		return jueces;
+	}
     
     
 	private List<EntityMember> getJueces(List<String> names) {

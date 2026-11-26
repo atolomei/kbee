@@ -6,7 +6,6 @@ import lombok.Getter;
 @Getter
 @AllArgsConstructor
 public class TitleRequest {
-
     private final String text;
     private final String llm;
 }
