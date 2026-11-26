@@ -40,9 +40,9 @@ import kbee.api.model.ApiProxy;
 import kbee.api.model.ApiValue;
 import kbee.api.model.ApiViewMode;
 import kbee.api.model.ApiAttributeProxy;
-import kbee.api.model.IAttributeValues;
+import kbee.api.model.ApiAttributeValues;
 import kbee.api.model.IFieldData;
-import kbee.api.model.IFormData;
+import kbee.api.model.ApiFormData;
 import kbee.api.model.ApiResource;
 import kbee.util.logging.Logger;
 
@@ -118,7 +118,7 @@ public class IDocAdapter implements Adapter<KbeeIDoc, ApiFile> {
 
 		if (ApiViewMode.All.equals(viewMode) ||
 			ApiViewMode.Grid.equals(viewMode)) {
-			List<IAttributeValues> values = new ArrayList<>();
+			List<ApiAttributeValues> values = new ArrayList<>();
 			values.addAll(getClassification(kbeeidoc));
 			for (Relation relation : kbeeidoc.getRelations()) {
 				ApiProxy relationproxy = new ApiProxy(
@@ -179,14 +179,14 @@ public class IDocAdapter implements Adapter<KbeeIDoc, ApiFile> {
 	
 	/** ------------------------------------------------------------------------------------------------------------------------
 	 */
-	private List<IAttributeValues> getClassification(KbeeIDoc kbeeidoc) {
-		List<IAttributeValues> values = new ArrayList<>();
+	private List<ApiAttributeValues> getClassification(KbeeIDoc kbeeidoc) {
+		List<ApiAttributeValues> values = new ArrayList<>();
 		for (Classification classification : kbeeidoc.getClassification()) {
 			if (classification!=null) {
 				Classifier classifier = classification.getClassifier();
 				String classifieruri = UriHelper.getUri(classifier);
-				IAttributeValues attributevalues = null;
-				for (IAttributeValues previousattributevalues : values) {
+				ApiAttributeValues attributevalues = null;
+				for (ApiAttributeValues previousattributevalues : values) {
 					if (previousattributevalues.getAttribute().getHRef().equals(classifieruri)) {
 						attributevalues = previousattributevalues;
 						break;
@@ -198,12 +198,12 @@ public class IDocAdapter implements Adapter<KbeeIDoc, ApiFile> {
 					attribute.setHRef(UriHelper.getUri(classifier));		
 					attribute.setRel("classifier");
 					attribute.setName(classifier.getName());
-					attributevalues = new IAttributeValues(attribute);
+					attributevalues = new ApiAttributeValues(attribute);
 					values.add(attributevalues);
 				}
 				DataSetMember member = classification.getDataSetMember();
 				ApiValue value = new ApiValue();
-				value = (new IValueAdapter()).adapt(member);
+				value = (new IValueAdapter(ApiViewMode.Attributes)).adapt(member);
 				attributevalues.addValue(value);
 			}
 		}		
@@ -212,21 +212,16 @@ public class IDocAdapter implements Adapter<KbeeIDoc, ApiFile> {
 	
 	/** ------------------------------------------------------------------------------------------------------------------------
 	 */
-	private List<IAttributeValues> getAttributes(KbeeIDoc kbeeidoc) {
-		List<IAttributeValues> values = new ArrayList<>();
+	private List<ApiAttributeValues> getAttributes(KbeeIDoc kbeeidoc) {
+		List<ApiAttributeValues> values = new ArrayList<>();
 		for (AttributeTemplate template : kbeeidoc.getContentTemplate().getAttributes()) {
 			ApiAttributeProxy iattribute = new ApiAttributeProxy();
 			iattribute.setId(String.valueOf(template.getAttribute().getId()));		
 			iattribute.setHRef(UriHelper.getUri(template.getAttribute()));		
 			iattribute.setRel("attribute");
 			iattribute.setName(template.getAttribute().getName());
-			IAttributeValues attributevalues = new IAttributeValues(iattribute);
+			ApiAttributeValues attributevalues = new ApiAttributeValues(iattribute);
 			for (String value : kbeeidoc.getAttributeValues(template.getAttribute())) {
-//				ApiAttributeProxy iattribute = new ApiAttributeProxy();
-//				iattribute.setId(String.valueOf(template.getAttribute().getId()));		
-//				iattribute.setHRef(UriHelper.getUri(template.getAttribute()));		
-//				iattribute.setRel("attribute");
-//				iattribute.setName(template.getAttribute().getName());
 				
 				if (template.getAttribute().isDate()) {
 					int t = value.indexOf("T");
@@ -319,8 +314,8 @@ public class IDocAdapter implements Adapter<KbeeIDoc, ApiFile> {
 	
 	/** ------------------------------------------------------------------------------------------------------------------------
 	 */
-	private List<IFormData> getForms(Content content) {
-		List<IFormData> forms = new ArrayList<IFormData>();
+	private List<ApiFormData> getForms(Content content) {
+		List<ApiFormData> forms = new ArrayList<ApiFormData>();
 		try {
 			for (EForm form : content.getContentTemplate().getForms()) {
 				if (!viewMode.equals(ApiViewMode.Site) || 
@@ -328,7 +323,7 @@ public class IDocAdapter implements Adapter<KbeeIDoc, ApiFile> {
 						form.getFormAccessLevel().equals(EFormAccessLevel.GENERAL_PORTAL) ||
 						form.getFormAccessLevel().equals(EFormAccessLevel.GENERAL_LIBRARY)) {
 					KbeeTaskForm taskform = new KbeeTaskForm(form);
-					IFormData idata = new IFormData();
+					ApiFormData idata = new ApiFormData();
 					EFormData data = content.getFormData(taskform);
 					if (form.getViewer()!=null)
 					idata.setUrl(getUrl(content, form));

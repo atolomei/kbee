@@ -29,7 +29,7 @@ import com.novamens.kbfs.FileServerException;
 import kbee.api.model.ApiProxy;
 import kbee.api.model.IFieldData;
 import kbee.api.model.IFieldValue;
-import kbee.api.model.IFormData;
+import kbee.api.model.ApiFormData;
 import kbee.api.model.IFormTransaction;
 import kbee.api.model.ITransaction;
 import kbee.api.service.ApiError;
@@ -63,7 +63,7 @@ public abstract class FileFormAbstractHandler extends AbstractRequestHandler {
 		}
 	}
 
-	protected List<UpdatedField> update(IFormData idata, EFormData edata, Object object) {
+	protected List<UpdatedField> update(ApiFormData idata, EFormData edata, Object object) {
 		List<UpdatedField> updates = new ArrayList<>();
 		EForm eform = edata.getForm();
 		for (IFieldData fielddata : idata.getData()) {

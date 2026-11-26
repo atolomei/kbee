@@ -340,6 +340,13 @@
         "indexed": true,
         "stored": true
       },
+	  {
+	    "name": "attr02datemember",
+	    "type": "date",
+	    "multiValued": true,
+	    "indexed": true,
+	    "stored": true
+	  },
       {
         "name": "attr02name",
         "type": "string",
@@ -592,6 +599,13 @@
         "indexed": true,
         "stored": true
       },
+	  {
+	    "name": "attr14datemember",
+	    "type": "date",
+	    "multiValued": true,
+	    "indexed": true,
+	    "stored": true
+	  },
       {
         "name": "attr14name",
         "type": "string",

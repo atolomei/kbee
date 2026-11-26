@@ -47,7 +47,7 @@ import com.novamens.transaction.Transaction;
 
 import kbee.api.model.ApiFile;
 import kbee.api.model.ApiValue;
-import kbee.api.model.IAttributeValues;
+import kbee.api.model.ApiAttributeValues;
 import kbee.api.model.ILogEvent;
 import kbee.api.model.ApiResource;
 import kbee.api.model.IResultSet;
@@ -634,7 +634,7 @@ public class FilesImporter extends ClassificablesImporter {
 	}
 	
 	private boolean isFreeze(ApiFile file) {
-		for (IAttributeValues values : file.getAttributes()) {
+		for (ApiAttributeValues values : file.getAttributes()) {
 			for (ApiValue value : values.getValues()) {
 				if ("Freeze".equals(value.getDisplayName())) {
 					return true;

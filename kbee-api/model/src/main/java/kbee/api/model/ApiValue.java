@@ -1,137 +1,70 @@
 package kbee.api.model;
 
+import java.util.List;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
 @JsonInclude(Include.NON_NULL)
 public class ApiValue extends ApiClassificable {
-	private static final long serialVersionUID = 1L;
-	
-	private String name;
-	private String subline;
-	private String href = null; // un value que actua como proxy
-	private ApiProxy dataset;
-	private String externalid;
-	private ApiProxy parent;
-	
-	private ApiProxy person;
-	
-	private String firstName;
-	private String lastName;
-	private String email;
 
-	
-	private IFormData formData;
+    private static final long serialVersionUID = 1L;
 
+    private String name;
+    private String subline;
+    private String hRef;
+    private ApiProxy dataSet;
+    private String externalId;
+    private ApiProxy parent;
+    private List<ApiProxy> path;
+    private ApiProxy person;
 
-	public ApiValue() {
-		setType("value");
-	}
-	
-	public ApiValue(String value) {
-		setValue(value);
-	}
-	
-	public String getValue() {
-		return name;
-	}
-	
-	public void setValue(String value) {
-		this.name = value;
-	}
-	
-	@JsonIgnore
-	public String getName() {
-		return name;
-	}
-	
-	public void setName(String value) {
-		this.name = value;
-	}
-	
-	public String getSubline() {
-		return subline;
-	}
+    private String firstName;
+    private String lastName;
+    private String email;
 
-	public void setSubline(String subline) {
-		this.subline = subline;
-	}
+    private ApiFormData formData;
 
-	public ApiProxy getDataSet() {
-		return dataset;
-	}
-	
-	public void setDataSet(ApiProxy dataset) {
-		this.dataset = dataset;
-	}
-	
-	public String getHRef() {
-		return href;
-	}
-	
-	public void setHRef(String value) {
-		this.href = value;
-	}
-	
-	public String getExternalId() {
-		return externalid;
-	}
-	
-	public void setExternalId(String id) {
-		this.externalid = id;
-	}
-	
-	public String getFirstName() {
-		return firstName;
-	}
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
-	}
-	public String getLastName() {
-		return lastName;
-	}
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
-	}
-	public String getEmail() {
-		return email;
-	}
-	public void setEmail(String email) {
-		this.email = email;
-	}
-	
-	@JsonIgnore
-	@Override
-	public String getDisplayName() {
-		String name = getValue();
-		if (name == null) name = getName();
-		if (name == null) name = super.getDisplayName();
-		return name;
-	}
+    public ApiValue() {
+        setType("value");
+    }
 
-	public ApiProxy getParent() {
-		return parent;
-	}
+    public ApiValue(String value) {
+        setValue(value);
+    }
 
-	public void setParent(ApiProxy parent) {
-		this.parent = parent;
-	}
+    public String getValue() {
+        return name;
+    }
 
-	public IFormData getFormData() {
-		return formData;
-	}
+    public void setValue(String value) {
+        this.name = value;
+    }
 
-	public void setFormData(IFormData formData) {
-		this.formData = formData;
-	}
+    @JsonIgnore
+    public String getName() {
+        return name;
+    }
 
-	public ApiProxy getPerson() {
-		return person;
-	}
+    @JsonIgnore
+    @Override
+    public String getDisplayName() {
+        String name = getValue();
 
-	public void setPerson(ApiProxy person) {
-		this.person = person;
-	}
-	
+        if (name == null) {
+            name = getName();
+        }
+
+        if (name == null) {
+            name = super.getDisplayName();
+        }
+
+        return name;
+    }
 }

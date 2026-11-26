@@ -33,7 +33,7 @@ import com.novamens.repository.DomRepository;
 
 import kbee.api.model.ApiValue;
 import kbee.api.model.ApiAttributeProxy;
-import kbee.api.model.IAttributeValues;
+import kbee.api.model.ApiAttributeValues;
 import kbee.api.model.ApiClassificable;
 import kbee.api.service.ApiError;
 import kbee.api.service.ApiException;
@@ -51,7 +51,7 @@ public abstract class ClassificableUpdateHandler extends AbstractRequestHandler 
 	protected List<String> setAttributes(Classificable classificable, ApiClassificable iclassificable) {
 		List<String> updates = new ArrayList<String>();
 		Set<String> names = new HashSet<String>();
-		for (IAttributeValues attributevalue : iclassificable.getAttributes()) {
+		for (ApiAttributeValues attributevalue : iclassificable.getAttributes()) {
 			ApiAttributeProxy iattribute = attributevalue.getAttribute();
 			String attributename = iattribute.getName().toLowerCase(); 
 			if (!names.contains(attributename) && !getValues(attributename, iclassificable).isEmpty()) {
@@ -168,7 +168,7 @@ public abstract class ClassificableUpdateHandler extends AbstractRequestHandler 
 	 */
 	protected List<ApiValue> getValues(String attributename, ApiClassificable file) {
 		List<ApiValue> values = new ArrayList<ApiValue>();
-		for (IAttributeValues attributevalues : file.getAttributes()) {
+		for (ApiAttributeValues attributevalues : file.getAttributes()) {
 			if (attributename.equals(attributevalues.getAttribute().getName().toLowerCase())) {
 				for (ApiValue value : attributevalues.getValues()) {
 					if (value.getHRef()!=null) {

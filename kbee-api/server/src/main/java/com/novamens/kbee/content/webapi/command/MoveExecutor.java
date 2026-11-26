@@ -18,7 +18,7 @@ import com.novamens.kbee.idoc.webapi.client.KbeeApiService;
 
 import kbee.api.model.ApiFile;
 import kbee.api.model.ApiValue;
-import kbee.api.model.IAttributeValues;
+import kbee.api.model.ApiAttributeValues;
 import kbee.api.model.ICustomAttributeValue;
 import kbee.api.service.ApiException;
 import kbee.api.model.ApiResource;
@@ -136,7 +136,7 @@ public class MoveExecutor extends QueuedBatchProcessor {
 	}
 	
 	private void removeResourceError(ApiFile file) {
-		for (IAttributeValues attribute : file.getAttributes()) {
+		for (ApiAttributeValues attribute : file.getAttributes()) {
 			for (ApiValue value : attribute.getValues()) {
 				if ("Resource Error".equals(value.getValue())) {
 					attribute.getValues().remove(value);

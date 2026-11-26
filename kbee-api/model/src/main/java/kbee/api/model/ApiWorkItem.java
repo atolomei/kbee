@@ -13,5 +13,5 @@ public class ApiWorkItem extends ApiObject {
 	private ITask task;
 	private String time;
 	private ApiWorkflowContext context;
-	private List<IFormData> forms; 
+	private List<ApiFormData> forms; 
 } 

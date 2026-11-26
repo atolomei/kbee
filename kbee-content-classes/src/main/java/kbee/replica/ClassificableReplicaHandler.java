@@ -14,7 +14,7 @@ import com.novamens.kbee.content.model.KbeeDataSetMember;
 
 import kbee.api.model.ApiValue;
 import kbee.api.model.ApiAttributeProxy;
-import kbee.api.model.IAttributeValues;
+import kbee.api.model.ApiAttributeValues;
 import kbee.api.model.ApiClassificable;
 import kbee.api.model.ApiClassifier;
 import kbee.api.model.IModelAttribute;
@@ -27,7 +27,7 @@ public class ClassificableReplicaHandler<T extends ApiClassificable, L extends C
 
 	protected void syncClassifiers(ApiClassificable remote, Classificable local, List<Classifier> classifiers) throws ReplicaException {
 		if (remote.getAttributes()!=null)
-		for (IAttributeValues values : remote.getAttributes()) {
+		for (ApiAttributeValues values : remote.getAttributes()) {
 			Classifier classifier = getClassifier(values.getAttribute());
 			if (classifier!=null) {
 				List<DataSetMember> members = new ArrayList<DataSetMember>();
@@ -60,7 +60,7 @@ public class ClassificableReplicaHandler<T extends ApiClassificable, L extends C
 	
 	protected void syncAttributes(ApiClassificable remote, Classificable local, List<AttributeTemplate> attributes) throws ReplicaException {
 		if (remote.getAttributes()!=null)
-		for (IAttributeValues values : remote.getAttributes()) {
+		for (ApiAttributeValues values : remote.getAttributes()) {
 			Attribute attribute = getAttribute(values.getAttribute());
 			if (attribute!=null) {
 				List<String> stringvalues = new ArrayList<String>();

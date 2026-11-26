@@ -23,7 +23,7 @@ import com.novamens.kbee.content.webapi.type.UriHelper;
 import com.novamens.kbee.lock.LockTransactionSynchronization;
 
 import kbee.api.model.ApiProxy;
-import kbee.api.model.IFormData;
+import kbee.api.model.ApiFormData;
 import kbee.api.model.ITransaction;
 import kbee.api.service.ApiError;
 import kbee.api.service.ApiException;
@@ -36,7 +36,7 @@ public class ValueFormUpdateHandler extends FileFormAbstractHandler {
 	/** ------------------------------------------------------------------------------------------------------------------------
 	 */
 	@Transactional
-	public ITransaction update(IFormData idata) {
+	public ITransaction update(ApiFormData idata) {
 		
 		String valueId = null;
 		

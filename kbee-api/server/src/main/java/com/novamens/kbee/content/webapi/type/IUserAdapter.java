@@ -19,7 +19,7 @@ import com.novamens.security.acl.Group;
 import kbee.api.model.ApiProxy;
 import kbee.api.model.ApiValue;
 import kbee.api.model.ApiAttributeProxy;
-import kbee.api.model.IAttributeValues;
+import kbee.api.model.ApiAttributeValues;
 import kbee.api.model.ApiResource;
 import kbee.api.model.ApiUser;
 import kbee.api.model.IUserRole;
@@ -92,7 +92,7 @@ public class IUserAdapter implements Adapter<Person, ApiUser> {
 			}
 		}
 		
-		List<IAttributeValues> values = new ArrayList<IAttributeValues>();
+		List<ApiAttributeValues> values = new ArrayList<ApiAttributeValues>();
 		
 		if (!(person instanceof PersonMember)) {
 			return iuser;
@@ -113,7 +113,7 @@ public class IUserAdapter implements Adapter<Person, ApiUser> {
 			value.setHRef(UriHelper.getUri(member));
 			value.setValue(member.getDisplayName());
 			
-			values.add(new IAttributeValues(attribute, value));
+			values.add(new ApiAttributeValues(attribute, value));
 		}
 		
 		iuser.setAttributes(values);

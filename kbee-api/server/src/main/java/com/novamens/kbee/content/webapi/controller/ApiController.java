@@ -37,7 +37,7 @@ import kbee.api.model.IError;
 import kbee.api.model.IFacet;
 import kbee.api.model.IFieldValue;
 import kbee.api.model.IForm;
-import kbee.api.model.IFormData;
+import kbee.api.model.ApiFormData;
 import kbee.api.model.IGroup;
 import kbee.api.model.ILauncher;
 import kbee.api.model.ILauncherGroup;
@@ -3185,7 +3185,7 @@ public class ApiController {
     		@PathVariable("id") Long id,
     		@PathVariable("eform") Long eform,
             @ApiParam(value = "Validation", required = false) @RequestParam("validation") Optional<String> validationParameter,
-            @ApiParam(value = "value", required = true) @RequestBody IFormData data) {
+            @ApiParam(value = "value", required = true) @RequestBody ApiFormData data) {
     	
     	TrafficPass pass = null;
         try {
@@ -3232,7 +3232,7 @@ public class ApiController {
     @RequestMapping(value = "/valueform/{id}", method = RequestMethod.POST)
     public ResponseEntity<ITransaction> updateValueForm(
     		@PathVariable("id") Long id,
-            @ApiParam(value = "value", required = true) @RequestBody IFormData data) {
+            @ApiParam(value = "value", required = true) @RequestBody ApiFormData data) {
     	
     	TrafficPass pass = null;
         try {

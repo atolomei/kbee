@@ -18,7 +18,7 @@ import com.novamens.content.service.ContentService;
 import com.novamens.kbee.content.workflow.KbeeTaskForm;
 import com.novamens.kbee.lock.LockTransactionSynchronization;
 
-import kbee.api.model.IFormData;
+import kbee.api.model.ApiFormData;
 import kbee.api.model.ITransaction;
 import kbee.api.service.ApiError;
 import kbee.api.service.ApiException;
@@ -31,7 +31,7 @@ public class FileFormUpdateHandler extends FileFormAbstractHandler {
 	/** ------------------------------------------------------------------------------------------------------------------------
 	 */
 	@Transactional
-	public ITransaction update(IFormData idata, boolean validation) {
+	public ITransaction update(ApiFormData idata, boolean validation) {
 		
 		String fileId = null;
 		

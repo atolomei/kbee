@@ -20,6 +20,7 @@ import com.novamens.content.dao.ContentDao;
 import com.novamens.content.event.EventsDispatcher;
 import com.novamens.content.model.Attribute;
 import com.novamens.content.model.AttributeTemplate;
+import com.novamens.content.model.AttributeType;
 import com.novamens.content.model.Classificable;
 import com.novamens.content.model.Classifier;
 import com.novamens.content.model.ContentTemplate;
@@ -291,7 +292,13 @@ public class JavaContentIndexFactory implements JavaIndexFactory, EventListener,
 					schema.addFieldSchema(valuefieldschema);
 					if (attribute.isDate() || attribute.isFilterable()) {
 						CustomFieldSchema memberfieldschema = new CustomFieldSchema();
-						memberfieldschema.setFieldName(attribute.getUniqueName()+"datemember");
+						if (AttributeType.VALIDITY_FROM.equals(attribute.getType()) ||
+								AttributeType.VALIDITY_TO.equals(attribute.getType())) {
+							memberfieldschema.setFieldName(attribute.getUniqueName()+"member");
+						}
+						else {
+							memberfieldschema.setFieldName(attribute.getUniqueName()+"datemember");
+						}
 						AttributeExtractor memberextractor = new AttributeExtractor(attribute);
 						memberfieldschema.setExtractor(memberextractor);						
 						schema.addFieldSchema(memberfieldschema);

@@ -45,7 +45,6 @@ import com.novamens.content.model.AttributeTemplate;
 import com.novamens.content.model.AttributeType;
 import com.novamens.content.model.Classification;
 import com.novamens.content.model.Classifier;
-import com.novamens.content.model.ClassifierTemplate;
 import com.novamens.content.model.DataSet;
 import com.novamens.content.model.DataSetMember;
 import com.novamens.content.model.DataSetType;

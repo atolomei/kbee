@@ -22,7 +22,7 @@ import kbee.api.model.ApiProcedure;
 import kbee.api.model.ApiProxy;
 import kbee.api.model.ApiWorkflowContext;
 import kbee.api.model.IFieldData;
-import kbee.api.model.IFormData;
+import kbee.api.model.ApiFormData;
 import kbee.api.model.IPendingTask;
 import kbee.api.model.ITask;
 import kbee.util.logging.Logger;
@@ -68,11 +68,11 @@ public class IPendingTaskAdapter implements Adapter<Content, IPendingTask> {
 		return icontext;
 	}
 	
-	private List<IFormData> getForms(Content content, KbeeTask task) {
-		List<IFormData> forms = new ArrayList<IFormData>();
+	private List<ApiFormData> getForms(Content content, KbeeTask task) {
+		List<ApiFormData> forms = new ArrayList<ApiFormData>();
 		try {
 			for (EForm form : task.getForms()) {
-				IFormData idata = new IFormData();
+				ApiFormData idata = new ApiFormData();
 				EFormData data = content.getFormData(form);
 				if (form.getViewer()!=null)
 				idata.setUrl(getUrl(content, form));

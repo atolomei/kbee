@@ -1,8 +1,11 @@
 package com.novamens.kbee.content.webapi.type;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
+import com.google.protobuf.Api;
 import com.novamens.content.entity.Person;
 import com.novamens.content.form.EForm;
 import com.novamens.content.form.EFormData;
@@ -19,20 +22,28 @@ import com.novamens.kbee.content.form.KbeeUserForm;
 
 import kbee.api.model.ApiProxy;
 import kbee.api.model.ApiValue;
+import kbee.api.model.ApiViewMode;
 import kbee.api.model.ApiAttributeProxy;
-import kbee.api.model.IAttributeValues;
+import kbee.api.model.ApiAttributeValues;
 import kbee.api.model.IFieldData;
-import kbee.api.model.IFormData;
+import kbee.api.model.ApiFormData;
 import kbee.util.logging.Logger;
 
 public class IValueAdapter implements Adapter<DataSetMember, ApiValue> {
 	
 	private static Logger logger = Logger.getLogger(IValueAdapter.class.getName());
 
+	private ApiViewMode viewMode = 
+		ApiViewMode.All;
 	private String version;
 	
 	public IValueAdapter() {
 	}
+	
+	public IValueAdapter(ApiViewMode viewMode) {
+		this.viewMode = viewMode;
+	}
+
 	
 	public IValueAdapter(String version) {
 		setVersion(version);
@@ -72,7 +83,7 @@ public class IValueAdapter implements Adapter<DataSetMember, ApiValue> {
 			value.setPerson(new ApiProxy(String.valueOf(person.getId()), person.getDisplayName(), UriHelper.getUri(person), "person"));
 		}
 		
-		List<IAttributeValues> values = new ArrayList<IAttributeValues>();
+		List<ApiAttributeValues> values = new ArrayList<>();
 		
 		for (Classification classification : member.getClassification()) {
 			if (classification!=null && classification.getDataSetMember()!=null) {
@@ -87,7 +98,7 @@ public class IValueAdapter implements Adapter<DataSetMember, ApiValue> {
 				attributevalue.setId(String.valueOf(classifiedmember.getId()));
 				attributevalue.setValue(classifiedmember.getDisplayName());
 				attributevalue.setDataSet(new ApiProxy(String.valueOf(classifiedmember.getDataSet().getId()), classifiedmember.getDataSet().getName(), UriHelper.getUri(classifiedmember.getDataSet()), "dataset")); 
-				values.add(new IAttributeValues(attribute, attributevalue));
+				values.add(new ApiAttributeValues(attribute, attributevalue));
 			}
 		}
 		
@@ -102,25 +113,27 @@ public class IValueAdapter implements Adapter<DataSetMember, ApiValue> {
 					iattribute.setName(template.getAttribute().getName());
 					ApiValue ivalue = new ApiValue();
 					ivalue.setValue(attributevalue);
-					values.add(new IAttributeValues(iattribute, ivalue));
+					values.add(new ApiAttributeValues(iattribute, ivalue));
 				}
 			}
 		}
 
 		value.setAttributes(values);
 		
-//		if (member.getParent()!=null) {
-//			value.setParent(new IProxy(String.valueOf(member.getParent().getId()), member.getParent().getName(), UriHelper.getUri(member.getParent()), "member"));
-//		}
+		if (member.getDataSet().isHierachical()) {
+			value.setPath(getPath(member));
+		}
 		
-		value.setFormData(getFormData(member));
+		if (viewMode.equals(ApiViewMode.All)) {
+			value.setFormData(getFormData(member));
+		}
 		
 		return value;	
 	}
 	
-	private IFormData getFormData(DataSetMember member) {
+	private ApiFormData getFormData(DataSetMember member) {
 		EForm form = getForm(member);
-		IFormData idata = new IFormData();
+		ApiFormData idata = new ApiFormData();
 		try {
 				EFormData data = new KbeeEMemMemberData(form, member);
 				for (EFormField<?> field : form.getFields()) {
@@ -138,6 +151,29 @@ public class IValueAdapter implements Adapter<DataSetMember, ApiValue> {
 		}
 		return idata;
 	}
+	
+	private List<ApiProxy> getPath(DataSetMember member) {
+		return getPath(member, new HashSet<String>());
+	}
+	
+	private List<ApiProxy> getPath(DataSetMember member, Set<String> parentsIds) {
+		List<ApiProxy> path = new ArrayList<>();
+		List<DataSetMember> parents =  member.getParents();
+		if (!parents.isEmpty()) {
+			DataSetMember parent = parents.get(0);
+			String parentId = String.valueOf(parent.getId());
+			if (!parentsIds.contains(parentId)) {
+				parentsIds.add(parentId);
+				path.addAll(getPath(parent, parentsIds));
+			}
+		}
+			path.add(new ApiProxy(String.valueOf(member.getId()), 
+					member.getDisplayName(), 
+					null, 
+					"value"));
+		return path;
+	}
+
 	
 	private EForm getForm(DataSetMember member) {
 		EForm form = member instanceof PersonMember ? new KbeeUserForm((PersonMember)member) : new KbeeMemberForm(member);

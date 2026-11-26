@@ -30,7 +30,7 @@ import kbee.api.model.ApiProxy;
 import kbee.api.model.ApiViewMode;
 import kbee.api.model.ApiWorkflowContext;
 import kbee.api.model.IFieldData;
-import kbee.api.model.IFormData;
+import kbee.api.model.ApiFormData;
 import kbee.api.model.INote;
 import kbee.api.model.ISignedData;
 import kbee.api.model.ITask;
@@ -115,13 +115,13 @@ public class ApiActivityAdapter implements Adapter<Activity, ApiActivity> {
 		return icontext;
 	}
 	
-	private List<IFormData> getForms(Activity activity) {
-		List<IFormData> forms = new ArrayList<IFormData>();
+	private List<ApiFormData> getForms(Activity activity) {
+		List<ApiFormData> forms = new ArrayList<ApiFormData>();
 		try {
 			KbeeTask task = (KbeeTask)activity.getTask();
 			Content content = ((KbeeWorkflowActivity)activity).getContent();
 			for (EForm form : task.getForms()) {
-				IFormData idata = new IFormData();
+				ApiFormData idata = new ApiFormData();
 				EFormData data = content.getFormData(form);
 				if (form.isVisible(data)) {
 					if (form.getViewer()!=null)

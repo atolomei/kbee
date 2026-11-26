@@ -4,20 +4,20 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class IAttributeValues  implements Serializable {
+public class ApiAttributeValues  implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	private ApiAttributeProxy attribute;
 	private List<ApiValue> values = new ArrayList<ApiValue>();
 
-	public IAttributeValues() {
+	public ApiAttributeValues() {
 	}
 	
-	public IAttributeValues(ApiAttributeProxy attribute) {
+	public ApiAttributeValues(ApiAttributeProxy attribute) {
 		setAttribute(attribute);
 	}
 	
-	public IAttributeValues(ApiAttributeProxy attribute, ApiValue value) {
+	public ApiAttributeValues(ApiAttributeProxy attribute, ApiValue value) {
 		setAttribute(attribute);
 		setValue(value);
 	}

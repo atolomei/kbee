@@ -19,7 +19,7 @@ import kbee.api.model.ApiFile;
 import kbee.api.model.ApiProxy;
 import kbee.api.model.ApiValue;
 import kbee.api.model.ApiAttributeProxy;
-import kbee.api.model.IAttributeValues;
+import kbee.api.model.ApiAttributeValues;
 import kbee.api.model.ApiResource;
 
 public class IDocAdapter2 implements Adapter<KbeeContent, ApiFile> {
@@ -42,7 +42,7 @@ public class IDocAdapter2 implements Adapter<KbeeContent, ApiFile> {
 		idoc.setClassName(kbeeidoc.getContentTemplate().getName());
 		idoc.setContentClass(new ApiProxy(kbeeidoc.getContentTemplate().getDisplayName(), UriHelper.getUri(kbeeidoc.getContentTemplate())));
 
-		List<IAttributeValues> values = new ArrayList<IAttributeValues>();
+		List<ApiAttributeValues> values = new ArrayList<ApiAttributeValues>();
 		
 		for (Classification classification : kbeeidoc.getClassification()) {
 			Classifier classifier = classification.getClassifier();
@@ -58,7 +58,7 @@ public class IDocAdapter2 implements Adapter<KbeeContent, ApiFile> {
 			value.setId(String.valueOf(member.getId()));
 			value.setValue(member.getDisplayName());
 			
-			values.add(new IAttributeValues(attribute, value));
+			values.add(new ApiAttributeValues(attribute, value));
 		}
 		
 		
@@ -80,7 +80,7 @@ public class IDocAdapter2 implements Adapter<KbeeContent, ApiFile> {
 				
 				ivalue.setValue(value);
 				
-				values.add(new IAttributeValues(iattribute, ivalue));
+				values.add(new ApiAttributeValues(iattribute, ivalue));
 			}
 		}
 		

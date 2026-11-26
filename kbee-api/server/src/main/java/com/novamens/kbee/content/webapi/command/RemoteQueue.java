@@ -20,7 +20,7 @@ import com.novamens.transaction.TransactionService;
 
 import kbee.api.model.ApiFile;
 import kbee.api.model.ApiValue;
-import kbee.api.model.IAttributeValues;
+import kbee.api.model.ApiAttributeValues;
 import kbee.api.model.ApiResource;
 import kbee.api.model.IResultSet;
 
@@ -140,13 +140,13 @@ public class RemoteQueue implements Queue<ApiFile> {
 	}
 	
 	private ApiFile adaptForMove(ApiFile file) {
-		List<IAttributeValues> attributevalues = file.getSeededAttributes();
+		List<ApiAttributeValues> attributevalues = file.getSeededAttributes();
 //		if (file.getClassName().equals("DocuSign Certificate")) {
 //			for (IProxy proxy : file.getRelationships()) {
 //				proxy.setHRef(getTargetHref(proxy));
 //			}
 //		}
-		for (IAttributeValues attributevalue : attributevalues) {
+		for (ApiAttributeValues attributevalue : attributevalues) {
 			for (ApiValue ivalue : attributevalue.getValues()) {
 				ivalue.setHRef(null);
 				ivalue.setId(null);

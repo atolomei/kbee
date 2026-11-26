@@ -6,46 +6,46 @@ import java.util.List;
 public class ApiClassificable extends ApiObject {
 	private static final long serialVersionUID = 1L;
 	
-	private List<IAttributeValues> seededattributes;
-	private List<IAttributeValues> attributes;
+	private List<ApiAttributeValues> seededattributes;
+	private List<ApiAttributeValues> attributes;
 	
-	public List<IAttributeValues> getAttributes() {
-		if (seededattributes==null) seededattributes = new ArrayList<IAttributeValues>();
-		if (attributes==null) attributes = new ArrayList<IAttributeValues>();
+	public List<ApiAttributeValues> getAttributes() {
+		if (seededattributes==null) seededattributes = new ArrayList<ApiAttributeValues>();
+		if (attributes==null) attributes = new ArrayList<ApiAttributeValues>();
 		return !seededattributes.isEmpty() ? seededattributes : attributes;
 	}
 	
-	public void setAttributes(List<IAttributeValues> values) {
+	public void setAttributes(List<ApiAttributeValues> values) {
 		if (!values.isEmpty())
 		this.seededattributes = values;
 	}
 	
 	public void setAttribute(String attributename, String modelvalue) {
-		if (seededattributes==null) seededattributes = new ArrayList<IAttributeValues>();
-		this.seededattributes.add(new IAttributeValues(new ApiAttributeProxy(attributename), new ApiValue(modelvalue)));
+		if (seededattributes==null) seededattributes = new ArrayList<ApiAttributeValues>();
+		this.seededattributes.add(new ApiAttributeValues(new ApiAttributeProxy(attributename), new ApiValue(modelvalue)));
 	}
 	
 	public void removeAttribute(String attributename) {
-		if (seededattributes==null) seededattributes = new ArrayList<IAttributeValues>();
+		if (seededattributes==null) seededattributes = new ArrayList<ApiAttributeValues>();
 		this.seededattributes.removeIf(value -> attributename.equals(value.getAttribute().getName()));
 	}
 	
 	public void setAttribute(String attributename, ApiProxy proxyvalue) {
-		if (seededattributes==null) seededattributes = new ArrayList<IAttributeValues>();
+		if (seededattributes==null) seededattributes = new ArrayList<ApiAttributeValues>();
 		ApiValue value = new ApiValue();
 		value.setId(proxyvalue.getId());
 		value.setHRef(proxyvalue.getHRef());
-		this.seededattributes.add(new IAttributeValues(new ApiAttributeProxy(attributename), value));
+		this.seededattributes.add(new ApiAttributeValues(new ApiAttributeProxy(attributename), value));
 	}
 	
 	public void setAttribute(String attributename, ApiValue value) {
-		if (seededattributes==null) seededattributes = new ArrayList<IAttributeValues>();
-		this.seededattributes.add(new IAttributeValues(new ApiAttributeProxy(attributename), value));
+		if (seededattributes==null) seededattributes = new ArrayList<ApiAttributeValues>();
+		this.seededattributes.add(new ApiAttributeValues(new ApiAttributeProxy(attributename), value));
 	}
 	
 	public String getAttributeValue(String attributename) {
 		if (getAttributes()!=null)
-		for (IAttributeValues values : getAttributes()) {
+		for (ApiAttributeValues values : getAttributes()) {
 			if (values.getAttribute().getName().toLowerCase().equals(attributename.toLowerCase())) {
 				return values.getValues().isEmpty() ?  null : values.getValues().get(0).getValue();
 			}

@@ -20,7 +20,7 @@ public class IValue2 extends ApiClassificable {
 	private String lastName;
 	private String email;
 	
-	private IFormData formData;
+	private ApiFormData formData;
 
 
 	public IValue2() {
@@ -114,11 +114,11 @@ public class IValue2 extends ApiClassificable {
 		this.parents = parents;
 	}
 
-	public IFormData getFormData() {
+	public ApiFormData getFormData() {
 		return formData;
 	}
 
-	public void setFormData(IFormData formData) {
+	public void setFormData(ApiFormData formData) {
 		this.formData = formData;
 	}
 }
